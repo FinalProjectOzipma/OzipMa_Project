@@ -27,7 +27,7 @@ public class ResourceManager
         return operation;
     }
 
-    public AsyncOperationHandle CreateGenericGroupOperation(AsyncOperationHandle<IList<IResourceLocation>> groupLocation)
+    public AsyncOperationHandle CreateGenericGroupOperation(AsyncOperationHandle<IList<IResourceLocation>> groupLocation, Action onComplete = null)
     {
         var locations = groupLocation.Result;
         var keys = new List<string>(locations.Count);
@@ -42,10 +42,14 @@ public class ResourceManager
         }
 
         string label = groupLocation.DebugName;
-        this.keys.Add(label, keys);
+        if (!this.keys.ContainsKey(label))
+            this.keys.Add(label, keys);
 
         var groupOperation = Addressables.ResourceManager.CreateGenericGroupOperation(operations);
-        this.operations.Add(label, groupOperation);
+        groupOperation.Completed += operation => onComplete?.Invoke();
+
+        if(!this.operations.ContainsKey(label))
+            this.operations.Add(label, groupOperation);
 
         Addressables.Release(groupLocation);
         return groupOperation;
