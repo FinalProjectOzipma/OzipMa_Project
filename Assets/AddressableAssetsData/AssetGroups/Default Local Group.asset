@@ -20,7 +20,8 @@ MonoBehaviour:
   - m_GUID: 904ea5a9f3ca434459301048c2222f4b
     m_Address: TestAssets
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Circle
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d990d4601dfd649458f2ee65fd3afc03
     m_Address: Circle
