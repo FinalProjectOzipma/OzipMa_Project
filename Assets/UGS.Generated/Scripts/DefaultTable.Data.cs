@@ -60,7 +60,7 @@ namespace DefaultTable
 		public System.Int32 intValue;
 		public System.String strValue;
 		public System.Collections.Generic.List<Int32> test;
-		public CustomType enumTest;
+		public CustomType<Enums.EAtkType> enumTest;
   
 
 #region fuctions
