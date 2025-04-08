@@ -37,7 +37,7 @@ public class UIManager
         }
     }
 
-	/*public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
+    /*public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
 	{
 		if (string.IsNullOrEmpty(name))
 			name = typeof(T).Name;
@@ -49,7 +49,7 @@ public class UIManager
 		return Util.GetOrAddComponent<T>(go);
 	}*/
 
-	/*public T ShowSceneUI<T>(string name = null) where T : UI_Scene
+    /*public T ShowSceneUI<T>(string name = null) where T : UI_Scene
 	{
 		if (string.IsNullOrEmpty(name))
 			name = typeof(T).Name;
@@ -63,20 +63,20 @@ public class UIManager
 		return sceneUI;
 	}*/
 
-	/*public T ShowPopupUI<T>(string name = null) where T : UI_Popup
-    {
-        if (string.IsNullOrEmpty(name))
-            name = typeof(T).Name;
+    //public T ShowPopupUI<T>(string name = null) where T : UI_Popup
+    //{
+    //    if (string.IsNullOrEmpty(name))
+    //        name = typeof(T).Name;
 
-        GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
-        T popup = Util.GetOrAddComponent<T>(go);
-        _popupStack.Push(popup);
+    //    GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
+    //    T popup = Util.GetOrAddComponent<T>(go);
+    //    _popupStack.Push(popup);
 
-        go.transform.SetParent(Root.transform);
+    //    go.transform.SetParent(Root.transform);
 
-		return popup;
-    }
-*/
+    //    return popup;
+    //}
+
     public void ClosePopupUI(UI_Popup popup)
     {
 		if (_popupStack.Count == 0)
