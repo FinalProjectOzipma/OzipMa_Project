@@ -5,11 +5,6 @@ using UnityEngine;
 
 public class UI_Management : UI_Base
 {
-    enum GameObjects
-    {
-        UI_Management,
-    }
-
     bool isOpened;
     private void Start()
     {
@@ -19,7 +14,6 @@ public class UI_Management : UI_Base
     public override void Init()
     {
         //Bind
-        Bind<GameObject>(typeof(GameObjects));
 
         //Get
 
