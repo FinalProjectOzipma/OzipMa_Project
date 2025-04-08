@@ -8,12 +8,15 @@ public class UI_TestButton : UI_Base
 {
     enum Buttons
     {
-        ToggleButton
+        ToggleButton,
     }
-    enum GameObjects
+    enum UI_Managements
     {
         UI_Management,
     }
+
+    public bool IsPopupOpened;
+
     private void Start()
     {
         Init();
@@ -22,14 +25,24 @@ public class UI_TestButton : UI_Base
     {
         //Bind
         Bind<Button>(typeof(Buttons));
-        Bind<UI_Management>(typeof(GameObjects));
+        Bind<UI_Management>(typeof(UI_Managements));
 
         //BindEvent
-        GetButton((int)Buttons.ToggleButton).gameObject.BindEvent(OnButtonClicked);
+        GetButton((int)Buttons.ToggleButton).gameObject.BindEvent(OnButtonClicked, Define.UIEvent.Click);
     }
 
     public void OnButtonClicked(PointerEventData data)
     {
-        Get<UI_Management>((int)GameObjects.UI_Management).SlideToggle();
+        Get<UI_Management>((int)UI_Managements.UI_Management).SlideToggle();
+
+        if(IsPopupOpened)
+        {
+            Managers.UI.ClosePopupUI();
+        }
+        else
+        {
+            Managers.UI.ShowPopupUI<UI_TestPopup>("TestPopup");
+        }
+        IsPopupOpened = !IsPopupOpened;
     }
 }

@@ -68,7 +68,7 @@ public class UIManager
     //    if (string.IsNullOrEmpty(name))
     //        name = typeof(T).Name;
 
-    //    GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}");
+    //    GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}", );
     //    T popup = Util.GetOrAddComponent<T>(go);
     //    _popupStack.Push(popup);
 
@@ -76,6 +76,21 @@ public class UIManager
 
     //    return popup;
     //}
+
+    public void ShowPopupUI<T>(string name = null) where T : UI_Popup
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        Managers.Resource.Instantiate($"UI/{name}", go =>
+        {
+            T popup = Util.GetOrAddComponent<T>(go);
+            _popupStack.Push(popup);
+
+            go.transform.SetParent(Root.transform);
+
+        });
+    }
 
     public void ClosePopupUI(UI_Popup popup)
     {

@@ -24,12 +24,10 @@ public class UI_Management : UI_Base
     {
         if(isOpened)
         {
-            Debug.Log("닫힘");
             transform.DOLocalMoveY(transform.localPosition.y - 500f, 0.5f).SetEase(Ease.OutCubic);
         }
         else
         {
-            Debug.Log("열림");
             transform.DOLocalMoveY(transform.localPosition.y + 500f, 0.5f).SetEase(Ease.OutCubic);
         }
         isOpened = !isOpened;

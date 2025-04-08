@@ -31,7 +31,6 @@ public abstract class UI_Base : MonoBehaviour
 
 	protected T Get<T>(int idx) where T : UnityEngine.Object
 	{
-        Debug.Log(typeof(T));
 		UnityEngine.Object[] objects = null;
 		if (_objects.TryGetValue(typeof(T), out objects) == false)
 			return null;
