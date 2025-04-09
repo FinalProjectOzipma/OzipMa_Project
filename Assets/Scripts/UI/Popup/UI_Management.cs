@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UI_Management : UI_Base
+public class UI_Management : UI_Scene
 {
     bool isOpened;
     private void Start()

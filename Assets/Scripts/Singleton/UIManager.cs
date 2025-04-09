@@ -7,7 +7,7 @@ public class UIManager
     int _order = 10;
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
-    //UI_Scene _sceneUI = null;
+    UI_Scene _sceneUI = null;
 
     public GameObject Root
     {
@@ -49,40 +49,27 @@ public class UIManager
 		return Util.GetOrAddComponent<T>(go);
 	}*/
 
-    /*public T ShowSceneUI<T>(string name = null) where T : UI_Scene
-	{
-		if (string.IsNullOrEmpty(name))
-			name = typeof(T).Name;
+    public void ShowSceneUI<T>(string name = null) where T : UI_Scene
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
 
-		GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
-		T sceneUI = Util.GetOrAddComponent<T>(go);
-        _sceneUI = sceneUI;
+        Managers.Resource.Instantiate(name, go => 
+        {
+            T sceneUI = Util.GetOrAddComponent<T>(go);
+            _sceneUI = sceneUI;
 
-		go.transform.SetParent(Root.transform);
+            go.transform.SetParent(Root.transform);
+        });
+    }
 
-		return sceneUI;
-	}*/
-
-    //public T ShowPopupUI<T>(string name = null) where T : UI_Popup
-    //{
-    //    if (string.IsNullOrEmpty(name))
-    //        name = typeof(T).Name;
-
-    //    GameObject go = Managers.Resource.Instantiate($"UI/Popup/{name}", );
-    //    T popup = Util.GetOrAddComponent<T>(go);
-    //    _popupStack.Push(popup);
-
-    //    go.transform.SetParent(Root.transform);
-
-    //    return popup;
-    //}
 
     public void ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        Managers.Resource.Instantiate($"UI/{name}", go =>
+        Managers.Resource.Instantiate(name, go =>
         {
             T popup = Util.GetOrAddComponent<T>(go);
             _popupStack.Push(popup);

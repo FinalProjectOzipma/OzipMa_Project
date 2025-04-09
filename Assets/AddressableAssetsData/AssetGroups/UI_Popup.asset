@@ -10,31 +10,28 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: UI_Popup
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: UI_Popup
   m_Data:
     m_SerializedData: []
-  m_GUID: 555a46cce26ccc646bf540c352eddf7f
+  m_GUID: ef86a0084b44c3640a271d4adad06e51
   m_SerializeEntries:
-  - m_GUID: 904ea5a9f3ca434459301048c2222f4b
-    m_Address: TestAssets
+  - m_GUID: 7dc69b3c4b1be8049aa65d0dc2d8081e
+    m_Address: Test2
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Popup
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d990d4601dfd649458f2ee65fd3afc03
-    m_Address: Circle
+  - m_GUID: 7c578a8510ea6c74e9367544b68595e2
+    m_Address: TestPopup
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 04751a874e91f90428a2b72ac8c8a0e1
-    m_Address: Square
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Popup
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 99dc73a11c6d4894280e17a9695cfc57, type: 2}
-    - {fileID: 11400000, guid: 81d39bb373c783e42b1a522a879f1fbb, type: 2}
+    - {fileID: 11400000, guid: 257a35d623a915b43ad1d953a278c25d, type: 2}
+    - {fileID: 11400000, guid: 3a966e909f8f3f84f920e7934484de05, type: 2}

@@ -4,16 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//[UGS(typeof(EAtkType))]
-//public enum EAtkType
-//{
-//    Cry,
-//    Jelly,
-//    Work,
-//    �Դϴ�,
-//}
-
-
 public class Enums
 {
     [UGS(typeof(EAtkType))]
@@ -22,7 +12,7 @@ public class Enums
         Cry,
         Jelly,
         Work,
-        �Դϴ�,
+        입니다,
     }
 }
 
@@ -42,7 +32,7 @@ public class EAtkTypeReader : GoogleSheet.Type.IType
 
     public object Read(string value)
     {
-        // Cry,Jelly,Work,�Դϴ�
+        // Cry,Jelly,Work,입니다
         var values = value.Split(',');
         CustomType<Enums.EAtkType> custom = new CustomType<Enums.EAtkType>();
         List<Enums.EAtkType> list = custom.Values;
