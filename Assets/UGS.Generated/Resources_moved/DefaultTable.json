@@ -1,0 +1,17 @@
+{
+  "jsonObject": {
+    "Data": {
+      "index": [ "0", "1", "2", "3" ],
+      "intValue": [ "100", "50", "200", "150" ],
+      "strValue": [ "String", "String2", "Hello", "World" ],
+      "test": [ "[1,2,3]", "[1,2,3]", "[1,2,3]", "[1,2,3]" ],
+      "enumTest": [ "Cry,입니다", "Jelly,Work", "입니다, Jelly", "Work,입니다" ]
+    }
+  },
+  "spreadSheetName": "DefaultTable",
+  "spreadSheetID": "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY",
+  "sheetIDList": [ "0" ],
+  "tableTypes": [ 0 ],
+  "instruction": 1,
+  "error": null
+}

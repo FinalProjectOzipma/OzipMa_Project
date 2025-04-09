@@ -18,15 +18,14 @@ public class Test : MonoBehaviour
 
     private void Start()
     {
-        int a = DefaultTable.Data.DataList.Count;
-        UnityGoogleSheet.LoadFromGoogle<int, DefaultTable.Data>((list, map) =>
-        {
-            foreach (var ii in list)
-            {
-                Debug.Log($"{ii.enumTest.Values[0]} {ii.enumTest.Values[1]}");
-            }
-        }, true);
-
+        //int a = DefaultTable.Data.DataList.Count;
+        //UnityGoogleSheet.LoadFromGoogle<int, DefaultTable.Data>((list, map) =>
+        //{
+        //    foreach (var ii in list)
+        //    {
+        //        Debug.Log($"{ii.enumTest.Values[0]} {ii.enumTest.Values[1]}");
+        //    }
+        //}, true);
     }
 
     void Update()
