@@ -4,17 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enums
-{
-    [UGS(typeof(EAtkType))]
-    public enum EAtkType
-    {
-        Cry,
-        Jelly,
-        Work,
-        입니다,
-    }
-}
 
 public class CustomType<T>
 {
