@@ -11,7 +11,7 @@ public class Managers : MonoBehaviour
     //public static readonly InputManager Input = new();
     public static readonly PoolManager Pool = new();
     public static readonly ResourceManager Resource = new();
-    //public static readonly SceneManager Scene = new();
+    public static readonly SceneManager Scene = new();
     public static readonly UIManager UI = new();
     public static readonly DataManager Data = new();
 
@@ -29,5 +29,6 @@ public class Managers : MonoBehaviour
         Game.Initialize();
         Pool.Initialize();
         Data.Initialize();
+        Scene.Initialize();
     }
 }
