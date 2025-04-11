@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneManager : MonoBehaviour
+public class SceneManager
 {
     public SceneBase CurrentScene { get; private set; }
-    public GameScene GameScene { get; private set; }
+    public GameScene GameScene { get; private set; } = new();
 
     public void Initialize()
     {

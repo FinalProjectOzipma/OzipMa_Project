@@ -17,9 +17,10 @@ public class DataManager
 
     public void Initialize()
     {
-        LoadUGS<int, DefaultTable.Data>();
-        LoadUGS<int, DefaultTable.Enemy>();
-        LoadUGS<int, DefaultTable.Wave>();
+        UnityGoogleSheet.LoadAllData();
+        //LoadUGS<int, DefaultTable.Wave>();
+        //LoadUGS<int, DefaultTable.Enemy>();
+        //LoadUGS<int, DefaultTable.Data>();
         //StatDict = LoadJson<StatData, int, Stat>("StatData").MakeDict();
     }
 
@@ -37,6 +38,7 @@ public class DataManager
             for (int i =0; i < list.Count; i++)
             {
                 Datas[typeof(Value).Name].Add(list[i]);
+                Debug.Log(list[i]);
             }
         }, true);
     }
