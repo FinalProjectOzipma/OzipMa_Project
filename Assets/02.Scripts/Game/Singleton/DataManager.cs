@@ -18,6 +18,8 @@ public class DataManager
     public void Initialize()
     {
         LoadUGS<int, DefaultTable.Data>();
+        LoadUGS<int, DefaultTable.Enemy>();
+        LoadUGS<int, DefaultTable.Wave>();
         //StatDict = LoadJson<StatData, int, Stat>("StatData").MakeDict();
     }
 
