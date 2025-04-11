@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IGettable
 {
-    T GetClassAddress<T>() where T : UserObject;
+    public T GetClassAddress<T>() where T : UserObject;
 }
