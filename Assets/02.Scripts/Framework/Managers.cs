@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Resources;
 using UnityEditor.EditorTools;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     public static Managers Instance { get; private set; }
+    public static MonoBehaviour MonoInstance { get; private set; }
+
     //public static readonly AudioManager Audio = new();
     //public static readonly CameraManager Camera = new();
     public static readonly GameManager Game = new();
@@ -25,6 +28,7 @@ public class Managers : MonoBehaviour
         }
 
         Instance = this;
+        MonoInstance = this;
         DontDestroyOnLoad(this);
 
         Game.Initialize();
@@ -32,5 +36,15 @@ public class Managers : MonoBehaviour
         Data.Initialize();
         Scene.Initialize();
         Wave.Initialize();
+    }
+
+    public new static Coroutine StartCoroutine(IEnumerator coroutine)
+    {
+        return MonoInstance.StartCoroutine(coroutine);
+    }
+
+    public new static void StopCoroutine(Coroutine coroutine)
+    {
+        MonoInstance.StopCoroutine(coroutine);
     }
 }
