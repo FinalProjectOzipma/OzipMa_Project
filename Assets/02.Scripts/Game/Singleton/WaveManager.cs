@@ -1,56 +1,49 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.UI;
+using System.Threading.Tasks; 
 using UnityEngine;
 
 public class WaveManager
 {
     private DataManager dataManager;
-    private Coroutine enemyCoroutine;
-    private Coroutine unitCoroutine;
     private int liveEnemyCount = 0;
+
     public void Initialize()
     {
         dataManager = Managers.Data;
     }
 
-    public void StartWave(int id)
+    public async void StartWave(int id)
     {
         DefaultTable.Wave waveTable = dataManager.Datas["Wave"][id] as DefaultTable.Wave;
-        List<object> enemyTable = dataManager.Datas["EnemyTable"]; // 에너미 테이블
+        List<object> enemyTable = dataManager.Datas["EnemyTable"];
         int needEnemyAmount = waveTable.EnemyAmount;
 
         liveEnemyCount = needEnemyAmount;
-        EnemySpawn(needEnemyAmount, waveTable.SpawnTime, enemyTable);
 
-        // TODO : 아군 웨이브 스폰 
-        //MyUnitSpawn();
+        await EnemySpawnAsync(needEnemyAmount, waveTable.SpawnTime, enemyTable); // [3] 코루틴이 아닌 비동기 함수 호출로 변경
+
+        // TODO : 아군 웨이브 스폰
+        //await MyUnitSpawnAsync(); // [6] 아군 스폰도 비동기로 확장 예정
     }
 
-    private void EnemySpawn(int spawnAmount, float spawnTime, List<object> enemyTable)
-    {
-        //if(enemyCoroutine != null)
-        //{
-        //    StopCoroutine(enemyCoroutine);
-        //}
-        //enemyCoroutine = StartCoroutine(spawnAmount, spawnTime, enemyTable);
-    }
-
-    private IEnumerator EnemySpawnCoroutine(int spawnAmount, float spawnTime, List<object> enemyTable)
+    private async Task EnemySpawnAsync(int spawnAmount, float spawnTime, List<object> enemyTable)
     {
         while (spawnAmount > 0)
         {
             spawnAmount--;
-            int selected = UnityEngine.Random.Range(1, enemyTable.Count + 1); // 1번부터 totalEnemyCount 중에 소환할 번호 뽑기
+            int selected = UnityEngine.Random.Range(0, enemyTable.Count);
             DefaultTable.Enemy selectedEnemyInfo = enemyTable[selected] as DefaultTable.Enemy;
+
             Managers.Resource.Instantiate(selectedEnemyInfo.Name);
-            yield return new WaitForSeconds(spawnTime);
+
+            await Task.Delay((int)(spawnTime * 1000));
         }
     }
 
-    private void MyUnitSpawn()
-    {
-        // TODO : 아군 몬스터 5마리 랜덤 소환
-    }
+    //// [7] 아군 스폰도 비동기로 확장 준비
+    //private async Task MyUnitSpawnAsync()
+    //{
+
+    //}
 }
