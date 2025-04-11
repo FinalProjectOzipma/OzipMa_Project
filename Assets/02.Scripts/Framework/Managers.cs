@@ -14,6 +14,7 @@ public class Managers : MonoBehaviour
     public static readonly SceneManager Scene = new();
     public static readonly UIManager UI = new();
     public static readonly DataManager Data = new();
+    public static readonly WaveManager Wave = new();
 
     private void Awake()
     {
@@ -30,5 +31,6 @@ public class Managers : MonoBehaviour
         Pool.Initialize();
         Data.Initialize();
         Scene.Initialize();
+        Wave.Initialize();
     }
 }
