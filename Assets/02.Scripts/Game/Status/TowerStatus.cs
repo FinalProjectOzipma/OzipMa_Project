@@ -7,8 +7,8 @@ using static Enums;
 
 public class TowerStatus : StatusBase
 {
-    public Enums.TowerAtkType AtkType;
-    public List<Enums.TowerType> TowerType;
+    public TowerAtkType AtkType;
+    public List<TowerType> TowerType;
 
     public TowerStatus(Dictionary<string, object> Row)
     {
