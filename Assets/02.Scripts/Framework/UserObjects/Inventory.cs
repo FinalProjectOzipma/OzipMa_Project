@@ -19,7 +19,7 @@ public class Inventory
         if(typeof(T) == typeof(MyUnit))
         {
             MyUnit unit = gettable.GetClassAddress<MyUnit>();
-            units[unit.Status.RankType].Add(gettable);
+            units[unit.RankType].Add(gettable);
         }
     }
 
