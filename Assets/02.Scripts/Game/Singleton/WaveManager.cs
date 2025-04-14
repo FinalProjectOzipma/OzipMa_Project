@@ -22,8 +22,8 @@ public class WaveManager
     public void StartWave(int id)
     {
         DefaultTable.Wave waveTable = dataManager.Datas["Wave"][id] as DefaultTable.Wave;
-        
-        List<object> enemyTable = dataManager.Datas["EnemyTable"]; // 에너미 테이블
+
+        List<GoogleSheet.ITable> enemyTable = dataManager.Datas["EnemyTable"]; // 에너미 테이블
 
         int needEnemyAmount = waveTable.EnemyAmount;
         int needMyUnitAmount = 5;
@@ -35,7 +35,7 @@ public class WaveManager
         Task MyUnitSpawnTask = MyUnitSpawn(needMyUnitAmount, waveTable.SpawnTime);
     }
 
-    private async Task EnemySpawn(int spawnAmount, float spawnTime, List<object> enemyTable)
+    private async Task EnemySpawn(int spawnAmount, float spawnTime, List<GoogleSheet.ITable> enemyTable)
     {
         while (spawnAmount > 0)
         {
