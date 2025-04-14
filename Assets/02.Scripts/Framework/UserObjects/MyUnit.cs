@@ -1,20 +1,21 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MyUnit : UserObject, IGettable
 {
-    public MyUnitStatus Status { get; set; }
 
+    public MyUnitStatus Status { get; set; }
 
     public T GetClassAddress<T>() where T : UserObject
     {
         return this as T;
     }
 
-    public override void Init(int maxStack)
+    public override void Init(int maxStack, Sprite sprite)
     {
-        base.Init(maxStack);
+        base.Init(maxStack, sprite);
         Status.Health.SetValue(Status.MaxHealth);
     }
 

@@ -1,32 +1,46 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Slot : Poolable
+public class Slot : UI_Scene
 {
-    private string type;
+    private enum Images
+    {
+        Icon,
+        StackGageFill
+    }
+
+    private enum TextMeshs
+    {
+        ObjInfo,
+        StackText
+    }
+
     public int Index;
 
     public IGettable Gettable;
 
     private Sprite _sprite;
     private Image _stackGage;
-    private TextMeshProUGUI _InfoMesh;
-    private TextMeshProUGUI _stackMesh;
 
-
+    private void Awake()
+    {
+        Bind<Image>(typeof(Images));
+        Bind<TextMeshProUGUI>(typeof(TextMeshs));
+    }
 
     public void SetData(IGettable gettable)
     {
-        /*Gettable = gettable;
-
-
-        _sprite = userObject.Sprite;
-        _InfoMesh.text = $"LV.{userObject.Level}\r\nEV.{userObject.Grade}";
-        _stackGage.fillAmount = userObject.Stack.GetValue() % userObject.MaxStack.GetValue();
-        _stackMesh.text = $"{userObject.Stack.GetValue()}/{userObject.MaxStack.GetValue()}";*/
+        Gettable = gettable;
+        UserObject obj = gettable.GetClassAddress<UserObject>();
+        _sprite = obj.Sprite;
+        GetImage((int)Images.Icon).sprite = _sprite;
+        GetText((int)TextMeshs.ObjInfo).text = $"LV.{obj.Level}\r\nEV.{obj.Grade}";
+        GetImage((int)Images.StackGageFill).fillAmount = obj.Stack.GetValue() % obj.MaxStack.GetValue();
+        GetText((int)TextMeshs.StackText).text = $"{obj.Stack.GetValue()}/{obj.MaxStack.GetValue()}";
     }
 }

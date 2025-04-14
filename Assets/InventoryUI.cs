@@ -10,10 +10,9 @@ using UnityEngine.UI;
 public class InventoryUI : UI_Scene
 {
 
-    enum InventoryObj
+    public enum InventoryObj
     {
-        MyUnit,// IGettable 상속받은 클래스 이름과 하이러키창에 이름 같게 설정해줘야됨
-        Tower, // IGettable 상속받은 클래스 이름과 하이러키창에 이름 같게 설정해줘야됨
+        UserObjects,
         Buttons,
         MenuTab,
     }
@@ -21,13 +20,13 @@ public class InventoryUI : UI_Scene
     // 필요한 정보들
     // 탭, 버튼, 슬롯
     private Inventory data;
-    private Dictionary<string, List<Slot>> slotDict = new();
+    private List<Slot> slots = new();
 
     private Transform myUnitPanel;
     private Button[] buttons;
     //private Tap tap;
 
-    private void Awake()
+    private void Start()
     {
         Init();
     }
@@ -35,48 +34,39 @@ public class InventoryUI : UI_Scene
     public override void Init()
     {
         base.Init();
-        data = new Inventory();
-        slotDict[nameof(Tower)] = new List<Slot>(); // UI측면
-        slotDict[nameof(MyUnit)] = new List<Slot>(); // UI측면
+        data = Managers.Game.inven;
+        slots = new List<Slot>(); // UI측면
         Bind<GameObject>(typeof(InventoryObj));
+        Refresh<Tower>();
     }
 
     private void Refresh<T>() where T : IGettable
     {
-        if(Enum.TryParse(typeof(InventoryObj), nameof(T), out var enumResult) == false)
+        slots.Clear();
+        List<IGettable> selectedList = data.GetList<T>();
+
+        Transform trans = GetObject((int)InventoryObj.UserObjects).transform; // 부모 객체 얻어오기
+
+        int cnt = 0;
+        for (int i = 0; i < selectedList.Count; i++)
         {
-            Util.LogWarning($"Dont receive nameof({nameof(T)}) Enum");
-            return;
+            trans.GetChild(i).gameObject.SetActive(true); // 비활성화 있을 수 있으니 활성화
+            slots.Add(trans.GetOrAddComponent<Slot>());
+            slots[i].SetData(selectedList[i]);
+            cnt++;
         }
 
-        int prevListCount = slotDict[nameof(T)].Count; 
-        List<T> selectedList = data.GetList<T>();
-        
-        // List가 부족할때 생성
-        for(int i = prevListCount; i< selectedList.Count; i++)
+        while(cnt < trans.childCount) // 만약 이전에 슬롯이 필요없는 상황이면 비활성화
         {
-            // Slot오브젝트가 없으면 만들어줘야됨
-            Managers.Resource.Instantiate(nameof(Slot), (go) => { SetSlot<T>(GetObject((int)enumResult).transform, i); });
+            trans.GetChild(cnt++).gameObject.SetActive(false);
         }
-
-        // 가지고있는 것보다 슬롯의 오브젝트가 많으면 비활성화
-        for (int i = selectedList.Count; i < prevListCount; i++)
-        {
-            // Slot오브젝트가 없으면 만들어줘야됨
-            Managers.Resource.Destroy(slotDict[nameof(T)][i].gameObject);
-        }
-
-        // List정보 변경, 위에서 비동기적으로 돌리고있으니 꼬일 수도 있겠다
-        /*for (int i = 0; i < selectedList.Count; i++)
-        {
-            slotDict[nameof(T)][i].SetData<T>(selectedList[i]);
-        }*/
     }
 
     private void SetSlot<T>(Transform trans, int index) where T : IGettable
     {
         trans.SetParent(trans);
         Slot slot = trans.GetOrAddComponent<Slot>();
+        slots.Add(slot);
         slot.Index = index;   
     }
 }

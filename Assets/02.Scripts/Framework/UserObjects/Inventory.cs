@@ -9,12 +9,13 @@ public class Inventory
 
     public void Add<T>(T gettable) where T : IGettable
     {
-        if(inventory.ContainsKey(nameof(T)) == false)
+        if(inventory.ContainsKey(typeof(T).Name) == false)
         {
-            inventory.Add(nameof(T), new List<IGettable>());
+            inventory.Add(typeof(T).Name, new List<IGettable>());
         }
 
-        inventory[nameof(T)].Add(gettable);
+        inventory[typeof(T).Name].Add(gettable);
+        Util.Log($"Add : {typeof(T).Name}");
 
         if(typeof(T) == typeof(MyUnit))
         {
@@ -23,11 +24,12 @@ public class Inventory
         }
     }
 
-    public List<T> GetList<T>() where T : IGettable
+    public List<IGettable> GetList<T>() where T : IGettable
     {
-        if(inventory.TryGetValue(nameof(T), out var list))
+        Util.Log($"Get : {typeof(T).Name}");
+        if(inventory.TryGetValue(typeof(T).Name, out var list))
         {
-            return list as List<T>;
+            return list;
         }
 
         return null;
