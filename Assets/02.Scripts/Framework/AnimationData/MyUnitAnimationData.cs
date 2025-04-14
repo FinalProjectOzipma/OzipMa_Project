@@ -11,7 +11,6 @@ public class MyUnitAnimationData : EntityAnimationData
     public override void Init(EntityController controller)
     {
         base.Init();
-
         //StateMachine = new StateMachine();
         // IdleState = new IdleState(controller, this, StateMachine);
     }

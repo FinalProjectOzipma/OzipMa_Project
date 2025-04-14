@@ -26,7 +26,7 @@ public class Managers : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        
         Instance = this;
         MonoInstance = this;
         DontDestroyOnLoad(this);
@@ -35,7 +35,7 @@ public class Managers : MonoBehaviour
         Pool.Initialize();
         Data.Initialize();
         Scene.Initialize();
-        Wave.Initialize();
+        //Wave.Initialize();
     }
 
     public new static Coroutine StartCoroutine(IEnumerator coroutine)

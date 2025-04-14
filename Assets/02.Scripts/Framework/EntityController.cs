@@ -2,12 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class EntityController : MonoBehaviour
 {
     public Animator Anim { get; private set; }
     public EntityAnimationData AnimData { get; protected set; }
-
 
     public virtual void Init()
     {

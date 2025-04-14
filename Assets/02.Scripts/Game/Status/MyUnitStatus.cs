@@ -20,7 +20,7 @@ public class MyUnitStatus : StatusBase
         health.SetStat(Row[“Health”]);
         maxHealth = health;
 
-        attack.SetStat(Row[“Attack”]);
+        attack.SetStat(Row[“Attack”]); 
         defence.SetStat(Row[“Defence”]);
         moveSpeed.SetStat(Row[“MoveSpeed”]);
         attackType = Row[“AttackType”];
