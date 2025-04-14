@@ -3,42 +3,39 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UGS;
-using UnityEngine;
-
-public interface ILoader<Key, Value>
-{
-    Dictionary<Key, Value> MakeDict();
-}
 
 public class DataManager
 {
-    //public Dictionary<int, Stat> StatDict { get; private set; } = new Dictionary<int, Stat>();
-    public Dictionary<string, List<object>> Datas = new Dictionary<string, List<object>>();
+    public Dictionary<string, List<ITable>> Datas = new Dictionary<string, List<ITable>>();
 
     public void Initialize()
     {
-        UnityGoogleSheet.LoadAllData();
-        //LoadUGS<int, DefaultTable.Wave>();
-        //LoadUGS<int, DefaultTable.Enemy>();
-        //LoadUGS<int, DefaultTable.Data>();
-        //StatDict = LoadJson<StatData, int, Stat>("StatData").MakeDict();
+        // 필요한 데이터들을 Load 및 Datas에 캐싱해두는 작업
+        LoadData<DefaultTable.Tower>();
+        LoadData<DefaultTable.Enemy>();
+        LoadData<DefaultTable.Wave>();
     }
 
-    //Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
-    //{
-    //    TextAsset textAsset = Managers.Resource.Load<TextAsset>($"Data/{path}");
-    //    return JsonUtility.FromJson<Loader>(textAsset.text);
-    //}
+    public void LoadData<T>() where T : ITable
+    {
+        string typeName = typeof(T).Name;
+        Datas[typeName] = new List<ITable>();
+        List<T> list = UnityGoogleSheet.GetList<T>(); // GetList 내부에서 로드해둔 데이터가 없으면 LoadAllData()를 실행
+        for (int i = 0; i < list.Count; i++)
+        {
+            Datas[typeName].Add(list[i]);
+        }
+    }
 
-    public void LoadUGS<Key, Value>() where Value : ITable
+    public void LoadFromGoogleSheet<Key, Value>() where Value : ITable
     {
         UnityGoogleSheet.LoadFromGoogle<Key, Value>((list, map) =>
         {
-            Datas[typeof(Value).Name] = new List<object>();
+            Datas[typeof(Value).Name] = new List<ITable>();
             for (int i =0; i < list.Count; i++)
             {
-                Datas[typeof(Value).Name].Add(list[i]);
-                Debug.Log(list[i]);
+                Datas[nameof(Value)].Add(list[i]);
+                //Debug.Log(list[i]);
             }
         }, true);
     }
