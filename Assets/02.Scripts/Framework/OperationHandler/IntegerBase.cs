@@ -7,26 +7,26 @@ public class IntegerBase
 
     public virtual void Init(int amount)
     {
-        SetStat(amount);
+        SetValue(amount);
     }
 
-    public virtual void SetStat(int amount)
+    public virtual void SetValue(int amount)
     {
         if (amount < 0.0f) return;
         Value = amount;
     }
 
-    public virtual float GetStat()
+    public virtual float GetValue()
     {
         return Value;
     }
 
-    public virtual void AddStat(int amount)
+    public virtual void AddValue(int amount)
     {
-        SetStat(Mathf.Max(0, Value + amount));
+        SetValue(Mathf.Max(0, Value + amount));
     }
 
-    public virtual void SetStatMultiples(int amount)
+    public virtual void SetValueMultiples(int amount)
     {
         if (amount < 0) return;
         ValueMultiples = amount;
@@ -34,12 +34,12 @@ public class IntegerBase
 
     public virtual void AddMultiples(int amount)
     {
-        SetStatMultiples(Mathf.Max(0, ValueMultiples + amount));
+        SetValueMultiples(Mathf.Max(0, ValueMultiples + amount));
     }
 
     public virtual void MultiplesOperation()
     {
-        SetStat(Mathf.Max(0, Value * ValueMultiples));
+        SetValue(Mathf.Max(0, Value * ValueMultiples));
     }
 
     public virtual string GetValueToString()

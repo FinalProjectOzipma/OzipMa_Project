@@ -15,10 +15,10 @@ public class MyUnit : UserObject, IGettable
     public override void Init(int maxStack)
     {
         base.Init(maxStack);
-        Status.Health.SetStat(Status.MaxHealth);
+        Status.Health.SetValue(Status.MaxHealth);
     }
 
-    public void AddHealth(float amount) => Status.Health.AddStat(amount);
+    public void AddHealth(float amount) => Status.Health.AddValue(amount);
     
     public void GradeUpdate()
     {

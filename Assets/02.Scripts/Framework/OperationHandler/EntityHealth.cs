@@ -4,9 +4,9 @@ public class EntityHealth : FloatBase
 {
     public Action<float> OnChangeHealth;
 
-    public override void AddStat(float amount)
+    public override void AddValue(float amount)
     {
-        base.AddStat(amount);
+        base.AddValue(amount);
         OnChangeHealth?.Invoke(Value);
     }
 }
