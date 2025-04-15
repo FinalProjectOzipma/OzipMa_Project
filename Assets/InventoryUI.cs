@@ -53,13 +53,24 @@ public class InventoryUI : UI_Scene
     {
         Init();
         // ResourceLoad
+        Managers.Resource.LoadAssetAsync<GameObject>("Slot");
         Managers.Resource.LoadResourceLoacationAsync<Sprite>(assetLabel);
     }
 
     public override void Init()
     {
         base.Init();
-        data = Managers.Game.inven;
+        data = Managers.Player.Inventory;
+
+        // 이건 테스트용-------------------
+        for (int i = 0; i < 2; i++)
+        {
+            Tower tower = new Tower();
+            Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { tower.Init(20, sprite); });
+            data.Add<Tower>(tower);
+        }
+        //---------------------------------
+
         slots = new List<Slot>(); // UI측면
         Bind<GameObject>(typeof(InventoryObj));
         Bind<Button>(typeof(Buttons));
@@ -74,6 +85,7 @@ public class InventoryUI : UI_Scene
         GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
         GetButton((int)Buttons.TowerTab).onClick.AddListener(OnTowerTap);
         // ---------------------------------------------------------------------
+        OnTowerTap();
     }
 
     public void Refresh<T>() where T : UserObject, IGettable
@@ -89,10 +101,22 @@ public class InventoryUI : UI_Scene
         {
             for (int i = 0; i < _currentList.Count; i++)
             {
-                trans.GetChild(i).gameObject.SetActive(true); // 비활성화 있을 수 있으니 활성화
-                slots.Add(trans.GetChild(i).GetOrAddComponent<Slot>());
-                slots[i].SetData<T>(_currentList[i]);
-                cnt++;
+                try
+                {
+                    SlotActive<T>(trans, trans.GetChild(i).gameObject);
+                    cnt++;
+                }
+                catch (Exception)
+                {
+                    Managers.Resource.LoadAssetAsync<GameObject>("Slot", (go) =>
+                    {
+                        GameObject slotGo = Managers.Resource.Instantiate(go);
+                        slotGo.transform.SetParent(trans);
+                        slotGo.transform.localScale = new Vector3(1f, 1f, 1f);
+                        SlotActive<T>(trans, slotGo);
+                        cnt++;
+                    });
+                }
             }
         }
 
@@ -100,6 +124,15 @@ public class InventoryUI : UI_Scene
         {
             trans.GetChild(cnt++).gameObject.SetActive(false);
         }
+    }
+
+    private void SlotActive<T>(Transform parent ,GameObject slotGo) where T : UserObject, IGettable
+    {
+        Slot slot = slotGo.GetOrAddComponent<Slot>(); 
+        slotGo.SetActive(true);
+
+        slots.Add(slot);
+        slot.SetData<T>(_currentList[slot.Index]);
     }
 
     private void OnSelectAll()

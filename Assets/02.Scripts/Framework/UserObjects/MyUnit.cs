@@ -56,7 +56,7 @@ public class MyUnit : UserObject, IGettable
         {
             totalCost -= (count / 10) * singleUpgradeCost;
         }
-        if (Managers.Game.Money < totalCost)
+        if (Managers.Player.Money < totalCost)
         {
             Debug.Log("There is no Money.");
         }
