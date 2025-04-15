@@ -9,7 +9,7 @@ public abstract class TowerControlBase : MonoBehaviour
     public TowerAnimationData AnimData { get; private set; }
     public TowerStatus TowerStatus { get; private set; }
 
-    public bool IsPlaced;
+    public bool IsPlaced; // 맵에 배치되었는가 
 
     private GameObject body;
     private float attackCooldown = 0f;
@@ -23,7 +23,8 @@ public abstract class TowerControlBase : MonoBehaviour
 
     public void Init()
     {
-
+        CircleCollider2D range = GetComponent<CircleCollider2D>();
+        range.radius = TowerStatus == null ? 2f : TowerStatus.AttackRange.GetValue();
     }
 
     private void Update()
@@ -58,6 +59,7 @@ public abstract class TowerControlBase : MonoBehaviour
     {
         Tower = Info as Tower;
         TowerStatus = Tower.Status;
+        Init();
 
         Managers.Resource.Instantiate(Tower.Name, go => {
             body = go;
