@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaveManager : MonoBehaviour
+public class WaveManager
 {
     private DataManager dataManager;
     private Coroutine enemyCoroutine;
@@ -24,11 +24,11 @@ public class WaveManager : MonoBehaviour
         liveEnemyCount = needEnemyAmount;
 
         // 코루틴 시작
-        if (enemyCoroutine != null) StopCoroutine(enemyCoroutine);
-        if (unitCoroutine != null) StopCoroutine(unitCoroutine);
+        if (enemyCoroutine != null) Managers.MonoInstance.StopCoroutine(enemyCoroutine);
+        if (unitCoroutine != null) Managers.MonoInstance.StopCoroutine(unitCoroutine);
 
-        enemyCoroutine = StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
-        unitCoroutine = StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
+        enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
+        unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
     }
 
     private IEnumerator EnemySpawnCoroutine(int spawnAmount, float spawnTime, List<GoogleSheet.ITable> enemyTable)
