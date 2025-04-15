@@ -22,13 +22,13 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d990d4601dfd649458f2ee65fd3afc03
-    m_Address: Circle
+  - m_GUID: a5cc8815c8a53aa49817a387d5ba0786
+    m_Address: Slot
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 04751a874e91f90428a2b72ac8c8a0e1
-    m_Address: Square
+  - m_GUID: 5dc0ef1758b3e314ca2f682dc98405e1
+    m_Address: SprSquare
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

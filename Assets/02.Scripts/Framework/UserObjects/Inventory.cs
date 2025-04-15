@@ -7,14 +7,14 @@ public class Inventory
     Dictionary<string, List<IGettable>> inventory = new Dictionary<string, List<IGettable>>();
     Dictionary<Enums.RankType, List<IGettable>> units = new Dictionary<Enums.RankType, List<IGettable>>();
 
-    public void Add<T>(T gettable) where T : IGettable
+    public void Add<T>(T gettable) where T : UserObject, IGettable
     {
-        if(inventory.ContainsKey(nameof(T)) == false)
+        if(inventory.ContainsKey(typeof(T).Name) == false)
         {
-            inventory.Add(nameof(T), new List<IGettable>());
+            inventory.Add(typeof(T).Name, new List<IGettable>());
         }
 
-        inventory[nameof(T)].Add(gettable);
+        inventory[typeof(T).Name].Add(gettable);
 
         if(typeof(T) == typeof(MyUnit))
         {
@@ -23,11 +23,11 @@ public class Inventory
         }
     }
 
-    public List<T> GetList<T>() where T : IGettable
+    public List<IGettable> GetList<T>() where T : IGettable
     {
-        if(inventory.TryGetValue(nameof(T), out var list))
+        if(inventory.TryGetValue(typeof(T).Name, out var list))
         {
-            return list as List<T>;
+            return list;
         }
 
         return null;
