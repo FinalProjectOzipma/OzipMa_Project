@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 468a46d0ae32c3544b7d98094e6448a9, type: 3}
   m_Name: AddressableAssetSettings
   m_EditorClassIdentifier: 
-  m_DefaultGroup: 555a46cce26ccc646bf540c352eddf7f
+  m_DefaultGroup: ef86a0084b44c3640a271d4adad06e51
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: 6d768aa82717f3bf21ab78fc0866a451
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -45,10 +45,11 @@ MonoBehaviour:
   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
   m_GroupAssets:
   - {fileID: 11400000, guid: a8d1a60437411cb4988fc6e435628cd6, type: 2}
-  - {fileID: 11400000, guid: d6df93883039c3f4abfeeb2b6e4653e4, type: 2}
   - {fileID: 11400000, guid: 179779f435dcf82428bc76d25e04bd81, type: 2}
   - {fileID: 11400000, guid: d09ed8fb3071a4945b593e1293c499b6, type: 2}
   - {fileID: 11400000, guid: b496213da4ddecb4fb9fe8c47bd08ac5, type: 2}
+  - {fileID: 11400000, guid: a73110f54448cde48b4f723ef2380e35, type: 2}
+  - {fileID: 11400000, guid: d6df93883039c3f4abfeeb2b6e4653e4, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -92,8 +93,6 @@ MonoBehaviour:
     - Circle
     - UI
     - Popup
-    - BGM
-    - SFX
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 2105134837dec9f44b7338b37fcbf576, type: 2}
