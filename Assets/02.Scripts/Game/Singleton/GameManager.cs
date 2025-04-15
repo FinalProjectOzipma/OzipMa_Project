@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager 
 {
-    public Inventory inven = new Inventory();
+    public int Money {  get; set; }
     public void Initialize()
     {
         for(int i = 0; i < 3; i++)

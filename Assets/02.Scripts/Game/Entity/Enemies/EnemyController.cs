@@ -15,4 +15,9 @@ public class EnemyController : EntityController
         AnimData = new EnemyAnimationData();
         AnimData.Init(this);
     }
+
+    public override void TakeRoot(UserObject Info)
+    {
+        throw new System.NotImplementedException();
+    }
 }
