@@ -18,6 +18,6 @@ public class SceneManager
         CurrentScene?.Exit();
         CurrentScene = nextScene;
         UnityEngine.SceneManagement.SceneManager.LoadScene(nameof(T));
-        Managers.Resource.CreateGenericGroupOperation(nextScene.LabelAsync, CurrentScene.Enter);
+        //Managers.Resource.CreateGenericGroupOperation(nextScene.LabelAsync, CurrentScene.Enter);
     }
 }

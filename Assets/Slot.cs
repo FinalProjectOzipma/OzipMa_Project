@@ -11,7 +11,8 @@ public class Slot : UI_Scene
     private enum Images
     {
         Icon,
-        StackGageFill
+        StackGageFill,
+        Selected
     }
 
     private enum TextMeshs
@@ -20,7 +21,10 @@ public class Slot : UI_Scene
         StackText
     }
 
-    public int Index;
+    private Button button; // 이녀석은 현재 들고 있는 컴포넌트객체니깐 그냥 Get으로 불러드림
+
+    public int Index { get; set; }
+    public bool IsActive { get; private set; } = false;
 
     public IGettable Gettable;
 
@@ -31,15 +35,33 @@ public class Slot : UI_Scene
     {
         Bind<Image>(typeof(Images));
         Bind<TextMeshProUGUI>(typeof(TextMeshs));
+        button = GetComponent<Button>();
+        button.onClick.AddListener(SeletToggle);
+
+        GetImage((int)Images.Selected).gameObject.SetActive(false);
     }
 
-    public void SetData(IGettable gettable)
+    private void SeletToggle()
     {
+        GameObject imgObj = GetImage((int)Images.Selected).gameObject;
+        imgObj.SetActive(!imgObj.activeSelf);
+    }
+
+    // 전체 선택될때 호출해야되는 메서드
+    public void OnSelect()
+    {
+        IsActive = true;
+        GetImage((int)Images.Selected).gameObject.SetActive(true);
+    }
+
+    public void SetData<T>(IGettable gettable) where T : UserObject
+    {
+        
         Gettable = gettable;
-        UserObject obj = gettable.GetClassAddress<UserObject>();
+        T obj = gettable.GetClassAddress<T>();
         _sprite = obj.Sprite;
         GetImage((int)Images.Icon).sprite = _sprite;
-        GetText((int)TextMeshs.ObjInfo).text = $"LV.{obj.Level}\r\nEV.{obj.Grade}";
+        GetText((int)TextMeshs.ObjInfo).text = $"LV.{obj.Level.GetValue()}\r\nEV.{obj.Grade.GetValue()}";
         GetImage((int)Images.StackGageFill).fillAmount = obj.Stack.GetValue() % obj.MaxStack.GetValue();
         GetText((int)TextMeshs.StackText).text = $"{obj.Stack.GetValue()}/{obj.MaxStack.GetValue()}";
     }

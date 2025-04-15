@@ -7,7 +7,7 @@ public class Inventory
     Dictionary<string, List<IGettable>> inventory = new Dictionary<string, List<IGettable>>();
     Dictionary<Enums.RankType, List<IGettable>> units = new Dictionary<Enums.RankType, List<IGettable>>();
 
-    public void Add<T>(T gettable) where T : IGettable
+    public void Add<T>(T gettable) where T : UserObject, IGettable
     {
         if(inventory.ContainsKey(typeof(T).Name) == false)
         {
@@ -15,7 +15,6 @@ public class Inventory
         }
 
         inventory[typeof(T).Name].Add(gettable);
-        Util.Log($"Add : {typeof(T).Name}");
 
         if(typeof(T) == typeof(MyUnit))
         {
@@ -26,7 +25,6 @@ public class Inventory
 
     public List<IGettable> GetList<T>() where T : IGettable
     {
-        Util.Log($"Get : {typeof(T).Name}");
         if(inventory.TryGetValue(typeof(T).Name, out var list))
         {
             return list;
