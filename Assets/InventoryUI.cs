@@ -54,7 +54,7 @@ public class InventoryUI : UI_Scene
         Init();
         // ResourceLoad
         Managers.Resource.LoadAssetAsync<GameObject>("Slot");
-        Managers.Resource.LoadResourceLoacationAsync<Sprite>(assetLabel);
+        Managers.Resource.LoadResourceLoacationAsync(assetLabel);
     }
 
     public override void Init()
@@ -119,7 +119,7 @@ public class InventoryUI : UI_Scene
                 }
             }
         }
-
+        
         while(cnt < trans.childCount) // 만약 이전에 슬롯이 필요없는 상황이면 비활성화
         {
             trans.GetChild(cnt++).gameObject.SetActive(false);
@@ -144,9 +144,8 @@ public class InventoryUI : UI_Scene
         {
             slots[i].OnSelect();
         }
-    }
+    }   
 
-    
     private void OnMyUnitTap()
     {
         ChangeTap<MyUnit>(GetImage((int)Images.MyUnitTab));
@@ -155,6 +154,20 @@ public class InventoryUI : UI_Scene
     private void OnTowerTap()
     {
         ChangeTap<Tower>(GetImage((int)Images.TowerTab));
+    }
+
+    private void OnSwipe()
+    {
+        if (_currentList == null)
+        {
+            Refresh<MyUnit>();
+            return;
+        }
+
+        if (_currentTab == typeof(MyUnit))
+            Refresh<MyUnit>();
+        else
+            Refresh<Tower>();
     }
 
     private void ChangeTap<T>(Image changeImg) where T : UserObject, IGettable
@@ -173,17 +186,4 @@ public class InventoryUI : UI_Scene
         });
     }
 
-    private void OnSwipe()
-    {
-        if (_currentList == null)
-        {
-            Refresh<MyUnit>();
-            return;
-        }
-
-        if (_currentTab == typeof(MyUnit))
-            Refresh<MyUnit>();
-        else
-            Refresh<Tower>();
-    }
 }
