@@ -19,13 +19,13 @@ public class MyUnitController : EntityController
         AnimData.Init(this);
     }
 
-    public override void TakeRoot(UserObject Info)
-    {
-        Managers.Resource.Instantiate(nameof(Info), go =>
-        {
-            MyUnit = Info as MyUnit;
-            MyUnitStatus = MyUnit.Status;
-            go.transform.SetParent(transform);
-        });
-    }
+    //public override void TakeRoot(UserObject Info)
+    //{
+    //    Managers.Resource.Instantiate(nameof(Info), go =>
+    //    {
+    //        MyUnit = Info as MyUnit;
+    //        MyUnitStatus = MyUnit.Status;
+    //        go.transform.SetParent(transform);
+    //    });
+    //}
 }
