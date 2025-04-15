@@ -32,12 +32,12 @@ public class MyUnitController : EntityController
 
         if (NavMesh.SamplePosition(new Vector3(testTarget.x, testTarget.y, 0), out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
         {
-            Debug.Log($"Sampled Position: {hit.position}");
+            Util.Log($"Sampled Position: {hit.position}");
             Agent.SetDestination(hit.position);
         }
         else
         {
-            Debug.LogWarning("NavMesh 샘플 위치 없음");
+            Util.LogError("NavMesh 샘플 위치 없음");
         }
     }
 
