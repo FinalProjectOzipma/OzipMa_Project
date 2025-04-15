@@ -1,82 +1,189 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
-
 
 public class InventoryUI : UI_Scene
 {
 
-    enum InventoryObj
+    private enum InventoryObj
     {
-        MyUnit,// IGettable 상속받은 클래스 이름과 하이러키창에 이름 같게 설정해줘야됨
-        Tower, // IGettable 상속받은 클래스 이름과 하이러키창에 이름 같게 설정해줘야됨
-        Buttons,
-        MenuTab,
+        UserObjects
     }
+
+    private enum Buttons
+    {
+        SwipeBtn,
+        InchentBtn,
+        SelectAllBtn,
+        PutBtn,
+
+        MyUnitTab,
+        TowerTab,
+    }
+
+    private enum Images
+    {
+        MyUnitTab,
+        TowerTab,
+    }
+
+    public AssetLabelReference assetLabel;
 
     // 필요한 정보들
     // 탭, 버튼, 슬롯
     private Inventory data;
-    private Dictionary<string, List<Slot>> slotDict = new();
+    private List<Slot> slots = new();
 
     private Transform myUnitPanel;
     private Button[] buttons;
     //private Tap tap;
 
+    private List<IGettable> _currentList;
+    private Type _currentTab;
+    private Image _prevImage;
+
+    // Resource Key
+    string TabSprite = nameof(TabSprite);
+    string SelectedTabSprite = nameof(SelectedTabSprite);
+
     private void Awake()
     {
         Init();
+        // ResourceLoad
+        Managers.Resource.LoadAssetAsync<GameObject>("Slot");
+        Managers.Resource.LoadResourceLoacationAsync(assetLabel);
     }
 
     public override void Init()
     {
         base.Init();
-        data = new Inventory();
-        slotDict[nameof(Tower)] = new List<Slot>(); // UI측면
-        slotDict[nameof(MyUnit)] = new List<Slot>(); // UI측면
+        data = Managers.Player.Inventory;
+
+        // 이건 테스트용-------------------
+        for (int i = 0; i < 2; i++)
+        {
+            Tower tower = new Tower();
+            Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { tower.Init(20, sprite); });
+            data.Add<Tower>(tower);
+        }
+        //---------------------------------
+
+        slots = new List<Slot>(); // UI측면
         Bind<GameObject>(typeof(InventoryObj));
+        Bind<Button>(typeof(Buttons));
+        Bind<Image>(typeof(Images));
+
+        _prevImage = GetImage((int)Images.MyUnitTab);
+
+        GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
+        GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
+
+        // Tap -----------------------------------------------------------------
+        GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
+        GetButton((int)Buttons.TowerTab).onClick.AddListener(OnTowerTap);
+        // ---------------------------------------------------------------------
+        OnTowerTap();
     }
 
-    private void Refresh<T>() where T : IGettable
+    public void Refresh<T>() where T : UserObject, IGettable
     {
-        if(Enum.TryParse(typeof(InventoryObj), nameof(T), out var enumResult) == false)
+        slots.Clear();
+        _currentList = data.GetList<T>();
+        _currentTab = typeof(T);
+
+        Transform trans = GetObject((int)InventoryObj.UserObjects).transform; // 부모 객체 얻어오기
+
+        int cnt = 0;
+        if(_currentList != null)
         {
-            Util.LogWarning($"Dont receive nameof({nameof(T)}) Enum");
+            for (int i = 0; i < _currentList.Count; i++)
+            {
+                try
+                {
+                    SlotActive<T>(trans, trans.GetChild(i).gameObject);
+                    cnt++;
+                }
+                catch (Exception)
+                {
+                    Managers.Resource.LoadAssetAsync<GameObject>("Slot", (go) =>
+                    {
+                        GameObject slotGo = Managers.Resource.Instantiate(go);
+                        slotGo.transform.SetParent(trans);
+                        slotGo.transform.localScale = new Vector3(1f, 1f, 1f);
+                        SlotActive<T>(trans, slotGo);
+                        cnt++;
+                    });
+                }
+            }
+        }
+        
+        while(cnt < trans.childCount) // 만약 이전에 슬롯이 필요없는 상황이면 비활성화
+        {
+            trans.GetChild(cnt++).gameObject.SetActive(false);
+        }
+    }
+
+    private void SlotActive<T>(Transform parent ,GameObject slotGo) where T : UserObject, IGettable
+    {
+        Slot slot = slotGo.GetOrAddComponent<Slot>(); 
+        slotGo.SetActive(true);
+
+        slots.Add(slot);
+        slot.SetData<T>(_currentList[slot.Index]);
+    }
+
+    private void OnSelectAll()
+    {
+        if (_currentList == null)
+            return;
+
+        for (int i = 0; i < _currentList.Count; i++)
+        {
+            slots[i].OnSelect();
+        }
+    }   
+
+    private void OnMyUnitTap()
+    {
+        ChangeTap<MyUnit>(GetImage((int)Images.MyUnitTab));
+    }
+
+    private void OnTowerTap()
+    {
+        ChangeTap<Tower>(GetImage((int)Images.TowerTab));
+    }
+
+    private void OnSwipe()
+    {
+        if (_currentList == null)
+        {
+            Refresh<MyUnit>();
             return;
         }
 
-        int prevListCount = slotDict[nameof(T)].Count; 
-        List<T> selectedList = data.GetList<T>();
-        
-        // List가 부족할때 생성
-        for(int i = prevListCount; i< selectedList.Count; i++)
-        {
-            // Slot오브젝트가 없으면 만들어줘야됨
-            Managers.Resource.Instantiate(nameof(Slot), (go) => { SetSlot<T>(GetObject((int)enumResult).transform, i); });
-        }
-
-        // 가지고있는 것보다 슬롯의 오브젝트가 많으면 비활성화
-        for (int i = selectedList.Count; i < prevListCount; i++)
-        {
-            // Slot오브젝트가 없으면 만들어줘야됨
-            Managers.Resource.Destroy(slotDict[nameof(T)][i].gameObject);
-        }
-
-        // List정보 변경, 위에서 비동기적으로 돌리고있으니 꼬일 수도 있겠다
-        /*for (int i = 0; i < selectedList.Count; i++)
-        {
-            slotDict[nameof(T)][i].SetData<T>(selectedList[i]);
-        }*/
+        if (_currentTab == typeof(MyUnit))
+            Refresh<MyUnit>();
+        else
+            Refresh<Tower>();
     }
 
-    private void SetSlot<T>(Transform trans, int index) where T : IGettable
+    private void ChangeTap<T>(Image changeImg) where T : UserObject, IGettable
     {
-        trans.SetParent(trans);
-        Slot slot = trans.GetOrAddComponent<Slot>();
-        slot.Index = index;   
+        Managers.Resource.LoadAssetAsync<Sprite>(TabSprite, (spr) =>
+        {
+            if (_prevImage != null)
+                _prevImage.sprite = spr;
+        });
+
+        Managers.Resource.LoadAssetAsync<Sprite>(SelectedTabSprite, (spr) =>
+        {
+            changeImg.sprite = spr;
+            Refresh<T>();
+            _prevImage = changeImg;
+        });
     }
+
 }

@@ -27,7 +27,7 @@ public class ResourceManager
         return operation;
     }
 
-    public AsyncOperationHandle CreateGenericGroupOperation(AsyncOperationHandle<IList<IResourceLocation>> groupLocation, Action onComplete = null)
+    private AsyncOperationHandle CreateGenericGroupOperation(AsyncOperationHandle<IList<IResourceLocation>> groupLocation, Action onComplete = null)
     {
         var locations = groupLocation.Result;
         var keys = new List<string>(locations.Count);
@@ -103,5 +103,13 @@ public class ResourceManager
         }
 
         Object.Destroy(gameObject);
+    }
+
+    public void LoadResourceLoacationAsync(AssetLabelReference assetLabel)
+    {
+        Addressables.LoadResourceLocationsAsync(assetLabel.labelString).Completed += (handle) =>
+        {
+            Managers.Resource.CreateGenericGroupOperation(handle);
+        };
     }
 }
