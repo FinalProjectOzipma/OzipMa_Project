@@ -50,7 +50,7 @@ public class UI_Research : UI_Base
     private bool isResearching = false; // 연구 중인지 아닌지에 대한 불값
     private int updateLevel; // 업데이트 레벨
 
-    private DateTime startTime; // 실제 시간
+    private DateTime startTime; // 업그레이드 시작 시간
     private float secondsToReduce = 10.0f;
 
     public ResearchUpgradeType researchUpgradeType;
@@ -79,7 +79,7 @@ public class UI_Research : UI_Base
     {
         if(isResearching)
         {
-            TimeSpan passed = DateTime.UtcNow - startTime;
+            TimeSpan passed = DateTime.UtcNow - startTime; // 업그레이드 시작 시간을 기준으로 현재 시간 사이의 차이
             elapsedSeconds = (float)passed.TotalSeconds;
             float progress = Mathf.Clamp01(elapsedSeconds / researchDuration);
 
@@ -200,7 +200,7 @@ public class UI_Research : UI_Base
         StatUpgrade(researchUpgradeType);
        
         GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
-        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"공격력 업그레이드";
+        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드";
         Debug.Log($"다음 연구시간 : {researchDuration}");
     }
 
