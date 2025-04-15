@@ -6,7 +6,7 @@ public class MyUnitAnimationData : EntityAnimationData
 {
     //public StateMachine StateMachine { get; private set; }
 
-    // public MyUnitIdleState IdleState { get; private set; }
+    //public MyUnitIdleState IdleState { get; private set; }
 
     public override void Init(EntityController controller)
     {

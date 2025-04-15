@@ -37,16 +37,14 @@ public class MyUnit : UserObject, IGettable
         }
     }
 
-
-
     public void UpgradeLevel(int count = 1)
     {
         //레벨이 초과되는가
-        //if (Level.Value >= MaxLevel.Value)
-        //{
-        //    Debug.Log("Level is already Over!");
-        //    return;
-        //}
+        if (Level.Value >= MaxLevel.Value)
+        {
+            Debug.Log("Level is already Over!");
+            return;
+        }
 
         int singleUpgradeCost = Grade.Value /* * (int)RankType*/;
         int totalCost = singleUpgradeCost * count;
