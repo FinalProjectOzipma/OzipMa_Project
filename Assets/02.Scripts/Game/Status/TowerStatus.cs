@@ -9,19 +9,23 @@ public class TowerStatus : StatusBase
 {
     public TowerAtkType AtkType;
     public List<TowerType> TowerType;
+    //public List<데이터테이블.TowerAbilityDefaultValue> Abilities;
 
-    public TowerStatus(Dictionary<string, object> Row)
+    public TowerStatus(Dictionary<string, List<GoogleSheet.ITable>> Row)
     {
-        // TODO :: 연두님과 상의
+        // TODO :: 타워 속성 받기
 
-        /*name = Row[“Name”];
-        description = Row[“Descriptopn”];
-        rankType = Row[“RankType”];
+        //name = ;
+        //description = ;
+        //rankType = ;
 
-        attack.SetStat(Row[“Attack”]);
-        TowerattackType = Row[“TowerAttackType”];
-        attackCooldown.SetStat(Row[“AttackCooldown”]);
-        attackRange.SetStat(Row[“AttackRange”]);
-        level = 1;*/
+        //attack.SetStat();
+        //TowerattackType =
+        //attackCooldown.SetStat();
+        //attackRange.SetStat();
+        //level =
+
+        // TODO :: 진짜 데이터테이블 생기면 속성테이블 받아두기
+        //Abilities = Util.TableConverter<데이터테이블.TowerAbilityDefaultValue>(Managers.Data.Datas["TowerAbilityDefaultValue"]);
     }
 }
