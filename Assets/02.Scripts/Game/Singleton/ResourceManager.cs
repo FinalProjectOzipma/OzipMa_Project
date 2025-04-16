@@ -56,22 +56,6 @@ public class ResourceManager
         return groupOperation;
     }
 
-    public AsyncOperationHandle LoadGroupAssetAsync<T>(string groupKey, string assetKey, Action<T> onComplete = null) where T : Object
-    {
-        // 키에 있는지부터 확인
-        if (this.keys.TryGetValue(groupKey, out var keys))
-        {
-            if(this.operations.TryGetValue(groupKey, out var operation))
-            {
-                var operations = operation.Result as List<AsyncOperationHandle>;
-                onComplete?.Invoke(operations[keys.IndexOf(assetKey)].Result as T);
-                return operations[keys.IndexOf(assetKey)];
-            }
-        }
-
-        return LoadAssetAsync<T>(assetKey, onComplete);
-    }
-
     public void Release(string label)
     {
         if (operations.TryGetValue(label, out var operation) == false)
@@ -126,6 +110,12 @@ public class ResourceManager
 
     public void LoadResourceLoacationAsync(string assetLabel, Action onComplete = null)
     {
+        if (operations.TryGetValue(assetLabel, out var operation))
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
         Addressables.LoadResourceLocationsAsync(assetLabel).Completed += (handle) =>
         {
             CreateGenericGroupOperation(handle, onComplete);

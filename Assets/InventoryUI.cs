@@ -113,7 +113,7 @@ public class InventoryUI : UI_Scene
                 }
                 catch (Exception)
                 {
-                    Managers.Resource.LoadGroupAssetAsync<GameObject>(assetLabel.labelString, "Slot", (go) =>
+                    Managers.Resource.LoadAssetAsync<GameObject>("Slot", (go) =>
                     {
                         if (go == null) return;
 
@@ -182,13 +182,13 @@ public class InventoryUI : UI_Scene
 
     private void ChangeTap<T>(Image changeImg) where T : UserObject, IGettable
     {
-        Managers.Resource.LoadGroupAssetAsync<Sprite>(assetLabel.labelString,TabSprite, (spr) =>
+        Managers.Resource.LoadAssetAsync<Sprite>(TabSprite, (spr) =>
         {
             if (_prevImage != null)
                 _prevImage.sprite = spr;
         });
 
-        Managers.Resource.LoadGroupAssetAsync<Sprite>(assetLabel.labelString, SelectedTabSprite, (spr) =>
+        Managers.Resource.LoadAssetAsync<Sprite>(SelectedTabSprite, (spr) =>
         {
             changeImg.sprite = spr;
             Refresh<T>();
