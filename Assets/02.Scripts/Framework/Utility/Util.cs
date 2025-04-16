@@ -147,7 +147,6 @@ public class Util
         return res;
     }
 
-
     // 디버그를 위한
     public static void Log(string message)
     {

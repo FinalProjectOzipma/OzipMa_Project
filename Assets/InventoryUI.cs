@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 public class InventoryUI : UI_Scene
 {
-
+    #region ComponentID
     private enum InventoryObj
     {
-        UserObjects
+        UserObjects,
+        Contents,
     }
 
     private enum Buttons
@@ -29,33 +30,30 @@ public class InventoryUI : UI_Scene
         MyUnitTab,
         TowerTab,
     }
+    #endregion
 
-    public AssetLabelReference assetLabel;
+    #region ResourceKey
+    private enum ResourceKey
+    {
+        TabSprite,
+        SelectedTabSprite,
+    }
+    #endregion
 
-    // 필요한 정보들
-    // 탭, 버튼, 슬롯
-    private Inventory data;
-    private List<Slot> slots = new();
+    private Inventory data; 
+    private List<Slot> slots = new(); // 현재 슬롯
 
-    private Transform myUnitPanel;
-    private Button[] buttons;
-    //private Tap tap;
-
-    private List<IGettable> _currentList;
-    private Type _currentTab;
-    private Image _prevImage;
+    private List<IGettable> _currentList; // UI에 들고있는 현재 인벤토리 데이터
+    private Type _currentTab; // 현재 탭의 타입
+    private Image _prevImage; // 이전 탭의 컴포넌트
 
     // Resource Key
-    string TabSprite = nameof(TabSprite);
-    string SelectedTabSprite = nameof(SelectedTabSprite);
+    
 
     private void Awake()
     {
         Init();
-
-        // ResourceLoad
-        //Managers.Resource.LoadAssetAsync<GameObject>("Slot");
-        Managers.Resource.LoadResourceLoacationAsync(assetLabel.labelString, Init);
+        Managers.Resource.LoadResourceLoacationAsync(nameof(GameScene), Init);
     }
 
     public override void Init()
@@ -78,6 +76,9 @@ public class InventoryUI : UI_Scene
         OnTowerTap();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
     private void SetBind()
     {
         Bind<GameObject>(typeof(InventoryObj));
@@ -168,6 +169,8 @@ public class InventoryUI : UI_Scene
 
     private void OnSwipe()
     {
+        // DoTween
+
         if (_currentList == null)
         {
             Refresh<MyUnit>();
@@ -175,20 +178,24 @@ public class InventoryUI : UI_Scene
         }
 
         if (_currentTab == typeof(MyUnit))
+        {
             Refresh<MyUnit>();
+        }
         else
+        {
             Refresh<Tower>();
+        }
     }
 
     private void ChangeTap<T>(Image changeImg) where T : UserObject, IGettable
     {
-        Managers.Resource.LoadAssetAsync<Sprite>(TabSprite, (spr) =>
+        Managers.Resource.LoadAssetAsync<Sprite>(ResourceKey.TabSprite.ToString(), (spr) =>
         {
             if (_prevImage != null)
                 _prevImage.sprite = spr;
         });
 
-        Managers.Resource.LoadAssetAsync<Sprite>(SelectedTabSprite, (spr) =>
+        Managers.Resource.LoadAssetAsync<Sprite>(ResourceKey.SelectedTabSprite.ToString(), (spr) =>
         {
             changeImg.sprite = spr;
             Refresh<T>();

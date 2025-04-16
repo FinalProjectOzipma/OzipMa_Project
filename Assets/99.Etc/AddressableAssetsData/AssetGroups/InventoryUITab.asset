@@ -21,19 +21,19 @@ MonoBehaviour:
     m_Address: SelectedTabSprite
     m_ReadOnly: 0
     m_SerializedLabels:
-    - InventoryUITab
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3acf77d0fd2b51848b97732dd8379529
     m_Address: TabSprite
     m_ReadOnly: 0
     m_SerializedLabels:
-    - InventoryUITab
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5cc8815c8a53aa49817a387d5ba0786
     m_Address: Slot
     m_ReadOnly: 0
     m_SerializedLabels:
-    - InventoryUITab
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
