@@ -137,6 +137,16 @@ public class Util
         transform.position = position;
     }
 
+    public static List<T> TableConverter<T>(List<GoogleSheet.ITable> origins) where T : GoogleSheet.ITable
+    {
+        List<T> res = new List<T>();
+        foreach (GoogleSheet.ITable item in origins)
+        {
+            res.Add((T)item);
+        }
+        return res;
+    }
+
 
     // 디버그를 위한
     public static void Log(string message)
