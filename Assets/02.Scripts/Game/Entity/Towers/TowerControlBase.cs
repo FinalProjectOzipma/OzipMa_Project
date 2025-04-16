@@ -19,12 +19,15 @@ public abstract class TowerControlBase : MonoBehaviour
     protected virtual void Awake()
     {
         Init();
+
+        //Test용 강제 TakeRoot
+        //TakeRoot(null);
     }
 
     public void Init()
     {
         CircleCollider2D range = GetComponent<CircleCollider2D>();
-        range.radius = TowerStatus == null ? 2f : TowerStatus.AttackRange.GetValue();
+        range.radius = TowerStatus == null ? 1f : TowerStatus.AttackRange.GetValue();
     }
 
     private void Update()
@@ -36,10 +39,13 @@ public abstract class TowerControlBase : MonoBehaviour
         if (attackCooldown < 0)
         {
             attackCooldown = TowerStatus.AttackCoolDown.GetValue();
-
             Attack(TowerStatus.Attack.GetValue());
 
-            // TODO : Attack 애니메이션 실행 
+            //데이터없는 Test용 코드
+            //attackCooldown = 1f;
+            //Attack(1f);
+
+            Anim.SetTrigger(AnimData.AttackHash);
         }
     }
 
@@ -61,11 +67,12 @@ public abstract class TowerControlBase : MonoBehaviour
         TowerStatus = Tower.Status;
         Init();
 
-        Managers.Resource.Instantiate(Tower.Name, go => {
+        Managers.Resource.Instantiate("BodyTest", go => {
             body = go;
             body.transform.SetParent(transform);
+            body.transform.localPosition = Vector3.zero;
 
-            if(body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
+            if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
             {
                 Anim = bodyBase.Anim;
                 AnimData = bodyBase.AnimData;

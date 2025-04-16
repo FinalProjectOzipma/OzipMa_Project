@@ -9,7 +9,7 @@ public class TowerBodyBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Anim = GetComponent<Animator>();
+        Anim = Util.FindComponent<Animator>(gameObject, "MainSprite");
         AnimData = new();
     }
 
