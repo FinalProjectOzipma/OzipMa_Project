@@ -4,14 +4,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
-public class MyUnitStateWandering : MyUnitStateBase
+public class MyUnitWanderingState : MyUnitStateBase
 {
-    public GameObject Target;
     public NavMeshAgent Agent;
-    public MyUnitStateWandering(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public MyUnitWanderingState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
-        //StateMachine = stateMachine;
-        //this.Animator = controller.Anim;
+        StateMachine = stateMachine;
+        this.Anim = controller.Anim;
         this.controller = controller;
         this.data = data;
         this.animHashKey = animHashKey;
@@ -21,20 +20,13 @@ public class MyUnitStateWandering : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
+        SetPosition();
+        Exit();
     }
 
     public override void Exit()
     {
         base.Exit();
-    }
-
-    public override void FixedUpdate()
-    {
-
-    }
-
-    public override void Update()
-    {
 
     }
 
@@ -57,6 +49,4 @@ public class MyUnitStateWandering : MyUnitStateBase
         }
         Util.LogError("실패했당");
     }
-
-    
 }
