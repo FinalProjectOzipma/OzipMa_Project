@@ -5,7 +5,6 @@ using UnityEngine;
 public class ProjectileTowerController : TowerControlBase
 {
     private EnemyController target;
-    //private TowerProjectile Projectile;
     //private string projectileKey = "TowerProjectile";
 
     protected override void Awake()
@@ -36,6 +35,7 @@ public class ProjectileTowerController : TowerControlBase
     {
         if (target != null && collision.TryGetComponent<EnemyController>(out EnemyController enemy))
         {
+            // 내가 때리던 enemy가 범위 밖으로 나가는 경우를 확인
             if(enemy == target)
             {
                 target = null;
