@@ -49,6 +49,7 @@ public class UI_Research : UI_Base
     private float elapsedSeconds; // 경과되는 시간
     private bool isResearching = false; // 연구 중인지 아닌지에 대한 불값
     private int updateLevel; // 업데이트 레벨
+    private float updateStat;
 
     private DateTime startTime; // 업그레이드 시작 시간
     private float secondsToReduce = 10.0f;
@@ -58,11 +59,15 @@ public class UI_Research : UI_Base
     private string startKey;
     private string durationKey;
     private string levelKey;
+    private string updateStatKey;
 
+    private void Awake()
+    {
+        Init();
+    }
 
     private void Start()
     {
-        Init();
 
         if (PlayerPrefs.HasKey(startKey))
         {
@@ -108,6 +113,7 @@ public class UI_Research : UI_Base
         startKey = $"ResearchStartTime_{researchUpgradeType}";
         durationKey = $"ResearchDuration_{researchUpgradeType}";
         levelKey = $"ResearchLevel_{researchUpgradeType}";
+        updateStatKey = $"ResearchStat_{researchUpgradeType}";
 
         if (!PlayerPrefs.HasKey(levelKey))
         {
@@ -126,8 +132,17 @@ public class UI_Research : UI_Base
         {
             researchDuration = PlayerPrefs.GetFloat(durationKey);
         }
-            
-        
+
+        if(!PlayerPrefs.HasKey(updateStatKey))
+        {
+            updateStat = 10;
+        }
+        else
+        {
+            updateStat = PlayerPrefs.GetFloat(updateStatKey);
+        }
+
+
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
@@ -136,6 +151,7 @@ public class UI_Research : UI_Base
         GetButton((int)Buttons.GoldSpendButton).gameObject.BindEvent(OnClickSaveTime); // 골드 사용 시 시간 감소
         GetButton((int)Buttons.JamSpendButton).gameObject.BindEvent(OnClickCompleteResearch); // 잼 사용 시 연구 완료
         GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
+        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
 
     }
 
@@ -165,7 +181,8 @@ public class UI_Research : UI_Base
     public void OnClickCompleteResearch(PointerEventData data)
     {
         if (!isResearching) return;
-
+        if (GoldBank.instance.zam < 1000) return;
+        GoldBank.instance.SpenZam(1000);
         elapsedSeconds = researchDuration;
 
         CompleteResearch();
@@ -178,6 +195,8 @@ public class UI_Research : UI_Base
     public void OnClickSaveTime(PointerEventData data)
     {
         if (!isResearching) return;
+        if (GoldBank.instance.gold < 1000) return;
+        GoldBank.instance.SpenGold(1000);
         startTime = startTime.AddSeconds(-secondsToReduce);
     }
 
@@ -192,15 +211,17 @@ public class UI_Research : UI_Base
         GetTextMeshProUGUI((int)Texts.FillText).text = "0%/100%";
         GetButton((int)Buttons.UpgradeButton).interactable = true;
         researchDuration += 10.0f;
+        updateStat += 10.0f;
         updateLevel++;
         PlayerPrefs.DeleteKey(startKey);
         PlayerPrefs.SetFloat(durationKey, researchDuration);
         PlayerPrefs.SetInt(levelKey, updateLevel);
+        PlayerPrefs.SetFloat(updateStatKey, updateStat);
         PlayerPrefs.Save();
         StatUpgrade(researchUpgradeType); // 스탯 업그레이드
        
         GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
-        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드";
+        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
         Debug.Log($"다음 연구시간 : {researchDuration}");
     }
 
