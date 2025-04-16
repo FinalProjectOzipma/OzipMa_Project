@@ -22,11 +22,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: b3046420bfde06647834fc194e4b063e
-    m_Address: TestSFX
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6d384141f9f5e1c47992c1fd08f2718a
     m_Address: AudioControler
     m_ReadOnly: 0

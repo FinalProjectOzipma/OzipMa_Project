@@ -52,11 +52,11 @@ public class AuidoControler : MonoBehaviour
     {
         sfxPrefab = Managers.Audio.sfxPrefab;
         bgmSource = this.GetComponent<AudioSource>();
-        BuildBGMDictionary();
-        BuildSFXictionary();
-        InitSFXPool();
-        LoadVolumes();
-        LoadMuteSettings();
+        BuildBGMDictionary(); // bgmData를 딕셔너리 형태로 변환
+        BuildSFXictionary(); // sfxData를 딕셔너리 형태로 변환
+        InitSFXPool(); // sfx 오브젝트 풀 초기화
+        LoadVolumes(); // 저장된 볼륨 값 로드
+        LoadMuteSettings(); // 저장된 음소거 설정 로드
     }
 
     private void Start()
@@ -87,7 +87,6 @@ public class AuidoControler : MonoBehaviour
             }
         }
     }
-
 
     /// <summary>
     /// sfxData에 오디오 클립들을 딕셔너리에 저장할 매서드

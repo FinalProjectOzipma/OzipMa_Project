@@ -197,7 +197,7 @@ public class UI_Research : UI_Base
         PlayerPrefs.SetFloat(durationKey, researchDuration);
         PlayerPrefs.SetInt(levelKey, updateLevel);
         PlayerPrefs.Save();
-        StatUpgrade(researchUpgradeType);
+        StatUpgrade(researchUpgradeType); // 스탯 업그레이드
        
         GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
         GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드";
