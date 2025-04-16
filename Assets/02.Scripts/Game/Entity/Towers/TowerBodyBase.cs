@@ -12,9 +12,4 @@ public class TowerBodyBase : MonoBehaviour
         Anim = Util.FindComponent<Animator>(gameObject, "MainSprite");
         AnimData = new();
     }
-
-    void Start()
-    {
-        // TODO : 등장 애니메이션 있으면 실행    
-    }
 }

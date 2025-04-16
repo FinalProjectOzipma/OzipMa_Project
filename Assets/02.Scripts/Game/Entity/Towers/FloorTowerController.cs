@@ -6,7 +6,7 @@ public class FloorTowerController : TowerControlBase
 {
     private List<EnemyController> targets = new();
     private int randomTarget = -1;
-    //private string floorKey = "TowerFloor";
+    //private string floorKey = "TowerFloor"; // 장판 오브젝트 키 
 
     protected override void Awake()
     {

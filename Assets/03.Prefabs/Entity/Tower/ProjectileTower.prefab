@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7918476577525641418
+--- !u!1001 &3033816235194988359
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -50,10 +50,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7564536453906231807, guid: adddf6dfdaa7e5b44b40dba6c7b38edc, type: 3}
       propertyPath: m_Name
-      value: TowerBrainBase
+      value: ProjectileTower
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7564536453906231807, guid: adddf6dfdaa7e5b44b40dba6c7b38edc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4779739564834745333}
   m_SourcePrefab: {fileID: 100100000, guid: adddf6dfdaa7e5b44b40dba6c7b38edc, type: 3}
+--- !u!1 &4819104597493597880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7564536453906231807, guid: adddf6dfdaa7e5b44b40dba6c7b38edc, type: 3}
+  m_PrefabInstance: {fileID: 3033816235194988359}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4779739564834745333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4819104597493597880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16c98be26f7c9dc42a0e888fee9d1e96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsPlaced: 0
