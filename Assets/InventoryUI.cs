@@ -1,16 +1,26 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class InventoryUI : UI_Scene
 {
     #region ComponentID
-    private enum InventoryObj
+    private enum GameObjects
     {
         UserObjects,
+
+        // Tab
+        OnMyUnit,
+        DisMyUnit,
+        OnTower,
+        DisTower,
+    }
+
+    private enum RectTransforms
+    {
         Contents,
     }
 
@@ -24,12 +34,6 @@ public class InventoryUI : UI_Scene
         MyUnitTab,
         TowerTab,
     }
-
-    private enum Images
-    {
-        MyUnitTab,
-        TowerTab,
-    }
     #endregion
 
     #region ResourceKey
@@ -40,15 +44,23 @@ public class InventoryUI : UI_Scene
     }
     #endregion
 
+    #region DefaultValue
+
+    Vector2 moveDistance;
+    
+    #endregion
+
     private Inventory data; 
     private List<Slot> slots = new(); // 현재 슬롯
 
     private List<IGettable> _currentList; // UI에 들고있는 현재 인벤토리 데이터
     private Type _currentTab; // 현재 탭의 타입
-    private Image _prevImage; // 이전 탭의 컴포넌트
+    private GameObject _prevOn; // 이전 탭의 컴포넌트
+    private GameObject _prevDis; // 이전 탭의 컴포넌트
 
-    // Resource Key
-    
+    // Animation
+    private bool isMove;
+    private bool isOpen;
 
     private void Awake()
     {
@@ -60,6 +72,7 @@ public class InventoryUI : UI_Scene
     {
         base.Init();
         data = Managers.Player.Inventory;
+        slots = new List<Slot>();
 
         // 이건 테스트용-------------------
         for (int i = 0; i < 20; i++)
@@ -70,9 +83,12 @@ public class InventoryUI : UI_Scene
         }
         //---------------------------------
 
-        slots = new List<Slot>(); // UI측면
         SetBind();
-        _prevImage = GetImage((int)Images.TowerTab);
+        // 바인딩 후 셋팅
+        moveDistance = GetRect((int)RectTransforms.Contents).anchoredPosition;
+        _prevOn = GetObject((int)GameObjects.OnTower);
+        _prevDis = GetObject((int)GameObjects.DisTower);
+
         OnTowerTap();
     }
 
@@ -81,9 +97,9 @@ public class InventoryUI : UI_Scene
     /// </summary>
     private void SetBind()
     {
-        Bind<GameObject>(typeof(InventoryObj));
+        Bind<GameObject>(typeof(GameObjects));
+        Bind<RectTransform>(typeof(RectTransforms));
         Bind<Button>(typeof(Buttons));
-        Bind<Image>(typeof(Images));
 
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
@@ -100,7 +116,7 @@ public class InventoryUI : UI_Scene
         _currentList = data.GetList<T>();
         _currentTab = typeof(T);
 
-        Transform trans = GetObject((int)InventoryObj.UserObjects).transform; // 부모 객체 얻어오기
+        Transform trans = GetObject((int)GameObjects.UserObjects).transform; // 부모 객체 얻어오기
 
         int cnt = 0;
         if(_currentList != null)
@@ -130,6 +146,7 @@ public class InventoryUI : UI_Scene
         
         while(cnt < trans.childCount) // 만약 이전에 슬롯이 필요없는 상황이면 비활성화
         {
+            trans.GetChild(cnt).GetComponent<Slot>().DisSelect();
             trans.GetChild(cnt++).gameObject.SetActive(false);
         }
     }
@@ -139,6 +156,7 @@ public class InventoryUI : UI_Scene
         Slot slot = slotGo.GetOrAddComponent<Slot>(); 
         slotGo.SetActive(true);
 
+        slot.DisSelect();
         slots.Add(slot);
         slot.SetData<T>(_currentList[slot.Index]);
     }
@@ -156,16 +174,29 @@ public class InventoryUI : UI_Scene
 
     private void OnMyUnitTap()
     {
-        if (_prevImage == null)
-            _prevImage = (GetImage((int)Images.MyUnitTab));
-
-        ChangeTap<MyUnit>(GetImage((int)Images.MyUnitTab));
+        ToggleTab(GetObject((int)GameObjects.OnMyUnit), GetObject((int)GameObjects.DisMyUnit));
+        Refresh<MyUnit>();
     }
-
     private void OnTowerTap()
     {
-        ChangeTap<Tower>(GetImage((int)Images.TowerTab));
+        ToggleTab(GetObject((int)GameObjects.OnTower), GetObject((int)GameObjects.DisTower));
+        Refresh<Tower>();
     }
+
+    private void ToggleTab(GameObject changeOn, GameObject changeDis)
+    {
+        if (_prevOn)
+        {
+            _prevOn.SetActive(false);
+            _prevDis.SetActive(true);
+        }
+
+        _prevOn = changeOn;
+        _prevDis = changeDis;
+        changeOn.SetActive(true);
+        changeDis.SetActive(false);
+    }
+
 
     private void OnSwipe()
     {
@@ -185,22 +216,35 @@ public class InventoryUI : UI_Scene
         {
             Refresh<Tower>();
         }
+
+        OnAnimation();
     }
 
-    private void ChangeTap<T>(Image changeImg) where T : UserObject, IGettable
+    private void OnAnimation()
     {
-        Managers.Resource.LoadAssetAsync<Sprite>(ResourceKey.TabSprite.ToString(), (spr) =>
+        RectTransform movable = GetRect((int)RectTransforms.Contents);
+        if (!isMove)
         {
-            if (_prevImage != null)
-                _prevImage.sprite = spr;
-        });
-
-        Managers.Resource.LoadAssetAsync<Sprite>(ResourceKey.SelectedTabSprite.ToString(), (spr) =>
-        {
-            changeImg.sprite = spr;
-            Refresh<T>();
-            _prevImage = changeImg;
-        });
+            isMove = true;
+            if(!isOpen)
+            {
+                isOpen = true;
+                gameObject.SetActive(true);
+                movable.transform.DOLocalMoveY(movable.localPosition.y - moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                {
+                    isMove = false;
+                });
+            }
+            else
+            {
+                movable.transform.DOLocalMoveY(movable.localPosition.y + moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                {
+                    isMove = false;
+                    isOpen = false;
+                });
+            }
+        }
+            
+        
     }
-
 }
