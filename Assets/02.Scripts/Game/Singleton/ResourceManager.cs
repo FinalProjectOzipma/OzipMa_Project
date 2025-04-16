@@ -27,7 +27,7 @@ public class ResourceManager
         return operation;
     }
 
-    private AsyncOperationHandle CreateGenericGroupOperation(AsyncOperationHandle<IList<IResourceLocation>> groupLocation, Action onComplete = null)
+    private AsyncOperationHandle CreateGenericGroupOperation<T>(AsyncOperationHandle<IList<IResourceLocation>> groupLocation, Action onComplete = null) where T : Object
     {
         var locations = groupLocation.Result;
         var keys = new List<string>(locations.Count);
@@ -37,7 +37,7 @@ public class ResourceManager
             string key = location.PrimaryKey;
             keys.Add(key);
 
-            var operation = LoadAssetAsync<Object>(key);
+            var operation = LoadAssetAsync<T>(key);
             operations.Add(operation);
         }
 
@@ -88,6 +88,8 @@ public class ResourceManager
 
     public GameObject Instantiate(GameObject original)
     {
+        if (original == null)
+            return null;
         GameObject gameObject = Object.Instantiate(original);
         gameObject.name = original.name;
 
@@ -105,11 +107,11 @@ public class ResourceManager
         Object.Destroy(gameObject);
     }
 
-    public void LoadResourceLoacationAsync(AssetLabelReference assetLabel)
+    public void LoadResourceLoacationAsync<T>(AssetLabelReference assetLabel) where T : Object
     {
         Addressables.LoadResourceLocationsAsync(assetLabel.labelString).Completed += (handle) =>
         {
-            Managers.Resource.CreateGenericGroupOperation(handle);
+            Managers.Resource.CreateGenericGroupOperation<T>(handle);
         };
     }
 }

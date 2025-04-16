@@ -52,9 +52,10 @@ public class InventoryUI : UI_Scene
     private void Awake()
     {
         Init();
+
         // ResourceLoad
         Managers.Resource.LoadAssetAsync<GameObject>("Slot");
-        Managers.Resource.LoadResourceLoacationAsync(assetLabel);
+        Managers.Resource.LoadResourceLoacationAsync<Sprite>(assetLabel);
     }
 
     public override void Init()
@@ -63,7 +64,7 @@ public class InventoryUI : UI_Scene
         data = Managers.Player.Inventory;
 
         // 이건 테스트용-------------------
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 20; i++)
         {
             Tower tower = new Tower();
             Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { tower.Init(20, sprite); });
@@ -72,11 +73,16 @@ public class InventoryUI : UI_Scene
         //---------------------------------
 
         slots = new List<Slot>(); // UI측면
+        SetBind();
+        _prevImage = GetImage((int)Images.TowerTab);
+        OnTowerTap();
+    }
+
+    private void SetBind()
+    {
         Bind<GameObject>(typeof(InventoryObj));
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
-
-        _prevImage = GetImage((int)Images.MyUnitTab);
 
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
@@ -85,7 +91,6 @@ public class InventoryUI : UI_Scene
         GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
         GetButton((int)Buttons.TowerTab).onClick.AddListener(OnTowerTap);
         // ---------------------------------------------------------------------
-        OnTowerTap();
     }
 
     public void Refresh<T>() where T : UserObject, IGettable
@@ -110,6 +115,8 @@ public class InventoryUI : UI_Scene
                 {
                     Managers.Resource.LoadAssetAsync<GameObject>("Slot", (go) =>
                     {
+                        if (go == null) return;
+
                         GameObject slotGo = Managers.Resource.Instantiate(go);
                         slotGo.transform.SetParent(trans);
                         slotGo.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -148,6 +155,9 @@ public class InventoryUI : UI_Scene
 
     private void OnMyUnitTap()
     {
+        if (_prevImage == null)
+            _prevImage = (GetImage((int)Images.MyUnitTab));
+
         ChangeTap<MyUnit>(GetImage((int)Images.MyUnitTab));
     }
 

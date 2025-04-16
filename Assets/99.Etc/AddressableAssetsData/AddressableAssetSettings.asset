@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: 555a46cce26ccc646bf540c352eddf7f
   m_currentHash:
     serializedVersion: 2
-    Hash: b51d5a04d76061c3c6fe79d7cbfca97e
+    Hash: 00000000000000000000000000000000
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -92,7 +92,7 @@ MonoBehaviour:
     - Circle
     - UI
     - Popup
-    - UITab
+    - InventoryUITab
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 2105134837dec9f44b7338b37fcbf576, type: 2}
