@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
+using static UnityEngine.Rendering.HDROutputUtils;
 using Object = UnityEngine.Object;
 
 public class ResourceManager
@@ -27,7 +28,7 @@ public class ResourceManager
         return operation;
     }
 
-    private AsyncOperationHandle CreateGenericGroupOperation<T>(AsyncOperationHandle<IList<IResourceLocation>> groupLocation, Action onComplete = null) where T : Object
+    private AsyncOperationHandle CreateGenericGroupOperation(AsyncOperationHandle<IList<IResourceLocation>> groupLocation, Action onComplete = null)
     {
         var locations = groupLocation.Result;
         var keys = new List<string>(locations.Count);
@@ -37,7 +38,7 @@ public class ResourceManager
             string key = location.PrimaryKey;
             keys.Add(key);
 
-            var operation = LoadAssetAsync<T>(key);
+            var operation = LoadAssetAsync<Object>(key);
             operations.Add(operation);
         }
 
@@ -53,6 +54,22 @@ public class ResourceManager
 
         Addressables.Release(groupLocation);
         return groupOperation;
+    }
+
+    public AsyncOperationHandle LoadGroupAssetAsync<T>(string groupKey, string assetKey, Action<T> onComplete = null) where T : Object
+    {
+        // 키에 있는지부터 확인
+        if (this.keys.TryGetValue(groupKey, out var keys))
+        {
+            if(this.operations.TryGetValue(groupKey, out var operation))
+            {
+                var operations = operation.Result as List<AsyncOperationHandle>;
+                onComplete?.Invoke(operations[keys.IndexOf(assetKey)].Result as T);
+                return operations[keys.IndexOf(assetKey)];
+            }
+        }
+
+        return LoadAssetAsync<T>(assetKey, onComplete);
     }
 
     public void Release(string label)
@@ -107,11 +124,11 @@ public class ResourceManager
         Object.Destroy(gameObject);
     }
 
-    public void LoadResourceLoacationAsync<T>(AssetLabelReference assetLabel) where T : Object
+    public void LoadResourceLoacationAsync(string assetLabel, Action onComplete = null)
     {
-        Addressables.LoadResourceLocationsAsync(assetLabel.labelString).Completed += (handle) =>
+        Addressables.LoadResourceLocationsAsync(assetLabel).Completed += (handle) =>
         {
-            Managers.Resource.CreateGenericGroupOperation<T>(handle);
+            CreateGenericGroupOperation(handle, onComplete);
         };
     }
 }
