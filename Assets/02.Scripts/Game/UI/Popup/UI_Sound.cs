@@ -22,7 +22,8 @@ public class UI_Sound : UI_Base
         SFXSlider
     }
 
-    private void Start()
+
+    private void Awake()
     {
         Init();
     }
@@ -123,7 +124,7 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickExitButton(PointerEventData data)
     {
-
+        this.gameObject.SetActive(false);
         Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
     }
 
