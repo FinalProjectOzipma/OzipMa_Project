@@ -8,7 +8,7 @@ public class Managers : MonoBehaviour
     public static Managers Instance { get; private set; }
     public static MonoBehaviour MonoInstance { get; private set; }
 
-    //public static readonly AudioManager Audio = new();
+    public static readonly AudioManager Audio = new();
     //public static readonly CameraManager Camera = new();
     public static readonly GameManager Game = new();
     //public static readonly InputManager Input = new();
@@ -36,8 +36,11 @@ public class Managers : MonoBehaviour
         Pool.Initialize();
         Data.Initialize();
         Scene.Initialize();
+
+        Wave.Initialize();
+        Audio.Initialize();
         Player.Initialize();
-        //Wave.Initialize();
+
     }
 
     public new static Coroutine StartCoroutine(IEnumerator coroutine)
