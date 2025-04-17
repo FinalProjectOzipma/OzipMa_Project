@@ -46,6 +46,8 @@ public class AudioManager
                     Addressables.LoadAssetAsync<GameObject>(location).Completed += assetHandle =>
                     {
                         sfxPrefab = assetHandle.Result;
+                        audioControler.sfxPrefab = sfxPrefab;
+                        audioControler.InitSFXPool();
                     };
                 }
             }

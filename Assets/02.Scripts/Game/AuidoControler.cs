@@ -54,7 +54,7 @@ public class AudioControler : MonoBehaviour
         bgmSource = this.GetComponent<AudioSource>();
         BuildBGMDictionary(); // bgmData를 딕셔너리 형태로 변환
         BuildSFXictionary(); // sfxData를 딕셔너리 형태로 변환
-        InitSFXPool(); // sfx 오브젝트 풀 초기화
+        //InitSFXPool(); // sfx 오브젝트 풀 초기화
         LoadVolumes(); // 저장된 볼륨 값 로드
         LoadMuteSettings(); // 저장된 음소거 설정 로드
     }
