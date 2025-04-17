@@ -18,6 +18,14 @@ public class UI_ResearchScene : UI_Base
         ZamText
     }
 
+    enum UIObject
+    {
+        AttackUpgrade,
+        DefenceUpgrade,
+        RandomUpgrade
+    }
+
+
     private void Awake()
     {
         Init();
@@ -27,8 +35,10 @@ public class UI_ResearchScene : UI_Base
     {
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
-        GetTextMeshProUGUI((int)Texts.GoldText).text = GoldBank.instance.GetGold().ToString();
-        GetTextMeshProUGUI((int)Texts.ZamText).text = GoldBank.instance.GetZam().ToString();
+
+
+        GetTextMeshProUGUI((int)Texts.GoldText).text = Managers.Player.GetGold().ToString();
+        GetTextMeshProUGUI((int)Texts.ZamText).text = Managers.Player.GetZam().ToString();
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBack);
 
     }
@@ -37,31 +47,32 @@ public class UI_ResearchScene : UI_Base
 
     private void OnEnable()
     {
-        if (GoldBank.instance != null)
+        if (Managers.Player != null)
         {
-            GoldBank.instance.OnGoldChanged += UpdateGoldUI;
-            UpdateGoldUI(GoldBank.instance.GetGold());
+            Managers.Player.OnGoldChanged += UpdateGoldUI;
+            UpdateGoldUI(Managers.Player.GetGold());
         }
     }
 
     private void OnDisable()
     {
-        if (GoldBank.instance != null)
+        if (Managers.Player != null)
         {
-            GoldBank.instance.OnGoldChanged -= UpdateGoldUI;
+            Managers.Player.OnGoldChanged -= UpdateGoldUI;
         }
 
     }
 
-    private void UpdateGoldUI(int gold)
+    private void UpdateGoldUI(long gold)
     {
-        GetTextMeshProUGUI((int)Texts.GoldText).text = GoldBank.instance.GetGold().ToString();
-        GetTextMeshProUGUI((int)Texts.ZamText).text = GoldBank.instance.GetZam().ToString();
+        GetTextMeshProUGUI((int)Texts.GoldText).text = Util.FormatNumber(Managers.Player.GetGold());
+        GetTextMeshProUGUI((int)Texts.ZamText).text = Util.FormatNumber(Managers.Player.GetZam());
     }
 
     public void OnClickBack(PointerEventData data)
     {
         this.gameObject.SetActive(false);
+        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
 

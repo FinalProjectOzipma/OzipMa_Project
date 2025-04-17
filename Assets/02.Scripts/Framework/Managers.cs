@@ -40,6 +40,7 @@ public class Managers : MonoBehaviour
         Wave.Initialize();
         Audio.Initialize();
         Player.Initialize();
+       
 
     }
 
