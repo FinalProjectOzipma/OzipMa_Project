@@ -14,8 +14,9 @@ public class Enums
         Count
     }
 
-    public enum UnitAtkType
+    public enum AtkType
     {
+        None,
         Near,
         Far,
 

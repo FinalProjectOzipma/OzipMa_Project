@@ -33,7 +33,7 @@ public class AudioManager
         Managers.Resource.LoadAssetAsync<GameObject>("AudioSource", go =>
         {
             sfxPrefab = go;
-            audioControler.sfxPrefab = sfxPrefab;
+            audioControler.sfxPrefab = sfxPrefab; // 오이도 매니저
             audioControler.InitSFXPool();
         });
 

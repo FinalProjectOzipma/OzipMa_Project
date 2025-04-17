@@ -1,16 +1,30 @@
+using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class MyUnitStatus : StatusBase
+public class EnemyStatus : StatusBase
 {
+    public int Key;
     public EntityHealth Health;
     public float MaxHealth;
 
-    public FloatBase Defence;
+    public List<FloatBase> Defences;
     public FloatBase MoveSpeed;
     public Enums.AtkType AtkType;
+    public IntegerBase Reward;
+    public bool IsBoss;
 
-    public MyUnitStatus(Dictionary<string, object> Row)
+    public EnemyStatus(Dictionary<string, object> Row)
     {
+        Health = new EntityHealth();
+        MaxHealth = Health.GetValue();
+        Defences = new List<FloatBase>();
+        MoveSpeed = new FloatBase();
+        AtkType = Enums.AtkType.None;
+        Reward = new IntegerBase();
+        IsBoss = false;
+
         // TODO:: 연두님과 진실의 방
 
         /*name = Row[“Name”];
