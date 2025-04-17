@@ -16,8 +16,8 @@ public class WaveManager
 
     public void StartWave(int id)
     {
-        DefaultTable.Wave waveTable = dataManager.Datas["Wave"][id] as DefaultTable.Wave;
-        List<GoogleSheet.ITable> enemyTable = dataManager.Datas["EnemyTable"];
+        DefaultTable.Wave waveTable = dataManager.Datas[Enums.Sheet.Wave][id] as DefaultTable.Wave;
+        List<GoogleSheet.ITable> enemyTable = dataManager.Datas[Enums.Sheet.Enemy];
         int needEnemyAmount = waveTable.EnemyAmount;
         int needMyUnitAmount = 5;
 
