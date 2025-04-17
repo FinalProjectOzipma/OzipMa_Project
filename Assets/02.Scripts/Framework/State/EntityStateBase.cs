@@ -4,8 +4,8 @@ using UnityEngine;
 
 public abstract class EntityStateBase
 {
-    protected Animator Anim { get; private set; }
-    protected StateMachine StateMachine { get; private set; }
+    protected Animator Anim { get; set; }
+    protected StateMachine StateMachine { get; set; }
     protected int animHashKey;
 
     public EntityStateBase(StateMachine stateMachine, int animHashKey)
