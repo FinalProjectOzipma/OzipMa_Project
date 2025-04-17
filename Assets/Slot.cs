@@ -54,6 +54,13 @@ public class Slot : UI_Scene
         GetImage((int)Images.Selected).gameObject.SetActive(true);
     }
 
+    public void DisSelect()
+    {
+        IsActive = false;
+        GetImage((int)Images.Selected).gameObject.SetActive(false);
+    }
+
+
     public void SetData<T>(IGettable gettable) where T : UserObject
     {
         

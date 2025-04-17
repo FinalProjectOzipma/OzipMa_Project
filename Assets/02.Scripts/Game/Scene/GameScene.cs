@@ -10,6 +10,6 @@ public class GameScene : SceneBase
 {
     public GameScene()
     {
-        //LabelAsync = Addressables.LoadResourceLocationsAsync();
+        LabelAsync = nameof(GameScene);
     }
 }

@@ -16,7 +16,8 @@ public abstract class UI_Base : MonoBehaviour
 	{
 		string[] names = Enum.GetNames(type);
 		UnityEngine.Object[] objects = new UnityEngine.Object[names.Length];
-		_objects.Add(typeof(T), objects);
+        if (_objects.TryGetValue(typeof(T), out var value) == false)
+		    _objects.Add(typeof(T), objects);
 
 		for (int i = 0; i < names.Length; i++)
 		{
@@ -43,6 +44,8 @@ public abstract class UI_Base : MonoBehaviour
 	protected TextMeshProUGUI GetText(int idx) { return Get<TextMeshProUGUI>(idx); }
 	protected Button GetButton(int idx) { return Get<Button>(idx); }
 	protected Image GetImage(int idx) { return Get<Image>(idx); }
+
+    protected RectTransform GetRect(int idx) { return Get<RectTransform>(idx); }
 
 	public static void BindEvent(GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
 	{

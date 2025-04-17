@@ -44,7 +44,7 @@ public class Util
 		}
         else
         {
-            foreach (T component in go.GetComponentsInChildren<T>())
+            foreach (T component in go.GetComponentsInChildren<T>(true))
             {
                 if (string.IsNullOrEmpty(name) || component.name == name)
                     return component;
@@ -146,7 +146,6 @@ public class Util
         }
         return res;
     }
-
 
     // 디버그를 위한
     public static void Log(string message)
