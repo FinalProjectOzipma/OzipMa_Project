@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,8 +46,17 @@ public class InventoryUI : UI_Scene
 
     #region DefaultValue
 
-    Vector2 moveDistance;
-    
+    private Vector2 _moveDistance;
+
+    #endregion
+
+    #region State
+    private STATE _currentState = STATE.SELECTABLE;
+    private enum STATE
+    {
+        SELECTABLE,
+        PUTABLE,
+    }
     #endregion
 
     private Inventory data; 
@@ -85,7 +95,7 @@ public class InventoryUI : UI_Scene
 
         SetBind();
         // 바인딩 후 셋팅
-        moveDistance = GetRect((int)RectTransforms.Contents).anchoredPosition;
+        _moveDistance = GetRect((int)RectTransforms.Contents).anchoredPosition;
         _prevOn = GetObject((int)GameObjects.OnTower);
         _prevDis = GetObject((int)GameObjects.DisTower);
 
@@ -93,7 +103,7 @@ public class InventoryUI : UI_Scene
     }
 
     /// <summary>
-    /// 
+    /// 바인딩
     /// </summary>
     private void SetBind()
     {
@@ -107,6 +117,7 @@ public class InventoryUI : UI_Scene
         // Tap -----------------------------------------------------------------
         GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
         GetButton((int)Buttons.TowerTab).onClick.AddListener(OnTowerTap);
+        GetButton((int)Buttons.PutBtn).onClick.AddListener(OnPut);
         // ---------------------------------------------------------------------
     }
 
@@ -175,39 +186,19 @@ public class InventoryUI : UI_Scene
     private void OnMyUnitTap()
     {
         ToggleTab(GetObject((int)GameObjects.OnMyUnit), GetObject((int)GameObjects.DisMyUnit));
+        GetButton((int)Buttons.PutBtn).gameObject.SetActive(false);
         Refresh<MyUnit>();
     }
     private void OnTowerTap()
     {
         ToggleTab(GetObject((int)GameObjects.OnTower), GetObject((int)GameObjects.DisTower));
+        GetButton((int)Buttons.PutBtn).gameObject.SetActive(true);
         Refresh<Tower>();
-    }
-
-    private void ToggleTab(GameObject changeOn, GameObject changeDis)
-    {
-        if (_prevOn)
-        {
-            _prevOn.SetActive(false);
-            _prevDis.SetActive(true);
-        }
-
-        _prevOn = changeOn;
-        _prevDis = changeDis;
-        changeOn.SetActive(true);
-        changeDis.SetActive(false);
     }
 
 
     private void OnSwipe()
     {
-        // DoTween
-
-        if (_currentList == null)
-        {
-            Refresh<MyUnit>();
-            return;
-        }
-
         if (_currentTab == typeof(MyUnit))
         {
             Refresh<MyUnit>();
@@ -230,19 +221,40 @@ public class InventoryUI : UI_Scene
             {
                 isOpen = true;
                 gameObject.SetActive(true);
-                movable.transform.DOLocalMoveY(movable.localPosition.y - moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+                movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
                 });
             }
             else
             {
-                movable.transform.DOLocalMoveY(movable.localPosition.y + moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
                     isOpen = false;
                 });
             }
         }   
+    }
+    private void ToggleTab(GameObject changeOn, GameObject changeDis)
+    {
+        if (_prevOn)
+        {
+            _prevOn.SetActive(false);
+            _prevDis.SetActive(true);
+        }
+
+        _prevOn = changeOn;
+        _prevDis = changeDis;
+        changeOn.SetActive(true);
+        changeDis.SetActive(false);
+    }
+    
+    private void OnPut()
+    {
+        Refresh<Tower>();
+        _currentState = STATE.PUTABLE;
+
+        // TODO::
     }
 }
