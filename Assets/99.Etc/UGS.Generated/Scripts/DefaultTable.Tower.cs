@@ -24,7 +24,7 @@ namespace DefaultTable
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
-        static string sheetID = "0"; // it is sheet id
+        static string sheetID = "619238944"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
@@ -59,8 +59,12 @@ namespace DefaultTable
 		public System.Int32 TowerKey;
 		public System.String Name;
 		public System.String Description;
+		public RankType Rank;
+		public System.Single AttackDamage;
+		public System.Single AttackCoolDown;
 		public TowerAtkType AttackType;
-		public System.Collections.Generic.List<String> TowerTypes;
+		public System.Single AttackRange;
+		public System.Collections.Generic.List<String> TowerType;
   
 
 #region fuctions

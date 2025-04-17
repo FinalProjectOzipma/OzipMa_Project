@@ -17,47 +17,50 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Wave : ITable
+    public partial class Stage : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Wave> loadedList, Dictionary<int, Wave> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Stage> loadedList, Dictionary<int, Stage> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
-        static string sheetID = "94035015"; // it is sheet id
+        static string sheetID = "0"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Wave> WaveMap = new Dictionary<int, Wave>();  
-        public static List<Wave> WaveList = new List<Wave>();   
+        public static Dictionary<int, Stage> StageMap = new Dictionary<int, Stage>();  
+        public static List<Stage> StageList = new List<Stage>();   
 
         /// <summary>
-        /// Get Wave List 
+        /// Get Stage List 
         /// Auto Load
         /// </summary>
-        public static List<Wave> GetList()
+        public static List<Stage> GetList()
         {{
            if (isLoaded == false) Load();
-           return WaveList;
+           return StageList;
         }}
 
         /// <summary>
-        /// Get Wave Dictionary, keyType is your sheet A1 field type.
+        /// Get Stage Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Wave>  GetDictionary()
+        public static Dictionary<int, Stage>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return WaveMap;
+           return StageMap;
         }}
 
     
 
 /* Fields. */
 
-		public System.Int32 ID;
-		public System.Int32 EnemyAmount;
+		public System.Int32 StagePrimaryKey;
+		public System.Int32 StageNum;
+		public System.Int32 TowerAmont;
+		public System.Single RewordRatio;
+		public System.Single ModifierRatio;
   
 
 #region fuctions
@@ -68,7 +71,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Wave is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("Stage is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -84,7 +87,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Wave>, Dictionary<int, Wave>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Stage>, Dictionary<int, Stage>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -112,14 +115,14 @@ namespace DefaultTable
                
 
 
-    public static (List<Wave> list, Dictionary<int, Wave> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Wave> Map = new Dictionary<int, Wave>();
-            List<Wave> List = new List<Wave>();     
+    public static (List<Stage> list, Dictionary<int, Stage> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, Stage> Map = new Dictionary<int, Stage>();
+            List<Stage> List = new List<Stage>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Wave).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Stage).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Wave"];
+            var sheet = jsonObject["Stage"];
 
             foreach (var column in sheet.Keys)
             {
@@ -138,7 +141,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Wave instance = new Wave();
+                            Stage instance = new Stage();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -175,12 +178,12 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.ID, instance);
+                            Map.Add(instance.StagePrimaryKey, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            WaveList = List;
-                            WaveMap = Map;
+                            StageList = List;
+                            StageMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -190,10 +193,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(Wave data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(Stage data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Wave).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Stage).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

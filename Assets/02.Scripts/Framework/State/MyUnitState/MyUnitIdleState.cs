@@ -27,7 +27,7 @@ public class MyUnitIdleState : MyUnitStateBase
     public override void Exit()
     {
         base.Exit();
-        Anim.SetBool(animHashKey, true);
+        Anim.SetBool(animHashKey, false);
     }
 
     public override void Update()

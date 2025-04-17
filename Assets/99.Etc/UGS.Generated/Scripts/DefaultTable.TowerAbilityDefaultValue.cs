@@ -17,47 +17,51 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Wave : ITable
+    public partial class TowerAbilityDefaultValue : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Wave> loadedList, Dictionary<int, Wave> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<TowerAbilityDefaultValue> loadedList, Dictionary<int, TowerAbilityDefaultValue> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
-        static string sheetID = "94035015"; // it is sheet id
+        static string sheetID = "328510563"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Wave> WaveMap = new Dictionary<int, Wave>();  
-        public static List<Wave> WaveList = new List<Wave>();   
+        public static Dictionary<int, TowerAbilityDefaultValue> TowerAbilityDefaultValueMap = new Dictionary<int, TowerAbilityDefaultValue>();  
+        public static List<TowerAbilityDefaultValue> TowerAbilityDefaultValueList = new List<TowerAbilityDefaultValue>();   
 
         /// <summary>
-        /// Get Wave List 
+        /// Get TowerAbilityDefaultValue List 
         /// Auto Load
         /// </summary>
-        public static List<Wave> GetList()
+        public static List<TowerAbilityDefaultValue> GetList()
         {{
            if (isLoaded == false) Load();
-           return WaveList;
+           return TowerAbilityDefaultValueList;
         }}
 
         /// <summary>
-        /// Get Wave Dictionary, keyType is your sheet A1 field type.
+        /// Get TowerAbilityDefaultValue Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Wave>  GetDictionary()
+        public static Dictionary<int, TowerAbilityDefaultValue>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return WaveMap;
+           return TowerAbilityDefaultValueMap;
         }}
 
     
 
 /* Fields. */
 
-		public System.Int32 ID;
-		public System.Int32 EnemyAmount;
+		public System.Int32 TowerKey;
+		public TowerType AbilityType;
+		public System.Single AbilityValue
+;
+		public System.Single AbilityDuration;
+		public System.Single AbilityCooldown;
   
 
 #region fuctions
@@ -68,7 +72,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Wave is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("TowerAbilityDefaultValue is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -84,7 +88,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Wave>, Dictionary<int, Wave>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<TowerAbilityDefaultValue>, Dictionary<int, TowerAbilityDefaultValue>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -112,14 +116,14 @@ namespace DefaultTable
                
 
 
-    public static (List<Wave> list, Dictionary<int, Wave> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Wave> Map = new Dictionary<int, Wave>();
-            List<Wave> List = new List<Wave>();     
+    public static (List<TowerAbilityDefaultValue> list, Dictionary<int, TowerAbilityDefaultValue> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, TowerAbilityDefaultValue> Map = new Dictionary<int, TowerAbilityDefaultValue>();
+            List<TowerAbilityDefaultValue> List = new List<TowerAbilityDefaultValue>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Wave).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(TowerAbilityDefaultValue).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Wave"];
+            var sheet = jsonObject["TowerAbilityDefaultValue"];
 
             foreach (var column in sheet.Keys)
             {
@@ -138,7 +142,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Wave instance = new Wave();
+                            TowerAbilityDefaultValue instance = new TowerAbilityDefaultValue();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -175,12 +179,12 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.ID, instance);
+                            Map.Add(instance.TowerKey, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            WaveList = List;
-                            WaveMap = Map;
+                            TowerAbilityDefaultValueList = List;
+                            TowerAbilityDefaultValueMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -190,10 +194,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(Wave data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(TowerAbilityDefaultValue data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Wave).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(TowerAbilityDefaultValue).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {
