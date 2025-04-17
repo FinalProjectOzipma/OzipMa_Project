@@ -27,8 +27,8 @@ public class WaveManager
         if (enemyCoroutine != null) Managers.MonoInstance.StopCoroutine(enemyCoroutine);
         if (unitCoroutine != null) Managers.MonoInstance.StopCoroutine(unitCoroutine);
 
-        enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
-        unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
+        //enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
+        //unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
     }
 
     private IEnumerator EnemySpawnCoroutine(int spawnAmount, float spawnTime, List<GoogleSheet.ITable> enemyTable)

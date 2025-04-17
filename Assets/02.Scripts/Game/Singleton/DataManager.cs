@@ -11,9 +11,12 @@ public class DataManager
     public void Initialize()
     {
         // 필요한 데이터들을 Load 및 Datas에 캐싱해두는 작업
-        LoadData<DefaultTable.Tower>();
-        LoadData<DefaultTable.Enemy>();
+        LoadData<DefaultTable.Stage>();
         LoadData<DefaultTable.Wave>();
+        LoadData<DefaultTable.PlayerMonster>();
+        LoadData<DefaultTable.Enemy>();
+        LoadData<DefaultTable.Tower>();
+        LoadData<DefaultTable.TowerAbilityDefaultValue>();
     }
 
     public void LoadData<T>() where T : ITable

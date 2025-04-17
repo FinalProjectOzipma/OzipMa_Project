@@ -6,7 +6,7 @@ public class UserObject
 {
     public string Name;
     public string Description;
-    public Enums.RankType RankType;
+    public RankType RankType;
 
     public Sprite Sprite { get; set; } // UI에 표시될 오브젝트 이미지
     public IntegerBase Level { get; set; } = new IntegerBase();

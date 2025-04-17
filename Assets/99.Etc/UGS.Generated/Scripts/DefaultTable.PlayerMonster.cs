@@ -17,47 +17,57 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Wave : ITable
+    public partial class PlayerMonster : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Wave> loadedList, Dictionary<int, Wave> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<PlayerMonster> loadedList, Dictionary<int, PlayerMonster> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
-        static string sheetID = "94035015"; // it is sheet id
+        static string sheetID = "1185079578"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Wave> WaveMap = new Dictionary<int, Wave>();  
-        public static List<Wave> WaveList = new List<Wave>();   
+        public static Dictionary<int, PlayerMonster> PlayerMonsterMap = new Dictionary<int, PlayerMonster>();  
+        public static List<PlayerMonster> PlayerMonsterList = new List<PlayerMonster>();   
 
         /// <summary>
-        /// Get Wave List 
+        /// Get PlayerMonster List 
         /// Auto Load
         /// </summary>
-        public static List<Wave> GetList()
+        public static List<PlayerMonster> GetList()
         {{
            if (isLoaded == false) Load();
-           return WaveList;
+           return PlayerMonsterList;
         }}
 
         /// <summary>
-        /// Get Wave Dictionary, keyType is your sheet A1 field type.
+        /// Get PlayerMonster Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Wave>  GetDictionary()
+        public static Dictionary<int, PlayerMonster>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return WaveMap;
+           return PlayerMonsterMap;
         }}
 
     
 
 /* Fields. */
 
-		public System.Int32 ID;
-		public System.Int32 EnemyAmount;
+		public System.Int32 PlayerMonsterPrimaryKey;
+		public System.String Name;
+		public System.String Description;
+		public System.Single Health;
+		public System.Single Attack;
+		public System.Collections.Generic.List<Single> Defence;
+		public System.Single MoveSpeed;
+		public RankType Rank;
+		public AtkType AttackType;
+		public System.Single AttackCoolDown;
+		public System.Single AttackRange;
+		public System.Single DotDamage;
   
 
 #region fuctions
@@ -68,7 +78,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Wave is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("PlayerMonster is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -84,7 +94,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Wave>, Dictionary<int, Wave>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<PlayerMonster>, Dictionary<int, PlayerMonster>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -112,14 +122,14 @@ namespace DefaultTable
                
 
 
-    public static (List<Wave> list, Dictionary<int, Wave> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Wave> Map = new Dictionary<int, Wave>();
-            List<Wave> List = new List<Wave>();     
+    public static (List<PlayerMonster> list, Dictionary<int, PlayerMonster> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, PlayerMonster> Map = new Dictionary<int, PlayerMonster>();
+            List<PlayerMonster> List = new List<PlayerMonster>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Wave).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(PlayerMonster).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Wave"];
+            var sheet = jsonObject["PlayerMonster"];
 
             foreach (var column in sheet.Keys)
             {
@@ -138,7 +148,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Wave instance = new Wave();
+                            PlayerMonster instance = new PlayerMonster();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -175,12 +185,12 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.ID, instance);
+                            Map.Add(instance.PlayerMonsterPrimaryKey, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            WaveList = List;
-                            WaveMap = Map;
+                            PlayerMonsterList = List;
+                            PlayerMonsterMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -190,10 +200,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(Wave data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(PlayerMonster data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Wave).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(PlayerMonster).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

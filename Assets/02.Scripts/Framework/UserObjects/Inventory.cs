@@ -5,13 +5,13 @@ using UnityEngine;
 public class Inventory
 {
     Dictionary<string, List<IGettable>> inventory = new Dictionary<string, List<IGettable>>();
-    Dictionary<Enums.RankType, List<IGettable>> units = new Dictionary<Enums.RankType, List<IGettable>>();
+    Dictionary<RankType, List<IGettable>> units = new Dictionary<RankType, List<IGettable>>();
 
     public Inventory()
     {
-        for(int i = 0; i < (int)Enums.RankType.Count; i++)
+        for(int i = 0; i < (int)RankType.Count; i++)
         {
-            units.Add((Enums.RankType)i, new List<IGettable>());
+            units.Add((RankType)i, new List<IGettable>());
         }
     }
 
