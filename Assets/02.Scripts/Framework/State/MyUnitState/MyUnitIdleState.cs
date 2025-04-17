@@ -33,12 +33,8 @@ public class MyUnitIdleState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target == null)
-        {
-            SetPosition();
-            StateMachine.ChangeState(data.MoveState);
-        }
-        StateMachine.ChangeState(data.ChaseState);
+        SetPosition();
+        StateMachine.ChangeState(data.MoveState);
     }
 
     public void SetPosition()

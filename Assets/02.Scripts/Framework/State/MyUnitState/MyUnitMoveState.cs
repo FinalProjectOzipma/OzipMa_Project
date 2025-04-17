@@ -31,7 +31,7 @@ public class MyUnitMoveState : MyUnitStateBase
 
     public override void Update()
     {
-        controller.DetectEnemyRaycast();
+        //controller.DetectEnemyRaycast();
         //감지된 적이 있으면
         if (controller.Target != null)
         {

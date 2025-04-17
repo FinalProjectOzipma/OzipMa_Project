@@ -29,6 +29,5 @@ public class MyUnitStateBase : EntityStateBase
 
     public override void Update()
     {
-        int a = 0;
     }
 }

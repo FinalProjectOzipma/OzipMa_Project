@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class MyUnitAnimationData : EntityAnimationData
 {
-    public StateMachine StateMachine { get; private set; }
-
     public MyUnitIdleState IdleState { get; private set; }
     public MyUnitMoveState MoveState { get; private set; }
 
@@ -15,7 +13,6 @@ public class MyUnitAnimationData : EntityAnimationData
     public override void Init(EntityController controller)
     {
         base.Init();
-        StateMachine = new StateMachine();
         IdleState = new MyUnitIdleState(StateMachine, IdleHash , controller as MyUnitController, this);
         MoveState = new MyUnitMoveState(StateMachine, MoveHash, controller as MyUnitController, this);
         AttackState = new MyUnitAttackState(StateMachine, AttackHash, controller as MyUnitController, this);
