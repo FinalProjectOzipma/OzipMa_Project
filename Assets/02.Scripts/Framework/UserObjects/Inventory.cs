@@ -7,6 +7,14 @@ public class Inventory
     Dictionary<string, List<IGettable>> inventory = new Dictionary<string, List<IGettable>>();
     Dictionary<Enums.RankType, List<IGettable>> units = new Dictionary<Enums.RankType, List<IGettable>>();
 
+    public Inventory()
+    {
+        for(int i = 0; i < (int)Enums.RankType.Count; i++)
+        {
+            units.Add((Enums.RankType)i, new List<IGettable>());
+        }
+    }
+
     public void Add<T>(T gettable) where T : UserObject, IGettable
     {
         if(inventory.ContainsKey(typeof(T).Name) == false)
