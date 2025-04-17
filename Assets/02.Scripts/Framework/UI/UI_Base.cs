@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using UnityEngine.UI;
 public abstract class UI_Base : MonoBehaviour
 {
 	protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
+    protected Sequence uiSeq; // UI시퀀스
 
 	public abstract void Init();
 
