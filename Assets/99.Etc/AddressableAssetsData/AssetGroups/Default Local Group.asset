@@ -20,7 +20,8 @@ MonoBehaviour:
   - m_GUID: 904ea5a9f3ca434459301048c2222f4b
     m_Address: TestAssets
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Audio
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5dc0ef1758b3e314ca2f682dc98405e1
     m_Address: SprSquare

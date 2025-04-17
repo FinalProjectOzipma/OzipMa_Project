@@ -17,20 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 3c6c5cb89a2f11a4b887205e5d0e4f94
   m_SerializeEntries:
-  - m_GUID: d02d95a49c32b0a49b35ae41757d3dd0
-    m_Address: BattleBGM
+  - m_GUID: 811ee1013f666214491e051041b2ab42
+    m_Address: TestAssets/Audio
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6d384141f9f5e1c47992c1fd08f2718a
-    m_Address: AudioControler
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9a40affe1cf9c1b49a7fea883e75d6e6
-    m_Address: AudioSource
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Audio
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
