@@ -42,17 +42,22 @@ public class UI_MainTest : UI_Base
         GetObject((int)UIObject.UI_Sound).SetActive(false);
         GetObject((int)UIObject.UI_Research).SetActive(false);
 
-        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = GoldBank.instance.GetGold().ToString();
-        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = GoldBank.instance.GetGold().ToString();
+        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = EconomyManager.FormatNumber(Managers.Economy.GetGold());
+        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = EconomyManager.FormatNumber(Managers.Economy.GetZam());         
+
     }
 
     public void OnClickOpenSetting(PointerEventData data)
     {
+        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
         GetObject((int)UIObject.UI_Sound).SetActive(true);
+        
     }
 
     public void OnClickOpenResearch(PointerEventData data)
     {
+        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
         GetObject((int)UIObject.UI_Research).SetActive(true);
+        
     }
 }

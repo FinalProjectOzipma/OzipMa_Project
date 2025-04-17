@@ -19,6 +19,7 @@ public class Managers : MonoBehaviour
     public static readonly DataManager Data = new();
     public static readonly WaveManager Wave = new();
     public static readonly PlayerManager Player = new();
+    public static readonly EconomyManager Economy = new();
 
     private void Awake()
     {
@@ -40,6 +41,8 @@ public class Managers : MonoBehaviour
         Wave.Initialize();
         Audio.Initialize();
         Player.Initialize();
+        Economy.Initialize();
+       
 
     }
 

@@ -1,7 +1,6 @@
 using System;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Rendering.Universal;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -44,6 +43,7 @@ public class UI_Research : UI_Base
     }
 
 
+    public UI_ResearchScene researchScene;
 
     private float researchDuration; // 연구 시간
     private float elapsedSeconds; // 경과되는 시간
@@ -53,6 +53,8 @@ public class UI_Research : UI_Base
 
     private DateTime startTime; // 업그레이드 시작 시간
     private float secondsToReduce = 10.0f;
+    private long spendGold;
+    private long spendZam;
 
     public ResearchUpgradeType researchUpgradeType;
 
@@ -60,6 +62,8 @@ public class UI_Research : UI_Base
     private string durationKey;
     private string levelKey;
     private string updateStatKey;
+    private string spendGoldKey;
+    private string spendZamKey;
 
     private void Awake()
     {
@@ -114,34 +118,65 @@ public class UI_Research : UI_Base
         durationKey = $"ResearchDuration_{researchUpgradeType}";
         levelKey = $"ResearchLevel_{researchUpgradeType}";
         updateStatKey = $"ResearchStat_{researchUpgradeType}";
+        spendGoldKey = $"ResearSpendGold_{researchUpgradeType}";
+        spendZamKey = $"ResearSpendZam_{researchUpgradeType}";
 
-        if (!PlayerPrefs.HasKey(levelKey))
-        {
-            updateLevel = 1;
-        }
-        else
-        {
-            updateLevel = PlayerPrefs.GetInt(levelKey);
-        }
 
-        if (!PlayerPrefs.HasKey(durationKey))
-        {
-            researchDuration = 10.0f;
-        }
-        else
-        {
-            researchDuration = PlayerPrefs.GetFloat(durationKey);
-        }
+        updateLevel = !PlayerPrefs.HasKey(levelKey) ? 1 : PlayerPrefs.GetInt(levelKey);
+        researchDuration = !PlayerPrefs.HasKey(durationKey) ? 10.0f : PlayerPrefs.GetFloat(durationKey);
+
 
         if(!PlayerPrefs.HasKey(updateStatKey))
         {
-            updateStat = 10;
+            if (researchUpgradeType != ResearchUpgradeType.Random)
+            {
+                updateStat = 10.0f;
+            }
+            else
+            {
+                updateStat = 5.0f;
+            }
         }
         else
         {
             updateStat = PlayerPrefs.GetFloat(updateStatKey);
         }
 
+
+        if(!PlayerPrefs.HasKey(spendGoldKey))
+        {
+            if (researchUpgradeType != ResearchUpgradeType.Random)
+            {
+                spendGold = 800L;
+            }
+            else
+            {
+                spendGold = 500L;
+            }
+        }
+        else
+        {
+            spendGold = long.Parse(PlayerPrefs.GetString(spendGoldKey));
+        }
+
+        if (!PlayerPrefs.HasKey(spendZamKey))
+        {
+            if (researchUpgradeType != ResearchUpgradeType.Random)
+            {
+                spendZam = 800L;
+            }
+            else
+            {
+                spendZam = 500L;
+            }
+        }
+        else
+        {
+            spendZam = long.Parse(PlayerPrefs.GetString(spendZamKey));
+        }
+
+
+        researchScene = GetComponentInParent<UI_ResearchScene>();
 
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
@@ -150,9 +185,12 @@ public class UI_Research : UI_Base
         GetButton((int)Buttons.UpgradeButton).gameObject.BindEvent(StartResearch); // 업그레드 시작 버튼
         GetButton((int)Buttons.GoldSpendButton).gameObject.BindEvent(OnClickSaveTime); // 골드 사용 시 시간 감소
         GetButton((int)Buttons.JamSpendButton).gameObject.BindEvent(OnClickCompleteResearch); // 잼 사용 시 연구 완료
-        GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
-        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
 
+
+        GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";      
+        GetTextMeshProUGUI((int)Texts.GoldSpendText).text = EconomyManager.FormatNumber(spendGold);
+        GetTextMeshProUGUI((int)Texts.JamSpendText).text = EconomyManager.FormatNumber(spendZam);
+        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
     }
 
     private TextMeshProUGUI GetTextMeshProUGUI(int idx) { return Get<TextMeshProUGUI>(idx); }
@@ -165,6 +203,7 @@ public class UI_Research : UI_Base
     {
         if (isResearching) return; // 이미 진행 중이면 무시
 
+
         startTime = DateTime.UtcNow;
         PlayerPrefs.SetString(startKey, startTime.ToString());
         PlayerPrefs.SetFloat(durationKey, researchDuration);
@@ -172,6 +211,7 @@ public class UI_Research : UI_Base
 
         isResearching = true;
         GetButton((int)Buttons.UpgradeButton).interactable = false;
+        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
 
@@ -181,11 +221,13 @@ public class UI_Research : UI_Base
     public void OnClickCompleteResearch(PointerEventData data)
     {
         if (!isResearching) return;
-        if (GoldBank.instance.zam < 1000) return;
-        GoldBank.instance.SpenZam(1000);
+        if (Managers.Economy.zam < spendZam) return;
+        Managers.Economy.SpenZam(spendZam);
         elapsedSeconds = researchDuration;
 
         CompleteResearch();
+        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+
     }
 
 
@@ -195,9 +237,10 @@ public class UI_Research : UI_Base
     public void OnClickSaveTime(PointerEventData data)
     {
         if (!isResearching) return;
-        if (GoldBank.instance.gold < 1000) return;
-        GoldBank.instance.SpenGold(1000);
+        if (Managers.Economy.gold < spendGold) return;
+        Managers.Economy.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
+        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
 
@@ -211,17 +254,28 @@ public class UI_Research : UI_Base
         GetTextMeshProUGUI((int)Texts.FillText).text = "0%/100%";
         GetButton((int)Buttons.UpgradeButton).interactable = true;
         researchDuration += 10.0f;
-        updateStat += 10.0f;
+
         updateLevel++;
+
+        updateStat += researchUpgradeType != ResearchUpgradeType.Random ? 10.0f : 3.0f;
+        spendGold += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
+        spendZam += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
+
         PlayerPrefs.DeleteKey(startKey);
         PlayerPrefs.SetFloat(durationKey, researchDuration);
         PlayerPrefs.SetInt(levelKey, updateLevel);
         PlayerPrefs.SetFloat(updateStatKey, updateStat);
+        PlayerPrefs.SetString(spendGoldKey,spendGold.ToString());
+        PlayerPrefs.SetString(spendZamKey, spendZam.ToString());
         PlayerPrefs.Save();
+
         StatUpgrade(researchUpgradeType); // 스탯 업그레이드
        
-        GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
-        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
+       GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
+       GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
+       GetTextMeshProUGUI((int)Texts.GoldSpendText).text = EconomyManager.FormatNumber(spendGold);
+       GetTextMeshProUGUI((int)Texts.JamSpendText).text = EconomyManager.FormatNumber(spendZam);
+
         Debug.Log($"다음 연구시간 : {researchDuration}");
     }
 
