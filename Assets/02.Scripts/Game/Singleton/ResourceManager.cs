@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reflection;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -88,6 +86,8 @@ public class ResourceManager
 
     public GameObject Instantiate(GameObject original)
     {
+        if (original == null)
+            return null;
         GameObject gameObject = Object.Instantiate(original);
         gameObject.name = original.name;
 
@@ -105,11 +105,17 @@ public class ResourceManager
         Object.Destroy(gameObject);
     }
 
-    public void LoadResourceLoacationAsync(AssetLabelReference assetLabel)
+    public void LoadResourceLoacationAsync(string assetLabel, Action onComplete = null)
     {
-        Addressables.LoadResourceLocationsAsync(assetLabel.labelString).Completed += (handle) =>
+        if (operations.TryGetValue(assetLabel, out var operation))
         {
-            Managers.Resource.CreateGenericGroupOperation(handle);
+            onComplete?.Invoke();
+            return;
+        }
+
+        Addressables.LoadResourceLocationsAsync(assetLabel).Completed += (handle) =>
+        {
+            CreateGenericGroupOperation(handle, onComplete);
         };
     }
 }

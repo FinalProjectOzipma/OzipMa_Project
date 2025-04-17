@@ -1,16 +1,27 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class InventoryUI : UI_Scene
 {
-
-    private enum InventoryObj
+    #region ComponentID
+    private enum GameObjects
     {
-        UserObjects
+        UserObjects,
+
+        // Tab
+        OnMyUnit,
+        DisMyUnit,
+        OnTower,
+        DisTower,
+    }
+
+    private enum RectTransforms
+    {
+        Contents,
     }
 
     private enum Buttons
@@ -23,47 +34,48 @@ public class InventoryUI : UI_Scene
         MyUnitTab,
         TowerTab,
     }
+    #endregion
 
-    private enum Images
+    #region ResourceKey
+    private enum ResourceKey
     {
-        MyUnitTab,
-        TowerTab,
+        TabSprite,
+        SelectedTabSprite,
     }
+    #endregion
 
-    public AssetLabelReference assetLabel;
+    #region DefaultValue
 
-    // 필요한 정보들
-    // 탭, 버튼, 슬롯
-    private Inventory data;
-    private List<Slot> slots = new();
+    Vector2 moveDistance;
+    
+    #endregion
 
-    private Transform myUnitPanel;
-    private Button[] buttons;
-    //private Tap tap;
+    private Inventory data; 
+    private List<Slot> slots = new(); // 현재 슬롯
 
-    private List<IGettable> _currentList;
-    private Type _currentTab;
-    private Image _prevImage;
+    private List<IGettable> _currentList; // UI에 들고있는 현재 인벤토리 데이터
+    private Type _currentTab; // 현재 탭의 타입
+    private GameObject _prevOn; // 이전 탭의 컴포넌트
+    private GameObject _prevDis; // 이전 탭의 컴포넌트
 
-    // Resource Key
-    string TabSprite = nameof(TabSprite);
-    string SelectedTabSprite = nameof(SelectedTabSprite);
+    // Animation
+    private bool isMove;
+    private bool isOpen;
 
     private void Awake()
     {
         Init();
-        // ResourceLoad
-        Managers.Resource.LoadAssetAsync<GameObject>("Slot");
-        Managers.Resource.LoadResourceLoacationAsync(assetLabel);
+        Managers.Resource.LoadResourceLoacationAsync(nameof(GameScene), Init);
     }
 
     public override void Init()
     {
         base.Init();
         data = Managers.Player.Inventory;
+        slots = new List<Slot>();
 
         // 이건 테스트용-------------------
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 20; i++)
         {
             Tower tower = new Tower();
             Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { tower.Init(20, sprite); });
@@ -71,12 +83,23 @@ public class InventoryUI : UI_Scene
         }
         //---------------------------------
 
-        slots = new List<Slot>(); // UI측면
-        Bind<GameObject>(typeof(InventoryObj));
-        Bind<Button>(typeof(Buttons));
-        Bind<Image>(typeof(Images));
+        SetBind();
+        // 바인딩 후 셋팅
+        moveDistance = GetRect((int)RectTransforms.Contents).anchoredPosition;
+        _prevOn = GetObject((int)GameObjects.OnTower);
+        _prevDis = GetObject((int)GameObjects.DisTower);
 
-        _prevImage = GetImage((int)Images.MyUnitTab);
+        OnTowerTap();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    private void SetBind()
+    {
+        Bind<GameObject>(typeof(GameObjects));
+        Bind<RectTransform>(typeof(RectTransforms));
+        Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
@@ -85,7 +108,6 @@ public class InventoryUI : UI_Scene
         GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
         GetButton((int)Buttons.TowerTab).onClick.AddListener(OnTowerTap);
         // ---------------------------------------------------------------------
-        OnTowerTap();
     }
 
     public void Refresh<T>() where T : UserObject, IGettable
@@ -94,7 +116,7 @@ public class InventoryUI : UI_Scene
         _currentList = data.GetList<T>();
         _currentTab = typeof(T);
 
-        Transform trans = GetObject((int)InventoryObj.UserObjects).transform; // 부모 객체 얻어오기
+        Transform trans = GetObject((int)GameObjects.UserObjects).transform; // 부모 객체 얻어오기
 
         int cnt = 0;
         if(_currentList != null)
@@ -110,6 +132,8 @@ public class InventoryUI : UI_Scene
                 {
                     Managers.Resource.LoadAssetAsync<GameObject>("Slot", (go) =>
                     {
+                        if (go == null) return;
+
                         GameObject slotGo = Managers.Resource.Instantiate(go);
                         slotGo.transform.SetParent(trans);
                         slotGo.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -122,6 +146,7 @@ public class InventoryUI : UI_Scene
         
         while(cnt < trans.childCount) // 만약 이전에 슬롯이 필요없는 상황이면 비활성화
         {
+            trans.GetChild(cnt).GetComponent<Slot>().DisSelect();
             trans.GetChild(cnt++).gameObject.SetActive(false);
         }
     }
@@ -131,6 +156,7 @@ public class InventoryUI : UI_Scene
         Slot slot = slotGo.GetOrAddComponent<Slot>(); 
         slotGo.SetActive(true);
 
+        slot.DisSelect();
         slots.Add(slot);
         slot.SetData<T>(_currentList[slot.Index]);
     }
@@ -148,16 +174,34 @@ public class InventoryUI : UI_Scene
 
     private void OnMyUnitTap()
     {
-        ChangeTap<MyUnit>(GetImage((int)Images.MyUnitTab));
+        ToggleTab(GetObject((int)GameObjects.OnMyUnit), GetObject((int)GameObjects.DisMyUnit));
+        Refresh<MyUnit>();
     }
-
     private void OnTowerTap()
     {
-        ChangeTap<Tower>(GetImage((int)Images.TowerTab));
+        ToggleTab(GetObject((int)GameObjects.OnTower), GetObject((int)GameObjects.DisTower));
+        Refresh<Tower>();
     }
+
+    private void ToggleTab(GameObject changeOn, GameObject changeDis)
+    {
+        if (_prevOn)
+        {
+            _prevOn.SetActive(false);
+            _prevDis.SetActive(true);
+        }
+
+        _prevOn = changeOn;
+        _prevDis = changeDis;
+        changeOn.SetActive(true);
+        changeDis.SetActive(false);
+    }
+
 
     private void OnSwipe()
     {
+        // DoTween
+
         if (_currentList == null)
         {
             Refresh<MyUnit>();
@@ -165,25 +209,42 @@ public class InventoryUI : UI_Scene
         }
 
         if (_currentTab == typeof(MyUnit))
+        {
             Refresh<MyUnit>();
+        }
         else
+        {
             Refresh<Tower>();
+        }
+
+        OnAnimation();
     }
 
-    private void ChangeTap<T>(Image changeImg) where T : UserObject, IGettable
+    private void OnAnimation()
     {
-        Managers.Resource.LoadAssetAsync<Sprite>(TabSprite, (spr) =>
+        RectTransform movable = GetRect((int)RectTransforms.Contents);
+        if (!isMove)
         {
-            if (_prevImage != null)
-                _prevImage.sprite = spr;
-        });
-
-        Managers.Resource.LoadAssetAsync<Sprite>(SelectedTabSprite, (spr) =>
-        {
-            changeImg.sprite = spr;
-            Refresh<T>();
-            _prevImage = changeImg;
-        });
+            isMove = true;
+            if(!isOpen)
+            {
+                isOpen = true;
+                gameObject.SetActive(true);
+                movable.transform.DOLocalMoveY(movable.localPosition.y - moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                {
+                    isMove = false;
+                });
+            }
+            else
+            {
+                movable.transform.DOLocalMoveY(movable.localPosition.y + moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                {
+                    isMove = false;
+                    isOpen = false;
+                });
+            }
+        }
+            
+        
     }
-
 }

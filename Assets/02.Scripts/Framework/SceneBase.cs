@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
@@ -9,7 +10,7 @@ public class SceneBase
 {
     public Action InitAction;
     public Action SingletonAction;
-    public AsyncOperationHandle<IList<IResourceLocation>> LabelAsync { get; set; }
+    public string LabelAsync { get; set; }
 
     public virtual void Enter()
     {
@@ -20,5 +21,6 @@ public class SceneBase
     public virtual void Exit()
     {
         InitAction = null;
+        // Managers.Resource.Release(LabelAsync); 각각의 씬마다 구현
     }
 }
