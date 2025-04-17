@@ -211,7 +211,7 @@ public class UI_Research : UI_Base
 
         isResearching = true;
         GetButton((int)Buttons.UpgradeButton).interactable = false;
-        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
 
@@ -226,7 +226,7 @@ public class UI_Research : UI_Base
         elapsedSeconds = researchDuration;
 
         CompleteResearch();
-        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
 
     }
 
@@ -240,7 +240,7 @@ public class UI_Research : UI_Base
         if (Managers.Player.gold < spendGold) return;
         Managers.Player.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
-        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
 

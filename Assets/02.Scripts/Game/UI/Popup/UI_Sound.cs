@@ -51,17 +51,17 @@ public class UI_Sound : UI_Base
     #region 볼륨 조절 설정
     public void OnChangeMasterVolume(float value)
     {
-        Managers.Audio.AudioControler.SetMasterVolume(value);
+        Managers.Audio.audioControler.SetMasterVolume(value);
     }
 
     public void OnChangeBGMVolume(float value)
     {
-        Managers.Audio.AudioControler.SetBGMVolume(value);
+        Managers.Audio.audioControler.SetBGMVolume(value);
     }
 
     public void OnChangeSFXVolume(float value)
     {
-        Managers.Audio.AudioControler.SetSFXVolume(value);
+        Managers.Audio.audioControler.SetSFXVolume(value);
     }
     #endregion
 
@@ -71,9 +71,9 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickMasterMuted(PointerEventData data)
     {
-        Managers.Audio.AudioControler.ToggleMasterMute();
+        Managers.Audio.audioControler.ToggleMasterMute();
 
-        if (Managers.Audio.AudioControler.isMasterMute)
+        if (Managers.Audio.audioControler.isMasterMute)
         {
             GetButton((int)Buttons.MasterMuteButton).GetComponent<Image>().color = Color.gray;
         }
@@ -89,9 +89,9 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickBGMMuted(PointerEventData data)
     {
-        Managers.Audio.AudioControler.ToggleBGMMute();
+        Managers.Audio.audioControler.ToggleBGMMute();
 
-        if (Managers.Audio.AudioControler.isBGMMute)
+        if (Managers.Audio.audioControler.isBGMMute)
         {
             GetButton((int)Buttons.BGMBMuteButton).GetComponent<Image>().color = Color.gray;
         }
@@ -106,9 +106,9 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickSFXMuted(PointerEventData data)
     {
-        Managers.Audio.AudioControler.ToggleSFXMute();
+        Managers.Audio.audioControler.ToggleSFXMute();
 
-        if (Managers.Audio.AudioControler.isSFXMute)
+        if (Managers.Audio.audioControler.isSFXMute)
         {
             GetButton((int)Buttons.SFMMuteButton).GetComponent<Image>().color = Color.gray;
         }
@@ -125,7 +125,7 @@ public class UI_Sound : UI_Base
     public void OnClickExitButton(PointerEventData data)
     {
         this.gameObject.SetActive(false);
-        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
     }
 
 }
