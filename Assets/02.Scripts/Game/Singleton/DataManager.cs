@@ -6,7 +6,7 @@ using UGS;
 
 public class DataManager
 {
-    public Dictionary<string, List<ITable>> Datas = new Dictionary<string, List<ITable>>();
+    public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
 
     public void Initialize()
     {
@@ -22,23 +22,29 @@ public class DataManager
     public void LoadData<T>() where T : ITable
     {
         string typeName = typeof(T).Name;
-        Datas[typeName] = new List<ITable>();
+        Enums.Sheet type;
+        Enum.TryParse<Enums.Sheet>(typeName, out type);
+        Datas[type] = new List<ITable>();
         List<T> list = UnityGoogleSheet.GetList<T>(); // GetList 내부에서 로드해둔 데이터가 없으면 LoadAllData()를 실행
         for (int i = 0; i < list.Count; i++)
         {
-            Datas[typeName].Add(list[i]);
+            Datas[type].Add(list[i]);
         }
     }
 
     public void LoadFromGoogleSheet<Key, Value>() where Value : ITable
     {
+        string typeName = typeof(Value).Name;
+        Enums.Sheet type;
+        Enum.TryParse<Enums.Sheet>(typeName, out type);
+
         UnityGoogleSheet.LoadFromGoogle<Key, Value>((list, map) =>
         {
-            Datas[typeof(Value).Name] = new List<ITable>();
+
+            Datas[type] = new List<ITable>();
             for (int i =0; i < list.Count; i++)
             {
-                Datas[nameof(Value)].Add(list[i]);
-                //Debug.Log(list[i]);
+                Datas[type].Add(list[i]);
             }
         }, true);
     }
