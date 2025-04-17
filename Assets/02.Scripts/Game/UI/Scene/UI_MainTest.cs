@@ -49,14 +49,14 @@ public class UI_MainTest : UI_Base
 
     public void OnClickOpenSetting(PointerEventData data)
     {
-        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
         GetObject((int)UIObject.UI_Sound).SetActive(true);
         
     }
 
     public void OnClickOpenResearch(PointerEventData data)
     {
-        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
         GetObject((int)UIObject.UI_Research).SetActive(true);
         
     }

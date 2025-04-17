@@ -25,7 +25,7 @@ public enum SFXClipName
     PowerUp
 }
 
-public class AuidoControler : MonoBehaviour
+public class AudioControler : MonoBehaviour
 {
     public AudioManager audioManager; // 오디오 매니저
     public BGMData bgmData; // BGM 데이터
@@ -54,7 +54,7 @@ public class AuidoControler : MonoBehaviour
         bgmSource = this.GetComponent<AudioSource>();
         BuildBGMDictionary(); // bgmData를 딕셔너리 형태로 변환
         BuildSFXictionary(); // sfxData를 딕셔너리 형태로 변환
-        InitSFXPool(); // sfx 오브젝트 풀 초기화
+        //InitSFXPool(); // sfx 오브젝트 풀 초기화
         LoadVolumes(); // 저장된 볼륨 값 로드
         LoadMuteSettings(); // 저장된 음소거 설정 로드
     }
@@ -107,7 +107,7 @@ public class AuidoControler : MonoBehaviour
     /// <summary>
     /// sfx 오디오 소스 초기화 해주는 매서드
     /// </summary>
-    private void InitSFXPool()
+    public void InitSFXPool()
     {
         for (int i = 0; i < poolSize; i++)
         {
