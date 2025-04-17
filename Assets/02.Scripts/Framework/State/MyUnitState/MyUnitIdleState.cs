@@ -7,7 +7,6 @@ using static UnityEngine.GraphicsBuffer;
 
 public class MyUnitIdleState : MyUnitStateBase
 {
-    private float detectRadius;
     private NavMeshAgent Agent;
 
     public MyUnitIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
@@ -17,68 +16,49 @@ public class MyUnitIdleState : MyUnitStateBase
         this.controller = controller;
         this.data = data;
         Agent = controller.Agent;
-        detectRadius = controller.MyUnit.Status.AttackRange.GetValue();
         StateMachine = stateMachine;
     }
     public override void Enter()
     {
         base.Enter();
+        Anim.SetBool(animHashKey, true);
     }
 
     public override void Exit()
     {
         base.Exit();
-
+        Anim.SetBool(animHashKey, true);
     }
 
     public override void Update()
     {
-        //적감지를 함.
-        GameObject target = DetectEnemyRaycast();
-
-        //감지된 적이 있으면
-        if (target != null)
+        base.Update();
+        if (controller.Target == null)
         {
-            // 추적 상태로 현재 상태 변경
-            controller.Target = target;
-            StateMachine.ChangeState(new MyUnitStateChasing(StateMachine, animHashKey, controller, data));
+            SetPosition();
+            StateMachine.ChangeState(data.MoveState);
         }
-        //감지된 적이 없는데
-        else
-        {
-            //목적지에 도착했다면
-            if (IsArrived())
-                //배회 상태로 현재 상태 변경
-                StateMachine.ChangeState(new MyUnitWanderingState(StateMachine, animHashKey, controller, data));
-        }
+        StateMachine.ChangeState(data.ChaseState);
     }
 
-    //목적지에 도착했는지 확인하는 용
-    public bool IsArrived()
+    public void SetPosition()
     {
-        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
-    }
+        NavMeshHit hit;
+        Vector2 center = controller.transform.position;
+        //float r = controller.MyUnit.Status.AttackRange.GetValue();
+        float r = 1.0f;
 
-
-    //적 감지후 감지결과를 오브젝트로 전달
-    private GameObject DetectEnemyRaycast()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(controller.transform.position, detectRadius, LayerMask.GetMask("Enemy"));
-
-        foreach (var hit in hits)
+        for (int i = 0; i < 15; i++)
         {
-            Vector2 dir = (hit.transform.position - controller.transform.position).normalized;
-            float dist = Vector2.Distance(controller.transform.position, hit.transform.position);
+            Vector2 offset = r * Random.insideUnitCircle; //반지름 r인 원에서 vector value GET
+            Vector3 samplepos = new Vector3(center.x + offset.x, center.y + offset.y);
 
-            // 장애물 무시하고 Raycast
-            RaycastHit2D ray = Physics2D.Raycast(controller.transform.position, dir, dist, LayerMask.GetMask("Enemy", "Obstacle"));
-
-            if (ray.collider != null && ray.collider.gameObject == hit.gameObject)
+            if (NavMesh.SamplePosition(samplepos, out hit, r, NavMesh.AllAreas))
             {
-                return hit.gameObject;
+                Agent.SetDestination(hit.position);
+                return;
             }
         }
-
-        return null;
+        Util.LogError("실패했당");
     }
 }

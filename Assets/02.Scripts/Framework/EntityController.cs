@@ -12,7 +12,7 @@ public abstract class EntityController : MonoBehaviour
         Anim = GetComponentInChildren<Animator>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         if(AnimData != null)
             AnimData.StateMachine.CurrentState?.Update();

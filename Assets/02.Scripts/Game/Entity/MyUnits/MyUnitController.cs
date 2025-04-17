@@ -17,28 +17,7 @@ public class MyUnitController : EntityController
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
 
-        //// 테스트용 기본값 설정
-        //Agent.speed = 3.5f;
-        //Agent.acceleration = 12f;
-        //Agent.stoppingDistance = 0.1f;
-
         FakeStart();
-    }
-
-    // 테스트용: 시작 후 우측 위 방향으로 이동 시도
-    private void Start()
-    {
-        Vector2 testTarget = (Vector2)transform.position + new Vector2(-3, -3);
-
-        if (NavMesh.SamplePosition(new Vector3(testTarget.x, testTarget.y, 0), out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
-        {
-            Util.Log($"Sampled Position: {hit.position}");
-            Agent.SetDestination(hit.position);
-        }
-        else
-        {
-            Util.LogError("NavMesh 샘플 위치 없음");
-        }
     }
 
     private void FakeStart()
@@ -64,5 +43,27 @@ public class MyUnitController : EntityController
             root = go;
             Init();
         });
+    }
+
+    //적 감지후 감지결과를 오브젝트로 전달
+    public void DetectEnemyRaycast()
+    {
+        //float detectRadius = MyUnitStatus.AttackRange;
+        float detectRadius = 1.0f;
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectRadius, LayerMask.GetMask("Enemy"));
+
+        foreach (var hit in hits)
+        {
+            Vector2 dir = (hit.transform.position - transform.position).normalized;
+            float dist = Vector2.Distance(transform.position, hit.transform.position);
+
+            // 장애물 무시하고 Raycast
+            RaycastHit2D ray = Physics2D.Raycast(transform.position, dir, dist, LayerMask.GetMask("Enemy", "Obstacle"));
+
+            if (ray.collider != null && ray.collider.gameObject == hit.gameObject)
+            {
+                Target = hit.gameObject;
+            }
+        }
     }
 }
