@@ -64,7 +64,7 @@ namespace DefaultTable
 		public System.Single AttackCoolDown;
 		public TowerAtkType AttackType;
 		public System.Single AttackRange;
-		public System.Collections.Generic.List<String> TowerType;
+		public System.Collections.Generic.List<Int32> TowerType;
   
 
 #region fuctions
