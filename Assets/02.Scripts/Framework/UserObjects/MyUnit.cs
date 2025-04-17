@@ -16,7 +16,7 @@ public class MyUnit : UserObject, IGettable
     public override void Init(int maxStack, Sprite sprite)
     {
         base.Init(maxStack, sprite);
-        Status.Health.SetValue(Status.MaxHealth);
+        //Status.Health.SetValue(Status.MaxHealth);
     }
 
     public void AddHealth(float amount) => Status.Health.AddValue(amount);

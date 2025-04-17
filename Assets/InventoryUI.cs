@@ -71,9 +71,10 @@ public class InventoryUI : UI_Scene
     private bool isMove;
     private bool isOpen;
 
+    private bool isSelected = false;
+
     private void Awake()
     {
-        Init();
         Managers.Resource.LoadResourceLoacationAsync(nameof(GameScene), Init);
     }
 
@@ -85,12 +86,21 @@ public class InventoryUI : UI_Scene
         uiSeq = Util.RecyclableSequence();
 
         // 이건 테스트용-------------------
+        for (int i = 0; i < 10; i++)
+        {
+            MyUnit unit = new MyUnit();
+            Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { unit.Init(20, sprite); });
+            data.Add<MyUnit>(unit);
+        }
+
         for (int i = 0; i < 20; i++)
         {
             Tower tower = new Tower();
             Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { tower.Init(20, sprite); });
             data.Add<Tower>(tower);
         }
+
+        
         //---------------------------------
 
         SetBind();
@@ -123,6 +133,7 @@ public class InventoryUI : UI_Scene
 
     public void Refresh<T>() where T : UserObject, IGettable
     {
+        isSelected = false;
         slots.Clear();
         _currentList = data.GetList<T>();
         _currentTab = typeof(T);
@@ -179,8 +190,13 @@ public class InventoryUI : UI_Scene
 
         for (int i = 0; i < _currentList.Count; i++)
         {
-            slots[i].OnSelect();
+            if (!isSelected)
+                slots[i].OnSelect();
+            else
+                slots[i].DisSelect();
         }
+
+        isSelected = !isSelected;
     }   
 
     private void OnMyUnitTap()
