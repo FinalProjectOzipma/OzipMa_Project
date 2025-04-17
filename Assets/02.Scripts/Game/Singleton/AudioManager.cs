@@ -14,21 +14,30 @@ public class AudioManager
     [Range(0f, 1f)] public float bgmVolume = 1f; // BGM 볼륨
     [Range(0f, 1f)] public float sfxVolume = 1f; // SFX 볼륨
 
-    public AuidoControler AudioControler; // 
+    public AudioControler audioControler; // 
     public GameObject sfxPrefab; // 효과음 재생을 위한 오브젝트 프리팹
 
     public void Initialize()
     {
         Managers.Resource.Instantiate("AudioControler", go =>
         {
+
             go.transform.SetParent(Managers.Instance.transform);
-            AudioControler = go.GetComponent<AuidoControler>();
-            AudioControler.Initialize();
-            AudioControler.audioManager = this;
+            audioControler = go.GetComponent<AudioControler>();
+            audioControler.Initialize();
+            audioControler.audioManager = this;
 
         });
 
-        Managers.Resource.LoadAssetAsync<GameObject>("AudioSource", go => sfxPrefab = go);
+
+        Managers.Resource.LoadAssetAsync<GameObject>("AudioSource", go =>
+        {
+            sfxPrefab = go;
+            audioControler.sfxPrefab = sfxPrefab;
+            audioControler.InitSFXPool();
+        });
+
+
     }
 
 

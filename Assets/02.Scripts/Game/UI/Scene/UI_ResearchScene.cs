@@ -72,7 +72,7 @@ public class UI_ResearchScene : UI_Base
     public void OnClickBack(PointerEventData data)
     {
         this.gameObject.SetActive(false);
-        Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
 
