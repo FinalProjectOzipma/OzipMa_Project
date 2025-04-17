@@ -42,8 +42,8 @@ public class UI_MainTest : UI_Base
         GetObject((int)UIObject.UI_Sound).SetActive(false);
         GetObject((int)UIObject.UI_Research).SetActive(false);
 
-        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = EconomyManager.FormatNumber(Managers.Economy.GetGold());
-        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = EconomyManager.FormatNumber(Managers.Economy.GetZam());         
+        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
+        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());         
 
     }
 

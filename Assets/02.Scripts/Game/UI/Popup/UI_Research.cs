@@ -188,8 +188,8 @@ public class UI_Research : UI_Base
 
 
         GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";      
-        GetTextMeshProUGUI((int)Texts.GoldSpendText).text = EconomyManager.FormatNumber(spendGold);
-        GetTextMeshProUGUI((int)Texts.JamSpendText).text = EconomyManager.FormatNumber(spendZam);
+        GetTextMeshProUGUI((int)Texts.GoldSpendText).text = Util.FormatNumber(spendGold);
+        GetTextMeshProUGUI((int)Texts.JamSpendText).text = Util.FormatNumber(spendZam);
         GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
     }
 
@@ -221,8 +221,8 @@ public class UI_Research : UI_Base
     public void OnClickCompleteResearch(PointerEventData data)
     {
         if (!isResearching) return;
-        if (Managers.Economy.zam < spendZam) return;
-        Managers.Economy.SpenZam(spendZam);
+        if (Managers.Player.zam < spendZam) return;
+        Managers.Player.SpenZam(spendZam);
         elapsedSeconds = researchDuration;
 
         CompleteResearch();
@@ -237,8 +237,8 @@ public class UI_Research : UI_Base
     public void OnClickSaveTime(PointerEventData data)
     {
         if (!isResearching) return;
-        if (Managers.Economy.gold < spendGold) return;
-        Managers.Economy.SpenGold(spendGold);
+        if (Managers.Player.gold < spendGold) return;
+        Managers.Player.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
         Managers.Audio.AudioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
@@ -273,8 +273,8 @@ public class UI_Research : UI_Base
        
        GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
-       GetTextMeshProUGUI((int)Texts.GoldSpendText).text = EconomyManager.FormatNumber(spendGold);
-       GetTextMeshProUGUI((int)Texts.JamSpendText).text = EconomyManager.FormatNumber(spendZam);
+       GetTextMeshProUGUI((int)Texts.GoldSpendText).text = Util.FormatNumber(spendGold);
+       GetTextMeshProUGUI((int)Texts.JamSpendText).text = Util.FormatNumber(spendZam);
 
         Debug.Log($"다음 연구시간 : {researchDuration}");
     }
