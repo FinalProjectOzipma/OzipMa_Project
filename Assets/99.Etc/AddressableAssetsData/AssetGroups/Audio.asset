@@ -17,8 +17,8 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 3c6c5cb89a2f11a4b887205e5d0e4f94
   m_SerializeEntries:
-  - m_GUID: 811ee1013f666214491e051041b2ab42
-    m_Address: TestAssets/Audio
+  - m_GUID: 6d384141f9f5e1c47992c1fd08f2718a
+    m_Address: TestAssets/Audio/AudioControler.prefab
     m_ReadOnly: 0
     m_SerializedLabels:
     - Audio
