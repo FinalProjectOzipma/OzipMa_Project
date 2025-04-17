@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,6 +72,7 @@ public class InventoryUI : UI_Scene
         base.Init();
         data = Managers.Player.Inventory;
         slots = new List<Slot>();
+        uiSeq = Util.RecyclableSequence();
 
         // 이건 테스트용-------------------
         for (int i = 0; i < 20; i++)
@@ -230,7 +230,7 @@ public class InventoryUI : UI_Scene
             {
                 isOpen = true;
                 gameObject.SetActive(true);
-                movable.transform.DOLocalMoveY(movable.localPosition.y - moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                movable.transform.DOLocalMoveY(movable.localPosition.y - moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
                 });
@@ -243,8 +243,6 @@ public class InventoryUI : UI_Scene
                     isOpen = false;
                 });
             }
-        }
-            
-        
+        }   
     }
 }
