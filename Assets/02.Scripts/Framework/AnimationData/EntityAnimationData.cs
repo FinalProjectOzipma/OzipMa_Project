@@ -14,10 +14,10 @@ public class EntityAnimationData
     public int IdleHash { get; private set; }
     public int MoveHash { get; private set; }
     public int AttackHash { get; private set; }
+    public int ChaseHash { get; private set; } 
     #endregion
 
-    //StateMachine
-    public StateMachine StateMachine { get; private set; }
+    public StateMachine StateMachine { get; protected set; }
 
     public virtual void Init(EntityController controller = null)
     {
