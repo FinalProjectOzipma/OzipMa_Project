@@ -20,24 +20,20 @@ public class EnemyController : EntityController
     }
   
 
-    public override void Init()
+    public override void Init(int primaryKey, string name, Vector2 position, GameObject gameObject = null)
     {
-        base.Init();
+        base.Init(primaryKey, name, position);
         //EnemyStatus = new EnemyStatus(Row);
         AnimData = new EnemyAnimationData();
         AnimData.Init(this);
     }
 
-    public override void TakeRoot(UserObject Info)
+    public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
-        GameObject root;
-        Managers.Resource.Instantiate(Info.Name, go =>
+        Managers.Resource.Instantiate(Name, go =>
         {
-            /*MyUnit = Info as MyUnit;
-            MyUnitStatus = MyUnit.Status;*/
             go.transform.SetParent(transform);
-            root = go;
-            Init();
+            Init(primaryKey, name, position, go);
         });
     }
 }

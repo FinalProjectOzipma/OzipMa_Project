@@ -12,6 +12,7 @@ public class MyUnitIdleState : MyUnitStateBase
     public MyUnitIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
         this.Anim = controller.Anim;
+        //this.Rigid = controller.Rigid;
         this.animHashKey = animHashKey;
         this.controller = controller;
         this.data = data;

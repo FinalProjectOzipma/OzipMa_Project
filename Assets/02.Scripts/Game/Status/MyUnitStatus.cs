@@ -2,30 +2,36 @@ using System.Collections.Generic;
 
 public class MyUnitStatus : StatusBase
 {
-    public EntityHealth Health;
+    public EntityHealth Health = new();
     public float MaxHealth;
 
-    public FloatBase Defence;
-    public FloatBase MoveSpeed;
-    public AtkType AtkType;
+    public List<FloatBase> Defences = new();
+    public FloatBase MoveSpeed = new();
 
-    public MyUnitStatus()
+    public MyUnitStatus(int PrimaryKey, List<DefaultTable.MyUnit> Row)
     {
-        // TODO:: 연두님과 진실의 방
+        var result = Row[PrimaryKey];
 
-        /*name = Row[“Name”];
-        description = Row[“Descriptopn”];
-        rankType = Row[“RankType”];
+        Health.SetValue(result.Health);
+        MaxHealth = Health.GetValue();
 
-        health.SetStat(Row[“Health”]);
-        maxHealth = health;
+        Attack.SetValue(result.Attack);
+        for(int i = 0; i < result.Defence.Count; i++)
+        {
+            Defences[i] = new FloatBase();
+            Defences[i].SetValue(result.Defence[i]);
+        }
 
-        attack.SetStat(Row[“Attack”]); 
-        defence.SetStat(Row[“Defence”]);
-        moveSpeed.SetStat(Row[“MoveSpeed”]);
-        attackType = Row[“AttackType”];
-        attackCooldown.SetStat(Row[“AttackCooldown”]);
-        attackRange.SetStat(Row[“AttackRange”]);
-        level = 1;*/
+        MoveSpeed.SetValue(result.MoveSpeed);
+
+        AttackCoolDown.SetValue(result.AttackCoolDown);
+        AttackRange.SetValue(result.AttackRange);
+
+        Level.SetValue(1);
+        Stack.SetValue(0);
+        MaxStack.SetValue(20);
+        MaxLevel.SetValue(20);
+        Grade.SetValue(0);
+
     }
 }

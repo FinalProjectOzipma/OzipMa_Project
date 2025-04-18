@@ -7,11 +7,7 @@ using static Enums;
 
 public class TowerStatus : StatusBase
 {
-    public TowerAtkType AtkType;
-    public List<TowerType> TowerType;
-    //public List<데이터테이블.TowerAbilityDefaultValue> Abilities;
-
-    public TowerStatus(Dictionary<string, List<GoogleSheet.ITable>> Row)
+    public TowerStatus(int id)
     {
         // TODO :: 타워 속성 받기
 

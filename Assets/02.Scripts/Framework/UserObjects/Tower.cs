@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class Tower : UserObject, IGettable
 {
+    public List<TowerType> TowerType;
     public TowerStatus Status { get; set; }
+    public TowerAtkType AtkType { get; set; }
+
     public T GetClassAddress<T>() where T : UserObject
     {
         return this as T;

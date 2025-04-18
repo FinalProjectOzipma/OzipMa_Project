@@ -7,23 +7,27 @@ public class MyUnit : UserObject, IGettable
 {
 
     public MyUnitStatus Status { get; set; }
+    public AtkType AtkType { get; set; }
 
     public T GetClassAddress<T>() where T : UserObject
     {
         return this as T;
     }
 
-    public override void Init(int maxStack, Sprite sprite)
+    public override void Init(int primaryKey, Sprite sprite)
     {
-        base.Init(maxStack, sprite);
-        //Status.Health.SetValue(Status.MaxHealth);
+        var result = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
+        base.Init(primaryKey, sprite);
+
+        Status = new MyUnitStatus(primaryKey, result);
+        AtkType = result[primaryKey].AttackType;
     }
 
     public void AddHealth(float amount) => Status.Health.AddValue(amount);
     
-    public void GradeUpdate()
+    /*public void GradeUpdate()
     {
-        if (Grade.Value >= MaxGrade.Value)
+        if (Status.Grade.Value >= MaxGrade.Value)
         {
             Debug.Log("Grade is already Over!");
             return;
@@ -46,7 +50,7 @@ public class MyUnit : UserObject, IGettable
             return;
         }
 
-        int singleUpgradeCost = Grade.Value /* * (int)RankType*/;
+        int singleUpgradeCost = Grade.Value *//* * (int)RankType*//*;
         int totalCost = singleUpgradeCost * count;
 
         //할인가 계산
@@ -59,7 +63,7 @@ public class MyUnit : UserObject, IGettable
             Debug.Log("There is no Money.");
         }
         LevelUpdate(count);
-    }
+    }*/ // 손나박한나 나만 믿어 ( 개발 리더 )
 
     public void LevelUpdate(int value = 1)
     {

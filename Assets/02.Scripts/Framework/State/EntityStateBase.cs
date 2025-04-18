@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class EntityStateBase
 {
     protected Animator Anim { get; set; }
+    // protected RigidBody2D Rigid {get; set;}
     protected StateMachine StateMachine { get; set; }
     protected int animHashKey;
 

@@ -11,7 +11,7 @@ public class EnemyStatus : StatusBase
 
     public List<FloatBase> Defences;
     public FloatBase MoveSpeed;
-    public Enums.AtkType AtkType;
+    public AtkType AtkType;
     public IntegerBase Reward;
     public bool IsBoss;
 
@@ -21,7 +21,7 @@ public class EnemyStatus : StatusBase
         MaxHealth = Health.GetValue();
         Defences = new List<FloatBase>();
         MoveSpeed = new FloatBase();
-        AtkType = Enums.AtkType.None;
+        //AtkType = AtkType.None;
         Reward = new IntegerBase();
         IsBoss = false;
 
