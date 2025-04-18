@@ -9,7 +9,7 @@ public class MyUnitStatus : StatusBase
     public FloatBase MoveSpeed;
     public AtkType AtkType;
 
-    public MyUnitStatus(Dictionary<string, object> Row)
+    public MyUnitStatus()
     {
         // TODO:: 연두님과 진실의 방
 

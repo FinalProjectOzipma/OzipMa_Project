@@ -1,25 +1,30 @@
+using GoogleSheet;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Table = DefaultTable;
 
 public class WaveManager
 {
-    private DataManager dataManager;
     private Coroutine enemyCoroutine;
     private Coroutine unitCoroutine;
     private int liveEnemyCount = 0;
 
+    private List<Table.Wave> waveList;
+    private List<Table.Enemy> enemyList;
+
+    private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
+
     public void Initialize()
     {
-        dataManager = Managers.Data;
+        waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);
+        enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
     }
 
     public void StartWave(int id)
     {
-        DefaultTable.Wave waveTable = dataManager.Datas[Enums.Sheet.Wave][id] as DefaultTable.Wave;
-        List<GoogleSheet.ITable> enemyTable = dataManager.Datas[Enums.Sheet.Enemy];
-        int needEnemyAmount = waveTable.EnemyAmount;
-        int needMyUnitAmount = 5;
+        int needEnemyAmount = waveList[id].EnemyAmount;
+        //int needMyUnitAmount = 5;
 
         liveEnemyCount = needEnemyAmount;
 
@@ -31,7 +36,7 @@ public class WaveManager
         //unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
     }
 
-    private IEnumerator EnemySpawnCoroutine(int spawnAmount, float spawnTime, List<GoogleSheet.ITable> enemyTable)
+    private IEnumerator EnemySpawnCoroutine(int spawnAmount, List<GoogleSheet.ITable> enemyTable)
     {
         while (spawnAmount > 0)
         {
@@ -39,7 +44,7 @@ public class WaveManager
             int selected = UnityEngine.Random.Range(1, enemyTable.Count + 1);
             DefaultTable.Enemy selectedEnemyInfo = enemyTable[selected] as DefaultTable.Enemy;
             Managers.Resource.Instantiate(selectedEnemyInfo.Name);
-            yield return new WaitForSeconds(spawnTime);
+            yield return spawnTime;
         }
     }
 
@@ -52,7 +57,7 @@ public class WaveManager
             // 예: 인벤토리 기반 소환
             // MyUnit selectedUnit = Managers.Inventory.GetRandomMyUnit();
             // Managers.Resource.Instantiate(selectedUnit.Name);
-            yield return new WaitForSeconds(spawnTime);
+            yield return spawnTime;
         }
     }
 }

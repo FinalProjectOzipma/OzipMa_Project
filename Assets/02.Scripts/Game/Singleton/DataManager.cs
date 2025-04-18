@@ -20,7 +20,7 @@ public class DataManager
     }
 
     /// <summary>
-    /// idx번째 행 DefaultTable.ITable 타입의 
+    /// idx번째 행 DefaultTable.ITable 타입의 나는 패연두
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="sheetType"></param>
