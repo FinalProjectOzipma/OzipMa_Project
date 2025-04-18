@@ -64,8 +64,8 @@ public class InventoryUI : UI_Scene
 
     private List<IGettable> _currentList; // UI에 들고있는 현재 인벤토리 데이터
     private Type _currentTab; // 현재 탭의 타입
-    private GameObject _prevOn; // 이전 탭의 컴포넌트
-    private GameObject _prevDis; // 이전 탭의 컴포넌트
+    private GameObject prevOn; // 이전 탭의 컴포넌트
+    private GameObject prevDis; // 이전 탭의 컴포넌트
 
     // Animation
     private bool isMove;
@@ -106,8 +106,8 @@ public class InventoryUI : UI_Scene
         SetBind();
         // 바인딩 후 셋팅
         _moveDistance = GetRect((int)RectTransforms.Contents).anchoredPosition;
-        _prevOn = GetObject((int)GameObjects.OnTower);
-        _prevDis = GetObject((int)GameObjects.DisTower);
+        prevOn = GetObject((int)GameObjects.OnTower);
+        prevDis = GetObject((int)GameObjects.DisTower);
 
         OnTowerTap();
     }
@@ -254,14 +254,14 @@ public class InventoryUI : UI_Scene
     }
     private void ToggleTab(GameObject changeOn, GameObject changeDis)
     {
-        if (_prevOn)
+        if (prevOn)
         {
-            _prevOn.SetActive(false);
-            _prevDis.SetActive(true);
+            prevOn.SetActive(false);
+            prevDis.SetActive(true);
         }
 
-        _prevOn = changeOn;
-        _prevDis = changeDis;
+        prevOn = changeOn;
+        prevDis = changeDis;
         changeOn.SetActive(true);
         changeDis.SetActive(false);
     }
