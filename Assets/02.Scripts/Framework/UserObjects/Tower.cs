@@ -9,6 +9,8 @@ public class Tower : UserObject, IGettable
     public TowerStatus Status { get; set; }
     public TowerAtkType AtkType { get; set; }
 
+    public List<TowerType> TowerTypes = new();
+
     public T GetClassAddress<T>() where T : UserObject
     {
         return this as T;

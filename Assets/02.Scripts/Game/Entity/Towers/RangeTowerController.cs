@@ -14,7 +14,7 @@ public class RangeTowerController : TowerControlBase
             //target.DefaultAttack(TowerStatus.Attack);
 
             //속성 모두 적용
-            foreach(TowerType type in TowerStatus.TowerType)
+            foreach(TowerType type in Tower.TowerTypes)
             {
                 switch (type)
                 {
