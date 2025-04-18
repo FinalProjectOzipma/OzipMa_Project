@@ -6,13 +6,13 @@ public class EntityAnimationData
 {
     #region ParameterName
     private string idleParameterName = "Idle";
-    private string MoveParameterName = "Move"; 
+    private string ChaseParameterName = "Chase"; 
     private string AttackParameterName = "Attack";
     #endregion
 
     #region HashProperty
     public int IdleHash { get; private set; }
-    public int MoveHash { get; private set; }
+    public int ChaseHash { get; private set; }
     public int AttackHash { get; private set; }
     #endregion
 
@@ -20,8 +20,8 @@ public class EntityAnimationData
 
     public virtual void Init(EntityController controller = null)
     {
-        //IdleHash = Animator.StringToHash(idleParameterName);
-        //MoveHash = Animator.StringToHash(MoveParameterName);
+        IdleHash = Animator.StringToHash(idleParameterName);
+        ChaseHash = Animator.StringToHash(ChaseParameterName);
         AttackHash = Animator.StringToHash(AttackParameterName);
 
         StateMachine = new();

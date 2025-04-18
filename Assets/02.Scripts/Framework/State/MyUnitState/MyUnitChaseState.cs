@@ -7,10 +7,10 @@ using UnityEngine.AI;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
-public class MyUnitMoveState : MyUnitStateBase
+public class MyUnitChaseState : MyUnitStateBase
 {
     public NavMeshAgent Agent;
-    public MyUnitMoveState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public MyUnitChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
         StateMachine = stateMachine;
         this.Anim = controller.Anim;

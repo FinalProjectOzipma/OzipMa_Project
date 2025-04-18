@@ -24,9 +24,6 @@ public class MyUnit : UserObject, IGettable
 
     public void AddHealth(float amount) => GetUpCasting<MyUnitStatus>().Health.AddValue(amount);
     
-    /*public void GradeUpdate()
-    public void AddHealth(float amount) => Status.Health.AddValue(amount);
-
     public void GradeUpdate()
     {
         if (Status.Grade.Value >= MaxGrade.Value)

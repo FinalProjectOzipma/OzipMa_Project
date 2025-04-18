@@ -27,7 +27,6 @@ public class MyUnitAttackState : MyUnitStateBase
 
     public override void Update()
     {
-        base.Update();
         //타겟이 비어있다면 
         if (controller.Target == null)
         {
@@ -36,7 +35,7 @@ public class MyUnitAttackState : MyUnitStateBase
         //타겟을 때릴 수 있는가
         if (!controller.IsClose())
             //전투 상태로 현재 상태 변경
-            StateMachine.ChangeState(data.MoveState);
+            StateMachine.ChangeState(data.ChaseState);
     }
 
 }

@@ -46,7 +46,7 @@ public class MyUnitIdleState : MyUnitStateBase
             }
             else
             {
-                StateMachine.ChangeState(data.MoveState);
+                StateMachine.ChangeState(data.ChaseState);
             }
         }
     }
