@@ -6,7 +6,6 @@ using UnityEngine;
 public class Tower : UserObject, IGettable
 {
     public List<TowerType> TowerType;
-    public TowerStatus Status { get; set; }
     public TowerAtkType AtkType { get; set; }
 
     public T GetClassAddress<T>() where T : UserObject
@@ -17,6 +16,7 @@ public class Tower : UserObject, IGettable
     public override void Init(int maxStack, Sprite sprite)
     {
         base.Init(maxStack,sprite);
+        //Status = new TowerStatus();
     }
 
     public void GradeUpdate()

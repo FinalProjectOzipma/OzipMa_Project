@@ -66,10 +66,11 @@ public class Slot : UI_Scene
         
         Gettable = gettable;
         T obj = gettable.GetClassAddress<T>();
+        var status = obj.Status;
         _sprite = obj.Sprite;
         GetImage((int)Images.Icon).sprite = _sprite;
-        GetText((int)TextMeshs.ObjInfo).text = $"LV.{obj.Level.GetValue()}\r\nEV.{obj.Grade.GetValue()}";
-        GetImage((int)Images.StackGageFill).fillAmount = obj.Stack.GetValue() % obj.MaxStack.GetValue();
-        GetText((int)TextMeshs.StackText).text = $"{obj.Stack.GetValue()}/{obj.MaxStack.GetValue()}";
+        GetText((int)TextMeshs.ObjInfo).text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
+        GetImage((int)Images.StackGageFill).fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
+        GetText((int)TextMeshs.StackText).text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
     }
 }

@@ -13,4 +13,13 @@ public class StatusBase
     public IntegerBase MaxStack { get; set; } = new IntegerBase();
     public IntegerBase MaxLevel { get; set; } = new IntegerBase();
     public IntegerBase Grade { get; set; } = new IntegerBase();
+
+    public StatusBase()
+    {
+        Level.SetValue(1);
+        Stack.SetValue(0);
+        MaxStack.SetValue(20);
+        MaxLevel.SetValue(20);
+        Grade.SetValue(0);
+    }
 }
