@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,994 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_0
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 610
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13a8cce689858174a808787de3e6052d
+      internalID: -917445231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_1
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 610
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c36ce291f17168247b6356c612c7316e
+      internalID: 1339097313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_2
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 609
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8ccdbd7643032943b9715bb0cae6760
+      internalID: -1950856723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_3
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 609
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af112f0e2477e9f4b804a2a8fb6ff4ee
+      internalID: -887815616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_4
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 610
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa2b9559572e3b341b16b61651888cab
+      internalID: -831092874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_5
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 610
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8569ff57c60d28a4b849ab56c5affc27
+      internalID: -92526433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_6
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 609
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57f5467e4bd959f48a8548c82d53d01c
+      internalID: -823876537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_7
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 609
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 669b48c14f1453044a4602ed30a0de2f
+      internalID: -1177434051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_8
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 515
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d498b76ced7f9da41977b65e1f273bf5
+      internalID: -2054863261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_9
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 518
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57919b1527d26a74e9bb550f2e5f118f
+      internalID: 1967810951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_10
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 519
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a956d6f1aeba8c048ba76f793b2b298f
+      internalID: -1127868845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_11
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 518
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc0c306f41ded534482c70d373d09d9e
+      internalID: 1724648660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_12
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 515
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e572c2a3c458c947abf149ff239394c
+      internalID: -889918902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_13
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 518
+        width: 29
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79cac7c88f82fa847a3e2b000343c55c
+      internalID: 1523372384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_14
+      rect:
+        serializedVersion: 2
+        x: 609
+        y: 519
+        width: 29
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bd41158a22e9a642a5c690d306958ad
+      internalID: 1305897856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_15
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 518
+        width: 29
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b89703fbbd4ad644b2b8abaf5e492b7
+      internalID: -1060347347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_16
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 418
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fce76727bd9d1d439567f3b72701f78
+      internalID: 867794789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_17
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 418
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58fbbed1b30cd48498620f63d830946c
+      internalID: -1012441486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_18
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 417
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c2aa5e517262e343ac788c4755926ce
+      internalID: 1427518283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_19
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 417
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67b553c5eac463942964a6290975ce25
+      internalID: -1746308342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_20
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 418
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 271b6c67cb5e7eb4d8c2423f684717b7
+      internalID: -1020884783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_21
+      rect:
+        serializedVersion: 2
+        x: 514
+        y: 418
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 662b33e74b734b0418b065323ec64a12
+      internalID: -1784222124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_22
+      rect:
+        serializedVersion: 2
+        x: 610
+        y: 417
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 986d22e4688ca3f4d9aabe1ea59fbfc4
+      internalID: -1193899112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_23
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 417
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c3d5b157b2c2b749889c3cfa26e7065
+      internalID: 2058803882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_24
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 322
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb4bfe4d8e5775f4583ae6424ecdff0d
+      internalID: 1438402227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_25
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 321
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03c5a0df22c3d274fbcbb09f4b275832
+      internalID: 247640741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_26
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 322
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf4c4bcbfb62b6b4ca144afe81011c63
+      internalID: 542083111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_27
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 322
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a47f813fe9755e42bc81592ce22d322
+      internalID: -2013800488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_28
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 322
+        width: 26
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92c01ab717b4e834e96405788ae33fff
+      internalID: -2015681494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_29
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 226
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e66212995c27c646847b206fed15cbd
+      internalID: 1063938630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_30
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 228
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b2d689e9c7178643beec0f057e861ee
+      internalID: 1657693024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_31
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 228
+        width: 26
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 749cfc4ca06ad82499cd80cd11d7c8e8
+      internalID: -1064634395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_32
+      rect:
+        serializedVersion: 2
+        x: 317
+        y: 228
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17f2c433aa8fc2b45b3f696a04770465
+      internalID: -746234042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_33
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 225
+        width: 32
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 608bc0d92711c164a81b1e390e03c8d5
+      internalID: -1791595730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_34
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 226
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d57766309b14ce4babf50ba5e076807
+      internalID: 455413962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_35
+      rect:
+        serializedVersion: 2
+        x: 616
+        y: 225
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f80ec1103e5515244bd1f85aaced7875
+      internalID: 1341648334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_36
+      rect:
+        serializedVersion: 2
+        x: 708
+        y: 226
+        width: 23
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0965becbff6d4d45b291e85dece34b2
+      internalID: -1787366928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_37
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 130
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d7c6fa0935230b43bdd64fa292cc7eb
+      internalID: -1577002636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_38
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 129
+        width: 19
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bf94d13e8bcef74da8cfde7b617696d
+      internalID: 1122467666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_39
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 130
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cc25efe4751caf4f8fa7eb41d0ce513
+      internalID: 1570771181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_40
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 130
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41af46105c526e446aad61b583119f26
+      internalID: -358470569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_41
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 130
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c80febb807338c84392b3ade50bfdd0f
+      internalID: -938222938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_42
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 34
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 834097bfafc1df748ab1c4a1c81c8cc7
+      internalID: 762384742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_43
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 32
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c334469b36a7843b49ba6fc2dcfbaf
+      internalID: -319033750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_44
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 36
+        width: 36
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5e953ae3db121f4385776ee828020ad
+      internalID: -334174242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_45
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 36
+        width: 36
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a3abbfb257a86b40aea77eb4bb6c81a
+      internalID: -1960876925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Royal Swordsman Sprite Sheet - Alternate 1_46
+      rect:
+        serializedVersion: 2
+        x: 419
+        y: 36
+        width: 36
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 712db1df0b08bd64388aeb002fc6c028
+      internalID: -1584206754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +1132,54 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Royal Swordsman Sprite Sheet - Alternate 1_0: -917445231
+      Royal Swordsman Sprite Sheet - Alternate 1_1: 1339097313
+      Royal Swordsman Sprite Sheet - Alternate 1_10: -1127868845
+      Royal Swordsman Sprite Sheet - Alternate 1_11: 1724648660
+      Royal Swordsman Sprite Sheet - Alternate 1_12: -889918902
+      Royal Swordsman Sprite Sheet - Alternate 1_13: 1523372384
+      Royal Swordsman Sprite Sheet - Alternate 1_14: 1305897856
+      Royal Swordsman Sprite Sheet - Alternate 1_15: -1060347347
+      Royal Swordsman Sprite Sheet - Alternate 1_16: 867794789
+      Royal Swordsman Sprite Sheet - Alternate 1_17: -1012441486
+      Royal Swordsman Sprite Sheet - Alternate 1_18: 1427518283
+      Royal Swordsman Sprite Sheet - Alternate 1_19: -1746308342
+      Royal Swordsman Sprite Sheet - Alternate 1_2: -1950856723
+      Royal Swordsman Sprite Sheet - Alternate 1_20: -1020884783
+      Royal Swordsman Sprite Sheet - Alternate 1_21: -1784222124
+      Royal Swordsman Sprite Sheet - Alternate 1_22: -1193899112
+      Royal Swordsman Sprite Sheet - Alternate 1_23: 2058803882
+      Royal Swordsman Sprite Sheet - Alternate 1_24: 1438402227
+      Royal Swordsman Sprite Sheet - Alternate 1_25: 247640741
+      Royal Swordsman Sprite Sheet - Alternate 1_26: 542083111
+      Royal Swordsman Sprite Sheet - Alternate 1_27: -2013800488
+      Royal Swordsman Sprite Sheet - Alternate 1_28: -2015681494
+      Royal Swordsman Sprite Sheet - Alternate 1_29: 1063938630
+      Royal Swordsman Sprite Sheet - Alternate 1_3: -887815616
+      Royal Swordsman Sprite Sheet - Alternate 1_30: 1657693024
+      Royal Swordsman Sprite Sheet - Alternate 1_31: -1064634395
+      Royal Swordsman Sprite Sheet - Alternate 1_32: -746234042
+      Royal Swordsman Sprite Sheet - Alternate 1_33: -1791595730
+      Royal Swordsman Sprite Sheet - Alternate 1_34: 455413962
+      Royal Swordsman Sprite Sheet - Alternate 1_35: 1341648334
+      Royal Swordsman Sprite Sheet - Alternate 1_36: -1787366928
+      Royal Swordsman Sprite Sheet - Alternate 1_37: -1577002636
+      Royal Swordsman Sprite Sheet - Alternate 1_38: 1122467666
+      Royal Swordsman Sprite Sheet - Alternate 1_39: 1570771181
+      Royal Swordsman Sprite Sheet - Alternate 1_4: -831092874
+      Royal Swordsman Sprite Sheet - Alternate 1_40: -358470569
+      Royal Swordsman Sprite Sheet - Alternate 1_41: -938222938
+      Royal Swordsman Sprite Sheet - Alternate 1_42: 762384742
+      Royal Swordsman Sprite Sheet - Alternate 1_43: -319033750
+      Royal Swordsman Sprite Sheet - Alternate 1_44: -334174242
+      Royal Swordsman Sprite Sheet - Alternate 1_45: -1960876925
+      Royal Swordsman Sprite Sheet - Alternate 1_46: -1584206754
+      Royal Swordsman Sprite Sheet - Alternate 1_5: -92526433
+      Royal Swordsman Sprite Sheet - Alternate 1_6: -823876537
+      Royal Swordsman Sprite Sheet - Alternate 1_7: -1177434051
+      Royal Swordsman Sprite Sheet - Alternate 1_8: -2054863261
+      Royal Swordsman Sprite Sheet - Alternate 1_9: 1967810951
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
