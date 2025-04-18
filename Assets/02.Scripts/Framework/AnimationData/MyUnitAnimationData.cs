@@ -8,7 +8,6 @@ public class MyUnitAnimationData : EntityAnimationData
     public MyUnitMoveState MoveState { get; private set; }
 
     public MyUnitAttackState AttackState { get; private set; }
-    public MyUnitChasingState ChaseState { get; private set; }
 
     public override void Init(EntityController controller)
     {
@@ -16,7 +15,6 @@ public class MyUnitAnimationData : EntityAnimationData
         IdleState = new MyUnitIdleState(StateMachine, IdleHash , controller as MyUnitController, this);
         MoveState = new MyUnitMoveState(StateMachine, MoveHash, controller as MyUnitController, this);
         AttackState = new MyUnitAttackState(StateMachine, AttackHash, controller as MyUnitController, this);
-        ChaseState = new MyUnitChasingState(StateMachine, ChaseHash, controller as MyUnitController, this);
         StateMachine.Init(IdleState);
     }
 }

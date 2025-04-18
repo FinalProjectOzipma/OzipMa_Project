@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,7 +18,6 @@ public class MyUnitMoveState : MyUnitStateBase
         this.data = data;
         this.animHashKey = animHashKey;
         Agent = controller.Agent;
-
     }
     
 
@@ -36,24 +36,19 @@ public class MyUnitMoveState : MyUnitStateBase
     public override void Update()
     {
         //controller.DetectEnemyRaycast();
-        //감지된 적이 있으면
-        if (controller.Target != null)
+        //타겟이 없다면
+        if (controller.Target == null)
         {
-            StateMachine.ChangeState(data.ChaseState);
+            //Idle상태로 현재 상태 변경
+            StateMachine.ChangeState(data.IdleState);
         }
-        //감지된 적이 없는데
+        //타겟이 있는데
         else
         {
-            //목적지에 도착했다면
-            if (IsArrived())
-                //정지 상태로 현재 상태 변경
-                StateMachine.ChangeState(data.IdleState);
+            //타겟을 때릴 수 있는가
+            if (controller.IsClose())
+                //전투 상태로 현재 상태 변경
+                StateMachine.ChangeState(data.AttackState);
         }
-    }
-
-    //목적지에 도착했는지 확인하는 용
-    public bool IsArrived()
-    {
-        return !Agent.pathPending && Agent.remainingDistance <= Agent.stoppingDistance;
     }
 }

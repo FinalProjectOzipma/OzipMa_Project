@@ -32,6 +32,5 @@ public class MyUnitStatus : StatusBase
         MaxStack.SetValue(20);
         MaxLevel.SetValue(20);
         Grade.SetValue(0);
-
     }
 }
