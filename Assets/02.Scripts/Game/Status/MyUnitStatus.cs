@@ -7,7 +7,7 @@ public class MyUnitStatus : StatusBase
 
     public FloatBase Defence;
     public FloatBase MoveSpeed;
-    public Enums.AtkType AtkType;
+    public AtkType AtkType;
 
     public MyUnitStatus(Dictionary<string, object> Row)
     {

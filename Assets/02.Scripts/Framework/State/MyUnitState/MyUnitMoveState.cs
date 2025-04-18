@@ -17,16 +17,20 @@ public class MyUnitMoveState : MyUnitStateBase
         this.data = data;
         this.animHashKey = animHashKey;
         Agent = controller.Agent;
+
     }
+    
 
     public override void Enter()
     {
         base.Enter();
+        Anim.SetBool(animHashKey, true);
     }
 
     public override void Exit()
     {
         base.Exit();
+        Anim.SetBool(animHashKey, false);
     }
 
     public override void Update()

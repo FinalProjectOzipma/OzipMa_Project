@@ -17,54 +17,57 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Tower : ITable
+    public partial class MyUnit : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Tower> loadedList, Dictionary<int, Tower> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<MyUnit> loadedList, Dictionary<int, MyUnit> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
-        static string sheetID = "619238944"; // it is sheet id
+        static string sheetID = "1185079578"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Tower> TowerMap = new Dictionary<int, Tower>();  
-        public static List<Tower> TowerList = new List<Tower>();   
+        public static Dictionary<int, MyUnit> MyUnitMap = new Dictionary<int, MyUnit>();  
+        public static List<MyUnit> MyUnitList = new List<MyUnit>();   
 
         /// <summary>
-        /// Get Tower List 
+        /// Get MyUnit List 
         /// Auto Load
         /// </summary>
-        public static List<Tower> GetList()
+        public static List<MyUnit> GetList()
         {{
            if (isLoaded == false) Load();
-           return TowerList;
+           return MyUnitList;
         }}
 
         /// <summary>
-        /// Get Tower Dictionary, keyType is your sheet A1 field type.
+        /// Get MyUnit Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Tower>  GetDictionary()
+        public static Dictionary<int, MyUnit>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return TowerMap;
+           return MyUnitMap;
         }}
 
     
 
 /* Fields. */
 
-		public System.Int32 TowerKey;
+		public System.Int32 PlayerMonsterPrimaryKey;
 		public System.String Name;
 		public System.String Description;
+		public System.Single Health;
+		public System.Single Attack;
+		public System.Collections.Generic.List<Single> Defence;
+		public System.Single MoveSpeed;
 		public RankType Rank;
-		public System.Single AttackDamage;
+		public AtkType AttackType;
 		public System.Single AttackCoolDown;
-		public TowerAtkType AttackType;
 		public System.Single AttackRange;
-		public System.Collections.Generic.List<Int32> TowerType;
+		public System.Single DotDamage;
   
 
 #region fuctions
@@ -75,7 +78,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Tower is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("MyUnit is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -91,7 +94,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Tower>, Dictionary<int, Tower>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<MyUnit>, Dictionary<int, MyUnit>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -119,14 +122,14 @@ namespace DefaultTable
                
 
 
-    public static (List<Tower> list, Dictionary<int, Tower> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Tower> Map = new Dictionary<int, Tower>();
-            List<Tower> List = new List<Tower>();     
+    public static (List<MyUnit> list, Dictionary<int, MyUnit> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, MyUnit> Map = new Dictionary<int, MyUnit>();
+            List<MyUnit> List = new List<MyUnit>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Tower).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(MyUnit).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Tower"];
+            var sheet = jsonObject["MyUnit"];
 
             foreach (var column in sheet.Keys)
             {
@@ -145,7 +148,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Tower instance = new Tower();
+                            MyUnit instance = new MyUnit();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -182,12 +185,12 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.TowerKey, instance);
+                            Map.Add(instance.PlayerMonsterPrimaryKey, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            TowerList = List;
-                            TowerMap = Map;
+                            MyUnitList = List;
+                            MyUnitMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -197,10 +200,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(Tower data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(MyUnit data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Tower).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(MyUnit).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

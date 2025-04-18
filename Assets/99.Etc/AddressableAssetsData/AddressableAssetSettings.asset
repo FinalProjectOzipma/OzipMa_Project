@@ -94,6 +94,7 @@ MonoBehaviour:
     - UI
     - Popup
     - GameScene
+    - Audio
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 2105134837dec9f44b7338b37fcbf576, type: 2}
