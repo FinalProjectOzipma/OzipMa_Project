@@ -76,7 +76,7 @@ public class EnemyController : EntityController
 
     public void ApplyKnockBack(float abilityValue, Vector2 dir)
     {
-        Rigid.AddForce(dir * abilityValue, ForceMode2D.Impulse);
+        Rigid.AddForce(-dir * abilityValue, ForceMode2D.Impulse);
     }
 
     public void ApplyBonusCoin(float abilityValue)
