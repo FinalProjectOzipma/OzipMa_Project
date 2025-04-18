@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public abstract class TowerControlBase : MonoBehaviour
 {
@@ -78,7 +77,7 @@ public abstract class TowerControlBase : MonoBehaviour
         Init();
 
         // 외형 로딩
-        Managers.Resource.Instantiate($"Body/{Name}", go => {
+        Managers.Resource.Instantiate(Name, go => {
             body = go;
             body.transform.SetParent(transform);
             body.transform.localPosition = Vector3.zero;
