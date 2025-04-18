@@ -17,10 +17,10 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class PlayerMonster : ITable
+    public partial class MyUnit : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<PlayerMonster> loadedList, Dictionary<int, PlayerMonster> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<MyUnit> loadedList, Dictionary<int, MyUnit> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
@@ -29,27 +29,27 @@ namespace DefaultTable
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, PlayerMonster> PlayerMonsterMap = new Dictionary<int, PlayerMonster>();  
-        public static List<PlayerMonster> PlayerMonsterList = new List<PlayerMonster>();   
+        public static Dictionary<int, MyUnit> MyUnitMap = new Dictionary<int, MyUnit>();  
+        public static List<MyUnit> MyUnitList = new List<MyUnit>();   
 
         /// <summary>
-        /// Get PlayerMonster List 
+        /// Get MyUnit List 
         /// Auto Load
         /// </summary>
-        public static List<PlayerMonster> GetList()
+        public static List<MyUnit> GetList()
         {{
            if (isLoaded == false) Load();
-           return PlayerMonsterList;
+           return MyUnitList;
         }}
 
         /// <summary>
-        /// Get PlayerMonster Dictionary, keyType is your sheet A1 field type.
+        /// Get MyUnit Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, PlayerMonster>  GetDictionary()
+        public static Dictionary<int, MyUnit>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return PlayerMonsterMap;
+           return MyUnitMap;
         }}
 
     
@@ -78,7 +78,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("PlayerMonster is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("MyUnit is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -94,7 +94,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<PlayerMonster>, Dictionary<int, PlayerMonster>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<MyUnit>, Dictionary<int, MyUnit>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -122,14 +122,14 @@ namespace DefaultTable
                
 
 
-    public static (List<PlayerMonster> list, Dictionary<int, PlayerMonster> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, PlayerMonster> Map = new Dictionary<int, PlayerMonster>();
-            List<PlayerMonster> List = new List<PlayerMonster>();     
+    public static (List<MyUnit> list, Dictionary<int, MyUnit> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, MyUnit> Map = new Dictionary<int, MyUnit>();
+            List<MyUnit> List = new List<MyUnit>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(PlayerMonster).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(MyUnit).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["PlayerMonster"];
+            var sheet = jsonObject["MyUnit"];
 
             foreach (var column in sheet.Keys)
             {
@@ -148,7 +148,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            PlayerMonster instance = new PlayerMonster();
+                            MyUnit instance = new MyUnit();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -189,8 +189,8 @@ namespace DefaultTable
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            PlayerMonsterList = List;
-                            PlayerMonsterMap = Map;
+                            MyUnitList = List;
+                            MyUnitMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -200,10 +200,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(PlayerMonster data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(MyUnit data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(PlayerMonster).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(MyUnit).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {
