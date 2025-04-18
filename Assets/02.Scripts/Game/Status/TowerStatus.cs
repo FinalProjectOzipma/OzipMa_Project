@@ -9,6 +9,7 @@ public class TowerStatus : StatusBase
 {
     public TowerStatus(int id)
     {
+        Init();
         // TODO :: 타워 속성 받기
 
         //name = ;

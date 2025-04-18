@@ -64,7 +64,7 @@ public abstract class TowerControlBase : MonoBehaviour
     public void TakeRoot(UserObject Info)
     {
         Tower = Info as Tower;
-        TowerStatus = Tower.Status;
+        TowerStatus = Tower.GetUpCasting<TowerStatus>();
         Init();
 
         Managers.Resource.Instantiate("BodyTest", go => {

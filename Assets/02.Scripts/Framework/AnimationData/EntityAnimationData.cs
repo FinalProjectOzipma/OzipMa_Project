@@ -20,8 +20,8 @@ public class EntityAnimationData
 
     public virtual void Init(EntityController controller = null)
     {
-        IdleHash = Animator.StringToHash(idleParameterName);
-        MoveHash = Animator.StringToHash(MoveParameterName);
+        //IdleHash = Animator.StringToHash(idleParameterName);
+        //MoveHash = Animator.StringToHash(MoveParameterName);
         AttackHash = Animator.StringToHash(AttackParameterName);
 
         StateMachine = new();

@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class MyUnitController : EntityController
 {
+    public Sprite sprite;
     #region Component
     public Rigidbody2D Rigid { get; private set; }
     #endregion
@@ -28,11 +29,7 @@ public class MyUnitController : EntityController
     {
         base.Init(primaryKey, name, position, go);
 
-        MyUnitStatus = MyUnit.Status;
 
-        // 클래스 초기화
-        MyUnit = new MyUnit();
-        MyUnit.Init(PrimaryKey, go.GetComponent<SpriteRenderer>().sprite);
 
         transform.position = position;
         AnimData = new MyUnitAnimationData();
@@ -48,10 +45,13 @@ public class MyUnitController : EntityController
 
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
+        MyUnit = new MyUnit();
+        MyUnit.Init(PrimaryKey, sprite);
         // 초기화부분
         Managers.Resource.Instantiate(Name, go =>
         {
-            go.transform.SetParent(transform);
+            go.transform.SetParent(transform);        // 클래스 초기화
+            MyUnitStatus = MyUnit.Status as MyUnitStatus;
             Rigid = go.GetComponent<Rigidbody2D>();
             Init(primaryKey, name, position, go);
         });

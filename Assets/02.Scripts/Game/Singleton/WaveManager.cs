@@ -21,6 +21,14 @@ public class WaveManager
     {
         waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);
         enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
+
+
+        Managers.Resource.Instantiate("SwordMan_Brain", (go) =>
+        {
+            EnemyController ctrl = go.GetComponent<EnemyController>();
+            ctrl.Target = GameObject.Find("Test");
+            ctrl.TakeRoot(0, "SwordMan", Vector2.zero);
+        });
     }
 
     public void StartWave(int id)
