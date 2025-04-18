@@ -17,54 +17,50 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Tower : ITable
+    public partial class Stage : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Tower> loadedList, Dictionary<int, Tower> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<Stage> loadedList, Dictionary<int, Stage> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
-        static string sheetID = "619238944"; // it is sheet id
+        static string sheetID = "0"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Tower> TowerMap = new Dictionary<int, Tower>();  
-        public static List<Tower> TowerList = new List<Tower>();   
+        public static Dictionary<int, Stage> StageMap = new Dictionary<int, Stage>();  
+        public static List<Stage> StageList = new List<Stage>();   
 
         /// <summary>
-        /// Get Tower List 
+        /// Get Stage List 
         /// Auto Load
         /// </summary>
-        public static List<Tower> GetList()
+        public static List<Stage> GetList()
         {{
            if (isLoaded == false) Load();
-           return TowerList;
+           return StageList;
         }}
 
         /// <summary>
-        /// Get Tower Dictionary, keyType is your sheet A1 field type.
+        /// Get Stage Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Tower>  GetDictionary()
+        public static Dictionary<int, Stage>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return TowerMap;
+           return StageMap;
         }}
 
     
 
 /* Fields. */
 
-		public System.Int32 TowerKey;
-		public System.String Name;
-		public System.String Description;
-		public RankType Rank;
-		public System.Single AttackDamage;
-		public System.Single AttackCoolDown;
-		public TowerAtkType AttackType;
-		public System.Single AttackRange;
-		public System.Collections.Generic.List<Int32> TowerType;
+		public System.Int32 StagePrimaryKey;
+		public System.Int32 StageNum;
+		public System.Int32 TowerAmont;
+		public System.Single RewordRatio;
+		public System.Single ModifierRatio;
   
 
 #region fuctions
@@ -75,7 +71,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Tower is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("Stage is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -91,7 +87,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Tower>, Dictionary<int, Tower>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<Stage>, Dictionary<int, Stage>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -119,14 +115,14 @@ namespace DefaultTable
                
 
 
-    public static (List<Tower> list, Dictionary<int, Tower> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Tower> Map = new Dictionary<int, Tower>();
-            List<Tower> List = new List<Tower>();     
+    public static (List<Stage> list, Dictionary<int, Stage> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, Stage> Map = new Dictionary<int, Stage>();
+            List<Stage> List = new List<Stage>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Tower).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Stage).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Tower"];
+            var sheet = jsonObject["Stage"];
 
             foreach (var column in sheet.Keys)
             {
@@ -145,7 +141,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Tower instance = new Tower();
+                            Stage instance = new Stage();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -182,12 +178,12 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.TowerKey, instance);
+                            Map.Add(instance.StagePrimaryKey, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            TowerList = List;
-                            TowerMap = Map;
+                            StageList = List;
+                            StageMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -197,10 +193,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(Tower data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(Stage data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Tower).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(Stage).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

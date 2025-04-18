@@ -56,9 +56,8 @@ namespace DefaultTable
 
 /* Fields. */
 
-		public System.Int32 WaveID;
+		public System.Int32 ID;
 		public System.Int32 EnemyAmount;
-		public System.Single SpawnTime;
   
 
 #region fuctions
@@ -176,7 +175,7 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.WaveID, instance);
+                            Map.Add(instance.ID, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 

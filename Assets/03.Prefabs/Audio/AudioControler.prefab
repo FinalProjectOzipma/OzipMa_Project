@@ -146,6 +146,6 @@ MonoBehaviour:
   isMasterMute: 0
   isBGMMute: 0
   isSFXMute: 0
-  bgmSource: {fileID: 0}
-  sfxPrefab: {fileID: 0}
+  bgmSource: {fileID: 4868435865149983596, guid: 9a40affe1cf9c1b49a7fea883e75d6e6, type: 3}
+  sfxPrefab: {fileID: 3328890202286742413, guid: 9a40affe1cf9c1b49a7fea883e75d6e6, type: 3}
   poolSize: 10

@@ -16,8 +16,8 @@ public class WaveManager
 
     public void StartWave(int id)
     {
-        DefaultTable.Wave waveTable = dataManager.Datas["Wave"][id] as DefaultTable.Wave;
-        List<GoogleSheet.ITable> enemyTable = dataManager.Datas["EnemyTable"];
+        DefaultTable.Wave waveTable = dataManager.Datas[Enums.Sheet.Wave][id] as DefaultTable.Wave;
+        List<GoogleSheet.ITable> enemyTable = dataManager.Datas[Enums.Sheet.Enemy];
         int needEnemyAmount = waveTable.EnemyAmount;
         int needMyUnitAmount = 5;
 
@@ -27,8 +27,8 @@ public class WaveManager
         if (enemyCoroutine != null) Managers.MonoInstance.StopCoroutine(enemyCoroutine);
         if (unitCoroutine != null) Managers.MonoInstance.StopCoroutine(unitCoroutine);
 
-        enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
-        unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
+        //enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
+        //unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
     }
 
     private IEnumerator EnemySpawnCoroutine(int spawnAmount, float spawnTime, List<GoogleSheet.ITable> enemyTable)
