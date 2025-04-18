@@ -10,6 +10,7 @@ public abstract class TowerControlBase : MonoBehaviour
     public TowerStatus TowerStatus { get; private set; }
 
     public bool IsPlaced; // 맵에 배치되었는가 
+    public Sprite Preview { get; private set; }
 
     private GameObject body;
     private float attackCooldown = 0f;
@@ -39,11 +40,8 @@ public abstract class TowerControlBase : MonoBehaviour
         if (attackCooldown < 0)
         {
             attackCooldown = TowerStatus.AttackCoolDown.GetValue();
-            Attack(TowerStatus.Attack.GetValue());
 
-            //데이터없는 Test용 코드
-            //attackCooldown = 1f;
-            //Attack(1f);
+            Attack(TowerStatus.Attack.GetValue());
 
             Anim.SetTrigger(AnimData.AttackHash);
         }
@@ -61,12 +59,16 @@ public abstract class TowerControlBase : MonoBehaviour
     /// Tower 정보 넣어주는 함수
     /// </summary>
     /// <param name="Info">Tower 데이터</param>
-    public void TakeRoot(UserObject Info)
+    public void TakeRoot(int primaryKey, string name, Vector2 position)
     {
-        Tower = Info as Tower;
+        // 정보 받기
+        Tower = new Tower();
+        Tower.Init(primaryKey, Preview);
         TowerStatus = Tower.Status;
+
         Init();
 
+        // Body 로딩
         Managers.Resource.Instantiate("BodyTest", go => {
             body = go;
             body.transform.SetParent(transform);

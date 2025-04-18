@@ -7,21 +7,20 @@ using static Enums;
 
 public class TowerStatus : StatusBase
 {
+    
     public TowerStatus(int id)
     {
-        // TODO :: 타워 속성 받기
-
-        //name = ;
-        //description = ;
-        //rankType = ;
-
-        //attack.SetStat();
-        //TowerattackType =
-        //attackCooldown.SetStat();
-        //attackRange.SetStat();
-        //level =
-
-        // TODO :: 진짜 데이터테이블 생기면 속성테이블 받아두기
-        //Abilities = Util.TableConverter<데이터테이블.TowerAbilityDefaultValue>(Managers.Data.Datas["TowerAbilityDefaultValue"]);
+        var Row = Managers.Data.Datas[Enums.Sheet.Tower][id] as DefaultTable.Tower;
+        Attack.SetValue(Row.AttackDamage);
+        AttackCoolDown.SetValue(Row.AttackCoolDown);
+        AttackRange.SetValue(Row.AttackRange);
+        
+        Grade.SetValue((int)Row.Rank);
+        // TODO : 사용자 데이터 필요 ----------
+        Level.SetValue(1);
+        Stack.SetValue(1);
+        MaxStack.SetValue(10);
+        MaxLevel.SetValue(10);
+        // ----------------------------------
     }
 }
