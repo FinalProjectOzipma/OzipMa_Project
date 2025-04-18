@@ -1,28 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class TowerControlBase : MonoBehaviour
 {
     public Tower Tower {  get; private set; }
+    public TowerStatus TowerStatus { get; private set; } // 캐싱용
     public Animator Anim { get; private set; }
     public TowerAnimationData AnimData { get; private set; }
-    public TowerStatus TowerStatus { get; private set; }
 
     public bool IsPlaced; // 맵에 배치되었는가 
     public Sprite Preview { get; private set; }
+    [field: SerializeField] public string Name { get; set; }
+
+    protected LinkedList<EnemyController> detectedEnemies = new(); // 범위 내 적들
 
     private GameObject body;
     private float attackCooldown = 0f;
-    
     public abstract void Attack(float AttackPower);
 
-    protected virtual void Awake()
+    private void Start()
     {
-        Init();
-
-        //Test용 강제 TakeRoot
-        //TakeRoot(null);
+        TakeRoot(0, Name, Vector2.zero);
     }
 
     public void Init()
@@ -34,16 +34,25 @@ public abstract class TowerControlBase : MonoBehaviour
     private void Update()
     {
         if (!IsPlaced) return;
+        if(detectedEnemies.Count == 0) return;
 
         attackCooldown -= Time.deltaTime;
-
         if (attackCooldown < 0)
         {
             attackCooldown = TowerStatus.AttackCoolDown.GetValue();
-
             Attack(TowerStatus.Attack.GetValue());
-
             Anim.SetTrigger(AnimData.AttackHash);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        foreach(var enemy in detectedEnemies)
+        {
+            if (enemy == null)
+            {
+                detectedEnemies.Remove(enemy);
+            }
         }
     }
 
@@ -61,15 +70,15 @@ public abstract class TowerControlBase : MonoBehaviour
     /// <param name="Info">Tower 데이터</param>
     public void TakeRoot(int primaryKey, string name, Vector2 position)
     {
-        // 정보 받기
+        // 정보 세팅
         Tower = new Tower();
         Tower.Init(primaryKey, Preview);
         TowerStatus = Tower.Status;
 
         Init();
 
-        // Body 로딩
-        Managers.Resource.Instantiate("BodyTest", go => {
+        // 외형 로딩
+        Managers.Resource.Instantiate($"Body/{Name}", go => {
             body = go;
             body.transform.SetParent(transform);
             body.transform.localPosition = Vector3.zero;
@@ -80,5 +89,21 @@ public abstract class TowerControlBase : MonoBehaviour
                 AnimData = bodyBase.AnimData;
             }
         });
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<EnemyController>(out EnemyController enemy))
+        {
+            detectedEnemies.AddLast(enemy);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<EnemyController>(out EnemyController enemy))
+        {
+            detectedEnemies.Remove(enemy);
+        }
     }
 }
