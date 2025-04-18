@@ -18,7 +18,7 @@ public class FloorTowerController : TowerControlBase
         randomTarget = Random.Range(0, detectedEnemies.Count);
         foreach(var enemy in detectedEnemies)
         {
-            if(--randomTarget <= 0)
+            if(--randomTarget < 0)
             {
                 target = enemy;
                 break;
