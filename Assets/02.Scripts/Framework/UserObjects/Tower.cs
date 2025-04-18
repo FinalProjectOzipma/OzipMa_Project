@@ -8,6 +8,8 @@ public class Tower : UserObject, IGettable
     public List<TowerType> TowerType;
     public TowerAtkType AtkType { get; set; }
 
+    public List<TowerType> TowerTypes = new();
+
     public T GetClassAddress<T>() where T : UserObject
     {
         return this as T;
