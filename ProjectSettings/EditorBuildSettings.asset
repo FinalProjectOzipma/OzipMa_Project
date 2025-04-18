@@ -11,5 +11,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.Scenes/GameScene.unity
     guid: b67373d8478bf9a4da6fe8019545ed86
+  - enabled: 1
+    path: Assets/01.Scenes/Ygm_LoadingScene.unity
+    guid: 97b0bcaa5e45ded42b27a4053b966203
+  - enabled: 1
+    path: Assets/01.Scenes/StartScene.unity
+    guid: 32cb419c36da9ac44aa39d42d43fddc5
+  - enabled: 1
+    path: Assets/01.Scenes/YGM_Research.unity
+    guid: 5c0468fe7ad826143ae4163b7d299170
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3c17ac6fdf991624fbe16911d3b9bf02, type: 2}
