@@ -12,12 +12,14 @@ public class EnemyStateBase : EntityStateBase
     protected Animator anim;
     protected Rigidbody2D rigid;
     protected NavMeshAgent agent;
+    protected EnemyStatus status;
     public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
         this.anim = controller.Anim;
         this.rigid = controller.Rigid;
         this.agent = controller.Agent;
+        this.status = controller.Status;
 
         this.data = data;
     }

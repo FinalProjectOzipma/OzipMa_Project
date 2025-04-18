@@ -34,11 +34,12 @@ public class EnemyController : EntityController
         AnimData.Init(this);
     }
 
+    private string _Body = nameof(_Body);
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
         Enemy = new Enemy(primaryKey, SpriteImage);
         Status = Enemy.Status;
-        Managers.Resource.Instantiate(Name, go =>
+        Managers.Resource.Instantiate($"{name}{_Body}", go =>
         {
             go.transform.SetParent(transform);
             Rigid = go.GetOrAddComponent<Rigidbody2D>();

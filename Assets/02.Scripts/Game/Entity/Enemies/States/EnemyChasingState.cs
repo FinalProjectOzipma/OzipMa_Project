@@ -6,13 +6,14 @@ public class EnemyChasingState : EnemyStateBase
 {
     public EnemyChasingState(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
+        agent.autoBraking = true;
     }
 
     public override void Enter()
     {
         base.Enter();
-        agent.stoppingDistance = 0.5f;
         agent.autoBraking = true;
+        agent.isStopped = false;
     }
 
     public override void Exit()
@@ -29,7 +30,9 @@ public class EnemyChasingState : EnemyStateBase
 
         agent.SetDestination(controller.Target.transform.position);
 
-        if (rigid.velocity.sqrMagnitude <= 0.01f)
+        Util.Log($"{status.AttackRange.GetValue()}");
+
+        if (Vector2.Distance(rigid.position, controller.Target.transform.position) <= status.AttackRange.GetValue())
             StateMachine.ChangeState(data.AttackState);
     }
 

@@ -13,6 +13,8 @@ public class EnemyAnimationData : EntityAnimationData
     {
         base.Init();
 
-        
+        AttackState = new EnemyAttackState(StateMachine, AttackHash, controller as EnemyController, this);
+        ChaseState = new EnemyChasingState(StateMachine, ChaseHash, controller as EnemyController, this);
+        StateMachine.Init(ChaseState);
     }
 }

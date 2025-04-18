@@ -10,27 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Default Local Group
+  m_Name: EnemiesBrain
   m_EditorClassIdentifier: 
-  m_GroupName: Default Local Group
+  m_GroupName: EnemiesBrain
   m_Data:
     m_SerializedData: []
-  m_GUID: 555a46cce26ccc646bf540c352eddf7f
+  m_GUID: 22664719a67fa65459e9e3b11522b8d0
   m_SerializeEntries:
-  - m_GUID: 904ea5a9f3ca434459301048c2222f4b
-    m_Address: TestAssets
+  - m_GUID: 73d66612959354546bfbf116bad26fe7
+    m_Address: SwordMan_Brain
     m_ReadOnly: 0
     m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 5dc0ef1758b3e314ca2f682dc98405e1
-    m_Address: SprSquare
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: 99dc73a11c6d4894280e17a9695cfc57, type: 2}
-    - {fileID: 11400000, guid: 81d39bb373c783e42b1a522a879f1fbb, type: 2}
+    - {fileID: 11400000, guid: 1ee6ba850d37a144bb4687eb3b04f095, type: 2}
+    - {fileID: 11400000, guid: d0204a8934160844592467430c867e1d, type: 2}
