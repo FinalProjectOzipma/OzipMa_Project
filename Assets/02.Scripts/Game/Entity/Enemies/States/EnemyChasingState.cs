@@ -30,8 +30,6 @@ public class EnemyChasingState : EnemyStateBase
 
         agent.SetDestination(controller.Target.transform.position);
 
-        Util.Log($"{status.AttackRange.GetValue()}");
-
         if (Vector2.Distance(rigid.position, controller.Target.transform.position) <= status.AttackRange.GetValue())
             StateMachine.ChangeState(data.AttackState);
     }
