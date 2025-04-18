@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1385969809248977337}
-  - component: {fileID: 3635720689636166866}
   - component: {fileID: 5112076379583237063}
+  - component: {fileID: 529791322820469847}
   m_Layer: 0
-  m_Name: MyUnitBase
+  m_Name: EnemyBrainBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,20 +34,6 @@ Transform:
   - {fileID: 8058519643594041780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3635720689636166866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1773844028320060821}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9d11d24ed2ef2f4db21d7fb6ead1291, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Agent: {fileID: 0}
-  Target: {fileID: 0}
 --- !u!195 &5112076379583237063
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -70,6 +56,21 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 1
   m_ObstacleAvoidanceType: 4
+--- !u!114 &529791322820469847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773844028320060821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae4ea95ade954ef48a3fe6760f7d68fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpriteImage: {fileID: -917445231, guid: c56f575d68780ba4f8b4ba8d54bb612f, type: 3}
+  Agent: {fileID: 5112076379583237063}
+  Target: {fileID: 0}
 --- !u!1001 &2564952023344622418
 PrefabInstance:
   m_ObjectHideFlags: 0

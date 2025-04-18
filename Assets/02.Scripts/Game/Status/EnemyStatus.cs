@@ -1,45 +1,35 @@
+using GoogleSheet;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class EnemyStatus : StatusBase
 {
-    public int Key;
-    public EntityHealth Health;
-    public float MaxHealth;
+    public EntityHealth Health { get; set; } = new();
+    public float MaxHealth { get; set; } = new();
 
-    public List<FloatBase> Defences;
-    public FloatBase MoveSpeed;
-    public AtkType AtkType;
-    public IntegerBase Reward;
-    public bool IsBoss;
+    public List<FloatBase> Defences { get; set; } = new();
+    public FloatBase MoveSpeed { get; set; } = new();
+    public AtkType AtkType { get; set; } = new();
 
-    public EnemyStatus(Dictionary<string, object> Row)
+    public EnemyStatus(DefaultTable.Enemy row)
     {
-        Health = new EntityHealth();
+        Init();
+
+        Attack.SetValue(row.Attack);
+        AttackCoolDown.SetValue(row.AttackCoolDown);
+        AttackRange.SetValue(row.AttackRange);
+
+        Health.SetValue(row.Health);
         MaxHealth = Health.GetValue();
-        Defences = new List<FloatBase>();
-        MoveSpeed = new FloatBase();
-        //AtkType = AtkType.None;
-        Reward = new IntegerBase();
-        IsBoss = false;
+        for (int i = 0; i < row.Defence.Count; i++)
+        {
+            Defences.Add(new FloatBase());
+            Defences[i].SetValue(row.Defence[i]);
+        }
 
-        // TODO:: 연두님과 진실의 방
-
-        /*name = Row[“Name”];
-        description = Row[“Descriptopn”];
-        rankType = Row[“RankType”];
-
-        health.SetStat(Row[“Health”]);
-        maxHealth = health;
-
-        attack.SetStat(Row[“Attack”]); 
-        defence.SetStat(Row[“Defence”]);
-        moveSpeed.SetStat(Row[“MoveSpeed”]);
-        attackType = Row[“AttackType”];
-        attackCooldown.SetStat(Row[“AttackCooldown”]);
-        attackRange.SetStat(Row[“AttackRange”]);
-        level = 1;*/
+        MoveSpeed.SetValue(row.MoveSpeed);
     }
 }

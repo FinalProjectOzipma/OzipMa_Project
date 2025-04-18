@@ -6,9 +6,7 @@ using UnityEngine;
 public class MyUnit : UserObject, IGettable
 {
 
-    public MyUnitStatus Status { get; set; }
     public AtkType AtkType { get; set; }
-
     public T GetClassAddress<T>() where T : UserObject
     {
         return this as T;
@@ -18,12 +16,13 @@ public class MyUnit : UserObject, IGettable
     {
         var result = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
         base.Init(primaryKey, sprite);
-
         Status = new MyUnitStatus(primaryKey, result);
         AtkType = result[primaryKey].AttackType;
     }
 
-    public void AddHealth(float amount) => Status.Health.AddValue(amount);
+    
+
+    public void AddHealth(float amount) => GetUpCasting<MyUnitStatus>().Health.AddValue(amount);
     
     /*public void GradeUpdate()
     {

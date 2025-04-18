@@ -1,3 +1,4 @@
+using GoogleSheet;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,4 +14,18 @@ public class StatusBase
     public IntegerBase MaxStack { get; set; } = new IntegerBase();
     public IntegerBase MaxLevel { get; set; } = new IntegerBase();
     public IntegerBase Grade { get; set; } = new IntegerBase();
+
+    public StatusBase()
+    {
+        Init();
+    }
+
+    public virtual void Init()
+    {
+        Level.SetValue(1);
+        Stack.SetValue(0);
+        MaxStack.SetValue(20);
+        MaxLevel.SetValue(20);
+        Grade.SetValue(0);
+    }
 }
