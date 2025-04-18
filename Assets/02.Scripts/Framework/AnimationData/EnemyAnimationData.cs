@@ -5,19 +5,14 @@ using UnityEngine;
 
 public class EnemyAnimationData : EntityAnimationData
 {
-    public int TestInteger { get; set; }
 
-    //public StateMachine StateMachine { get; private set; }
-
-    // ex) public EnemyIdleState IdleState { get; private set; }
-    public EnemyStateBase testState { get; private set; }
+    public EnemyAttackState AttackState { get; private set; }
+    public EnemyChasingState ChaseState { get; private set; }
 
     public override void Init(EntityController controller)
     {
         base.Init();
 
-        //StateMachine = new StateMachine();
-        // ex) IdleState = new IdleState(controller, this, StateMachine, IdleHash);
-        testState = new EnemyStateBase(StateMachine, IdleHash, controller as EnemyController, this);
+        
     }
 }

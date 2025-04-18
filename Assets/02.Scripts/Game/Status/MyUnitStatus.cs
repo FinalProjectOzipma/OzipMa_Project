@@ -10,6 +10,7 @@ public class MyUnitStatus : StatusBase
 
     public MyUnitStatus(int PrimaryKey, List<DefaultTable.MyUnit> Row)
     {
+        Init();
         var result = Row[PrimaryKey];
 
         Health.SetValue(result.Health);

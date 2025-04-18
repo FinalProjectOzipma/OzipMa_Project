@@ -16,6 +16,11 @@ public class StatusBase
 
     public StatusBase()
     {
+        Init();
+    }
+
+    public virtual void Init()
+    {
         Level.SetValue(1);
         Stack.SetValue(0);
         MaxStack.SetValue(20);
