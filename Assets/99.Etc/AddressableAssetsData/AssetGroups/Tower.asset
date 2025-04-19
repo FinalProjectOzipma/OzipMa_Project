@@ -16,12 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 9dc09b10c3580fb4a876b442d15e4794
-  m_SerializeEntries:
-  - m_GUID: 36e4d22c97f2c3646bc4c663c69a4164
-    m_Address: Body/SkullTowerBody
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:
