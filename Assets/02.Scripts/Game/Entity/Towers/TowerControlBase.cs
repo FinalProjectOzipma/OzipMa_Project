@@ -72,7 +72,7 @@ public abstract class TowerControlBase : MonoBehaviour
         // 정보 세팅
         Tower = new Tower();
         Tower.Init(primaryKey, Preview);
-        TowerStatus = Tower.Status;
+        TowerStatus = Tower.TowerStatus;
 
         Init();
 
@@ -92,7 +92,8 @@ public abstract class TowerControlBase : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<EnemyController>(out EnemyController enemy))
+        EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
+        if (enemy != null)
         {
             detectedEnemies.AddLast(enemy);
         }
@@ -100,7 +101,8 @@ public abstract class TowerControlBase : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<EnemyController>(out EnemyController enemy))
+        EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
+        if (enemy != null)
         {
             detectedEnemies.Remove(enemy);
         }

@@ -13,6 +13,11 @@ public class EnemyStateBase : EntityStateBase
     protected Rigidbody2D rigid;
     protected NavMeshAgent agent;
     protected EnemyStatus status;
+
+    protected GameObject target;
+    protected bool isLeft;
+    protected int facDir = 1;
+
     public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
@@ -41,7 +46,9 @@ public class EnemyStateBase : EntityStateBase
 
     public override void Update()
     {
-        
+        target = controller.Target;
+        // Target 있을때만
+        controller.FlipControll(target);
     }
 
     //목적지에 도착했는지 확인하는 용
