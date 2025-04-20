@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class RangeTowerController : TowerControlBase
 {
-    private HashSet<EnemyController> targets = new();
     public override void Attack(float AttackPower)
     {
         // 범위 내 타겟들 모두에게 적용
-        foreach (EnemyController target in targets)
+        foreach (EnemyController target in detectedEnemies)
         {
-            //기본 공격
+            if (target == null) continue;
+
+            // TODO : 기본 공격
             //target.DefaultAttack(TowerStatus.Attack);
 
-            //속성 모두 적용
+            // TODO : 갖고있는 공격 속성 모두 적용
             foreach(TowerType type in Tower.TowerTypes)
             {
                 switch (type)
@@ -35,19 +36,5 @@ public class RangeTowerController : TowerControlBase
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.TryGetComponent<EnemyController>(out EnemyController enemy))
-        {
-            targets.Add(enemy);
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.TryGetComponent<EnemyController>(out EnemyController enemy))
-        {
-            targets.Remove(enemy);
-        }
-    }
+    
 }

@@ -17,7 +17,9 @@ public class SceneManager
     {
         CurrentScene?.Exit();
         CurrentScene = nextScene;
-        UnityEngine.SceneManagement.SceneManager.LoadScene(nameof(T));
+
+        UI_Loading.LoadScene(typeof(T).Name);
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(typeof(T).Name);
         Managers.Resource.LoadResourceLoacationAsync(nextScene.LabelAsync, CurrentScene.Enter);
     }
 }
