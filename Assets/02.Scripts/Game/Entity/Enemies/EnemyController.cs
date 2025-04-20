@@ -49,8 +49,17 @@ public class EnemyController : EntityController
         {
             go.transform.SetParent(transform);
             Rigid = go.GetOrAddComponent<Rigidbody2D>();
+            Fx = go.GetOrAddComponent<ObjectFlash>();
             Init(primaryKey, name, position, go);
         });
+    }
+
+    public void ApplyDamage(float attackPower)
+    {
+        float minus = Status.Defences[0].GetValue() - attackPower;
+
+        if (minus < 0.0f)
+            Status.AddHealth(minus);
     }
 
     public void ApplyDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
@@ -89,13 +98,19 @@ public class EnemyController : EntityController
     {
         bool canHit = true;
         float coolDown = 0.0f;
-        while (abilityDuration < 0)
+        while (abilityDuration > 0)
         {
             abilityDuration -= Time.deltaTime;
 
             if(canHit)
             {
-                Status.AddHealth(-abilityValue);
+                float minus = Status.Defences[0].GetValue() - abilityValue;
+                if(minus < 0.0f)
+                {
+                    Status.AddHealth(minus);
+                    Fx.StartBlinkRed();
+                }
+
                 coolDown = abilityCooldown;
                 canHit = false;
             }

@@ -6,6 +6,7 @@ using Table = DefaultTable;
 
 public class WaveManager
 {
+    private CoreBase mainCore;
     private Coroutine enemyCoroutine;
     private Coroutine unitCoroutine;
     private int liveEnemyCount = 0;
@@ -32,7 +33,6 @@ public class WaveManager
         //int needMyUnitAmount = 5;
 
         liveEnemyCount = needEnemyAmount;
-
         // 코루틴 시작
         if (enemyCoroutine != null) Managers.MonoInstance.StopCoroutine(enemyCoroutine);
         if (unitCoroutine != null) Managers.MonoInstance.StopCoroutine(unitCoroutine);

@@ -2506,6 +2506,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Test
       objectReference: {fileID: 0}
+    - target: {fileID: 1773844028320060821, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2008526690208494292, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: hitMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 35a86253d8b3de742b1e8eada64caafe, type: 2}
+    - target: {fileID: 2008526690208494292, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: flashDuration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2534188589570336206, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
       propertyPath: m_Controller
       value: 

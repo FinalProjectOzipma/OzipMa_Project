@@ -17,8 +17,18 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: f53ef8081fd008444b6127ef8f181c58
   m_SerializeEntries:
-  - m_GUID: 566d3204374f64642a0596036e180ff7
-    m_Address: TowerProjectile
+  - m_GUID: b5525b156401be94c80f5a8240c1e67e
+    m_Address: LaserProjectile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 612ce66fd919b6345a6e2066c9504330
+    m_Address: LaserProjectileBody
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 94ec09606faaadb44a1cd147b6a9b3b9
+    m_Address: TowerFloorBrain
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

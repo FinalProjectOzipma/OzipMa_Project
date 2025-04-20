@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TowerProjectile : MonoBehaviour
 {
@@ -9,17 +10,26 @@ public class TowerProjectile : MonoBehaviour
     private Transform targetTransform {  get; set; }
     private Rigidbody2D rb;
     private float speed = 5f;
+    private float attackPower;
+    private Tower tower {  get; set; }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(float attackPower, Tower ownerTower, EnemyController target)
+    public void Init(string projectileName, float attackPower, Tower ownerTower, EnemyController target)
     {
+        this.attackPower = attackPower;
+        tower = ownerTower;
         Target = target;
         targetTransform = target.transform;
-        //TODO 
+
+        Managers.Resource.Instantiate($"{projectileName}Body", go =>
+        {
+            go.transform.SetParent(this.transform);
+            go.transform.localPosition = Vector3.zero;
+        });
     }
 
     private void Update()
@@ -34,9 +44,37 @@ public class TowerProjectile : MonoBehaviour
         EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
         if (enemy == Target)
         {
-            // TODO : 공격 Apply
-            Util.LogWarning("공격");
+            RealAttack(attackPower);
             Managers.Resource.Destroy(gameObject);
+        }
+    }
+
+    private void RealAttack(float AttackPower)
+    {
+        //기본공격
+        
+        // 해당 타워가 갖고있는 공격 속성 모두 적용
+        foreach (TowerType type in tower.TowerTypes)
+        {
+            if (Tower.Abilities.ContainsKey(type) == false) continue;
+            DefaultTable.TowerAbilityDefaultValue values = Tower.Abilities[type];
+            switch (type)
+            {
+                case TowerType.Dot:
+                    Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                    break;
+                case TowerType.Slow:
+                    Target.ApplySlow(values.AbilityValue, values.AbilityDuration);
+                    break;
+                case TowerType.KnockBack:
+                    Target.ApplyKnockBack(values.AbilityValue, Target.transform.position - transform.position);
+                    break;
+                case TowerType.BonusCoin:
+                    Target.ApplyBonusCoin(values.AbilityValue);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
