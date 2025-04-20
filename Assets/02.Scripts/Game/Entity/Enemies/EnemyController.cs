@@ -39,14 +39,6 @@ public class EnemyController : EntityController
         AnimData.Init(this);
     }
 
-    protected override void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.F))
-        {
-            ApplyDotDamage(67f, 10f, 1f);
-        }
-    }
-
     private string _Body = nameof(_Body);
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
