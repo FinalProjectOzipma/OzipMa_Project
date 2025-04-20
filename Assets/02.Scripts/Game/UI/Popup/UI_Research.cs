@@ -1,6 +1,6 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
-using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -39,9 +39,9 @@ public class UI_Research : UI_Base
     {
         Attack,
         Defence,
+        Core,
         Random
     }
-
 
     public UI_ResearchScene researchScene;
 
@@ -49,7 +49,8 @@ public class UI_Research : UI_Base
     private float elapsedSeconds; // 경과되는 시간
     private bool isResearching = false; // 연구 중인지 아닌지에 대한 불값
     private int updateLevel; // 업데이트 레벨
-    private float updateStat;
+    private float updateStat;   
+
 
     private DateTime startTime; // 업그레이드 시작 시간
     private float secondsToReduce = 10.0f;
@@ -65,9 +66,17 @@ public class UI_Research : UI_Base
     private string spendGoldKey;
     private string spendZamKey;
 
+
+    private List<IGettable> rawList;
+    private List<MyUnit> myUnitList;
+    private List<Tower> towerList;
+
     private void Awake()
     {
         Init();
+        rawList = new();
+        myUnitList = new();
+        towerList = new();
     }
 
     private void Start()
@@ -190,7 +199,11 @@ public class UI_Research : UI_Base
         GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";      
         GetTextMeshProUGUI((int)Texts.GoldSpendText).text = Util.FormatNumber(spendGold);
         GetTextMeshProUGUI((int)Texts.JamSpendText).text = Util.FormatNumber(spendZam);
-        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
+
+        if(researchUpgradeType != ResearchUpgradeType.Random)
+            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
+        else
+            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat-5.0f}~{updateStat + 5.0f}";
     }
 
     private TextMeshProUGUI GetTextMeshProUGUI(int idx) { return Get<TextMeshProUGUI>(idx); }
@@ -272,7 +285,13 @@ public class UI_Research : UI_Base
         StatUpgrade(researchUpgradeType); // 스탯 업그레이드
        
        GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
-       GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
+
+      if (researchUpgradeType != ResearchUpgradeType.Random)
+          GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
+      else
+         GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat - 5.0f}~{updateStat + 5.0f}";
+
+
        GetTextMeshProUGUI((int)Texts.GoldSpendText).text = Util.FormatNumber(spendGold);
        GetTextMeshProUGUI((int)Texts.JamSpendText).text = Util.FormatNumber(spendZam);
 
@@ -309,17 +328,89 @@ public class UI_Research : UI_Base
         GetTextMeshProUGUI((int)Texts.FillText).text ="0%/100%";
     }
 
-    // 이거 데이터를 어디서 받아와야 될까?
-    // 1) 인벤토리 2) Pool 3) DataManager
+
     public void StatUpgrade(ResearchUpgradeType upgradeType)
     {
-        switch(upgradeType)
+        rawList = Managers.Player.Inventory.GetList<MyUnit>();
+
+        foreach (var item in rawList)
+        {
+            if (item is MyUnit unit)
+            {
+                myUnitList.Add(unit);
+            }
+        }
+
+        rawList = Managers.Player.Inventory.GetList<Tower>();
+
+        foreach (var item in rawList)
+        {
+            if (item is Tower tower)
+            {
+                towerList.Add(tower);
+            }
+        }
+
+        switch (upgradeType)
         {
             case ResearchUpgradeType.Attack:
+
+                foreach (var unitAttack in myUnitList)
+                {
+                    unitAttack.Status.Attack.AddValue(updateStat);
+                }           
+
+                foreach(var towerAttack in towerList)
+                {
+                    towerAttack.Status.Attack.AddValue(updateStat);
+                }
                 break;
             case ResearchUpgradeType.Defence:
+
+                foreach (var unitDefence in myUnitList)
+                {
+                    MyUnitStatus defenceStatus = unitDefence.Status as MyUnitStatus;
+                    
+                    foreach(var addDefence in defenceStatus.Defences)
+                    {
+                        addDefence.AddValue(updateStat);
+                    }
+                }
                 break;
             case ResearchUpgradeType.Random:
+
+                float randomStat = UnityEngine.Random.Range(updateStat-5.0f, updateStat +5.0f);
+                int randomStatus = UnityEngine.Random.Range(1,101);
+
+                if(randomStatus < 50)
+                {
+                    foreach (var unitAttack in myUnitList)
+                    {
+                        unitAttack.Status.Attack.AddValue(randomStat);
+                    }
+
+                    foreach (var towerAttack in towerList)
+                    {
+                        towerAttack.Status.Attack.AddValue(randomStat);
+                    }
+                }
+                else
+                {
+                    foreach (var unitDefence in myUnitList)
+                    {
+                        MyUnitStatus defenceStatus = unitDefence.Status as MyUnitStatus;
+
+                        foreach (var addDefence in defenceStatus.Defences)
+                        {
+                            addDefence.AddValue(randomStat);
+                        }
+                    }
+
+                }
+                break;
+            case ResearchUpgradeType.Core:
+                CoreBase core = Managers.Player.mainCore.GetComponent<CoreBase>();
+                core.Health.AddValue(updateStat);
                 break;
         }
 

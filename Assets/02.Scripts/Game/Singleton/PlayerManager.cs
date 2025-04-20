@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager 
@@ -16,7 +17,10 @@ public class PlayerManager
     private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
-    private GameObject mainCore;
+    public GameObject mainCore;
+
+    public GameObject enemySpawn;
+
 
     public void Initialize()
     {
@@ -26,6 +30,11 @@ public class PlayerManager
         // Inventory = 가져오는거
 
         Managers.Resource.Instantiate("Core", go => mainCore = go);
+
+        Managers.Resource.Instantiate("EnemySpawn", go =>
+        {   enemySpawn = go;
+
+        });
 
 
         gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
@@ -103,6 +112,39 @@ public class PlayerManager
     }
 
 
+    public void SpawnUnit()
+    {
+        List<IGettable> myUnitsList = Managers.Player.Inventory.GetList<MyUnit>();
 
+        int random = UnityEngine.Random.Range(0,3);
+
+         MyUnit myUnit = myUnitsList[random].GetClassAddress<MyUnit>();
+
+        string name = myUnit.Name;
+
+        Managers.Resource.Instantiate($"{name}_Brain", (go) =>
+        {
+            MyUnitController ctrl = go.GetComponent<MyUnitController>();
+            ctrl.Target = GameObject.Find("Test");
+            ctrl.TakeRoot(random, $"{name}", mainCore.transform.position);
+        });
+    }
+
+    public void SpawnEnemy()
+    {
+        int random = UnityEngine.Random.Range(0, 3);
+
+        DefaultTable.Enemy enemyList = Managers.Data.Datas[Enums.Sheet.Enemy][random] as DefaultTable.Enemy;
+
+        string name = enemyList.Name;
+
+        Managers.Resource.Instantiate($"{name}_Brain", (go) =>
+        {
+            EnemyController ctrl = go.GetComponent<EnemyController>();
+            ctrl.Target = GameObject.Find("Test");
+            ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);
+        });
+
+    }
 
 }

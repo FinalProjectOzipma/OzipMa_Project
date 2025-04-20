@@ -25,10 +25,30 @@ public class UI_ResearchScene : UI_Base
         RandomUpgrade
     }
 
+    public Sprite Sprite;
+
 
     private void Awake()
     {
         Init();
+
+        //test
+
+        //for (int i = 0; i < Managers.Data.Datas[Enums.Sheet.MyUnit].Count; i++)
+        //{
+        //    MyUnit unit = new();
+        //    unit.Init(i, Sprite);
+        //    Managers.Player.Inventory.Add(unit);
+        //}
+
+        //for (int i = 0; i < Managers.Data.Datas[Enums.Sheet.Tower].Count; i++)
+        //{
+        //    Tower tower = new();
+        //    tower.Init(i, Sprite);
+        //    Managers.Player.Inventory.Add(tower);
+        //}
+
+
     }
 
     public override void Init()

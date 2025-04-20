@@ -56,7 +56,7 @@ namespace DefaultTable
 
 /* Fields. */
 
-		public System.Int32 PlayerMonsterPrimaryKey;
+		public System.Int32 MyUnitPrimaryKey;
 		public System.String Name;
 		public System.String Description;
 		public System.Single Health;
@@ -185,7 +185,7 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.PlayerMonsterPrimaryKey, instance);
+                            Map.Add(instance.MyUnitPrimaryKey, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
