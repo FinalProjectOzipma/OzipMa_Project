@@ -37,6 +37,7 @@ public class EnemyController : EntityController
         //EnemyStatus = new EnemyStatus(Row);
         AnimData = new EnemyAnimationData();
         AnimData.Init(this);
+        transform.position = position;
     }
 
     private string _Body = nameof(_Body);

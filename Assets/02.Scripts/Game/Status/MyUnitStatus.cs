@@ -17,15 +17,21 @@ public class MyUnitStatus : StatusBase
         MaxHealth = Health.GetValue();
 
         Attack.SetValue(result.Attack);
-        for(int i = 0; i < result.Defence.Count; i++)
-        {
-            Defences[i] = new FloatBase();
-            Defences[i].SetValue(result.Defence[i]);
-        }
+        //for (int i = 0; i < result.Defence.Count; i++)
+        //{
+        //    Defences[i] = new FloatBase();
+        //    Defences[i].SetValue(result.Defence[i]);
+        //}
 
         MoveSpeed.SetValue(result.MoveSpeed);
 
         AttackCoolDown.SetValue(result.AttackCoolDown);
         AttackRange.SetValue(result.AttackRange);
+
+        Level.SetValue(1);
+        Stack.SetValue(0);
+        MaxStack.SetValue(20);
+        MaxLevel.SetValue(20);
+        Grade.SetValue(0);
     }
 }

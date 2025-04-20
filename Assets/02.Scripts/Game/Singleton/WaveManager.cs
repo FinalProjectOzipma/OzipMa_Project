@@ -16,18 +16,15 @@ public class WaveManager
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
 
+    
+
+
     public void Initialize()
     {
         waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);
         enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
 
-
-        Managers.Resource.Instantiate("SwordMan_Brain", (go) =>
-        {
-            EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.Target = GameObject.Find("Test");
-            ctrl.TakeRoot(0, "SwordMan", Vector2.zero);
-        });
+        Managers.Player.SpawnEnemy();
     }
 
     public void StartWave(int id)
