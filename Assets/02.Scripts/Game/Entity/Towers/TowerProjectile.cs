@@ -56,8 +56,8 @@ public class TowerProjectile : MonoBehaviour
         // 해당 타워가 갖고있는 공격 속성 모두 적용
         foreach (TowerType type in tower.TowerTypes)
         {
-            if (tower.Abilities.ContainsKey(type) == false) continue;
-            DefaultTable.TowerAbilityDefaultValue values = tower.Abilities[type];
+            if (Tower.Abilities.ContainsKey(type) == false) continue;
+            DefaultTable.TowerAbilityDefaultValue values = Tower.Abilities[type];
             switch (type)
             {
                 case TowerType.Dot:

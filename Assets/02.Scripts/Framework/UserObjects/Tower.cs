@@ -11,7 +11,7 @@ public class Tower : UserObject, IGettable
 
     public List<TowerType> TowerTypes = new();
     public int Key { get; private set; }
-    public Dictionary<TowerType, DefaultTable.TowerAbilityDefaultValue> Abilities { get; private set; } // 추후 다른 곳으로 빼고 싶음
+    public static Dictionary<TowerType, DefaultTable.TowerAbilityDefaultValue> Abilities { get; private set; } // 추후 다른 곳으로 빼고 싶음
 
     public T GetClassAddress<T>() where T : UserObject
     {
@@ -34,11 +34,14 @@ public class Tower : UserObject, IGettable
             TowerTypes.Add((TowerType)t);
         }
 
-        Abilities = new();
-        var abilities = Util.TableConverter<DefaultTable.TowerAbilityDefaultValue>(Managers.Data.Datas[Sheet.TowerAbilityDefaultValue]);
-        foreach(var ability in abilities)
+        if(Abilities == null)
         {
-            Abilities.Add(ability.AbilityType, ability);
+            Abilities = new();
+            var abilities = Util.TableConverter<DefaultTable.TowerAbilityDefaultValue>(Managers.Data.Datas[Sheet.TowerAbilityDefaultValue]);
+            foreach(var ability in abilities)
+            {
+                Abilities.Add(ability.AbilityType, ability);
+            }
         }
     }
 
