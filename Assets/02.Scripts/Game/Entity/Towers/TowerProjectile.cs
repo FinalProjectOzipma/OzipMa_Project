@@ -15,10 +15,17 @@ public class TowerProjectile : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public void Init(float attackPower, Tower ownerTower, EnemyController target)
+    public void Init(string projectileName, float attackPower, Tower ownerTower, EnemyController target)
     {
         Target = target;
         targetTransform = target.transform;
+
+        Managers.Resource.Instantiate($"{projectileName}Body", go =>
+        {
+            go.transform.SetParent(this.transform);
+            go.transform.localPosition = Vector3.zero;
+        });
+
         //TODO 
     }
 
@@ -34,8 +41,6 @@ public class TowerProjectile : MonoBehaviour
         EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
         if (enemy == Target)
         {
-            // TODO : 공격 Apply
-            Util.LogWarning("공격");
             Managers.Resource.Destroy(gameObject);
         }
     }

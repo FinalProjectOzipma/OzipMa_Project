@@ -21,6 +21,10 @@ public abstract class TowerControlBase : MonoBehaviour
 
     private void Start()
     {
+        Name = gameObject.name;
+        Util.Log(Name);
+
+        // Test용 강제 TakeRoot
         TakeRoot(0, Name, Vector2.zero);
     }
 
@@ -40,7 +44,8 @@ public abstract class TowerControlBase : MonoBehaviour
         {
             attackCooldown = TowerStatus.AttackCoolDown.GetValue();
             Attack(TowerStatus.Attack.GetValue());
-            Anim.SetTrigger(AnimData.AttackHash);
+            Anim?.SetTrigger(AnimData.AttackHash);
+            Util.Log($"{Name}의 공격");
         }
     }
 
@@ -77,7 +82,7 @@ public abstract class TowerControlBase : MonoBehaviour
         Init();
 
         // 외형 로딩
-        Managers.Resource.Instantiate(Name, go => {
+        Managers.Resource.Instantiate($"{name}Body", go => {
             body = go;
             body.transform.SetParent(transform);
             body.transform.localPosition = Vector3.zero;

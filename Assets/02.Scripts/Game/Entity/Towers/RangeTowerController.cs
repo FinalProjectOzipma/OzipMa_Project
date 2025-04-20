@@ -18,6 +18,7 @@ public class RangeTowerController : TowerControlBase
             // TODO : 갖고있는 공격 속성 모두 적용
             foreach (TowerType type in Tower.TowerTypes)
             {
+                if (Tower.Abilities.ContainsKey(type) == false) continue;
                 DefaultTable.TowerAbilityDefaultValue values = Tower.Abilities[type];
                 switch (type)
                 {
@@ -28,7 +29,7 @@ public class RangeTowerController : TowerControlBase
                         target.ApplySlow(values.AbilityValue, values.AbilityDuration);
                         break;
                     case TowerType.KnockBack:
-                        target.ApplyKnockBack(values.AbilityValue, transform.position - target.transform.position);
+                        target.ApplyKnockBack(values.AbilityValue, target.transform.position - transform.position);
                         break;
                     case TowerType.BonusCoin:
                         target.ApplyBonusCoin(values.AbilityValue);
