@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class ProjectileTowerController : TowerControlBase
 {
-    private EnemyController target;
+    private EnemyController target; // 피격 대상(1마리)
+    
     //private string projectileKey = "TowerProjectile";
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         //Managers.Resource.LoadAssetAsync<GameObject>(projectileKey);
     }
 
     public override void Attack(float AttackPower)
     {
+        target = detectedEnemies.First.Value;
+        if (target == null) return;
         //Managers.Resource.Instantiate(projectileKey, go => {
         //    // TODO 
         //    // 1. Projectile을 enemy로 발사 (Projectile에서 Type들을 적용 시켜야 함)
@@ -25,20 +27,22 @@ public class ProjectileTowerController : TowerControlBase
     // 감지된 적 1개만 계속 공격하도록
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(target == null && collision.TryGetComponent<EnemyController>(out EnemyController enemy))
+        if(collision.TryGetComponent<EnemyController>(out EnemyController enemy))
         {
-            target = enemy;
+            detectedEnemies.AddLast(enemy);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (target != null && collision.TryGetComponent<EnemyController>(out EnemyController enemy))
+        if (collision.TryGetComponent<EnemyController>(out EnemyController enemy))
         {
+            detectedEnemies.Remove(enemy);
+
             // 내가 때리던 enemy가 범위 밖으로 나가는 경우를 확인
             if(enemy == target)
             {
-                target = null;
+                target = detectedEnemies.Count == 0 ? null : detectedEnemies.First.Value;
             }
         }
     }
