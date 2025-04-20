@@ -16,12 +16,17 @@ public class PlayerManager
     private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
+    private GameObject mainCore;
+
     public void Initialize()
     {
         // 처음 시작할때 선언
         Inventory = new Inventory();
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
+
+        Managers.Resource.Instantiate("Core", go => mainCore = go);
+
 
         gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
         zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
