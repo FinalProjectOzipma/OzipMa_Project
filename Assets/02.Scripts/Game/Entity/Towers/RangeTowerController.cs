@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RangeTowerController : TowerControlBase
 {
+
     public override void Attack(float AttackPower)
     {
         // 범위 내 타겟들 모두에게 적용
@@ -15,21 +16,22 @@ public class RangeTowerController : TowerControlBase
             //target.DefaultAttack(TowerStatus.Attack);
 
             // TODO : 갖고있는 공격 속성 모두 적용
-            foreach(TowerType type in Tower.TowerTypes)
+            foreach (TowerType type in Tower.TowerTypes)
             {
+                DefaultTable.TowerAbilityDefaultValue values = Tower.Abilities[type];
                 switch (type)
                 {
                     case TowerType.Dot:
-                        //target.ApplyDotDamage(TowerStatus.Abilities[(int)type].AbilityValue, ...);
+                        target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
                         break;
                     case TowerType.Slow:
-                        // TODO
+                        target.ApplySlow(values.AbilityValue, values.AbilityDuration);
                         break;
                     case TowerType.KnockBack:
-                        // TODO
+                        target.ApplyKnockBack(values.AbilityValue, transform.position - target.transform.position);
                         break;
                     case TowerType.BonusCoin:
-                        // TODO
+                        target.ApplyBonusCoin(values.AbilityValue);
                         break;
                 }
             }
