@@ -2,8 +2,6 @@ using GoogleSheet;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using static UnityEngine.Rendering.DebugUI.Table;
 
 public class EnemyStatus : StatusBase
 {
@@ -32,4 +30,6 @@ public class EnemyStatus : StatusBase
 
         MoveSpeed.SetValue(row.MoveSpeed);
     }
+
+    public void AddHealth(float amount) => Health.AddValue(amount);
 }

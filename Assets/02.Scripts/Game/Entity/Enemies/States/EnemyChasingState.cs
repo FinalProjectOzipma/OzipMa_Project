@@ -23,14 +23,11 @@ public class EnemyChasingState : EnemyStateBase
 
     public override void Update()
     {
-        // 베이스에 업데이트 아무것도 없기때문에 베이스는 실행 안해준다
-        //base.Update();
 
+        base.Update();
         if (controller.Target == null) return;
 
         agent.SetDestination(controller.Target.transform.position);
-
-        Util.Log($"{status.AttackRange.GetValue()}");
 
         if (Vector2.Distance(rigid.position, controller.Target.transform.position) <= status.AttackRange.GetValue())
             StateMachine.ChangeState(data.AttackState);

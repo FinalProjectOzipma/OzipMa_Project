@@ -18,7 +18,7 @@ public class FloatBase
 
     public virtual float GetValue()
     {
-        return Value;
+        return Value * ValueMultiples;
     }
 
     public virtual void AddValue(float amount)
