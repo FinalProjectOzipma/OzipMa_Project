@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 48
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -139,10 +139,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_0
       rect:
         serializedVersion: 2
-        x: 35
-        y: 610
-        width: 25
-        height: 25
+        x: 0
+        y: 576
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,10 +160,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_1
       rect:
         serializedVersion: 2
-        x: 131
-        y: 610
-        width: 26
-        height: 25
+        x: 96
+        y: 576
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,10 +181,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_2
       rect:
         serializedVersion: 2
-        x: 228
-        y: 609
-        width: 25
-        height: 25
+        x: 192
+        y: 576
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_3
       rect:
         serializedVersion: 2
-        x: 324
-        y: 609
-        width: 24
-        height: 25
+        x: 288
+        y: 576
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,10 +223,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_4
       rect:
         serializedVersion: 2
-        x: 419
-        y: 610
-        width: 25
-        height: 24
+        x: 384
+        y: 576
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,10 +244,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_5
       rect:
         serializedVersion: 2
-        x: 514
-        y: 610
-        width: 25
-        height: 25
+        x: 480
+        y: 576
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,10 +265,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_6
       rect:
         serializedVersion: 2
-        x: 610
-        y: 609
-        width: 25
-        height: 25
+        x: 576
+        y: 576
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -286,10 +286,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_7
       rect:
         serializedVersion: 2
-        x: 707
-        y: 609
-        width: 25
-        height: 25
+        x: 672
+        y: 576
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -307,10 +307,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_8
       rect:
         serializedVersion: 2
-        x: 33
-        y: 515
-        width: 28
-        height: 24
+        x: 0
+        y: 480
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -328,10 +328,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_9
       rect:
         serializedVersion: 2
-        x: 129
-        y: 518
-        width: 27
-        height: 24
+        x: 96
+        y: 480
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -349,10 +349,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_10
       rect:
         serializedVersion: 2
-        x: 225
-        y: 519
-        width: 26
-        height: 24
+        x: 192
+        y: 480
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -370,10 +370,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_11
       rect:
         serializedVersion: 2
-        x: 321
-        y: 518
-        width: 27
-        height: 24
+        x: 288
+        y: 480
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -391,10 +391,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_12
       rect:
         serializedVersion: 2
-        x: 417
-        y: 515
-        width: 28
-        height: 24
+        x: 384
+        y: 480
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -412,10 +412,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_13
       rect:
         serializedVersion: 2
-        x: 513
-        y: 518
-        width: 29
-        height: 24
+        x: 480
+        y: 480
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -433,10 +433,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_14
       rect:
         serializedVersion: 2
-        x: 609
-        y: 519
-        width: 29
-        height: 24
+        x: 576
+        y: 480
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -454,10 +454,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_15
       rect:
         serializedVersion: 2
-        x: 705
-        y: 518
-        width: 29
-        height: 24
+        x: 672
+        y: 480
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -475,10 +475,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_16
       rect:
         serializedVersion: 2
-        x: 35
-        y: 418
-        width: 25
-        height: 25
+        x: 0
+        y: 384
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -496,10 +496,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_17
       rect:
         serializedVersion: 2
-        x: 131
-        y: 418
-        width: 26
-        height: 25
+        x: 96
+        y: 384
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -517,10 +517,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_18
       rect:
         serializedVersion: 2
-        x: 228
-        y: 417
-        width: 25
-        height: 25
+        x: 192
+        y: 384
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -538,10 +538,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_19
       rect:
         serializedVersion: 2
-        x: 324
-        y: 417
-        width: 24
-        height: 25
+        x: 288
+        y: 384
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -559,10 +559,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_20
       rect:
         serializedVersion: 2
-        x: 419
-        y: 418
-        width: 25
-        height: 24
+        x: 384
+        y: 384
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -580,10 +580,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_21
       rect:
         serializedVersion: 2
-        x: 514
-        y: 418
-        width: 25
-        height: 25
+        x: 480
+        y: 384
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -601,10 +601,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_22
       rect:
         serializedVersion: 2
-        x: 610
-        y: 417
-        width: 25
-        height: 25
+        x: 576
+        y: 384
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -622,10 +622,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_23
       rect:
         serializedVersion: 2
-        x: 707
-        y: 417
-        width: 25
-        height: 25
+        x: 672
+        y: 384
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -643,10 +643,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_24
       rect:
         serializedVersion: 2
-        x: 35
-        y: 322
-        width: 25
-        height: 25
+        x: 0
+        y: 288
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -664,10 +664,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_25
       rect:
         serializedVersion: 2
-        x: 130
-        y: 321
-        width: 23
-        height: 25
+        x: 96
+        y: 288
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -685,10 +685,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_26
       rect:
         serializedVersion: 2
-        x: 227
-        y: 322
-        width: 26
-        height: 25
+        x: 192
+        y: 288
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -706,10 +706,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_27
       rect:
         serializedVersion: 2
-        x: 323
-        y: 322
-        width: 26
-        height: 25
+        x: 288
+        y: 288
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -727,10 +727,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_28
       rect:
         serializedVersion: 2
-        x: 419
-        y: 322
-        width: 26
-        height: 25
+        x: 384
+        y: 288
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -748,10 +748,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_29
       rect:
         serializedVersion: 2
-        x: 35
-        y: 226
-        width: 25
-        height: 25
+        x: 0
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -769,10 +769,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_30
       rect:
         serializedVersion: 2
-        x: 130
-        y: 228
-        width: 25
-        height: 23
+        x: 96
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -790,10 +790,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_31
       rect:
         serializedVersion: 2
-        x: 221
-        y: 228
-        width: 26
-        height: 23
+        x: 192
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -811,10 +811,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_32
       rect:
         serializedVersion: 2
-        x: 317
-        y: 228
-        width: 25
-        height: 23
+        x: 288
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -832,10 +832,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_33
       rect:
         serializedVersion: 2
-        x: 417
-        y: 225
-        width: 32
-        height: 29
+        x: 384
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -853,10 +853,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_34
       rect:
         serializedVersion: 2
-        x: 518
-        y: 226
-        width: 24
-        height: 23
+        x: 480
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -874,10 +874,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_35
       rect:
         serializedVersion: 2
-        x: 616
-        y: 225
-        width: 17
-        height: 25
+        x: 576
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -895,10 +895,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_36
       rect:
         serializedVersion: 2
-        x: 708
-        y: 226
-        width: 23
-        height: 25
+        x: 672
+        y: 192
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -916,10 +916,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_37
       rect:
         serializedVersion: 2
-        x: 35
-        y: 130
-        width: 25
-        height: 25
+        x: 0
+        y: 96
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -937,10 +937,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_38
       rect:
         serializedVersion: 2
-        x: 133
-        y: 129
-        width: 19
-        height: 24
+        x: 96
+        y: 96
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -958,10 +958,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_39
       rect:
         serializedVersion: 2
-        x: 228
-        y: 130
-        width: 23
-        height: 22
+        x: 192
+        y: 96
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -979,10 +979,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_40
       rect:
         serializedVersion: 2
-        x: 323
-        y: 130
-        width: 25
-        height: 24
+        x: 288
+        y: 96
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1000,10 +1000,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_41
       rect:
         serializedVersion: 2
-        x: 419
-        y: 130
-        width: 25
-        height: 25
+        x: 384
+        y: 96
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1021,10 +1021,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_42
       rect:
         serializedVersion: 2
-        x: 35
-        y: 34
-        width: 25
-        height: 25
+        x: 0
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1042,10 +1042,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_43
       rect:
         serializedVersion: 2
-        x: 133
-        y: 32
-        width: 24
-        height: 24
+        x: 96
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1063,10 +1063,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_44
       rect:
         serializedVersion: 2
-        x: 227
-        y: 36
-        width: 36
-        height: 13
+        x: 192
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1084,10 +1084,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_45
       rect:
         serializedVersion: 2
-        x: 323
-        y: 36
-        width: 36
-        height: 14
+        x: 288
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1105,10 +1105,10 @@ TextureImporter:
       name: Royal Swordsman Sprite Sheet - Alternate 1_46
       rect:
         serializedVersion: 2
-        x: 419
-        y: 36
-        width: 36
-        height: 13
+        x: 384
+        y: 0
+        width: 96
+        height: 96
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

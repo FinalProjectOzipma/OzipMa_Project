@@ -22,7 +22,7 @@ public class EnemyAttackState : EnemyStateBase
 
     public override void Update()
     {
-        //base.Update();
+        base.Update();
 
         if (Vector2.Distance(rigid.position, controller.Target.transform.position) >= status.AttackRange.GetValue())
             StateMachine.ChangeState(data.ChaseState);
