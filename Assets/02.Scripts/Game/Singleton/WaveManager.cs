@@ -15,6 +15,8 @@ public class WaveManager
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
 
+
+
     public void Initialize()
     {
         waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);

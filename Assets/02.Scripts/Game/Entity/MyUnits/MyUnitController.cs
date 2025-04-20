@@ -57,26 +57,17 @@ public class MyUnitController : EntityController
         });
     }
 
-    ////적 감지후 감지결과를 오브젝트로 전달
-    //public void DetectEnemyRaycast()
-    //{
-    //    //float detectRadius = MyUnitStatus.AttackRange;
-    //    float detectRadius = 1.0f;
-    //    Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectRadius, LayerMask.GetMask("Enemy"));
-
-    //    foreach (var hit in hits)
-    //    {
-    //        Vector2 dir = (hit.transform.position - transform.position).normalized;
-    //        float dist = Vector2.Distance(transform.position, hit.transform.position);
-
-    //        // 장애물 무시하고 Raycast
-    //        RaycastHit2D ray = Physics2D.Raycast(transform.position, dir, dist, LayerMask.GetMask("Enemy", "Obstacle"));
-
-    //        if (ray.collider != null && ray.collider.gameObject == hit.gameObject)
-    //        {
-    //            Target = hit.gameObject;
-    //            Util.Log(Target.name);
-    //        }
-    //    }
-    //}
+    /// <summary>
+    /// 타겟이 공격거리내에 있다면 true
+    /// 밖에 있다면 false를 반환
+    /// </summary>
+    /// <returns></returns>
+    public bool IsClose()
+    {
+        if (MyUnitStatus.AttackRange.GetValue() > (Target.transform.position - transform.position).magnitude)
+        {
+            return true;
+        }
+        return false;
+    }
 }
