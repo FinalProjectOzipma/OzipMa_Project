@@ -62,11 +62,6 @@ public enum TowerAtkType
 [GoogleSheet.Core.Type.UGS(typeof(TowerType))]
 public enum TowerType
 {
-    공격형,
-    방어형,
-    화염형,
-    화염,
-
     Dot,
     Slow,
     KnockBack,

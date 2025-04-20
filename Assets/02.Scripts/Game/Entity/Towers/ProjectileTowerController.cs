@@ -19,13 +19,14 @@ public class ProjectileTowerController : TowerControlBase
             ProjectileName = Name;
         }
         Util.Log(ProjectileName);
-        Managers.Resource.LoadAssetAsync<GameObject>(ProjectileName);
+        Managers.Resource.LoadAssetAsync<GameObject>(ProjectileName); // 미리 로드 
     }
 
     public override void Attack(float AttackPower)
     {
         target = detectedEnemies.First.Value;
         if (target == null) return;
+        // Projectile 생성
         Managers.Resource.Instantiate(ProjectileName, go =>
         {
             go.transform.position = transform.position;

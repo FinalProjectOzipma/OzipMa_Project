@@ -15,7 +15,7 @@ public class RangeTowerController : TowerControlBase
             // TODO : 기본 공격
             //target.DefaultAttack(TowerStatus.Attack);
 
-            // TODO : 갖고있는 공격 속성 모두 적용
+            // 해당 타워가 갖고있는 공격 속성 모두 적용
             foreach (TowerType type in Tower.TowerTypes)
             {
                 if (Tower.Abilities.ContainsKey(type) == false) continue;
@@ -33,6 +33,8 @@ public class RangeTowerController : TowerControlBase
                         break;
                     case TowerType.BonusCoin:
                         target.ApplyBonusCoin(values.AbilityValue);
+                        break;
+                    default:
                         break;
                 }
             }
