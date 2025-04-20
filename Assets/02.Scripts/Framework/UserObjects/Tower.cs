@@ -6,7 +6,7 @@ using static Enums;
 
 public class Tower : UserObject, IGettable
 {
-    public TowerStatus Status { get; private set; }
+    public TowerStatus TowerStatus { get; private set; }
     public TowerAtkType AtkType { get; private set; }
 
     public List<TowerType> TowerTypes = new();
@@ -24,7 +24,7 @@ public class Tower : UserObject, IGettable
         DefaultTable.Tower towerData = Managers.Data.Datas[Enums.Sheet.Tower][primaryKey] as DefaultTable.Tower;
 
         // 동적 정보 채우기
-        Status = new TowerStatus(primaryKey);
+        TowerStatus = new TowerStatus(primaryKey);
 
         // 정적 정보 채우기
         AtkType = towerData.AttackType;
