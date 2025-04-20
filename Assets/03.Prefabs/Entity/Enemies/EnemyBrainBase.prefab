@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1385969809248977337}
   - component: {fileID: 5112076379583237063}
   - component: {fileID: 529791322820469847}
+  - component: {fileID: -5232308646360990066}
   m_Layer: 0
   m_Name: EnemyBrainBase
   m_TagString: Untagged
@@ -71,6 +72,20 @@ MonoBehaviour:
   SpriteImage: {fileID: -917445231, guid: c56f575d68780ba4f8b4ba8d54bb612f, type: 3}
   Agent: {fileID: 5112076379583237063}
   Target: {fileID: 0}
+--- !u!114 &-5232308646360990066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1773844028320060821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6e070f33c53f04588d05053a710f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.1
+  hitMat: {fileID: 2100000, guid: 35a86253d8b3de742b1e8eada64caafe, type: 2}
 --- !u!1001 &2564952023344622418
 PrefabInstance:
   m_ObjectHideFlags: 0

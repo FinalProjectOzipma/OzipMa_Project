@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 50583440362311324}
   - component: {fileID: 7377928430184646330}
   - component: {fileID: 2768902109460157299}
+  - component: {fileID: 158310315130268615}
   m_Layer: 0
   m_Name: EnemyBodyBase
   m_TagString: Untagged
@@ -180,3 +181,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &158310315130268615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409385341382462297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6e070f33c53f04588d05053a710f43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sr: {fileID: 7377928430184646330}
+  dotColor: {r: 1, g: 0, b: 0, a: 0.2901961}
+  flashDuration: 0.5
+  flashMat: {fileID: 2100000, guid: 35a86253d8b3de742b1e8eada64caafe, type: 2}
