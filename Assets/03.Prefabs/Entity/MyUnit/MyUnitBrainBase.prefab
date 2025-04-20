@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d11d24ed2ef2f4db21d7fb6ead1291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Agent: {fileID: 0}
+  sprite: {fileID: 0}
+  Agent: {fileID: 5112076379583237063}
   Target: {fileID: 0}
 --- !u!195 &5112076379583237063
 NavMeshAgent:
