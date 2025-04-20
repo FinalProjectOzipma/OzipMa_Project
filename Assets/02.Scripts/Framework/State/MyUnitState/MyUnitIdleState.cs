@@ -23,6 +23,10 @@ public class MyUnitIdleState : MyUnitStateBase
     {
         base.Enter();
         Anim.SetBool(animHashKey, true);
+        if (controller.Target == null)
+        {
+            SetTarget();
+        }
     }
 
     public override void Exit()
@@ -33,29 +37,30 @@ public class MyUnitIdleState : MyUnitStateBase
 
     public override void Update()
     {
-        base.Update();
-        SetPosition();
-        StateMachine.ChangeState(data.MoveState);
-    }
-
-    public void SetPosition()
-    {
-        NavMeshHit hit;
-        Vector2 center = controller.transform.position;
-        //float r = controller.MyUnit.Status.AttackRange.GetValue();
-        float r = 1.0f;
-
-        for (int i = 0; i < 15; i++)
+        Debug.Log("돌아가나");
+        if (controller.Target != null)
         {
-            Vector2 offset = r * Random.insideUnitCircle; //반지름 r인 원에서 vector value GET
-            Vector3 samplepos = new Vector3(center.x + offset.x, center.y + offset.y);
-
-            if (NavMesh.SamplePosition(samplepos, out hit, r, NavMesh.AllAreas))
+            Debug.Log("타겟지정되어있음");
+            if (controller.IsClose())
             {
-                Agent.SetDestination(hit.position);
-                return;
+                StateMachine.ChangeState(data.AttackState);
+            }
+            else
+            {
+                StateMachine.ChangeState(data.ChaseState);
             }
         }
-        Util.LogError("실패했당");
+    }
+
+    // TODO: 타겟 지정 메서드 만들기
+    public void SetTarget()
+    {
+
+        //Managers.Wave에서 남은 적 리스트 가져오기
+        //적이 없으면 그냥 리턴해버리기
+        //적들과의 거리를 비교하고
+        //그중 가장 거리가 가까운 적을 타겟으로 지정
+        //타겟에게 가게함
+        Agent.SetDestination(controller.Target.transform.position);
     }
 }

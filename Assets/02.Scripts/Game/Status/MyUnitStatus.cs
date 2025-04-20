@@ -27,5 +27,11 @@ public class MyUnitStatus : StatusBase
 
         AttackCoolDown.SetValue(result.AttackCoolDown);
         AttackRange.SetValue(result.AttackRange);
+
+        Level.SetValue(1);
+        Stack.SetValue(0);
+        MaxStack.SetValue(20);
+        MaxLevel.SetValue(20);
+        Grade.SetValue(0);
     }
 }
