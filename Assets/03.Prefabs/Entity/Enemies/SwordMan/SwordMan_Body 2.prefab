@@ -12,14 +12,6 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 17c45e29e74e4ae44be0c8e50b7ae90b, type: 2}
-    - target: {fileID: 158310315130268615, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
-      propertyPath: sr
-      value: 
-      objectReference: {fileID: 3703111718992530899}
-    - target: {fileID: 158310315130268615, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
-      propertyPath: dotHitMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 35a86253d8b3de742b1e8eada64caafe, type: 2}
     - target: {fileID: 1409385341382462297, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: m_Name
       value: SwordMan_Body
@@ -78,11 +70,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6975948361672111888, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2
+      value: 0.4375
       objectReference: {fileID: 0}
     - target: {fileID: 6975948361672111888, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2
+      value: 0.375
       objectReference: {fileID: 0}
     - target: {fileID: 7377928430184646330, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: m_Size.x
@@ -109,8 +101,3 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
---- !u!212 &3703111718992530899 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 7377928430184646330, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
-  m_PrefabInstance: {fileID: 6127062270759111529}
-  m_PrefabAsset: {fileID: 0}

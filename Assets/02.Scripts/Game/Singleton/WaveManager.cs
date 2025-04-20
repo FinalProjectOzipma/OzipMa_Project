@@ -6,6 +6,7 @@ using Table = DefaultTable;
 
 public class WaveManager
 {
+    private CoreBase mainCore;
     private Coroutine enemyCoroutine;
     private Coroutine unitCoroutine;
     private int liveEnemyCount = 0;
@@ -15,6 +16,7 @@ public class WaveManager
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
 
+    
 
 
     public void Initialize()
@@ -22,13 +24,7 @@ public class WaveManager
         waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);
         enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
 
-
-        Managers.Resource.Instantiate("SwordMan_Brain", (go) =>
-        {
-            EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.Target = GameObject.Find("Test");
-            ctrl.TakeRoot(0, "SwordMan", Vector2.zero);
-        });
+        Managers.Player.SpawnEnemy();
     }
 
     public void StartWave(int id)
@@ -37,7 +33,6 @@ public class WaveManager
         //int needMyUnitAmount = 5;
 
         liveEnemyCount = needEnemyAmount;
-
         // 코루틴 시작
         if (enemyCoroutine != null) Managers.MonoInstance.StopCoroutine(enemyCoroutine);
         if (unitCoroutine != null) Managers.MonoInstance.StopCoroutine(unitCoroutine);
