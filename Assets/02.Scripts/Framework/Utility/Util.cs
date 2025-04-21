@@ -1,10 +1,9 @@
 using DG.Tweening;
-using GoogleSheet;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Util
 {
@@ -183,6 +182,58 @@ public class Util
             return (number / 1_000f).ToString("0.0") + "K";
         else
             return number.ToString();
+    }
+
+    /// <summary>
+    /// 버튼 애니메니션
+    /// </summary>
+    public static void OnClickButtonAnim(GameObject popup, Image buttonImage, bool isOpen = true)
+    {
+        var sequence = DOTween.Sequence();
+
+        sequence.Append(buttonImage.transform.DOScale(0.95f, 0.1f));
+        sequence.Append(buttonImage.transform.DOScale(1.2f, 0.1f));
+        sequence.Append(buttonImage.transform.DOScale(1.0f, 0.1f));
+
+        sequence.Play().OnComplete(() =>
+        {
+            if (isOpen)
+                PopUpShow(popup);
+            else
+                PopUpClose(popup);
+        });
+    }
+
+
+    /// <summary>
+    /// UI 애니메이션
+    /// </summary>
+    public static void PopUpShow(GameObject popup)
+    {
+        popup.SetActive(true);
+
+        var sequence = DOTween.Sequence();
+
+        sequence.Append(popup.transform.DOScale(1.1f, 0.2f));
+        sequence.Append(popup.transform.DOScale(1f, 0.1f));
+
+        sequence.Play();
+    }
+
+    public static void PopUpClose(GameObject popup)
+    {
+        popup.SetActive(false);
+
+        var sequence = DOTween.Sequence();
+
+        sequence.Append(popup.transform.DOScale(1.1f, 0.2f));
+        sequence.Append(popup.transform.DOScale(0.2f, 0.1f));
+
+        sequence.Play().OnComplete(() =>
+        {
+           popup.SetActive(false);
+        });
+
     }
 
 }
