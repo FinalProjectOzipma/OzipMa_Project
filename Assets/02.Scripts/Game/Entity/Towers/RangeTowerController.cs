@@ -4,6 +4,28 @@ using UnityEngine;
 
 public class RangeTowerController : TowerControlBase
 {
+    public override void TakeRoot(int primaryKey, string name, Vector2 position)
+    {
+        // 정보 세팅
+        Tower = new Tower();
+        Tower.Init(primaryKey, Preview);
+        TowerStatus = Tower.TowerStatus;
+
+        Init();
+
+        // 외형 로딩
+        Managers.Resource.Instantiate($"{name}Body", go => {
+            body = go;
+            body.transform.SetParent(transform);
+            body.transform.localPosition = Vector3.zero;
+
+            if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
+            {
+                Anim = bodyBase.Anim;
+                AnimData = bodyBase.AnimData;
+            }
+        });
+    }
 
     public override void Attack(float AttackPower)
     {

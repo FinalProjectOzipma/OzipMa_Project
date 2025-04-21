@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class TowerTrigger : MonoBehaviour 
 {
+    public Action ProjectileAttackStart;
+
     private static int enemyLayer = -1;
     private float attackPower;
     private Tower ownerInfo;
-    private Action finished;
+    private Action floorAttackFinished;
 
     private void Awake()
     {
@@ -22,9 +24,12 @@ public class TowerTrigger : MonoBehaviour
     {
         this.attackPower = attackPower;
         ownerInfo = ownerTower;
-        finished = AttackFinish;
+        floorAttackFinished = AttackFinish;
     }
 
+    /// <summary>
+    /// 장판형 공격 적용
+    /// </summary>
     public void FloorAttack()
     {
         if (ownerInfo == null) return;
@@ -65,8 +70,16 @@ public class TowerTrigger : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 장판 제거
+    /// </summary>
     public void DestroyFloor()
     {
-        finished?.Invoke();
+        floorAttackFinished?.Invoke();
+    }
+
+    public void ProjectileAttack()
+    {
+        ProjectileAttackStart?.Invoke();
     }
 }
