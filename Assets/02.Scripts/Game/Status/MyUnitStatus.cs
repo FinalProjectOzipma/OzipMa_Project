@@ -19,7 +19,7 @@ public class MyUnitStatus : StatusBase
         Attack.SetValue(result.Attack);
         for(int i = 0; i < result.Defence.Count; i++)
         {
-            Defences[i] = new FloatBase();
+            Defences.Add(new FloatBase());
             Defences[i].SetValue(result.Defence[i]);
         }
 

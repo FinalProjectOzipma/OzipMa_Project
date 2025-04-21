@@ -58,8 +58,7 @@ namespace DefaultTable
 
 		public System.Int32 TowerKey;
 		public TowerType AbilityType;
-		public System.Single AbilityValue
-;
+		public System.Single AbilityValue ;
 		public System.Single AbilityDuration;
 		public System.Single AbilityCooldown;
   
