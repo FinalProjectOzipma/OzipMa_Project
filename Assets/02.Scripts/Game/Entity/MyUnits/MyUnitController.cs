@@ -9,6 +9,7 @@ public class MyUnitController : EntityController
     public Sprite sprite; 
     #region Component
     public Rigidbody2D Rigid { get; private set; }
+    private string _Body = nameof(_Body);
     #endregion
 
     // 어차피 컨트롤러는 어드레서블 BrainVariant안에 들어가있으니
@@ -38,6 +39,16 @@ public class MyUnitController : EntityController
     protected override void Update()
     {
         base.Update();
+        //타겟의 방향에 따라서 회전시킴
+        if (Target != null)
+        {
+            float dir = Target.transform.position.x - transform.position.x;
+
+            if (!Mathf.Approximately(dir, 0))
+            {
+                spriteRenderer.flipX = dir < 0;
+            }
+        }
     }
 
     // Wave에서 들고있는것
@@ -47,8 +58,14 @@ public class MyUnitController : EntityController
     // 컨트롤러 Init안에서는 Primary = 매개변수; 
     // Name = 매개변수;
 
-    private string _Body = nameof(_Body);
 
+
+    /// <summary>
+    /// 바디 생성로직
+    /// </summary>
+    /// <param name="primaryKey">ID값</param>
+    /// <param name="name">어드레서블 키이름</param>
+    /// <param name="position">생성위치</param>
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
         MyUnit = new MyUnit();
@@ -69,10 +86,15 @@ public class MyUnitController : EntityController
     /// <returns></returns>
     public bool IsClose()
     {
-        if (1.0f > (Target.transform.position - transform.position).magnitude)
-        {
-            return true;
-        }
-        return false;
+        if (Target == null)
+            return false;
+        float r = MyUnitStatus.AttackRange.GetValue();
+
+        return  r> (Target.transform.position - transform.position).sqrMagnitude;
+    }
+
+    public void AttackTrigger()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, MyUnitStatus.AttackRange.GetValue());
     }
 }

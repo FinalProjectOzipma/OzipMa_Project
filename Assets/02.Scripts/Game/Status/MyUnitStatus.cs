@@ -3,7 +3,7 @@ using System.Collections.Generic;
 public class MyUnitStatus : StatusBase
 {
     public EntityHealth Health = new();
-    public FloatBase MaxHealth;
+    public float MaxHealth;
 
     public FloatBase Defences = new();
     public FloatBase MoveSpeed = new();
@@ -14,7 +14,7 @@ public class MyUnitStatus : StatusBase
         var result = Row[PrimaryKey];
 
         Health.SetValue(result.Health);
-        MaxHealth.SetValue(Health.GetValue());
+        MaxHealth = Health.GetValue();
 
         Attack.SetValue(result.Attack);
         Defences.SetValue(Health.GetValue());
