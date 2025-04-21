@@ -28,6 +28,7 @@ public class MyUnitChaseState : MyUnitStateBase
 
     public override void Update()
     {
+        base.Update();
         //controller.DetectEnemyRaycast();
         //타겟이 없다면
         if (controller.Target == null)
