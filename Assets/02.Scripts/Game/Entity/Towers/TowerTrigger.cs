@@ -35,12 +35,11 @@ public class TowerTrigger : MonoBehaviour
         {
             EnemyController target = collider.transform.parent?.gameObject.GetComponent<EnemyController>();
             if (target == null) continue;
-
-            // TODO : 기본 공격
-            //target.DefaultAttack(TowerStatus.Attack);
-
-            // 해당 타워가 갖고있는 공격 속성 모두 적용
             if (ownerInfo == null) continue;
+
+            // 기본 공격
+            target.ApplyDamage(ownerInfo.TowerStatus.Attack.GetValue());
+            // 해당 타워가 갖고있는 공격 속성 모두 적용
             foreach (TowerType type in ownerInfo.TowerTypes)
             {
                 if (Tower.Abilities.ContainsKey(type) == false) continue;

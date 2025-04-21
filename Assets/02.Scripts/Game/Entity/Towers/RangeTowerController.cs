@@ -12,8 +12,8 @@ public class RangeTowerController : TowerControlBase
         {
             if (target == null) continue;
 
-            // TODO : 기본 공격
-            //target.DefaultAttack(TowerStatus.Attack);
+            // 기본 공격
+            target.ApplyDamage(AttackPower);
 
             // 해당 타워가 갖고있는 공격 속성 모두 적용
             foreach (TowerType type in Tower.TowerTypes)
