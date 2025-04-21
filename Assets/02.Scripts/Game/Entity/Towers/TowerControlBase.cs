@@ -8,14 +8,17 @@ public abstract class TowerControlBase : MonoBehaviour
     public int ID = 1;
     public bool IsPlaced; // 맵에 배치되었는가 
     [field: SerializeField] public string Name { get; set; }
+
+    #region 데이터
     public Tower Tower {  get; private set; }
     public TowerStatus TowerStatus { get; private set; } // 캐싱용
     public Animator Anim { get; private set; }
     public TowerAnimationData AnimData { get; private set; }
-
     public Sprite Preview { get; private set; }
+    #endregion
 
     protected LinkedList<EnemyController> detectedEnemies = new(); // 범위 내 적들
+    protected Vector3 firePosition; // 발사 위치
 
     private GameObject body;
     private float attackCooldown = 0f;
@@ -88,6 +91,7 @@ public abstract class TowerControlBase : MonoBehaviour
             body = go;
             body.transform.SetParent(transform);
             body.transform.localPosition = Vector3.zero;
+            if(firePosition == Vector3.zero) firePosition = Util.FindComponent<Transform>(go, "FirePosition").position; // 외형 로드 시 발사위치 받아두기
 
             if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
             {
