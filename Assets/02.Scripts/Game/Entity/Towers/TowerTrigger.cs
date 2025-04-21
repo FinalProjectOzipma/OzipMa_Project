@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class TowerTrigger : MonoBehaviour
     private static int enemyLayer = -1;
     private float attackPower;
     private Tower ownerInfo;
+    private Action finished;
 
     private void Awake()
     {
@@ -16,10 +18,11 @@ public class TowerTrigger : MonoBehaviour
         }
     }
 
-    public void Init(float attackPower, Tower ownerTower)
+    public void Init(float attackPower, Tower ownerTower, Action AttackFinish)
     {
         this.attackPower = attackPower;
         ownerInfo = ownerTower;
+        finished = AttackFinish;
     }
 
     public void FloorAttack()
@@ -61,5 +64,10 @@ public class TowerTrigger : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void DestroyFloor()
+    {
+        finished();
     }
 }

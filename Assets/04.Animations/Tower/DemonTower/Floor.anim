@@ -419,3 +419,10 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.7083333
+    functionName: DestroyFloor
+    data: 
+    objectReferenceParameter: {fileID: 2520663025159063127, guid: 3d733f5b03825bc40922d9b80899cc3c, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
