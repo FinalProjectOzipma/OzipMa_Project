@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 368931977551167797, guid: 3a7bb5ef71c4b934f83b4b08addbd980, type: 3}
       propertyPath: m_Name
-      value: SkullTower Variant
+      value: SkullTower
       objectReference: {fileID: 0}
     - target: {fileID: 3259096875555941587, guid: 3a7bb5ef71c4b934f83b4b08addbd980, type: 3}
       propertyPath: m_LocalPosition.x
@@ -50,6 +50,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3259096875555941587, guid: 3a7bb5ef71c4b934f83b4b08addbd980, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7166346030042491478, guid: 3a7bb5ef71c4b934f83b4b08addbd980, type: 3}
+      propertyPath: ID
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7166346030042491478, guid: 3a7bb5ef71c4b934f83b4b08addbd980, type: 3}

@@ -27,7 +27,7 @@ public class TowerTrigger : MonoBehaviour
 
     public void FloorAttack()
     {
-        Util.Log("어택 적용 시점은 여기");
+        if (ownerInfo == null) return;
         Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 0.5f, enemyLayer);
 
         // 범위 내 타겟들 모두에게 적용
@@ -68,6 +68,6 @@ public class TowerTrigger : MonoBehaviour
 
     public void DestroyFloor()
     {
-        finished();
+        finished?.Invoke();
     }
 }

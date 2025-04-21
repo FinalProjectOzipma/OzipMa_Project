@@ -53,6 +53,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6098082794044394671, guid: 6cec58193c71c754888e4a40e976bc59, type: 3}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6098082794044394671, guid: 6cec58193c71c754888e4a40e976bc59, type: 3}
       propertyPath: <Name>k__BackingField
       value: DemonTower
       objectReference: {fileID: 0}

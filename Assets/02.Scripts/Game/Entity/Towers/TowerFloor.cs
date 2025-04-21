@@ -7,6 +7,7 @@ public class TowerFloor : MonoBehaviour
     private GameObject body;
     public void Init(string floorKey, Vector3 position, float attackPower, Tower ownerTower)
     {
+        transform.position = position;
         // Body 불러오기
         Managers.Resource.Instantiate($"{floorKey}Body", go =>
         {
@@ -14,7 +15,6 @@ public class TowerFloor : MonoBehaviour
 
             Transform t = go.transform;
             t.SetParent(this.transform);
-            t.position = position;
             t.localPosition = Vector3.zero;
 
             // Trigger에서 실제 공격 Apply 처리
