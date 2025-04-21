@@ -13,6 +13,7 @@ public class WaveManager
 
     private List<Table.Wave> waveList;
     private List<Table.Enemy> enemyList;
+    private List<Table.Enemy> curspawnEnemyList;
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
 
@@ -22,7 +23,7 @@ public class WaveManager
     {
         waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);
         enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
-
+        
         Managers.Resource.Instantiate("EnemySpawn", go =>
         {
             enemySpawn = go;
@@ -73,15 +74,17 @@ public class WaveManager
     {
         int random = UnityEngine.Random.Range(0, 3);
 
-        DefaultTable.Enemy enemyList = Managers.Data.Datas[Enums.Sheet.Enemy][random] as DefaultTable.Enemy;
+        DefaultTable.Enemy spawnenemy = enemyList[random];
 
-        string name = enemyList.Name;
+        curspawnEnemyList.Add(spawnenemy);
+        string name = spawnenemy.Name;
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
         {
             EnemyController ctrl = go.GetComponent<EnemyController>();
             ctrl.Target = GameObject.Find("Test");
             ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);
+            
         });
 
     }

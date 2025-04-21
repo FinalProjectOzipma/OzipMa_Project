@@ -362,7 +362,7 @@ public class UI_Research : UI_Base
 
                 foreach(var towerAttack in towerList)
                 {
-                    towerAttack.Status.Attack.AddValue(updateStat);
+                    towerAttack.TowerStatus.Attack.AddValue(updateStat);
                 }
                 break;
             case ResearchUpgradeType.Defence:
@@ -391,7 +391,7 @@ public class UI_Research : UI_Base
 
                     foreach (var towerAttack in towerList)
                     {
-                        towerAttack.Status.Attack.AddValue(randomStat);
+                        towerAttack.TowerStatus.Attack.AddValue(randomStat);
                     }
                 }
                 else
@@ -405,7 +405,6 @@ public class UI_Research : UI_Base
                             addDefence.AddValue(randomStat);
                         }
                     }
-
                 }
                 break;
             case ResearchUpgradeType.Core:
