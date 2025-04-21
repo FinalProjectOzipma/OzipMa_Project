@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerManager 
 {
-    public CoreBase MainCore { get; set; }
+    public Core MainCore { get; set; }
     public int Money { get; set; }
     public long gold { get; private set; }
     public long zam { get; private set; }
@@ -31,12 +31,17 @@ public class PlayerManager
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
 
-        Managers.Resource.Instantiate("Core", go => mainCore = go);
+        Managers.Resource.Instantiate("Core", go => {
+
+            mainCore = go;
+            MainCore = mainCore.GetComponent<CoreController>().core;
+
+        });
 
         gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
         zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
 
-        MainCore = new CoreBase();
+        
     }
 
     /// <summary>

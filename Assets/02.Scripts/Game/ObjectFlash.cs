@@ -25,6 +25,11 @@ public class ObjectFlash : MonoBehaviour
         StartCoroutine(DotFx());
     }
 
+    public void StartBlinkFlash()
+    {
+        StartCoroutine(FlashFX());
+    }
+
     public IEnumerator FlashFX()
     {
         sr.material = flashMat;

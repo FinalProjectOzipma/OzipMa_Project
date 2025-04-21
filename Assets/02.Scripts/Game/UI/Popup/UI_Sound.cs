@@ -21,7 +21,10 @@ public class UI_Sound : UI_Base
         SFXSlider
     }
 
-    Sequence sequence;
+    enum Images
+    {
+        BackImage
+    }
 
     private void Awake()
     {
@@ -32,7 +35,7 @@ public class UI_Sound : UI_Base
     {
         Bind<Button>(typeof(Buttons));
         Bind<Slider>(typeof(Sliders));
-
+        Bind<Image>(typeof(Images));
        
 
 
@@ -129,8 +132,9 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickExitButton(PointerEventData data)
     {
-        Util.OnClickButtonAnim(this.gameObject, GetButton((int)Buttons.ExitButton).GetComponent<Image>(), false);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
+        Util.OnClickButtonAnim(this.gameObject, GetImage((int)Images.BackImage), false);
+
     }
 
 

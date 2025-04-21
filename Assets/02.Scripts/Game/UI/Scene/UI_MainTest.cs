@@ -56,14 +56,16 @@ public class UI_MainTest : UI_Base
 
     public void OnClickOpenSetting(PointerEventData data)
     {
-        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Sound), GetImage((int)Images.SettingImage));
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Sound), GetImage((int)Images.SettingImage));
+        
     }
 
     public void OnClickOpenResearch(PointerEventData data)
     {
-        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Research), GetImage((int)Images.ResearchButtonImage));
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Research), GetImage((int)Images.ResearchButtonImage));
+       
        
     }
 
