@@ -21,6 +21,8 @@ public class MyUnitController : EntityController
 
     public GameObject Target;
 
+    public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
+
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
@@ -95,19 +97,7 @@ public class MyUnitController : EntityController
         return  r * r> (Target.transform.position - transform.position).sqrMagnitude;
     }
 
-    public void AttackTrigger()
-    {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, MyUnitStatus.AttackRange.GetValue());
 
-        foreach (var hit in colliders)
-        {
-            if (hit.GetComponentInParent<Enemy>() != null)
-            {
-                Util.Log(hit.name);
-                hit.GetComponent<EnemyController>().ApplyDamage(MyUnitStatus.Attack.GetValue());
-            }
-        }
-    }
 
     /// <summary>
     /// 피해를 입을때 쓸 데미지
@@ -116,5 +106,6 @@ public class MyUnitController : EntityController
     public void TakeDamage(float damage)
     {
         MyUnitStatus.Health.AddValue(-damage);
+
     }
 }

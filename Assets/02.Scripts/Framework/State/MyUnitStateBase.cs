@@ -15,6 +15,7 @@ public class MyUnitStateBase : EntityStateBase
     public override void Enter()
     {
         Anim.SetBool(animHashKey, true);
+        triggerCalled = false;
     }
 
     public override void Exit()
@@ -30,4 +31,6 @@ public class MyUnitStateBase : EntityStateBase
     public override void Update()
     {
     }
+
+
 }
