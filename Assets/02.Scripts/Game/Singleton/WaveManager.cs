@@ -6,7 +6,7 @@ using Table = DefaultTable;
 
 public class WaveManager
 {
-    private CoreBase mainCore;
+    private Core mainCore;
     private Coroutine enemyCoroutine;
     private Coroutine unitCoroutine;
     private int liveEnemyCount = 0;

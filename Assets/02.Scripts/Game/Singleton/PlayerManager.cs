@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class PlayerManager 
 {
-    public CoreBase MainCore { get; set; }
+    public Core MainCore { get; set; }
     public int Money { get; set; }
     public long gold { get; private set; }
     public long zam { get; private set; }
@@ -36,7 +36,7 @@ public class PlayerManager
         gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
         zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
 
-        MainCore = new CoreBase();
+        MainCore = new Core();
     }
 
     /// <summary>
