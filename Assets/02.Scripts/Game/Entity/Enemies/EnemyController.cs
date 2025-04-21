@@ -51,13 +51,6 @@ public class EnemyController : EntityController
         });
     }
 
-    protected override void Update()
-    {
-        base.Update();
-        if (Input.GetKeyDown(KeyCode.F))
-            ApplyDotDamage(1000f, 10f, 1f);
-    }
-
 
     public void ApplyDamage(float attackPower)
     {

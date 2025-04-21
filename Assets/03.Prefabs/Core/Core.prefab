@@ -161,6 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5440850930433886574}
   - component: {fileID: 2507652317639915374}
+  - component: {fileID: 3827430925401913683}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -198,6 +199,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HpBar: {fileID: 2289498828739574516}
+--- !u!70 &3827430925401913683
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2928544778586518748}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.09, y: 0.15}
+  m_Size: {x: 0.46, y: 0.25}
+  m_Direction: 1
 --- !u!1 &6846262593443749135
 GameObject:
   m_ObjectHideFlags: 0

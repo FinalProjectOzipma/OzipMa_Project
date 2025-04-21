@@ -32,7 +32,8 @@ public class EnemyAnimationTrigger : MonoBehaviour
         {
             if (hit.GetComponentInParent<MyUnitController>() != null)
                 Util.Log($"{hit.name}");
-                //hit.GetComponent<MyUnitController>().Damage();
+            else if (hit.GetComponent<CoreController>() != null)
+                hit.GetComponent<CoreController>().TakeDamge(enemy.Status.Attack.GetValue());
         }
     }
 
