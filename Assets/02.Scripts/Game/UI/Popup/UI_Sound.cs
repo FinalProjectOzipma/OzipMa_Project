@@ -132,8 +132,9 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickExitButton(PointerEventData data)
     {
-        Util.OnClickButtonAnim(this.gameObject, GetImage((int)Images.BackImage), false);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
+        Util.OnClickButtonAnim(this.gameObject, GetImage((int)Images.BackImage), false);
+
     }
 
 

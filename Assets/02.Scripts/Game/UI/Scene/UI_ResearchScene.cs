@@ -99,10 +99,8 @@ public class UI_ResearchScene : UI_Base
 
     public void OnClickBack(PointerEventData data)
     {
-        Util.OnClickButtonAnim(this.gameObject, GetImage((int)Images.BackImage), false);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
-
-
+        Util.OnClickButtonAnim(this.gameObject, GetImage((int)Images.BackImage), false);
     }
 
 
