@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 public class CoreController : MonoBehaviour
 {
-
-    private Core core;
+    public Core core;
     public GameObject HpBar;
     private Image hpImage;
     private float spawnY = 2.7f;
@@ -16,6 +15,7 @@ public class CoreController : MonoBehaviour
     private void Awake()
     {
         InitHp = 100.0f;
+        core = new();
 
         core.Health.SetValue(InitHp);
         core.MaxHealth.SetValue(InitHp);
