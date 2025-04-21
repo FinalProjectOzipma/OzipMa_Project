@@ -37,6 +37,9 @@ public class TowerProjectile : MonoBehaviour
         if (targetTransform == null) return;
         Vector2 dir = (targetTransform.position- transform.position).normalized;
         rb.velocity = dir * speed;
+
+        if(targetTransform.gameObject.activeSelf != true) 
+            Managers.Resource.Destroy(gameObject); ;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

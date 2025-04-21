@@ -57,7 +57,7 @@ public abstract class TowerControlBase : MonoBehaviour
     {
         foreach(var enemy in detectedEnemies)
         {
-            if (enemy == null)
+            if (enemy == null || enemy.isActiveAndEnabled == false)
             {
                 detectedEnemies.Remove(enemy);
             }
