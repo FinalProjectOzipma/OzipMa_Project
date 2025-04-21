@@ -10,17 +10,16 @@ public abstract class TowerControlBase : MonoBehaviour
     [field: SerializeField] public string Name { get; set; }
 
     #region 데이터
-    public Tower Tower {  get; private set; }
-    public TowerStatus TowerStatus { get; private set; } // 캐싱용
-    public Animator Anim { get; private set; }
-    public TowerAnimationData AnimData { get; private set; }
-    public Sprite Preview { get; private set; }
+    public Tower Tower {  get; protected set; }
+    public TowerStatus TowerStatus { get; protected set; } // 캐싱용
+    public Animator Anim { get; protected set; }
+    public TowerAnimationData AnimData { get; protected set; }
+    public Sprite Preview { get; protected set; }
     #endregion
 
     protected LinkedList<EnemyController> detectedEnemies = new(); // 범위 내 적들
-    protected Vector3 firePosition; // 발사 위치
+    protected GameObject body; // 현재 나의 외형
 
-    private GameObject body;
     private float attackCooldown = 0f;
     public abstract void Attack(float AttackPower);
 
@@ -77,29 +76,8 @@ public abstract class TowerControlBase : MonoBehaviour
     /// Tower 정보 넣어주는 함수
     /// </summary>
     /// <param name="Info">Tower 데이터</param>
-    public void TakeRoot(int primaryKey, string name, Vector2 position)
-    {
-        // 정보 세팅
-        Tower = new Tower();
-        Tower.Init(primaryKey, Preview);
-        TowerStatus = Tower.TowerStatus;
-
-        Init();
-
-        // 외형 로딩
-        Managers.Resource.Instantiate($"{name}Body", go => {
-            body = go;
-            body.transform.SetParent(transform);
-            body.transform.localPosition = Vector3.zero;
-            if(firePosition == Vector3.zero) firePosition = Util.FindComponent<Transform>(go, "FirePosition").position; // 외형 로드 시 발사위치 받아두기
-
-            if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
-            {
-                Anim = bodyBase.Anim;
-                AnimData = bodyBase.AnimData;
-            }
-        });
-    }
+    public abstract void TakeRoot(int primaryKey, string name, Vector2 position);
+    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
