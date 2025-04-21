@@ -75,7 +75,7 @@ public class InventoryUI : UI_Scene
 
     private void Awake()
     {
-        Managers.Resource.LoadResourceLoacationAsync(nameof(GameScene), Init);
+        Managers.Resource.LoadResourceLocationAsync(nameof(GameScene), Init);
     }
 
     public override void Init()

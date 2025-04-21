@@ -19,15 +19,13 @@ public class PlayerManager
     private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
-    public List<GameObject> CurMyUnitLiset;
+    
 
     public void Initialize()
     {
         // 처음 시작할때 선언
         Inventory = new Inventory();
         MainCoreData = new Core();
-
-            CurMyUnitLiset = new();
 
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
@@ -112,25 +110,5 @@ public class PlayerManager
     {
         PlayerPrefs.SetString(myGoldKey, gold.ToString());
         PlayerPrefs.SetString(myZamKey, zam.ToString());
-    }
-
-
-    public void SpawnUnit()
-    {
-        List<IGettable> myUnitsList = Managers.Player.Inventory.GetList<MyUnit>();
-
-        int random = UnityEngine.Random.Range(0,3);
-
-         MyUnit myUnit = myUnitsList[random].GetClassAddress<MyUnit>();
-
-        string name = myUnit.Name;
-
-        Managers.Resource.Instantiate($"{name}_Brain", (go) =>
-        {
-            CurMyUnitLiset.Add(go);
-            MyUnitController ctrl = go.GetComponent<MyUnitController>();
-            ctrl.Target = GameObject.Find("Test");
-            ctrl.TakeRoot(random, $"{name}", MainCore.transform.position);
-        });
     }
 }

@@ -105,7 +105,7 @@ public class ResourceManager
         Object.Destroy(gameObject);
     }
 
-    public void LoadResourceLoacationAsync(string assetLabel, Action onComplete = null)
+    public void LoadResourceLocationAsync(string assetLabel, Action onComplete = null)
     {
         if (operations.TryGetValue(assetLabel, out var operation))
         {

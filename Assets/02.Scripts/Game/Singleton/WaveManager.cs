@@ -9,11 +9,12 @@ public class WaveManager
     private Core mainCore;
     private Coroutine enemyCoroutine;
     private Coroutine unitCoroutine;
-    private int liveEnemyCount = 0;
 
     private List<Table.Wave> waveList;
     private List<Table.Enemy> enemyList;
-    public List<GameObject> curspawnEnemyList;
+
+    public List<GameObject> CurEnemyList;
+    public List<GameObject> CurMyUnitList;
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
 
@@ -23,8 +24,9 @@ public class WaveManager
     {
         waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);
         enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
-        curspawnEnemyList = new();
-        
+        CurEnemyList = new();
+        CurMyUnitList = new();
+
         Managers.Resource.Instantiate("EnemySpawn", go =>
         {
             enemySpawn = go;
@@ -40,40 +42,22 @@ public class WaveManager
 
     public void StartWave(int id)
     {
-        int needEnemyAmount = waveList[id].EnemyAmount;
-        //int needMyUnitAmount = 5;
-
-        liveEnemyCount = needEnemyAmount;
-        // 코루틴 시작
-        if (enemyCoroutine != null) Managers.MonoInstance.StopCoroutine(enemyCoroutine);
-        if (unitCoroutine != null) Managers.MonoInstance.StopCoroutine(unitCoroutine);
-
+        int needAmount = waveList[id].EnemyAmount;
+        Managers.StartCoroutine(Spawn(needAmount));
         //enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
         //unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
     }
 
-    private IEnumerator EnemySpawnCoroutine(int spawnAmount, List<GoogleSheet.ITable> enemyTable)
+    public IEnumerator Spawn(int amount)
     {
-        while (spawnAmount > 0)
-        {
-            spawnAmount--;
-            int selected = UnityEngine.Random.Range(1, enemyTable.Count + 1);
-            DefaultTable.Enemy selectedEnemyInfo = enemyTable[selected] as DefaultTable.Enemy;
-            Managers.Resource.Instantiate(selectedEnemyInfo.Name);
-            yield return spawnTime;
-        }
-    }
+        CoreController coreCtrl = Managers.Player.MainCore;
 
-    private IEnumerator MyUnitSpawnCoroutine(int spawnAmount, float spawnTime)
-    {
-        while (spawnAmount > 0)
+        while(amount > 0)
         {
-            spawnAmount--;
-            // TODO: 아군 유닛 소환 로직
-            // 예: 인벤토리 기반 소환
-            // MyUnit selectedUnit = Managers.Inventory.GetRandomMyUnit();
-            // Managers.Resource.Instantiate(selectedUnit.Name);
             yield return spawnTime;
+            coreCtrl.SpawnUnit();
+            SpawnEnemy();
+            amount--;
         }
     }
 
@@ -87,11 +71,9 @@ public class WaveManager
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
         {
-            curspawnEnemyList.Add(go);
+            CurEnemyList.Add(go);
             EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.Target = GameObject.Find("Zombie_Brain");
-            ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);    
+            ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);
         });
-
     }
 }

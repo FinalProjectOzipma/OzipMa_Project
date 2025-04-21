@@ -20,17 +20,20 @@ MonoBehaviour:
   - m_GUID: eccb9c04f6156344396e602f0d376e24
     m_Address: SwordMan_Body
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ffba613e95156ff44b19857814a7e6ea
     m_Address: "\uAE40\uBA80\uBC08_Body"
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2ccb125489dac574b8f26ad8d8c7b05b
     m_Address: "\uC218\uC9C4\uB134_Body"
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}

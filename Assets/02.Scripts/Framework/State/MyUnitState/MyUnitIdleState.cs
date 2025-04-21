@@ -50,7 +50,7 @@ public class MyUnitIdleState : MyUnitStateBase
     public void SetTarget()
     {
         //Managers.Wave에서 남은 적 리스트 가져오기
-        List<GameObject> enemys = Managers.Wave.curspawnEnemyList;
+        List<GameObject> enemys = Managers.Wave.CurEnemyList;
         //적이 없으면 그냥 리턴해버리기
         if (enemys.Count == 0)
         {

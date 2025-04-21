@@ -32,16 +32,15 @@ public class Managers : MonoBehaviour
         MonoInstance = this;
         DontDestroyOnLoad(this);
 
-        Game.Initialize();
-        Pool.Initialize();
         Data.Initialize();
+        Pool.Initialize();
+        Audio.Initialize();
+        Scene.GameScene.SingletonAction += Player.Initialize;
+        Scene.GameScene.SingletonAction += Wave.Initialize;
+        Scene.GameScene.SingletonAction += Game.Initialize;
         Scene.Initialize();
 
-        Wave.Initialize();
-        Audio.Initialize();
-        Player.Initialize();
-       
-
+        Scene.ChangeScene<GameScene>(Scene.GameScene);
     }
 
     public new static Coroutine StartCoroutine(IEnumerator coroutine)

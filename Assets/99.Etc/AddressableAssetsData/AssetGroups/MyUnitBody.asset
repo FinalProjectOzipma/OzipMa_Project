@@ -20,7 +20,8 @@ MonoBehaviour:
   - m_GUID: 41a97ab28a18d70429c5b7c90e86240a
     m_Address: Zombie_Body
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}

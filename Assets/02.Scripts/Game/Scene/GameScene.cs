@@ -12,4 +12,16 @@ public class GameScene : SceneBase
     {
         LabelAsync = nameof(GameScene);
     }
+
+    public override void Enter()
+    {
+        base.Enter();
+
+        Managers.Resource.Instantiate("MainLevel3");
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+    }
 }

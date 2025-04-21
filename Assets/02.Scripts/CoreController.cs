@@ -42,4 +42,22 @@ public class CoreController : MonoBehaviour
         hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
     }
 
+    public void SpawnUnit()
+    {
+        List<IGettable> myUnitsList = Managers.Player.Inventory.GetList<MyUnit>();
+
+        int random = UnityEngine.Random.Range(0, myUnitsList.Count);
+
+        MyUnit myUnit = myUnitsList[random].GetClassAddress<MyUnit>();
+
+        string name = myUnit.Name;
+
+        Managers.Resource.Instantiate($"{name}_Brain", (go) =>
+        {
+            Managers.Wave.CurMyUnitList.Add(go);
+            MyUnitController ctrl = go.GetComponent<MyUnitController>();
+            ctrl.Target = GameObject.Find("Test");
+            ctrl.TakeRoot(random, $"{name}", transform.position);
+        });
+    }
 }

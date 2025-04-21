@@ -10,16 +10,15 @@ public class SceneManager
     public void Initialize()
     {
         CurrentScene = GameScene;
-        CurrentScene.Enter();
     }
 
-    public void ChangeScene<T>(SceneBase nextScene) where T : SceneBase
+    public void ChangeScene<T>(T nextScene) where T : SceneBase
     {
         CurrentScene?.Exit();
         CurrentScene = nextScene;
 
-        UI_Loading.LoadScene(typeof(T).Name);
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(typeof(T).Name);
-        Managers.Resource.LoadResourceLoacationAsync(nextScene.LabelAsync, CurrentScene.Enter);
+        //UI_Loading.LoadScene(typeof(T).Name);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(typeof(T).Name);
+        Managers.Resource.LoadResourceLocationAsync(nextScene.LabelAsync, nextScene.Enter);
     }
 }

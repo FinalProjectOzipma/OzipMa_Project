@@ -20,12 +20,14 @@ MonoBehaviour:
   - m_GUID: e94de9eaa5652ff4c8a230a4fabc4b04
     m_Address: Core
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a39d47d6d17b0d42a69ac406f801cc3
     m_Address: EnemySpawn
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
