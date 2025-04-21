@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Numerics;
 
 public class UI_ResearchScene : UI_Base
 {
@@ -25,6 +26,8 @@ public class UI_ResearchScene : UI_Base
 
     //public Sprite Sprite;
 
+
+    Sequence sequence;
 
     private void Awake()
     {
@@ -90,8 +93,11 @@ public class UI_ResearchScene : UI_Base
 
     public void OnClickBack(PointerEventData data)
     {
+
         this.gameObject.SetActive(false);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+
+
     }
 
 

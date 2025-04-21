@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,6 +21,7 @@ public class UI_Sound : UI_Base
         SFXSlider
     }
 
+    Sequence sequence;
 
     private void Awake()
     {
@@ -129,7 +129,20 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickExitButton(PointerEventData data)
     {
-        this.gameObject.SetActive(false);
+        sequence = DOTween.Sequence();
+
+        transform.localScale *= 0.2f;
+
+        sequence.Append(this.gameObject.transform.DOScale(1.1f, 0.1f));
+        sequence.Append(this.gameObject.transform.DOScale(0.2f, 0.2f));
+
+
+        sequence.Play().OnComplete(() => 
+        {
+            this.gameObject.SetActive(false);
+        });
+       
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
     }
 
