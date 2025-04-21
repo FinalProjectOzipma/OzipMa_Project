@@ -17,6 +17,11 @@ public class UI_ResearchScene : UI_Base
         ZamText
     }
 
+    enum Images
+    {
+        BackImage
+    }
+
     enum UIObject
     {
         AttackUpgrade,
@@ -57,6 +62,7 @@ public class UI_ResearchScene : UI_Base
     {
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
+        Bind<Image>(typeof(Images));
 
 
         GetTextMeshProUGUI((int)Texts.GoldText).text = Managers.Player.GetGold().ToString();
@@ -93,8 +99,7 @@ public class UI_ResearchScene : UI_Base
 
     public void OnClickBack(PointerEventData data)
     {
-
-        this.gameObject.SetActive(false);
+        Util.OnClickButtonAnim(this.gameObject, GetImage((int)Images.BackImage), false);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
 
 

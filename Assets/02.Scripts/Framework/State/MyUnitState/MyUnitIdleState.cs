@@ -6,7 +6,6 @@ using UnityEngine.AI;
 using UnityEngine.Diagnostics;
 using Table = DefaultTable;
 using static UnityEngine.Rendering.DebugUI;
-using VInspector.Libs;
 using System.Linq;
 
 public class MyUnitIdleState : MyUnitStateBase

@@ -215,19 +215,18 @@ public class Util
         var sequence = DOTween.Sequence();
 
         sequence.Append(popup.transform.DOScale(1.1f, 0.2f));
-        sequence.Append(popup.transform.DOScale(1f, 0.1f));
+        sequence.Append(popup.transform.DOScale(1.0f, 0.1f));
 
         sequence.Play();
     }
 
     public static void PopUpClose(GameObject popup)
     {
-        popup.SetActive(false);
-
         var sequence = DOTween.Sequence();
 
-        sequence.Append(popup.transform.DOScale(1.1f, 0.2f));
-        sequence.Append(popup.transform.DOScale(0.2f, 0.1f));
+
+        sequence.Append(popup.transform.DOScale(1.1f, 0.1f));
+        sequence.Append(popup.transform.DOScale(0.2f, 0.2f));
 
         sequence.Play().OnComplete(() =>
         {
