@@ -129,20 +129,7 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickExitButton(PointerEventData data)
     {
-        sequence = DOTween.Sequence();
-
-        transform.localScale *= 0.2f;
-
-        sequence.Append(this.gameObject.transform.DOScale(1.1f, 0.1f));
-        sequence.Append(this.gameObject.transform.DOScale(0.2f, 0.2f));
-
-
-        sequence.Play().OnComplete(() => 
-        {
-            this.gameObject.SetActive(false);
-        });
-       
-
+        Util.OnClickButtonAnim(this.gameObject, GetButton((int)Buttons.ExitButton).GetComponent<Image>(), false);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
     }
 

@@ -20,10 +20,14 @@ public class PlayerManager
 
     public GameObject mainCore;
 
+    public List<GameObject> CurMyUnitLiset;
+
     public void Initialize()
     {
         // 처음 시작할때 선언
         Inventory = new Inventory();
+        CurMyUnitLiset = new();
+
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
 
@@ -118,6 +122,7 @@ public class PlayerManager
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
         {
+            CurMyUnitLiset.Add(go);
             MyUnitController ctrl = go.GetComponent<MyUnitController>();
             ctrl.Target = GameObject.Find("Test");
             ctrl.TakeRoot(random, $"{name}", mainCore.transform.position);

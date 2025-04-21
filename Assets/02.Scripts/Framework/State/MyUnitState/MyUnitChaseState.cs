@@ -49,6 +49,8 @@ public class MyUnitChaseState : MyUnitStateBase
             if (controller.IsClose())
                 //전투 상태로 현재 상태 변경
                 StateMachine.ChangeState(data.AttackState);
+            Agent.SetDestination(controller.Target.transform.position);
         }
+        
     }
 }

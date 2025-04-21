@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 public class UI_MainTest : UI_Base
 {
     enum Buttons
@@ -16,6 +17,12 @@ public class UI_MainTest : UI_Base
     {
         MainGoldText,
         MainZamText
+    }
+
+    enum Images
+    {
+        ResearchButtonImage,
+        SettingImage
     }
 
     enum UIObject
@@ -33,6 +40,7 @@ public class UI_MainTest : UI_Base
 
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
+        Bind<Image>(typeof(Images));
         Bind<GameObject>(typeof(UIObject));
 
         GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickOpenSetting);
@@ -48,42 +56,43 @@ public class UI_MainTest : UI_Base
 
     public void OnClickOpenSetting(PointerEventData data)
     {
-
-
+        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Sound), GetImage((int)Images.SettingImage));
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
     public void OnClickOpenResearch(PointerEventData data)
     {
+        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Research), GetImage((int)Images.ResearchButtonImage));
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
-        GetObject((int)UIObject.UI_Research).SetActive(true);
-        
+       
     }
 
-    private void PopUpShow(UIObject uIObject)
-    {
-        GetObject((int)uIObject).SetActive(true);
+    //private void PopUpShow(UIObject uIObject)
+    //{
+    //    GetObject((int)uIObject).SetActive(true);
 
-        var sequence = DOTween.Sequence();
+    //    var sequence = DOTween.Sequence();
 
-        sequence.Append(GetObject((int)uIObject).transform.DOScale(1.1f, 0.2f));
-        sequence.Append(GetObject((int)uIObject).transform.DOScale(1f, 0.1f));
+    //    sequence.Append(GetObject((int)uIObject).transform.DOScale(1.1f, 0.2f));
+    //    sequence.Append(GetObject((int)uIObject).transform.DOScale(1f, 0.1f));
 
-        sequence.Play();
+    //    sequence.Play();
 
-    }
+    //}
 
-    private void OnClickButtonAnime(UIObject uIObject)
-    {
-        var sequence = DOTween.Sequence();
+    //private void OnClickButtonAnime(UIObject uIObject, Images image)
+    //{
+    //    var sequence = DOTween.Sequence();
 
-        sequence.Append(GetButton((int)Buttons.SettingButton).gameObject.transform.DOScale(0.95f, 0.1f));
-        sequence.Append(GetButton((int)Buttons.SettingButton).gameObject.transform.DOScale(1.05f, 0.1f));
-        sequence.Append(GetButton((int)Buttons.SettingButton).gameObject.transform.DOScale(1.0f, 0.1f));
+    //    sequence.Append(GetImage((int)image).gameObject.transform.DOScale(0.95f, 0.1f));
+    //    sequence.Append(GetImage((int)image).gameObject.transform.DOScale(1.2f, 0.1f));
+    //    sequence.Append(GetImage((int)image).gameObject.transform.DOScale(1.0f, 0.1f));
 
-        sequence.Play().OnComplete(() =>
-        {
-            PopUpShow(uIObject);
-        });
-    }
+    //    sequence.Play().OnComplete(() =>
+    //    {
+    //        PopUpShow(uIObject);
+    //    });
+    //}
+
+
 }

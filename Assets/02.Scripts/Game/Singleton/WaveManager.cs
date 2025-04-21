@@ -13,7 +13,7 @@ public class WaveManager
 
     private List<Table.Wave> waveList;
     private List<Table.Enemy> enemyList;
-    private List<GameObject> curspawnEnemyList;
+    public List<GameObject> curspawnEnemyList;
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
 
