@@ -26,7 +26,8 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public void AttackTrigger()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue());
+        int layer = 1 << 8;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
 
         foreach (var hit in colliders)
         {

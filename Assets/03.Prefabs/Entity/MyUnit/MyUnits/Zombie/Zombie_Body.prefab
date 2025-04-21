@@ -55,6 +55,26 @@ PrefabInstance:
       propertyPath: sr
       value: 
       objectReference: {fileID: 2971055997520344314}
+    - target: {fileID: 2160573402948221724, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: flashMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 35a86253d8b3de742b1e8eada64caafe, type: 2}
+    - target: {fileID: 2160573402948221724, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: dotColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160573402948221724, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: dotColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160573402948221724, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: dotColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160573402948221724, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: dotColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2768902109460157299, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
       propertyPath: m_BodyType
       value: 1

@@ -79,6 +79,7 @@ public class MyUnitController : EntityController
         {
             go.transform.SetParent(transform);
             Rigid = go.GetOrAddComponent<Rigidbody2D>();
+            Fx = go.GetOrAddComponent<ObjectFlash>();
             Init(primaryKey, name, position, go);
         });
     }
