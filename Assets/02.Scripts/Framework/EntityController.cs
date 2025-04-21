@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public abstract class EntityController : MonoBehaviour
 {
     public int PrimaryKey { get; set; }
     public string Name { get; set; }
 
+    #region Component
     public Animator Anim { get; private set; }
+    public ObjectFlash Fx { get; set; }
+
+    #endregion
     public EntityAnimationData AnimData { get; protected set; }
 
     public bool IsLeft { get; private set; }

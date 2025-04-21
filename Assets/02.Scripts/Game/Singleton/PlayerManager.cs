@@ -1,10 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerManager 
 {
+    public CoreBase MainCore { get; set; }
     public int Money { get; set; }
     public long gold { get; private set; }
     public long zam { get; private set; }
@@ -16,6 +18,8 @@ public class PlayerManager
     private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
+    public GameObject mainCore;
+
     public void Initialize()
     {
         // 처음 시작할때 선언
@@ -23,8 +27,12 @@ public class PlayerManager
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
 
+        Managers.Resource.Instantiate("Core", go => mainCore = go);
+
         gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
         zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
+
+        MainCore = new CoreBase();
     }
 
     /// <summary>
@@ -98,6 +106,21 @@ public class PlayerManager
     }
 
 
+    public void SpawnUnit()
+    {
+        List<IGettable> myUnitsList = Managers.Player.Inventory.GetList<MyUnit>();
 
+        int random = UnityEngine.Random.Range(0,3);
 
+         MyUnit myUnit = myUnitsList[random].GetClassAddress<MyUnit>();
+
+        string name = myUnit.Name;
+
+        Managers.Resource.Instantiate($"{name}_Brain", (go) =>
+        {
+            MyUnitController ctrl = go.GetComponent<MyUnitController>();
+            ctrl.Target = GameObject.Find("Test");
+            ctrl.TakeRoot(random, $"{name}", mainCore.transform.position);
+        });
+    }
 }

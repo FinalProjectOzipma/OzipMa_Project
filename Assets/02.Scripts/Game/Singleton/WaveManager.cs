@@ -6,6 +6,7 @@ using Table = DefaultTable;
 
 public class WaveManager
 {
+    private CoreBase mainCore;
     private Coroutine enemyCoroutine;
     private Coroutine unitCoroutine;
     private int liveEnemyCount = 0;
@@ -15,19 +16,17 @@ public class WaveManager
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
 
-
+    private GameObject enemySpawn;
 
     public void Initialize()
     {
         waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);
         enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
 
-
-        Managers.Resource.Instantiate("SwordMan_Brain", (go) =>
+        Managers.Resource.Instantiate("EnemySpawn", go =>
         {
-            EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.Target = GameObject.Find("Test");
-            ctrl.TakeRoot(0, "SwordMan", Vector2.zero);
+            enemySpawn = go;
+            SpawnEnemy();
         });
 
         Managers.Resource.Instantiate("Zombie_Brain", (go) =>
@@ -43,7 +42,6 @@ public class WaveManager
         //int needMyUnitAmount = 5;
 
         liveEnemyCount = needEnemyAmount;
-
         // 코루틴 시작
         if (enemyCoroutine != null) Managers.MonoInstance.StopCoroutine(enemyCoroutine);
         if (unitCoroutine != null) Managers.MonoInstance.StopCoroutine(unitCoroutine);
@@ -75,5 +73,22 @@ public class WaveManager
             // Managers.Resource.Instantiate(selectedUnit.Name);
             yield return spawnTime;
         }
+    }
+
+    private void SpawnEnemy()
+    {
+        int random = UnityEngine.Random.Range(0, 3);
+
+        DefaultTable.Enemy enemyList = Managers.Data.Datas[Enums.Sheet.Enemy][random] as DefaultTable.Enemy;
+
+        string name = enemyList.Name;
+
+        Managers.Resource.Instantiate($"{name}_Brain", (go) =>
+        {
+            EnemyController ctrl = go.GetComponent<EnemyController>();
+            ctrl.Target = GameObject.Find("Test");
+            ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);
+        });
+
     }
 }
