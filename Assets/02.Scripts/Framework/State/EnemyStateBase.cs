@@ -83,7 +83,7 @@ public class EnemyStateBase : EntityStateBase
         }
         else
         {
-            if (stack.Peek() == null ||
+            if (stack.Peek() == null || !stack.Peek().gameObject.activeInHierarchy ||
                 Vector2.Distance(transform.position, stack.Peek().transform.position) >= status.AttackRange.GetValue())
             {
                 stack.Pop();

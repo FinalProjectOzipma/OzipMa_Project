@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6626892605774346392}
   - component: {fileID: 845924350207196444}
   - component: {fileID: 1187061853864600472}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: HpBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 3044781238121841236}
   - component: {fileID: 4975341237508952689}
   - component: {fileID: 1842925871443478100}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Hp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 5440850930433886574}
   - component: {fileID: 2507652317639915374}
   - component: {fileID: 3827430925401913683}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,7 +246,7 @@ GameObject:
   - component: {fileID: 8105352755645939270}
   - component: {fileID: 205197527283590225}
   - component: {fileID: 8478457881634121784}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7604480453460354870}
   - component: {fileID: 5335330991893575300}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
