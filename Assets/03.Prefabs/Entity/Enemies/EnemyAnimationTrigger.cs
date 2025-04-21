@@ -30,7 +30,7 @@ public class EnemyAnimationTrigger : MonoBehaviour
 
         foreach (var hit in colliders)
         {
-            if (hit.GetComponent<MyUnitController>() != null)
+            if (hit.GetComponentInParent<MyUnitController>() != null)
                 Util.Log($"{hit.name}");
                 //hit.GetComponent<MyUnitController>().Damage();
         }
