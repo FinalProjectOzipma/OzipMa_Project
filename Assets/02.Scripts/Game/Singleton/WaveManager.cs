@@ -32,7 +32,7 @@ public class WaveManager
         Managers.Resource.Instantiate("Zombie_Brain", (go) =>
         {
             MyUnitController ctrl = go.GetComponent<MyUnitController>();
-            ctrl.TakeRoot(0, "Zombie", Vector2.zero);
+            ctrl.TakeRoot(1, "Zombie", Vector2.zero);
         });
     }
 
