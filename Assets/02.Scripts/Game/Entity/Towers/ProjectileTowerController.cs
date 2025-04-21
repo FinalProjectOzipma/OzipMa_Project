@@ -29,7 +29,7 @@ public class ProjectileTowerController : TowerControlBase
         // Projectile 생성
         Managers.Resource.Instantiate(ProjectileName, go =>
         {
-            go.transform.position = transform.position;
+            go.transform.position = firePosition;
             go.GetComponent<TowerProjectile>().Init(ProjectileName, AttackPower, Tower, target);
         });
     }
