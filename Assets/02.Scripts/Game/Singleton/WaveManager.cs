@@ -23,6 +23,7 @@ public class WaveManager
     {
         waveList = Util.TableConverter<Table.Wave>(Managers.Data.Datas[Enums.Sheet.Wave]);
         enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
+        curspawnEnemyList = new();
         
         Managers.Resource.Instantiate("EnemySpawn", go =>
         {
