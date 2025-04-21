@@ -82,7 +82,11 @@ public class ResourceManager
             return;
         }
 
-        LoadAssetAsync<GameObject>(key, original => onComplete?.Invoke(Instantiate(original)));
+        LoadAssetAsync<GameObject>(key, original => 
+        {
+            GameObject newGO = Instantiate(original);
+            onComplete?.Invoke(newGO);
+        });
     }
 
     public GameObject Instantiate(GameObject original)

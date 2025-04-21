@@ -34,7 +34,7 @@ public class Managers : MonoBehaviour
 
         Data.Initialize();
         Pool.Initialize();
-        Audio.Initialize();
+        Scene.GameScene.SingletonAction += Audio.Initialize;
         Scene.GameScene.SingletonAction += Player.Initialize;
         Scene.GameScene.SingletonAction += Wave.Initialize;
         Scene.GameScene.SingletonAction += Game.Initialize;

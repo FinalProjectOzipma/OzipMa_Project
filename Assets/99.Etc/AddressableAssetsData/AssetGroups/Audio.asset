@@ -16,7 +16,13 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: 3c6c5cb89a2f11a4b887205e5d0e4f94
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 9a40affe1cf9c1b49a7fea883e75d6e6
+    m_Address: AudioSource
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:

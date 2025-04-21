@@ -17,7 +17,7 @@ public class AudioManager
 
     public void Initialize()
     {
-        Managers.Resource.Instantiate("Audio", go =>
+        Managers.Resource.Instantiate("AudioSource", go =>
         {
             go.transform.SetParent(Managers.Instance.transform);
             audioControler = go.GetComponent<AudioControler>();
