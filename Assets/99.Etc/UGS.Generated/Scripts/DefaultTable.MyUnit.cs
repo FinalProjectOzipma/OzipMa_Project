@@ -61,7 +61,7 @@ namespace DefaultTable
 		public System.String Description;
 		public System.Single Health;
 		public System.Single Attack;
-		public System.Collections.Generic.List<Single> Defence;
+		public System.Single Defence;
 		public System.Single MoveSpeed;
 		public RankType Rank;
 		public AtkType AttackType;
