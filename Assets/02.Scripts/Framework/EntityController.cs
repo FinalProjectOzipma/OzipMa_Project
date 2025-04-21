@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
 public abstract class EntityController : MonoBehaviour
 {
+    [SerializeField]
     public int PrimaryKey { get; set; }
     public string Name { get; set; }
 
