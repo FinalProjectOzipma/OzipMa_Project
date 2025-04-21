@@ -9,6 +9,8 @@ public abstract class EntityStateBase
     protected StateMachine StateMachine { get; set; }
     protected int animHashKey;
 
+    protected bool triggerCalled;
+
     public EntityStateBase(StateMachine stateMachine, int animHashKey)
     {
         StateMachine = stateMachine;
@@ -19,4 +21,6 @@ public abstract class EntityStateBase
     public abstract void Update();
     public abstract void FixedUpdate();
     public abstract void Exit();
+
+    public void AniamtionFinishTrigger() => triggerCalled = true;
 }

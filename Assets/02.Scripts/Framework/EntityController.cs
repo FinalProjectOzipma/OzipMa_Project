@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EntityController : MonoBehaviour
+public abstract class EntityController : Poolable
 {
     public int PrimaryKey { get; set; }
     public string Name { get; set; }
@@ -16,6 +16,8 @@ public abstract class EntityController : MonoBehaviour
 
     public bool IsLeft { get; private set; }
     public int FacDir { get; private set; }
+
+    public bool IsDead { get; set; }
 
     public virtual void Init(int primaryKey, string name, Vector2 position, GameObject go = null)
     {

@@ -32,6 +32,7 @@ public class EnemyStateBase : EntityStateBase
     public override void Enter()
     {
         anim.SetBool(animHashKey, true);
+        triggerCalled = false;
     }
 
     public override void Exit()
@@ -46,6 +47,16 @@ public class EnemyStateBase : EntityStateBase
 
     public override void Update()
     {
+        if (controller.IsDead)
+            return;
+
+        if (status.Health.GetValue() <= 0.0f)
+        {
+            controller.StopAllCoroutines();
+            controller.IsDead = true;
+            StateMachine.ChangeState(data.DeadState);
+        }
+
         target = controller.Target;
         // Target 있을때만
         controller.FlipControll(target);

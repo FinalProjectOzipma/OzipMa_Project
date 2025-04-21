@@ -45,6 +45,7 @@ public class EnemyController : EntityController
     {
         Enemy = new Enemy(primaryKey, SpriteImage);
         Status = Enemy.Status;
+        IsDead = false;
         Managers.Resource.Instantiate($"{name}{_Body}", go =>
         {
             go.transform.SetParent(transform);
@@ -52,6 +53,13 @@ public class EnemyController : EntityController
             Fx = go.GetOrAddComponent<ObjectFlash>();
             Init(primaryKey, name, position, go);
         });
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        if (Input.GetKeyDown(KeyCode.F))
+            ApplyDotDamage(1000f, 10f, 1f);
     }
 
     public void ApplyDamage(float attackPower)
@@ -138,4 +146,6 @@ public class EnemyController : EntityController
 
         Status.MoveSpeed.SetValueMultiples(1f);
     }
+
+    public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
 }
