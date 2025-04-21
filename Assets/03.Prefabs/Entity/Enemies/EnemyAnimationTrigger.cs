@@ -4,21 +4,40 @@ using UnityEngine;
 
 public class EnemyAnimationTrigger : MonoBehaviour
 {
+    public Transform AttackCheck;
+    float attackValue;
     private EnemyController enemy => GetComponentInParent<EnemyController>();
+
+    private void Start()
+    {
+        Init();
+    }
+
+    private void Init()
+    {
+        attackValue = enemy.Status.AttackRange.GetValue();
+    }
 
     public void AnimationTrigger()
     {
         enemy.AnimationFinishTrigger();
     }
 
-    /*private void AttackTrigger()
+    public void AttackTrigger()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(enemy.attackCheck.position, enemy.attackCheckRadius);
+        
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, attackValue);
 
         foreach (var hit in colliders)
         {
-            if (hit.GetComponent<Player>() != null)
-                hit.GetComponent<Player>().Damage();
+            if (hit.GetComponent<MyUnitController>() != null)
+                Util.Log($"{hit.name}");
+                //hit.GetComponent<MyUnitController>().Damage();
         }
-    }*/
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
+    }
 }
