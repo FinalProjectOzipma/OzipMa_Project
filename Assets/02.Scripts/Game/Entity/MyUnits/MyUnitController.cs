@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class MyUnitController : EntityController
 {
-    public Sprite sprite;
+    //아이콘
+    public Sprite sprite; 
     #region Component
     public Rigidbody2D Rigid { get; private set; }
     #endregion
@@ -14,6 +15,7 @@ public class MyUnitController : EntityController
 
     public MyUnit MyUnit { get; private set; }
     public MyUnitStatus MyUnitStatus { get; private set; }
+    public SpriteRenderer spriteRenderer; 
     public NavMeshAgent Agent;
 
     public GameObject Target;
@@ -28,12 +30,14 @@ public class MyUnitController : EntityController
     public override void Init(int primaryKey, string name, Vector2 position, GameObject go = null)
     {
         base.Init(primaryKey, name, position, go);
-
-
-
         transform.position = position;
         AnimData = new MyUnitAnimationData();
         AnimData.Init(this);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
 
     // Wave에서 들고있는것
@@ -43,16 +47,17 @@ public class MyUnitController : EntityController
     // 컨트롤러 Init안에서는 Primary = 매개변수; 
     // Name = 매개변수;
 
+    private string _Body = nameof(_Body);
+
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
         MyUnit = new MyUnit();
         MyUnit.Init(PrimaryKey, sprite);
         // 초기화부분
-        Managers.Resource.Instantiate(Name, go =>
+        Managers.Resource.Instantiate($"{name}{_Body}", go =>
         {
-            go.transform.SetParent(transform);        // 클래스 초기화
-            MyUnitStatus = MyUnit.Status as MyUnitStatus;
-            Rigid = go.GetComponent<Rigidbody2D>();
+            go.transform.SetParent(transform);
+            Rigid = go.GetOrAddComponent<Rigidbody2D>();
             Init(primaryKey, name, position, go);
         });
     }
@@ -64,7 +69,7 @@ public class MyUnitController : EntityController
     /// <returns></returns>
     public bool IsClose()
     {
-        if (MyUnitStatus.AttackRange.GetValue() > (Target.transform.position - transform.position).magnitude)
+        if (1.0f > (Target.transform.position - transform.position).magnitude)
         {
             return true;
         }

@@ -25,7 +25,7 @@ public class UI_ResearchScene : UI_Base
         RandomUpgrade
     }
 
-    public Sprite Sprite;
+    //public Sprite Sprite;
 
 
     private void Awake()
