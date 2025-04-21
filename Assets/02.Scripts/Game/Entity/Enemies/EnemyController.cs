@@ -55,7 +55,7 @@ public class EnemyController : EntityController
     public void ApplyDamage(float attackPower)
     {
         //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = attackPower;
+        float minus = -attackPower;
 
         if (minus < 0.0f)
         {

@@ -35,7 +35,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
             {
                 Util.Log(hit.name);
                 //hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
-                hit.GetComponentInParent<EnemyController>().ApplyDamage(700);
+                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
             }
         }
     }

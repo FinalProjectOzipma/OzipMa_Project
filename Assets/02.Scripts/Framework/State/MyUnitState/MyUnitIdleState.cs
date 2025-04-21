@@ -31,6 +31,7 @@ public class MyUnitIdleState : MyUnitStateBase
 
     public override void Update()
     {
+        base.Update();
         if (controller.Target != null)
         {
             Debug.Log("타겟지정되어있음");

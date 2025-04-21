@@ -22,6 +22,7 @@ public class MyUnitAttackState : MyUnitStateBase
 
     public override void Update()
     {
+        base.Update();
         //타겟이 비어있다면 
         if (controller.Target == null)
         {
