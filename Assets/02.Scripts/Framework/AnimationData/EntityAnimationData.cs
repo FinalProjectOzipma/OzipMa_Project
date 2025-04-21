@@ -8,12 +8,14 @@ public class EntityAnimationData
     private string idleParameterName = "Idle";
     private string ChaseParameterName = "Chase"; 
     private string AttackParameterName = "Attack";
+    private string DeadParameterName = "Dead";
     #endregion
 
     #region HashProperty
     public int IdleHash { get; private set; }
     public int ChaseHash { get; private set; }
     public int AttackHash { get; private set; }
+    public int DeadHash { get; private set; }
     #endregion
 
     public StateMachine StateMachine { get; protected set; }
@@ -23,6 +25,7 @@ public class EntityAnimationData
         IdleHash = Animator.StringToHash(idleParameterName);
         ChaseHash = Animator.StringToHash(ChaseParameterName);
         AttackHash = Animator.StringToHash(AttackParameterName);
+        DeadHash = Animator.StringToHash(DeadParameterName);
 
         StateMachine = new();
     }

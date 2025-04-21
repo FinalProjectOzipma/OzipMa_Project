@@ -2,10 +2,13 @@ using GoogleSheet;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EnemyStatus : StatusBase
 {
     public EntityHealth Health { get; set; } = new();
+    
+
     public float MaxHealth { get; set; } = new();
 
     public List<FloatBase> Defences { get; set; } = new();

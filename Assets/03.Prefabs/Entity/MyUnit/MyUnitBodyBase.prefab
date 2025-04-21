@@ -193,5 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6e070f33c53f04588d05053a710f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sr: {fileID: 7377928430184646330}
+  dotColor: {r: 0, g: 0, b: 0, a: 0}
   flashDuration: 0.5
-  hitMat: {fileID: 2100000, guid: 35a86253d8b3de742b1e8eada64caafe, type: 2}
+  flashMat: {fileID: 0}

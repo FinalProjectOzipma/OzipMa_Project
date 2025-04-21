@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyChasingState : EnemyStateBase
@@ -25,6 +26,7 @@ public class EnemyChasingState : EnemyStateBase
     {
 
         base.Update();
+
         if (controller.Target == null) return;
 
         agent.SetDestination(controller.Target.transform.position);
