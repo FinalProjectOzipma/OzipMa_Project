@@ -10,22 +10,14 @@ using System.Linq;
 
 public class MyUnitIdleState : MyUnitStateBase
 {
-    private NavMeshAgent Agent;
-
     public MyUnitIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
-        this.Anim = controller.Anim;
-        //this.Rigid = controller.Rigid;
-        this.animHashKey = animHashKey;
-        this.controller = controller;
-        this.data = data;
-        Agent = controller.Agent;
-        StateMachine = stateMachine;
     }
+
     public override void Enter()
     {
         base.Enter();
-        Util.Log("상윤님바보");
+        Util.Log("상윤님바보(마이유닛 idle상태라는뜻)");
         if (controller.Target == null)
         {
             SetTarget();
@@ -39,6 +31,7 @@ public class MyUnitIdleState : MyUnitStateBase
 
     public override void Update()
     {
+        base.Update();
         if (controller.Target != null)
         {
             Debug.Log("타겟지정되어있음");

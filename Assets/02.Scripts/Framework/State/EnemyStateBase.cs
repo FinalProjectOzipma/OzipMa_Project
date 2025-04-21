@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
@@ -9,23 +10,30 @@ public class EnemyStateBase : EntityStateBase
     protected EnemyController controller;
     protected EnemyAnimationData data;
 
+    protected Transform transform;
     protected Animator anim;
     protected Rigidbody2D rigid;
     protected NavMeshAgent agent;
     protected EnemyStatus status;
 
-    protected GameObject target;
     protected bool isLeft;
     protected int facDir = 1;
+
+    protected GameObject core;
+    protected Stack<GameObject> stack;
 
     public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
+        this.transform = controller.transform;
         this.anim = controller.Anim;
         this.rigid = controller.Rigid;
         this.agent = controller.Agent;
         this.status = controller.Status;
 
+        this.stack = new Stack<GameObject>();
+        core = Managers.Player.MainCore.gameObject;
+        stack.Push(core);
         this.data = data;
     }
 
@@ -57,9 +65,30 @@ public class EnemyStateBase : EntityStateBase
             StateMachine.ChangeState(data.DeadState);
         }
 
-        target = controller.Target;
-        // Target 있을때만
-        controller.FlipControll(target);
+
+        if(stack.Count > 0)
+        {
+            SetTarget();
+
+            controller.FlipControll(stack.Peek());
+        }
+    }
+
+    private void SetTarget()
+    {
+        if (stack.Peek() == core)
+        {
+            Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), 1 << 9);
+            if (col != null) stack.Push(col.gameObject);
+        }
+        else
+        {
+            if (stack.Peek() == null || !stack.Peek().gameObject.activeInHierarchy ||
+                Vector2.Distance(transform.position, stack.Peek().transform.position) >= status.AttackRange.GetValue())
+            {
+                stack.Pop();
+            }
+        }
     }
 
     //목적지에 도착했는지 확인하는 용

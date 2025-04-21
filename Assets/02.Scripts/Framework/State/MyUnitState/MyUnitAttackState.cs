@@ -6,13 +6,8 @@ public class MyUnitAttackState : MyUnitStateBase
 {
     public MyUnitAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
-        this.Anim = controller.Anim;
-        //this.Rigid = controller.Rigid;
-        this.animHashKey = animHashKey;
-        this.controller = controller;
-        this.data = data;
-        StateMachine = stateMachine;
     }
+
     public override void Enter()
     {
         base.Enter();
@@ -27,6 +22,7 @@ public class MyUnitAttackState : MyUnitStateBase
 
     public override void Update()
     {
+        base.Update();
         //타겟이 비어있다면 
         if (controller.Target == null)
         {

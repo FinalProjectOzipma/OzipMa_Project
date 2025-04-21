@@ -402,7 +402,7 @@ public class UI_Research : UI_Base
                 }
                 break;
             case ResearchUpgradeType.Core:
-                Core core = Managers.Player.mainCore.GetComponent<Core>();
+                Core core = Managers.Player.MainCore.GetComponent<Core>();
                 core.Health.AddValue(updateStat);
                 break;
         }
