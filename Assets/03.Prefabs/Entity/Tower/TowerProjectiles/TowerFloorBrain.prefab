@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 684780127555473469}
   - component: {fileID: 5488968179732541259}
+  - component: {fileID: 2194470699423729062}
   m_Layer: 0
   m_Name: TowerFloorBrain
   m_TagString: Untagged
@@ -42,5 +43,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa5c3fc8c799ad547a5b6094aec39ce9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2194470699423729062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8659599911817876512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6483ecd1ea529640812ffa517fa8a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

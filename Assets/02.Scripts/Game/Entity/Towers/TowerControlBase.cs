@@ -4,14 +4,16 @@ using UnityEngine;
 
 public abstract class TowerControlBase : MonoBehaviour
 {
+    [Header("테스트용")]
+    public int ID = 1;
+    public bool IsPlaced; // 맵에 배치되었는가 
+    [field: SerializeField] public string Name { get; set; }
     public Tower Tower {  get; private set; }
     public TowerStatus TowerStatus { get; private set; } // 캐싱용
     public Animator Anim { get; private set; }
     public TowerAnimationData AnimData { get; private set; }
 
-    public bool IsPlaced; // 맵에 배치되었는가 
     public Sprite Preview { get; private set; }
-    [field: SerializeField] public string Name { get; set; }
 
     protected LinkedList<EnemyController> detectedEnemies = new(); // 범위 내 적들
 
@@ -25,7 +27,7 @@ public abstract class TowerControlBase : MonoBehaviour
         Util.Log(Name);
 
         // Test용 강제 TakeRoot
-        TakeRoot(0, Name, Vector2.zero);
+        TakeRoot(ID, Name, Vector2.zero);
     }
 
     public void Init()

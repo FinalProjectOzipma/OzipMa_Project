@@ -1,22 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangeTowerController : TowerControlBase
+public class TowerTrigger : MonoBehaviour 
 {
+    private static int enemyLayer = -1;
+    private float attackPower;
+    private Tower ownerInfo;
+    private Action finished;
 
-    public override void Attack(float AttackPower)
+    private void Awake()
     {
-        // 범위 내 타겟들 모두에게 적용
-        foreach (EnemyController target in detectedEnemies)
+        if(enemyLayer < 0)
         {
+            enemyLayer = LayerMask.GetMask("Enemy");
+        }
+    }
+
+    public void Init(float attackPower, Tower ownerTower, Action AttackFinish)
+    {
+        this.attackPower = attackPower;
+        ownerInfo = ownerTower;
+        finished = AttackFinish;
+    }
+
+    public void FloorAttack()
+    {
+        if (ownerInfo == null) return;
+        Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 0.5f, enemyLayer);
+
+        // 범위 내 타겟들 모두에게 적용
+        foreach (Collider2D collider in targets)
+        {
+            EnemyController target = collider.transform.parent?.gameObject.GetComponent<EnemyController>();
             if (target == null) continue;
+            if (ownerInfo == null) continue;
 
             // 기본 공격
-            target.ApplyDamage(AttackPower);
-
+            target.ApplyDamage(ownerInfo.TowerStatus.Attack.GetValue());
             // 해당 타워가 갖고있는 공격 속성 모두 적용
-            foreach (TowerType type in Tower.TowerTypes)
+            foreach (TowerType type in ownerInfo.TowerTypes)
             {
                 if (Tower.Abilities.ContainsKey(type) == false) continue;
                 DefaultTable.TowerAbilityDefaultValue values = Tower.Abilities[type];
@@ -41,5 +65,8 @@ public class RangeTowerController : TowerControlBase
         }
     }
 
-    
+    public void DestroyFloor()
+    {
+        finished?.Invoke();
+    }
 }
