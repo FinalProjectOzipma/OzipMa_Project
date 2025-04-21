@@ -50,7 +50,6 @@ public class AudioControler : MonoBehaviour
     /// </summary>
     public void Initialize()
     {
-        //sfxPrefab = Managers.Audio.sfxPrefab;
         bgmSource = this.GetComponent<AudioSource>();
         BuildBGMDictionary(); // bgmData를 딕셔너리 형태로 변환
         BuildSFXictionary(); // sfxData를 딕셔너리 형태로 변환
