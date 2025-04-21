@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class PlayerManager 
 {
-    public Core MainCore { get; set; }
+    public Core MainCoreData { get; set; }
+    public CoreController MainCore { get; set; }
     public int Money { get; set; }
     public long gold { get; private set; }
     public long zam { get; private set; }
@@ -18,24 +19,23 @@ public class PlayerManager
     private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
-    public GameObject mainCore;
-
     public List<GameObject> CurMyUnitLiset;
 
     public void Initialize()
     {
         // 처음 시작할때 선언
         Inventory = new Inventory();
-        CurMyUnitLiset = new();
+        MainCoreData = new Core();
+
+            CurMyUnitLiset = new();
 
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
 
         Managers.Resource.Instantiate("Core", go => {
 
-            mainCore = go;
-            MainCore = mainCore.GetComponent<CoreController>().core;
-
+            MainCore = go.GetComponent<CoreController>();
+            go.GetComponent<CoreController>().core = MainCoreData;
         });
 
         gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
@@ -130,7 +130,7 @@ public class PlayerManager
             CurMyUnitLiset.Add(go);
             MyUnitController ctrl = go.GetComponent<MyUnitController>();
             ctrl.Target = GameObject.Find("Test");
-            ctrl.TakeRoot(random, $"{name}", mainCore.transform.position);
+            ctrl.TakeRoot(random, $"{name}", MainCore.transform.position);
         });
     }
 }

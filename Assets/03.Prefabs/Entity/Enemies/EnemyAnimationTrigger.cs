@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class EnemyAnimationTrigger : MonoBehaviour
@@ -25,14 +26,19 @@ public class EnemyAnimationTrigger : MonoBehaviour
 
     public void AttackTrigger()
     {
-        
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, attackValue);
+        int layer = 1 << 9 | 1 << 10;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, attackValue, layer);
 
         foreach (var hit in colliders)
         {
-            if (hit.GetComponentInParent<MyUnitController>() != null)
-                Util.Log($"{hit.name}");
-                //hit.GetComponent<MyUnitController>().Damage();
+            MyUnitController unit = hit.GetComponentInParent<MyUnitController>();
+
+            if (unit != null)
+                unit.TakeDamage(enemy.Status.Attack.GetValue());
+            else if (hit.GetComponent<CoreController>() != null)
+            {
+                hit.GetComponent<CoreController>().TakeDamge(enemy.Status.Attack.GetValue());
+            }
         }
     }
 

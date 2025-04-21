@@ -27,11 +27,11 @@ public class EnemyChasingState : EnemyStateBase
 
         base.Update();
 
-        if (controller.Target == null) return;
+        if (stack.Count <= 0) return;
 
-        agent.SetDestination(controller.Target.transform.position);
+        agent.SetDestination(stack.Peek().transform.position);
 
-        if (Vector2.Distance(rigid.position, controller.Target.transform.position) <= status.AttackRange.GetValue())
+        if (Vector2.Distance(rigid.position, stack.Peek().transform.position) <= status.AttackRange.GetValue())
             StateMachine.ChangeState(data.AttackState);
     }
 

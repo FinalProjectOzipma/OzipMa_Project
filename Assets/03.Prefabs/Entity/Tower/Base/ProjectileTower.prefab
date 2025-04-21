@@ -77,4 +77,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16c98be26f7c9dc42a0e888fee9d1e96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 1
   IsPlaced: 0
+  <Name>k__BackingField: 
