@@ -6,7 +6,8 @@ public class FloorTowerController : TowerControlBase
 {
     private int randomTarget = -1;
     private EnemyController target;
-    private string floorKey = "TowerFloor"; // 장판 오브젝트 키 
+    private string floorBrainKey = "TowerFloorBrain"; // 장판 오브젝트 키 
+    private string floorKey = "TowerFloor";
 
     protected void Awake()
     {
@@ -19,7 +20,6 @@ public class FloorTowerController : TowerControlBase
         {
             floorKey = Name;
         }
-        Managers.Resource.LoadAssetAsync<GameObject>(floorKey);
     }
 
     public override void Attack(float AttackPower)
@@ -34,7 +34,7 @@ public class FloorTowerController : TowerControlBase
             }
         }
 
-        Managers.Resource.Instantiate(floorKey, go =>
+        Managers.Resource.Instantiate(floorBrainKey, go =>
         {
             go.GetComponent<TowerFloor>().Init(floorKey, target.transform.position, TowerStatus.Attack.GetValue(), Tower);
         });

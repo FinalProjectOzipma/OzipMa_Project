@@ -6,8 +6,15 @@ public class TowerFloor : MonoBehaviour
 {
     public void Init(string floorKey, Vector3 position, float attackPower, Tower ownerTower)
     {
-        // TODO :: 장판 공격 시작 
-        // body 불러오기
-        // 장판딜 적용
+        // Body 불러오기
+        Managers.Resource.Instantiate($"{floorKey}Body", go =>
+        {
+            Transform t = go.transform;
+            t.SetParent(this.transform);
+            t.position = position;
+            t.localPosition = Vector3.zero;
+        });
+
+        // TODO :: 장판 실제 딜
     }
 }
