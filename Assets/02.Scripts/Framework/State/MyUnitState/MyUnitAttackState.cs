@@ -11,6 +11,7 @@ public class MyUnitAttackState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
+        controller.Agent.isStopped = true;
         Anim.SetBool(animHashKey, true);
     }
 

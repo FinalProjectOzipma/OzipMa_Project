@@ -17,6 +17,7 @@ public class MyUnitChaseState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
+        controller.Agent.isStopped = false;
         Anim.SetBool(animHashKey, true);
     }
 
