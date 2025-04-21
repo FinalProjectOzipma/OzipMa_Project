@@ -70,6 +70,8 @@ public class MyUnitController : EntityController
     {
         MyUnit = new MyUnit();
         MyUnit.Init(PrimaryKey, sprite);
+
+        MyUnitStatus = MyUnit.Status as MyUnitStatus;
         // 초기화부분
         Managers.Resource.Instantiate($"{name}{_Body}", go =>
         {

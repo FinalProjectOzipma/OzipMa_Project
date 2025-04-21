@@ -11,14 +11,10 @@ public class EnemyController : EntityController
     private Coroutine DotCor;
     private Coroutine SlowCor;
 
-
-    public EnemyStatus EnemyStatus { get; private set; }
-
     public Rigidbody2D Rigid { get; private set; }
 
     public Enemy Enemy { get; private set; }
     public EnemyStatus Status { get; private set; }
-
 
     public Sprite SpriteImage;
     public NavMeshAgent Agent;
@@ -61,6 +57,7 @@ public class EnemyController : EntityController
         if (Input.GetKeyDown(KeyCode.F))
             ApplyDotDamage(1000f, 10f, 1f);
     }
+
 
     public void ApplyDamage(float attackPower)
     {

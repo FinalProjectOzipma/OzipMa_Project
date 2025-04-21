@@ -89,7 +89,7 @@ public class WaveManager
         {
             curspawnEnemyList.Add(go);
             EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.Target = GameObject.Find("Test");
+            ctrl.Target = GameObject.Find("Zombie_Brain");
             ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);    
         });
 
