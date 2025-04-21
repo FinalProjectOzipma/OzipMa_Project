@@ -135,7 +135,7 @@ public class AudioControler : MonoBehaviour
             return;
         }
 
-        if (isBGMMute)
+        if (!isBGMMute || !isMasterMute)
         {
             bgmSource.clip = bgm;
             bgmSource.Play();
@@ -350,7 +350,7 @@ public class AudioControler : MonoBehaviour
     /// </summary
     private void SaveMuteSettings()
     {
-        PlayerPrefs.SetInt("MasterMuted", isBGMMute ? 1 : 0);
+        PlayerPrefs.SetInt("MasterMuted", isMasterMute ? 1 : 0);
         PlayerPrefs.SetInt("BGMMuted", isBGMMute ? 1 : 0);
         PlayerPrefs.SetInt("SFXMuted", isSFXMute ? 1 : 0);
         PlayerPrefs.Save();

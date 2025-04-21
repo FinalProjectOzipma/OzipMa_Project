@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -22,6 +21,7 @@ public class UI_Sound : UI_Base
         SFXSlider
     }
 
+    Sequence sequence;
 
     private void Awake()
     {
@@ -32,6 +32,9 @@ public class UI_Sound : UI_Base
     {
         Bind<Button>(typeof(Buttons));
         Bind<Slider>(typeof(Sliders));
+
+       
+
 
         GetButton((int)Buttons.ExitButton).gameObject.BindEvent(OnClickExitButton);
         GetButton((int)Buttons.MasterMuteButton).gameObject.BindEvent(OnClickMasterMuted);
@@ -45,6 +48,8 @@ public class UI_Sound : UI_Base
         Get<Slider>((int)Sliders.MasterSlider).onValueChanged.AddListener(OnChangeMasterVolume);
         Get<Slider>((int)Sliders.BGMSlider).onValueChanged.AddListener(OnChangeBGMVolume);
         Get<Slider>((int)Sliders.SFXSlider).onValueChanged.AddListener(OnChangeSFXVolume);
+
+        InitVolumeMuted();
 
     }
 
@@ -124,8 +129,53 @@ public class UI_Sound : UI_Base
     /// </summary>
     public void OnClickExitButton(PointerEventData data)
     {
-        this.gameObject.SetActive(false);
+        sequence = DOTween.Sequence();
+
+        transform.localScale *= 0.2f;
+
+        sequence.Append(this.gameObject.transform.DOScale(1.1f, 0.1f));
+        sequence.Append(this.gameObject.transform.DOScale(0.2f, 0.2f));
+
+
+        sequence.Play().OnComplete(() => 
+        {
+            this.gameObject.SetActive(false);
+        });
+       
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
     }
 
+
+    public void InitVolumeMuted()
+    {
+        if (Managers.Audio.audioControler.isMasterMute)
+        {
+            GetButton((int)Buttons.MasterMuteButton).GetComponent<Image>().color = Color.gray;
+        }
+        else
+        {
+            GetButton((int)Buttons.MasterMuteButton).GetComponent<Image>().color = Color.white;
+        }
+
+        if (Managers.Audio.audioControler.isBGMMute)
+        {
+            GetButton((int)Buttons.BGMBMuteButton).GetComponent<Image>().color = Color.gray;
+        }
+        else
+        {
+            GetButton((int)Buttons.BGMBMuteButton).GetComponent<Image>().color = Color.white;
+        }
+
+        if (Managers.Audio.audioControler.isSFXMute)
+        {
+            GetButton((int)Buttons.SFMMuteButton).GetComponent<Image>().color = Color.gray;
+        }
+        else
+        {
+            GetButton((int)Buttons.SFMMuteButton).GetComponent<Image>().color = Color.white;
+        }
+
+
+    }
 }

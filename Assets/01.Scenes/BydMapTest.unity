@@ -519,6 +519,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8398130b03c93a442977669c70fdf7c9, type: 3}
+--- !u!1001 &1834342263
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2086637034129710901, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805875563845481171, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
+      propertyPath: m_Name
+      value: DemonTower
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: fb6684abf447d6d478aaeeecc5527e25, type: 3}
 --- !u!1001 &1965109843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -586,3 +643,4 @@ SceneRoots:
   - {fileID: 1965109843}
   - {fileID: 1410069943}
   - {fileID: 750844524}
+  - {fileID: 1834342263}
