@@ -30,6 +30,12 @@ public class WaveManager
             enemySpawn = go;
             SpawnEnemy();
         });
+
+        Managers.Resource.Instantiate("Zombie_Brain", (go) =>
+        {
+            MyUnitController ctrl = go.GetComponent<MyUnitController>();
+            ctrl.TakeRoot(0, "Zombie", Vector2.zero);
+        });
     }
 
     public void StartWave(int id)

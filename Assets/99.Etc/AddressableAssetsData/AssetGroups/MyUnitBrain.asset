@@ -10,34 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: InventoryUITab
+  m_Name: MyUnitBrain
   m_EditorClassIdentifier: 
-  m_GroupName: InventoryUITab
+  m_GroupName: MyUnitBrain
   m_Data:
     m_SerializedData: []
-  m_GUID: ac6e68913fa1d544ea3b7a8378019f4f
+  m_GUID: c1c107c0a41602445aca89a36ecf2bdb
   m_SerializeEntries:
-  - m_GUID: d6eb4b8b74587c74f8adda402305a5af
-    m_Address: SelectedTabSprite
+  - m_GUID: 3cfc5f284ee29bf449c70ca0a925ad22
+    m_Address: MyUnitBrainBase
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3acf77d0fd2b51848b97732dd8379529
-    m_Address: TabSprite
+  - m_GUID: 675b7c5fa0c0ef645a769ec6b99f9c5c
+    m_Address: Zombie_Brain
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a5cc8815c8a53aa49817a387d5ba0786
-    m_Address: Slot
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: e403efc278e996d43a42b4927d3ef136, type: 2}
-    - {fileID: 11400000, guid: 1fbf3c30cf8c2104086f427154af54ab, type: 2}
+    - {fileID: 11400000, guid: f59ae776e8a548d4793edab96a8c8650, type: 2}
+    - {fileID: 11400000, guid: b191989a5b21bad4788bfc3a5524705b, type: 2}
