@@ -13,8 +13,9 @@ public class TowerFloor : MonoBehaviour
             t.SetParent(this.transform);
             t.position = position;
             t.localPosition = Vector3.zero;
-        });
 
-        // TODO :: 장판 실제 딜
+            // Trigger에서 실제 공격 Apply 처리
+            go.GetComponentInChildren<TowerTrigger>().Init(attackPower, ownerTower);
+        });
     }
 }
