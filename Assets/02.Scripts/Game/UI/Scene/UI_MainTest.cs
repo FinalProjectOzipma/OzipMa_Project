@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -49,6 +48,7 @@ public class UI_MainTest : UI_Base
 
     public void OnClickOpenSetting(PointerEventData data)
     {
+        GetButton((int)Buttons.SettingButton).gameObject.transform.DOScale(1.0f,2.0f);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
         GetObject((int)UIObject.UI_Sound).SetActive(true);
         

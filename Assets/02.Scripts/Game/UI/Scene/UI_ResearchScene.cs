@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UI_ResearchScene : UI_Base
 {
@@ -31,6 +29,7 @@ public class UI_ResearchScene : UI_Base
     private void Awake()
     {
         Init();
+
 
         //test
 
