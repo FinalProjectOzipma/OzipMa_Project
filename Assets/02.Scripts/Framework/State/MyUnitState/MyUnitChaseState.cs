@@ -9,15 +9,8 @@ using static UnityEngine.GraphicsBuffer;
 
 public class MyUnitChaseState : MyUnitStateBase
 {
-    public NavMeshAgent Agent;
     public MyUnitChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
-        StateMachine = stateMachine;
-        this.Anim = controller.Anim;
-        this.controller = controller;
-        this.data = data;
-        this.animHashKey = animHashKey;
-        Agent = controller.Agent;
     }
     
 
@@ -49,7 +42,7 @@ public class MyUnitChaseState : MyUnitStateBase
             if (controller.IsClose())
                 //전투 상태로 현재 상태 변경
                 StateMachine.ChangeState(data.AttackState);
-            Agent.SetDestination(controller.Target.transform.position);
+            controller.Agent.SetDestination(controller.Target.transform.position);
         }
         
     }

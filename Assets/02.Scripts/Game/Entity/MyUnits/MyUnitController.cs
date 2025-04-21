@@ -106,6 +106,6 @@ public class MyUnitController : EntityController
     public void TakeDamage(float damage)
     {
         MyUnitStatus.Health.AddValue(-damage);
-
+        Fx.StartBlinkFlash();
     }
 }
