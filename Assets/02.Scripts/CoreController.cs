@@ -9,16 +9,11 @@ public class CoreController : MonoBehaviour
     public GameObject HpBar;
     private Image hpImage;
     private float spawnY = 2.7f;
-    private float InitHp;
     // Start is called before the first frame update
 
     private void Awake()
     {
-        InitHp = 100.0f;
-        core = new();
-
-        core.Health.SetValue(InitHp);
-        core.MaxHealth.SetValue(InitHp);
+        core = new Core();
 
         hpImage = HpBar.GetComponent<Image>();
         hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
@@ -31,7 +26,7 @@ public class CoreController : MonoBehaviour
     public void TakeDamge(float damage)
     {
 
-        core.Health.Value = Mathf.Min(core.Health.Value - damage, 0);
+        core.Health.AddValue(-damage);
         hpImage.fillAmount = core.Health.Value /core.MaxHealth.Value;
 
         if (core.Health.Value == 0)
