@@ -44,15 +44,15 @@ public class TowerProjectile : MonoBehaviour
         EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
         if (enemy == Target)
         {
-            RealAttack(attackPower);
+            RealAttack();
             Managers.Resource.Destroy(gameObject);
         }
     }
 
-    private void RealAttack(float AttackPower)
+    private void RealAttack()
     {
         //기본공격
-        
+        Target.ApplyDamage(attackPower);
         // 해당 타워가 갖고있는 공격 속성 모두 적용
         foreach (TowerType type in tower.TowerTypes)
         {

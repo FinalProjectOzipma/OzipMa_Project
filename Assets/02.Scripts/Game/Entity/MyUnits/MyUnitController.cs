@@ -92,11 +92,29 @@ public class MyUnitController : EntityController
             return false;
         float r = MyUnitStatus.AttackRange.GetValue();
 
-        return  r> (Target.transform.position - transform.position).sqrMagnitude;
+        return  r * r> (Target.transform.position - transform.position).sqrMagnitude;
     }
 
     public void AttackTrigger()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, MyUnitStatus.AttackRange.GetValue());
+
+        foreach (var hit in colliders)
+        {
+            if (hit.GetComponentInParent<Enemy>() != null)
+            {
+                Util.Log(hit.name);
+                hit.GetComponent<EnemyController>().ApplyDamage(MyUnitStatus.Attack.GetValue());
+            }
+        }
+    }
+
+    /// <summary>
+    /// 피해를 입을때 쓸 데미지
+    /// </summary>
+    /// <param name="damage">음수 말고 양수로 던져주면 됨</param>
+    public void TakeDamage(float damage)
+    {
+        MyUnitStatus.Health.AddValue(-damage);
     }
 }
