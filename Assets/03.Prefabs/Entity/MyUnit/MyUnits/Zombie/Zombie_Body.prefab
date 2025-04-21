@@ -14,8 +14,16 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: e07b5fd49a65f34459798c4ea45f6df8, type: 2}
     - target: {fileID: 1409385341382462297, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
       propertyPath: m_Name
-      value: ZombieBody
+      value: Zombie_Body
       objectReference: {fileID: 0}
+    - target: {fileID: 1409385341382462297, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2160573402948221724, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: sr
+      value: 
+      objectReference: {fileID: 2971055997520344314}
     - target: {fileID: 2768902109460157299, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
       propertyPath: m_BodyType
       value: 1
@@ -133,3 +141,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+--- !u!212 &2971055997520344314 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7377928430184646330, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+  m_PrefabInstance: {fileID: 5717571931731341888}
+  m_PrefabAsset: {fileID: 0}

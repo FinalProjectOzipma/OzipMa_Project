@@ -4,7 +4,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Diagnostics;
-using static UnityEngine.GraphicsBuffer;
+using Table = DefaultTable;
+using static UnityEngine.Rendering.DebugUI;
+using System.Linq;
 
 public class MyUnitIdleState : MyUnitStateBase
 {
@@ -24,10 +26,10 @@ public class MyUnitIdleState : MyUnitStateBase
     {
         base.Enter();
         Util.Log("상윤님바보");
-        //if (controller.Target == null)
-        //{
-        //    SetTarget();
-        //}
+        if (controller.Target == null)
+        {
+            SetTarget();
+        }
     }
 
     public override void Exit()
@@ -55,10 +57,27 @@ public class MyUnitIdleState : MyUnitStateBase
     public void SetTarget()
     {
         //Managers.Wave에서 남은 적 리스트 가져오기
+        List<GameObject> enemys = Managers.Wave.curspawnEnemyList;
         //적이 없으면 그냥 리턴해버리기
+        if (enemys.Count == 0)
+        {
+            return;
+        }
+
+        float minDistance = float.MaxValue;
+        controller.Target = enemys[0];
         //적들과의 거리를 비교하고
-        //그중 가장 거리가 가까운 적을 타겟으로 지정
+        foreach (GameObject enemy in enemys)
+        {
+            float distance = (controller.transform.position - enemy.transform.position).magnitude;
+
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                controller.Target = enemy;
+            }
+        }
         //타겟에게 가게함
-        Agent.SetDestination(controller.Target.transform.position);
+        Util.Log("타겟 지정ㅇ해볼개ㅔ~");
     }
 }

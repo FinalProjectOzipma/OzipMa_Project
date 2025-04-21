@@ -13,7 +13,7 @@ public class WaveManager
 
     private List<Table.Wave> waveList;
     private List<Table.Enemy> enemyList;
-    private List<GameObject> curspawnEnemyList;
+    public List<GameObject> curspawnEnemyList;
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
 
@@ -89,7 +89,7 @@ public class WaveManager
         {
             curspawnEnemyList.Add(go);
             EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.Target = GameObject.Find("Test");
+            ctrl.Target = GameObject.Find("Zombie_Brain");
             ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);    
         });
 
