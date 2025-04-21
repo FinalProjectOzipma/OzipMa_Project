@@ -64,7 +64,10 @@ public class EnemyController : EntityController
         float minus = Status.Defences[0].GetValue() - attackPower;
 
         if (minus < 0.0f)
+        {
             Status.AddHealth(minus);
+            Fx.StartBlinkFlash();
+        }
     }
 
     public void ApplyDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
