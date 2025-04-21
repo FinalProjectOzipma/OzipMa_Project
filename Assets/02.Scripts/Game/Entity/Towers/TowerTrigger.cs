@@ -38,7 +38,7 @@ public class TowerTrigger : MonoBehaviour
             if (ownerInfo == null) continue;
 
             // 기본 공격
-            target.ApplyDamage(ownerInfo.TowerStatus.Attack.GetValue());
+            target.ApplyDamage(attackPower);
             // 해당 타워가 갖고있는 공격 속성 모두 적용
             foreach (TowerType type in ownerInfo.TowerTypes)
             {
