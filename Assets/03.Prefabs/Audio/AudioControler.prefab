@@ -146,6 +146,16 @@ MonoBehaviour:
   isMasterMute: 0
   isBGMMute: 0
   isSFXMute: 0
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
   bgmSource: {fileID: 0}
   sfxPrefab: {fileID: 3328890202286742413, guid: 9a40affe1cf9c1b49a7fea883e75d6e6, type: 3}
+=======
+  bgmSource: {fileID: 4347297938590052103}
+  sfxPrefab: {fileID: 1930847136078787784}
+>>>>>>> Stashed changes
+=======
+  bgmSource: {fileID: 4347297938590052103}
+  sfxPrefab: {fileID: 1930847136078787784}
+>>>>>>> Stashed changes
   poolSize: 10

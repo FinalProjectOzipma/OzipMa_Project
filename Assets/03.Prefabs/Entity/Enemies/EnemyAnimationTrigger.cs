@@ -37,7 +37,9 @@ public class EnemyAnimationTrigger : MonoBehaviour
                 unit.TakeDamage(enemy.Status.Attack.GetValue());
             else if (hit.GetComponent<CoreController>() != null)
             {
-                hit.GetComponent<CoreController>().TakeDamge(enemy.Status.Attack.GetValue());
+                //hit.GetComponent<CoreController>().TakeDamge(enemy.Status.Attack.GetValue());
+                hit.GetComponent<CoreController>().TakeDamge(700);
+
             }
         }
     }
