@@ -20,9 +20,6 @@ public class PlayerManager
 
     public GameObject mainCore;
 
-    public GameObject enemySpawn;
-
-
     public void Initialize()
     {
         // 처음 시작할때 선언
@@ -31,12 +28,6 @@ public class PlayerManager
         // Inventory = 가져오는거
 
         Managers.Resource.Instantiate("Core", go => mainCore = go);
-
-        Managers.Resource.Instantiate("EnemySpawn", go =>
-        {   enemySpawn = go;
-
-        });
-
 
         gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
         zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
@@ -132,22 +123,4 @@ public class PlayerManager
             ctrl.TakeRoot(random, $"{name}", mainCore.transform.position);
         });
     }
-
-    public void SpawnEnemy()
-    {
-        int random = UnityEngine.Random.Range(0, 3);
-
-        DefaultTable.Enemy enemyList = Managers.Data.Datas[Enums.Sheet.Enemy][random] as DefaultTable.Enemy;
-
-        string name = enemyList.Name;
-
-        Managers.Resource.Instantiate($"{name}_Brain", (go) =>
-        {
-            EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.Target = GameObject.Find("Test");
-            ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);
-        });
-
-    }
-
 }

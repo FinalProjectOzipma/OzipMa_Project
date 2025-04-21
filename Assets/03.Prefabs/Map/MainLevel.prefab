@@ -248,6 +248,10 @@ PrefabInstance:
       propertyPath: m_ChunkCullingBounds.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3428210718384615887, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4335033633313137244, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 130
@@ -3133,6 +3137,10 @@ PrefabInstance:
       value: 65535
       objectReference: {fileID: 0}
     - target: {fileID: 5314910895010412925, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
+      propertyPath: m_TileOrientation
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5314910895010412925, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
       propertyPath: m_Tiles.Array.size
       value: 132
       objectReference: {fileID: 0}
@@ -5451,6 +5459,30 @@ PrefabInstance:
     - target: {fileID: 7222277053137133265, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7925463832217861704, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7925463832217861704, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
+      propertyPath: m_TileModifiers.Array.size
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7925463832217861704, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
+      propertyPath: m_TileModifiers.Array.data[21].tile
+      value: 
+      objectReference: {fileID: 11400000, guid: a5d1e930e6782174990e96ae0849141d, type: 2}
+    - target: {fileID: 7925463832217861704, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
+      propertyPath: m_TileModifiers.Array.data[22].tile
+      value: 
+      objectReference: {fileID: 11400000, guid: 52a2971cf07cc9a4bb5e42f97cce61c2, type: 2}
+    - target: {fileID: 7925463832217861704, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
+      propertyPath: m_TileModifiers.Array.data[23].tile
+      value: 
+      objectReference: {fileID: 11400000, guid: 52a2971cf07cc9a4bb5e42f97cce61c2, type: 2}
+    - target: {fileID: 8399879673596591247, guid: 5931e4d1fc201f342b7004bf806c0a88, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
