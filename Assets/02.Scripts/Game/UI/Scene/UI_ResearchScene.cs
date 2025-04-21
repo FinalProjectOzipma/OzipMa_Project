@@ -24,8 +24,8 @@ public class UI_ResearchScene : UI_Base
         DefenceUpgrade,
         RandomUpgrade
     }
-    // test
-    public Sprite Sprite;
+
+    //public Sprite Sprite;
 
 
     private void Awake()
@@ -34,19 +34,19 @@ public class UI_ResearchScene : UI_Base
 
         //test
 
-        for (int i = 0; i < Managers.Data.Datas[Enums.Sheet.MyUnit].Count; i++)
-        {
-            MyUnit unit = new();
-            unit.Init(i, Sprite);
-            Managers.Player.Inventory.Add(unit);
-        }
+        //for (int i = 0; i < Managers.Data.Datas[Enums.Sheet.MyUnit].Count; i++)
+        //{
+        //    MyUnit unit = new();
+        //    unit.Init(i, Sprite);
+        //    Managers.Player.Inventory.Add(unit);
+        //}
 
-        for (int i = 0; i < Managers.Data.Datas[Enums.Sheet.Tower].Count; i++)
-        {
-            Tower tower = new();
-            tower.Init(i, Sprite);
-            Managers.Player.Inventory.Add(tower);
-        }
+        //for (int i = 0; i < Managers.Data.Datas[Enums.Sheet.Tower].Count; i++)
+        //{
+        //    Tower tower = new();
+        //    tower.Init(i, Sprite);
+        //    Managers.Player.Inventory.Add(tower);
+        //}
 
 
     }
