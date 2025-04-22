@@ -18,6 +18,7 @@ public class GameScene : SceneBase
         base.Enter();
 
         Managers.Resource.Instantiate("MainLevel3");
+        Managers.Resource.Instantiate("InventoryUI");
     }
 
     public override void Exit()
