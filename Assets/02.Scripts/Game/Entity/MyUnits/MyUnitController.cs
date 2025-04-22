@@ -34,23 +34,13 @@ public class MyUnitController : EntityController
     {
         base.Init(position, go);
         transform.position = position;
-        AnimData = new MyUnitAnimationData();
+
         AnimData.Init(this);
     }
 
     protected override void Update()
     {
         base.Update();
-        //타겟의 방향에 따라서 회전시킴
-        if (Target != null)
-        {
-            float dir = Target.transform.position.x - transform.position.x;
-
-            if (!Mathf.Approximately(dir, 0))
-            {
-                spriteRenderer.flipX = dir < 0;
-            }
-        }
     }
 
     // Wave에서 들고있는것
@@ -97,8 +87,6 @@ public class MyUnitController : EntityController
 
         return  r * r> (Target.transform.position - transform.position).sqrMagnitude;
     }
-
-
 
     /// <summary>
     /// 피해를 입을때 쓸 데미지
