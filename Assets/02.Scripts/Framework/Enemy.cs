@@ -8,6 +8,7 @@ public class Enemy
     public int Reward;
     public bool IsBoss;
 
+    public int PrimaryKey { get; private set; }
     public Sprite Sprite { get; private set; }
     public EnemyStatus Status { get; set; }
     public AtkType AtkType { get; set; }
@@ -15,6 +16,7 @@ public class Enemy
 
     public Enemy(int primaryKey, Sprite sprite)
     {
+        PrimaryKey = primaryKey;
         Sprite = sprite;
 
         Init(primaryKey, sprite);

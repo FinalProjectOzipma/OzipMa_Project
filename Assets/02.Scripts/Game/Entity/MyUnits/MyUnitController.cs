@@ -30,9 +30,9 @@ public class MyUnitController : EntityController
         Agent.updateUpAxis = false;
     }
 
-    public override void Init(int primaryKey, string name, Vector2 position, GameObject go = null)
+    public override void Init(Vector2 position, GameObject go = null)
     {
-        base.Init(primaryKey, name, position, go);
+        base.Init(position, go);
         transform.position = position;
         AnimData = new MyUnitAnimationData();
         AnimData.Init(this);
@@ -71,7 +71,7 @@ public class MyUnitController : EntityController
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
         MyUnit = new MyUnit();
-        MyUnit.Init(PrimaryKey, sprite);
+        MyUnit.Init(primaryKey, sprite);
 
         MyUnitStatus = MyUnit.Status as MyUnitStatus;
         // 초기화부분
@@ -80,7 +80,7 @@ public class MyUnitController : EntityController
             go.transform.SetParent(transform);
             Rigid = go.GetOrAddComponent<Rigidbody2D>();
             Fx = go.GetOrAddComponent<ObjectFlash>();
-            Init(primaryKey, name, position, go);
+            Init(position, go);
         });
     }
 

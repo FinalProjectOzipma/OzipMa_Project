@@ -27,12 +27,9 @@ public class EnemyController : EntityController
         Agent.updateUpAxis = false;
     }
 
-    public override void Init(int primaryKey, string name, Vector2 position, GameObject gameObject = null)
+    public override void Init(Vector2 position, GameObject gameObject = null)
     {
-        base.Init(primaryKey, name, position);
-        //EnemyStatus = new EnemyStatus(Row);
-        AnimData = new EnemyAnimationData();
-        AnimData.Init(this);
+        base.Init(position);
         transform.position = position;
     }
 
@@ -47,7 +44,7 @@ public class EnemyController : EntityController
             go.transform.SetParent(transform);
             Rigid = go.GetOrAddComponent<Rigidbody2D>();
             Fx = go.GetOrAddComponent<ObjectFlash>();
-            Init(primaryKey, name, position, go);
+            Init(position, go);
         });
     }
 

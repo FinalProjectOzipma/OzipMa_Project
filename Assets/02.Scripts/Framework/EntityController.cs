@@ -5,10 +5,6 @@ using UnityEngine;
 
 public abstract class EntityController : Poolable
 {
-    [SerializeField]
-    public int PrimaryKey { get; set; }
-    public string Name { get; set; }
-
     #region Component
     public Animator Anim { get; private set; }
     public ObjectFlash Fx { get; set; }
@@ -21,12 +17,9 @@ public abstract class EntityController : Poolable
 
     public bool IsDead { get; set; }
 
-    public virtual void Init(int primaryKey, string name, Vector2 position, GameObject go = null)
+    public virtual void Init(Vector2 position, GameObject go = null)
     {
         Anim = GetComponentInChildren<Animator>();
-
-        PrimaryKey = primaryKey;
-        Name = name;
     }
 
     protected virtual void Update()

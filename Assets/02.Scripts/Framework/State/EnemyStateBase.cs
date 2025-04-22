@@ -22,6 +22,8 @@ public class EnemyStateBase : EntityStateBase
     protected GameObject core;
     protected Stack<GameObject> stack;
 
+    protected float time;
+
     public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
@@ -57,6 +59,8 @@ public class EnemyStateBase : EntityStateBase
     {
         if (controller.IsDead)
             return;
+
+        time -= Time.deltaTime;
 
         if (status.Health.GetValue() <= 0.0f)
         {

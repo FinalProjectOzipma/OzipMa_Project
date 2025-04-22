@@ -51,7 +51,7 @@ public class InventoryUI : UI_Scene
     #endregion
 
     #region State
-    private STATE _currentState = STATE.SELECTABLE;
+    //private STATE _currentState = STATE.SELECTABLE;
     private enum STATE
     {
         SELECTABLE,
@@ -73,7 +73,7 @@ public class InventoryUI : UI_Scene
 
     private void Awake()
     {
-        Managers.Scene.BsyEnemyScene.InitAction += Init;
+        Init();
     }
 
     public override void Init()
@@ -126,7 +126,7 @@ public class InventoryUI : UI_Scene
             {
                 try
                 {
-                    SlotActive<T>(trans, trans.GetChild(i).gameObject);
+                    SlotActive<T>(trans, trans.GetChild(i).gameObject, i);
                     cnt++;
                 }
                 catch (Exception)
@@ -138,7 +138,7 @@ public class InventoryUI : UI_Scene
                         GameObject slotGo = Managers.Resource.Instantiate(go);
                         slotGo.transform.SetParent(trans);
                         slotGo.transform.localScale = new Vector3(1f, 1f, 1f);
-                        SlotActive<T>(trans, slotGo);
+                        SlotActive<T>(trans, slotGo, i);
                         cnt++;
                     });
                 }
@@ -152,9 +152,10 @@ public class InventoryUI : UI_Scene
         }
     }
 
-    private void SlotActive<T>(Transform parent ,GameObject slotGo) where T : UserObject, IGettable
+    private void SlotActive<T>(Transform parent ,GameObject slotGo, int index) where T : UserObject, IGettable
     {
-        Slot slot = slotGo.GetOrAddComponent<Slot>(); 
+        Slot slot = slotGo.GetOrAddComponent<Slot>();
+        slot.Index = index;
         slotGo.SetActive(true);
 
         slot.DisSelect();
@@ -262,7 +263,7 @@ public class InventoryUI : UI_Scene
     private void OnPut()
     {
         Refresh<Tower>();
-        _currentState = STATE.PUTABLE;
+        //_currentState = STATE.PUTABLE;
 
         // TODO::
     }

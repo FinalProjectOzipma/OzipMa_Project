@@ -11,9 +11,8 @@ public class BsyEnemyScene : GameScene
     public override void Enter()
     {
         base.Enter();
-        DefaultUnitAdd();
+        DefaultUnitAdd(); // 인벤 데이터 추가
         Managers.Wave.StartWave(0);
-
         InitAction?.Invoke();
     }
 
