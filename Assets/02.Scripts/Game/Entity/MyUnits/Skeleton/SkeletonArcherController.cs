@@ -6,7 +6,7 @@ public class SkeletonArcherController : MyUnitController
 {
     public override void Init(int primaryKey, string name, Vector2 position, GameObject go = null)
     {
+        AnimData = new SkeletonArcherAnimationData();
         base.Init(primaryKey, name, position, go);
-        //AnimData = new SkeletonArcherAnimationData();
     }
 }

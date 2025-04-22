@@ -2,15 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonArcherAttackState : MonoBehaviour
+public class SkeletonArcherAttackState : MyUnitStateBase
 {
-    void Start()
+    public SkeletonArcherAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }
