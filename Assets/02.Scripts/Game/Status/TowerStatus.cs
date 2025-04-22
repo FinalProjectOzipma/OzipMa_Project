@@ -15,10 +15,10 @@ public class TowerStatus : StatusBase
         AttackCoolDown.SetValue(Row.AttackCoolDown);
         AttackRange.SetValue(Row.AttackRange);
         
-        Grade.SetValue((int)Row.Rank);
         // TODO : 사용자 데이터 필요 ----------
+        Grade.SetValue(0);
         Level.SetValue(1);
-        Stack.SetValue(1);
+        Stack.SetValue(0);
         MaxStack.SetValue(10);
         MaxLevel.SetValue(10);
         // ----------------------------------
