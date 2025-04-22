@@ -2,12 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherManAttackState : EnemyStateBase
+public class ArcherManAttackState : ArcherManStateBase
 {
     private string Arrow = nameof(Arrow);
-    public ArcherManAttackState(StateMachine stateMachine, int animHashKey, EnemyController controller, SwordManAnimData data) : base(stateMachine, animHashKey, controller, data)
-    {
-    }
 
     public override void Enter()
     {
