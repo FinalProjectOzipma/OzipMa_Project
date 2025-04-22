@@ -9,6 +9,4 @@ public class SceneLoad : MonoBehaviour
     {
         Managers.Scene.ChangeScene<GameScene>(Managers.Scene.GameScene);
     }
-
-
 }

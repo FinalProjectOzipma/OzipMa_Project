@@ -39,8 +39,6 @@ public class Managers : MonoBehaviour
         Scene.GameScene.SingletonAction += Wave.Initialize;
         Scene.GameScene.SingletonAction += Game.Initialize;
         Scene.Initialize();
-
-        Scene.ChangeScene<GameScene>(Scene.GameScene);
     }
 
     public new static Coroutine StartCoroutine(IEnumerator coroutine)
