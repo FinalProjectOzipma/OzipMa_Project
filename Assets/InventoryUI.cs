@@ -59,8 +59,8 @@ public class InventoryUI : UI_Scene
     }
     #endregion
 
-    private Inventory data; 
-    private List<Slot> slots = new(); // 현재 슬롯
+    private Inventory data;
+    private List<Slot> slots;
 
     private List<IGettable> _currentList; // UI에 들고있는 현재 인벤토리 데이터
     private Type _currentTab; // 현재 탭의 타입
@@ -71,11 +71,9 @@ public class InventoryUI : UI_Scene
     private bool isMove;
     private bool isOpen;
 
-    private bool isSelected = false;
-
     private void Awake()
     {
-        Managers.Resource.LoadResourceLocationAsync(nameof(GameScene), Init);
+        Managers.Scene.BsyEnemyScene.InitAction += Init;
     }
 
     public override void Init()
@@ -84,22 +82,6 @@ public class InventoryUI : UI_Scene
         data = Managers.Player.Inventory;
         slots = new List<Slot>();
         uiSeq = Util.RecyclableSequence();
-
-        // 이건 테스트용-------------------
-        //for (int i = 0; i < 10; i++)
-        //{
-        //    MyUnit unit = new MyUnit();
-        //    Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { unit.Init(20, sprite); });
-        //    data.Add<MyUnit>(unit);
-        //}
-
-        //for (int i = 0; i < 20; i++)
-        //{
-        //    Tower tower = new Tower();
-        //    Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { tower.Init(20, sprite); });
-        //    data.Add<Tower>(tower);
-        //}   
-        //---------------------------------
 
         SetBind();
         // 바인딩 후 셋팅
@@ -131,7 +113,6 @@ public class InventoryUI : UI_Scene
 
     public void Refresh<T>() where T : UserObject, IGettable
     {
-        isSelected = false;
         slots.Clear();
         _currentList = data.GetList<T>();
         _currentTab = typeof(T);
@@ -187,6 +168,8 @@ public class InventoryUI : UI_Scene
         if (_currentList == null)
             return;
 
+        bool isSelected = CheckActive();
+
         for (int i = 0; i < _currentList.Count; i++)
         {
             if (!isSelected)
@@ -196,16 +179,28 @@ public class InventoryUI : UI_Scene
         }
 
         isSelected = !isSelected;
-    }   
+    }
+
+    private bool CheckActive()
+    {
+        for (int i = 0; i < _currentList.Count; i++)
+        {
+            if (!slots[i].IsActive) return false;
+        }
+
+        return true;
+    }
 
     private void OnMyUnitTap()
     {
+        _currentTab = typeof(MyUnit);
         ToggleTab(GetObject((int)GameObjects.OnMyUnit), GetObject((int)GameObjects.DisMyUnit));
         GetButton((int)Buttons.PutBtn).gameObject.SetActive(false);
         Refresh<MyUnit>();
     }
     private void OnTowerTap()
     {
+        _currentTab = typeof(Tower);
         ToggleTab(GetObject((int)GameObjects.OnTower), GetObject((int)GameObjects.DisTower));
         GetButton((int)Buttons.PutBtn).gameObject.SetActive(true);
         Refresh<Tower>();

@@ -17,7 +17,6 @@ public class MyUnitIdleState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
-        Util.Log("상윤님바보(마이유닛 idle상태라는뜻)");
         if (controller.Target == null)
         {
             SetTarget();
@@ -70,7 +69,5 @@ public class MyUnitIdleState : MyUnitStateBase
                 controller.Target = enemy;
             }
         }
-        //타겟에게 가게함
-        Util.Log("타겟 지정ㅇ해볼개ㅔ~");
     }
 }

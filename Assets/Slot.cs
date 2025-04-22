@@ -48,6 +48,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         GameObject imgObj = GetImage((int)Images.Selected).gameObject;
         imgObj.SetActive(!imgObj.activeSelf);
+        IsActive = imgObj.activeInHierarchy;
     }
 
     // 전체 선택될때 호출해야되는 메서드
