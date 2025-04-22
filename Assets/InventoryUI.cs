@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -83,6 +84,22 @@ public class InventoryUI : UI_Scene
         data = Managers.Player.Inventory;
         slots = new List<Slot>();
         uiSeq = Util.RecyclableSequence();
+
+        // 이건 테스트용-------------------
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    MyUnit unit = new MyUnit();
+        //    Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { unit.Init(20, sprite); });
+        //    data.Add<MyUnit>(unit);
+        //}
+
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    Tower tower = new Tower();
+        //    Managers.Resource.LoadAssetAsync<Sprite>("SprSquare", (sprite) => { tower.Init(20, sprite); });
+        //    data.Add<Tower>(tower);
+        //}   
+        //---------------------------------
 
         SetBind();
         // 바인딩 후 셋팅
