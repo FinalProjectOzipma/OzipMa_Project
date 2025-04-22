@@ -64,9 +64,7 @@ public class UI_MainTest : UI_Base
     public void OnClickOpenResearch(PointerEventData data)
     {
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
-        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Research), GetImage((int)Images.ResearchButtonImage));
-       
-       
+        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Research), GetImage((int)Images.ResearchButtonImage));       
     }
 
     //private void PopUpShow(UIObject uIObject)
