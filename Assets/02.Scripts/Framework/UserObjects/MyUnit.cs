@@ -15,12 +15,12 @@ public class MyUnit : UserObject, IGettable
     public override void Init(int primaryKey, Sprite sprite)
     {
         var result = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
-        base.Init(primaryKey, sprite);
+        base.Init(primaryKey, sprite); 
+        Name = result[primaryKey].Name;
+        Description = result[primaryKey].Description;
         Status = new MyUnitStatus(primaryKey, result);
         AtkType = result[primaryKey].AttackType;
     }
-
-    
 
     public void AddHealth(float amount) => GetUpCasting<MyUnitStatus>().Health.AddValue(amount);
     
