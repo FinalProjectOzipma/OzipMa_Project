@@ -9,8 +9,9 @@ public class FloorTowerController : TowerControlBase
     private string floorBrainKey = "TowerFloorBrain"; // 장판 오브젝트 키 
     private string floorKey = "TowerFloor";
 
-    protected void Awake()
+    protected override void Start()
     {
+        base.Start();
         int index = Name.IndexOf("Tower");
         if (index > 0)
         {
@@ -26,6 +27,7 @@ public class FloorTowerController : TowerControlBase
         // 정보 세팅
         Tower = new Tower();
         Tower.Init(primaryKey, Preview);
+        Tower.Sprite = Preview;
         TowerStatus = Tower.TowerStatus;
 
         Init();

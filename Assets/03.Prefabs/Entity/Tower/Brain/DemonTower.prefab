@@ -60,6 +60,10 @@ PrefabInstance:
       propertyPath: <Name>k__BackingField
       value: DemonTower
       objectReference: {fileID: 0}
+    - target: {fileID: 6098082794044394671, guid: 6cec58193c71c754888e4a40e976bc59, type: 3}
+      propertyPath: <Preview>k__BackingField
+      value: 
+      objectReference: {fileID: -1325175526, guid: 8dd801645cf75d9479c9f053e851d56f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

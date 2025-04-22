@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : UI_Scene
+public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private enum Images
     {
@@ -28,6 +29,8 @@ public class Slot : UI_Scene
 
     public IGettable Gettable;
 
+    private GameObject PreviewObj;
+    SpriteRenderer previewRenderer;
     private Sprite _sprite;
     private Image _stackGage;
 
@@ -72,5 +75,37 @@ public class Slot : UI_Scene
         GetText((int)TextMeshs.ObjInfo).text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
         GetImage((int)Images.StackGageFill).fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
         GetText((int)TextMeshs.StackText).text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if (PreviewObj == null)
+        {
+            Managers.Resource.Instantiate("BuildingPreview", go => 
+            {
+                PreviewObj = go;
+                go.transform.position = Util.ScreenToWorldPointWithoutZ(eventData.position);
+                previewRenderer = PreviewObj.GetComponent<SpriteRenderer>();
+            });
+        }
+        previewRenderer.sprite = _sprite;
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        PreviewObj.transform.position = Util.ScreenToWorldPointWithoutZ(eventData.position);
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Util.Log("떼다");
+        Managers.Resource.Destroy(PreviewObj);
+        PreviewObj = null;
+
+        // TODO : TowerBrain생성, 그리드에 맞게 배치
+        DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, Index);
+        Util.Log($"OnEndDrag : {data.Name}Tower");
+        Managers.Resource.Instantiate($"{data.Name}Tower", go =>
+        {
+            go.transform.position = Util.ScreenToWorldPointWithoutZ(eventData.position);
+        });
     }
 }

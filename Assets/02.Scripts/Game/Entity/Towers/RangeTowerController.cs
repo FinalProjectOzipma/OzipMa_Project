@@ -9,6 +9,7 @@ public class RangeTowerController : TowerControlBase
         // 정보 세팅
         Tower = new Tower();
         Tower.Init(primaryKey, Preview);
+        Tower.Sprite = Preview;
         TowerStatus = Tower.TowerStatus;
 
         Init();
