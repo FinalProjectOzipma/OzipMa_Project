@@ -34,10 +34,7 @@ public class Managers : MonoBehaviour
 
         Data.Initialize();
         Pool.Initialize();
-        Scene.GameScene.SingletonAction += Audio.Initialize;
-        Scene.GameScene.SingletonAction += Player.Initialize;
-        Scene.GameScene.SingletonAction += Wave.Initialize;
-        Scene.GameScene.SingletonAction += Game.Initialize;
+        TestInit();
         Scene.Initialize();
     }
 
@@ -49,5 +46,34 @@ public class Managers : MonoBehaviour
     public new static void StopCoroutine(Coroutine coroutine)
     {
         MonoInstance.StopCoroutine(coroutine);
+    }
+
+
+    public void TestInit()
+    {
+        Scene.GameScene.SingletonAction += Audio.Initialize;
+        Scene.GameScene.SingletonAction += Player.Initialize;
+        Scene.GameScene.SingletonAction += Wave.Initialize;
+        Scene.GameScene.SingletonAction += Game.Initialize;
+
+        Scene.YgmLoadingScene.SingletonAction += Audio.Initialize;
+        Scene.YgmLoadingScene.SingletonAction += Player.Initialize;
+        Scene.YgmLoadingScene.SingletonAction += Wave.Initialize;
+        Scene.YgmLoadingScene.SingletonAction += Game.Initialize;
+
+        Scene.PhnMyUnitScene.SingletonAction += Audio.Initialize;
+        Scene.PhnMyUnitScene.SingletonAction += Player.Initialize;
+        Scene.PhnMyUnitScene.SingletonAction += Wave.Initialize;
+        Scene.PhnMyUnitScene.SingletonAction += Game.Initialize;
+
+        Scene.PydTowerScene.SingletonAction += Audio.Initialize;
+        Scene.PydTowerScene.SingletonAction += Player.Initialize;
+        Scene.PydTowerScene.SingletonAction += Wave.Initialize;
+        Scene.PydTowerScene.SingletonAction += Game.Initialize;
+
+        Scene.BsyEnemyScene.SingletonAction += Audio.Initialize;
+        Scene.BsyEnemyScene.SingletonAction += Player.Initialize;
+        Scene.BsyEnemyScene.SingletonAction += Wave.Initialize;
+        Scene.BsyEnemyScene.SingletonAction += Game.Initialize;
     }
 }
