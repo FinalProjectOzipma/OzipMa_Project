@@ -14,8 +14,8 @@ public class SceneBase
 
     public virtual void Enter()
     {
-        InitAction?.Invoke();
         SingletonAction?.Invoke();
+        InitAction?.Invoke();
     }
 
     public virtual void Exit()

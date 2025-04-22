@@ -30,19 +30,14 @@ public class WaveManager
         Managers.Resource.Instantiate("EnemySpawn", go =>
         {
             enemySpawn = go;
-            SpawnEnemy();
-        });
-
-        Managers.Resource.Instantiate("Zombie_Brain", (go) =>
-        {
-            MyUnitController ctrl = go.GetComponent<MyUnitController>();
-            ctrl.TakeRoot(1, "Zombie", Vector2.zero);
         });
     }
 
-    public void StartWave(int id)
+    public void StartWave(int idx)
     {
-        int needAmount = waveList[id].EnemyAmount;
+        // 순서대로 처리해줘
+        // TODO:: 알아서해 Feat: 박한나
+        int needAmount = waveList[idx].EnemyAmount;
         Managers.StartCoroutine(Spawn(needAmount));
         //enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
         //unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
