@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhnMyUnitScene : SceneBase
+public class PhnMyUnitScene : GameScene
 {
     public PhnMyUnitScene()
     {
