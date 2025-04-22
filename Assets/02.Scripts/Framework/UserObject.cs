@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UserObject
 {
+    public int PrimaryKey;
     public string Name;
     public string Description;
     public RankType RankType;
@@ -15,6 +16,7 @@ public class UserObject
 
     public virtual void Init(int primary, Sprite sprite)
     {
+        PrimaryKey = primary;
         Sprite = sprite;
         MaxGrade.SetValue(5);
     }

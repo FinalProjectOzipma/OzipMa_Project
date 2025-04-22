@@ -53,12 +53,15 @@ public abstract class TowerControlBase : MonoBehaviour
 
     private void FixedUpdate()
     {
-        foreach(var enemy in detectedEnemies)
+        LinkedListNode<EnemyController> node = detectedEnemies.First;
+        while(node != null)
         {
+            EnemyController enemy = node.Value;
             if (enemy == null || enemy.isActiveAndEnabled == false)
             {
                 detectedEnemies.Remove(enemy);
             }
+            node = node.Next;
         }
     }
 

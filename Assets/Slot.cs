@@ -33,6 +33,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     SpriteRenderer previewRenderer;
     private Sprite _sprite;
     private Image _stackGage;
+    private int itemKey { get; set; }
 
     private void Awake()
     {
@@ -70,6 +71,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         
         Gettable = gettable;
         T obj = gettable.GetClassAddress<T>();
+        itemKey = obj.PrimaryKey;
         var status = obj.Status;
         _sprite = obj.Sprite;
         GetImage((int)Images.Icon).sprite = _sprite;
@@ -97,12 +99,11 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        Util.Log("떼다");
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
-
-        // TODO : TowerBrain생성, 그리드에 맞게 배치
-        DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, Index);
+        Util.LogWarning($"");
+        // TODO : 그리드에 맞게 배치
+        DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, itemKey);
         Util.Log($"OnEndDrag : {data.Name}Tower");
         Managers.Resource.Instantiate($"{data.Name}Tower", go =>
         {

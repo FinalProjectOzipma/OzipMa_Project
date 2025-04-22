@@ -73,7 +73,8 @@ public class InventoryUI : UI_Scene
 
     private void Awake()
     {
-        Managers.Scene.BsyEnemyScene.InitAction += Init;
+        Managers.Scene.GameScene.InitAction += Init;
+        Managers.Scene.PydTowerScene.InitAction += Init;
     }
 
     public override void Init()

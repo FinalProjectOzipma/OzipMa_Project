@@ -29,6 +29,8 @@ public class PydTowerScene : GameScene
         unit.Init(1, null);
         Managers.Player.Inventory.Add<MyUnit>(unit);
         Managers.Wave.StartWave(0);
+
+        InitAction?.Invoke();
     }
 
     public override void Exit()
