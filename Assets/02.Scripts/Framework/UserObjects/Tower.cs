@@ -25,6 +25,7 @@ public class Tower : UserObject, IGettable
 
         // 동적 정보 채우기
         TowerStatus = new TowerStatus(primaryKey);
+        Status = new TowerStatus(primaryKey);
 
         // 정적 정보 채우기
         Key = primaryKey;
