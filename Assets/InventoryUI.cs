@@ -59,8 +59,8 @@ public class InventoryUI : UI_Scene
     }
     #endregion
 
-    private Inventory data; 
-    private List<Slot> slots = new(); // 현재 슬롯
+    private Inventory data;
+    private List<Slot> slots;
 
     private List<IGettable> _currentList; // UI에 들고있는 현재 인벤토리 데이터
     private Type _currentTab; // 현재 탭의 타입
@@ -70,8 +70,6 @@ public class InventoryUI : UI_Scene
     // Animation
     private bool isMove;
     private bool isOpen;
-
-    private bool isSelected = false;
 
     private void Awake()
     {
@@ -115,7 +113,6 @@ public class InventoryUI : UI_Scene
 
     public void Refresh<T>() where T : UserObject, IGettable
     {
-        isSelected = false;
         slots.Clear();
         _currentList = data.GetList<T>();
         _currentTab = typeof(T);
@@ -170,6 +167,8 @@ public class InventoryUI : UI_Scene
         if (_currentList == null)
             return;
 
+        bool isSelected = CheckActive();
+
         for (int i = 0; i < _currentList.Count; i++)
         {
             if (!isSelected)
@@ -179,7 +178,17 @@ public class InventoryUI : UI_Scene
         }
 
         isSelected = !isSelected;
-    }   
+    }
+
+    private bool CheckActive()
+    {
+        for (int i = 0; i < _currentList.Count; i++)
+        {
+            if (!slots[i].IsActive) return false;
+        }
+
+        return true;
+    }
 
     private void OnMyUnitTap()
     {

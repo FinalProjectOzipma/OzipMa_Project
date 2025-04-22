@@ -19,6 +19,7 @@ public class BsyEnemyScene : GameScene
 
     private void DefaultUnitAdd()
     {
+
         Managers.Resource.LoadAssetAsync<GameObject>("Zombie_Brain", (prefab) =>
         {
             MyUnit unit = new MyUnit();
@@ -26,12 +27,16 @@ public class BsyEnemyScene : GameScene
             Managers.Player.Inventory.Add<MyUnit>(unit);
         });
 
-        Managers.Resource.LoadAssetAsync<GameObject>("LaserTower", (prefab) =>
+        for(int i =0; i<3; i++)
         {
-            Tower unit = new Tower();
-            unit.Init(0, prefab.GetComponent<TowerControlBase>().Preview);
-            Managers.Player.Inventory.Add<Tower>(unit);
-        });
+            int key = i;
+            Managers.Resource.LoadAssetAsync<GameObject>("LaserTower", (prefab) =>
+            {
+                Tower unit = new Tower();
+                unit.Init(key, prefab.GetComponent<TowerControlBase>().Preview);
+                Managers.Player.Inventory.Add<Tower>(unit);
+            });
+        }
     }
 
     public override void Exit()
