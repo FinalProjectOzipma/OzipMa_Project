@@ -5,12 +5,19 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class UI_MainTest : UI_Scene
+public class UI_Main : UI_Scene
 {
     enum Texts
     {
         MainGoldText,
-        MainZamText
+        MainZamText,
+        StageLv,
+        PlayerName
+    }
+
+    enum Images
+    {
+        ProfileImage
     }
 
 
@@ -22,6 +29,7 @@ public class UI_MainTest : UI_Scene
     public override void Init()
     {
         Bind<TextMeshProUGUI>(typeof(Texts));
+        Bind<Image>(typeof(Images));
 
         Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
         Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
@@ -49,6 +57,11 @@ public class UI_MainTest : UI_Scene
     {
         Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
         Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
+    }
+
+    private void UpdateStageLv()
+    {
+      
     }
 
 }
