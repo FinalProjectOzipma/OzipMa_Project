@@ -40,6 +40,10 @@ public abstract class TowerControlBase : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.V))
+        {
+            Managers.Scene.ChangeScene<PydTowerScene>(Managers.Scene.PydTowerScene);
+        }
         if (!IsPlaced) return;
         if(detectedEnemies.Count == 0) return;
 
