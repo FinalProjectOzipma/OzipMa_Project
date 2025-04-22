@@ -5,7 +5,7 @@ using UnityEngine;
 public class ArcherManAttackState : EnemyStateBase
 {
     private string Arrow = nameof(Arrow);
-    public ArcherManAttackState(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public ArcherManAttackState(StateMachine stateMachine, int animHashKey, EnemyController controller, SwordManAnimData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 

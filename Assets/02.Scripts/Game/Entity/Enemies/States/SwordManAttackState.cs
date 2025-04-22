@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttackState : EnemyStateBase
+public class SwordManAttackState : EnemyStateBase
 {
-    public EnemyAttackState(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public SwordManAttackState(StateMachine stateMachine, int animHashKey, EnemyController controller, SwordManAnimData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 

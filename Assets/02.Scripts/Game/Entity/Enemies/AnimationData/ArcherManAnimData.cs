@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherManAnimData : EnemyAnimationData
+public class ArcherManAnimData : SwordManAnimData
 {
     public ArcherManAttackState AttackState { get; private set; }
 
