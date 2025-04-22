@@ -6,6 +6,7 @@ public class BsyEnemyScene : SceneBase
 {
     public BsyEnemyScene()
     {
+        LabelAsync = nameof(BsyEnemyScene);
     }
 
     public override void Enter()

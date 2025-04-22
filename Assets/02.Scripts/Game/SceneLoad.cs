@@ -5,8 +5,8 @@ using UnityEngine;
 public class SceneLoad : MonoBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-        Managers.Scene.ChangeScene<GameScene>(Managers.Scene.GameScene);
+        Managers.Scene.ChangeScene<BsyEnemyScene>(Managers.Scene.BsyEnemyScene);
     }
 }
