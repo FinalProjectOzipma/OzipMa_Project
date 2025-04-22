@@ -5,31 +5,15 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 
-public class UI_MainTest : UI_Base
+public class UI_MainTest : UI_Scene
 {
-    enum Buttons
-    {
-        SettingButton,
-        ResearchButton
-    }
-
     enum Texts
     {
         MainGoldText,
         MainZamText
     }
 
-    enum Images
-    {
-        ResearchButtonImage,
-        SettingImage
-    }
 
-    enum UIObject
-    {
-        UI_Research,
-        UI_Sound
-    }
 
     private void Start()
     {
@@ -37,62 +21,34 @@ public class UI_MainTest : UI_Base
     }
     public override void Init()
     {
-
-        Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
-        Bind<Image>(typeof(Images));
-        Bind<GameObject>(typeof(UIObject));
-
-        GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickOpenSetting);
-        GetButton((int)Buttons.ResearchButton).gameObject.BindEvent(OnClickOpenResearch);
-
-        GetObject((int)UIObject.UI_Sound).SetActive(false);
-        GetObject((int)UIObject.UI_Research).SetActive(false);
 
         Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
-        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());         
-
+        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
     }
 
-    public void OnClickOpenSetting(PointerEventData data)
+    private void OnEnable()
     {
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
-        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Sound), GetImage((int)Images.SettingImage));
-        
+        if (Managers.Player != null)
+        {
+            Managers.Player.OnGoldChanged += UpdateGoldUI;
+            UpdateGoldUI(Managers.Player.GetGold());
+        }
     }
 
-    public void OnClickOpenResearch(PointerEventData data)
+    private void OnDisable()
     {
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
-        Util.OnClickButtonAnim(GetObject((int)UIObject.UI_Research), GetImage((int)Images.ResearchButtonImage));       
+        if (Managers.Player != null)
+        {
+            Managers.Player.OnGoldChanged -= UpdateGoldUI;
+        }
+
     }
 
-    //private void PopUpShow(UIObject uIObject)
-    //{
-    //    GetObject((int)uIObject).SetActive(true);
-
-    //    var sequence = DOTween.Sequence();
-
-    //    sequence.Append(GetObject((int)uIObject).transform.DOScale(1.1f, 0.2f));
-    //    sequence.Append(GetObject((int)uIObject).transform.DOScale(1f, 0.1f));
-
-    //    sequence.Play();
-
-    //}
-
-    //private void OnClickButtonAnime(UIObject uIObject, Images image)
-    //{
-    //    var sequence = DOTween.Sequence();
-
-    //    sequence.Append(GetImage((int)image).gameObject.transform.DOScale(0.95f, 0.1f));
-    //    sequence.Append(GetImage((int)image).gameObject.transform.DOScale(1.2f, 0.1f));
-    //    sequence.Append(GetImage((int)image).gameObject.transform.DOScale(1.0f, 0.1f));
-
-    //    sequence.Play().OnComplete(() =>
-    //    {
-    //        PopUpShow(uIObject);
-    //    });
-    //}
-
+    private void UpdateGoldUI(long gold)
+    {
+        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
+        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
+    }
 
 }

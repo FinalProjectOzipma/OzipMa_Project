@@ -9,14 +9,17 @@ public class UI_Setting : UI_Base
 {
     enum Buttons
     {
-        SoundButton,
-        LanguageButton,
-        IDButton
+        SettingButton
+    }
+
+    enum Images
+    {
+        SettingImage
     }
 
     enum GameObjects
     {
-        SoundPopup,
+        UI_Sound
 
     }
 
@@ -30,15 +33,17 @@ public class UI_Setting : UI_Base
     public override void Init()
     {
         Bind<Button>(typeof(Buttons));
+        Bind<Image>(typeof(Images));
         Bind<GameObject>(typeof(GameObjects));
-        Get<GameObject>((int)GameObjects.SoundPopup).gameObject.SetActive(false);
 
-        GetButton((int)Buttons.SoundButton).gameObject.BindEvent(OnClickSoundPopUp);
+
+        GetButton((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSoundPopUp);
     }
 
 
     public void OnClickSoundPopUp(PointerEventData data)
     {
-        Get<GameObject>((int)GameObjects.SoundPopup).gameObject.SetActive(true);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
+        Get<GameObject>((int)GameObjects.UI_Sound).SetActive(true);
     }
 }
