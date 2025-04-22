@@ -54,7 +54,10 @@ public class ArrowProjectile : Poolable
         // IF 1110 ^ 0010 = 0010
         if((hitLayer & other.gameObject.layer) > 0)
         {
-            Managers.Resource.Destroy(gameObject);
+            if((other.gameObject.layer | mapLayer) > 0)
+                other.GetComponent<IDamagable>().ApplyDamage(ownerAttack);
+
+            Managers.Resource.Destroy(gameObject); 
         }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : EntityController
+public class EnemyController : EntityController, IDamagable
 {
 
     private Coroutine DotCor;
@@ -49,17 +49,6 @@ public class EnemyController : EntityController
     }
 
 
-    public void ApplyDamage(float attackPower)
-    {
-        //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = -attackPower;
-
-        if (minus < 0.0f)
-        {
-            Status.AddHealth(minus);
-            Fx.StartBlinkFlash();
-        }
-    }
 
     public void ApplyDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
     {
@@ -139,4 +128,16 @@ public class EnemyController : EntityController
     }
 
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
+
+    public void ApplyDamage(float amount)
+    {
+        //float minus = Status.Defences[0].GetValue() - attackPower;
+        float minus = -amount;
+
+        if (minus < 0.0f)
+        {
+            Status.AddHealth(minus);
+            Fx.StartBlinkFlash();
+        }
+    }
 }
