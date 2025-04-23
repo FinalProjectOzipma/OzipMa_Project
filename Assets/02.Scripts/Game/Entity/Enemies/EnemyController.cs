@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : EntityController
+public class EnemyController : EntityController, IDamagable
 {
 
     private Coroutine DotCor;
@@ -18,7 +18,6 @@ public class EnemyController : EntityController
 
     public Sprite SpriteImage;
     public NavMeshAgent Agent;
-    public GameObject Target;
 
     private void Awake()
     {
@@ -27,12 +26,15 @@ public class EnemyController : EntityController
         Agent.updateUpAxis = false;
     }
 
-    public override void Init(int primaryKey, string name, Vector2 position, GameObject gameObject = null)
+    protected override void Update()
     {
-        base.Init(primaryKey, name, position);
-        //EnemyStatus = new EnemyStatus(Row);
-        AnimData = new EnemyAnimationData();
-        AnimData.Init(this);
+        if (AnimData != null)
+            AnimData.StateMachine.CurrentState?.Update();
+    }
+
+    public override void Init(Vector2 position, GameObject gameObject = null)
+    {
+        base.Init(position);
         transform.position = position;
     }
 
@@ -47,22 +49,11 @@ public class EnemyController : EntityController
             go.transform.SetParent(transform);
             Rigid = go.GetOrAddComponent<Rigidbody2D>();
             Fx = go.GetOrAddComponent<ObjectFlash>();
-            Init(primaryKey, name, position, go);
+            Init(position);
         });
     }
 
 
-    public void ApplyDamage(float attackPower)
-    {
-        //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = -attackPower;
-
-        if (minus < 0.0f)
-        {
-            Status.AddHealth(minus);
-            Fx.StartBlinkFlash();
-        }
-    }
 
     public void ApplyDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
     {
@@ -142,4 +133,16 @@ public class EnemyController : EntityController
     }
 
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
+    public virtual void AnimationFinishProjectileTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishProjectileTrigger();
+    public void ApplyDamage(float amount)
+    {
+        //float minus = Status.Defences[0].GetValue() - attackPower;
+        float minus = -amount;
+
+        if (minus < 0.0f)
+        {
+            Status.AddHealth(minus);
+            Fx.StartBlinkFlash();
+        }
+    }
 }

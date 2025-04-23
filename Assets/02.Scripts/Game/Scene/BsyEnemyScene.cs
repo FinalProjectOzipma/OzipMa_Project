@@ -11,9 +11,8 @@ public class BsyEnemyScene : GameScene
     public override void Enter()
     {
         base.Enter();
-        DefaultUnitAdd();
+        DefaultUnitAdd(); // 인벤 데이터 추가
         Managers.Wave.StartWave(0);
-
         InitAction?.Invoke();
     }
 
@@ -23,7 +22,7 @@ public class BsyEnemyScene : GameScene
         Managers.Resource.LoadAssetAsync<GameObject>("Zombie_Brain", (prefab) =>
         {
             MyUnit unit = new MyUnit();
-            unit.Init(1, prefab.GetComponent<MyUnitController>().sprite);
+            unit.Init(0, prefab.GetComponent<MyUnitController>().sprite);
             Managers.Player.Inventory.Add<MyUnit>(unit);
         });
 

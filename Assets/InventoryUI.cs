@@ -51,7 +51,7 @@ public class InventoryUI : UI_Scene
     #endregion
 
     #region State
-    private STATE _currentState = STATE.SELECTABLE;
+    //private STATE _currentState = STATE.SELECTABLE;
     private enum STATE
     {
         SELECTABLE,
@@ -73,8 +73,7 @@ public class InventoryUI : UI_Scene
 
     private void Awake()
     {
-        Managers.Scene.GameScene.InitAction += Init;
-        Managers.Scene.PydTowerScene.InitAction += Init;
+        Init();
     }
 
     public override void Init()
@@ -264,7 +263,7 @@ public class InventoryUI : UI_Scene
     private void OnPut()
     {
         Refresh<Tower>();
-        _currentState = STATE.PUTABLE;
+        //_currentState = STATE.PUTABLE;
 
         // TODO::
     }

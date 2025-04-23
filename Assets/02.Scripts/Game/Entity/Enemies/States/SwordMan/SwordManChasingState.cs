@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class EnemyChasingState : EnemyStateBase
+public class SwordManChasingState : SwordManStateBase
 {
-    public EnemyChasingState(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public SwordManChasingState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
-        agent.autoBraking = true;
     }
 
     public override void Enter()

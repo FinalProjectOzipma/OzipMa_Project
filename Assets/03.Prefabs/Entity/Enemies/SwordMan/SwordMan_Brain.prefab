@@ -64,6 +64,14 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5112076379583237063, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Height
+      value: 0.49
+      objectReference: {fileID: 0}
+    - target: {fileID: 5112076379583237063, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Radius
+      value: 0.037
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3635720689636166866, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
     - {fileID: -5232308646360990066, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}

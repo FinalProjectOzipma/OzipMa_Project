@@ -10,6 +10,7 @@ public abstract class EntityStateBase
     protected int animHashKey;
 
     protected bool triggerCalled;
+    protected bool projectileCalled;
 
     protected float time;
 
@@ -31,4 +32,5 @@ public abstract class EntityStateBase
     public abstract void Exit();
 
     public void AniamtionFinishTrigger() => triggerCalled = true;
+    public void AnimationFinishProjectileTrigger() => projectileCalled = true;
 }
