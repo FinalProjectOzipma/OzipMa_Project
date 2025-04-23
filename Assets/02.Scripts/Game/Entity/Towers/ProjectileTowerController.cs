@@ -9,8 +9,9 @@ public class ProjectileTowerController : TowerControlBase
     protected Vector3 firePosition = Vector3.one; // 발사 위치
     private float attackPower;
 
-    protected void Awake()
+    protected override void Start()
     {
+        base.Start();
         int index = Name.IndexOf("Tower");
         if (index > 0)
         {
@@ -20,7 +21,7 @@ public class ProjectileTowerController : TowerControlBase
         {
             ProjectileName = Name;
         }
-        Util.Log(ProjectileName);
+        //Util.Log(ProjectileName);
         Managers.Resource.LoadAssetAsync<GameObject>(ProjectileName); // 미리 로드 
     }
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
@@ -28,6 +29,7 @@ public class ProjectileTowerController : TowerControlBase
         // 정보 세팅
         Tower = new Tower();
         Tower.Init(primaryKey, Preview);
+        Tower.Sprite = Preview;
         TowerStatus = Tower.TowerStatus;
 
         Init();

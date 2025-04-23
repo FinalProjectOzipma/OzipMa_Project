@@ -147,6 +147,13 @@ public class Util
         return res;
     }
 
+    public static Vector3 ScreenToWorldPointWithoutZ(Vector2 screenPoint)
+    {
+        Vector3 res = Camera.main.ScreenToWorldPoint(screenPoint);
+        res.z = 0;
+        return res;
+    }
+
     // 디버그를 위한
     public static void Log(string message)
     {
