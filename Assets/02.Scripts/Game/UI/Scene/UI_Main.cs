@@ -58,16 +58,12 @@ public class UI_Main : UI_Scene
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
 
-
         Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
         Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
         Get<Button>((int)Buttons.ResearchButton).gameObject.BindEvent(OnClikButtonResearch);
         Get<Button>((int)Buttons.ManagerButton).gameObject.BindEvent(OnClickManager);
         Get<Button>((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSetting);
-    }
 
-    private void OnEnable()
-    {
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged += UpdateGoldUI;
@@ -75,14 +71,6 @@ public class UI_Main : UI_Scene
         }
     }
 
-    private void OnDisable()
-    {
-        if (Managers.Player != null)
-        {
-            Managers.Player.OnGoldChanged -= UpdateGoldUI;
-        }
-
-    }
 
     private void UpdateGoldUI(long gold)
     {
