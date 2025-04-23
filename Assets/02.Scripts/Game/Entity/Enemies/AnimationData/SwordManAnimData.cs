@@ -11,8 +11,9 @@ public class SwordManAnimData : EntityAnimationData
     public override void Init(EntityController controller)
     {
         base.Init(controller);
-        ChaseState = new SwordManChasingState(StateMachine, ChaseHash, controller as SwordManController, this);
-        DeadState = new SwordManDeadState(StateMachine, DeadHash, controller as SwordManController, this);
+        AttackState = new SwordManAttackState(StateMachine, AttackHash, controller as EnemyController, this);
+        ChaseState = new SwordManChasingState(StateMachine, ChaseHash, controller as EnemyController, this);
+        DeadState = new SwordManDeadState(StateMachine, DeadHash, controller as EnemyController, this);
         StateMachine.Init(ChaseState);
     }
 }

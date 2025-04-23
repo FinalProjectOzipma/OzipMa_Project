@@ -24,6 +24,11 @@ public class EnemyAnimationTrigger : MonoBehaviour
         enemy.AnimationFinishTrigger();
     }
 
+    public void AnmationProjectileTrigger()
+    {
+        enemy.AnimationFinishProjectileTrigger();
+    }
+
     public void AttackTrigger()
     {
         int layer = 1 << 9 | 1 << 10;

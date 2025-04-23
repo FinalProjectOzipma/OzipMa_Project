@@ -10,7 +10,7 @@ public abstract class EntityController : Poolable
     public ObjectFlash Fx { get; set; }
 
     #endregion
-    public EntityAnimationData AnimData { get; protected set; }
+    public EntityAnimationData AnimData { get; set; }
 
     public bool IsLeft { get; private set; }
     public int FacDir { get; private set; }
@@ -42,11 +42,11 @@ public abstract class EntityController : Poolable
         Vector2 pos = target.transform.position;
         Vector2 mePos = transform.position;
 
-        if (pos.x - mePos.x > 0f && IsLeft)
+        if (pos.x - mePos.x > 0 && IsLeft)
         {
             OnFlip();
         }
-        else if (pos.x - mePos.x < 0f && !IsLeft)
+        else if (pos.x - mePos.x < 0 && !IsLeft)
         {
             OnFlip();
         }

@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1773844028320060821, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
       propertyPath: m_Name
-      value: EnemyBrainBase
+      value: ArcherMan_Brain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

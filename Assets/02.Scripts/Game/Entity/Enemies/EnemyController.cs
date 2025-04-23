@@ -18,13 +18,18 @@ public class EnemyController : EntityController, IDamagable
 
     public Sprite SpriteImage;
     public NavMeshAgent Agent;
-    public GameObject Target;
 
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
+    }
+
+    protected override void Update()
+    {
+        if (AnimData != null)
+            AnimData.StateMachine.CurrentState?.Update();
     }
 
     public override void Init(Vector2 position, GameObject gameObject = null)
@@ -44,7 +49,7 @@ public class EnemyController : EntityController, IDamagable
             go.transform.SetParent(transform);
             Rigid = go.GetOrAddComponent<Rigidbody2D>();
             Fx = go.GetOrAddComponent<ObjectFlash>();
-            Init(position, go);
+            Init(position);
         });
     }
 
@@ -128,7 +133,7 @@ public class EnemyController : EntityController, IDamagable
     }
 
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
-
+    public virtual void AnimationFinishProjectileTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishProjectileTrigger();
     public void ApplyDamage(float amount)
     {
         //float minus = Status.Defences[0].GetValue() - attackPower;

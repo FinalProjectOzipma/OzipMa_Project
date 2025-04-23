@@ -1,0 +1,22 @@
+using DefaultTable1;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.AI;
+
+public class SwordManBody : MonoBehaviour
+{
+    private void Start()
+    {
+        Init();
+    }
+
+    public void Init()
+    {
+        EnemyController ctrl = GetComponentInParent<EnemyController>();
+        ctrl.AnimData = new SwordManAnimData();
+        ctrl.AnimData.Init(ctrl);
+    }
+}

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MyUnitController : EntityController
+public class MyUnitController : EntityController, IDamagable
 {
     //아이콘
     public Sprite sprite; 
@@ -40,7 +40,8 @@ public class MyUnitController : EntityController
 
     protected override void Update()
     {
-        base.Update();
+        if (AnimData != null)
+            AnimData.StateMachine.CurrentState?.Update();
     }
 
     // Wave에서 들고있는것
@@ -96,5 +97,10 @@ public class MyUnitController : EntityController
     {
         MyUnitStatus.Health.AddValue(-damage);
         Fx.StartBlinkFlash();
+    }
+
+    public void ApplyDamage(float amount)
+    {
+        TakeDamage(amount);
     }
 }
