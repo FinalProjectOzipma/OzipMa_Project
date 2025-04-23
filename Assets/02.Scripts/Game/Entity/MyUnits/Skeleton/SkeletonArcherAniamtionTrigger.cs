@@ -7,6 +7,6 @@ public class SkeletonArcherAniamtionTrigger : MyUnitAnimationTrigger
     public override void AttackTrigger()
     {
         base.AttackTrigger();
-        Managers.Resource.Instantiate($"{nameof(myUnit.gameObject.name)}");
+        Managers.Resource.Instantiate("Arrow");
     }
 }
