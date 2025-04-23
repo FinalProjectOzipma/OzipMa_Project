@@ -18,13 +18,11 @@ public class ZombieChaseState : MyUnitStateBase
     {
         base.Enter();
         controller.Agent.isStopped = false;
-        Anim.SetBool(animHashKey, true);
     }
 
     public override void Exit()
     {
         base.Exit();
-        Anim.SetBool(animHashKey, false);
     }
 
     public override void Update()
@@ -46,6 +44,6 @@ public class ZombieChaseState : MyUnitStateBase
                 StateMachine.ChangeState(data.AttackState);
             controller.Agent.SetDestination(controller.Target.transform.position);
         }
-        
+
     }
 }

@@ -7,7 +7,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 {
     public Transform AttackCheck;
     float attackValue;
-    private MyUnitController myUnit => GetComponentInParent<MyUnitController>();
+    protected MyUnitController myUnit => GetComponentInParent<MyUnitController>();
 
     private void Start()
     {
@@ -24,7 +24,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
         myUnit.AnimationFinishTrigger();
     }
 
-    public void AttackTrigger()
+    public virtual void AttackTrigger()
     {
         int layer = 1 << 8;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);

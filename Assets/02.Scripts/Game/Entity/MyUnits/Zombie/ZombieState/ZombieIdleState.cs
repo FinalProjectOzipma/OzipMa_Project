@@ -41,7 +41,6 @@ public class ZombieIdleState : MyUnitStateBase
         }
     }
 
-    // TODO: 타겟 지정 메서드 만들기
     public void SetTarget()
     {
         //Managers.Wave에서 남은 적 리스트 가져오기

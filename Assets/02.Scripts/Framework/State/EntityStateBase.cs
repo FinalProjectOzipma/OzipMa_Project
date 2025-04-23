@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class EntityStateBase
 {
     protected Animator Anim { get; set; }
-    // protected RigidBody2D Rigid {get; set;}
+    protected Rigidbody2D Rigid {get; set;}
     protected StateMachine StateMachine { get; set; }
     protected int animHashKey;
 
@@ -30,7 +30,6 @@ public abstract class EntityStateBase
     }
     public abstract void FixedUpdate();
     public abstract void Exit();
-
     public void AniamtionFinishTrigger() => triggerCalled = true;
     public void AnimationFinishProjectileTrigger() => projectileCalled = true;
 }

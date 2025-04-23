@@ -12,13 +12,11 @@ public class ZombieAttackState : MyUnitStateBase
     {
         base.Enter();
         controller.Agent.isStopped = true;
-        Anim.SetBool(animHashKey, true);
     }
 
     public override void Exit()
     {
         base.Exit();
-        Anim.SetBool(animHashKey, false);
     }
 
     public override void Update()
