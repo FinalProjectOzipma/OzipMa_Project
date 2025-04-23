@@ -97,7 +97,7 @@ public class EnemyController : EntityController, IDamagable
 
             if(canHit)
             {
-                float minus = Status.Defences[0].GetValue() - abilityValue;
+                float minus = Status.Defences.GetValue() - abilityValue;
                 if(minus < 0.0f)
                 {
                     Status.AddHealth(minus);

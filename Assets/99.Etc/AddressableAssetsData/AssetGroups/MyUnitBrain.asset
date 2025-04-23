@@ -28,7 +28,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc86d54ec2c6e2045845823cde50614d
-    m_Address: SkeletalArcher_Brain
+    m_Address: Skeleton_Brain
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

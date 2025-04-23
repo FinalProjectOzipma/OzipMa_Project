@@ -24,7 +24,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e9d07a4bff09ca24eb286698e441e900
-    m_Address: SkeletalArcher_Body
+    m_Address: Skeleton_Body
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
