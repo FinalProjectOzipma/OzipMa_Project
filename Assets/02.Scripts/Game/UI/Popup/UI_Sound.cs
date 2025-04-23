@@ -8,7 +8,6 @@ public class UI_Sound : UI_Base
 {
     enum Buttons
     {
-        ExitButton,
         MasterMuteButton,
         BGMBMuteButton,
         SFMMuteButton
@@ -21,10 +20,6 @@ public class UI_Sound : UI_Base
         SFXSlider
     }
 
-    enum Images
-    {
-        BackImage
-    }
 
     private void Awake()
     {
@@ -35,11 +30,9 @@ public class UI_Sound : UI_Base
     {
         Bind<Button>(typeof(Buttons));
         Bind<Slider>(typeof(Sliders));
-        Bind<Image>(typeof(Images));
        
 
 
-        GetButton((int)Buttons.ExitButton).gameObject.BindEvent(OnClickExitButton);
         GetButton((int)Buttons.MasterMuteButton).gameObject.BindEvent(OnClickMasterMuted);
         GetButton((int)Buttons.BGMBMuteButton).gameObject.BindEvent(OnClickBGMMuted);
         GetButton((int)Buttons.SFMMuteButton).gameObject.BindEvent(OnClickSFXMuted);
@@ -130,13 +123,7 @@ public class UI_Sound : UI_Base
     /// <summary>
     /// 나가기 버튼
     /// </summary>
-    public void OnClickExitButton(PointerEventData data)
-    {
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, transform.position);
-        this.gameObject.SetActive(false);  
-    }
-
-
+ 
     public void InitVolumeMuted()
     {
         if (Managers.Audio.audioControler.isMasterMute)

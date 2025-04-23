@@ -43,11 +43,6 @@ MonoBehaviour:
   - m_GUID: acd6dfa2fcf15954985a556ceeff1abb
     m_Address: LoadScene
     m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9579e7a15eb52814aad406139e8416b9
-    m_Address: MainUI
-    m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
@@ -57,8 +52,8 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: a7b6363d27d2c0f46bb8eab621e5022a
-    m_Address: SettingUI
+  - m_GUID: dd2ff314000d2524ca6483a719a9ac9c
+    m_Address: SoundUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

@@ -5,11 +5,10 @@ using DG.Tweening;
 using System.Numerics;
 using UnityEngine;
 
-public class UI_ResearchScene : UI_Scene
+public class UI_ResearchScene : UI_Popup
 {
     enum Buttons
     {
-        ResearchButton,
         BackButton
     }
 
@@ -21,7 +20,6 @@ public class UI_ResearchScene : UI_Scene
 
     enum Images
     {
-        ResearchButtonImage,
         BackImage
     }
 
@@ -30,7 +28,7 @@ public class UI_ResearchScene : UI_Scene
         UI_Research
     }
 
-    Sequence sequence;
+    bool isButton = false;
 
     private void Awake()
     {
@@ -48,7 +46,6 @@ public class UI_ResearchScene : UI_Scene
         Get<TextMeshProUGUI>((int)Texts.GoldText).text = Managers.Player.GetGold().ToString();
         Get<TextMeshProUGUI>((int)Texts.ZamText).text = Managers.Player.GetZam().ToString();
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBack);
-        GetButton((int)Buttons.ResearchButton).gameObject.BindEvent(OnClickResearch);
 
     }
 
@@ -78,19 +75,23 @@ public class UI_ResearchScene : UI_Scene
 
     public void OnClickBack(PointerEventData data)
     {
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
-        Get<GameObject>((int)ReseachObject.UI_Research).SetActive(false);
-        Get<Button>((int)Buttons.BackButton).gameObject.SetActive(false);
-        Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(true);
-    }
+        if (isButton) return;
 
-    public void OnClickResearch(PointerEventData data)
-    {
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
-        Get<GameObject>((int)ReseachObject.UI_Research).SetActive(true);
-        Get<Button>((int)Buttons.BackButton).gameObject.SetActive(true);
-        Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(false);
-    }
+        isButton = true;
 
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+
+        var seq = DOTween.Sequence();
+
+        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(0.9f, 0.1f));
+        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.1f, 0.1f));
+        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.0f, 0.1f));
+
+        seq.Play().OnComplete(() =>
+        {
+            ClosePopupUI();
+            isButton = false;
+        });
+    }
 
 }
