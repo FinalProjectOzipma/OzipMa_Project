@@ -7,14 +7,14 @@ public abstract class TowerControlBase : MonoBehaviour
     [Header("테스트용")]
     public int ID = 1;
     public bool IsPlaced; // 맵에 배치되었는가 
-    [field: SerializeField] public string Name { get; set; }
+    public string Name { get; set; }
 
     #region 데이터
     public Tower Tower {  get; protected set; }
     public TowerStatus TowerStatus { get; protected set; } // 캐싱용
     public Animator Anim { get; protected set; }
     public TowerAnimationData AnimData { get; protected set; }
-    public Sprite Preview { get; protected set; }
+    [field:SerializeField] public Sprite Preview { get; protected set; }
     #endregion
 
     protected LinkedList<EnemyController> detectedEnemies = new(); // 범위 내 적들
@@ -23,13 +23,11 @@ public abstract class TowerControlBase : MonoBehaviour
     private float attackCooldown = 0f;
     public abstract void Attack(float AttackPower);
 
-    private void Start()
+    protected virtual void Start()
     {
         Name = gameObject.name;
-        Util.Log(Name);
-
-        // Test용 강제 TakeRoot
         TakeRoot(ID, Name, Vector2.zero);
+        TowerStart();
     }
 
     public void Init()
@@ -49,18 +47,21 @@ public abstract class TowerControlBase : MonoBehaviour
             attackCooldown = TowerStatus.AttackCoolDown.GetValue();
             Attack(TowerStatus.Attack.GetValue());
             Anim?.SetTrigger(AnimData.AttackHash);
-            Util.Log($"{Name}의 공격");
+            //Util.Log($"{Name}의 공격");
         }
     }
 
     private void FixedUpdate()
     {
-        foreach(var enemy in detectedEnemies)
+        LinkedListNode<EnemyController> node = detectedEnemies.First;
+        while(node != null)
         {
+            EnemyController enemy = node.Value;
             if (enemy == null || enemy.isActiveAndEnabled == false)
             {
                 detectedEnemies.Remove(enemy);
             }
+            node = node.Next;
         }
     }
 

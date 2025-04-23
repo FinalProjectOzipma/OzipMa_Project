@@ -7,11 +7,11 @@ using static UnityEngine.GraphicsBuffer;
 public class TowerProjectile : MonoBehaviour
 {
     public EnemyController Target { get; set; }
-    private Transform targetTransform {  get; set; }
+    private Transform targetTransform { get; set; }
     private Rigidbody2D rb;
-    private float speed = 5f;
+    private float speed = 3f;
     private float attackPower;
-    private Tower tower {  get; set; }
+    private Tower tower { get; set; }
 
     private void Awake()
     {
@@ -25,8 +25,13 @@ public class TowerProjectile : MonoBehaviour
         Target = target;
         targetTransform = target.transform;
 
+        Vector2 dir = targetTransform.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.localRotation = Quaternion.Euler(0, 0, angle);
+
         Managers.Resource.Instantiate($"{projectileName}Body", go =>
         {
+            transform.rotation = Quaternion.identity;
             go.transform.SetParent(this.transform);
             go.transform.localPosition = Vector3.zero;
         });
@@ -35,10 +40,14 @@ public class TowerProjectile : MonoBehaviour
     private void Update()
     {
         if (targetTransform == null) return;
-        Vector2 dir = (targetTransform.position- transform.position).normalized;
-        rb.velocity = dir * speed;
+        Vector2 dir = targetTransform.position - transform.position;
+        Vector2 normalDir = dir.normalized;
+        rb.velocity = normalDir * speed;
 
-        if(targetTransform.gameObject.activeSelf != true) 
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        if (targetTransform.gameObject.activeSelf != true)
             Managers.Resource.Destroy(gameObject); ;
     }
 

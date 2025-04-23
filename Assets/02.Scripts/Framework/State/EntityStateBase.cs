@@ -11,6 +11,8 @@ public abstract class EntityStateBase
 
     protected bool triggerCalled;
 
+    protected float time;
+
     public EntityStateBase(StateMachine stateMachine, int animHashKey)
     {
         StateMachine = stateMachine;
@@ -18,7 +20,13 @@ public abstract class EntityStateBase
     }
 
     public abstract void Enter();
-    public abstract void Update();
+    public virtual void Update()
+    {
+        if (time >= 0)
+        {
+            time -= Time.deltaTime;
+        }
+    }
     public abstract void FixedUpdate();
     public abstract void Exit();
 
