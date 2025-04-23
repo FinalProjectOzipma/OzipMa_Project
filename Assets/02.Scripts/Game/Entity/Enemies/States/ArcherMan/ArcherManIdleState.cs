@@ -27,8 +27,11 @@ public class ArcherManIdleState : ArcherManStateBase
     {
         base.Update();
 
-        if (Vector2.Distance(rigid.position, stack.Peek().transform.position) > status.AttackRange.GetValue())
+        if(targets.Peek() == core && agent.remainingDistance > 0.1f)
+        {
             StateMachine.ChangeState(data.ChaseState);
+            return;
+        }    
 
         if (time < 0)
             StateMachine.ChangeState(data.AttackState);

@@ -16,6 +16,14 @@ public class Enums
         Count
     }
 
+    public enum Layer
+    {
+        Map = 1 << 6,
+        Enemy = 1 << 8,
+        MyUnit = 1 << 9,
+        Core = 1 << 10,
+    }
+
 }
 
 [GoogleSheet.Core.Type.UGS(typeof(RankType))]

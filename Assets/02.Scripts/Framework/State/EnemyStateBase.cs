@@ -14,12 +14,13 @@ public class EnemyStateBase : EntityStateBase
     protected Rigidbody2D rigid;
     protected NavMeshAgent agent;
     protected EnemyStatus status;
+    protected BoxCollider2D boxCol;
 
     protected bool isLeft;
     protected int facDir = 1;
 
     protected GameObject core;
-    protected Stack<GameObject> stack;
+    protected Stack<GameObject> targets;
 
     public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
     {
@@ -29,16 +30,15 @@ public class EnemyStateBase : EntityStateBase
         this.rigid = controller.Rigid;
         this.agent = controller.Agent;
         this.status = controller.Status;
-
-        this.stack = new Stack<GameObject>();
+        this.boxCol = controller.BoxCol;
         core = Managers.Player.MainCore.gameObject;
-        stack.Push(core);
     }
 
     public override void Enter()
     {
         anim.SetBool(animHashKey, true);
         triggerCalled = false;
+        this.targets = controller.Targets;
     }
 
     public override void Exit()
@@ -50,29 +50,22 @@ public class EnemyStateBase : EntityStateBase
     {
         base.Update();
 
-        if (controller.IsDead)
-            return;
-
-        if (stack.Count > 0)
-        {
-            SetTarget();
-            controller.FlipControll(stack.Peek());
-        }
+        DetectedEnemy();
     }
 
-    private void SetTarget()
+    private void DetectedEnemy()
     {
-        if (stack.Peek() == core)
+        if (targets.Peek() == core)
         {
-            Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), 1 << 9);
-            if (col != null) stack.Push(col.gameObject);
+            Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), (int)Enums.Layer.MyUnit);
+            if (col != null) targets.Push(col.gameObject);
         }
         else
         {
-            if (stack.Peek() == null || !stack.Peek().gameObject.activeInHierarchy ||
-                Vector2.Distance(transform.position, stack.Peek().transform.position) >= status.AttackRange.GetValue())
+            if (!targets.Peek().gameObject.activeInHierarchy ||
+                Vector2.Distance(transform.position, targets.Peek().transform.position) >= status.AttackRange.GetValue())
             {
-                stack.Pop();
+                targets.Pop();
             }
         }
     }

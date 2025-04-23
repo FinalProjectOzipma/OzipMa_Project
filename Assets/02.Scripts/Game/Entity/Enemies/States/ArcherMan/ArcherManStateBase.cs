@@ -34,4 +34,10 @@ public class ArcherManStateBase : EnemyStateBase
             StateMachine.ChangeState(data.DeadState);
         } 
     }
+
+    public void InnerRange(ArcherManStateBase nextState)
+    {
+        if (Vector2.Distance(transform.position, targets.Peek().transform.position) <= status.AttackRange.GetValue())
+            StateMachine.ChangeState(nextState);
+    }
 }

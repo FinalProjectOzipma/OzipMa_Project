@@ -247,4 +247,9 @@ public class Util
         Vector2 v2 = end - start;
         return Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
     }
+
+    public static int ConvertLayer(int LayerNumber)
+    {
+        return 1 << LayerNumber;
+    }
 }

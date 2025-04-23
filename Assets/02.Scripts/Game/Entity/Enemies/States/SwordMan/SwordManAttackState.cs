@@ -24,7 +24,7 @@ public class SwordManAttackState : SwordManStateBase
     {
         base.Update();
 
-        if (Vector2.Distance(rigid.position, stack.Peek().transform.position) >= status.AttackRange.GetValue())
+        if (Vector2.Distance(rigid.position, targets.Peek().transform.position) >= status.AttackRange.GetValue())
             StateMachine.ChangeState(data.ChaseState);
     }
 }

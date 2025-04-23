@@ -7,6 +7,7 @@ public abstract class EntityController : Poolable
 {
     #region Component
     public Animator Anim { get; private set; }
+    public BoxCollider2D BoxCol { get; private set; }
     public ObjectFlash Fx { get; set; }
 
     #endregion
@@ -20,6 +21,7 @@ public abstract class EntityController : Poolable
     public virtual void Init(Vector2 position, GameObject go = null)
     {
         Anim = GetComponentInChildren<Animator>();
+        BoxCol = GetComponentInChildren<BoxCollider2D>();
     }
 
     protected virtual void Update()
@@ -56,7 +58,7 @@ public abstract class EntityController : Poolable
     {
         IsLeft = !IsLeft;
         FacDir *= -1;
-        transform.Rotate(Vector2.up * 180);
+        transform.rotation = Quaternion.Euler(new Vector3(0, 180f * FacDir, 0));
     }
 
     //Root부분 생성해주는 파트
