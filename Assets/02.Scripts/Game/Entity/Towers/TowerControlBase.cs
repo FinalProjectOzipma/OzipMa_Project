@@ -47,7 +47,7 @@ public abstract class TowerControlBase : MonoBehaviour
             attackCooldown = TowerStatus.AttackCoolDown.GetValue();
             Attack(TowerStatus.Attack.GetValue());
             Anim?.SetTrigger(AnimData.AttackHash);
-            Util.Log($"{Name}의 공격");
+            //Util.Log($"{Name}의 공격");
         }
     }
 

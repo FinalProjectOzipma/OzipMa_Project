@@ -101,7 +101,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
-        Util.LogWarning($"");
+
         // TODO : 그리드에 맞게 배치
         DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, itemKey);
         Util.Log($"OnEndDrag : {data.Name}Tower");

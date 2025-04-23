@@ -21,7 +21,7 @@ public class ProjectileTowerController : TowerControlBase
         {
             ProjectileName = Name;
         }
-        Util.Log(ProjectileName);
+        //Util.Log(ProjectileName);
         Managers.Resource.LoadAssetAsync<GameObject>(ProjectileName); // 미리 로드 
     }
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
