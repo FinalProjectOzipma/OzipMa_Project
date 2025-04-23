@@ -191,55 +191,10 @@ public class Util
             return number.ToString();
     }
 
-    /// <summary>
-    /// 버튼 애니메니션
-    /// </summary>
-    public static void OnClickButtonAnim(GameObject popup, Image buttonImage, bool isOpen = true)
+    public static float GetAngle(Vector2 start, Vector2 end)
     {
-        var sequence = DOTween.Sequence();
-
-        sequence.Append(buttonImage.transform.DOScale(0.95f, 0.1f));
-        sequence.Append(buttonImage.transform.DOScale(1.2f, 0.1f));
-        sequence.Append(buttonImage.transform.DOScale(1.0f, 0.1f));
-
-        sequence.Play().OnComplete(() =>
-        {
-            if (isOpen)
-                PopUpShow(popup);
-            else
-                PopUpClose(popup);
-        });
-    }
-
-
-    /// <summary>
-    /// UI 애니메이션
-    /// </summary>
-    public static void PopUpShow(GameObject popup)
-    {
-        popup.SetActive(true);
-
-        var sequence = DOTween.Sequence();
-
-        sequence.Append(popup.transform.DOScale(1.1f, 0.2f));
-        sequence.Append(popup.transform.DOScale(1.0f, 0.1f));
-
-        sequence.Play();
-    }
-
-    public static void PopUpClose(GameObject popup)
-    {
-        var sequence = DOTween.Sequence();
-
-
-        sequence.Append(popup.transform.DOScale(1.1f, 0.1f));
-        sequence.Append(popup.transform.DOScale(0.2f, 0.2f));
-
-        sequence.Play().OnComplete(() =>
-        {
-           popup.SetActive(false);
-        });
-
+        Vector2 v2 = end - start;
+        return Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
     }
 
 }

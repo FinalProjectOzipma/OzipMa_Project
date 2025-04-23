@@ -40,6 +40,29 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: acd6dfa2fcf15954985a556ceeff1abb
+    m_Address: LoadScene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16fdd8c7f40bf7d4f8b517bbd2f183d3
+    m_Address: ReseachUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd2ff314000d2524ca6483a719a9ac9c
+    m_Address: SoundUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9579e7a15eb52814aad406139e8416b9
+    m_Address: MainUI
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:

@@ -8,7 +8,6 @@ using UnityEngine.AI;
 public class EnemyStateBase : EntityStateBase
 {
     protected EnemyController controller;
-    protected EnemyAnimationData data;
 
     protected Transform transform;
     protected Animator anim;
@@ -22,7 +21,7 @@ public class EnemyStateBase : EntityStateBase
     protected GameObject core;
     protected Stack<GameObject> stack;
 
-    public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey)
+    public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
         this.transform = controller.transform;
@@ -34,7 +33,6 @@ public class EnemyStateBase : EntityStateBase
         this.stack = new Stack<GameObject>();
         core = Managers.Player.MainCore.gameObject;
         stack.Push(core);
-        this.data = data;
     }
 
     public override void Enter()
@@ -48,28 +46,16 @@ public class EnemyStateBase : EntityStateBase
         anim.SetBool(animHashKey, false);
     }
 
-    public override void FixedUpdate()
-    {
-        
-    }
-
     public override void Update()
     {
+        base.Update();
+
         if (controller.IsDead)
             return;
 
-        if (status.Health.GetValue() <= 0.0f)
-        {
-            controller.StopAllCoroutines();
-            controller.IsDead = true;
-            StateMachine.ChangeState(data.DeadState);
-        }
-
-
-        if(stack.Count > 0)
+        if (stack.Count > 0)
         {
             SetTarget();
-
             controller.FlipControll(stack.Peek());
         }
     }
@@ -95,5 +81,10 @@ public class EnemyStateBase : EntityStateBase
     protected bool IsArrived()
     {
         return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
+    }
+
+    public override void FixedUpdate()
+    {
+
     }
 }

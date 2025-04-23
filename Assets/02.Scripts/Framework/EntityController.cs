@@ -5,28 +5,21 @@ using UnityEngine;
 
 public abstract class EntityController : Poolable
 {
-    [SerializeField]
-    public int PrimaryKey { get; set; }
-    public string Name { get; set; }
-
     #region Component
     public Animator Anim { get; private set; }
     public ObjectFlash Fx { get; set; }
 
     #endregion
-    public EntityAnimationData AnimData { get; protected set; }
+    public EntityAnimationData AnimData { get; set; }
 
     public bool IsLeft { get; private set; }
     public int FacDir { get; private set; }
 
     public bool IsDead { get; set; }
 
-    public virtual void Init(int primaryKey, string name, Vector2 position, GameObject go = null)
+    public virtual void Init(Vector2 position, GameObject go = null)
     {
         Anim = GetComponentInChildren<Animator>();
-
-        PrimaryKey = primaryKey;
-        Name = name;
     }
 
     protected virtual void Update()
@@ -49,11 +42,11 @@ public abstract class EntityController : Poolable
         Vector2 pos = target.transform.position;
         Vector2 mePos = transform.position;
 
-        if (pos.x - mePos.x > 0f && IsLeft)
+        if (pos.x - mePos.x > 0 && IsLeft)
         {
             OnFlip();
         }
-        else if (pos.x - mePos.x < 0f && !IsLeft)
+        else if (pos.x - mePos.x < 0 && !IsLeft)
         {
             OnFlip();
         }

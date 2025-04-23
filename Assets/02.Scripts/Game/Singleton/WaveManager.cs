@@ -58,7 +58,7 @@ public class WaveManager
 
     private void SpawnEnemy()
     {
-        int random = UnityEngine.Random.Range(0, 3);
+        int random = UnityEngine.Random.Range(0, enemyList.Count);
 
         DefaultTable.Enemy spawnenemy = enemyList[random];
 
@@ -68,7 +68,7 @@ public class WaveManager
         {
             CurEnemyList.Add(go);
             EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.TakeRoot(random, $"{name}", enemySpawn.transform.position);
+            ctrl.TakeRoot(random, name, enemySpawn.transform.position);
         });
     }
 }
