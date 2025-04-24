@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class ZombieAnimationTrigger : MyUnitAnimationTrigger
 {
-    void Start()
+    public override void AttackTrigger()
     {
-        
-    }
-
-    void Update()
-    {
-        
+        base.AttackTrigger();
+        int layer = 1 << 8;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
+        foreach (var hit in colliders)
+        {
+            if (hit.GetComponentInParent<EnemyController>() != null)
+            {
+                Util.Log(hit.name);
+                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
+            }
+        }
     }
 }

@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using Table = DefaultTable;
-using static UnityEngine.Rendering.DebugUI;
 
-public class ZombieIdleState : MyUnitStateBase
+public class SkeletonIdleState : MyUnitStateBase
 {
-    public ZombieIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public SkeletonIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 
@@ -27,17 +26,30 @@ public class ZombieIdleState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
+        time += Time.deltaTime;
+        //타겟이 존재한다면
         if (controller.Target != null)
         {
-            Debug.Log("타겟지정되어있음");
-            if (controller.IsClose())
+            //공격범위 외라면
+            if (!controller.IsClose())
             {
-                StateMachine.ChangeState(data.AttackState);
+                //추격상태로 전환
+                StateMachine.ChangeState(data.ChaseState);
             }
             else
             {
-                StateMachine.ChangeState(data.ChaseState);
+                //공격범위에 있으면서 공격쿨타임이 돌았다면
+                if (time >= controller.MyUnitStatus.AttackCoolDown.GetValue())
+                {
+                    //공격상태로 전환
+                    StateMachine.ChangeState(data.AttackState);
+                }
             }
+        }
+        //타겟이 없어졌다면
+        else
+        {
+            SetTarget();
         }
     }
 

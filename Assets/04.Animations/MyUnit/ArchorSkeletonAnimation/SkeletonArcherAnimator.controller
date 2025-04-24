@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1109 &-8603839221286452622
+--- !u!1109 &-9070448879005752086
 AnimatorTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12,23 +12,23 @@ AnimatorTransition:
     m_ConditionEvent: Chase
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 9135777576798379769}
+  m_DstState: {fileID: -8746944722305464017}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 1
---- !u!1102 &-6385966354735527640
+--- !u!1102 &-8746944722305464017
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ZombieAttack
+  m_Name: SkeletonArcherChase
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 2961188642780125919}
+  - {fileID: -8668446881004167669}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -38,13 +38,38 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ac5953ae83673e547876bcbd39395818, type: 2}
+  m_Motion: {fileID: 7400000, guid: 03969cb5375cc9e4d989c74dbf5fefde, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1109 &-5821745326796184360
+--- !u!1101 &-8668446881004167669
+AnimatorStateTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 2
+    m_ConditionEvent: Chase
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: 0}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 1
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1109 &-8387131465068887608
 AnimatorTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -56,12 +81,29 @@ AnimatorTransition:
     m_ConditionEvent: Attack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -6385966354735527640}
+  m_DstState: {fileID: 8974338845864488174}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 1
---- !u!1101 &-5197595666184163834
+--- !u!1109 &-7807879269686285463
+AnimatorTransition:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: Dead
+    m_EventTreshold: 0
+  m_DstStateMachine: {fileID: 0}
+  m_DstState: {fileID: -4425427231619961898}
+  m_Solo: 0
+  m_Mute: 0
+  m_IsExit: 0
+  serializedVersion: 1
+--- !u!1101 &-5401221251015397478
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -70,7 +112,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Dead
+    m_ConditionEvent: Idle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 0}
@@ -96,45 +138,42 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: -4324574429097593055}
-    m_Position: {x: 200, y: 120, z: 0}
+    m_State: {fileID: -392519595335274072}
+    m_Position: {x: 240, y: 150, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 9135777576798379769}
-    m_Position: {x: 200, y: 190, z: 0}
+    m_State: {fileID: 8974338845864488174}
+    m_Position: {x: 240, y: 220, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: -6385966354735527640}
-    m_Position: {x: 200, y: 260, z: 0}
+    m_State: {fileID: -8746944722305464017}
+    m_Position: {x: 240, y: 270, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 7334471040826079317}
-    m_Position: {x: 200, y: 320, z: 0}
-  - serializedVersion: 1
-    m_State: {fileID: -1441697241449725767}
-    m_Position: {x: -50, y: 430, z: 0}
+    m_State: {fileID: -4425427231619961898}
+    m_Position: {x: 240, y: 330, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:
-  - {fileID: -8603839221286452622}
-  - {fileID: -5821745326796184360}
-  - {fileID: 6393041245858131041}
+  - {fileID: -8387131465068887608}
+  - {fileID: -9070448879005752086}
+  - {fileID: -7807879269686285463}
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: -40, y: 20, z: 0}
-  m_EntryPosition: {x: -60, y: 200, z: 0}
-  m_ExitPosition: {x: 530, y: 200, z: 0}
+  m_AnyStatePosition: {x: 140, y: 10, z: 0}
+  m_EntryPosition: {x: -50, y: 250, z: 0}
+  m_ExitPosition: {x: 560, y: 260, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: -4324574429097593055}
---- !u!1102 &-4324574429097593055
+  m_DefaultState: {fileID: -392519595335274072}
+--- !u!1102 &-4425427231619961898
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ZombieIdle
+  m_Name: SkeletonArcherDead
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 3936298915467581009}
+  - {fileID: 8766728189861044332}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -144,23 +183,24 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 49a42925f72b5cf47ab3c786138d6cbb, type: 2}
+  m_Motion: {fileID: 7400000, guid: 0976e84f73c9d7a4a91a13a1841bd132, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1102 &-1441697241449725767
+--- !u!1102 &-392519595335274072
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ZombieKnockback
+  m_Name: SkeletonArcherIdle
   m_Speed: 1
   m_CycleOffset: 0
-  m_Transitions: []
+  m_Transitions:
+  - {fileID: -5401221251015397478}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -170,7 +210,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9374568ccad007a49a50a80299e17897, type: 2}
+  m_Motion: {fileID: 7400000, guid: 779efb1fb6b5dfc40a94908f95a099fa, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -182,7 +222,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ZombieAnimator
+  m_Name: SkeletonArcherAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Chase
@@ -222,7 +262,7 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1101 &2961188642780125919
+--- !u!1101 &5704348978886523621
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -239,15 +279,15 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 1
   serializedVersion: 3
-  m_TransitionDuration: 0
+  m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 0
+  m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
---- !u!1101 &3115681869712914836
+--- !u!1101 &8766728189861044332
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,76 +296,34 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: Chase
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 0}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 1
-  serializedVersion: 3
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
---- !u!1101 &3936298915467581009
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 2
-    m_ConditionEvent: Idle
-    m_EventTreshold: 0
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 0}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 1
-  serializedVersion: 3
-  m_TransitionDuration: 0
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 0
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
---- !u!1109 &6393041245858131041
-AnimatorTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
     m_ConditionEvent: Dead
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 7334471040826079317}
+  m_DstState: {fileID: 0}
   m_Solo: 0
   m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 1
---- !u!1102 &7334471040826079317
+  m_IsExit: 1
+  serializedVersion: 3
+  m_TransitionDuration: 0.25
+  m_TransitionOffset: 0
+  m_ExitTime: 0.75
+  m_HasExitTime: 1
+  m_HasFixedDuration: 1
+  m_InterruptionSource: 0
+  m_OrderedInterruption: 1
+  m_CanTransitionToSelf: 1
+--- !u!1102 &8974338845864488174
 AnimatorState:
   serializedVersion: 6
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ZombieDead
+  m_Name: SkeletonArcherAttack
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: -5197595666184163834}
+  - {fileID: 5704348978886523621}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -335,34 +333,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: cf0d71e9038de4d408f9f62ef442aa74, type: 2}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &9135777576798379769
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: ZombieChase
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions:
-  - {fileID: 3115681869712914836}
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 803413881f556dc4eae0399137c1936e, type: 2}
+  m_Motion: {fileID: 7400000, guid: 25b8b22a0cdee7b4596d34ef3658b8ae, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

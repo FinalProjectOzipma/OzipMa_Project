@@ -50,10 +50,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1773844028320060821, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
       propertyPath: m_Name
-      value: SkeletalArcherBrain Variant
+      value: SkeletalArcher_Brain
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3635720689636166866, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: Agent
+      value: 
+      objectReference: {fileID: 6311272267678890552}
+    - target: {fileID: 3635720689636166866, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 115124275235344955, guid: e9d07a4bff09ca24eb286698e441e900, type: 3}
+    m_RemovedComponents:
+    - {fileID: 3635720689636166866, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1773844028320060821, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5591942708500925108}
   m_SourcePrefab: {fileID: 100100000, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+--- !u!1 &719009614603510890 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1773844028320060821, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+  m_PrefabInstance: {fileID: 1254141245941314047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5591942708500925108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 719009614603510890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df6c48f9666514a4abeb037c8e36a911, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  spriteRenderer: {fileID: 115124275235344955, guid: e9d07a4bff09ca24eb286698e441e900, type: 3}
+  Agent: {fileID: 6311272267678890552}
+  Target: {fileID: 0}
+--- !u!195 &6311272267678890552 stripped
+NavMeshAgent:
+  m_CorrespondingSourceObject: {fileID: 5112076379583237063, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+  m_PrefabInstance: {fileID: 1254141245941314047}
+  m_PrefabAsset: {fileID: 0}
