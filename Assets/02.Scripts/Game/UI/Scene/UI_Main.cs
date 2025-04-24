@@ -12,7 +12,9 @@ public class UI_Main : UI_Scene
     enum Buttons
     {
         ResearchButton,
+        ManagerButton,
         SettingButton
+
     }
 
     enum Texts
@@ -20,13 +22,16 @@ public class UI_Main : UI_Scene
         MainGoldText,
         MainZamText,
         StageLv,
-        PlayerName
+        PlayerName,
+        ResearchText,
+        ManagerText
     }
 
     enum Images
     {
         ProfileImage,
         ResearchButtonImage,
+        ManagerButtonImage,
         SettingImage
     }
 
@@ -36,6 +41,8 @@ public class UI_Main : UI_Scene
         SoundUI
     }
 
+    Button ManagerButton;
+    Button ResearchButton;
     bool isButton = false;
 
 
@@ -45,6 +52,8 @@ public class UI_Main : UI_Scene
     }
     public override void Init()
     {
+        Managers.UI.SetSceneList<UI_Main>(this);
+
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
@@ -52,11 +61,9 @@ public class UI_Main : UI_Scene
         Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
         Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
         Get<Button>((int)Buttons.ResearchButton).gameObject.BindEvent(OnClikButtonResearch);
+        Get<Button>((int)Buttons.ManagerButton).gameObject.BindEvent(OnClickManager);
         Get<Button>((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSetting);
-    }
 
-    private void OnEnable()
-    {
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged += UpdateGoldUI;
@@ -64,14 +71,6 @@ public class UI_Main : UI_Scene
         }
     }
 
-    private void OnDisable()
-    {
-        if (Managers.Player != null)
-        {
-            Managers.Player.OnGoldChanged -= UpdateGoldUI;
-        }
-
-    }
 
     private void UpdateGoldUI(long gold)
     {
@@ -90,8 +89,11 @@ public class UI_Main : UI_Scene
         var seq = DOTween.Sequence();
 
         seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(0.9f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(0.9f, 0.1f));
         seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(1.1f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(1.1f, 0.1f));
         seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(1.0f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(1.0f, 0.1f));
 
         seq.Play().OnComplete(() =>
         {
@@ -124,6 +126,46 @@ public class UI_Main : UI_Scene
       
     }
 
- 
+    private void OnClickManager(PointerEventData data)
+    {
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+        OffButton();
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        
+
+        var seq = DOTween.Sequence();
+
+        seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(0.9f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(0.9f, 0.1f));
+        seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(1.1f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(1.1f, 0.1f));
+        seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(1.0f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(1.0f, 0.1f));
+
+        seq.Play().OnComplete(() =>
+        {
+            isButton = false;
+        });
+
+    }
+
+    public void OffButton()
+    {
+        Get<Button>((int)Buttons.ManagerButton).gameObject.SetActive(false);
+        Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(false);
+    }
+
+    public void OnButton()
+    {
+        Get<Button>((int)Buttons.ManagerButton).gameObject.SetActive(true);
+        Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(true);
+
+    }
+
+
 
 }
