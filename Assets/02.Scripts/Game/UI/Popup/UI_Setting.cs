@@ -1,24 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Setting : UI_Base
+public class UI_Setting : UI_Popup
 {
     enum Buttons
     {
-        SoundButton,
-        LanguageButton,
-        IDButton
+        BackButton
     }
 
-    enum GameObjects
+    enum Images
     {
-        SoundPopup,
-
+        BackImage
     }
+
+    bool isButton = false;
 
 
     private void Start()
@@ -30,15 +26,32 @@ public class UI_Setting : UI_Base
     public override void Init()
     {
         Bind<Button>(typeof(Buttons));
-        Bind<GameObject>(typeof(GameObjects));
-        Get<GameObject>((int)GameObjects.SoundPopup).gameObject.SetActive(false);
+        Bind<Image>(typeof(Images));
 
-        GetButton((int)Buttons.SoundButton).gameObject.BindEvent(OnClickSoundPopUp);
+        Get<Button>((int)Buttons.BackButton).gameObject.BindEvent(OnClickBack);
+
     }
 
-
-    public void OnClickSoundPopUp(PointerEventData data)
+    public void OnClickBack(PointerEventData data)
     {
-        Get<GameObject>((int)GameObjects.SoundPopup).gameObject.SetActive(true);
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+   
+        var seq = DOTween.Sequence();
+
+        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(0.9f, 0.1f));
+        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.1f, 0.1f));
+        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.0f, 0.1f));
+
+        seq.Play().OnComplete(() =>
+        {
+           ClosePopupUI();
+            isButton = false;
+        });
     }
+
+
 }

@@ -90,6 +90,7 @@ public class InventoryUI : UI_Scene
         prevDis = GetObject((int)GameObjects.DisTower);
 
         OnTowerTap();
+        Managers.UI.SetSceneList<InventoryUI>(this);
     }
 
     /// <summary>
@@ -207,7 +208,7 @@ public class InventoryUI : UI_Scene
     }
 
 
-    private void OnSwipe()
+    public void OnSwipe()
     {
         if (_currentTab == typeof(MyUnit))
         {
@@ -219,6 +220,8 @@ public class InventoryUI : UI_Scene
         }
 
         OnAnimation();
+      
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
     private void OnAnimation()
@@ -226,6 +229,7 @@ public class InventoryUI : UI_Scene
         RectTransform movable = GetRect((int)RectTransforms.Contents);
         if (!isMove)
         {
+            Managers.UI.GetSceneList<UI_Main>().OffButton();
             isMove = true;
             if(!isOpen)
             {
@@ -233,7 +237,7 @@ public class InventoryUI : UI_Scene
                 gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
-                    isMove = false;
+                    isMove = false;                 
                 });
             }
             else
@@ -242,6 +246,7 @@ public class InventoryUI : UI_Scene
                 {
                     isMove = false;
                     isOpen = false;
+                    Managers.UI.GetSceneList<UI_Main>().OnButton();
                 });
             }
         }   
