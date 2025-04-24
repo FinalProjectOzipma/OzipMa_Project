@@ -1,7 +1,5 @@
-using Cysharp.Threading.Tasks.Triggers;
 using DG.Tweening;
 using TMPro;
-using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
