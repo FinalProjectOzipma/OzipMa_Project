@@ -14,7 +14,7 @@ public class EnemyStateBase : EntityStateBase
     protected Rigidbody2D rigid;
     protected NavMeshAgent agent;
     protected EnemyStatus status;
-    protected BoxCollider2D boxCol;
+    protected CircleCollider2D cirCol;
 
     protected bool isLeft;
     protected int facDir = 1;
@@ -30,7 +30,7 @@ public class EnemyStateBase : EntityStateBase
         this.rigid = controller.Rigid;
         this.agent = controller.Agent;
         this.status = controller.Status;
-        this.boxCol = controller.BoxCol;
+        this.cirCol = controller.Colider;
         core = Managers.Player.MainCore.gameObject;
     }
 
@@ -50,11 +50,11 @@ public class EnemyStateBase : EntityStateBase
     {
         base.Update();
 
-        DetectedEnemy();
+        DetectedUnit();
         controller.FlipControll(targets.Peek());
     }
 
-    private void DetectedEnemy()
+    private void DetectedUnit()
     {
         if (targets.Peek() == core)
         {
@@ -91,10 +91,10 @@ public class EnemyStateBase : EntityStateBase
 
     protected bool DetectedMap()
     {
-        float dist = Vector2.Distance(boxCol.transform.position, targets.Peek().transform.position);
-        Vector2 dir = (targets.Peek().transform.position - boxCol.transform.position).normalized;
+        float dist = Vector2.Distance(cirCol.transform.position, targets.Peek().transform.position);
+        Vector2 dir = (targets.Peek().transform.position - cirCol.transform.position).normalized;
 
-        Collider2D col = Physics2D.BoxCast(boxCol.transform.position, boxCol.bounds.size, 0f, dir, dist, (int)Enums.Layer.Map).collider;
+        Collider2D col = Physics2D.BoxCast(cirCol.transform.position, cirCol.bounds.size, 0f, dir, dist, (int)Enums.Layer.Map).collider;
         if (col != null)
         {
             if (agent.remainingDistance < 0.01f)

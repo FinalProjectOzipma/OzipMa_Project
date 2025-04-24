@@ -8,7 +8,7 @@ public abstract class EntityController : Poolable
 {
     #region Component
     public Animator Anim { get; private set; }
-    public BoxCollider2D BoxCol { get; private set; }
+    public CircleCollider2D Colider { get; private set; }
     public ObjectFlash Fx { get; set; }
 
     #endregion
@@ -24,7 +24,7 @@ public abstract class EntityController : Poolable
     public virtual void Init(Vector2 position, GameObject go = null)
     {
         Anim = GetComponentInChildren<Animator>();
-        BoxCol = GetComponentInChildren<BoxCollider2D>();
+        Colider = GetComponent<CircleCollider2D>();
     }
 
     protected virtual void Update()

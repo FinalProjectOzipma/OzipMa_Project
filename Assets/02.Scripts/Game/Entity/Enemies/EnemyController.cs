@@ -24,6 +24,7 @@ public class EnemyController : EntityController, IDamagable
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
+        Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
     }
@@ -51,7 +52,6 @@ public class EnemyController : EntityController, IDamagable
         Managers.Resource.Instantiate($"{name}{_Body}", go =>
         {
             go.transform.SetParent(transform);
-            Rigid = go.GetOrAddComponent<Rigidbody2D>();
             Fx = go.GetOrAddComponent<ObjectFlash>();
             Init(position);
         });

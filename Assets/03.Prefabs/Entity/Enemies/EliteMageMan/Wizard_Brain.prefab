@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5755378898250591488, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Radius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -5755378898250591488, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 1385969809248977337, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1773844028320060821, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
       propertyPath: m_Name
-      value: EnemyBrainBase
+      value: Wizard_Brain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: ff7d0503a67716c48967d8ef3c927150, type: 2}
     - target: {fileID: 1409385341382462297, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: m_Name
-      value: EliteMageMan_Body
+      value: Wizard_Body
       objectReference: {fileID: 0}
     - target: {fileID: 1543262437732843262, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: AttackCheck
@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5498075652551475942, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.34
       objectReference: {fileID: 0}
     - target: {fileID: 5498075652551475942, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: m_LocalPosition.z
