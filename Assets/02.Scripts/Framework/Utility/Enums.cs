@@ -11,9 +11,17 @@ public class Enums
         MyUnit,
         Enemy,
         Tower,
-        TowerAbilityDefaultValue,
+        AbilityDefaultValue,
 
         Count
+    }
+
+    public enum Layer
+    {
+        Map = 1 << 6,
+        Enemy = 1 << 8,
+        MyUnit = 1 << 9,
+        Core = 1 << 10,
     }
 
 }

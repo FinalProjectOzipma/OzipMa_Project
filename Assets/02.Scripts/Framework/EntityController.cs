@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,19 +8,21 @@ public abstract class EntityController : Poolable
 {
     #region Component
     public Animator Anim { get; private set; }
+    public BoxCollider2D BoxCol { get; private set; }
     public ObjectFlash Fx { get; set; }
 
     #endregion
     public EntityAnimationData AnimData { get; set; }
 
     public bool IsLeft { get; private set; }
-    public int FacDir { get; private set; }
+    public int FacDir { get; private set; } = 1;
 
     public bool IsDead { get; set; }
 
     public virtual void Init(Vector2 position, GameObject go = null)
     {
         Anim = GetComponentInChildren<Animator>();
+        BoxCol = GetComponentInChildren<BoxCollider2D>();
     }
 
     protected virtual void Update()
@@ -56,7 +59,7 @@ public abstract class EntityController : Poolable
     {
         IsLeft = !IsLeft;
         FacDir *= -1;
-        transform.Rotate(Vector2.up * 180);
+        transform.Rotate(0f, 180f * FacDir, 0f);
     }
 
     //Root부분 생성해주는 파트

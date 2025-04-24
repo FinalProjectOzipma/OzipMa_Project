@@ -11,7 +11,7 @@ public class EnemyStatus : StatusBase
 
     public float MaxHealth { get; set; } = new();
 
-    public List<FloatBase> Defences { get; set; } = new();
+    public FloatBase Defence { get; set; } = new();
     public FloatBase MoveSpeed { get; set; } = new();
     public AtkType AtkType { get; set; } = new();
 
@@ -25,12 +25,8 @@ public class EnemyStatus : StatusBase
 
         Health.SetValue(row.Health);
         MaxHealth = Health.GetValue();
-        //for (int i = 0; i < row.Defence.Count; i++)
-        //{
-        //    Defences.Add(new FloatBase());
-        //    Defences[i].SetValue(row.Defence[i]);
-        //}
 
+        Defence.SetValue(row.Defence);
         MoveSpeed.SetValue(row.MoveSpeed);
     }
 

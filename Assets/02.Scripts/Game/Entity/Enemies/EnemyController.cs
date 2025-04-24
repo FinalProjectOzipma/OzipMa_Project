@@ -15,6 +15,8 @@ public class EnemyController : EntityController, IDamagable
 
     public Enemy Enemy { get; private set; }
     public EnemyStatus Status { get; private set; }
+    public Stack<GameObject> Targets { get; set; } = new();
+
 
     public Sprite SpriteImage;
     public NavMeshAgent Agent;
@@ -36,6 +38,8 @@ public class EnemyController : EntityController, IDamagable
     {
         base.Init(position);
         transform.position = position;
+        Targets.Clear();
+        Targets.Push(Managers.Player.MainCore.gameObject);
     }
 
     private string _Body = nameof(_Body);
@@ -97,7 +101,7 @@ public class EnemyController : EntityController, IDamagable
 
             if(canHit)
             {
-                float minus = Status.Defences.GetValue() - abilityValue;
+                float minus = Status.Defence.GetValue() - abilityValue;
                 if(minus < 0.0f)
                 {
                     Status.AddHealth(minus);

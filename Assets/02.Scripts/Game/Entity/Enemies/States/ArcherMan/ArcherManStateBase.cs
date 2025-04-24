@@ -32,6 +32,6 @@ public class ArcherManStateBase : EnemyStateBase
             controller.StopAllCoroutines();
             controller.IsDead = true;
             StateMachine.ChangeState(data.DeadState);
-        } 
+        }
     }
 }

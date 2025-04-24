@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class SwordManChasingState : SwordManStateBase
@@ -26,13 +27,10 @@ public class SwordManChasingState : SwordManStateBase
 
         base.Update();
 
-        if (stack.Count <= 0) return;
+        if (targets.Count <= 0) return;
 
-        agent.SetDestination(stack.Peek().transform.position);
+        agent.SetDestination(targets.Peek().transform.position);
 
-        if (Vector2.Distance(rigid.position, stack.Peek().transform.position) <= status.AttackRange.GetValue())
-            StateMachine.ChangeState(data.AttackState);
+        InnerRange(data.AttackState, status.AttackRange.GetValue());
     }
-
-
 }
