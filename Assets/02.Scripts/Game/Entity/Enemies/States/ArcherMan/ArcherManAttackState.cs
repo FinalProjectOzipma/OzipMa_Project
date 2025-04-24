@@ -26,8 +26,10 @@ public class ArcherManAttackState : ArcherManStateBase
     {
         base.Update();
 
-        if (Vector2.Distance(rigid.position, stack.Peek().transform.position) >= status.AttackRange.GetValue())
+        if (DetectedMap())
             StateMachine.ChangeState(data.ChaseState);
+
+        OutRange(data.ChaseState);
 
         if(projectileCalled) // 화살 만드는 Attack구간
         {
@@ -47,6 +49,6 @@ public class ArcherManAttackState : ArcherManStateBase
     private void Fire(GameObject go)
     {
         ArrowProjectile arrow = go.GetComponent<ArrowProjectile>();
-        arrow.Init(controller.gameObject, status.Attack.GetValue(), stack.Peek().transform.position, facDir);
+        arrow.Init(rigid.gameObject, status.Attack.GetValue(), targets.Peek().transform.position, facDir);
     }
 }

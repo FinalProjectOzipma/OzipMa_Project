@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoreController : MonoBehaviour
+public class CoreController : MonoBehaviour, IDamagable
 {
     public Core core;
     public GameObject HpBar;
@@ -59,5 +59,10 @@ public class CoreController : MonoBehaviour
             ctrl.Target = GameObject.Find("Test");
             ctrl.TakeRoot(random, $"{name}", transform.position);
         });
+    }
+
+    public void ApplyDamage(float amount)
+    {
+        TakeDamge(amount);
     }
 }

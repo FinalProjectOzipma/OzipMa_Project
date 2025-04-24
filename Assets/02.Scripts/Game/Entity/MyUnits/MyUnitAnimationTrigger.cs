@@ -26,15 +26,15 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public void AttackTrigger()
     {
-        int layer = 1 << 8;
+        int layer = (int)Enums.Layer.Enemy;
+        
         Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
-
         foreach (var hit in colliders)
         {
-            if (hit.GetComponentInParent<EnemyController>() != null)
+            IDamagable damagle = hit.GetComponentInParent<IDamagable>();
+            if (damagle != null)
             {
-                Util.Log(hit.name);
-                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
+                damagle.ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
             }
         }
     }

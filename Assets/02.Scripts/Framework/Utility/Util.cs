@@ -197,4 +197,8 @@ public class Util
         return Mathf.Atan2(v2.y, v2.x) * Mathf.Rad2Deg;
     }
 
+    public static int ConvertLayer(int LayerNumber)
+    {
+        return 1 << LayerNumber;
+    }
 }

@@ -31,6 +31,13 @@ public class ArrowProjectile : Poolable
         spr = GetComponentInChildren<SpriteRenderer>();
     }
 
+    /// <summary>
+    /// 초기 위치, attacker 공격력, 타겟 위치, controller 좌우 방향 그냥 FacDir 넣으셈 
+    /// </summary>
+    /// <param name="owner"></param>
+    /// <param name="ownerAttack"></param>
+    /// <param name="targetPos"></param>
+    /// <param name="factingDir"></param>
     public void Init(GameObject owner, float ownerAttack, Vector2 targetPos, int factingDir)
     {
         transform.position = owner.transform.position;

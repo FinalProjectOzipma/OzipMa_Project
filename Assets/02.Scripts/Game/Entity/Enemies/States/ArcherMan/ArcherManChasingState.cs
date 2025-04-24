@@ -23,10 +23,24 @@ public class ArcherManChasingState : ArcherManStateBase
     {
         base.Update();
 
+        agent.SetDestination(targets.Peek().transform.position);
+        
+        if(!DetectedMap())
+            InnerRange(data.IdleState);
 
-        agent.SetDestination(stack.Peek().transform.position);
+        /*if(targets.Peek() == core)
+        {
+            agent.isStopped = false;
+            if (agent.remainingDistance < 0.1f)
+                StateMachine.ChangeState(data.AttackState);
 
-        if (Vector2.Distance(transform.position, stack.Peek().transform.position) <= status.AttackRange.GetValue())
-            StateMachine.ChangeState(data.IdleState);
+            return;
+        }
+        else
+        {
+            agent.isStopped = true;
+            OutRange(data.AttackState);
+        }*/
+
     }
 }
