@@ -38,7 +38,8 @@ public class UI_Main : UI_Scene
     enum Objects
     {
         ReseachUI,
-        SoundUI
+        SoundUI,
+        AlarmPopup
     }
 
     Button ManagerButton;
@@ -132,8 +133,7 @@ public class UI_Main : UI_Scene
 
         isButton = true;
 
-        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
-        OffButton();
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
         
 
@@ -148,6 +148,8 @@ public class UI_Main : UI_Scene
 
         seq.Play().OnComplete(() =>
         {
+            Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+            OffButton();
             isButton = false;
         });
 

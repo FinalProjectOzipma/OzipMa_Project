@@ -25,11 +25,11 @@ public class EnemyStatus : StatusBase
 
         Health.SetValue(row.Health);
         MaxHealth = Health.GetValue();
-        for (int i = 0; i < row.Defence.Count; i++)
-        {
-            Defences.Add(new FloatBase());
-            Defences[i].SetValue(row.Defence[i]);
-        }
+        //for (int i = 0; i < row.Defence.Count; i++)
+        //{
+        //    Defences.Add(new FloatBase());
+        //    Defences[i].SetValue(row.Defence[i]);
+        //}
 
         MoveSpeed.SetValue(row.MoveSpeed);
     }

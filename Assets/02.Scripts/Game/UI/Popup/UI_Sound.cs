@@ -26,11 +26,12 @@ public class UI_Sound : UI_Base
         Init();
     }
 
+
+
     public override void Init()
     {
         Bind<Button>(typeof(Buttons));
         Bind<Slider>(typeof(Sliders));
-       
 
 
         GetButton((int)Buttons.MasterMuteButton).gameObject.BindEvent(OnClickMasterMuted);
