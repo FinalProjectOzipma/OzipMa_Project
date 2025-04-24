@@ -135,7 +135,6 @@ public class UI_Main : UI_Scene
 
         isButton = true;
 
-
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
         
 

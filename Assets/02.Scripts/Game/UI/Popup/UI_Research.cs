@@ -43,6 +43,10 @@ public class UI_Research : UI_Base
         StartFailPopup
     }
 
+    enum ParticleSystems
+    {
+        StarEffect
+    }
     public enum ResearchUpgradeType
     {
         Attack,
@@ -201,6 +205,7 @@ public class UI_Research : UI_Base
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
+        Bind<ParticleSystem>(typeof(ParticleSystems));
 
         GetButton((int)Buttons.UpgradeButton).gameObject.BindEvent(StartResearch); // 업그레드 시작 버튼
         GetButton((int)Buttons.GoldSpendButton).gameObject.BindEvent(OnClickSaveTime); // 골드 사용 시 시간 감소
@@ -336,6 +341,8 @@ public class UI_Research : UI_Base
 
     private void OnClickCheckButton(PointerEventData data)
     {
+        Get<ParticleSystem>((int)ParticleSystems.StarEffect).Play();
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.Upgrade,this.transform.position);
         Get<Button>((int)Buttons.UpgradeButton).gameObject.SetActive(true);
         Get<Button>((int)Buttons.CheckButton).gameObject.SetActive(false);
         GetButton((int)Buttons.UpgradeButton).interactable = true;

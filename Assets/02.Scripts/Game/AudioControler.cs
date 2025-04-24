@@ -23,7 +23,8 @@ public enum SFXClipName
     Walk,
     Dead,
     PowerUp,
-    Error
+    Error,
+    Upgrade
 }
 
 public class AudioControler : MonoBehaviour
