@@ -8,10 +8,11 @@ public class VampireDeadState : MyUnitStateBase
     {
     }
 
-
     public override void Enter()
     {
         base.Enter();
+        controller.Agent.isStopped = true;
+        triggerCalled = false;
     }
 
     public override void Exit()
@@ -22,5 +23,7 @@ public class VampireDeadState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
+        if (triggerCalled)
+            Managers.Resource.Destroy(controller.gameObject);
     }
 }

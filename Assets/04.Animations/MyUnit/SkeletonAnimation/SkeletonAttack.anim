@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SkeletonArcherAttack
+  m_Name: SkeletonAttack
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -92,9 +92,9 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.75
-    functionName: AnimationTrigger
+    functionName: AttackTrigger
     data: 
-    objectReferenceParameter: {fileID: 8391770410487291864, guid: e9d07a4bff09ca24eb286698e441e900, type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

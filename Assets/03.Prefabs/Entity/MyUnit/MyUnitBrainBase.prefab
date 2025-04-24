@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1385969809248977337}
   - component: {fileID: 3635720689636166866}
   - component: {fileID: 5112076379583237063}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MyUnitBrainBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
+  spriteRenderer: {fileID: 0}
   Agent: {fileID: 0}
   Target: {fileID: 0}
 --- !u!195 &5112076379583237063
