@@ -74,7 +74,7 @@ public class UI_Research : UI_Base
     private string spendZamKey;
     
     private float baseTime = 300.0f;
-    private float growthFactor = 2.0f;
+    //private float growthFactor = 2.0f;
 
 
     private List<IGettable> rawList;

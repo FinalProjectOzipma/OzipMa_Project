@@ -69,8 +69,6 @@ public class EnemyStateBase : EntityStateBase
                 targets.Pop();
             }
         }
-
-        Util.Log($"{targets.Peek()}");
     }
 
     public void InnerRange(EnemyStateBase nextState, float dist = -1)
