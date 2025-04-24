@@ -5,6 +5,7 @@ using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -87,7 +88,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             Managers.Resource.Instantiate("BuildingPreview", go => 
             {
                 PreviewObj = go;
-                go.transform.position = Util.ScreenToWorldPointWithoutZ(eventData.position);
+                PreviewObj.transform.position = BuildingSystem.Instance.UpdatePosition(Util.ScreenToWorldPointWithoutZ(eventData.position));
                 previewRenderer = PreviewObj.GetComponent<SpriteRenderer>();
             });
         }
@@ -95,19 +96,31 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     }
     public void OnDrag(PointerEventData eventData)
     {
-        PreviewObj.transform.position = Util.ScreenToWorldPointWithoutZ(eventData.position);
+        PreviewObj.transform.position = BuildingSystem.Instance.UpdatePosition(Util.ScreenToWorldPointWithoutZ(eventData.position));
+        if(BuildingSystem.Instance.IsTowerBuildArea(eventData.position) == false)
+        {
+            // TODO :: 배치 불가능 표시
+            return;
+        }
     }
     public void OnEndDrag(PointerEventData eventData)
     {
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
 
-        // TODO : 그리드에 맞게 배치
+        Vector3 point = Util.ScreenToWorldPointWithoutZ(eventData.position);
+        if (BuildingSystem.Instance.IsTowerBuildArea(point) == false)
+        {
+            // 배치 불가능하면 드래그 취소됨
+            return;
+        }
+
+        // 배치 가능
         DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, itemKey);
-        Util.Log($"OnEndDrag : {data.Name}Tower");
+        Util.Log($"OnEndDrag : {data.Name}Tower를 배치 성공함");
         Managers.Resource.Instantiate($"{data.Name}Tower", go =>
         {
-            go.transform.position = Util.ScreenToWorldPointWithoutZ(eventData.position);
+            go.transform.position = BuildingSystem.Instance.UpdatePosition(point);
         });
     }
 }

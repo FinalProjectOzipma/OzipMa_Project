@@ -11,6 +11,7 @@ public class SceneBase
     public Action InitAction;
     public Action SingletonAction;
     public string LabelAsync { get; set; }
+    public GameObject CurrentMap { get; set; }
 
     public virtual void Enter()
     {
