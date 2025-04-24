@@ -11,7 +11,7 @@ public class Enums
         MyUnit,
         Enemy,
         Tower,
-        TowerAbilityDefaultValue,
+        AbilityDefaultValue,
 
         Count
     }
