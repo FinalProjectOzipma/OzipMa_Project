@@ -65,9 +65,9 @@ namespace DefaultTable
 		public System.Single MoveSpeed;
 		public RankType Rank;
 		public AtkType AttackType;
+		public AbilityType AbilityType;
 		public System.Single AttackCoolDown;
 		public System.Single AttackRange;
-		public System.Single DotDamage;
   
 
 #region fuctions

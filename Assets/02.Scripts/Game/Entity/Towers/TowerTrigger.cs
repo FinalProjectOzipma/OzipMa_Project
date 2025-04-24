@@ -45,24 +45,24 @@ public class TowerTrigger : MonoBehaviour
             // 기본 공격
             target.ApplyDamage(attackPower);
             // 해당 타워가 갖고있는 공격 속성 모두 적용
-            foreach (TowerType type in ownerInfo.TowerTypes)
+            foreach (AbilityType type in ownerInfo.TowerTypes)
             {
                 if (Tower.Abilities.ContainsKey(type) == false) continue;
-                DefaultTable.TowerAbilityDefaultValue values = Tower.Abilities[type];
+                DefaultTable.AbilityDefaultValue values = Tower.Abilities[type];
                 switch (type)
                 {
-                    case TowerType.Dot:
-                        target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-                        break;
-                    case TowerType.Slow:
-                        target.ApplySlow(values.AbilityValue, values.AbilityDuration);
-                        break;
-                    case TowerType.KnockBack:
-                        target.ApplyKnockBack(values.AbilityValue, target.transform.position - transform.position);
-                        break;
-                    case TowerType.BonusCoin:
-                        target.ApplyBonusCoin(values.AbilityValue);
-                        break;
+                    //case AbilityType.Dot:
+                    //    target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                    //    break;
+                    //case AbilityType.Slow:
+                    //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
+                    //    break;
+                    //case AbilityType.KnockBack:
+                    //    target.ApplyKnockBack(values.AbilityValue, target.transform.position - transform.position);
+                    //    break;
+                    //case AbilityType.BonusCoin:
+                    //    target.ApplyBonusCoin(values.AbilityValue);
+                    //    break;
                     default:
                         break;
                 }

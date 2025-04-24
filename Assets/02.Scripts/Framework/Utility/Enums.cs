@@ -21,13 +21,12 @@ public class Enums
 [GoogleSheet.Core.Type.UGS(typeof(RankType))]
 public enum RankType
 {
-    일반,
-    고급,
-    신화,
-
     Normal,
     Rare,
+    Epic,
+    Legend,
     Myth,
+    Ancient,
 
     Count
 }
@@ -36,36 +35,25 @@ public enum RankType
 [GoogleSheet.Core.Type.UGS(typeof(AtkType))]
 public enum AtkType
 {
-    마법,
-    물리,
-    번개,
-
-    Magical,
-    Physical,
-    Lightning,
-
-    Count
-}
-
-[GoogleSheet.Core.Type.UGS(typeof(TowerAtkType))]
-public enum TowerAtkType
-{
-    물리,
-
+    DirectHit,
     Projectile,
-    Floor,
-    Range,
+    VampiricAttack,
+    ReflectDamage,
+    Area,
+    StatusInfliction,
 
     Count
 }
 
-[GoogleSheet.Core.Type.UGS(typeof(TowerType))]
-public enum TowerType
+[GoogleSheet.Core.Type.UGS(typeof(AbilityType))]
+public enum AbilityType
 {
-    Dot,
-    Slow,
-    KnockBack,
-    BonusCoin,
+    Physical,
+    Psychic,
+    Magic,
+    Fire,
+    Explosive,
+    Dark,
 
     Count
 }

@@ -16,7 +16,7 @@ public class DataManager
         LoadData<DefaultTable.MyUnit>();
         LoadData<DefaultTable.Enemy>();
         LoadData<DefaultTable.Tower>();
-        LoadData<DefaultTable.TowerAbilityDefaultValue>();
+        LoadData<DefaultTable.AbilityDefaultValue>();
     }
 
     /// <summary>

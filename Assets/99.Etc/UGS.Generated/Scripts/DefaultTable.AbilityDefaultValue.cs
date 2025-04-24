@@ -17,10 +17,10 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class TowerAbilityDefaultValue : ITable
+    public partial class AbilityDefaultValue : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<TowerAbilityDefaultValue> loadedList, Dictionary<int, TowerAbilityDefaultValue> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<AbilityDefaultValue> loadedList, Dictionary<int, AbilityDefaultValue> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
@@ -29,35 +29,35 @@ namespace DefaultTable
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, TowerAbilityDefaultValue> TowerAbilityDefaultValueMap = new Dictionary<int, TowerAbilityDefaultValue>();  
-        public static List<TowerAbilityDefaultValue> TowerAbilityDefaultValueList = new List<TowerAbilityDefaultValue>();   
+        public static Dictionary<int, AbilityDefaultValue> AbilityDefaultValueMap = new Dictionary<int, AbilityDefaultValue>();  
+        public static List<AbilityDefaultValue> AbilityDefaultValueList = new List<AbilityDefaultValue>();   
 
         /// <summary>
-        /// Get TowerAbilityDefaultValue List 
+        /// Get AbilityDefaultValue List 
         /// Auto Load
         /// </summary>
-        public static List<TowerAbilityDefaultValue> GetList()
+        public static List<AbilityDefaultValue> GetList()
         {{
            if (isLoaded == false) Load();
-           return TowerAbilityDefaultValueList;
+           return AbilityDefaultValueList;
         }}
 
         /// <summary>
-        /// Get TowerAbilityDefaultValue Dictionary, keyType is your sheet A1 field type.
+        /// Get AbilityDefaultValue Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, TowerAbilityDefaultValue>  GetDictionary()
+        public static Dictionary<int, AbilityDefaultValue>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return TowerAbilityDefaultValueMap;
+           return AbilityDefaultValueMap;
         }}
 
     
 
 /* Fields. */
 
-		public System.Int32 TowerKey;
-		public TowerType AbilityType;
+		public System.Int32 Key;
+		public AbilityType AbilityType;
 		public System.Single AbilityValue ;
 		public System.Single AbilityDuration;
 		public System.Single AbilityCooldown;
@@ -71,7 +71,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("TowerAbilityDefaultValue is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("AbilityDefaultValue is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -87,7 +87,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<TowerAbilityDefaultValue>, Dictionary<int, TowerAbilityDefaultValue>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<AbilityDefaultValue>, Dictionary<int, AbilityDefaultValue>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -115,14 +115,14 @@ namespace DefaultTable
                
 
 
-    public static (List<TowerAbilityDefaultValue> list, Dictionary<int, TowerAbilityDefaultValue> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, TowerAbilityDefaultValue> Map = new Dictionary<int, TowerAbilityDefaultValue>();
-            List<TowerAbilityDefaultValue> List = new List<TowerAbilityDefaultValue>();     
+    public static (List<AbilityDefaultValue> list, Dictionary<int, AbilityDefaultValue> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, AbilityDefaultValue> Map = new Dictionary<int, AbilityDefaultValue>();
+            List<AbilityDefaultValue> List = new List<AbilityDefaultValue>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(TowerAbilityDefaultValue).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(AbilityDefaultValue).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["TowerAbilityDefaultValue"];
+            var sheet = jsonObject["AbilityDefaultValue"];
 
             foreach (var column in sheet.Keys)
             {
@@ -141,7 +141,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            TowerAbilityDefaultValue instance = new TowerAbilityDefaultValue();
+                            AbilityDefaultValue instance = new AbilityDefaultValue();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -178,12 +178,12 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.TowerKey, instance);
+                            Map.Add(instance.Key, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            TowerAbilityDefaultValueList = List;
-                            TowerAbilityDefaultValueMap = Map;
+                            AbilityDefaultValueList = List;
+                            AbilityDefaultValueMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -193,10 +193,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(TowerAbilityDefaultValue data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(AbilityDefaultValue data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(TowerAbilityDefaultValue).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(AbilityDefaultValue).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {
