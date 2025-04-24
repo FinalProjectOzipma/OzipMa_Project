@@ -62,6 +62,11 @@ public class WaveManager
 
         DefaultTable.Enemy spawnenemy = enemyList[random];
 
+        if(spawnenemy.IsBoss == 1)
+        {
+            spawnenemy = enemyList[0];
+        }
+
         string name = spawnenemy.Name;
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
