@@ -12,10 +12,10 @@ public class EntityAnimationData
     #endregion
 
     #region HashProperty
-    public int IdleHash { get; private set; }
-    public int ChaseHash { get; private set; }
-    public int AttackHash { get; private set; }
-    public int DeadHash { get; private set; }
+    protected int IdleHash { get; set; }
+    protected int ChaseHash { get; set; }
+    protected int AttackHash { get; set; }
+    protected int DeadHash { get; set; }
     #endregion
 
     public StateMachine StateMachine { get; protected set; }
