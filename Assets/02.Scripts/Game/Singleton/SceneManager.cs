@@ -3,7 +3,6 @@ using DG.Tweening;
 
 public class SceneManager
 {
-    public GameObject CurrentMap { get; set; }
     public SceneBase CurrentScene { get; private set; }
     public GameScene GameScene { get; private set; } = new();
     public BsyEnemyScene BsyEnemyScene { get; private set; } = new();

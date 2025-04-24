@@ -3,20 +3,47 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class BuildingSystem
+public class BuildingSystem : MonoBehaviour
 {
+    public static BuildingSystem Instance 
+    {
+        get
+        {
+            if(instance == null)
+            {
+                instance = FindObjectOfType<BuildingSystem>();
+                if(instance == null )
+                {
+                    GameObject newObj = new GameObject(nameof(BuildingSystem));
+                    instance = newObj.AddComponent<BuildingSystem>();
+                }
+            }
+            return instance;
+        }
+    }
+    private static BuildingSystem instance;
     Tilemap map;
     private Grid grid;
-    private Camera camera;
+    private Camera cam;
     private LayerMask towerBuildLayerMask;
     private Vector3 lastSelectedPosition;
 
-    public BuildingSystem(Tilemap currentGrid)
+    private void Awake()
     {
-        Util.Log($"그리드 : {currentGrid.gameObject.name}");
-        map = currentGrid;
-        camera = Camera.main;
+        if (instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        else
+        {
+            instance = this;
+        }
+
+        map = Util.FindComponent<Tilemap>(Managers.Scene.CurrentScene.CurrentMap, "TowerBuildArea");
+        cam = Camera.main;
         towerBuildLayerMask = LayerMask.GetMask("TowerBuildArea");
+        Util.Log($"그리드 : {map.transform.parent.parent.gameObject.name}");
     }
 
     public Vector3 UpdatePosition(Vector2 eventPosition)
