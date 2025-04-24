@@ -31,7 +31,7 @@ public class DragController : MonoBehaviour
         }
 
         // 드래그 End
-        if(Input.GetMouseButtonUp(0))
+        if(isDragging && Input.GetMouseButtonUp(0))
         {
             EndDrag();
         }
@@ -41,6 +41,7 @@ public class DragController : MonoBehaviour
     {
         eventPosition = Input.mousePosition;
         GameObject go = buildingSystem.GetCurrentDragObject(eventPosition);
+        if (go == null) return;
         dragObject = go.transform.root.gameObject;
         spriteRenderer = Util.FindComponent<SpriteRenderer>(go, "MainSprite");
         if (dragObject != null)

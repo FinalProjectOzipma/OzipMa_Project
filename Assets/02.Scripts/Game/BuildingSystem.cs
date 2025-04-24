@@ -57,6 +57,6 @@ public class BuildingSystem : MonoBehaviour
         Ray2D ray = new Ray2D(cam.ScreenToWorldPoint(mousePoint), Vector2.zero);
         RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, 10, CanDragLayerMask);
 
-        return hit.transform.gameObject;
+        return hit == true ? hit.transform.gameObject : null;
     }
 }
