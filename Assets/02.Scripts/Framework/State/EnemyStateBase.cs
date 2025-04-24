@@ -51,6 +51,7 @@ public class EnemyStateBase : EntityStateBase
         base.Update();
 
         DetectedEnemy();
+        controller.FlipControll(targets.Peek());
     }
 
     private void DetectedEnemy()
@@ -68,6 +69,43 @@ public class EnemyStateBase : EntityStateBase
                 targets.Pop();
             }
         }
+
+        Util.Log($"{targets.Peek()}");
+    }
+
+    public void InnerRange(EnemyStateBase nextState, float dist = -1)
+    {
+        if (dist < 0)
+            dist = status.AttackRange.GetValue();
+
+        if (Vector2.Distance(transform.position, targets.Peek().transform.position) <= dist)
+            StateMachine.ChangeState(nextState);
+    }
+
+    public void OutRange(EnemyStateBase nextState, float dist = -1)
+    {
+        if (dist < 0)
+            dist = status.AttackRange.GetValue();
+
+        if (Vector2.Distance(transform.position, targets.Peek().transform.position) > dist)
+            StateMachine.ChangeState(nextState);
+    }
+
+    protected bool DetectedMap()
+    {
+        float dist = Vector2.Distance(boxCol.transform.position, targets.Peek().transform.position);
+        Vector2 dir = (targets.Peek().transform.position - boxCol.transform.position).normalized;
+
+        Collider2D col = Physics2D.BoxCast(boxCol.transform.position, boxCol.bounds.size, 0f, dir, dist, (int)Enums.Layer.Map).collider;
+        if (col != null)
+        {
+            if (agent.remainingDistance < 0.01f)
+                return false;
+
+            return true;
+        }
+
+        return false;
     }
 
     //목적지에 도착했는지 확인하는 용

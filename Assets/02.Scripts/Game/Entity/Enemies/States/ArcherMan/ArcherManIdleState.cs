@@ -27,11 +27,14 @@ public class ArcherManIdleState : ArcherManStateBase
     {
         base.Update();
 
-        if(targets.Peek() == core && agent.remainingDistance > 0.1f)
+        if (!DetectedMap())
+            OutRange(data.ChaseState);
+
+        /*if(targets.Peek() == core && agent.remainingDistance > 0.1f)
         {
             StateMachine.ChangeState(data.ChaseState);
             return;
-        }    
+        }  */
 
         if (time < 0)
             StateMachine.ChangeState(data.AttackState);

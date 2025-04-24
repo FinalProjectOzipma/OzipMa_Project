@@ -30,5 +30,7 @@ public class SwordManChasingState : SwordManStateBase
         if (targets.Count <= 0) return;
 
         agent.SetDestination(targets.Peek().transform.position);
+
+        InnerRange(data.AttackState, status.AttackRange.GetValue());
     }
 }

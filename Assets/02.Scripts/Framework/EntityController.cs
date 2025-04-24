@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ public abstract class EntityController : Poolable
     public EntityAnimationData AnimData { get; set; }
 
     public bool IsLeft { get; private set; }
-    public int FacDir { get; private set; }
+    public int FacDir { get; private set; } = 1;
 
     public bool IsDead { get; set; }
 
@@ -58,7 +59,7 @@ public abstract class EntityController : Poolable
     {
         IsLeft = !IsLeft;
         FacDir *= -1;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 180f * FacDir, 0));
+        transform.Rotate(0f, 180f * FacDir, 0f);
     }
 
     //Root부분 생성해주는 파트

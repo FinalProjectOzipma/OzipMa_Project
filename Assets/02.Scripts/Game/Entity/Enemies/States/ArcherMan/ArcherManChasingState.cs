@@ -24,16 +24,9 @@ public class ArcherManChasingState : ArcherManStateBase
         base.Update();
 
         agent.SetDestination(targets.Peek().transform.position);
-
-        float dist = Vector2.Distance(boxCol.transform.position, targets.Peek().transform.position);
-        Vector2 dir = (targets.Peek().transform.position - boxCol.transform.position).normalized;
-
-        Collider2D col = Physics2D.BoxCast(boxCol.transform.position, boxCol.bounds.size, 0f, dir, dist, (int)Enums.Layer.Map).collider;
-
-        if (col != null)
-            return;
-
-        InnerRange(data.IdleState);
+        
+        if(!DetectedMap())
+            InnerRange(data.IdleState);
 
         /*if(targets.Peek() == core)
         {

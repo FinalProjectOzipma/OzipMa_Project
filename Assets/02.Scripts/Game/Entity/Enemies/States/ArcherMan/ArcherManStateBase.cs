@@ -32,12 +32,6 @@ public class ArcherManStateBase : EnemyStateBase
             controller.StopAllCoroutines();
             controller.IsDead = true;
             StateMachine.ChangeState(data.DeadState);
-        } 
-    }
-
-    public void InnerRange(ArcherManStateBase nextState)
-    {
-        if (Vector2.Distance(transform.position, targets.Peek().transform.position) <= status.AttackRange.GetValue())
-            StateMachine.ChangeState(nextState);
+        }
     }
 }
