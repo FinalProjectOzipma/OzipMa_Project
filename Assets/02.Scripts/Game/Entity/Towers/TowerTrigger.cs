@@ -44,28 +44,25 @@ public class TowerTrigger : MonoBehaviour
 
             // 기본 공격
             target.ApplyDamage(attackPower);
-            // 해당 타워가 갖고있는 공격 속성 모두 적용
-            foreach (AbilityType type in ownerInfo.TowerTypes)
+            // 해당 타워가 갖고있는 공격 속성 적용
+            if (Tower.Abilities.ContainsKey(ownerInfo.TowerType) == false) continue;
+            DefaultTable.AbilityDefaultValue values = Tower.Abilities[ownerInfo.TowerType];
+            switch (ownerInfo.TowerType)
             {
-                if (Tower.Abilities.ContainsKey(type) == false) continue;
-                DefaultTable.AbilityDefaultValue values = Tower.Abilities[type];
-                switch (type)
-                {
-                    //case AbilityType.Dot:
-                    //    target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-                    //    break;
-                    //case AbilityType.Slow:
-                    //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
-                    //    break;
-                    //case AbilityType.KnockBack:
-                    //    target.ApplyKnockBack(values.AbilityValue, target.transform.position - transform.position);
-                    //    break;
-                    //case AbilityType.BonusCoin:
-                    //    target.ApplyBonusCoin(values.AbilityValue);
-                    //    break;
-                    default:
-                        break;
-                }
+                //case AbilityType.Dot:
+                //    target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                //    break;
+                //case AbilityType.Slow:
+                //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
+                //    break;
+                //case AbilityType.KnockBack:
+                //    target.ApplyKnockBack(values.AbilityValue, target.transform.position - transform.position);
+                //    break;
+                //case AbilityType.BonusCoin:
+                //    target.ApplyBonusCoin(values.AbilityValue);
+                //    break;
+                default:
+                    break;
             }
         }
     }
