@@ -13,10 +13,7 @@ public class ZombieIdleState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
-        if (controller.Target == null)
-        {
-            SetTarget();
-        }
+        SetTarget();
     }
 
     public override void Exit()
@@ -38,6 +35,11 @@ public class ZombieIdleState : MyUnitStateBase
             {
                 StateMachine.ChangeState(data.ChaseState);
             }
+        }
+
+        if (controller.Target == null)
+        {
+            SetTarget();
         }
     }
 
