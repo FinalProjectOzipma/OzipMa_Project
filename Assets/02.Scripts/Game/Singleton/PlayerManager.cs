@@ -36,10 +36,7 @@ public class PlayerManager
             go.GetComponent<CoreController>().core = MainCoreData;
         });
 
-        gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
-        zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
-
-        
+        SetGoldAndJame();
     }
 
     /// <summary>
@@ -111,4 +108,11 @@ public class PlayerManager
         PlayerPrefs.SetString(myGoldKey, gold.ToString());
         PlayerPrefs.SetString(myZamKey, zam.ToString());
     }
+
+    public void SetGoldAndJame()
+    {
+        gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
+        zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
+    }
+
 }
