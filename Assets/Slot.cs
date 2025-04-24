@@ -99,8 +99,10 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         if(BuildingSystem.Instance.IsTowerBuildArea(eventData.position) == false)
         {
             // TODO :: 배치 불가능 표시
+            previewRenderer.color = Color.red;
             return;
         }
+        previewRenderer.color = Color.green;
     }
     public void OnEndDrag(PointerEventData eventData)
     {
