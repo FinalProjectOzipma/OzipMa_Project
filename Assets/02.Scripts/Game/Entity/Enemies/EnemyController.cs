@@ -141,7 +141,7 @@ public class EnemyController : EntityController, IDamagable
     public void ApplyDamage(float amount)
     {
         //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = -amount;
+        float minus = Status.Defence.GetValue() - amount;
 
         if (minus < 0.0f)
         {

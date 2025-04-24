@@ -12,6 +12,8 @@ public abstract class EntityController : Poolable
     public ObjectFlash Fx { get; set; }
 
     #endregion
+
+    public AbilityType CurrentCondition { get; set; } = AbilityType.None;
     public EntityAnimationData AnimData { get; set; }
 
     public bool IsLeft { get; private set; }

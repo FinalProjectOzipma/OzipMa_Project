@@ -56,6 +56,7 @@ public enum AtkType
 [GoogleSheet.Core.Type.UGS(typeof(AbilityType))]
 public enum AbilityType
 {
+    None,
     Physical,
     Psychic,
     Magic,
