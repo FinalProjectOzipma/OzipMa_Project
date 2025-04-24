@@ -22,6 +22,7 @@ public class Enums
         Enemy = 1 << 8,
         MyUnit = 1 << 9,
         Core = 1 << 10,
+        Tower = 1 << 11,
     }
 
 }
