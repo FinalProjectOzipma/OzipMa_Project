@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public abstract class TowerControlBase : MonoBehaviour
 {
@@ -21,10 +23,12 @@ public abstract class TowerControlBase : MonoBehaviour
     protected GameObject body; // 현재 나의 외형
 
     private float attackCooldown = 0f;
+    private DragController dragger;
     public abstract void Attack(float AttackPower);
 
     protected virtual void Start()
     {
+        dragger = GetComponent<DragController>();
         Name = gameObject.name;
         TakeRoot(ID, Name, Vector2.zero);
         TowerStart();

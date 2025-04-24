@@ -96,7 +96,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     }
     public void OnDrag(PointerEventData eventData)
     {
-        PreviewObj.transform.position = BuildingSystem.Instance.UpdatePosition(Util.ScreenToWorldPointWithoutZ(eventData.position));
+        PreviewObj.transform.position = BuildingSystem.Instance.UpdatePosition(eventData.position);
         if(BuildingSystem.Instance.IsTowerBuildArea(eventData.position) == false)
         {
             // TODO :: 배치 불가능 표시
@@ -108,8 +108,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
 
-        Vector3 point = Util.ScreenToWorldPointWithoutZ(eventData.position);
-        if (BuildingSystem.Instance.IsTowerBuildArea(point) == false)
+        if (BuildingSystem.Instance.IsTowerBuildArea(eventData.position) == false)
         {
             // 배치 불가능하면 드래그 취소됨
             return;
@@ -120,7 +119,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Util.Log($"OnEndDrag : {data.Name}Tower를 배치 성공함");
         Managers.Resource.Instantiate($"{data.Name}Tower", go =>
         {
-            go.transform.position = BuildingSystem.Instance.UpdatePosition(point);
+            go.transform.position = BuildingSystem.Instance.UpdatePosition(eventData.position);
         });
     }
 }
