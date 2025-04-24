@@ -32,7 +32,9 @@ public class UI_Main : UI_Scene
         ProfileImage,
         ResearchButtonImage,
         ManagerButtonImage,
-        SettingImage
+        SettingImage,
+        ProgressImage,
+        CompleteImage
     }
 
     enum Objects
@@ -165,9 +167,5 @@ public class UI_Main : UI_Scene
     {
         Get<Button>((int)Buttons.ManagerButton).gameObject.SetActive(true);
         Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(true);
-
     }
-
-
-
 }

@@ -60,20 +60,20 @@ public class UI_Research : UI_Base
 
 
     private DateTime startTime; // 업그레이드 시작 시간
-    private float secondsToReduce = 3600.0f;
-    private long spendGold;
-    private long spendZam;
+    private float secondsToReduce = 3600.0f; // 1시간 감소 
+    private long spendGold; // 업그레이드 필요 골드
+    private long spendZam; // 업그레드 필요 잼
 
-    public ResearchUpgradeType researchUpgradeType;
+    public ResearchUpgradeType researchUpgradeType; // 연구 타입
 
-    private string startKey;
-    private string durationKey;
-    private string levelKey;
-    private string updateStatKey;
-    private string spendGoldKey;
-    private string spendZamKey;
+    private string startKey; // 시작키 게임 종료 후 지난 시간 계산에 필요
+    private string durationKey; // 경과 시간에 필요한 키
+    private string levelKey; // 업그레이드 레벨 키
+    private string updateStatKey; // 업데이트 스탯 저장 키
+    private string spendGoldKey; // 업그레이드 필요 골드 키
+    private string spendZamKey; // 업그레이드 필요 잼 키
     
-    private float baseTime = 300.0f;
+    private float baseTime = 2.0f;
     //private float growthFactor = 2.0f;
 
 
@@ -284,6 +284,9 @@ public class UI_Research : UI_Base
         }
         Managers.Player.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
+        PlayerPrefs.SetString(startKey, startTime.ToString());
+        PlayerPrefs.SetFloat(durationKey, researchDuration);
+        PlayerPrefs.Save();
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
     }
 
@@ -336,6 +339,8 @@ public class UI_Research : UI_Base
         Get<Button>((int)Buttons.UpgradeButton).gameObject.SetActive(true);
         Get<Button>((int)Buttons.CheckButton).gameObject.SetActive(false);
         GetButton((int)Buttons.UpgradeButton).interactable = true;
+
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
 
 
