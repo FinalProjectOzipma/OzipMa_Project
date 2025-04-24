@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
 
-public class ZombieChaseState : MyUnitStateBase
+public class SkeletonChaseState : MyUnitStateBase
 {
-    public ZombieChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public SkeletonChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
-    
 
     public override void Enter()
     {
@@ -28,7 +22,6 @@ public class ZombieChaseState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
-        //controller.DetectEnemyRaycast();
         //타겟이 없다면
         if (controller.Target == null)
         {
@@ -44,6 +37,5 @@ public class ZombieChaseState : MyUnitStateBase
                 StateMachine.ChangeState(data.AttackState);
             controller.Agent.SetDestination(controller.Target.transform.position);
         }
-
     }
 }

@@ -5,7 +5,7 @@ public class MyUnitStatus : StatusBase
     public EntityHealth Health = new();
     public float MaxHealth;
 
-    public FloatBase Defences = new();
+    public FloatBase Defence = new();
     public FloatBase MoveSpeed = new();
 
     public MyUnitStatus(int PrimaryKey, List<DefaultTable.MyUnit> Row)
@@ -17,16 +17,10 @@ public class MyUnitStatus : StatusBase
         MaxHealth = Health.GetValue();
 
         Attack.SetValue(result.Attack);
-        Defences.SetValue(Health.GetValue());
+        Defence.SetValue(Health.GetValue());
         MoveSpeed.SetValue(result.MoveSpeed);
 
         AttackCoolDown.SetValue(result.AttackCoolDown);
         AttackRange.SetValue(result.AttackRange);
-
-        Level.SetValue(1);
-        Stack.SetValue(0);
-        MaxStack.SetValue(20);
-        MaxLevel.SetValue(20);
-        Grade.SetValue(0);
     }
 }

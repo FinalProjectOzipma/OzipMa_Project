@@ -7,6 +7,7 @@ public class MyUnit : UserObject, IGettable
 {
 
     public AtkType AtkType { get; set; }
+    public AbilityType AbilityType { get; set; }
     public T GetClassAddress<T>() where T : UserObject
     {
         return this as T;
@@ -19,7 +20,9 @@ public class MyUnit : UserObject, IGettable
         Name = result[primaryKey].Name;
         Description = result[primaryKey].Description;
         Status = new MyUnitStatus(primaryKey, result);
+        RankType = result[primaryKey].Rank;
         AtkType = result[primaryKey].AttackType;
+        AbilityType = result[primaryKey].AbilityType;
     }
 
     public void AddHealth(float amount) => GetUpCasting<MyUnitStatus>().Health.AddValue(amount);

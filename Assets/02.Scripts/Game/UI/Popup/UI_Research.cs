@@ -440,7 +440,7 @@ public class UI_Research : UI_Base
                 {
                     MyUnitStatus defenceStatus = unitDefence.Status as MyUnitStatus;
 
-                    defenceStatus.Defences.AddValue(updateStat);
+                    defenceStatus.Defence.AddValue(updateStat);
                 }
                 break;
             case ResearchUpgradeType.Random:
@@ -466,7 +466,7 @@ public class UI_Research : UI_Base
                     {
                         MyUnitStatus defenceStatus = unitDefence.Status as MyUnitStatus;
 
-                        defenceStatus.Defences.AddValue(updateStat);
+                        defenceStatus.Defence.AddValue(updateStat);
                     }
                 }
                 break;
