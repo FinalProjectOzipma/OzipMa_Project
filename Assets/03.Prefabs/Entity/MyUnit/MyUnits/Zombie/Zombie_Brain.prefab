@@ -68,6 +68,18 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 2971055997520344314, guid: 41a97ab28a18d70429c5b7c90e86240a, type: 3}
+    - target: {fileID: 7847156428546326042, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Radius
+      value: 0.85653186
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847156428546326042, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.058607906
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847156428546326042, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.942612
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3635720689636166866, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
     m_RemovedGameObjects: []

@@ -26,7 +26,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public virtual void AttackTrigger()
     {
-        int layer = (int)Enums.Layer.Enemy;
+        
     }
 
     private void OnDrawGizmos()
