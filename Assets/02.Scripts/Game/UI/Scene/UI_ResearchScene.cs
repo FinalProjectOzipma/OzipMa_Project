@@ -2,7 +2,6 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-using System.Numerics;
 using UnityEngine;
 
 public class UI_ResearchScene : UI_Popup
