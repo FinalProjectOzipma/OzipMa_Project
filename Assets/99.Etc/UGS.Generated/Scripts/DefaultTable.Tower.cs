@@ -60,11 +60,11 @@ namespace DefaultTable
 		public System.String Name;
 		public System.String Description;
 		public RankType Rank;
+		public AtkType AttackType;
+		public AbilityType AbilityType;
 		public System.Single AttackDamage;
 		public System.Single AttackCoolDown;
-		public TowerAtkType AttackType;
 		public System.Single AttackRange;
-		public System.Collections.Generic.List<Int32> TowerType;
   
 
 #region fuctions

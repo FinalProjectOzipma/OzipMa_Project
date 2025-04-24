@@ -17,7 +17,7 @@ public class GameScene : SceneBase
     {
         base.Enter();
 
-        Managers.Resource.Instantiate("MainLevel3");
+        Managers.Resource.Instantiate("MainLevel3", map => { CurrentMap = map; });
         Managers.Resource.Instantiate("InventoryUI");
         Managers.Resource.Instantiate("MainUI");
 

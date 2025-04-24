@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,20 @@ public class InventoryUI : UI_Scene
 
         MyUnitTab,
         TowerTab,
+    }
+
+    private enum Texts
+    {
+        InchentText,
+        SelectText,
+        PutText
+    }
+
+    private enum Images
+    {
+        InchentImage,
+        SelectAllImage,
+        PutImage
     }
     #endregion
 
@@ -101,6 +116,8 @@ public class InventoryUI : UI_Scene
         Bind<GameObject>(typeof(GameObjects));
         Bind<RectTransform>(typeof(RectTransforms));
         Bind<Button>(typeof(Buttons));
+        Bind<TextMeshProUGUI>(typeof(Texts));
+        Bind<Image>(typeof(Images));
 
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
@@ -168,6 +185,18 @@ public class InventoryUI : UI_Scene
     {
         if (_currentList == null)
             return;
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+
+        var seq = DOTween.Sequence();
+
+        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(0.9f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(0.9f, 0.1f));
+        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.1f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.1f, 0.1f));
+        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.0f, 0.1f));
+        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.0f, 0.1f));
+
+        seq.Play();
 
         bool isSelected = CheckActive();
 

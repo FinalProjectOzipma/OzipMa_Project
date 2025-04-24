@@ -35,6 +35,16 @@ public class UI_ResearchScene : UI_Popup
         Init();
     }
 
+    private void Start()
+    {
+        var seq = DOTween.Sequence();
+
+        seq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f,0.1f));
+        seq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.0f, 0.1f));
+
+        seq.Play();
+    }
+
     public override void Init()
     {
         Bind<Button>(typeof(Buttons));
@@ -89,8 +99,21 @@ public class UI_ResearchScene : UI_Popup
 
         seq.Play().OnComplete(() =>
         {
-            ClosePopupUI();
+            HidePpoup();
             isButton = false;
+        });
+    }
+
+    private void HidePpoup()
+    {
+        var seq = DOTween.Sequence();
+
+        seq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f, 0.1f));
+        seq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(0.2f, 0.1f));
+
+        seq.Play().OnComplete(() =>
+        {
+            ClosePopupUI();
         });
     }
 

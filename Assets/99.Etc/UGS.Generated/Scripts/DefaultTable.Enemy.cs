@@ -65,6 +65,7 @@ namespace DefaultTable
 		public System.Single MoveSpeed;
 		public RankType Rank;
 		public AtkType AttackType;
+		public AbilityType AbilityType;
 		public System.Int32 Reward;
 		public System.Int32 IsBoss;
 		public System.Single AttackCoolDown;

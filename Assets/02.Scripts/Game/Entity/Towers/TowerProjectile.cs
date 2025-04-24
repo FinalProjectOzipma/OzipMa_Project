@@ -66,24 +66,24 @@ public class TowerProjectile : MonoBehaviour
         //기본공격
         Target.ApplyDamage(attackPower);
         // 해당 타워가 갖고있는 공격 속성 모두 적용
-        foreach (TowerType type in tower.TowerTypes)
+        foreach (AbilityType type in tower.TowerTypes)
         {
             if (Tower.Abilities.ContainsKey(type) == false) continue;
-            DefaultTable.TowerAbilityDefaultValue values = Tower.Abilities[type];
+            DefaultTable.AbilityDefaultValue values = Tower.Abilities[type];
             switch (type)
             {
-                case TowerType.Dot:
-                    Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-                    break;
-                case TowerType.Slow:
-                    Target.ApplySlow(values.AbilityValue, values.AbilityDuration);
-                    break;
-                case TowerType.KnockBack:
-                    Target.ApplyKnockBack(values.AbilityValue, Target.transform.position - transform.position);
-                    break;
-                case TowerType.BonusCoin:
-                    Target.ApplyBonusCoin(values.AbilityValue);
-                    break;
+                //case AbilityType.Dot:
+                //    Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                //    break;
+                //case AbilityType.Slow:
+                //    Target.ApplySlow(values.AbilityValue, values.AbilityDuration);
+                //    break;
+                //case AbilityType.KnockBack:
+                //    Target.ApplyKnockBack(values.AbilityValue, Target.transform.position - transform.position);
+                //    break;
+                //case AbilityType.BonusCoin:
+                //    Target.ApplyBonusCoin(values.AbilityValue);
+                //    break;
                 default:
                     break;
             }
