@@ -62,11 +62,12 @@ public class WaveManager
 
         DefaultTable.Enemy spawnenemy = enemyList[random];
 
+        /// 테스트 코드
         if(spawnenemy.IsBoss == 1)
         {
             spawnenemy = enemyList[0];
         }
-
+        
         string name = spawnenemy.Name;
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
@@ -76,4 +77,5 @@ public class WaveManager
             ctrl.TakeRoot(random, name, enemySpawn.transform.position);
         });
     }
+
 }
