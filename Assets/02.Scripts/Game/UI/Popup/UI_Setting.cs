@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -14,19 +15,34 @@ public class UI_Setting : UI_Popup
         BackImage
     }
 
+    enum Objects
+    {
+        UI_Sound
+    }
+
+
     bool isButton = false;
 
 
     private void Start()
     {
         Init();
-        
+
+        var seq = DOTween.Sequence();
+
+        seq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.1f, 0.1f));
+        seq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.0f, 0.1f));
+
+        seq.Play();
+
     }
+
 
     public override void Init()
     {
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
+        Bind<GameObject>(typeof(Objects));
 
         Get<Button>((int)Buttons.BackButton).gameObject.BindEvent(OnClickBack);
 
@@ -48,8 +64,22 @@ public class UI_Setting : UI_Popup
 
         seq.Play().OnComplete(() =>
         {
-           ClosePopupUI();
+            HidePpoup();
             isButton = false;
+        });
+    }
+
+
+    private void HidePpoup()
+    {
+        var seq = DOTween.Sequence();
+
+        seq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.1f, 0.1f));
+        seq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(0.2f, 0.1f));
+
+        seq.Play().OnComplete(() =>
+        {
+            ClosePopupUI();
         });
     }
 

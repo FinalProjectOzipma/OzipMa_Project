@@ -36,6 +36,13 @@ public class UI_Research : UI_Base
 
     }
 
+    enum Objects
+    {
+        GoldAlarmPopup,
+        JamAlarmPopup,
+        StartFailPopup
+    }
+
     public enum ResearchUpgradeType
     {
         Attack,
@@ -43,6 +50,7 @@ public class UI_Research : UI_Base
         Core,
         Random
     }
+
 
     private float researchDuration; // 연구 시간
     private double elapsedSeconds; // 경과되는 시간
@@ -52,7 +60,7 @@ public class UI_Research : UI_Base
 
 
     private DateTime startTime; // 업그레이드 시작 시간
-    private float secondsToReduce = 10.0f;
+    private float secondsToReduce = 3600.0f;
     private long spendGold;
     private long spendZam;
 
@@ -64,6 +72,9 @@ public class UI_Research : UI_Base
     private string updateStatKey;
     private string spendGoldKey;
     private string spendZamKey;
+    
+    private float baseTime = 300.0f;
+    private float growthFactor = 2.0f;
 
 
     private List<IGettable> rawList;
@@ -134,7 +145,7 @@ public class UI_Research : UI_Base
 
 
         updateLevel = !PlayerPrefs.HasKey(levelKey) ? 1 : PlayerPrefs.GetInt(levelKey);
-        researchDuration = !PlayerPrefs.HasKey(durationKey) ? 10.0f : PlayerPrefs.GetFloat(durationKey);
+        researchDuration = !PlayerPrefs.HasKey(durationKey) ? baseTime : PlayerPrefs.GetFloat(durationKey);
 
 
         if(!PlayerPrefs.HasKey(updateStatKey))
@@ -233,8 +244,16 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickCompleteResearch(PointerEventData data)
     {
-        if (!isResearching) return;
-        if (Managers.Player.zam < spendZam) return;
+        if (!isResearching)
+        {
+            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.StartFailPopup.ToString());
+            return;
+        }
+        if (Managers.Player.zam < spendZam)
+        {
+            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.JamAlarmPopup.ToString());
+            return;
+        }
 
         Managers.Player.SpenZam(spendZam);
         elapsedSeconds = researchDuration;
@@ -250,11 +269,19 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickSaveTime(PointerEventData data)
     {
-       
 
-        if (!isResearching) return;
-        if (Managers.Player.gold < spendGold) return;
 
+        if (!isResearching)
+        {
+            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.StartFailPopup.ToString());
+            return;
+        }
+
+        if (Managers.Player.gold < spendGold)
+        {
+            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.GoldAlarmPopup.ToString());
+            return;
+        }
         Managers.Player.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
@@ -315,9 +342,32 @@ public class UI_Research : UI_Base
         GetImage((int)Images.FillImage).fillAmount = 0.0f;
         GetTextMeshProUGUI((int)Texts.FillText).text = "0%/100%";
 
-        researchDuration += 10.0f;
-
+      
         updateLevel++;
+
+        if(researchDuration < 3600.0f)
+        {
+            switch(updateLevel)
+            {
+                case 2:
+                    researchDuration = 600.0f;
+                    break;
+                case 3:
+                    researchDuration = 1800.0f;
+                    break;
+                case 4:
+                    researchDuration = 3600.0f;
+                    break;
+            }
+        }
+        else if(researchDuration < 43200.0f)
+        {
+            researchDuration += 1800.0f;
+        }
+        else
+        {
+            researchDuration = 43200.0f;
+        }
 
         updateStat += researchUpgradeType != ResearchUpgradeType.Random ? 10.0f : 3.0f;
         spendGold += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;

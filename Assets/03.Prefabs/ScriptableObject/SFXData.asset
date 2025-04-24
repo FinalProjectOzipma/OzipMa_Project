@@ -33,3 +33,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9481876fe94624de59ba997cdff5abf1, type: 3}
   - key: PowerUp
     clip: {fileID: 8300000, guid: 8fc209dfb6e464c3ebb746839f5bc367, type: 3}
+  - key: Error
+    clip: {fileID: 8300000, guid: 4b8bdf9e78fb942a1b9fe0b175b81b7d, type: 3}
