@@ -5,7 +5,6 @@ using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
