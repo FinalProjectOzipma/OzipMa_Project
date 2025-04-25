@@ -11,10 +11,10 @@ public class ZombieAnimationTrigger : MyUnitAnimationTrigger
         Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
         foreach (var hit in colliders)
         {
-            if (hit.GetComponentInParent<EnemyController>() != null)
+            if (hit.GetComponentInParent<IDamagable>() != null)
             {
                 Util.Log(hit.name);
-                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
+                hit.GetComponentInParent<IDamagable>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
             }
         }
     }

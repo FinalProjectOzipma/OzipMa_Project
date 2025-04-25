@@ -79,7 +79,7 @@ public class UI_Research : UI_Base
     
     private float baseTime = 2.0f;
     //private float growthFactor = 2.0f;
-
+    private bool isPopup = false;
 
     private List<IGettable> rawList;
     private List<MyUnit> myUnitList;
@@ -249,14 +249,19 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickCompleteResearch(PointerEventData data)
     {
+        if (isPopup) return;
+        isPopup = true;
+
         if (!isResearching)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>(Objects.StartFailPopup.ToString());
+            isPopup = false;
             return;
         }
         if (Managers.Player.zam < spendZam)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>(Objects.JamAlarmPopup.ToString());
+            isPopup = false;
             return;
         }
 
@@ -274,17 +279,20 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickSaveTime(PointerEventData data)
     {
-
+        if (isPopup) return;
+        isPopup = true;
 
         if (!isResearching)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>(Objects.StartFailPopup.ToString());
+            isPopup = false;
             return;
         }
 
         if (Managers.Player.gold < spendGold)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>(Objects.GoldAlarmPopup.ToString());
+            isPopup = false;
             return;
         }
         Managers.Player.SpenGold(spendGold);
@@ -440,7 +448,14 @@ public class UI_Research : UI_Base
                 {
                     unitAttack.Status.Attack.AddValue(updateStat);
 
-                }           
+                }
+
+                foreach(var i in Managers.Wave.CurMyUnitList)
+                {
+                    MyUnitController attackUp = i.GetComponent<MyUnitController>();
+                    attackUp.MyUnit.Status.Attack.AddValue(updateStat);
+                }
+                
 
                 foreach(var towerAttack in towerList)
                 {
@@ -454,6 +469,13 @@ public class UI_Research : UI_Base
                     MyUnitStatus defenceStatus = unitDefence.Status as MyUnitStatus;
 
                     defenceStatus.Defence.AddValue(updateStat);
+                }
+
+                foreach (var i in Managers.Wave.CurMyUnitList)
+                {
+                    MyUnitController controler = i.GetComponent<MyUnitController>();
+                    MyUnitStatus curDefence = controler.MyUnit.Status as MyUnitStatus;
+                    curDefence.Defence.AddValue(updateStat);
                 }
                 break;
             case ResearchUpgradeType.Random:
@@ -472,6 +494,13 @@ public class UI_Research : UI_Base
                     {
                         towerAttack.TowerStatus.Attack.AddValue(randomStat);
                     }
+
+                    foreach (var i in Managers.Wave.CurMyUnitList)
+                    {
+                        MyUnitController attackUp = i.GetComponent<MyUnitController>();
+                        attackUp.MyUnit.Status.Attack.AddValue(updateStat);
+                    }
+
                 }
                 else
                 {
@@ -480,6 +509,13 @@ public class UI_Research : UI_Base
                         MyUnitStatus defenceStatus = unitDefence.Status as MyUnitStatus;
 
                         defenceStatus.Defence.AddValue(updateStat);
+                    }
+
+                    foreach (var i in Managers.Wave.CurMyUnitList)
+                    {
+                        MyUnitController controler = i.GetComponent<MyUnitController>();
+                        MyUnitStatus curDefence = controler.MyUnit.Status as MyUnitStatus;
+                        curDefence.Defence.AddValue(updateStat);
                     }
                 }
                 break;
