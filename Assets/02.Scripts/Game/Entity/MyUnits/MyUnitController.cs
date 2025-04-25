@@ -39,6 +39,7 @@ public class MyUnitController : EntityController, IDamagable
     {
         if (AnimData != null)
             AnimData.StateMachine.CurrentState?.Update();
+        FlipControll(Target);
     }
 
     public override void Init(Vector2 position, GameObject go = null)
@@ -96,6 +97,7 @@ public class MyUnitController : EntityController, IDamagable
             Util.Log("안아프지렁");
             return;
         }
+        Util.Log("");
         float dam = Mathf.Max(damage - MyUnitStatus.Defence.GetValue(), 0);
         MyUnitStatus.Health.AddValue(-damage);
         Fx.StartBlinkFlash();
