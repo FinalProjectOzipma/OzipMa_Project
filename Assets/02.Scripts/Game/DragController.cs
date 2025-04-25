@@ -78,6 +78,7 @@ public class DragController : MonoBehaviour
     public void BeginDrag(GameObject detectedObj)
     {
         uiTowerMenu.targetTower = dragObject = detectedObj.transform.root.gameObject;
+        dragObject.GetComponent<TowerControlBase>().TowerStop();
         spriteRenderer = Util.FindComponent<SpriteRenderer>(detectedObj, "MainSprite");
         if (dragObject != null)
         {
@@ -104,6 +105,7 @@ public class DragController : MonoBehaviour
     {
         isDragging = false;
         spriteRenderer.color = Color.white;
+        dragObject.GetComponent<TowerControlBase>().TowerStart();
 
         // 드래그 종료 위치에 배치 완료 
         if (buildingSystem.IsTowerBuildArea(Input.mousePosition))

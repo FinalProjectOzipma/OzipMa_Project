@@ -67,11 +67,19 @@ public abstract class TowerControlBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 타워 동작 시작시키는 함수 (ex:배치 성공하면 실행)
+    /// 타워 시작시키는 함수 (ex:배치 성공하면 실행)
     /// </summary>
     public void TowerStart()
     {
         IsPlaced = true;
+    }
+
+    /// <summary>
+    /// 타워 작동 멈추기
+    /// </summary>
+    public void TowerStop()
+    {
+        IsPlaced = false;
     }
 
     /// <summary>
