@@ -78,7 +78,24 @@ public abstract class TowerControlBase : MonoBehaviour
     /// Tower 정보 넣어주는 함수
     /// </summary>
     /// <param name="Info">Tower 데이터</param>
-    public abstract void TakeRoot(int primaryKey, string name, Vector2 position);
+    public void TakeRoot(int primaryKey, string name, Vector2 position)
+    {
+        // 정보 세팅
+        Tower = new Tower();
+        Tower.Init(primaryKey, Preview);
+        Tower.Sprite = Preview;
+        TowerStatus = Tower.TowerStatus;
+
+        Init();
+
+        // 외형 세팅
+        TakeBody();
+    }
+
+    /// <summary>
+    /// 외형 로딩
+    /// </summary>
+    protected abstract void TakeBody();
     
 
     private void OnTriggerEnter2D(Collider2D collision)

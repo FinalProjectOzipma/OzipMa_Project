@@ -29,16 +29,8 @@ public class ProjectileTowerController : TowerControlBase
         //Util.Log(ProjectileName);
         Managers.Resource.LoadAssetAsync<GameObject>(ProjectileName); // 미리 로드 
     }
-    public override void TakeRoot(int primaryKey, string name, Vector2 position)
+    protected override void TakeBody()
     {
-        // 정보 세팅
-        Tower = new Tower();
-        Tower.Init(primaryKey, Preview);
-        Tower.Sprite = Preview;
-        TowerStatus = Tower.TowerStatus;
-
-        Init();
-
         // 외형 로딩
         Managers.Resource.Instantiate($"{name}Body", go => {
             body = go;
