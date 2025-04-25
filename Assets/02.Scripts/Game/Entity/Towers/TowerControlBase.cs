@@ -67,7 +67,7 @@ public abstract class TowerControlBase : MonoBehaviour
     }
 
     /// <summary>
-    /// 타워 동작 시작시키는 함수 (ex:배치 성공하면 실행)
+    /// 타워 시작시키는 함수 (ex:배치 성공하면 실행)
     /// </summary>
     public void TowerStart()
     {
@@ -75,10 +75,35 @@ public abstract class TowerControlBase : MonoBehaviour
     }
 
     /// <summary>
+    /// 타워 작동 멈추기
+    /// </summary>
+    public void TowerStop()
+    {
+        IsPlaced = false;
+    }
+
+    /// <summary>
     /// Tower 정보 넣어주는 함수
     /// </summary>
     /// <param name="Info">Tower 데이터</param>
-    public abstract void TakeRoot(int primaryKey, string name, Vector2 position);
+    public void TakeRoot(int primaryKey, string name, Vector2 position)
+    {
+        // 정보 세팅
+        Tower = new Tower();
+        Tower.Init(primaryKey, Preview);
+        Tower.Sprite = Preview;
+        TowerStatus = Tower.TowerStatus;
+
+        Init();
+
+        // 외형 세팅
+        TakeBody();
+    }
+
+    /// <summary>
+    /// 외형 로딩
+    /// </summary>
+    protected abstract void TakeBody();
     
 
     private void OnTriggerEnter2D(Collider2D collision)

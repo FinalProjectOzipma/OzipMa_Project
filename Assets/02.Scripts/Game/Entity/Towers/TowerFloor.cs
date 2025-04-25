@@ -11,7 +11,6 @@ public class TowerFloor : MonoBehaviour
 
     public void Init(string floorKey, Vector3 targetPosition, float attackPower, Tower ownerTower)
     {
-        Util.Log($"장판의 타겟 x : {targetPosition.x}, y :{targetPosition.y}");
         targetPos = targetPosition;
         dir = (targetPosition - transform.position).normalized;
         // Body 불러오기

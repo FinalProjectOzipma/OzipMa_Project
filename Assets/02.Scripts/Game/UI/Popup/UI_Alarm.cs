@@ -29,7 +29,7 @@ public class UI_Alarm : UI_Popup
         BG
     }
 
-
+    private bool isClose = false;
     private void Start()
     {
         Init();
@@ -59,6 +59,9 @@ public class UI_Alarm : UI_Popup
     
     public void CloseAlarmPopup(PointerEventData data)
     {
+        if (isClose) return;
+        isClose = true;
+
         var seq = DOTween.Sequence();
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
@@ -88,6 +91,7 @@ public class UI_Alarm : UI_Popup
         seq.Play().OnComplete(() =>
         {
             ClosePopupUI();
+            isClose = false;
         });
     }
 

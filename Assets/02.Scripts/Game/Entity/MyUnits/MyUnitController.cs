@@ -93,8 +93,8 @@ public class MyUnitController : EntityController, IDamagable
     public void TakeDamage(float damage)
     {
         if (MyUnitStatus.Defence.GetValue() > damage)
-        {
-            Util.Log("안아프지렁");
+        {   
+            Util.Log("안아프지렁" + "방어력 :" + MyUnitStatus.Defence.GetValue());
             return;
         }
         Util.Log("Damage: "+ damage.ToString());
