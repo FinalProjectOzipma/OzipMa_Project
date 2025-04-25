@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3635720689636166866}
   - component: {fileID: 5112076379583237063}
   - component: {fileID: 2205916246452125680}
-  - component: {fileID: 7847156428546326042}
+  - component: {fileID: -2823562730542630976}
   m_Layer: 9
   m_Name: MyUnitBrainBase
   m_TagString: Untagged
@@ -100,8 +100,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!58 &7847156428546326042
-CircleCollider2D:
+--- !u!70 &-2823562730542630976
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -133,5 +133,5 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_Size: {x: 0.5, y: 1}
+  m_Direction: 0
