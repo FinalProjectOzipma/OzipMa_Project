@@ -9,6 +9,8 @@ public class CoreController : MonoBehaviour, IDamagable
     public GameObject HpBar;
     private Image hpImage;
     private float spawnY = 2.7f;
+    
+    public Vector2 CenterPos { get; private set; }
     // Start is called before the first frame update
 
     private void Awake()
@@ -21,6 +23,8 @@ public class CoreController : MonoBehaviour, IDamagable
         float randomX = Random.Range(-2.0f, 2.0f);
 
         this.gameObject.transform.position = new Vector2(randomX, spawnY);
+
+        CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
     public void TakeDamge(float damage)

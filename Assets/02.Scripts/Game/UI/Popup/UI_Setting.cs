@@ -58,9 +58,9 @@ public class UI_Setting : UI_Popup
    
         var seq = DOTween.Sequence();
 
-        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(0.9f, 0.1f));
-        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.0f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(0.9f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.1f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.0f, 0.1f));
 
         seq.Play().OnComplete(() =>
         {

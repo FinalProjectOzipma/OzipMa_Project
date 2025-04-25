@@ -25,6 +25,6 @@ public class WizardAnimData : EntityAnimationData
         DeadState = new WizardDeadState(StateMachine, DeadHash, controller as EnemyController, this);
         LightningState = new WizardLightningState(StateMachine, lightningHash, controller as EnemyController, this);
 
-        StateMachine.Init(ChaseState);
+        StateMachine.Init(IdleState);
     }
 }

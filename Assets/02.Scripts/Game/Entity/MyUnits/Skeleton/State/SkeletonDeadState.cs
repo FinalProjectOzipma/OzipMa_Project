@@ -11,7 +11,7 @@ public class SkeletonDeadState : MyUnitStateBase
     {
         base.Enter();
         controller.Agent.isStopped = true;
-        triggerCalled = false;
+        Managers.Wave.CurMyUnitList.Remove(controller.gameObject);
     }
 
     public override void Exit()

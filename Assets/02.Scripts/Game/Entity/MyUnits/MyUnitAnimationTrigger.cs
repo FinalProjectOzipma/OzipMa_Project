@@ -26,6 +26,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public virtual void AttackTrigger()
     {
+        Util.Log(myUnit.MyUnitStatus.Health.GetValueToString());
     }
 
     private void OnDrawGizmos()
