@@ -2,11 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneLoad : MonoBehaviour
+public class ResearchEffect : Poolable
 {
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
-        Managers.Scene.ChangeScene<PydTowerScene>(Managers.Scene.PydTowerScene);
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }

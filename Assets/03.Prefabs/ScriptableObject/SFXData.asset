@@ -35,3 +35,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 8fc209dfb6e464c3ebb746839f5bc367, type: 3}
   - key: Error
     clip: {fileID: 8300000, guid: 4b8bdf9e78fb942a1b9fe0b175b81b7d, type: 3}
+  - key: Upgrade
+    clip: {fileID: 8300000, guid: 072633aa50a664f36bc0e65a02717f6e, type: 3}

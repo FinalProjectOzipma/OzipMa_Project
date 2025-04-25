@@ -51,7 +51,7 @@ public abstract class TowerControlBase : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void LateUpdate()
     {
         LinkedListNode<EnemyController> node = detectedEnemies.First;
         while(node != null)

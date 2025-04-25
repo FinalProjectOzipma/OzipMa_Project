@@ -18,12 +18,12 @@ MonoBehaviour:
   m_GUID: f53ef8081fd008444b6127ef8f181c58
   m_SerializeEntries:
   - m_GUID: b5525b156401be94c80f5a8240c1e67e
-    m_Address: LaserProjectile
+    m_Address: TurretProjectile
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 612ce66fd919b6345a6e2066c9504330
-    m_Address: LaserProjectileBody
+    m_Address: TurretProjectileBody
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -34,6 +34,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d733f5b03825bc40922d9b80899cc3c
     m_Address: DemonFloorBody
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90a46b68d3aaaaa419a86f0208c9a149
+    m_Address: SkullFloorBody
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
