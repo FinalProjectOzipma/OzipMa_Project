@@ -43,12 +43,6 @@ public class ArcherManAttackState : ArcherManStateBase
 
     private void CreateArrow(string objectName)
     {
-        Managers.Resource.Instantiate(objectName, (go) => { Fire(go);});
-    }
-
-    private void Fire(GameObject go)
-    {
-        ArrowProjectile arrow = go.GetComponent<ArrowProjectile>();
-        arrow.Init(spr.gameObject, status.Attack.GetValue(), targets.Peek().transform.position, facDir);
+        Managers.Resource.Instantiate(objectName, (go) => { Fire<EntityProjectile>(go, targets.Peek().transform.position);});
     }
 }

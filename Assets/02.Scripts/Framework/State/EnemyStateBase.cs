@@ -52,8 +52,11 @@ public class EnemyStateBase : EntityStateBase
     {
         base.Update();
 
-        DetectedUnit();
-        controller.FlipControll(targets.Peek());
+        if(!controller.Enemy.IsBoss)
+        {
+            DetectedUnit();
+            controller.FlipControll(targets.Peek());
+        }
     }
 
     private void DetectedUnit()
@@ -61,7 +64,7 @@ public class EnemyStateBase : EntityStateBase
         if (targets.Peek() == core)
         {
             Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), (int)Enums.Layer.MyUnit);
-            if (col != null) targets.Push(col.gameObject);
+            if (col != null) targets.Push(col.gameObject);   
         }
         else
         {
@@ -113,6 +116,12 @@ public class EnemyStateBase : EntityStateBase
     protected bool IsArrived()
     {
         return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
+    }
+
+    protected void Fire<T>(GameObject go, Vector2 targetPos) where T : EntityProjectile
+    {
+        EntityProjectile projectile = go.GetComponent<T>();
+        projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos, facDir);
     }
 
     public override void FixedUpdate()
