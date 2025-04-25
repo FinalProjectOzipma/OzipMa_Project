@@ -12,6 +12,18 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 898495731669562327, guid: 768891d9a45db5042bb1028a69625d16, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 898495731669562327, guid: 768891d9a45db5042bb1028a69625d16, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 898495731669562327, guid: 768891d9a45db5042bb1028a69625d16, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3388591165312951491, guid: 768891d9a45db5042bb1028a69625d16, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.316
@@ -38,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6275622863751175487, guid: 768891d9a45db5042bb1028a69625d16, type: 3}
       propertyPath: m_Name
-      value: LaserTowerBody
+      value: TurretTowerBody
       objectReference: {fileID: 0}
     - target: {fileID: 7233402917344044932, guid: 768891d9a45db5042bb1028a69625d16, type: 3}
       propertyPath: m_LocalPosition.x
