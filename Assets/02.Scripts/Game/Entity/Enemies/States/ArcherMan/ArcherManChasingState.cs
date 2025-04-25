@@ -25,7 +25,7 @@ public class ArcherManChasingState : ArcherManStateBase
 
         agent.SetDestination(targets.Peek().transform.position);
         
-        if(!DetectedMap())
+        if(!DetectedMap(targets.Peek().transform.position))
             InnerRange(data.IdleState);
 
         /*if(targets.Peek() == core)

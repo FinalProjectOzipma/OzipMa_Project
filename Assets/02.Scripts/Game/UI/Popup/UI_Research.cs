@@ -393,7 +393,7 @@ public class UI_Research : UI_Base
         PlayerPrefs.SetString(spendZamKey, spendZam.ToString());
         PlayerPrefs.Save();
 
-        //StatUpgrade(researchUpgradeType); // 스탯 업그레이드
+        StatUpgrade(researchUpgradeType); // 스탯 업그레이드
 
         GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
 
@@ -439,6 +439,7 @@ public class UI_Research : UI_Base
                 foreach (var unitAttack in myUnitList)
                 {
                     unitAttack.Status.Attack.AddValue(updateStat);
+
                 }           
 
                 foreach(var towerAttack in towerList)
@@ -483,8 +484,9 @@ public class UI_Research : UI_Base
                 }
                 break;
             case ResearchUpgradeType.Core:
-                Core core = Managers.Player.MainCore.GetComponent<Core>();
-                core.Health.AddValue(updateStat);
+                CoreController core = Managers.Player.MainCore.GetComponent<CoreController>();
+                core.core.MaxHealth.AddValue(updateStat);
+                core.core.Health.SetValue(core.core.MaxHealth.Value);
                 break;
         }
 

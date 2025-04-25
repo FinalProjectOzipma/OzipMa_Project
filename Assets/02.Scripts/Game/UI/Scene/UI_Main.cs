@@ -89,12 +89,12 @@ public class UI_Main : UI_Scene
 
         var seq = DOTween.Sequence();
 
-        seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(0.9f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(0.9f, 0.1f));
-        seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(1.1f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(1.0f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(1.0f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(0.9f, 0.1f));
+        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(0.9f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(1.1f, 0.1f));
+        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(1.1f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(1.0f, 0.1f));
+        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(1.0f, 0.1f));
 
         seq.Play().OnComplete(() =>
         {
@@ -115,9 +115,9 @@ public class UI_Main : UI_Scene
 
         var seq = DOTween.Sequence();
 
-        seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(0.9f, 0.1f));
-        seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(1.0f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(0.9f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(1.1f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(1.0f, 0.1f));
 
         seq.Play().OnComplete(() =>
         {
@@ -138,12 +138,12 @@ public class UI_Main : UI_Scene
 
         var seq = DOTween.Sequence();
 
-        seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(0.9f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(0.9f, 0.1f));
-        seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(1.1f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(1.0f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(1.0f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(0.9f, 0.1f));
+        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(0.9f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(1.1f, 0.1f));
+        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(1.1f, 0.1f));
+        //seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(1.0f, 0.1f));
+        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(1.0f, 0.1f));
 
         seq.Play().OnComplete(() =>
         {

@@ -41,6 +41,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9022147e7eefbbb498be3c68a8f0e34a
+    m_Address: EnergyShot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:
