@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6861699299653737798, guid: 566d3204374f64642a0596036e180ff7, type: 3}
       propertyPath: m_Name
-      value: TowerProjectile
+      value: LaserProjectile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

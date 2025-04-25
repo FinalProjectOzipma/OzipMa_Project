@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerTrigger : MonoBehaviour 
+public class TowerAnimationTrigger : MonoBehaviour 
 {
     public Action ProjectileAttackStart;
 
@@ -16,7 +16,7 @@ public class TowerTrigger : MonoBehaviour
     {
         if(enemyLayer < 0)
         {
-            enemyLayer = LayerMask.GetMask("Enemy");
+            enemyLayer = LayerMask.GetMask(Enums.Layer.Enemy.ToString());
         }
     }
 
@@ -26,6 +26,14 @@ public class TowerTrigger : MonoBehaviour
         ownerInfo = ownerTower;
         floorAttackFinished = AttackFinish;
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 0.5f);
+    }
+#endif
 
     /// <summary>
     /// 장판형 공격 적용
@@ -49,9 +57,10 @@ public class TowerTrigger : MonoBehaviour
             DefaultTable.AbilityDefaultValue values = Tower.Abilities[ownerInfo.TowerType];
             switch (ownerInfo.TowerType)
             {
-                //case AbilityType.Dot:
-                //    target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-                //    break;
+                case AbilityType.Fire:
+                case AbilityType.Explosive:
+                    target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                    break;
                 //case AbilityType.Slow:
                 //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
                 //    break;

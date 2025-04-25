@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3615157359205957369}
   m_Layer: 0
-  m_Name: TowerFloorBody
+  m_Name: FloorBody
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

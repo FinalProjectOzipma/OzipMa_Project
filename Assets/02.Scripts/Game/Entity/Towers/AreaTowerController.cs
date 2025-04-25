@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorTowerController : TowerControlBase
+// Floor를 던지는 애
+public class AreaTowerController : TowerControlBase 
 {
     private int randomTarget = -1;
     private EnemyController target;
@@ -60,6 +61,7 @@ public class FloorTowerController : TowerControlBase
 
         Managers.Resource.Instantiate(floorBrainKey, go =>
         {
+            go.transform.position = transform.position;
             go.GetComponent<TowerFloor>().Init(floorKey, target.transform.position, TowerStatus.Attack.GetValue(), Tower);
         });
     }

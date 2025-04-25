@@ -34,7 +34,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 86319581387920237, guid: c110fd345262d34409f1ca1f6640b328, type: 3}
       propertyPath: m_SortingOrder
-      value: 300
+      value: 215
       objectReference: {fileID: 0}
     - target: {fileID: 86319581387920237, guid: c110fd345262d34409f1ca1f6640b328, type: 3}
       propertyPath: m_WasSpriteAssigned
@@ -86,7 +86,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8443172031332563867, guid: c110fd345262d34409f1ca1f6640b328, type: 3}
       propertyPath: m_Name
-      value: LaserProjectileBody
+      value: TurretProjectileBody
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
