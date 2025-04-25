@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class VampireController : MyUnitController
@@ -12,6 +13,7 @@ public class VampireController : MyUnitController
 
     public void Heal()
     {
-        MyUnitStatus.Health.AddValue(MyUnitStatus.Attack.GetValue());
+        Mathf.Min(MyUnitStatus.Health.GetValue() + MyUnitStatus.Attack.GetValue(), MyUnitStatus.MaxHealth);
+        MyUnitStatus.Health.SetValue(MyUnitStatus.Attack.GetValue());
     }
 }
