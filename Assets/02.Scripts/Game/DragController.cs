@@ -118,10 +118,9 @@ public class DragController : MonoBehaviour
         dragObject = null;
     }
 
-    private void SetEditMode(bool isOn)
+    public void SetEditMode(bool isOn)
     {
         isEditMode = isOn;
         towerMenu.SetActive(isOn);
     }
-
 }
