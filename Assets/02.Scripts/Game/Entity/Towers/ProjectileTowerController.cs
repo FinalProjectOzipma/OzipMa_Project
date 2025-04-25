@@ -6,11 +6,8 @@ public class ProjectileTowerController : TowerControlBase
 {
     public string ProjectileName { get; set; }
 
-    //protected Vector3 firePosition = Vector3.one; // 발사 위치
-
     private EnemyController target; // 피격 대상(1마리)
     private TowerBodyBase bodyScript;
-    private int flipFlag = 1;
     private float attackPower;
     private bool isLeft = false;
 
@@ -26,7 +23,6 @@ public class ProjectileTowerController : TowerControlBase
         {
             ProjectileName = Name;
         }
-        //Util.Log(ProjectileName);
         Managers.Resource.LoadAssetAsync<GameObject>(ProjectileName); // 미리 로드 
     }
     protected override void TakeBody()
@@ -43,7 +39,6 @@ public class ProjectileTowerController : TowerControlBase
             {
                 Anim = bodyScript.Anim;
                 AnimData = bodyScript.AnimData;
-                //if (firePosition == Vector3.one) firePosition = bodyScript.FirePosition; // 발사위치 받아두기
             }
         });
     }
@@ -85,7 +80,6 @@ public class ProjectileTowerController : TowerControlBase
     protected virtual void Flip()
     {
         isLeft = !isLeft;
-        flipFlag *= -1;
-        body.transform.Rotate(0f, 180f * flipFlag, 0f);
+        body.transform.Rotate(0f, 180f, 0f);
     }
 }
