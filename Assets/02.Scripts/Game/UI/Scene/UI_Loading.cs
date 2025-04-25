@@ -26,7 +26,6 @@ public class UI_Loading : UI_Base
     private void Start()
     {
         Init();
-        LoateIcon();
 
         StartCoroutine(AnimateDots());
         StartCoroutine(Spin());
@@ -42,11 +41,6 @@ public class UI_Loading : UI_Base
         loadingObject = GetObject((int)LoadObject.LoadingIcon).gameObject;
         loadingText = Get<TextMeshProUGUI>((int)Texts.LoadingText);
 
-
-    }
-
-    public void LoateIcon()
-    { 
 
     }
 

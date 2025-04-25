@@ -60,7 +60,7 @@ public class WaveManager
     {
         int random = UnityEngine.Random.Range(0, enemyList.Count);
 
-        DefaultTable.Enemy spawnenemy = enemyList[random];
+        DefaultTable.Enemy spawnenemy = enemyList[0];
 
         /// 테스트 코드
         if(spawnenemy.IsBoss == 1)

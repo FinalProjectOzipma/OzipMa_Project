@@ -37,7 +37,7 @@ public class YgmLoadingScene : GameScene
         for (int i = 0; i < 3; i++)
         {
             int key = i;
-            Managers.Resource.LoadAssetAsync<GameObject>("LaserTower", (prefab) =>
+            Managers.Resource.LoadAssetAsync<GameObject>("SkullTower", (prefab) =>
             {
                 Tower unit = new Tower();
                 unit.Init(key, prefab.GetComponent<TowerControlBase>().Preview);
