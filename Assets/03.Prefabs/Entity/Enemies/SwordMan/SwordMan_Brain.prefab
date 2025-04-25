@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5755378898250591488, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Radius
+      value: 0.23
+      objectReference: {fileID: 0}
+    - target: {fileID: -5755378898250591488, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.23
+      objectReference: {fileID: 0}
     - target: {fileID: 1385969809248977337, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -52,6 +60,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordMan_Brain
       objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Size.y
+      value: 2.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.20386964
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.185208
+      objectReference: {fileID: 0}
     - target: {fileID: 3635720689636166866, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
       propertyPath: Agent
       value: 
@@ -70,11 +94,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5112076379583237063, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
       propertyPath: m_Radius
-      value: 0.037
+      value: 0.14
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3635720689636166866, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
     - {fileID: -5232308646360990066, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+    - {fileID: -5755378898250591488, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3465430606830018571, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
     m_AddedGameObjects: []

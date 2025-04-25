@@ -12,6 +12,7 @@ public class EnemyController : EntityController, IDamagable
     private Coroutine SlowCor;
 
     public Rigidbody2D Rigid { get; private set; }
+    public SpriteRenderer Spr { get; private set; }
 
     public Enemy Enemy { get; private set; }
     public EnemyStatus Status { get; private set; }
@@ -24,6 +25,7 @@ public class EnemyController : EntityController, IDamagable
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
+        Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
     }
@@ -51,8 +53,8 @@ public class EnemyController : EntityController, IDamagable
         Managers.Resource.Instantiate($"{name}{_Body}", go =>
         {
             go.transform.SetParent(transform);
-            Rigid = go.GetOrAddComponent<Rigidbody2D>();
             Fx = go.GetOrAddComponent<ObjectFlash>();
+            Spr = go.GetOrAddComponent<SpriteRenderer>();
             Init(position);
         });
     }
@@ -141,7 +143,7 @@ public class EnemyController : EntityController, IDamagable
     public void ApplyDamage(float amount)
     {
         //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = -amount;
+        float minus = Status.Defence.GetValue() - amount;
 
         if (minus < 0.0f)
         {

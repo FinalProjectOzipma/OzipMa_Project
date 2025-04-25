@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: c1c107c0a41602445aca89a36ecf2bdb
   m_SerializeEntries:
-  - m_GUID: 3cfc5f284ee29bf449c70ca0a925ad22
-    m_Address: MyUnitBrainBase
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 675b7c5fa0c0ef645a769ec6b99f9c5c
     m_Address: Zombie_Brain
     m_ReadOnly: 0
@@ -31,6 +26,12 @@ MonoBehaviour:
     m_Address: Skeleton_Brain
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf60408d185101d42b3dc931c6abdf59
+    m_Address: Vampire_Brain
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}

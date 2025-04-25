@@ -24,7 +24,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0800dba824e48ca409ca5a724277e79d
-    m_Address: LaserTowerBody
+    m_Address: TurretTowerBody
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

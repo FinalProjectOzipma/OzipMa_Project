@@ -47,6 +47,7 @@ public class EnemyAnimationTrigger : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
+        if(AttackCheck != null)
+            Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
     }
 }

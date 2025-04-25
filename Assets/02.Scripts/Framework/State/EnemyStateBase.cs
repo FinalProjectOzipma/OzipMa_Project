@@ -12,9 +12,10 @@ public class EnemyStateBase : EntityStateBase
     protected Transform transform;
     protected Animator anim;
     protected Rigidbody2D rigid;
+    protected SpriteRenderer spr;
     protected NavMeshAgent agent;
     protected EnemyStatus status;
-    protected BoxCollider2D boxCol;
+    protected CapsuleCollider2D capCol;
 
     protected bool isLeft;
     protected int facDir = 1;
@@ -28,9 +29,10 @@ public class EnemyStateBase : EntityStateBase
         this.transform = controller.transform;
         this.anim = controller.Anim;
         this.rigid = controller.Rigid;
+        this.spr = controller.Spr;
         this.agent = controller.Agent;
         this.status = controller.Status;
-        this.boxCol = controller.BoxCol;
+        this.capCol = controller.Colider;
         core = Managers.Player.MainCore.gameObject;
     }
 
@@ -50,16 +52,19 @@ public class EnemyStateBase : EntityStateBase
     {
         base.Update();
 
-        DetectedEnemy();
-        controller.FlipControll(targets.Peek());
+        if(!controller.Enemy.IsBoss)
+        {
+            DetectedUnit();
+            controller.FlipControll(targets.Peek());
+        }
     }
 
-    private void DetectedEnemy()
+    private void DetectedUnit()
     {
         if (targets.Peek() == core)
         {
             Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), (int)Enums.Layer.MyUnit);
-            if (col != null) targets.Push(col.gameObject);
+            if (col != null) targets.Push(col.gameObject);   
         }
         else
         {
@@ -91,10 +96,11 @@ public class EnemyStateBase : EntityStateBase
 
     protected bool DetectedMap()
     {
-        float dist = Vector2.Distance(boxCol.transform.position, targets.Peek().transform.position);
-        Vector2 dir = (targets.Peek().transform.position - boxCol.transform.position).normalized;
+        float dist = Vector2.Distance(capCol.transform.position, targets.Peek().transform.position);
+        Vector2 size = new Vector2(capCol.bounds.extents.x, capCol.bounds.extents.y);
+        Vector2 dir = (targets.Peek().transform.position - capCol.transform.position).normalized;
 
-        Collider2D col = Physics2D.BoxCast(boxCol.transform.position, boxCol.bounds.size, 0f, dir, dist, (int)Enums.Layer.Map).collider;
+        Collider2D col = Physics2D.BoxCast(capCol.transform.position, size, 0f, dir, dist, (int)Enums.Layer.Map).collider;
         if (col != null)
         {
             if (agent.remainingDistance < 0.01f)
@@ -110,6 +116,12 @@ public class EnemyStateBase : EntityStateBase
     protected bool IsArrived()
     {
         return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
+    }
+
+    protected void Fire<T>(GameObject go, Vector2 targetPos) where T : EntityProjectile
+    {
+        EntityProjectile projectile = go.GetComponent<T>();
+        projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos, facDir);
     }
 
     public override void FixedUpdate()

@@ -17,14 +17,14 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 02f241af7a5cb4942bd9ca3e1fa5b4f5
   m_SerializeEntries:
-  - m_GUID: 8398130b03c93a442977669c70fdf7c9
+  - m_GUID: ba42a2a8ac65dbb4cabc0a2e24ebf087
     m_Address: SkullTower
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5bda1a1394e3f59488373409e514a669
-    m_Address: LaserTower
+    m_Address: TurretTower
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

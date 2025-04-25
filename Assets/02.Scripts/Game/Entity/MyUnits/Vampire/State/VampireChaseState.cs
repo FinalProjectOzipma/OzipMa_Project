@@ -11,6 +11,7 @@ public class VampireChaseState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
+        controller.Agent.isStopped = false;
     }
 
     public override void Exit()
@@ -21,5 +22,17 @@ public class VampireChaseState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
+        if (controller.Target == null)
+        {
+            StateMachine.ChangeState(data.IdleState);
+        }
+        else
+        {
+            if (controller.IsClose())
+            {
+                StateMachine.ChangeState(data.AttackState);
+            }
+            controller.Agent.SetDestination(controller.Target.transform.position);
+        }
     }
 }

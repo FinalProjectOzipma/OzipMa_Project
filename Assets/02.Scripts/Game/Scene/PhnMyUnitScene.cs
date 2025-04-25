@@ -16,11 +16,8 @@ public class PhnMyUnitScene : GameScene
         InitAction?.Invoke();
     }
 
-
-
     private void DefaultUnitAdd()
     {
-
         Managers.Resource.LoadAssetAsync<GameObject>("Zombie_Brain", (prefab) =>
         {
             MyUnit unit = new MyUnit();
@@ -35,16 +32,12 @@ public class PhnMyUnitScene : GameScene
             Managers.Player.Inventory.Add<MyUnit>(unit);
         });
 
-        for (int i = 0; i < 3; i++)
+        Managers.Resource.LoadAssetAsync<GameObject>("Vampire_Brain", (prefab) =>
         {
-            int key = i;
-            Managers.Resource.LoadAssetAsync<GameObject>("LaserTower", (prefab) =>
-            {
-                Tower unit = new Tower();
-                unit.Init(key, prefab.GetComponent<TowerControlBase>().Preview);
-                Managers.Player.Inventory.Add<Tower>(unit);
-            });
-        }
+            MyUnit unit = new MyUnit();
+            unit.Init(2, prefab.GetComponent<MyUnitController>().sprite);
+            Managers.Player.Inventory.Add<MyUnit>(unit);
+        });
     }
 
     public override void Exit()
