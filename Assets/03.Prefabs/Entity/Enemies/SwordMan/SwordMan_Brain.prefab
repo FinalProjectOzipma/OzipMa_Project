@@ -60,6 +60,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SwordMan_Brain
       objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Size.x
+      value: 0.3749681
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5073731
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.000000055879354
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.24631374
+      objectReference: {fileID: 0}
     - target: {fileID: 3635720689636166866, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
       propertyPath: Agent
       value: 
@@ -83,6 +99,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3635720689636166866, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
     - {fileID: -5232308646360990066, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+    - {fileID: -5755378898250591488, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3465430606830018571, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
     m_AddedGameObjects: []

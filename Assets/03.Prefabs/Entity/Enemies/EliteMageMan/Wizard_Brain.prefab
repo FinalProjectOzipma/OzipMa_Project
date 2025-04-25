@@ -60,6 +60,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wizard_Brain
       objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Size.x
+      value: 0.28991783
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.028181821
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076282404239291089, guid: 6db35d595b3472f4fb0e7058d9a76f67, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.25000012
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

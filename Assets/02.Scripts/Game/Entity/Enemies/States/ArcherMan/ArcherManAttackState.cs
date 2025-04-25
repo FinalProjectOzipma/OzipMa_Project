@@ -49,6 +49,6 @@ public class ArcherManAttackState : ArcherManStateBase
     private void Fire(GameObject go)
     {
         ArrowProjectile arrow = go.GetComponent<ArrowProjectile>();
-        arrow.Init(rigid.gameObject, status.Attack.GetValue(), targets.Peek().transform.position, facDir);
+        arrow.Init(spr.gameObject, status.Attack.GetValue(), targets.Peek().transform.position, facDir);
     }
 }

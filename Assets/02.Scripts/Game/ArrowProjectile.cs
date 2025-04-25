@@ -85,7 +85,8 @@ public class ArrowProjectile : Poolable
             if(otherLayer != mapLayer) // 벽 레이어가 아니면 
                 other.GetComponentInParent<IDamagable>().ApplyDamage(ownerAttack);
 
-            Managers.Resource.Destroy(gameObject); 
+            if(gameObject.activeInHierarchy)
+                Managers.Resource.Destroy(gameObject); 
         }
     }
 }

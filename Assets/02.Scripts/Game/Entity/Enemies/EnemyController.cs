@@ -12,6 +12,7 @@ public class EnemyController : EntityController, IDamagable
     private Coroutine SlowCor;
 
     public Rigidbody2D Rigid { get; private set; }
+    public SpriteRenderer Spr { get; private set; }
 
     public Enemy Enemy { get; private set; }
     public EnemyStatus Status { get; private set; }
@@ -53,6 +54,7 @@ public class EnemyController : EntityController, IDamagable
         {
             go.transform.SetParent(transform);
             Fx = go.GetOrAddComponent<ObjectFlash>();
+            Spr = go.GetOrAddComponent<SpriteRenderer>();
             Init(position);
         });
     }
