@@ -80,6 +80,7 @@ public class UI_Research : UI_Base
     private float baseTime = 2.0f;
     //private float growthFactor = 2.0f;
     private bool isPopup = false;
+    private bool isComplete = false;
 
     private List<IGettable> rawList;
     private List<MyUnit> myUnitList;
@@ -232,7 +233,7 @@ public class UI_Research : UI_Base
     public void StartResearch(PointerEventData data)
     {
         if (isResearching) return; // 이미 진행 중이면 무시
-
+        isComplete = false;
         startTime = DateTime.UtcNow;
         PlayerPrefs.SetString(startKey, startTime.ToString());
         PlayerPrefs.SetFloat(durationKey, researchDuration);
@@ -271,6 +272,11 @@ public class UI_Research : UI_Base
         CompleteResearch();
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
 
+        if (isPopup)
+        {
+            isPopup = false;
+        }
+
     }
 
 
@@ -279,7 +285,13 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickSaveTime(PointerEventData data)
     {
-        if (isPopup) return;
+
+        if (isPopup)
+        {
+            Debug.Log("isPopup이 트루다");
+            return;
+        }
+
         isPopup = true;
 
         if (!isResearching)
@@ -301,6 +313,11 @@ public class UI_Research : UI_Base
         PlayerPrefs.SetFloat(durationKey, researchDuration);
         PlayerPrefs.Save();
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+
+        if(isPopup)
+        {
+            isPopup = false;
+        }
     }
 
 
@@ -309,6 +326,7 @@ public class UI_Research : UI_Base
     /// </summary>
     void CompleteResearch()
     {
+
         isResearching = false;
         Get<Button>((int)Buttons.UpgradeButton).gameObject.SetActive(false);
         Get<Button>((int)Buttons.CheckButton).gameObject.SetActive(true);
@@ -349,8 +367,12 @@ public class UI_Research : UI_Base
 
     private void OnClickCheckButton(PointerEventData data)
     {
+        if (isComplete) return;
+        isComplete = true;
+
         Get<ParticleSystem>((int)ParticleSystems.StarEffect).Play();
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Upgrade,this.transform.position);
+
         Get<Button>((int)Buttons.UpgradeButton).gameObject.SetActive(true);
         Get<Button>((int)Buttons.CheckButton).gameObject.SetActive(false);
         GetButton((int)Buttons.UpgradeButton).interactable = true;
