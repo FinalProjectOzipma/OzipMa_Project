@@ -17,9 +17,4 @@ public class TowerBodyBase : MonoBehaviour
         Anim = Util.FindComponent<Animator>(gameObject, "MainSprite");
         AnimData = new();
     }
-
-    public void Attack()
-    {
-
-    }
 }
