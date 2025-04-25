@@ -26,7 +26,6 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public virtual void AttackTrigger()
     {
-        
     }
 
     private void OnDrawGizmos()

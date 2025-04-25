@@ -9,4 +9,8 @@ public class VampireController : MyUnitController
         AnimData = new VampireAnimationData();
         base.Init(position, go);
     }
+    public void Heal()
+    {
+        MyUnitStatus.Health.AddValue(MyUnitStatus.Attack.GetValue());
+    }
 }
