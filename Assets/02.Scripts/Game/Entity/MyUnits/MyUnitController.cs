@@ -1,33 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class MyUnitController : EntityController, IDamagable
 {
-    //아이콘
-    public Sprite sprite; 
+    public Sprite sprite;   //아이콘
+
     #region Component
     public Rigidbody2D Rigid { get; private set; }
     private string _Body = nameof(_Body);
+    public SpriteRenderer spriteRenderer;
+    public NavMeshAgent Agent;
+    public GameObject Target;
     #endregion
 
-    // 어차피 컨트롤러는 어드레서블 BrainVariant안에 들어가있으니
-
+    #region 정보부
     public MyUnit MyUnit { get; private set; }
     public MyUnitStatus MyUnitStatus { get; private set; }
-    public SpriteRenderer spriteRenderer; 
-    public NavMeshAgent Agent;
+    #endregion
 
-    public GameObject Target;
-
+    private Coroutine DotCor;
+    private Coroutine SlowCor;
+    private WaitForSeconds dotWFS;
+    private WaitForSeconds slowWFS;
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
 
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
+        Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
+    }
+
+    protected override void Update()
+    {
+        if (AnimData != null)
+            AnimData.StateMachine.CurrentState?.Update();
     }
 
     public override void Init(Vector2 position, GameObject go = null)
@@ -37,21 +48,6 @@ public class MyUnitController : EntityController, IDamagable
         Rigid = GetComponent<Rigidbody2D>();
         AnimData.Init(this);
     }
-
-    protected override void Update()
-    {
-        if (AnimData != null)
-            AnimData.StateMachine.CurrentState?.Update();
-    }
-
-    // Wave에서 들고있는것
-    // Dictionary<string, int> entityKey = new Dictionary<string, int>();
-
-    // Wave에서 컨트롤러에 접근을하고 컨트롤러.Init(int entityKey["랜덤지정된 엔티티이름"], string 랜덤지정된 엔티티이름);
-    // 컨트롤러 Init안에서는 Primary = 매개변수; 
-    // Name = 매개변수;
-
-
 
     /// <summary>
     /// 바디 생성로직
@@ -70,6 +66,7 @@ public class MyUnitController : EntityController, IDamagable
         {
             go.transform.SetParent(transform);
             Fx = go.GetOrAddComponent<ObjectFlash>();
+            spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
             Init(position, go);
         });
     }
@@ -89,7 +86,7 @@ public class MyUnitController : EntityController, IDamagable
     }
 
     /// <summary>
-    /// 피해를 입을때 쓸 데미지
+    /// 직격 피해를 입을때 쓸 데미지
     /// </summary>
     /// <param name="damage">음수 말고 양수로 던져주면 됨</param>
     public void TakeDamage(float damage)
@@ -104,8 +101,51 @@ public class MyUnitController : EntityController, IDamagable
         Fx.StartBlinkFlash();
     }
 
+    //도트 데미지 적용
+    public void TakeDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
+    {
+        if (DotCor != null)
+        {
+            StopCoroutine(DotCor);
+            DotCor = null;
+        }
+        dotWFS = new(abilityCooldown);
+        DotCor = StartCoroutine(OnDotDamage(abilityValue, abilityDuration, abilityCooldown));
+    }  
+    //도트 데미지 코루틴
+    private IEnumerator OnDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
+    {
+        while(abilityDuration > 0)
+        {
+            abilityDuration -= Time.deltaTime;
+            TakeDamage(abilityValue);
+            yield return dotWFS;
+        }
+    }
+
+    //슬로우 적용
+    public void TakeSlow(float abilityValue, float abilityDuration)
+    {
+        if (SlowCor != null)
+        {
+            StopCoroutine(SlowCor);
+            SlowCor = null;
+        }
+        slowWFS = new(abilityDuration);
+        SlowCor = StartCoroutine(OnSlow(abilityValue, abilityDuration));
+    }
+    //슬로우 코루틴
+    private IEnumerator OnSlow(float abilityValue, float abilityDuration)
+    {
+        MyUnitStatus.MoveSpeed.SetValueMultiples(abilityValue);
+        yield return slowWFS;
+    }
+
+
+    //물리 데미지 적용
     public void ApplyDamage(float amount)
     {
         TakeDamage(amount);
     }
+
 }
