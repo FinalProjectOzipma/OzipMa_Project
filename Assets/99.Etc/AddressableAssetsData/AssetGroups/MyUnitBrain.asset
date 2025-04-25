@@ -20,12 +20,14 @@ MonoBehaviour:
   - m_GUID: 675b7c5fa0c0ef645a769ec6b99f9c5c
     m_Address: Zombie_Brain
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dc86d54ec2c6e2045845823cde50614d
     m_Address: Skeleton_Brain
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bf60408d185101d42b3dc931c6abdf59
     m_Address: Vampire_Brain

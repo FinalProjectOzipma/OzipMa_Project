@@ -26,12 +26,14 @@ MonoBehaviour:
   - m_GUID: e9d07a4bff09ca24eb286698e441e900
     m_Address: Skeleton_Body
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f23c6199ba51e52488cce97c3a913055
     m_Address: Vampire_Body
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
