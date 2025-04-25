@@ -1953,7 +1953,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 501954dbad3b6664cb64aa2863ac0d3f, type: 3}
+    - sprite: {fileID: 21300000, guid: a9366c8e011bf084e892610fce840689, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -8290,7 +8290,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 501954dbad3b6664cb64aa2863ac0d3f, type: 3}
+    - sprite: {fileID: 21300000, guid: a9366c8e011bf084e892610fce840689, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -13279,7 +13279,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 501954dbad3b6664cb64aa2863ac0d3f, type: 3}
+    - sprite: {fileID: 21300000, guid: a9366c8e011bf084e892610fce840689, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -19304,7 +19304,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4909616990162582134}
-  m_Father: {fileID: 6490331657371853433}
+  m_Father: {fileID: 8963685807506470326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -23704,7 +23704,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 501954dbad3b6664cb64aa2863ac0d3f, type: 3}
+    - sprite: {fileID: 21300000, guid: a9366c8e011bf084e892610fce840689, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -27213,6 +27213,7 @@ RectTransform:
   - {fileID: 1787079969507738029}
   - {fileID: 6628702944382391463}
   - {fileID: 8165769745530915410}
+  - {fileID: 5342380160865416296}
   m_Father: {fileID: 6490331657371853433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -28521,7 +28522,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8963685807506470326}
-  - {fileID: 5342380160865416296}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
