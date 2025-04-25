@@ -97,7 +97,7 @@ public class MyUnitController : EntityController, IDamagable
             Util.Log("안아프지렁");
             return;
         }
-        Util.Log("");
+        Util.Log("Damage: "+ damage.ToString());
         float dam = Mathf.Max(damage - MyUnitStatus.Defence.GetValue(), 0);
         MyUnitStatus.Health.AddValue(-damage);
         Fx.StartBlinkFlash();
@@ -143,8 +143,13 @@ public class MyUnitController : EntityController, IDamagable
         yield return slowWFS;
     }
 
+    //반사 데미지 적용
+    public void ReflectDamage(float abilityValue, float abilityRatio)
+    {
+        TakeDamage(abilityValue* abilityRatio);
+    }
 
-    //물리 데미지 적용
+    //실제 트리거에서 호출되는 애
     public void ApplyDamage(float amount)
     {
         TakeDamage(amount);

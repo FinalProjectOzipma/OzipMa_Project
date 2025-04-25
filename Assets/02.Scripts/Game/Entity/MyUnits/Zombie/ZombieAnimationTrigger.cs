@@ -8,6 +8,8 @@ public class ZombieAnimationTrigger : MyUnitAnimationTrigger
     {
         base.AttackTrigger();
         int layer = 1 << 8;
+
+        //물리타입 공격
         Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
         foreach (var hit in colliders)
         {
