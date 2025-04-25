@@ -50,6 +50,6 @@ public class WizardShotState : WizardStateBase
     {
         AnimProjectile energyShot = go.GetComponent<AnimProjectile>();
         Vector2 targetPos = targets.Peek().GetComponentInChildren<SpriteRenderer>().transform.position;
-        energyShot.Init(spr.gameObject, status.Attack.GetValue(), targetPos, facDir);
+        energyShot.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
     }
 }

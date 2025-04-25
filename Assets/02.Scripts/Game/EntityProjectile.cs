@@ -31,8 +31,7 @@ public class EntityProjectile : Poolable
     /// <param name="owner"></param>
     /// <param name="ownerAttack"></param>
     /// <param name="targetPos"></param>
-    /// <param name="factingDir"></param>
-    public virtual void Init(GameObject owner, float ownerAttack, Vector2 targetPos, int factingDir)
+    public virtual void Init(GameObject owner, float ownerAttack, Vector2 targetPos)
     {
         transform.position = owner.transform.position;
 
@@ -42,7 +41,7 @@ public class EntityProjectile : Poolable
 
 
         float angle = Util.GetAngle(transform.position, targetPos);
-        transform.rotation = Quaternion.Euler(new Vector3(0,Mathf.Min(0, 180 * factingDir), 0));
+        transform.rotation = Quaternion.Euler(Vector3.zero);
         transform.Rotate(Vector3.forward * angle);
 
         dir = (targetPos - (Vector2)owner.transform.position).normalized;

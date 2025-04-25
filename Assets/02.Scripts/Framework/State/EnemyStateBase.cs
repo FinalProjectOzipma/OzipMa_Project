@@ -119,7 +119,7 @@ public class EnemyStateBase : EntityStateBase
     protected void Fire<T>(GameObject go, Vector2 targetPos) where T : EntityProjectile
     {
         EntityProjectile projectile = go.GetComponent<T>();
-        projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos, facDir);
+        projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
     }
 
     public override void FixedUpdate()
