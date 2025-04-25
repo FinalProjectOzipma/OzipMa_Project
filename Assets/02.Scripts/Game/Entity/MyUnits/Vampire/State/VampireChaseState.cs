@@ -25,6 +25,7 @@ public class VampireChaseState : MyUnitStateBase
         if (controller.Target == null)
         {
             StateMachine.ChangeState(data.IdleState);
+
         }
         else
         {

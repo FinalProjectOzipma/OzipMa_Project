@@ -94,6 +94,12 @@ public class MyUnitController : EntityController, IDamagable
     /// <param name="damage">음수 말고 양수로 던져주면 됨</param>
     public void TakeDamage(float damage)
     {
+        if (MyUnitStatus.Defence.GetValue() > damage)
+        {
+            Util.Log("안아프지렁");
+            return;
+        }
+        float dam = Mathf.Max(damage - MyUnitStatus.Defence.GetValue(), 0);
         MyUnitStatus.Health.AddValue(-damage);
         Fx.StartBlinkFlash();
     }

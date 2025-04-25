@@ -38,7 +38,7 @@ public class WaveManager
         // 순서대로 처리해줘
         // TODO:: 알아서해 Feat: 박한나
         int needAmount = waveList[idx].EnemyAmount;
-        Managers.StartCoroutine(Spawn(1));
+        Managers.StartCoroutine(Spawn(needAmount));
         //enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
         //unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
     }
