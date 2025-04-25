@@ -20,7 +20,6 @@ public class EnemyStateBase : EntityStateBase
     protected bool isLeft;
     protected int facDir = 1;
 
-    protected GameObject core;
     protected Stack<GameObject> targets;
 
     public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
@@ -33,7 +32,6 @@ public class EnemyStateBase : EntityStateBase
         this.agent = controller.Agent;
         this.status = controller.Status;
         this.capCol = controller.Colider;
-        core = Managers.Player.MainCore.gameObject;
     }
 
     public override void Enter()
@@ -61,7 +59,7 @@ public class EnemyStateBase : EntityStateBase
 
     private void DetectedUnit()
     {
-        if (targets.Peek() == core)
+        if (targets.Peek() == Managers.Player.MainCore.gameObject)
         {
             Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), (int)Enums.Layer.MyUnit);
             if (col != null) targets.Push(col.gameObject);   
@@ -94,11 +92,11 @@ public class EnemyStateBase : EntityStateBase
             StateMachine.ChangeState(nextState);
     }
 
-    protected bool DetectedMap()
+    protected bool DetectedMap(Vector2 targetPos)
     {
-        float dist = Vector2.Distance(capCol.transform.position, targets.Peek().transform.position);
+        float dist = Vector2.Distance(capCol.transform.position, targetPos);
         Vector2 size = new Vector2(capCol.bounds.extents.x, capCol.bounds.extents.y);
-        Vector2 dir = (targets.Peek().transform.position - capCol.transform.position).normalized;
+        Vector2 dir = (targetPos - (Vector2)capCol.transform.position).normalized;
 
         Collider2D col = Physics2D.BoxCast(capCol.transform.position, size, 0f, dir, dist, (int)Enums.Layer.Map).collider;
         if (col != null)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WizardStateBase : EnemyStateBase
 {
+    protected GameObject target;
     protected WizardAnimData data;
     protected WaveManager wave;
     public WizardStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
@@ -25,5 +26,6 @@ public class WizardStateBase : EnemyStateBase
     public override void Update()
     {
         base.Update();
+        controller.FlipControll(target);
     }
 }

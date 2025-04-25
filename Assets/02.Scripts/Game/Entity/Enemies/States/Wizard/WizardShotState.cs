@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class WizardShotState : WizardStateBase
 {
-    private GameObject target;
     private string EnergyShot = nameof(EnergyShot);
     public WizardShotState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
@@ -14,9 +13,8 @@ public class WizardShotState : WizardStateBase
     public override void Enter()
     {
         base.Enter();
-
-        int rand = Random.Range(0, wave.CurMyUnitList.Count);
-        target = wave.CurMyUnitList[rand];
+        agent.isStopped = true;
+        projectileCalled = false;
     }
 
     public override void Exit()
@@ -30,9 +28,17 @@ public class WizardShotState : WizardStateBase
 
         if(projectileCalled)
         {
-            CreateShot(EnergyShot);
             projectileCalled = false;
+            CreateShot(EnergyShot);
         }
+
+        if(triggerCalled)
+        {
+            targets.Clear();
+            targets.Push(Managers.Player.MainCore.gameObject);
+            StateMachine.ChangeState(data.IdleState);
+        }
+        
     }
 
     private void CreateShot(string objectName)
@@ -42,7 +48,8 @@ public class WizardShotState : WizardStateBase
 
     private void Fire(GameObject go)
     {
-        EntityProjectile arrow = go.GetComponent<EntityProjectile>();
-        arrow.Init(spr.gameObject, status.Attack.GetValue(), targets.Peek().transform.position, facDir);
+        AnimProjectile energyShot = go.GetComponent<AnimProjectile>();
+        Vector2 targetPos = targets.Peek().GetComponentInChildren<SpriteRenderer>().transform.position;
+        energyShot.Init(spr.gameObject, status.Attack.GetValue(), targetPos, facDir);
     }
 }

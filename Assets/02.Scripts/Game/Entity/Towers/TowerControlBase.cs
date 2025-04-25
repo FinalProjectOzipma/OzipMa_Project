@@ -21,6 +21,7 @@ public abstract class TowerControlBase : MonoBehaviour
     protected GameObject body; // 현재 나의 외형
 
     private float attackCooldown = 0f;
+
     public abstract void Attack(float AttackPower);
 
     protected virtual void Start()

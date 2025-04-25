@@ -26,7 +26,7 @@ public class ArcherManAttackState : ArcherManStateBase
     {
         base.Update();
 
-        if (DetectedMap())
+        if (DetectedMap(targets.Peek().transform.position))
             StateMachine.ChangeState(data.ChaseState);
 
         OutRange(data.ChaseState);
