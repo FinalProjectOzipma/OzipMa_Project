@@ -8,10 +8,12 @@ public abstract class EntityController : Poolable
 {
     #region Component
     public Animator Anim { get; private set; }
-    public BoxCollider2D BoxCol { get; private set; }
+    public CapsuleCollider2D Colider { get; private set; }
     public ObjectFlash Fx { get; set; }
 
     #endregion
+
+    public AbilityType CurrentCondition { get; set; } = AbilityType.None;
     public EntityAnimationData AnimData { get; set; }
 
     public bool IsLeft { get; private set; }
@@ -22,7 +24,7 @@ public abstract class EntityController : Poolable
     public virtual void Init(Vector2 position, GameObject go = null)
     {
         Anim = GetComponentInChildren<Animator>();
-        BoxCol = GetComponentInChildren<BoxCollider2D>();
+        Colider = GetComponent<CapsuleCollider2D>();
     }
 
     protected virtual void Update()

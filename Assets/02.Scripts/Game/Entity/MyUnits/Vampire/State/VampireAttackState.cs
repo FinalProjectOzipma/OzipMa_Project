@@ -11,11 +11,24 @@ public class VampireAttackState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
+        controller.Agent.isStopped = true;
     }
+
 
     public override void Exit()
     {
         base.Exit();
+        if (controller.Target == null)
+        {
+            StateMachine.ChangeState(data.IdleState);
+        }
+        else
+        {
+            if (!controller.IsClose())
+            {
+                StateMachine.ChangeState(data.ChaseState);
+            }
+        }
     }
 
     public override void Update()

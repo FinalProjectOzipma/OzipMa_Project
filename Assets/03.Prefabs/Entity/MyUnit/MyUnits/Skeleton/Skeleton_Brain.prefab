@@ -8,6 +8,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2823562730542630976, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Size.x
+      value: 0.88215077
+      objectReference: {fileID: 0}
+    - target: {fileID: -2823562730542630976, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Size.y
+      value: 1.993521
+      objectReference: {fileID: 0}
+    - target: {fileID: -2823562730542630976, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.004899353
+      objectReference: {fileID: 0}
+    - target: {fileID: -2823562730542630976, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.99649584
+      objectReference: {fileID: 0}
     - target: {fileID: 1385969809248977337, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -64,6 +80,14 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 115124275235344955, guid: e9d07a4bff09ca24eb286698e441e900, type: 3}
+    - target: {fileID: 7847156428546326042, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Radius
+      value: 0.87652415
+      objectReference: {fileID: 0}
+    - target: {fileID: 7847156428546326042, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_Offset.y
+      value: 1.0040643
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3635720689636166866, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
     m_RemovedGameObjects: []

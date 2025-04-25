@@ -4,11 +4,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ArrowProjectile : Poolable
+public class EntityProjectile : Poolable
 {
     #region Component
     private Rigidbody2D rigid;
-    private SpriteRenderer spr;
     #endregion
     
     public float Speed;
@@ -20,15 +19,9 @@ public class ArrowProjectile : Poolable
     private int hitLayer;
     private float ownerAttack;
 
-    private int mapLayer = 1 << 6;
-    private int enemyLayer = 1 << 8;
-    private int unitLayer = 1 << 9;
-    private int coreLayer = 1 << 10;
-
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        spr = GetComponentInChildren<SpriteRenderer>();
     }
 
     /// <summary>
@@ -43,29 +36,25 @@ public class ArrowProjectile : Poolable
         transform.position = owner.transform.position;
 
         this.ownerLayer = owner.layer;
-        this.hitLayer = mapLayer | enemyLayer | unitLayer | coreLayer;
+        this.hitLayer = (int)Enums.Layer.Map | (int)Enums.Layer.Enemy | (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
         this.ownerAttack = ownerAttack;
 
 
         float angle = Util.GetAngle(transform.position, targetPos);
-        spr.flipX = (factingDir < 0) ? true : false;
-        spr.transform.rotation = Quaternion.Euler(Vector3.zero);
-        spr.transform.Rotate(Vector3.forward * angle);
+        transform.rotation = Quaternion.Euler(new Vector3(0,Mathf.Min(0, 180 * factingDir), 0));
+        transform.Rotate(Vector3.forward * angle);
         dir = (targetPos - (Vector2)owner.transform.position).normalized;
-        // 1111 ^ 1011 = 0100
-        // 1010 ^ 0101 = 1111
-        // 1110 ^ 0111 = 1001
 
-        if ((1 << owner.layer) == enemyLayer)
+
+        if ((1 << owner.layer) == (int)Enums.Layer.Enemy)
         {
-            // 1111 ^ 0001 = 1110
-            hitLayer -= enemyLayer;
+            hitLayer -= (int)Enums.Layer.Enemy;
         }
-        else if ((1 << owner.layer) == unitLayer)
+        else if ((1 << owner.layer) == (int)Enums.Layer.MyUnit)
         {
             // 1111 ^ 0010 | 0100 =
             // 1111 ^ 0110 = 1001
-            hitLayer -= unitLayer + coreLayer;
+            hitLayer -= (int)Enums.Layer.MyUnit + (int)Enums.Layer.Core;
         }
     }
 
@@ -82,10 +71,15 @@ public class ArrowProjectile : Poolable
 
         if ((hitLayer & otherLayer) > 0) // 같은 레이어 무시
         {
-                if (otherLayer != mapLayer) // 벽 레이어가 아니면 
+            if (otherLayer != (int)Enums.Layer.Map) // 벽 레이어가 아니면 
                 other.GetComponentInParent<IDamagable>().ApplyDamage(ownerAttack);
-            if (gameObject.activeInHierarchy)
-                Managers.Resource.Destroy(gameObject); 
+            OnPoolDestroy(hitLayer);
         }
+    }
+
+    protected virtual void OnPoolDestroy(int hitLayer)
+    {
+        if (gameObject.activeInHierarchy)
+            Managers.Resource.Destroy(gameObject);
     }
 }

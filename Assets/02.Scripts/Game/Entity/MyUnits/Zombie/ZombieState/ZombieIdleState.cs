@@ -36,11 +36,7 @@ public class ZombieIdleState : MyUnitStateBase
                 StateMachine.ChangeState(data.ChaseState);
             }
         }
-
-        if (controller.Target == null)
-        {
-            SetTarget();
-        }
+        SetTarget();
     }
 
     public void SetTarget()

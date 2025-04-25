@@ -15,7 +15,7 @@ public class SkeletonAnimationTrigger : MyUnitAnimationTrigger
 
     private void Fire(GameObject go)
     {
-        ArrowProjectile arrow = go.GetComponent<ArrowProjectile>();
+        EntityProjectile arrow = go.GetComponent<EntityProjectile>();
         arrow.Init(transform.gameObject, myUnit.MyUnitStatus.Attack.GetValue(), myUnit.Target.transform.position, myUnit.FacDir);
     }
 }
