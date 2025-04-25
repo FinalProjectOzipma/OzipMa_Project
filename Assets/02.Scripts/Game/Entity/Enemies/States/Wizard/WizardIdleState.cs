@@ -12,6 +12,7 @@ public class WizardIdleState : WizardStateBase
     public override void Enter()
     {
         base.Enter();
+        agent.isStopped = true;
         time = skillCoolDown;
     }
 
@@ -24,12 +25,12 @@ public class WizardIdleState : WizardStateBase
     {
         base.Update();
 
-        if(time < 0)
+        if(time < 0f)
         {
-            int rand = Random.Range(0, 2);
+            int rand = 1; //Random.Range(0, 2);
 
             if (rand == 1)
-                StateMachine.ChangeState(data.AttackState);
+                StateMachine.ChangeState(data.ChaseState);
             else
                 StateMachine.ChangeState(data.LightningState);
         }

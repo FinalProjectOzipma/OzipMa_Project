@@ -8,10 +8,10 @@ public class ProjectileAnimationTrigger : MonoBehaviour
 
     private void Awake()
     {
-        projectile = GetComponent<AnimProjectile>();
+        projectile = GetComponentInParent<AnimProjectile>();
     }
     public void AnimationTrigger()
     {
-        
+        projectile.AnimationTriggerCalled();
     }
 }

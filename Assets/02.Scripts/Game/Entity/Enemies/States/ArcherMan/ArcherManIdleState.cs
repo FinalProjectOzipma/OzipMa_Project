@@ -27,7 +27,7 @@ public class ArcherManIdleState : ArcherManStateBase
     {
         base.Update();
 
-        if (!DetectedMap())
+        if (!DetectedMap(targets.Peek().transform.position))
             OutRange(data.ChaseState);
 
         /*if(targets.Peek() == core && agent.remainingDistance > 0.1f)

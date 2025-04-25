@@ -19,6 +19,7 @@ public class EntityProjectile : Poolable
     private int hitLayer;
     private float ownerAttack;
 
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -31,7 +32,7 @@ public class EntityProjectile : Poolable
     /// <param name="ownerAttack"></param>
     /// <param name="targetPos"></param>
     /// <param name="factingDir"></param>
-    public void Init(GameObject owner, float ownerAttack, Vector2 targetPos, int factingDir)
+    public virtual void Init(GameObject owner, float ownerAttack, Vector2 targetPos, int factingDir)
     {
         transform.position = owner.transform.position;
 
@@ -43,6 +44,7 @@ public class EntityProjectile : Poolable
         float angle = Util.GetAngle(transform.position, targetPos);
         transform.rotation = Quaternion.Euler(new Vector3(0,Mathf.Min(0, 180 * factingDir), 0));
         transform.Rotate(Vector3.forward * angle);
+
         dir = (targetPos - (Vector2)owner.transform.position).normalized;
 
 
@@ -60,6 +62,11 @@ public class EntityProjectile : Poolable
 
     private void FixedUpdate()
     {
+        Move();
+    }
+
+    protected virtual void Move()
+    {
         transform.position = Vector3.Lerp(transform.position, transform.position + (Vector3)(dir * Speed), Time.fixedDeltaTime);
     }
 
@@ -73,7 +80,7 @@ public class EntityProjectile : Poolable
         {
             if (otherLayer != (int)Enums.Layer.Map) // 벽 레이어가 아니면 
                 other.GetComponentInParent<IDamagable>().ApplyDamage(ownerAttack);
-            OnPoolDestroy(hitLayer);
+            OnPoolDestroy(otherLayer);
         }
     }
 
