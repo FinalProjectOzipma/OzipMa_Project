@@ -11,10 +11,33 @@ public class PhnMyUnitScene : GameScene
     public override void Enter()
     {
         base.Enter();
-        MyUnit unit = new MyUnit();
-        unit.Init(1, null);
-        Managers.Player.Inventory.Add<MyUnit>(unit);
+        DefaultUnitAdd(); // 인벤 데이터 추가
         Managers.Wave.StartWave(0);
+        InitAction?.Invoke();
+    }
+
+    private void DefaultUnitAdd()
+    {
+        Managers.Resource.LoadAssetAsync<GameObject>("Zombie_Brain", (prefab) =>
+        {
+            MyUnit unit = new MyUnit();
+            unit.Init(0, prefab.GetComponent<MyUnitController>().sprite);
+            Managers.Player.Inventory.Add<MyUnit>(unit);
+        });
+
+        Managers.Resource.LoadAssetAsync<GameObject>("Skeleton_Brain", (prefab) =>
+        {
+            MyUnit unit = new MyUnit();
+            unit.Init(1, prefab.GetComponent<MyUnitController>().sprite);
+            Managers.Player.Inventory.Add<MyUnit>(unit);
+        });
+
+        Managers.Resource.LoadAssetAsync<GameObject>("Vampire_Brain", (prefab) =>
+        {
+            MyUnit unit = new MyUnit();
+            unit.Init(2, prefab.GetComponent<MyUnitController>().sprite);
+            Managers.Player.Inventory.Add<MyUnit>(unit);
+        });
     }
 
     public override void Exit()

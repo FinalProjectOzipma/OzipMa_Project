@@ -46,6 +46,7 @@ public class Pool
 
     private void ActionOnDestroy(GameObject gameObject)
     {
+        
         Object.Destroy(gameObject);
     }
 }

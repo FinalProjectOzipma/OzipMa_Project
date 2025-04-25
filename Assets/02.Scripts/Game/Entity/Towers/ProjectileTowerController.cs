@@ -41,6 +41,8 @@ public class ProjectileTowerController : TowerControlBase
             body.transform.localPosition = Vector3.zero;
             if (firePosition == Vector3.one) firePosition = Util.FindComponent<Transform>(go, "FirePosition").position; // 외형 로드 시 발사위치 받아두기
 
+            body.GetComponentInChildren<TowerAnimationTrigger>().ProjectileAttackStart = FireProjectile;
+
             if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
             {
                 Anim = bodyBase.Anim;
@@ -51,13 +53,11 @@ public class ProjectileTowerController : TowerControlBase
 
     public override void Attack(float AttackPower)
     {
+        if (body == null) return;
         target = detectedEnemies.First.Value;
         if (target == null) return;
 
         attackPower = AttackPower;
-
-        if (body == null) return;
-        body.GetComponentInChildren<TowerTrigger>().ProjectileAttackStart = FireProjectile;
     }
 
     public void FireProjectile()

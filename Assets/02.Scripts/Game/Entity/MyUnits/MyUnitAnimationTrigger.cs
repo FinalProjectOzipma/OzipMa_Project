@@ -7,7 +7,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 {
     public Transform AttackCheck;
     float attackValue;
-    private MyUnitController myUnit => GetComponentInParent<MyUnitController>();
+    protected MyUnitController myUnit => GetComponentInParent<MyUnitController>();
 
     private void Start()
     {
@@ -24,19 +24,8 @@ public class MyUnitAnimationTrigger : MonoBehaviour
         myUnit.AnimationFinishTrigger();
     }
 
-    public void AttackTrigger()
+    public virtual void AttackTrigger()
     {
-        int layer = (int)Enums.Layer.Enemy;
-        
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
-        foreach (var hit in colliders)
-        {
-            IDamagable damagle = hit.GetComponentInParent<IDamagable>();
-            if (damagle != null)
-            {
-                damagle.ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
-            }
-        }
     }
 
     private void OnDrawGizmos()

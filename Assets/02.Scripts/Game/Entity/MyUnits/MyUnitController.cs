@@ -34,7 +34,7 @@ public class MyUnitController : EntityController, IDamagable
     {
         base.Init(position, go);
         transform.position = position;
-
+        Rigid = GetComponent<Rigidbody2D>();
         AnimData.Init(this);
     }
 
@@ -69,7 +69,6 @@ public class MyUnitController : EntityController, IDamagable
         Managers.Resource.Instantiate($"{name}{_Body}", go =>
         {
             go.transform.SetParent(transform);
-            Rigid = go.GetOrAddComponent<Rigidbody2D>();
             Fx = go.GetOrAddComponent<ObjectFlash>();
             Init(position, go);
         });

@@ -13,10 +13,7 @@ public class ZombieIdleState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
-        if (controller.Target == null)
-        {
-            SetTarget();
-        }
+        SetTarget();
     }
 
     public override void Exit()
@@ -39,9 +36,9 @@ public class ZombieIdleState : MyUnitStateBase
                 StateMachine.ChangeState(data.ChaseState);
             }
         }
+        SetTarget();
     }
 
-    // TODO: 타겟 지정 메서드 만들기
     public void SetTarget()
     {
         //Managers.Wave에서 남은 적 리스트 가져오기
