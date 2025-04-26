@@ -27,7 +27,7 @@ public class WizardIdleState : WizardStateBase
 
         if(time < 0f)
         {
-            int rand = 1; //Random.Range(0, 2);
+            int rand = 2; //Random.Range(0, 2);
 
             if (rand == 1)
                 StateMachine.ChangeState(data.ChaseState);

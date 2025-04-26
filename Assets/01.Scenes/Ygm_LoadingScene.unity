@@ -492,7 +492,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68dfdcc408273fc4cb1804875e98bb5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingSystem: {fileID: 0}
+  towerMenu: {fileID: 0}
   holdTimeThreshold: 1
+  pressTime: 0
+  hasActivated: 0
 --- !u!212 &1182724061
 SpriteRenderer:
   m_ObjectHideFlags: 0
