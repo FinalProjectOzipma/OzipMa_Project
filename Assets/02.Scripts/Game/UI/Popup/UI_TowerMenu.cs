@@ -35,6 +35,7 @@ public class UI_TowerMenu : UI_Base
     public void OnClickDelete(PointerEventData data)
     {
         Managers.Resource.Destroy(targetTower);
+        BuildingSystem.Instance.DragController.SetEditMode(false);
     }
  
 }

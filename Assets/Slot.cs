@@ -80,6 +80,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         GetText((int)TextMeshs.StackText).text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
     }
 
+    #region 드래그 배치
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (PreviewObj == null)
@@ -92,6 +93,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             });
         }
         previewRenderer.sprite = _sprite;
+        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -123,4 +125,5 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             go.transform.position = BuildingSystem.Instance.UpdatePosition(eventData.position);
         });
     }
+    #endregion
 }

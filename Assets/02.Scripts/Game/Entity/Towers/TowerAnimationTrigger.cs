@@ -16,7 +16,7 @@ public class TowerAnimationTrigger : MonoBehaviour
     {
         if(enemyLayer < 0)
         {
-            enemyLayer = LayerMask.GetMask(Enums.Layer.Enemy.ToString());
+            enemyLayer = (int)Enums.Layer.Enemy;
         }
     }
 
@@ -46,7 +46,7 @@ public class TowerAnimationTrigger : MonoBehaviour
         // 범위 내 타겟들 모두에게 적용
         foreach (Collider2D collider in targets)
         {
-            EnemyController target = collider.transform.parent?.gameObject.GetComponent<EnemyController>();
+            EnemyController target = collider.transform.gameObject.GetComponent<EnemyController>();
             if (target == null) continue;
             if (ownerInfo == null) continue;
 

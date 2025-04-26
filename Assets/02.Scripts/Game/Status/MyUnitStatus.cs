@@ -17,7 +17,7 @@ public class MyUnitStatus : StatusBase
         MaxHealth = Health.GetValue();
 
         Attack.SetValue(result.Attack);
-        Defence.SetValue(Health.GetValue());
+        Defence.SetValue(result.Defence);
         MoveSpeed.SetValue(result.MoveSpeed);
 
         AttackCoolDown.SetValue(result.AttackCoolDown);

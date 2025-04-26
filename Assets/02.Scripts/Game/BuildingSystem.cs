@@ -6,6 +6,8 @@ using UnityEngine.Tilemaps;
 public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem Instance {  get; private set; }
+    public DragController DragController { get; private set; }
+
     [SerializeField] private LayerMask CanDragLayerMask;
     [SerializeField] private LayerMask TowerBuildLayerMask;
     private Tilemap map;
@@ -28,6 +30,7 @@ public class BuildingSystem : MonoBehaviour
     {
         map = Util.FindComponent<Tilemap>(Managers.Scene.CurrentScene.CurrentMap, "TowerBuildArea");
         cam = Camera.main;
+        DragController = GetComponent<DragController>();
         Util.Log($"그리드 : {map.transform.parent.parent.gameObject.name}");
     }
 
