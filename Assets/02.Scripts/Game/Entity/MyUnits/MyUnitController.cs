@@ -89,7 +89,7 @@ public class MyUnitController : EntityController, IDamagable
     /// <summary>
     /// 직격 피해를 입을때 쓸 데미지
     /// </summary>
-    /// <param name="damage">음수 말고 양수로 던져주면 됨</param>
+    /// <param name="damage"></param>
     public void TakeDamage(float damage)
     {
         if (MyUnitStatus.Defence.GetValue() > damage)
@@ -144,13 +144,13 @@ public class MyUnitController : EntityController, IDamagable
     }
 
     //반사 데미지 적용
-    public void ReflectDamage(float abilityValue, float abilityRatio)
+    public void ReflectDamage(float damage, float abilityRatio)
     {
-        TakeDamage(abilityValue* abilityRatio);
+        TakeDamage(damage);
     }
 
-    //실제 트리거에서 호출되는 애
-    public void ApplyDamage(float amount)
+    //실제 트리거에서 호출되는 메서드
+    public void ApplyDamage(float amount, GameObject go = null)
     {
         TakeDamage(amount);
     }

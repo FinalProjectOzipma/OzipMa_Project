@@ -40,7 +40,7 @@ public class EnemyAnimationTrigger : MonoBehaviour
             IDamagable damagle = hit.GetComponentInParent<IDamagable>();
             if (damagle != null)
             {
-                damagle.ApplyDamage(enemy.Status.Attack.GetValue());
+                damagle.ApplyDamage(enemy.Status.Attack.GetValue(), enemy.gameObject);
             }
         }
     }

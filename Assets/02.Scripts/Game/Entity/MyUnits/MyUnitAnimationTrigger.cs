@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MyUnitAnimationTrigger : MonoBehaviour
 {
+    
     public Transform AttackCheck;
     float attackValue;
     protected MyUnitController myUnit => GetComponentInParent<MyUnitController>();
@@ -26,11 +27,22 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public virtual void AttackTrigger()
     {
-        Util.Log(myUnit.MyUnitStatus.Health.GetValueToString());
+        Util.Log("myUnitHP: " + myUnit.MyUnitStatus.Health.GetValueToString());
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
+    }
+
+    protected bool IsReflect(GameObject target)
+    {
+        EnemyController enemy = target.GetComponent<EnemyController>();
+
+        if (enemy.Enemy.AtkType == AtkType.ReflectDamage)
+        {
+            return true;
+        }
+        return false;
     }
 }

@@ -65,7 +65,7 @@ public class CoreController : MonoBehaviour, IDamagable
         });
     }
 
-    public void ApplyDamage(float amount)
+    public void ApplyDamage(float amount, GameObject go)
     {
         TakeDamge(amount);
     }
