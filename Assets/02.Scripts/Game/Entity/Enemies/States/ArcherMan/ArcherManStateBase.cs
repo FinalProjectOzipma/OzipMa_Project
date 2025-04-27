@@ -27,6 +27,13 @@ public class ArcherManStateBase : EnemyStateBase
         if (controller.IsDead)
             return;
 
+        if (status.Health.GetValue() <= 0.0f)
+        {
+            controller.StopAllCoroutines();
+            controller.IsDead = true;
+            StateMachine.ChangeState(data.DeadState);
+        }
+
         switch (controller.CurrentCondition)
         {
             case AbilityType.None:
@@ -48,14 +55,6 @@ public class ArcherManStateBase : EnemyStateBase
                 break;
             default:
                 break;
-        }
-
-
-        if (status.Health.GetValue() <= 0.0f)
-        {
-            controller.StopAllCoroutines();
-            controller.IsDead = true;
-            StateMachine.ChangeState(data.DeadState);
         }
     }
 }

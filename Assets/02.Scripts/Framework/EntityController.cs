@@ -43,19 +43,23 @@ public abstract class EntityController : Poolable
             AnimData.StateMachine.CurrentState?.FixedUpdate();
     }
 
-    public void FlipControll(GameObject target)
+    public void FlipControll(GameObject target = null)
     {
-        if (target == null)
-            return;
-
-        Vector2 pos = target.transform.position;
-        Vector2 mePos = transform.position;
-
-        if (pos.x - mePos.x > 0 && IsLeft)
+        if(target != null)
         {
-            OnFlip();
+            Vector2 pos = target.transform.position;
+            Vector2 mePos = transform.position;
+
+            if (pos.x - mePos.x > 0 && IsLeft)
+            {
+                OnFlip();
+            }
+            else if (pos.x - mePos.x < 0 && !IsLeft)
+            {
+                OnFlip();
+            }
         }
-        else if (pos.x - mePos.x < 0 && !IsLeft)
+        else
         {
             OnFlip();
         }

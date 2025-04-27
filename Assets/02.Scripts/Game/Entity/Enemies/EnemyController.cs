@@ -163,7 +163,6 @@ public class EnemyController : EntityController, IDamagable
              float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
             Util.Log("데미지 돌려드렸습니다");
             myunit.ReflectDamage(damage, abilityRatio);
-            return;
         }
 
         //float minus = Status.Defences[0].GetValue() - attackPower;
@@ -176,7 +175,7 @@ public class EnemyController : EntityController, IDamagable
         }
 
         int iCondition = (int)condition;
-        if (Times.ContainsKey(iCondition) && Times[iCondition] < 0f)
+        if (Times.ContainsKey(iCondition) && Times[iCondition] <= 0f)
         {
             CurrentCondition = condition;
             Times[iCondition] = Conditions[iCondition].CoolDown;
