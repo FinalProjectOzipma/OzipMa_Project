@@ -71,7 +71,7 @@ public class CoreController : MonoBehaviour, IDamagable
         });
     }
 
-    public void ApplyDamage(float amount, GameObject go)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null)
     {
         TakeDamge(amount);
     }

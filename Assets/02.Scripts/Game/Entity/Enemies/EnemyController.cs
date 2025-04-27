@@ -147,7 +147,7 @@ public class EnemyController : EntityController, IDamagable
     /// </summary>
     /// <param name="go"></param>
     /// <param name="damage"></param>
-    public void ApplyDamage(float damage, GameObject go = null)
+    public void ApplyDamage(float damage, AbilityType condition = AbilityType.None, GameObject go = null)
     {
         Util.Log(Status.AtkType.ToString());
 

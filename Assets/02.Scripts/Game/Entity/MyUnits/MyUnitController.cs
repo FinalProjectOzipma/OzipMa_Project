@@ -150,7 +150,7 @@ public class MyUnitController : EntityController, IDamagable
     }
 
     //실제 트리거에서 호출되는 메서드
-    public void ApplyDamage(float amount, GameObject go = null)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null)
     {
         TakeDamage(amount);
     }
