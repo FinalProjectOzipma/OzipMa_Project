@@ -35,9 +35,13 @@ public class RangeTowerController : TowerControlBase
             DefaultTable.AbilityDefaultValue values = Tower.Abilities[Tower.TowerType];
             switch (Tower.TowerType)
             {
-                //case AbilityType.Dot:
-                //    target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-                //    break;
+                case AbilityType.Fire:
+                case AbilityType.Explosive:
+                    target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                    break;
+                case AbilityType.Dark:
+                    target.ApplyDamage(AttackPower, AbilityType.Dark);
+                    break;
                 //case AbilityType.Slow:
                 //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
                 //    break;

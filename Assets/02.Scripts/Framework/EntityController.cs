@@ -15,8 +15,8 @@ public abstract class EntityController : Poolable
 
     #endregion
 
-    public Dictionary<int, KeyPairCondition> Conditions { get; set; }
-    public Dictionary<int, float> Times { get; set; }
+    public Dictionary<int, KeyPairCondition> Conditions { get; set; } = new();
+    public Dictionary<int, float> Times { get; set; } = new();
     public AbilityType CurrentCondition { get; set; } = AbilityType.None;
     public EntityAnimationData AnimData { get; set; }
 
@@ -24,12 +24,6 @@ public abstract class EntityController : Poolable
     public int FacDir { get; private set; } = 1;
 
     public bool IsDead { get; set; }
-
-    private void Awake()
-    {
-        Times = new();
-        Conditions = new();
-    }
 
     public virtual void Init(Vector2 position, GameObject go = null)
     {

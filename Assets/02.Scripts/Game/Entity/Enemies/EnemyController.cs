@@ -175,10 +175,11 @@ public class EnemyController : EntityController, IDamagable
             Fx.StartBlinkFlash();
         }
 
-        if (Times[(int)condition] < 0f)
+        int iCondition = (int)condition;
+        if (Times.ContainsKey(iCondition) && Times[iCondition] < 0f)
         {
             CurrentCondition = condition;
-            Times[(int)condition] = Conditions[(int)condition].CoolDown;
+            Times[iCondition] = Conditions[iCondition].CoolDown;
         }
     }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TowerAnimationTrigger : MonoBehaviour 
 {
@@ -60,6 +61,9 @@ public class TowerAnimationTrigger : MonoBehaviour
                 case AbilityType.Fire:
                 case AbilityType.Explosive:
                     target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                    break;
+                case AbilityType.Dark:
+                    target.ApplyDamage(attackPower, AbilityType.Dark);
                     break;
                 //case AbilityType.Slow:
                 //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
