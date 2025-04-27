@@ -88,19 +88,28 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             Managers.Resource.Instantiate("BuildingPreview", go => 
             {
                 PreviewObj = go;
-                PreviewObj.transform.position = BuildingSystem.Instance.UpdatePosition(Util.ScreenToWorldPointWithoutZ(eventData.position));
+                Vector3 pos = BuildingSystem.Instance.UpdatePosition(eventData.position);
+                pos.y -= 0.2f;
+                PreviewObj.transform.position = pos;
                 previewRenderer = PreviewObj.GetComponent<SpriteRenderer>();
             });
+        }
+        else
+        {
+            Vector3 pos = BuildingSystem.Instance.UpdatePosition(eventData.position);
+            pos.y -= 0.2f;
+            PreviewObj.transform.position = pos;
         }
         previewRenderer.sprite = _sprite;
         Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
     }
     public void OnDrag(PointerEventData eventData)
     {
-        PreviewObj.transform.position = BuildingSystem.Instance.UpdatePosition(eventData.position);
+        Vector3 pos = BuildingSystem.Instance.UpdatePosition(eventData.position);
+        pos.y -= 0.2f;
+        PreviewObj.transform.position = pos;
         if(BuildingSystem.Instance.IsTowerBuildArea(eventData.position) == false)
         {
-            // TODO :: 배치 불가능 표시
             previewRenderer.color = Color.red;
             return;
         }
