@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -30,8 +31,9 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     public IGettable Gettable;
 
     private GameObject PreviewObj;
-    SpriteRenderer previewRenderer;
+    private SpriteRenderer previewRenderer;
     private Sprite _sprite;
+    private BuildingSystem buildingSystem;
     private Image _stackGage;
     private int itemKey { get; set; }
 
@@ -68,7 +70,6 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
     public void SetData<T>(IGettable gettable) where T : UserObject
     {
-        
         Gettable = gettable;
         T obj = gettable.GetClassAddress<T>();
         itemKey = obj.PrimaryKey;
@@ -83,32 +84,34 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     #region 드래그 배치
     public void OnBeginDrag(PointerEventData eventData)
     {
+        buildingSystem = BuildingSystem.Instance;
+        Vector2 inputPos = eventData.position;
+        Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
+        cellWorldPos.y -= 0.2f;
         if (PreviewObj == null)
         {
             Managers.Resource.Instantiate("BuildingPreview", go => 
             {
                 PreviewObj = go;
-                Vector3 pos = BuildingSystem.Instance.UpdatePosition(eventData.position);
-                pos.y -= 0.2f;
-                PreviewObj.transform.position = pos;
+                PreviewObj.transform.position = cellWorldPos;
                 previewRenderer = PreviewObj.GetComponent<SpriteRenderer>();
             });
         }
         else
         {
-            Vector3 pos = BuildingSystem.Instance.UpdatePosition(eventData.position);
-            pos.y -= 0.2f;
-            PreviewObj.transform.position = pos;
+            PreviewObj.transform.position = cellWorldPos;
         }
         previewRenderer.sprite = _sprite;
         Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+        buildingSystem.DragController.IsSlotDragging = true;
     }
     public void OnDrag(PointerEventData eventData)
     {
-        Vector3 pos = BuildingSystem.Instance.UpdatePosition(eventData.position);
-        pos.y -= 0.2f;
-        PreviewObj.transform.position = pos;
-        if(BuildingSystem.Instance.IsTowerBuildArea(eventData.position) == false)
+        Vector2 inputPos = eventData.position;
+        Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
+        cellWorldPos.y -= 0.2f;
+        PreviewObj.transform.position = cellWorldPos;
+        if(buildingSystem.CanTowerBuild(inputPos) == false)
         {
             previewRenderer.color = Color.red;
             return;
@@ -117,10 +120,11 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        Vector2 inputPos = eventData.position;
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
 
-        if (BuildingSystem.Instance.IsTowerBuildArea(eventData.position) == false)
+        if (buildingSystem.CanTowerBuild(inputPos) == false)
         {
             // 배치 불가능하면 드래그 취소됨
             return;
@@ -131,7 +135,9 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Util.Log($"OnEndDrag : {data.Name}Tower를 배치 성공함");
         Managers.Resource.Instantiate($"{data.Name}Tower", go =>
         {
-            go.transform.position = BuildingSystem.Instance.UpdatePosition(eventData.position);
+            go.transform.position = buildingSystem.UpdatePosition(inputPos);
+            buildingSystem.AddPlacedMap(inputPos);
+            buildingSystem.DragController.IsSlotDragging = false;
         });
     }
     #endregion
