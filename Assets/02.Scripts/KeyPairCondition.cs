@@ -7,13 +7,14 @@ using System;
 public class KeyPairCondition
 {
     public AbilityType Key;
-    public GameObject GO;
+    public GameObject GameObj;
     public float CoolDown;
+
     public bool IsExit { get; set; }
 
     public void ObjectActive(bool active)
     {
-        GO.SetActive(active);
+        GameObj.SetActive(active);
         IsExit = !active;
     } 
 }

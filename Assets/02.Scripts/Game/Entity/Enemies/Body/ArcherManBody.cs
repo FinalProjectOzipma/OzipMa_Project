@@ -37,7 +37,7 @@ public class ArcherManBody : MonoBehaviour
         {
             ctrl.Times.Add((int)condi.Key, 0f);
             ctrl.Conditions.Add((int)condi.Key, condi);
-            condi.GO.SetActive(false);
+            condi.GameObj.SetActive(false);
         }
 
         timeStart = true;
@@ -71,10 +71,12 @@ public class ArcherManBody : MonoBehaviour
         Dictionary<int, float> times = GetComponentInParent<EnemyController>().Times;
         while (timeStart)
         {
-            for(int i = 0; i < times.Count; i++)
+            foreach (var condi in conditions)
             {
-                if (times[i] > 0f && conditions[i].IsExit)
-                    times[i] -= Time.deltaTime;
+                if (times[(int)condi.Key] > 0f && condi.Value.IsExit)
+                {
+                    times[(int)condi.Key] -= Time.deltaTime;
+                }
             }
 
             await UniTask.NextFrame(disableCancellation.Token);

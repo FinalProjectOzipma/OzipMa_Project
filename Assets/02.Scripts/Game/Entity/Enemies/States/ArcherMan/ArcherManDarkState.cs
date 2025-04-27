@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArcherManDarkState : ArcherManStateBase
 {
-    private float darkCoolDown = 10f;
+    private float darkCoolDown = 5f;
     public ArcherManDarkState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
@@ -34,7 +34,9 @@ public class ArcherManDarkState : ArcherManStateBase
             StateMachine.ChangeState(data.ChaseState);
         else
         {
-            agent.SetDestination((Vector2)(-targets.Peek().transform.position));
+            //agent.SetDestination((Vector2)(-targets.Peek().transform.position));
+            Vector2 dir = (targets.Peek().transform.position) - transform.position;
+            agent.Move(-dir.normalized * status.MoveSpeed.GetValue() * 0.2f * Time.deltaTime);
             controller.FlipControll();
         }
     }
