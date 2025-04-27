@@ -40,6 +40,7 @@ public class ArcherManBody : MonoBehaviour
             condi.GO.SetActive(false);
         }
 
+        timeStart = true;
         StartTime().Forget();
     }
 
