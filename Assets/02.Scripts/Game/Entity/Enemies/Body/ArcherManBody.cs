@@ -60,8 +60,8 @@ public class ArcherManBody : MonoBehaviour
 
     private void OnDestroy()
     {
-        destroyCancellation.Cancel();
-        destroyCancellation.Dispose();
+        destroyCancellation?.Cancel();
+        destroyCancellation?.Dispose();
     }
 
     async UniTaskVoid StartTime()
