@@ -89,17 +89,15 @@ public class MyUnitController : EntityController, IDamagable
     /// <summary>
     /// 직격 피해를 입을때 쓸 데미지
     /// </summary>
-    /// <param name="damage">음수 말고 양수로 던져주면 됨</param>
+    /// <param name="damage"></param>
     public void TakeDamage(float damage)
     {
         if (MyUnitStatus.Defence.GetValue() > damage)
         {   
             Util.Log("안아프지렁" + "방어력 :" + MyUnitStatus.Defence.GetValue());
-            Managers.Audio.audioControler.PlaySFX(SFXClipName.None);
             return;
         }
-        Util.Log("");
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
+        Util.Log("Damage: "+ damage.ToString());
         float dam = Mathf.Max(damage - MyUnitStatus.Defence.GetValue(), 0);
         MyUnitStatus.Health.AddValue(-damage);
         Fx.StartBlinkFlash();
@@ -145,9 +143,14 @@ public class MyUnitController : EntityController, IDamagable
         yield return slowWFS;
     }
 
+    //반사 데미지 적용
+    public void ReflectDamage(float damage, float abilityRatio)
+    {
+        TakeDamage(damage);
+    }
 
-    //물리 데미지 적용
-    public void ApplyDamage(float amount)
+    //실제 트리거에서 호출되는 메서드
+    public void ApplyDamage(float amount, GameObject go = null)
     {
         TakeDamage(amount);
     }
