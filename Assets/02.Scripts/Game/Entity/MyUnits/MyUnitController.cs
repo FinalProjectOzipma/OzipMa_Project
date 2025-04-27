@@ -95,9 +95,11 @@ public class MyUnitController : EntityController, IDamagable
         if (MyUnitStatus.Defence.GetValue() > damage)
         {   
             Util.Log("안아프지렁" + "방어력 :" + MyUnitStatus.Defence.GetValue());
+            Managers.Audio.audioControler.PlaySFX(SFXClipName.None);
             return;
         }
         Util.Log("");
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
         float dam = Mathf.Max(damage - MyUnitStatus.Defence.GetValue(), 0);
         MyUnitStatus.Health.AddValue(-damage);
         Fx.StartBlinkFlash();

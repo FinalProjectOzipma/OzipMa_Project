@@ -9,7 +9,7 @@ public class SkeletonAnimationTrigger : MyUnitAnimationTrigger
         base.AttackTrigger();
 
         Util.Log("화살 얍");
-        Managers.Resource.Instantiate("Arrow", (go) => { Fire(go); });
+        Managers.Resource.Instantiate("Arrow", (go) => { Fire(go); Managers.Audio.audioControler.PlaySFX(SFXClipName.Arrow); });
     }
 
     private void Fire(GameObject go)

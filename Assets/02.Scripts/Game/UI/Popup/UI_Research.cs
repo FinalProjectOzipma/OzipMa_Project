@@ -241,7 +241,7 @@ public class UI_Research : UI_Base
 
         isResearching = true;
         GetButton((int)Buttons.UpgradeButton).interactable = false;
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
 
 
@@ -270,7 +270,7 @@ public class UI_Research : UI_Base
         elapsedSeconds = researchDuration;
 
         CompleteResearch();
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
         if (isPopup)
         {
@@ -312,7 +312,7 @@ public class UI_Research : UI_Base
         PlayerPrefs.SetString(startKey, startTime.ToString());
         PlayerPrefs.SetFloat(durationKey, researchDuration);
         PlayerPrefs.Save();
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
         if(isPopup)
         {
@@ -371,14 +371,14 @@ public class UI_Research : UI_Base
         isComplete = true;
 
         Get<ParticleSystem>((int)ParticleSystems.StarEffect).Play();
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Upgrade,this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.Upgrade);
 
         Get<Button>((int)Buttons.UpgradeButton).gameObject.SetActive(true);
         Get<Button>((int)Buttons.CheckButton).gameObject.SetActive(false);
         GetButton((int)Buttons.UpgradeButton).interactable = true;
 
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
 
         GetImage((int)Images.FillImage).fillAmount = 0.0f;

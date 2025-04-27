@@ -36,7 +36,7 @@ public class UI_Alarm : UI_Popup
 
         var seq = DOTween.Sequence();
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Error, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
 
         seq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
         seq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.0f, 0.1f));
@@ -64,7 +64,7 @@ public class UI_Alarm : UI_Popup
 
         var seq = DOTween.Sequence();
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
         seq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(0.9f, 0.1f));
         seq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(0.9f, 0.1f));

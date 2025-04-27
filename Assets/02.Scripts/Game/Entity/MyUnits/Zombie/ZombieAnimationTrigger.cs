@@ -15,6 +15,7 @@ public class ZombieAnimationTrigger : MyUnitAnimationTrigger
             {
                 Util.Log(hit.name);
                 hit.GetComponentInParent<IDamagable>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
+                Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
             }
         }
     }

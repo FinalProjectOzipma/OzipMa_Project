@@ -15,6 +15,7 @@ public class WizardShotState : WizardStateBase
         base.Enter();
         agent.isStopped = true;
         projectileCalled = false;
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.Casting);
     }
 
     public override void Exit()
@@ -43,7 +44,7 @@ public class WizardShotState : WizardStateBase
 
     private void CreateShot(string objectName)
     {
-        Managers.Resource.Instantiate(objectName, (go) => { Fire(go); });
+        Managers.Resource.Instantiate(objectName, (go) => { Fire(go); Managers.Audio.audioControler.PlaySFX(SFXClipName.Projectile); });
     }
 
     private void Fire(GameObject go)

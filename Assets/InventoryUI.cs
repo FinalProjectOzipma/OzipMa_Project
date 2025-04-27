@@ -185,7 +185,7 @@ public class InventoryUI : UI_Scene
     {
         if (_currentList == null)
             return;
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
         var seq = DOTween.Sequence();
 
@@ -250,7 +250,7 @@ public class InventoryUI : UI_Scene
 
         OnAnimation();
       
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
 
     private void OnAnimation()

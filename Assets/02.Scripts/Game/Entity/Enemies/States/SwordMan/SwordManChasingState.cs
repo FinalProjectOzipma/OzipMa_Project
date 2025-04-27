@@ -15,7 +15,6 @@ public class SwordManChasingState : SwordManStateBase
         base.Enter();
         agent.autoBraking = true;
         agent.isStopped = false;
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Walk, this.transform.position);
     }
 
     public override void Exit()

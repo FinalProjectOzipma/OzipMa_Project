@@ -15,6 +15,7 @@ public class VampireAnimationTrigger : MyUnitAnimationTrigger
             {
                 Util.Log(hit.name);
                 hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
+                Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
                 VampireController vamp = myUnit as VampireController;
                 vamp.Heal();
             }
