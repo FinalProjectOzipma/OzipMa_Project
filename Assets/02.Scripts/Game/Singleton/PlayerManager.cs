@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerManager 
 {
     public Core MainCoreData { get; set; }
-    public CoreController MainCore { get; set; }
     public int Money { get; set; }
     public long gold { get; private set; }
     public long zam { get; private set; }
@@ -26,12 +25,6 @@ public class PlayerManager
 
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
-
-        Managers.Resource.Instantiate("Core", go => {
-
-            MainCore = go.GetComponent<CoreController>();
-            go.GetComponent<CoreController>().core = MainCoreData;
-        });
 
         SetGoldAndJame();
     }

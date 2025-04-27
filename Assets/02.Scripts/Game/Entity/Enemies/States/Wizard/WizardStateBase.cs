@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,5 +28,10 @@ public class WizardStateBase : EnemyStateBase
     {
         base.Update();
         controller.FlipControll(target);
+    }
+
+    protected void CreateSkill(string objectName, Action<GameObject> onComplete)
+    {
+        Managers.Resource.Instantiate(objectName, (go) => { onComplete?.Invoke(go); });
     }
 }

@@ -41,7 +41,7 @@ public class EnemyController : EntityController, IDamagable
         base.Init(position);
         transform.position = position;
         Targets.Clear();
-        Targets.Push(Managers.Player.MainCore.gameObject);
+        Targets.Push(Managers.Wave.MainCore.gameObject);
     }
 
     private string _Body = nameof(_Body);

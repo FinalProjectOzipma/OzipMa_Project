@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9142930214043267280}
   - component: {fileID: 927557402572048305}
-  - component: {fileID: 9092369087613079590}
   - component: {fileID: 5812065329646094199}
+  - component: {fileID: 9092369087613079590}
   m_Layer: 0
   m_Name: EnergyShot
   m_TagString: Untagged
@@ -62,19 +62,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &9092369087613079590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1954907582792109050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b23e9f69510a7c42b6f41557986d160, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 2
 --- !u!58 &5812065329646094199
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -109,7 +96,20 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.16755517
+--- !u!114 &9092369087613079590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954907582792109050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b23e9f69510a7c42b6f41557986d160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 2
 --- !u!1 &6237332173099672775
 GameObject:
   m_ObjectHideFlags: 0

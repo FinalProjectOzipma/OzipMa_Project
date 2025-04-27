@@ -10,9 +10,9 @@ public class EnemyStateBase : EntityStateBase
     protected EnemyController controller;
 
     protected Transform transform;
+    protected SpriteRenderer spr;
     protected Animator anim;
     protected Rigidbody2D rigid;
-    protected SpriteRenderer spr;
     protected NavMeshAgent agent;
     protected EnemyStatus status;
     protected CapsuleCollider2D capCol;
@@ -26,9 +26,9 @@ public class EnemyStateBase : EntityStateBase
     {
         this.controller = controller;
         this.transform = controller.transform;
+        this.spr = controller.Spr;
         this.anim = controller.Anim;
         this.rigid = controller.Rigid;
-        this.spr = controller.Spr;
         this.agent = controller.Agent;
         this.status = controller.Status;
         this.capCol = controller.Colider;
@@ -59,7 +59,7 @@ public class EnemyStateBase : EntityStateBase
 
     private void DetectedUnit()
     {
-        if (targets.Peek() == Managers.Player.MainCore.gameObject)
+        if (targets.Peek() == Managers.Wave.MainCore.gameObject)
         {
             Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), (int)Enums.Layer.MyUnit);
             if (col != null) targets.Push(col.gameObject);   

@@ -27,6 +27,12 @@ public class CoreController : MonoBehaviour, IDamagable
         CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
+    public void Init(Core data)
+    {
+        core.Health = data.Health;
+        core.MaxHealth = data.MaxHealth;
+    }
+
     public void TakeDamge(float damage)
     {
 
