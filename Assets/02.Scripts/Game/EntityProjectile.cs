@@ -19,6 +19,7 @@ public class EntityProjectile : Poolable
     private int hitLayer;
     private float ownerAttack;
 
+    public GameObject Owner;
 
     private void Awake()
     {
@@ -33,8 +34,9 @@ public class EntityProjectile : Poolable
     /// <param name="targetPos"></param>
     public virtual void Init(GameObject owner, float ownerAttack, Vector2 targetPos)
     {
+        Owner = owner;
         transform.position = owner.transform.position;
-
+        
         this.ownerLayer = owner.layer;
         this.hitLayer = (int)Enums.Layer.Map | (int)Enums.Layer.Enemy | (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
         this.ownerAttack = ownerAttack;
@@ -78,7 +80,7 @@ public class EntityProjectile : Poolable
         if ((hitLayer & otherLayer) > 0) // 같은 레이어 무시
         {
             if (otherLayer != (int)Enums.Layer.Map) // 벽 레이어가 아니면 
-                other.GetComponentInParent<IDamagable>().ApplyDamage(ownerAttack);
+                other.GetComponentInParent<IDamagable>().ApplyDamage(ownerAttack, Owner);
             OnPoolDestroy(otherLayer);
         }
     }

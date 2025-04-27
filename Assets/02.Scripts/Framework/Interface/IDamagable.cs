@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IDamagable
 {
-    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None);
+    public void ApplyDamage(float damage, GameObject go = null);
 }

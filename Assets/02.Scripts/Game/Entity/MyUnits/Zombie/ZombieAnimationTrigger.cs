@@ -8,13 +8,20 @@ public class ZombieAnimationTrigger : MyUnitAnimationTrigger
     {
         base.AttackTrigger();
         int layer = 1 << 8;
+
         Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
         foreach (var hit in colliders)
         {
-            if (hit.GetComponentInParent<IDamagable>() != null)
+            if (hit.gameObject != myUnit.Target)
+            {
+                continue;
+            }
+            if (hit.GetComponentInParent<EnemyController>() != null)
             {
                 Util.Log(hit.name);
-                hit.GetComponentInParent<IDamagable>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
+                //데미지 입히기
+                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue(), transform.parent.gameObject);
+                VampireController vamp = myUnit as VampireController;
             }
         }
     }

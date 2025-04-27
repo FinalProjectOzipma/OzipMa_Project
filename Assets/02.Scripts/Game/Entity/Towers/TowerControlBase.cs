@@ -47,8 +47,7 @@ public abstract class TowerControlBase : MonoBehaviour
         {
             attackCooldown = TowerStatus.AttackCoolDown.GetValue();
             Attack(TowerStatus.Attack.GetValue());
-            Anim?.SetTrigger(AnimData.AttackHash);
-            //Util.Log($"{Name}의 공격");
+            StartAnimation(AnimData.AttackHash);
         }
     }
 
@@ -72,6 +71,7 @@ public abstract class TowerControlBase : MonoBehaviour
     public void TowerStart()
     {
         IsPlaced = true;
+        StartAnimation(AnimData.StartHash);
     }
 
     /// <summary>
@@ -80,6 +80,7 @@ public abstract class TowerControlBase : MonoBehaviour
     public void TowerStop()
     {
         IsPlaced = false;
+        StartAnimation(AnimData.EndHash);
     }
 
     /// <summary>
@@ -122,5 +123,10 @@ public abstract class TowerControlBase : MonoBehaviour
         {
             detectedEnemies.Remove(enemy);
         }
+    }
+
+    public void StartAnimation(int AnimHash)
+    {
+        Anim?.SetTrigger(AnimHash);
     }
 }

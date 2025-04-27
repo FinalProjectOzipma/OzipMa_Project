@@ -2,6 +2,7 @@ using DefaultTable1;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -139,10 +140,34 @@ public class EnemyController : EntityController, IDamagable
 
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
     public virtual void AnimationFinishProjectileTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishProjectileTrigger();
-    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None)
+
+    /// <summary>
+    /// go = 데미지 준 애(브레인부분)
+    /// damage = 얼마나 줄지
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="damage"></param>
+    public void ApplyDamage(float damage, GameObject go = null)
     {
+        Util.Log(Status.AtkType.ToString());
+
+        //반사타입 처리
+        if (Status.AtkType == AtkType.ReflectDamage)
+        {
+            if (!go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
+            {
+                Util.Log("마이유닛 아니네요?");
+                return;
+            }
+            //float abilityRatio = Status.AbilityValue;
+             float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
+            Util.Log("데미지 돌려드렸습니다");
+            myunit.ReflectDamage(damage, abilityRatio);
+            return;
+        }
+
         //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = Status.Defence.GetValue() - amount;
+        float minus = Status.Defence.GetValue() - damage;
 
         if (minus < 0.0f)
         {
@@ -156,4 +181,6 @@ public class EnemyController : EntityController, IDamagable
             Times[(int)condition] = Conditions[(int)condition].CoolDown;
         }
     }
+
+    
 }

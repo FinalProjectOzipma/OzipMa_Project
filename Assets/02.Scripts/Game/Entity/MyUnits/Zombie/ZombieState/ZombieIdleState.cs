@@ -26,7 +26,6 @@ public class ZombieIdleState : MyUnitStateBase
         base.Update();
         if (controller.Target != null)
         {
-            Debug.Log("타겟지정되어있음");
             if (controller.IsClose())
             {
                 StateMachine.ChangeState(data.AttackState);
