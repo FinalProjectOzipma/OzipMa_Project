@@ -71,7 +71,7 @@ public class CoreController : MonoBehaviour, IDamagable
         });
     }
 
-    public void ApplyDamage(float amount)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None)
     {
         TakeDamge(amount);
     }

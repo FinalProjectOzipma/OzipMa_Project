@@ -145,7 +145,7 @@ public class MyUnitController : EntityController, IDamagable
 
 
     //물리 데미지 적용
-    public void ApplyDamage(float amount)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None)
     {
         TakeDamage(amount);
     }

@@ -7,7 +7,6 @@ using UnityEngine.AI;
 
 public class EnemyController : EntityController, IDamagable
 {
-
     private Coroutine DotCor;
     private Coroutine SlowCor;
 
@@ -140,7 +139,7 @@ public class EnemyController : EntityController, IDamagable
 
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
     public virtual void AnimationFinishProjectileTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishProjectileTrigger();
-    public void ApplyDamage(float amount)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None)
     {
         //float minus = Status.Defences[0].GetValue() - attackPower;
         float minus = Status.Defence.GetValue() - amount;
@@ -149,6 +148,12 @@ public class EnemyController : EntityController, IDamagable
         {
             Status.AddHealth(minus);
             Fx.StartBlinkFlash();
+        }
+
+        if (Times[(int)condition] < 0f)
+        {
+            CurrentCondition = condition;
+            Times[(int)condition] = Conditions[(int)condition].CoolDown;
         }
     }
 }
