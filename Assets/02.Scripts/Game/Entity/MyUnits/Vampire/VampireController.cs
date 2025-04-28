@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class VampireController : MyUnitController
 {
-    public override void Init(Vector2 position, GameObject go = null)
+    public override void Init(Vector2 position)
     {
         AnimData = new VampireAnimationData();
-        base.Init(position, go);
+        base.Init(position);
     }
 
     public void Heal()

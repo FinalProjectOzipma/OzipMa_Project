@@ -6,7 +6,7 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
-public class SceneBase
+public abstract class SceneBase
 {
     public Action InitAction;
     public Action SingletonAction;
@@ -19,6 +19,7 @@ public class SceneBase
         InitAction?.Invoke();
     }
 
+    public abstract void Update();
     public virtual void Exit()
     {
         InitAction = null;

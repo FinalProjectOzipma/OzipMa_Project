@@ -7,6 +7,8 @@ using static Enums;
 
 public abstract class EntityController : Poolable
 {
+    protected GameObject body;
+
 
     #region Component
     public Animator Anim { get; private set; }
@@ -25,7 +27,7 @@ public abstract class EntityController : Poolable
 
     public bool IsDead { get; set; }
 
-    public virtual void Init(Vector2 position, GameObject go = null)
+    public virtual void Init(Vector2 position)
     {
         Anim = GetComponentInChildren<Animator>();
         Colider = GetComponent<CapsuleCollider2D>();

@@ -38,6 +38,11 @@ public class Managers : MonoBehaviour
         Scene.Initialize();
     }
 
+    private void Update()
+    {
+        Scene.CurrentScene?.Update();
+    }
+
     public new static Coroutine StartCoroutine(IEnumerator coroutine)
     {
         return MonoInstance.StartCoroutine(coroutine);

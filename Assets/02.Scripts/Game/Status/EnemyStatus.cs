@@ -3,9 +3,12 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public class EnemyStatus : StatusBase
 {
+    private List<DefaultTable.Stage> stage;
     public EntityHealth Health { get; set; } = new();
     
 
@@ -17,18 +20,34 @@ public class EnemyStatus : StatusBase
 
     public EnemyStatus(DefaultTable.Enemy row)
     {
-        Init();
+        stage = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
+        Init(row);
+    }
 
-        Attack.SetValue(row.Attack);
+    public void Init(DefaultTable.Enemy row)
+    {
+        int index = Managers.Player.CurrentStage % stage.Count;
+        float ratio = stage[index].ModifierRatio;
+
+        Attack.SetValue(row.Attack * ratio);
         AttackCoolDown.SetValue(row.AttackCoolDown);
         AttackRange.SetValue(row.AttackRange);
 
-        Health.SetValue(row.Health);
+        Health.SetValue(row.Health * ratio);
         MaxHealth = Health.GetValue();
 
         Defence.SetValue(row.Defence);
         MoveSpeed.SetValue(row.MoveSpeed);
     }
 
-    public void AddHealth(float amount) => Health.AddValue(amount);
+    public void AddHealth(float amount, GameObject go)
+    {
+        Health.AddValue(amount);
+
+        if (Health.Value <= 0.0f)
+        {
+            Managers.Wave.CurEnemyList.Remove(go);
+            Managers.Resource.Destroy(go);
+        }
+    } 
 }

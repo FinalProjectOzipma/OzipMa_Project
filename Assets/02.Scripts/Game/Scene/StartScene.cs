@@ -13,6 +13,11 @@ public class StartScene : SceneBase
         base.Enter();
     }
 
+    public override void Update()
+    {
+        
+    }
+
     public override void Exit()
     {
         base.Exit();

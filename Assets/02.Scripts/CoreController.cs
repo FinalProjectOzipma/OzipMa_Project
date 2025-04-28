@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoreController : MonoBehaviour, IDamagable
+public class CoreController : Poolable, IDamagable
 {
     public Core core;
     public GameObject HpBar;
@@ -27,10 +27,10 @@ public class CoreController : MonoBehaviour, IDamagable
         CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
-    public void Init(Core data)
+    public void Init(float health)
     {
-        core.Health = data.Health;
-        core.MaxHealth = data.MaxHealth;
+        core.Health.SetValue(health);
+        core.MaxHealth.SetValue(health);
     }
 
     public void TakeDamge(float damage)

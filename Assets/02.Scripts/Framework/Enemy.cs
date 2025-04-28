@@ -25,7 +25,12 @@ public class Enemy
     public void Init(int primaryKey, Sprite sprite)
     {
         var result = Util.TableConverter<DefaultTable.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
-        Status = new EnemyStatus(result[primaryKey]);
+
+        if (Status == null)
+            Status = new EnemyStatus(result[primaryKey]);
+        else
+            Status.Init();
+
         AtkType = result[primaryKey].AttackType;
     }
 

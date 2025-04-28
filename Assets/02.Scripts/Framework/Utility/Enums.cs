@@ -24,6 +24,13 @@ public class Enums
         Core = 1 << 10,
         Tower = 1 << 11,
     }
+
+    public enum WaveState
+    {
+        Start,
+        Playing,
+        End,
+    }
 }
 
 [GoogleSheet.Core.Type.UGS(typeof(RankType))]

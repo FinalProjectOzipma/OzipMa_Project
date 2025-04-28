@@ -28,9 +28,13 @@ public class PydTowerScene : GameScene
         MyUnit unit = new MyUnit();
         unit.Init(0, null);
         Managers.Player.Inventory.Add<MyUnit>(unit);
-        Managers.Wave.StartWave(0);
 
         InitAction?.Invoke();
+    }
+
+    public override void Update()
+    {
+        base.Update();
     }
 
     public override void Exit()
