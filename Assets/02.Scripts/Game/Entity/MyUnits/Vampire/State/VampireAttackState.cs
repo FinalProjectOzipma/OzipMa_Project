@@ -18,21 +18,28 @@ public class VampireAttackState : MyUnitStateBase
     public override void Exit()
     {
         base.Exit();
-        if (!controller.Target.activeSelf || controller.Target == null)
-        {
-            StateMachine.ChangeState(data.IdleState);
-        }
-        else
-        {
-            if (!controller.IsClose())
-            {
-                StateMachine.ChangeState(data.ChaseState);
-            }
-        }
     }
 
     public override void Update()
     {
         base.Update();
+        if (controller.Target == null)
+        {
+            StateMachine.ChangeState(data.IdleState);
+        }
+        else
+        {
+            if (!controller.Target.activeSelf)
+            {
+                StateMachine.ChangeState(data.IdleState);
+            }
+            else
+            {
+                if (!controller.IsClose())
+                {
+                    StateMachine.ChangeState(data.ChaseState);
+                }
+            }
+        }
     }
 }
