@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,5 +28,23 @@ public class WizardStateBase : EnemyStateBase
     {
         base.Update();
         controller.FlipControll(target);
+    }
+
+    protected void CreateSkill(string objectName, Action<GameObject> onComplete)
+    {
+        Managers.Resource.Instantiate(objectName, (go) => { 
+            
+            switch(objectName)
+            {
+                case "EnergyShot":
+                    Managers.Audio.audioControler.PlaySFX(SFXClipName.Projectile);
+                    break;
+                case "Lightning":
+                    Managers.Audio.audioControler.PlaySFX(SFXClipName.Thunder);
+                    break;
+            }
+
+            onComplete?.Invoke(go); 
+        });
     }
 }

@@ -15,8 +15,8 @@ MonoBehaviour:
   entries:
   - key: ButtonClick
     clip: {fileID: 8300000, guid: 5e080bf6ce78942d985df7c7d9e100b7, type: 3}
-  - key: Sword
-    clip: {fileID: 8300000, guid: 8fa2049eeb1c54f3789c757d43a98731, type: 3}
+  - key: None
+    clip: {fileID: 8300000, guid: 6a70461915106422fb9caedeaca3e9bc, type: 3}
   - key: MagicSpark
     clip: {fileID: 8300000, guid: 50b99a6d5b0ec47b782ddf007a2bf9ad, type: 3}
   - key: Hit
@@ -37,3 +37,13 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 4b8bdf9e78fb942a1b9fe0b175b81b7d, type: 3}
   - key: Upgrade
     clip: {fileID: 8300000, guid: bf5103f15bea946509f10aac93b1633d, type: 3}
+  - key: Casting
+    clip: {fileID: 8300000, guid: 14140afe6edd84a7d8b1509dc8b07898, type: 3}
+  - key: Projectile
+    clip: {fileID: 8300000, guid: 9c7d8afef8de547049397a878b369e59, type: 3}
+  - key: Arrow
+    clip: {fileID: 8300000, guid: 881ec96694f1a456094b9a2da21ea901, type: 3}
+  - key: Dark
+    clip: {fileID: 8300000, guid: c09d44264b759419eaafa569f53b749a, type: 3}
+  - key: Fire
+    clip: {fileID: 8300000, guid: ede067c21ee0a43c69f7b8a217babed5, type: 3}

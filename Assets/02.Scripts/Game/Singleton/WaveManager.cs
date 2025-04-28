@@ -6,10 +6,10 @@ using Table = DefaultTable;
 
 public class WaveManager
 {
-    private Core mainCore;
     private Coroutine enemyCoroutine;
     private Coroutine unitCoroutine;
 
+    public CoreController MainCore { get; set; }
     private List<Table.Wave> waveList;
     private List<Table.Enemy> enemyList;
 
@@ -37,28 +37,31 @@ public class WaveManager
     {
         // 순서대로 처리해줘
         // TODO:: 알아서해 Feat: 박한나
-        int needAmount = waveList[idx].EnemyAmount;
-        Managers.StartCoroutine(Spawn(needAmount));
-        //enemyCoroutine = Managers.MonoInstance.StartCoroutine(EnemySpawnCoroutine(needEnemyAmount, waveTable.SpawnTime, enemyTable));
-        //unitCoroutine = Managers.MonoInstance.StartCoroutine(MyUnitSpawnCoroutine(needMyUnitAmount, waveTable.SpawnTime));
+
+        Managers.Resource.Instantiate("Core", go => {
+
+            MainCore = go.GetComponent<CoreController>();
+            go.GetComponent<CoreController>().Init(Managers.Player.MainCoreData);
+            int needAmount = waveList[idx].EnemyAmount;
+            Managers.StartCoroutine(Spawn(needAmount));
+        });
     }
 
     public IEnumerator Spawn(int amount)
     {
-        CoreController coreCtrl = Managers.Player.MainCore;
-
         while(amount > 0)
         {
             yield return spawnTime;
-            coreCtrl.SpawnUnit();
-            SpawnEnemy();
+            MainCore.SpawnUnit();
+            //SpawnEnemy();
             amount--;
         }
+        SpawnEnemy();
     }
 
     private void SpawnEnemy()
     {
-        int random = UnityEngine.Random.Range(2, enemyList.Count);
+        int random = 2;//UnityEngine.Random.Range(1, enemyList.Count);
 
         DefaultTable.Enemy spawnenemy = enemyList[random];
 

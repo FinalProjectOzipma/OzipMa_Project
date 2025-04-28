@@ -27,17 +27,17 @@ public class YgmLoadingScene : GameScene
     private void DefaultUnitAdd()
     {
 
-        Managers.Resource.LoadAssetAsync<GameObject>("Zombie_Brain", (prefab) =>
+        Managers.Resource.LoadAssetAsync<GameObject>("Skeleton_Brain", (prefab) =>
         {
             MyUnit unit = new MyUnit();
-            unit.Init(0, prefab.GetComponent<MyUnitController>().sprite);
+            unit.Init(2, prefab.GetComponent<MyUnitController>().sprite);
             Managers.Player.Inventory.Add<MyUnit>(unit);
         });
 
         for (int i = 0; i < 3; i++)
         {
             int key = i;
-            Managers.Resource.LoadAssetAsync<GameObject>("SkullTower", (prefab) =>
+            Managers.Resource.LoadAssetAsync<GameObject>("TurretTower", (prefab) =>
             {
                 Tower unit = new Tower();
                 unit.Init(key, prefab.GetComponent<TowerControlBase>().Preview);

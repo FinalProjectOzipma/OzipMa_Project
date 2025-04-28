@@ -13,6 +13,7 @@ public class SwordManAttackState : SwordManStateBase
         base.Enter();
 
         agent.isStopped = true;
+        
     }
 
     public override void Exit()

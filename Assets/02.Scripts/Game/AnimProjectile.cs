@@ -22,9 +22,9 @@ public class AnimProjectile : EntityProjectile
         destroyHash = Animator.StringToHash(destroyString);
     }
 
-    public override void Init(GameObject owner, float ownerAttack, Vector2 targetPos, int factingDir)
+    public override void Init(GameObject owner, float ownerAttack, Vector2 targetPos)
     {
-        base.Init(owner, ownerAttack, targetPos, factingDir);
+        base.Init(owner, ownerAttack, targetPos);
         OnDestroy = false;
     }
 

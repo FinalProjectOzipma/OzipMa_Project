@@ -7,6 +7,6 @@ public class SceneLoad : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        Managers.Scene.ChangeScene<YgmLoadingScene>(Managers.Scene.YgmLoadingScene);
+        Managers.Scene.ChangeScene<PydTowerScene>(Managers.Scene.PydTowerScene);
     }
 }

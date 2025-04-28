@@ -14,7 +14,7 @@ public class TowerStatus : StatusBase
         Attack.SetValue(Row.AttackDamage);
         AttackCoolDown.SetValue(Row.AttackCoolDown);
         AttackRange.SetValue(Row.AttackRange);
-        
+
         // TODO : 사용자 데이터 필요 ----------
         Grade.SetValue(0);
         Level.SetValue(1);

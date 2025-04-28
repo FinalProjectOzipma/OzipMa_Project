@@ -1,3 +1,4 @@
+using DefaultTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
@@ -65,14 +66,19 @@ public class TowerProjectile : MonoBehaviour
     {
         //기본공격
         Target.ApplyDamage(attackPower);
+        Managers.Audio.audioControler.SelectSFXAttackType(tower.TowerType);
         // 해당 타워가 갖고있는 공격 속성 적용
         if (Tower.Abilities.ContainsKey(tower.TowerType) == false) return;
         DefaultTable.AbilityDefaultValue values = Tower.Abilities[tower.TowerType];
         switch (tower.TowerType)
         {
-            //case AbilityType.Dot:
-            //    Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-            //    break;
+            case AbilityType.Fire:
+            case AbilityType.Explosive:
+                Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                break;
+            case AbilityType.Dark:
+                Target.ApplyDamage(attackPower, AbilityType.Dark);
+                break;
             //case AbilityType.Slow:
             //    Target.ApplySlow(values.AbilityValue, values.AbilityDuration);
             //    break;
