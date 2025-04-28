@@ -24,6 +24,12 @@ public class Enums
         Core = 1 << 10,
         Tower = 1 << 11,
     }
+
+    public enum UpgradeType
+    {
+        Inchent,
+        Revolution
+    }
 }
 
 [GoogleSheet.Core.Type.UGS(typeof(RankType))]

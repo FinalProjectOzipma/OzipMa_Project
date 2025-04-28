@@ -35,6 +35,7 @@ public class AreaTowerController : TowerControlBase
             {
                 Anim = bodyBase.Anim;
                 AnimData = bodyBase.AnimData;
+                TowerStart();
             }
         });
     }

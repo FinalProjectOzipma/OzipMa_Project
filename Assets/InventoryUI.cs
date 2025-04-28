@@ -47,7 +47,8 @@ public class InventoryUI : UI_Scene
     {
         InchentImage,
         SelectAllImage,
-        PutImage
+        PutImage,
+        SwipeIcon,
     }
     #endregion
 
@@ -66,8 +67,8 @@ public class InventoryUI : UI_Scene
     #endregion
 
     #region State
-    //private STATE _currentState = STATE.SELECTABLE;
-    private enum STATE
+    public STATE CurrentState = STATE.SELECTABLE;
+    public enum STATE
     {
         SELECTABLE,
         PUTABLE,
@@ -187,7 +188,7 @@ public class InventoryUI : UI_Scene
             return;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
-        uiSeq = Util.RecyclableSequence();
+        //var seq = DOTween.Sequence();
 
         uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(0.9f, 0.1f));
         uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(0.9f, 0.1f));
@@ -266,7 +267,8 @@ public class InventoryUI : UI_Scene
                 gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
-                    isMove = false;                 
+                    isMove = false;
+                    GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0,0,-90.0f));
                 });
             }
             else
@@ -276,6 +278,7 @@ public class InventoryUI : UI_Scene
                     isMove = false;
                     isOpen = false;
                     Managers.UI.GetSceneList<UI_Main>().OnButton();
+                    GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
             }
         }   
@@ -297,8 +300,15 @@ public class InventoryUI : UI_Scene
     private void OnPut()
     {
         Refresh<Tower>();
-        //_currentState = STATE.PUTABLE;
 
-        // TODO::
+        if(CurrentState == STATE.PUTABLE)
+        {
+            CurrentState = STATE.SELECTABLE;
+        }
+        else if (CurrentState == STATE.SELECTABLE)
+        {
+            // 배치모드 ON
+            CurrentState = STATE.PUTABLE;
+        }
     }
 }

@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 687dfd92ed7c0ac4e8e058e65e77e651, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 591934063, guid: b01b0fd9252267748903bb9c02ddfca9, type: 3}
+  sprite: {fileID: 1650165977, guid: b01b0fd9252267748903bb9c02ddfca9, type: 3}
   spriteRenderer: {fileID: 2971055997520344314, guid: 41a97ab28a18d70429c5b7c90e86240a, type: 3}
   Agent: {fileID: 8284960681461452516}
   Target: {fileID: 0}

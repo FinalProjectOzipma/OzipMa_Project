@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6c48f9666514a4abeb037c8e36a911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: -606520155, guid: fe13709d72eac2141a2666eacaf0ef35, type: 3}
   spriteRenderer: {fileID: 115124275235344955, guid: e9d07a4bff09ca24eb286698e441e900, type: 3}
   Agent: {fileID: 6311272267678890552}
   Target: {fileID: 0}
