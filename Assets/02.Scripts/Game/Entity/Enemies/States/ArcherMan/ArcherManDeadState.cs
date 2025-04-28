@@ -23,6 +23,9 @@ public class ArcherManDeadState : ArcherManStateBase
         base.Update();
 
         if (triggerCalled)
-            Managers.Resource.Destroy(controller.gameObject);
+        {
+            if (controller.gameObject.activeInHierarchy)
+                Managers.Resource.Destroy(controller.gameObject);
+        }
     }
 }

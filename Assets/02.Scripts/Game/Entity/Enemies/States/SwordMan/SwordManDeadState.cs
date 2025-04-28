@@ -24,6 +24,9 @@ public class SwordManDeadState : SwordManStateBase
     {
         base.Update();
         if (triggerCalled)
-            Managers.Resource.Destroy(controller.gameObject);
+        {
+            if(controller.gameObject.activeInHierarchy)
+                Managers.Resource.Destroy(controller.gameObject);
+        }
     }
 }

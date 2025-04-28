@@ -57,7 +57,18 @@ public class EnemyStateBase : EntityStateBase
         }
     }
 
-    private void DetectedUnit()
+    protected bool DeadCheck()
+    {
+        if (status.Health.GetValue() <= 0.0f)
+        {
+            controller.StopAllCoroutines();
+            controller.IsDead = true;
+            return true;
+        }
+        return false;
+    }
+
+    protected void DetectedUnit()
     {
         if (targets.Peek() == Managers.Wave.MainCore.gameObject)
         {

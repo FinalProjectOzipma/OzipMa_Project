@@ -39,14 +39,7 @@ public class EnemyStatus : StatusBase
         MoveSpeed.SetValue(row.MoveSpeed);
     }
 
-    public void AddHealth(float amount, GameObject go)
-    {
-        Health.AddValue(amount);
-
-        if (Health.Value <= 0.0f)
-        {
-            Managers.Wave.CurEnemyList.Remove(go);
-            Managers.Resource.Destroy(go);
-        }
-    } 
+    public void InitHealth() => Health.SetValue(MaxHealth);
+    public void AddHealth(float amount, GameObject go) => Health.AddValue(amount);     
+    
 }

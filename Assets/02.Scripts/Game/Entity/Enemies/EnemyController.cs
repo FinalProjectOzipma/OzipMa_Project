@@ -53,6 +53,7 @@ public class EnemyController : EntityController, IDamagable
             Enemy.Init(primaryKey, SpriteImage);
 
         Status = Enemy.Status;
+        Status.InitHealth();
         IsDead = false;
 
         if(body == null)
@@ -192,5 +193,9 @@ public class EnemyController : EntityController, IDamagable
         }
     }
 
-    
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+        Managers.Wave.CurEnemyList.Remove(gameObject);
+    }
 }

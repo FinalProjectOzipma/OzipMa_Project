@@ -27,6 +27,16 @@ public class WizardStateBase : EnemyStateBase
     public override void Update()
     {
         base.Update();
+
+        if (controller.IsDead) 
+            return;
+        
+        if (DeadCheck())
+        {
+            StateMachine.ChangeState(data.DeadState);
+            return;
+        }
+
         controller.FlipControll(target);
     }
 

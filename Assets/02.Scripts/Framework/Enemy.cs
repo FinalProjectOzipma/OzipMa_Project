@@ -29,10 +29,8 @@ public class Enemy
         if (Status == null)
             Status = new EnemyStatus(result[primaryKey]);
         else
-            Status.Init();
+            Status.Init(result[primaryKey]);
 
         AtkType = result[primaryKey].AttackType;
     }
-
-    public void AddHealth(float amount) => Status.Health.AddValue(amount);
 }

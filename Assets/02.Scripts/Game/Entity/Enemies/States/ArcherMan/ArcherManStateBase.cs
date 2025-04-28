@@ -27,11 +27,10 @@ public class ArcherManStateBase : EnemyStateBase
         if (controller.IsDead)
             return;
 
-        if (status.Health.GetValue() <= 0.0f)
+        if (DeadCheck())
         {
-            controller.StopAllCoroutines();
-            controller.IsDead = true;
             StateMachine.ChangeState(data.DeadState);
+            return;
         }
 
         switch (controller.CurrentCondition)
