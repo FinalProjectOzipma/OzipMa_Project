@@ -15,6 +15,7 @@ public class WizardShotState : WizardStateBase
         base.Enter();
         agent.isStopped = true;
         projectileCalled = false;
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.Casting);
     }
 
     public override void Exit()
