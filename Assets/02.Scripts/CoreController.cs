@@ -38,6 +38,7 @@ public class CoreController : MonoBehaviour, IDamagable
 
         core.Health.AddValue(-damage);
         hpImage.fillAmount = core.Health.Value /core.MaxHealth.Value;
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
 
         if (core.Health.Value == 0)
         {
@@ -74,5 +75,6 @@ public class CoreController : MonoBehaviour, IDamagable
     public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null)
     {
         TakeDamge(amount);
+       
     }
 }

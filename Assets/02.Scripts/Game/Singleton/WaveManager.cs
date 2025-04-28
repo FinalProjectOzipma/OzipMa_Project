@@ -56,12 +56,11 @@ public class WaveManager
             //SpawnEnemy();
             amount--;
         }
-        SpawnEnemy();
     }
 
     private void SpawnEnemy()
     {
-        int random = 1;//UnityEngine.Random.Range(1, enemyList.Count);
+        int random = 2;//UnityEngine.Random.Range(1, enemyList.Count);
 
         DefaultTable.Enemy spawnenemy = enemyList[random];
 

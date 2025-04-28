@@ -24,6 +24,7 @@ public class VampireAnimationTrigger : MyUnitAnimationTrigger
                 VampireController vamp = myUnit as VampireController;
                 //흡혈 능력
                 vamp.Heal();
+                Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
             }
         }
     }

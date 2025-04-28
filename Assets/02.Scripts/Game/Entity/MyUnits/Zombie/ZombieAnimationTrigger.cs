@@ -22,6 +22,7 @@ public class ZombieAnimationTrigger : MyUnitAnimationTrigger
                 //데미지 입히기
                 hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue(), AbilityType.None, transform.parent.gameObject);
                 VampireController vamp = myUnit as VampireController;
+                Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
             }
         }
     }

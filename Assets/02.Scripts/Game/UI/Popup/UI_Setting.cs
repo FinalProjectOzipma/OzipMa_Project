@@ -54,7 +54,7 @@ public class UI_Setting : UI_Popup
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
    
         var seq = DOTween.Sequence();
 
