@@ -143,12 +143,14 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
         // 배치 가능
         DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, itemKey);
-        Util.Log($"OnEndDrag : {data.Name}Tower를 배치 성공함");
-        Managers.Resource.Instantiate($"{data.Name}Tower", go =>
+        string towerName = $"{data.Name}Tower";
+        Util.Log($"OnEndDrag : {towerName}를 배치 성공함");
+        Managers.Resource.Instantiate(towerName, go => 
         {
             go.transform.position = buildingSystem.UpdatePosition(inputPos);
             buildingSystem.AddPlacedMap(inputPos);
-            buildingSystem.DragController.IsSlotDragging = false;
+            buildingSystem.DragController.IsSlotDragging = false; 
+            go.GetComponent<TowerControlBase>().TakeRoot(itemKey, towerName, (Tower)Gettable);
         });
     }
     #endregion

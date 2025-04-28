@@ -21,19 +21,18 @@ public abstract class TowerControlBase : MonoBehaviour
     protected GameObject body; // 현재 나의 외형
 
     private float attackCooldown = 0f;
+    private CircleCollider2D range;
 
     public abstract void Attack(float AttackPower);
 
     protected virtual void Start()
     {
         Name = gameObject.name;
-        TakeRoot(ID, Name, Vector2.zero);
-        TowerStart();
     }
 
     public void Init()
     {
-        CircleCollider2D range = GetComponent<CircleCollider2D>();
+        range = GetComponent<CircleCollider2D>();
         range.radius = TowerStatus == null ? 1f : TowerStatus.AttackRange.GetValue();
     }
 
@@ -86,14 +85,16 @@ public abstract class TowerControlBase : MonoBehaviour
     /// <summary>
     /// Tower 정보 넣어주는 함수
     /// </summary>
-    /// <param name="Info">Tower 데이터</param>
-    public void TakeRoot(int primaryKey, string name, Vector2 position)
+    public void TakeRoot(int primaryKey, string name, Tower data)
     {
         // 정보 세팅
-        Tower = new Tower();
-        Tower.Init(primaryKey, Preview);
+        Tower = data;
+        Name = name;
         Tower.Sprite = Preview;
         TowerStatus = Tower.TowerStatus;
+
+        TowerStatus.AttackRange.OnChangeValue = null;
+        TowerStatus.AttackRange.OnChangeValue += ApplyAttackRange;
 
         Init();
 
@@ -127,6 +128,14 @@ public abstract class TowerControlBase : MonoBehaviour
 
     public void StartAnimation(int AnimHash)
     {
+        if (Anim == null) return;
         Anim?.SetTrigger(AnimHash);
+    }
+
+    public void ApplyAttackRange(float newValue)
+    {
+        if(range == null) range = GetComponent<CircleCollider2D>();
+        range.radius = TowerStatus == null ? 1f : newValue;
+        Util.Log($"어택레인지 {newValue}만큼으로 늘어났다");
     }
 }
