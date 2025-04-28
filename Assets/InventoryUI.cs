@@ -339,6 +339,8 @@ public class InventoryUI : UI_Scene
 
     private void OnClickUpgrade()
     {
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+
         uiSeq = Util.RecyclableSequence();
 
         uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(0.9f, 0.1f));
