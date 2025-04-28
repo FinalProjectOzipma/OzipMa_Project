@@ -341,12 +341,12 @@ public class InventoryUI : UI_Scene
     {
         uiSeq = Util.RecyclableSequence();
 
-        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(1.0f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(1.0f, 0.1f));
 
         uiSeq.Play();
 
