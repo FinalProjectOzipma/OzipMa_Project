@@ -27,7 +27,6 @@ public class FloatBase
     public virtual void AddValue(float amount)
     {
         SetValue(Mathf.Max(0, Value + amount));
-        OnChangeValue?.Invoke(GetValue());
     }
 
     public virtual void SetValueMultiples(float amount)
@@ -40,7 +39,6 @@ public class FloatBase
     public virtual void AddMultiples(float amount)
     {
         SetValueMultiples(Mathf.Max(0, ValueMultiples + amount));
-        OnChangeValue?.Invoke(GetValue());
     }
 
     public virtual void MultiplesOperation()
