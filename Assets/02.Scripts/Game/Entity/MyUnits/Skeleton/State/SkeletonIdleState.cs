@@ -37,7 +37,7 @@ public class SkeletonIdleState : MyUnitStateBase
         //타겟이 없다면
         if (controller.Target == null)
         {
-            Util.Log("타겟이 없네요?");
+            //Util.Log("타겟이 없네요?");
             SetTarget();
         }
         //타겟이 존재하는데

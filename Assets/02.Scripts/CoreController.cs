@@ -95,21 +95,21 @@ public class CoreController : Poolable, IDamagable
         {
             Managers.Wave.MainCore.anime.SetInteger("Level", 1);
         }
-        else if (core.CoreLevel.GetValue() <= 10)
+        else if (core.CoreLevel.GetValue() < 10)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 5);
+            Managers.Wave.MainCore.anime.SetInteger("Level", 6);
         }
-        else if (core.CoreLevel.GetValue() <= 15)
+        else if (core.CoreLevel.GetValue() < 15)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 10);
+            Managers.Wave.MainCore.anime.SetInteger("Level", 11);
         }
-        else if (core.CoreLevel.GetValue() <= 20)
+        else if (core.CoreLevel.GetValue() < 20)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 15);
+            Managers.Wave.MainCore.anime.SetInteger("Level", 16);
         }
-        else if (core.CoreLevel.GetValue() <= 25)
+        else if (core.CoreLevel.GetValue() >= 20)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 20);
+            Managers.Wave.MainCore.anime.SetInteger("Level", 21);
         }
     }
 }

@@ -86,6 +86,7 @@ public class InventoryUI : UI_Scene
     // Animation
     private bool isMove;
     private bool isOpen;
+    private bool isBatch =false;
 
     private void Awake()
     {
@@ -120,6 +121,7 @@ public class InventoryUI : UI_Scene
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
 
+        GetButton((int)Buttons.InchentBtn).onClick.AddListener(OnClickUpgrade);
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
 
@@ -301,6 +303,9 @@ public class InventoryUI : UI_Scene
     
     private void OnPut()
     {
+        if (isBatch) return;
+
+        isBatch = true;
         Refresh<Tower>();
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
@@ -320,12 +325,41 @@ public class InventoryUI : UI_Scene
         {
             Get<Image>((int)Images.PutImage).color = Color.white;
             CurrentState = STATE.SELECTABLE;
+            isBatch = false;
         }
         else if (CurrentState == STATE.SELECTABLE)
         {
             // 배치모드 ON
             Get<Image>((int)Images.PutImage).color = Color.gray;
             CurrentState = STATE.PUTABLE;
+            isBatch = false;
+        }
+    }
+
+    private void OnClickUpgrade()
+    {
+
+        if (_currentTab == typeof(MyUnit))
+        {
+
+            for (int i = 0; i < _currentList.Count; i++)
+            {
+                if (!slots[i].IsActive) continue;
+                else Managers.Upgrade.LevelUpMyUnit(_currentList[i] as MyUnit);
+            }
+
+            Refresh<MyUnit>();
+
+        }
+        else if (_currentTab == typeof(Tower))
+        {
+            for(int i = 0; i < _currentList.Count; i++)
+            {
+                if (!slots[i].IsActive) continue;
+                else Managers.Upgrade.LevelUpTower(_currentList[i] as Tower);
+            }
+
+            Refresh<Tower>();
         }
     }
 }
