@@ -77,7 +77,7 @@ public class UI_Research : UI_Base
     private string spendGoldKey; // 업그레이드 필요 골드 키
     private string spendZamKey; // 업그레이드 필요 잼 키
     
-    private float baseTime = 2.0f;
+    private float baseTime = 300.0f;
     //private float growthFactor = 2.0f;
     private bool isPopup = false;
     private bool isComplete = false;
@@ -353,6 +353,7 @@ public class UI_Research : UI_Base
         else
         {
             isResearching = true;
+            GetButton((int)Buttons.UpgradeButton).interactable = false;
         }
     }
 

@@ -80,7 +80,11 @@ public class EntityProjectile : Poolable
         if ((hitLayer & otherLayer) > 0) // 같은 레이어 무시
         {
             if (otherLayer != (int)Enums.Layer.Map) // 벽 레이어가 아니면 
+            {
                 other.GetComponentInParent<IDamagable>().ApplyDamage(ownerAttack, AbilityType.None, Owner);
+                Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
+            }
+
             OnPoolDestroy(otherLayer);
         }
     }

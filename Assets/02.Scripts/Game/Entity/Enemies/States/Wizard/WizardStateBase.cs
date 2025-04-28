@@ -32,6 +32,19 @@ public class WizardStateBase : EnemyStateBase
 
     protected void CreateSkill(string objectName, Action<GameObject> onComplete)
     {
-        Managers.Resource.Instantiate(objectName, (go) => { onComplete?.Invoke(go); });
+        Managers.Resource.Instantiate(objectName, (go) => { 
+            
+            switch(objectName)
+            {
+                case "EnergyShot":
+                    Managers.Audio.audioControler.PlaySFX(SFXClipName.Projectile);
+                    break;
+                case "Lightning":
+                    Managers.Audio.audioControler.PlaySFX(SFXClipName.Thunder);
+                    break;
+            }
+
+            onComplete?.Invoke(go); 
+        });
     }
 }
