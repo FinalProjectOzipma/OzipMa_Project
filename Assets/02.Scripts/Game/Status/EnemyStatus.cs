@@ -16,7 +16,6 @@ public class EnemyStatus : StatusBase
 
     public FloatBase Defence { get; set; } = new();
     public FloatBase MoveSpeed { get; set; } = new();
-    public AtkType AtkType { get; set; } = new();
 
     public EnemyStatus(DefaultTable.Enemy row)
     {

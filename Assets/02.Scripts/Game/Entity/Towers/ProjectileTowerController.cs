@@ -39,6 +39,7 @@ public class ProjectileTowerController : TowerControlBase
             {
                 Anim = bodyScript.Anim;
                 AnimData = bodyScript.AnimData;
+                TowerStart();
             }
         });
     }

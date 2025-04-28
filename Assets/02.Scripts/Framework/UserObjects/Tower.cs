@@ -43,15 +43,41 @@ public class Tower : UserObject, IGettable
         }
     }
 
-    public void GradeUpdate()
+    /// <summary>
+    /// 타워 진화
+    /// </summary>
+    /// <returns>진화 성공 여부</returns>
+    public bool GradeUpdate()
     {
-        // TODO:: 알아서하는걸로
-        // ps.손나박한나
+        if (TowerStatus.Grade.GetValue() < 5)
+        {
+            TowerStatus.MaxLevel.AddValue(1);
+            TowerStatus.Attack.AddMultiples(0.5f);
+            TowerStatus.AttackCoolDown.AddMultiples(-0.05f);
+            TowerStatus.AttackRange.SetValue(TowerStatus.AttackRange.GetValue() * 1.02f);
+            return true;
+        }
+        else
+        {
+            // TODO :: 풀각인데 또 뜨면 어떻게해줄건지?
+        }
+        return false;
     }
 
-    public void LevelUpdate()
+    /// <summary>
+    /// 타워 강화
+    /// </summary>
+    /// <returns>강화 성공 여부</returns>
+    public bool LevelUpdate()
     {
-        // TODO:: 알아서하는걸로
-        // ps.손나박한나
+        if(TowerStatus.Level.GetValue() < TowerStatus.MaxLevel.GetValue())
+        {
+            TowerStatus.Level.AddValue(1);
+            TowerStatus.Attack.AddMultiples(0.1f);
+            //TowerStatus.AttackCoolDown.AddMultiples(-0.05f);
+            //TowerStatus.AttackRange.SetValue(TowerStatus.AttackRange.GetValue() * 1.02f);
+            return true;
+        }
+        return false;
     }
 }

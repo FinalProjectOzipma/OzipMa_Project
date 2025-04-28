@@ -16,6 +16,7 @@ public class RangeTowerController : TowerControlBase
             {
                 Anim = bodyBase.Anim;
                 AnimData = bodyBase.AnimData;
+                TowerStart();
             }
         });
     }

@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -34,14 +32,14 @@ public class UI_Alarm : UI_Popup
     {
         Init();
 
-        var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
 
-        seq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.0f, 0.1f));
 
-        seq.Play();
+        uiSeq.Play();
     }
 
     public override void Init()
@@ -62,19 +60,19 @@ public class UI_Alarm : UI_Popup
         if (isClose) return;
         isClose = true;
 
-        var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
-        seq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(0.9f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(0.9f, 0.1f));
-        seq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(1.1f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(1.0f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(1.0f, 0.1f));
 
 
-        seq.Play().OnComplete(() =>
+        uiSeq.Play().OnComplete(() =>
         {
             HidePpoup();
         });
@@ -83,12 +81,12 @@ public class UI_Alarm : UI_Popup
 
     private void HidePpoup()
     {
-        var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
-        seq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(0.2f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(0.2f, 0.1f));
 
-        seq.Play().OnComplete(() =>
+        uiSeq.Play().OnComplete(() =>
         {
             ClosePopupUI();
             isClose = false;

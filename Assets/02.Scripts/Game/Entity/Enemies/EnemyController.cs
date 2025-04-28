@@ -162,20 +162,17 @@ public class EnemyController : EntityController, IDamagable
     /// <param name="damage"></param>
     public void ApplyDamage(float damage, AbilityType condition = AbilityType.None, GameObject go = null)
     {
-        Util.Log(Status.AtkType.ToString());
-
         //반사타입 처리
-        if (Status.AtkType == AtkType.ReflectDamage)
+        if (Enemy.AtkType == AtkType.ReflectDamage)
         {
             if (!go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
             {
-                Util.Log("마이유닛 아니네요?");
                 return;
             }
             //float abilityRatio = Status.AbilityValue;
              float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
-            Util.Log("데미지 돌려드렸습니다");
             myunit.ReflectDamage(damage, abilityRatio);
+            Util.Log("반사해드렸습니다");
         }
 
         //float minus = Status.Defences[0].GetValue() - attackPower;

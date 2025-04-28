@@ -25,6 +25,12 @@ public class Enums
         Tower = 1 << 11,
     }
 
+    public enum UpgradeType
+    {
+        Inchent,
+        Revolution
+    }
+
     public enum WaveState
     {
         Start,

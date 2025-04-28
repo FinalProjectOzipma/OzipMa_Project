@@ -19,6 +19,7 @@ public class Managers : MonoBehaviour
     public static readonly DataManager Data = new();
     public static readonly WaveManager Wave = new();
     public static readonly PlayerManager Player = new();
+    public static readonly UpgradeManager Upgrade = new();
 
     private void Awake()
     {
