@@ -10,76 +10,30 @@ using UnityEngine;
 using static Enums;
 using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
-public class ArcherManBody : MonoBehaviour
+public class ArcherManBody : EnemyBodyBase
 {
-    EnemyController ctrl;
-
-    private bool timeStart;
-    private CancellationTokenSource disableCancellation; // 비활성화시 취소처리
-    private CancellationTokenSource destroyCancellation; // 삭제시 취소처리
-
-    public List<KeyPairCondition> conditions;
 
     private void Start()
     {
         Init();
     }
 
-    public void Init()
+    public override void Init()
     {
         ctrl = GetComponentInParent<EnemyController>();
         ctrl.AnimData = new ArcherManAnimData();
         ctrl.AnimData.Init(ctrl);
+        base.Init();
+    }
 
-        ctrl.Times.Clear();
-        ctrl.Conditions.Clear();
-        foreach (var condi in conditions)
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+        if(ctrl != null)
         {
-            ctrl.Times.Add((int)condi.Key, 0f);
-            ctrl.Conditions.Add((int)condi.Key, condi);
-            condi.GameObj.SetActive(false);
-        }
-
-        timeStart = true;
-        StartTime().Forget();
-    }
-
-    private void OnEnable()
-    {
-        if(disableCancellation != null)
-        {
-            disableCancellation.Dispose();
-        }
-
-        disableCancellation = new();
-    }
-
-    private void OnDisable()
-    {
-        disableCancellation.Cancel();
-    }
-
-    private void OnDestroy()
-    {
-        destroyCancellation?.Cancel();
-        destroyCancellation?.Dispose();
-    }
-
-    async UniTaskVoid StartTime()
-    {
-        Dictionary<int, KeyPairCondition> conditions = ctrl.Conditions;
-        Dictionary<int, float> times = GetComponentInParent<EnemyController>().Times;
-        while (timeStart)
-        {
-            foreach (var condi in conditions)
-            {
-                if (times[(int)condi.Key] > 0f && condi.Value.IsExit)
-                {
-                    times[(int)condi.Key] -= Time.deltaTime;
-                }
-            }
-
-            await UniTask.NextFrame(disableCancellation.Token);
+            ArcherManAnimData data = ctrl.AnimData as ArcherManAnimData;
+            ctrl.AnimData.StateMachine.ChangeState(data.ChaseState);
         }
     }
 }

@@ -20,6 +20,12 @@ public class ObjectFlash : MonoBehaviour
         waitFor = new WaitForSeconds(flashDuration);
     }
 
+    private void OnEnable()
+    {
+        if(originMat != null)
+            sr.material = originMat;
+    }
+
     public void StartBlinkRed()
     {
         if (gameObject.activeInHierarchy)
@@ -67,5 +73,10 @@ public class ObjectFlash : MonoBehaviour
     {
         CancelInvoke();
         sr.color = Color.white;
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 }

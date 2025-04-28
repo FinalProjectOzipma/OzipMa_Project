@@ -1,6 +1,7 @@
 using GoogleSheet;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Table = DefaultTable;
 
@@ -81,8 +82,7 @@ public class WaveManager
             if(CurrentState == Enums.WaveState.Playing)
             {
                 isCoreDead = (MainCore.core.Health.Value <= 0.0f);
-                if(CurEnemyList.Count > 0)
-                    isEnemyAllDead = (CurEnemyList.Count == 0);
+                isEnemyAllDead = (CurEnemyList.Count == 0);
 
                 if (isCoreDead || isEnemyAllDead)
                     CurrentState = Enums.WaveState.End;
@@ -90,11 +90,11 @@ public class WaveManager
 
             if(CurrentState == Enums.WaveState.End)
             {
-                foreach (var enemy in CurEnemyList)
-                    Managers.Resource.Destroy(enemy);
+                foreach(var unit in CurMyUnitList)
+                    Managers.Resource.Destroy(unit);
 
-                foreach (var myUnit in CurMyUnitList)
-                    Managers.Resource.Destroy(myUnit);
+                foreach(var enemy in CurEnemyList)
+                    Managers.Resource.Destroy(enemy);
 
                 Managers.Resource.Destroy(MainCore.gameObject);
 
@@ -122,6 +122,8 @@ public class WaveManager
     {
         // 순서대로 처리해줘
         // TODO:: 알아서해 Feat: 박한나
+        Util.Log($"{playerManager.CurrentStage}");
+        Util.Log($"{playerManager.CurrentWave}");
         Managers.Resource.Instantiate("Core", go => {
 
             MainCore = go.GetComponent<CoreController>();
@@ -175,9 +177,11 @@ public class WaveManager
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
         {
-            CurEnemyList.Add(go);
-            EnemyController ctrl = go.GetComponent<EnemyController>();
+            EnemyController ctrl = go.GetComponent<EnemyController>(); 
             ctrl.TakeRoot(random, name, enemySpawn.transform.position);
+
+            // 웨이브 몬스터 추가
+            Managers.Wave.CurEnemyList.Add(ctrl.gameObject);
         });
 
         return (playerManager.CurrentWave == 9); // 보스웨이브면 true

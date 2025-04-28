@@ -23,5 +23,14 @@ public class SwordManStateBase : EnemyStateBase
     public override void Update()
     {
         base.Update();
+
+        if(controller.IsDead)
+            return;
+
+        if (DeadCheck())
+        {
+            StateMachine.ChangeState(data.DeadState);
+            return;
+        }
     }
 }

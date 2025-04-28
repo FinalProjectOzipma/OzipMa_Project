@@ -23,6 +23,13 @@ public class ArcherManDeadState : ArcherManStateBase
         base.Update();
 
         if (triggerCalled)
-            Managers.Resource.Destroy(controller.gameObject);
+        {
+            if (controller.gameObject.activeInHierarchy)
+            {
+                Managers.Player.AddGold(controller.Enemy.Reward);
+                Managers.Wave.CurEnemyList.Remove(controller.gameObject);
+                Managers.Resource.Destroy(controller.gameObject);
+            }
+        }
     }
 }

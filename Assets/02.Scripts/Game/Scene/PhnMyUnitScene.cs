@@ -25,9 +25,8 @@ public class PhnMyUnitScene : GameScene
             });
         }
 
-        InitAction?.Invoke();
+        //InitAction?.Invoke();
         DefaultUnitAdd(); // 인벤 데이터 추가
-        Managers.Wave.StartWave(0);
         InitAction?.Invoke();
     }
 
@@ -59,5 +58,10 @@ public class PhnMyUnitScene : GameScene
     public override void Exit()
     {
         base.Exit();
+    }
+
+    public override void Update()
+    {
+        base.Update();
     }
 }

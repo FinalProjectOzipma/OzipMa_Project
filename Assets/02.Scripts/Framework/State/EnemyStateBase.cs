@@ -53,11 +53,26 @@ public class EnemyStateBase : EntityStateBase
         if(!controller.Enemy.IsBoss)
         {
             DetectedUnit();
-            controller.FlipControll(targets.Peek());
         }
+
+        if(targets.Count > 0)
+            controller.FlipControll(targets.Peek());
     }
 
-    private void DetectedUnit()
+    protected bool DeadCheck()
+    {
+        if (status.Health.GetValue() <= 0.0f)
+        {
+            controller.StopAllCoroutines();
+            controller.IsDead = true;
+            return true;
+        }
+
+        controller.IsDead = false;
+        return false;
+    }
+
+    protected void DetectedUnit()
     {
         if (targets.Peek() == Managers.Wave.MainCore.gameObject)
         {

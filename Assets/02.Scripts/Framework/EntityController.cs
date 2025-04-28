@@ -31,6 +31,7 @@ public abstract class EntityController : Poolable
     {
         Anim = GetComponentInChildren<Animator>();
         Colider = GetComponent<CapsuleCollider2D>();
+        //IsDead = false;
     }
 
     protected virtual void Update()

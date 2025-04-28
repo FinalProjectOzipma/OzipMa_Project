@@ -86,6 +86,7 @@ public class InventoryUI : UI_Scene
     // Animation
     private bool isMove;
     private bool isOpen;
+    private bool isBatch = false;
 
     private void Awake()
     {
@@ -120,6 +121,7 @@ public class InventoryUI : UI_Scene
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
 
+        GetButton((int)Buttons.InchentBtn).onClick.AddListener(OnClickUpgrade);
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
 
@@ -139,7 +141,7 @@ public class InventoryUI : UI_Scene
         Transform trans = GetObject((int)GameObjects.UserObjects).transform; // 부모 객체 얻어오기
 
         int cnt = 0;
-        if(_currentList != null)
+        if (_currentList != null)
         {
             for (int i = 0; i < _currentList.Count; i++)
             {
@@ -163,15 +165,15 @@ public class InventoryUI : UI_Scene
                 }
             }
         }
-        
-        while(cnt < trans.childCount) // 만약 이전에 슬롯이 필요없는 상황이면 비활성화
+
+        while (cnt < trans.childCount) // 만약 이전에 슬롯이 필요없는 상황이면 비활성화
         {
             trans.GetChild(cnt).GetComponent<Slot>().DisSelect();
             trans.GetChild(cnt++).gameObject.SetActive(false);
         }
     }
 
-    private void SlotActive<T>(Transform parent ,GameObject slotGo, int index) where T : UserObject, IGettable
+    private void SlotActive<T>(Transform parent, GameObject slotGo, int index) where T : UserObject, IGettable
     {
         Slot slot = slotGo.GetOrAddComponent<Slot>();
         slot.Index = index;
@@ -250,7 +252,7 @@ public class InventoryUI : UI_Scene
         }
 
         OnAnimation();
-      
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
 
@@ -261,7 +263,7 @@ public class InventoryUI : UI_Scene
         {
             Managers.UI.GetSceneList<UI_Main>().OffButton();
             isMove = true;
-            if(!isOpen)
+            if (!isOpen)
             {
                 isOpen = true;
                 gameObject.SetActive(true);
@@ -270,7 +272,7 @@ public class InventoryUI : UI_Scene
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
-                    GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0,0,-90.0f));
+                    GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90.0f));
                 });
             }
             else
@@ -283,7 +285,7 @@ public class InventoryUI : UI_Scene
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
             }
-        }   
+        }
     }
     private void ToggleTab(GameObject changeOn, GameObject changeDis)
     {
@@ -298,9 +300,12 @@ public class InventoryUI : UI_Scene
         changeOn.SetActive(true);
         changeDis.SetActive(false);
     }
-    
+
     private void OnPut()
     {
+        if (isBatch) return;
+
+        isBatch = true;
         Refresh<Tower>();
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
@@ -320,12 +325,75 @@ public class InventoryUI : UI_Scene
         {
             Get<Image>((int)Images.PutImage).color = Color.white;
             CurrentState = STATE.SELECTABLE;
+            isBatch = false;
         }
         else if (CurrentState == STATE.SELECTABLE)
         {
             // 배치모드 ON
             Get<Image>((int)Images.PutImage).color = Color.gray;
             CurrentState = STATE.PUTABLE;
+            isBatch = false;
         }
     }
+
+
+    private void OnClickUpgrade()
+    {
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+
+        uiSeq = Util.RecyclableSequence();
+
+        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(1.0f, 0.1f));
+
+        uiSeq.Play();
+
+
+        if (_currentTab == typeof(MyUnit))
+        {
+            LevelUpUnits<MyUnit>(Managers.Upgrade.LevelUpMyUnit);
+        }
+        else if (_currentTab == typeof(Tower))
+        {
+            LevelUpUnits<Tower>(Managers.Upgrade.LevelUpTower);
+        }
+    }
+
+    private void LevelUpUnits<T>(Action<T> levelUpAction) where T : UserObject, IGettable
+    {
+        bool isAnySelected = false;
+
+        for (int i = 0; i < _currentList.Count; i++)
+        {
+            if (i >= slots.Count)
+            {
+                Util.Log("슬롯과 리스트 개수가 다릅니다.");
+                return;
+            }
+
+            if (!slots[i].IsActive)
+                continue;
+
+            var select = _currentList[i] as T;
+            if (select != null)
+            {
+                levelUpAction(select);
+                isAnySelected = true;
+            }
+        }
+
+        if (!isAnySelected)
+        {
+            Managers.UI.ShowPopupUI<UI_Alarm>("InchentPopup");
+            return;
+        }
+
+        Refresh<T>();
+    }
+
+
 }

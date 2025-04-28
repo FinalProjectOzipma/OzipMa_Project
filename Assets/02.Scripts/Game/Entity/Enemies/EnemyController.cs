@@ -39,6 +39,7 @@ public class EnemyController : EntityController, IDamagable
     public override void Init(Vector2 position)
     {
         base.Init(position);
+        CurrentCondition = AbilityType.None;
         transform.position = position;
         Targets.Clear();
         Targets.Push(Managers.Wave.MainCore.gameObject);
@@ -53,7 +54,7 @@ public class EnemyController : EntityController, IDamagable
             Enemy.Init(primaryKey, SpriteImage);
 
         Status = Enemy.Status;
-        IsDead = false;
+        Status.InitHealth();
 
         if(body == null)
         {
@@ -165,14 +166,14 @@ public class EnemyController : EntityController, IDamagable
         //반사타입 처리
         if (Enemy.AtkType == AtkType.ReflectDamage)
         {
-            if (!go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
+            
+            if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
             {
-                return;
+                //float abilityRatio = Status.AbilityValue;
+                float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
+                myunit.ReflectDamage(damage, abilityRatio);
+                Util.Log("반사해드렸습니다");
             }
-            //float abilityRatio = Status.AbilityValue;
-             float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
-            myunit.ReflectDamage(damage, abilityRatio);
-            Util.Log("반사해드렸습니다");
         }
 
         //float minus = Status.Defences[0].GetValue() - attackPower;
@@ -192,5 +193,8 @@ public class EnemyController : EntityController, IDamagable
         }
     }
 
-    
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }

@@ -446,6 +446,7 @@ public class UI_Research : UI_Base
             Managers.Wave.MainCore.core.CoreLevel.SetValue(updateLevel);
             PlayerPrefs.SetInt(Managers.Wave.MainCore.coreLevelkey, updateLevel);
             Managers.Wave.MainCore.CoreUpgrade();
+            Util.Log("코어레벨 : " + Managers.Wave.MainCore.core.CoreLevel.GetValueToString());
         }
 
         Debug.Log($"다음 연구시간 : {researchDuration}");
