@@ -15,7 +15,7 @@ public class UI_TowerMenu : UI_Base
         ButtonImage
     }
 
-    public GameObject targetTower;
+    public GameObject TargetTower;
 
     private void Start()
     {
@@ -34,7 +34,8 @@ public class UI_TowerMenu : UI_Base
     // 버튼 클릭하면 타켓타워 삭제
     public void OnClickDelete(PointerEventData data)
     {
-        Managers.Resource.Destroy(targetTower);
+        Managers.Resource.Destroy(TargetTower);
+        BuildingSystem.Instance.RemovePlacedMapWorldPos(TargetTower.transform.position);
         BuildingSystem.Instance.DragController.SetEditMode(false);
     }
  
