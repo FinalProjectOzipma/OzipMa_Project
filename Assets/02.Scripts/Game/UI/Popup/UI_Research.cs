@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -148,6 +149,7 @@ public class UI_Research : UI_Base
         spendGoldKey = $"ResearSpendGold_{researchUpgradeType}";
         spendZamKey = $"ResearSpendZam_{researchUpgradeType}";
 
+      
 
         updateLevel = !PlayerPrefs.HasKey(levelKey) ? 1 : PlayerPrefs.GetInt(levelKey);
         researchDuration = !PlayerPrefs.HasKey(durationKey) ? baseTime : PlayerPrefs.GetFloat(durationKey);
@@ -157,11 +159,11 @@ public class UI_Research : UI_Base
         {
             if (researchUpgradeType != ResearchUpgradeType.Random)
             {
-                updateStat = 10.0f;
+                updateStat = 30.0f;
             }
             else
             {
-                updateStat = 5.0f;
+                updateStat = 40.0f;
             }
         }
         else
@@ -221,7 +223,8 @@ public class UI_Research : UI_Base
         if(researchUpgradeType != ResearchUpgradeType.Random)
             GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
         else
-            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat-5.0f}~{updateStat + 5.0f}";
+            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat - 20.0f}~{updateStat}";
+
     }
 
     private TextMeshProUGUI GetTextMeshProUGUI(int idx) { return Get<TextMeshProUGUI>(idx); }
@@ -412,7 +415,7 @@ public class UI_Research : UI_Base
             researchDuration = 43200.0f;
         }
 
-        updateStat += researchUpgradeType != ResearchUpgradeType.Random ? 10.0f : 3.0f;
+        updateStat += researchUpgradeType != ResearchUpgradeType.Random ? 10.0f : 20.0f;
         spendGold += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
         spendZam += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
 
@@ -431,11 +434,19 @@ public class UI_Research : UI_Base
         if (researchUpgradeType != ResearchUpgradeType.Random)
             GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
         else
-            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat - 5.0f}~{updateStat + 5.0f}";
+            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat - 20.0f}~{updateStat}";
 
 
         GetTextMeshProUGUI((int)Texts.GoldSpendText).text = Util.FormatNumber(spendGold);
         GetTextMeshProUGUI((int)Texts.JamSpendText).text = Util.FormatNumber(spendZam);
+
+
+        if(researchUpgradeType == ResearchUpgradeType.Core)
+        {
+            Managers.Wave.MainCore.core.CoreLevel.SetValue(updateLevel);
+            PlayerPrefs.SetInt(Managers.Wave.MainCore.coreLevelkey, updateLevel);
+            Managers.Wave.MainCore.CoreUpgrade();
+        }
 
         Debug.Log($"다음 연구시간 : {researchDuration}");
     }
@@ -503,7 +514,7 @@ public class UI_Research : UI_Base
                 break;
             case ResearchUpgradeType.Random:
 
-                float randomStat = UnityEngine.Random.Range(updateStat-5.0f, updateStat +5.0f);
+                float randomStat = UnityEngine.Random.Range(updateStat-20.0f, updateStat);
                 int randomStatus = UnityEngine.Random.Range(1,101);
 
                 if(randomStatus < 50)

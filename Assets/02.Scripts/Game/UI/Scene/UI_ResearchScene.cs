@@ -36,12 +36,12 @@ public class UI_ResearchScene : UI_Popup
 
     private void Start()
     {
-        var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
-        seq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f,0.1f));
-        seq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f,0.1f));
+        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.0f, 0.1f));
 
-        seq.Play();
+        uiSeq.Play();
     }
 
     public override void Init()
@@ -90,27 +90,19 @@ public class UI_ResearchScene : UI_Popup
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
-        var seq = DOTween.Sequence();
+        HidePpoup();
+        isButton = false;
 
-        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(0.9f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.1f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.0f, 0.1f));
-
-        seq.Play().OnComplete(() =>
-        {
-            HidePpoup();
-            isButton = false;
-        });
     }
 
     private void HidePpoup()
     {
-        var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
-        seq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(0.2f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(0.2f, 0.1f));
 
-        seq.Play().OnComplete(() =>
+        uiSeq.Play().OnComplete(() =>
         {
             ClosePopupUI();
         });

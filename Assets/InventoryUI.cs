@@ -187,16 +187,16 @@ public class InventoryUI : UI_Scene
             return;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
-        var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
-        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(0.9f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(0.9f, 0.1f));
-        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.1f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.0f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.0f, 0.1f));
 
-        seq.Play();
+        uiSeq.Play();
 
         bool isSelected = CheckActive();
 
