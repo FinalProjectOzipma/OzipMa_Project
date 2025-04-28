@@ -34,6 +34,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     private SpriteRenderer previewRenderer;
     private Sprite _sprite;
     private BuildingSystem buildingSystem;
+    private InventoryUI inventoryUI;
     private Image _stackGage;
     private int itemKey { get; set; }
 
@@ -44,11 +45,13 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         button = GetComponent<Button>();
         button.onClick.AddListener(SeletToggle);
 
+        inventoryUI = Managers.UI.GetSceneList<InventoryUI>();
         GetImage((int)Images.Selected).gameObject.SetActive(false);
     }
 
     private void SeletToggle()
     {
+        if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
         GameObject imgObj = GetImage((int)Images.Selected).gameObject;
         imgObj.SetActive(!imgObj.activeSelf);
         IsActive = imgObj.activeInHierarchy;
@@ -57,6 +60,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     // 전체 선택될때 호출해야되는 메서드
     public void OnSelect()
     {
+        if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
         IsActive = true;
         GetImage((int)Images.Selected).gameObject.SetActive(true);
     }
@@ -84,6 +88,11 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     #region 드래그 배치
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if(inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE)
+        {
+            Util.Log("배치모드가 아니잖아!!");
+            return;
+        }
         buildingSystem = BuildingSystem.Instance;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
@@ -107,6 +116,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     }
     public void OnDrag(PointerEventData eventData)
     {
+        if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
         cellWorldPos.y -= 0.2f;
@@ -120,6 +130,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
         Vector2 inputPos = eventData.position;
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;

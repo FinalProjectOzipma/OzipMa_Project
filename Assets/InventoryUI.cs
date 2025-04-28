@@ -66,8 +66,8 @@ public class InventoryUI : UI_Scene
     #endregion
 
     #region State
-    //private STATE _currentState = STATE.SELECTABLE;
-    private enum STATE
+    public STATE CurrentState = STATE.SELECTABLE;
+    public enum STATE
     {
         SELECTABLE,
         PUTABLE,
@@ -297,8 +297,15 @@ public class InventoryUI : UI_Scene
     private void OnPut()
     {
         Refresh<Tower>();
-        //_currentState = STATE.PUTABLE;
 
-        // TODO::
+        if(CurrentState == STATE.PUTABLE)
+        {
+            CurrentState = STATE.SELECTABLE;
+        }
+        else if (CurrentState == STATE.SELECTABLE)
+        {
+            // 배치모드 ON
+            CurrentState = STATE.PUTABLE;
+        }
     }
 }
