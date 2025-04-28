@@ -21,21 +21,20 @@ public class CoreController : Poolable, IDamagable
         core = new Core();
 
         hpImage = HpBar.GetComponent<Image>();
-        hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
-
-        float randomX = Random.Range(-2.0f, 2.0f);
-
-        this.gameObject.transform.position = new Vector2(randomX, spawnY);
 
         CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
+
 
     public void Init(float maxHealth)
     {
         core.Health.SetValue(maxHealth);
         core.MaxHealth.SetValue(maxHealth);
+        hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
+        float randomX = Random.Range(-2.0f, 2.0f);
+        this.gameObject.transform.position = new Vector2(randomX, spawnY);
 
-        if(PlayerPrefs.HasKey(coreLevelkey))
+        if (PlayerPrefs.HasKey(coreLevelkey))
         {
             core.CoreLevel.SetValue(PlayerPrefs.GetInt(coreLevelkey));
             CoreUpgrade();

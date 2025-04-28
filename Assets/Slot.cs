@@ -90,6 +90,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         if(inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE)
         {
+            Managers.UI.ShowPopupUI<UI_Alarm>("BatchPopup");
             Util.Log("배치모드가 아니잖아!!");
             return;
         }
