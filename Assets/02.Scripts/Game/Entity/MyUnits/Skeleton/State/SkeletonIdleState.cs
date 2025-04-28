@@ -37,13 +37,11 @@ public class SkeletonIdleState : MyUnitStateBase
         //타겟이 없다면
         if (controller.Target == null)
         {
-            Util.Log("타겟이 없네요?");
             SetTarget();
         }
         //타겟이 존재하는데
         else
         {
-            Util.Log("타겟은 있는데");
             //비활성화 되어있지 않다면
             if (controller.Target.activeSelf)
             {
@@ -65,7 +63,6 @@ public class SkeletonIdleState : MyUnitStateBase
             }
             else
             {
-                Util.Log("비활성화 돼있네요?");
                 SetTarget();
             }
         }
