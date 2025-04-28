@@ -72,9 +72,13 @@ public class TowerProjectile : MonoBehaviour
         DefaultTable.AbilityDefaultValue values = Tower.Abilities[tower.TowerType];
         switch (tower.TowerType)
         {
-            //case AbilityType.Dot:
-            //    Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-            //    break;
+            case AbilityType.Fire:
+            case AbilityType.Explosive:
+                Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                break;
+            case AbilityType.Dark:
+                Target.ApplyDamage(attackPower, AbilityType.Dark);
+                break;
             //case AbilityType.Slow:
             //    Target.ApplySlow(values.AbilityValue, values.AbilityDuration);
             //    break;

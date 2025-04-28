@@ -8,7 +8,6 @@ using UnityEngine.AI;
 
 public class EnemyController : EntityController, IDamagable
 {
-
     private Coroutine DotCor;
     private Coroutine SlowCor;
 
@@ -42,7 +41,7 @@ public class EnemyController : EntityController, IDamagable
         base.Init(position);
         transform.position = position;
         Targets.Clear();
-        Targets.Push(Managers.Player.MainCore.gameObject);
+        Targets.Push(Managers.Wave.MainCore.gameObject);
     }
 
     private string _Body = nameof(_Body);
@@ -148,7 +147,7 @@ public class EnemyController : EntityController, IDamagable
     /// </summary>
     /// <param name="go"></param>
     /// <param name="damage"></param>
-    public void ApplyDamage(float damage, GameObject go = null)
+    public void ApplyDamage(float damage, AbilityType condition = AbilityType.None, GameObject go = null)
     {
         Util.Log(Status.AtkType.ToString());
 
@@ -164,7 +163,6 @@ public class EnemyController : EntityController, IDamagable
              float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
             Util.Log("데미지 돌려드렸습니다");
             myunit.ReflectDamage(damage, abilityRatio);
-            return;
         }
 
         //float minus = Status.Defences[0].GetValue() - attackPower;
@@ -174,6 +172,13 @@ public class EnemyController : EntityController, IDamagable
         {
             Status.AddHealth(minus);
             Fx.StartBlinkFlash();
+        }
+
+        int iCondition = (int)condition;
+        if (Times.ContainsKey(iCondition) && Times[iCondition] <= 0f)
+        {
+            CurrentCondition = condition;
+            Times[iCondition] = Conditions[iCondition].CoolDown;
         }
     }
 

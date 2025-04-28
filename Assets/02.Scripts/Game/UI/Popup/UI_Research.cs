@@ -542,7 +542,7 @@ public class UI_Research : UI_Base
                 }
                 break;
             case ResearchUpgradeType.Core:
-                CoreController core = Managers.Player.MainCore.GetComponent<CoreController>();
+                CoreController core = Managers.Wave.MainCore.GetComponent<CoreController>();
                 core.core.MaxHealth.AddValue(updateStat);
                 core.core.Health.SetValue(core.core.MaxHealth.Value);
                 break;

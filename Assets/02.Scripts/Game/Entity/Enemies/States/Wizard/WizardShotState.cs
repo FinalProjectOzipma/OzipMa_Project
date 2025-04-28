@@ -15,7 +15,6 @@ public class WizardShotState : WizardStateBase
         base.Enter();
         agent.isStopped = true;
         projectileCalled = false;
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Casting);
     }
 
     public override void Exit()
@@ -30,27 +29,24 @@ public class WizardShotState : WizardStateBase
         if(projectileCalled)
         {
             projectileCalled = false;
-            CreateShot(EnergyShot);
+            CreateSkill(EnergyShot, Fire);
         }
 
         if(triggerCalled)
         {
             targets.Clear();
-            targets.Push(Managers.Player.MainCore.gameObject);
+            targets.Push(wave.MainCore.gameObject);
             StateMachine.ChangeState(data.IdleState);
         }
         
     }
 
-    private void CreateShot(string objectName)
-    {
-        Managers.Resource.Instantiate(objectName, (go) => { Fire(go); Managers.Audio.audioControler.PlaySFX(SFXClipName.Projectile); });
-    }
+    
 
     private void Fire(GameObject go)
     {
         AnimProjectile energyShot = go.GetComponent<AnimProjectile>();
-        Vector2 targetPos = targets.Peek().GetComponentInChildren<SpriteRenderer>().transform.position;
-        energyShot.Init(spr.gameObject, status.Attack.GetValue(), targetPos, facDir);
+        Vector2 targetPos = targets.Peek().transform.position;
+        energyShot.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
     }
 }

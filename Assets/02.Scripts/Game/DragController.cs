@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class DragController : MonoBehaviour
 {
+    public bool IsSlotDragging = false;
+
     private BuildingSystem buildingSystem;
     private SpriteRenderer spriteRenderer;
     private Vector3 eventPosition;
     private GameObject dragObject;
-    private bool isDragging = false;
+    private bool isEditDragging = false;
 
     public float HoldTimeThreshold = 0.4f; // 홀드 지연 시간
     private GameObject towerMenu; // 불러온 타워메뉴창 프리팹 저장
     private UI_TowerMenu uiTowerMenu;
     private float pressTime = 0f; // 홀드 경과 시간
     private bool isEditMode = false; 
-
 
     private void Start()
     {
@@ -31,8 +32,10 @@ public class DragController : MonoBehaviour
 
     private void Update()
     {
+        if (IsSlotDragging) return;
+
         // 드래그 Begin
-        if(Input.GetMouseButton(0) && !isDragging)
+        if(Input.GetMouseButton(0) && !isEditDragging)
         {
             eventPosition = Input.mousePosition;
             GameObject detectedObj = buildingSystem.GetCurrentDragObject(eventPosition);
@@ -58,7 +61,7 @@ public class DragController : MonoBehaviour
         }
 
         // 드래그 Update
-        if(isDragging)
+        if(isEditDragging)
         {
             Drag();
         }
@@ -68,7 +71,7 @@ public class DragController : MonoBehaviour
         {
             pressTime = 0f;
 
-            if (isDragging)
+            if (isEditDragging)
             {
                 EndDrag();
             }
@@ -83,7 +86,7 @@ public class DragController : MonoBehaviour
         if (dragObject != null)
         {
             dragObject.transform.position = buildingSystem.UpdatePosition(eventPosition);
-            isDragging = true;
+            isEditDragging = true;
         }
     }
 
@@ -93,7 +96,7 @@ public class DragController : MonoBehaviour
         towerMenu.transform.position = dragObject.transform.position = buildingSystem.UpdatePosition(Input.mousePosition);
 
         // 배치 가능/불가능 색상
-        if (buildingSystem.IsTowerBuildArea(Input.mousePosition))
+        if (buildingSystem.CanTowerBuild(Input.mousePosition))
         {
             spriteRenderer.color = Color.green;
             return;
@@ -103,14 +106,17 @@ public class DragController : MonoBehaviour
 
     public void EndDrag()
     {
-        isDragging = false;
+        isEditDragging = false;
         spriteRenderer.color = Color.white;
         dragObject.GetComponent<TowerControlBase>().TowerStart();
 
         // 드래그 종료 위치에 배치 완료 
-        if (buildingSystem.IsTowerBuildArea(Input.mousePosition))
+        Vector2 inputPos = Input.mousePosition;
+        if (buildingSystem.CanTowerBuild(inputPos))
         {
-            dragObject.transform.position = buildingSystem.UpdatePosition(Input.mousePosition);
+            dragObject.transform.position = buildingSystem.UpdatePosition(inputPos);
+            buildingSystem.RemovePlacedMap(eventPosition);
+            buildingSystem.AddPlacedMap(inputPos);
             dragObject = null;
             return;
         }

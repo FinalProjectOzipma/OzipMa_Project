@@ -27,6 +27,12 @@ public class CoreController : MonoBehaviour, IDamagable
         CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
+    public void Init(Core data)
+    {
+        core.Health = data.Health;
+        core.MaxHealth = data.MaxHealth;
+    }
+
     public void TakeDamge(float damage)
     {
 
@@ -66,7 +72,7 @@ public class CoreController : MonoBehaviour, IDamagable
         });
     }
 
-    public void ApplyDamage(float amount, GameObject go)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null)
     {
         TakeDamge(amount);
        
