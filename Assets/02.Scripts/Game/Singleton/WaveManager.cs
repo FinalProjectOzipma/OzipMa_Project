@@ -56,7 +56,6 @@ public class WaveManager
             //SpawnEnemy();
             amount--;
         }
-        SpawnEnemy();
     }
 
     private void SpawnEnemy()

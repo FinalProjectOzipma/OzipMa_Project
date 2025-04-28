@@ -47,7 +47,8 @@ public class InventoryUI : UI_Scene
     {
         InchentImage,
         SelectAllImage,
-        PutImage
+        PutImage,
+        SwipeIcon,
     }
     #endregion
 
@@ -187,16 +188,16 @@ public class InventoryUI : UI_Scene
             return;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
-        var seq = DOTween.Sequence();
+        //var seq = DOTween.Sequence();
 
-        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(0.9f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(0.9f, 0.1f));
-        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.1f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.0f, 0.1f));
-        seq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.0f, 0.1f));
 
-        seq.Play();
+        uiSeq.Play();
 
         bool isSelected = CheckActive();
 
@@ -266,7 +267,8 @@ public class InventoryUI : UI_Scene
                 gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
-                    isMove = false;                 
+                    isMove = false;
+                    GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0,0,-90.0f));
                 });
             }
             else
@@ -276,6 +278,7 @@ public class InventoryUI : UI_Scene
                     isMove = false;
                     isOpen = false;
                     Managers.UI.GetSceneList<UI_Main>().OnButton();
+                    GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
             }
         }   
