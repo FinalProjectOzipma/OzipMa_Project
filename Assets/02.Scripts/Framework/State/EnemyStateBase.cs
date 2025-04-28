@@ -53,8 +53,10 @@ public class EnemyStateBase : EntityStateBase
         if(!controller.Enemy.IsBoss)
         {
             DetectedUnit();
-            controller.FlipControll(targets.Peek());
         }
+
+        if(targets.Count > 0)
+            controller.FlipControll(targets.Peek());
     }
 
     protected bool DeadCheck()
@@ -65,6 +67,8 @@ public class EnemyStateBase : EntityStateBase
             controller.IsDead = true;
             return true;
         }
+
+        controller.IsDead = false;
         return false;
     }
 

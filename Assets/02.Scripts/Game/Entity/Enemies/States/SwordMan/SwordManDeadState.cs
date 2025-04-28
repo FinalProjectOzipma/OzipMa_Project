@@ -18,6 +18,7 @@ public class SwordManDeadState : SwordManStateBase
     public override void Exit()
     {
         base.Exit();
+        
     }
 
     public override void Update()
@@ -26,7 +27,11 @@ public class SwordManDeadState : SwordManStateBase
         if (triggerCalled)
         {
             if(controller.gameObject.activeInHierarchy)
+            {
+                Managers.Player.AddGold(controller.Enemy.Reward);
+                Managers.Wave.CurEnemyList.Remove(controller.gameObject);
                 Managers.Resource.Destroy(controller.gameObject);
+            }
         }
     }
 }

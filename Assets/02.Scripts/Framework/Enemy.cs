@@ -32,5 +32,7 @@ public class Enemy
             Status.Init(result[primaryKey]);
 
         AtkType = result[primaryKey].AttackType;
+        Reward = result[primaryKey].Reward;
+        IsBoss = (result[primaryKey].IsBoss == 1);
     }
 }

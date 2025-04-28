@@ -177,9 +177,11 @@ public class WaveManager
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
         {
-            CurEnemyList.Add(go);
-            EnemyController ctrl = go.GetComponent<EnemyController>();
+            EnemyController ctrl = go.GetComponent<EnemyController>(); 
             ctrl.TakeRoot(random, name, enemySpawn.transform.position);
+
+            // 웨이브 몬스터 추가
+            Managers.Wave.CurEnemyList.Add(ctrl.gameObject);
         });
 
         return (playerManager.CurrentWave == 9); // 보스웨이브면 true
