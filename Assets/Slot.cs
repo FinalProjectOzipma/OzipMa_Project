@@ -90,6 +90,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         if(inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE)
         {
+            Managers.UI.ShowPopupUI<UI_Alarm>("BatchPopup");
             Util.Log("배치모드가 아니잖아!!");
             return;
         }
@@ -119,7 +120,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
-        cellWorldPos.y -= 0.2f;
+        cellWorldPos.y -= 0.3f;
         PreviewObj.transform.position = cellWorldPos;
         if(buildingSystem.CanTowerBuild(inputPos) == false)
         {

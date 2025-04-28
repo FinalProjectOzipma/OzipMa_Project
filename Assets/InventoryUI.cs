@@ -188,7 +188,7 @@ public class InventoryUI : UI_Scene
             return;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
-        //var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
         uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(0.9f, 0.1f));
         uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(0.9f, 0.1f));
@@ -265,6 +265,8 @@ public class InventoryUI : UI_Scene
             {
                 isOpen = true;
                 gameObject.SetActive(true);
+                Get<Image>((int)Images.PutImage).color = Color.white;
+                CurrentState = STATE.SELECTABLE;
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
@@ -301,13 +303,28 @@ public class InventoryUI : UI_Scene
     {
         Refresh<Tower>();
 
-        if(CurrentState == STATE.PUTABLE)
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+
+        uiSeq = Util.RecyclableSequence();
+
+        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(1.0f, 0.1f));
+
+        uiSeq.Play();
+
+        if (CurrentState == STATE.PUTABLE)
         {
+            Get<Image>((int)Images.PutImage).color = Color.white;
             CurrentState = STATE.SELECTABLE;
         }
         else if (CurrentState == STATE.SELECTABLE)
         {
             // 배치모드 ON
+            Get<Image>((int)Images.PutImage).color = Color.gray;
             CurrentState = STATE.PUTABLE;
         }
     }

@@ -80,7 +80,7 @@ public class DragController : MonoBehaviour
 
     public void BeginDrag(GameObject detectedObj)
     {
-        uiTowerMenu.targetTower = dragObject = detectedObj.transform.root.gameObject;
+        uiTowerMenu.TargetTower = dragObject = detectedObj.transform.root.gameObject;
         dragObject.GetComponent<TowerControlBase>().TowerStop();
         spriteRenderer = Util.FindComponent<SpriteRenderer>(detectedObj, "MainSprite");
         if (dragObject != null)
@@ -112,10 +112,10 @@ public class DragController : MonoBehaviour
 
         // 드래그 종료 위치에 배치 완료 
         Vector2 inputPos = Input.mousePosition;
-        if (buildingSystem.CanTowerBuild(inputPos))
+        if (isEditMode && buildingSystem.CanTowerBuild(inputPos))
         {
             dragObject.transform.position = buildingSystem.UpdatePosition(inputPos);
-            buildingSystem.RemovePlacedMap(eventPosition);
+            buildingSystem.RemovePlacedMapScreenPos(eventPosition);
             buildingSystem.AddPlacedMap(inputPos);
             dragObject = null;
             return;
