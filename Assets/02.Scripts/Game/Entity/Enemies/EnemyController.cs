@@ -168,11 +168,10 @@ public class EnemyController : EntityController, IDamagable
         //float minus = Status.Defences[0].GetValue() - attackPower;
         float minus = Status.Defence.GetValue() - damage;
 
-        if (minus < 0.0f)
-        {
-            Status.AddHealth(minus);
-            Fx.StartBlinkFlash();
-        }
+        if (minus > 0.0f)
+            minus = -1.0f;
+        Status.AddHealth(minus);
+        Fx.StartBlinkFlash();
 
         int iCondition = (int)condition;
         if (Times.ContainsKey(iCondition) && Times[iCondition] <= 0f)
@@ -180,7 +179,5 @@ public class EnemyController : EntityController, IDamagable
             CurrentCondition = condition;
             Times[iCondition] = Conditions[iCondition].CoolDown;
         }
-    }
-
-    
+    }  
 }

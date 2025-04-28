@@ -53,7 +53,7 @@ public class WaveManager
         {
             yield return spawnTime;
             MainCore.SpawnUnit();
-            //SpawnEnemy();
+            
             amount--;
         }
         SpawnEnemy();
@@ -61,15 +61,18 @@ public class WaveManager
 
     private void SpawnEnemy()
     {
-        int random = 1;//UnityEngine.Random.Range(1, enemyList.Count);
+        int random = UnityEngine.Random.Range(0, enemyList.Count);
 
         DefaultTable.Enemy spawnenemy = enemyList[random];
 
+        Vector2 startPos = enemySpawn.transform.position;
         /// 테스트 코드
-        /*if(spawnenemy.IsBoss == 1)
+        if(spawnenemy.IsBoss == 1)
         {
+            startPos = new Vector2(0, -2.0f);
             spawnenemy = enemyList[0];
-        }*/
+            random = 0;
+        }
         
         string name = spawnenemy.Name;
 
@@ -77,7 +80,7 @@ public class WaveManager
         {
             CurEnemyList.Add(go);
             EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.TakeRoot(random, name, enemySpawn.transform.position);
+            ctrl.TakeRoot(random, name, startPos);
         });
     }
 

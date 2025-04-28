@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArcherManDarkState : ArcherManStateBase
+public class SwordManDarkState : SwordManStateBase
 {
     private float darkCoolDown = 5f;
-    public ArcherManDarkState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public SwordManDarkState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 
@@ -25,13 +25,13 @@ public class ArcherManDarkState : ArcherManStateBase
     {
         base.Update();
 
-        if(time < 0)
+        if (time < 0)
             StateMachine.ChangeState(data.ChaseState);
         else
         {
             //agent.SetDestination((Vector2)(-targets.Peek().transform.position));
             Vector2 dir = (targets.Peek().transform.position) - transform.position;
-            agent.Move(-dir.normalized * status.MoveSpeed.GetValue() * 0.2f * Time.deltaTime);
+            agent.Move(-dir.normalized * status.MoveSpeed.GetValue() * 0.5f * Time.deltaTime);
             controller.FlipControll();
         }
     }

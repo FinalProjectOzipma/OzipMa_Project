@@ -6,16 +6,11 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SwordManBody : MonoBehaviour
+public class SwordManBody : EnemyBodyBase
 {
-    private void Start()
+    public override void Init()
     {
-        Init();
-    }
-
-    public void Init()
-    {
-        EnemyController ctrl = GetComponentInParent<EnemyController>();
+        base.Init();
         ctrl.AnimData = new SwordManAnimData();
         ctrl.AnimData.Init(ctrl);
     }

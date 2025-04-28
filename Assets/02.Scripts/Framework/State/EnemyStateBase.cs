@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -120,6 +121,24 @@ public class EnemyStateBase : EntityStateBase
     {
         EntityProjectile projectile = go.GetComponent<T>();
         projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
+    }
+
+    protected void DeBuff(float coolDown, float animSpeed, AbilityType type)
+    {
+        time = coolDown;
+        anim.speed = animSpeed;
+
+        if (controller.Conditions.TryGetValue((int)type, out var item))
+            item.ObjectActive(true);
+    }
+
+    protected void ExitDeBuff(AbilityType type)
+    {
+        anim.speed = 1f;
+        controller.CurrentCondition = AbilityType.None;
+
+        if (controller.Conditions.TryGetValue((int)type, out var item))
+            item.ObjectActive(false);
     }
 
     public override void FixedUpdate()
