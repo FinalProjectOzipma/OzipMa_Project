@@ -86,22 +86,8 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-
-        var seq = DOTween.Sequence();
-
-        //seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(0.9f, 0.1f));
-        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(0.9f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(1.1f, 0.1f));
-        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(1.1f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.ResearchButtonImage).transform.DOScale(1.0f, 0.1f));
-        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ResearchText).transform.DOScale(1.0f, 0.1f));
-
-        seq.Play().OnComplete(() =>
-        {
-            Managers.UI.ShowPopupUI<UI_ResearchScene>(Objects.ReseachUI.ToString());
-            isButton = false;
-        });
-
+        Managers.UI.ShowPopupUI<UI_ResearchScene>(Objects.ReseachUI.ToString());
+        isButton = false;
     }
 
     private void OnClickSetting(PointerEventData data)
@@ -111,19 +97,9 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.UI.ShowPopupUI<UI_Setting>(Objects.SoundUI.ToString());
+        isButton = false;
 
-
-        var seq = DOTween.Sequence();
-
-        //seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(0.9f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(1.1f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.SettingImage).transform.DOScale(1.0f, 0.1f));
-
-        seq.Play().OnComplete(() =>
-        {
-            Managers.UI.ShowPopupUI<UI_Setting>(Objects.SoundUI.ToString());
-            isButton = false;
-        });
       
     }
 
@@ -134,24 +110,9 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        
-
-        var seq = DOTween.Sequence();
-
-        //seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(0.9f, 0.1f));
-        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(0.9f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(1.1f, 0.1f));
-        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(1.1f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.ManagerButtonImage).transform.DOScale(1.0f, 0.1f));
-        //seq.Join(Get<TextMeshProUGUI>((int)Texts.ManagerText).transform.DOScale(1.0f, 0.1f));
-
-        seq.Play().OnComplete(() =>
-        {
-            Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
-            OffButton();
-            isButton = false;
-        });
-
+        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+        OffButton();
+        isButton = false;
     }
 
     public void OffButton()

@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+///  유저가 저장해야될 필수적인 요소들을 저장하는 곳
+/// </summary>
 public class PlayerManager 
 {
     public Core MainCoreData { get; set; }
@@ -15,7 +18,8 @@ public class PlayerManager
     private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
-    
+    public int CurrentStage { get; set; }
+    public int CurrentWave { get; set; }
 
     public void Initialize()
     {

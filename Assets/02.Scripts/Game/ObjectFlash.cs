@@ -22,12 +22,18 @@ public class ObjectFlash : MonoBehaviour
 
     public void StartBlinkRed()
     {
-        StartCoroutine(DotFx());
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(DotFx());
+        else
+            StopAllCoroutines();
     }
 
     public void StartBlinkFlash()
     {
-        StartCoroutine(FlashFX());
+        if (gameObject.activeInHierarchy)
+            StartCoroutine(FlashFX());
+        else
+            StopAllCoroutines();
     }
 
     public IEnumerator FlashFX()

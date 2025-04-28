@@ -12,7 +12,7 @@ public class SkeletonIdleState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf)
         {
             SetTarget();
         }
@@ -28,7 +28,7 @@ public class SkeletonIdleState : MyUnitStateBase
         base.Update();
         time += Time.deltaTime;
         //타겟이 존재한다면
-        if (controller.Target != null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             //공격범위 외라면
             if (!controller.IsClose())

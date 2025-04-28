@@ -30,6 +30,13 @@ public class Enums
         Inchent,
         Revolution
     }
+
+    public enum WaveState
+    {
+        Start,
+        Playing,
+        End,
+    }
 }
 
 [GoogleSheet.Core.Type.UGS(typeof(RankType))]

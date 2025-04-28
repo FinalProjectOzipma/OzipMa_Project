@@ -23,7 +23,7 @@ public class ZombieAttackState : MyUnitStateBase
     {
         base.Update();
         //타겟이 비어있다면 
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             StateMachine.ChangeState(data.IdleState);
         }

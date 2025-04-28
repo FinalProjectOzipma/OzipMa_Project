@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ZombieController : MyUnitController
 {
-    public override void Init(Vector2 position, GameObject go = null)
+    public override void Init(Vector2 position)
     {
         AnimData = new ZombieAnimationData();
-        base.Init(position, go);
+        base.Init(position);
     }
 }

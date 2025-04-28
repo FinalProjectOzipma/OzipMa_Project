@@ -42,9 +42,9 @@ public class MyUnitController : EntityController, IDamagable
         FlipControll(Target);
     }
 
-    public override void Init(Vector2 position, GameObject go = null)
+    public override void Init(Vector2 position)
     {
-        base.Init(position, go);
+        base.Init(position);
         transform.position = position;
         Rigid = GetComponent<Rigidbody2D>();
         AnimData.Init(this);
@@ -63,13 +63,19 @@ public class MyUnitController : EntityController, IDamagable
 
         MyUnitStatus = MyUnit.Status as MyUnitStatus;
         // 초기화부분
-        Managers.Resource.Instantiate($"{name}{_Body}", go =>
+        if (body == null)
         {
-            go.transform.SetParent(transform);
-            Fx = go.GetOrAddComponent<ObjectFlash>();
-            spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
-            Init(position, go);
-        });
+            Managers.Resource.Instantiate($"{name}{_Body}", go =>
+            {
+                go.transform.SetParent(transform);
+                Fx = go.GetOrAddComponent<ObjectFlash>();
+                spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
+                body = go;
+                Init(position);
+            });
+        }
+        else
+            Init(position);
     }
 
     /// <summary>
@@ -79,7 +85,7 @@ public class MyUnitController : EntityController, IDamagable
     /// <returns></returns>
     public bool IsClose()
     {
-        if (Target == null)
+        if (!Target.activeSelf || Target == null)
             return false;
         float r = MyUnitStatus.AttackRange.GetValue();
 

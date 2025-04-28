@@ -22,7 +22,7 @@ public class SkeletonAttackState : MyUnitStateBase
     public override void Update()
     {
         //타겟이 비어있다면 
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             //탐색 상태로 현재 상태 변경
             StateMachine.ChangeState(data.IdleState);

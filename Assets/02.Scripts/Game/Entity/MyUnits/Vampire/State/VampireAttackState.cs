@@ -18,7 +18,7 @@ public class VampireAttackState : MyUnitStateBase
     public override void Exit()
     {
         base.Exit();
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             StateMachine.ChangeState(data.IdleState);
         }
