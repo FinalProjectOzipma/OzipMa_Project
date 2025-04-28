@@ -14,8 +14,18 @@ public class SkeletonAnimationTrigger : MyUnitAnimationTrigger
 
     private void Fire(GameObject go)
     {
-        EntityProjectile arrow = go.GetComponent<EntityProjectile>();
-        go.GetOrAddComponent<CapsuleCollider2D>();
-        arrow.Init(transform.gameObject, myUnit.MyUnitStatus.Attack.GetValue(), myUnit.Target.transform.position);
+        if (myUnit.Target == null)
+        {
+            return;
+        }
+        else
+        {
+            if (myUnit.Target.activeSelf)
+            {
+                EntityProjectile arrow = go.GetComponent<EntityProjectile>();
+                go.GetOrAddComponent<CapsuleCollider2D>();
+                arrow.Init(transform.gameObject, myUnit.MyUnitStatus.Attack.GetValue(), myUnit.Target.transform.position);
+            }
+        }
     }
 }

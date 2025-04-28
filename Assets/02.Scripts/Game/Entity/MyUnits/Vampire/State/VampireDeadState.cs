@@ -13,6 +13,7 @@ public class VampireDeadState : MyUnitStateBase
         base.Enter();
         controller.Agent.isStopped = true;
         Managers.Wave.CurMyUnitList.Remove(controller.gameObject);
+        controller.Target = null;
     }
 
     public override void Exit()

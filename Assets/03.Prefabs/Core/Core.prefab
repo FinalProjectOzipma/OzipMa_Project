@@ -179,7 +179,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7604480453460354870}
@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anime: {fileID: 7565779481527292834}
   HpBar: {fileID: 2289498828739574516}
+  coreLevelkey: CoreLevelKey
 --- !u!70 &3519622143484376992
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -271,7 +272,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.6}
+  m_AnchoredPosition: {x: 0, y: 0.9}
   m_SizeDelta: {x: 0.5, y: 0.05}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8105352755645939270

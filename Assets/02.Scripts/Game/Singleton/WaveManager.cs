@@ -141,7 +141,7 @@ public class WaveManager
             yield return spawnTime;
             MainCore.SpawnUnit();
 
-            if(!isBoss)
+            if (!isBoss)
                 isBoss = SpawnEnemy();
 
             amount--;

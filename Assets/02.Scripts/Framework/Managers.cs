@@ -37,6 +37,7 @@ public class Managers : MonoBehaviour
         Pool.Initialize();
         TestInit();
         Scene.Initialize();
+        Upgrade.Intialize();
     }
 
     private void Update()

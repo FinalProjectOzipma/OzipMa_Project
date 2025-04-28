@@ -74,19 +74,6 @@ public class BuildingSystem : MonoBehaviour
         }
         return canBuild;
     }
-
-    public void AddPlacedMap(Vector3 mousePos)
-    {
-        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        placedMap.Add(map.WorldToCell(worldPos));
-    }
-
-    public void RemovePlacedMap(Vector3 mousePos)
-    {
-        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        placedMap.Remove(map.WorldToCell(worldPos));
-    }
-
     public GameObject GetCurrentDragObject(Vector3 mousePoint)
     {
         Ray2D ray = new Ray2D(cam.ScreenToWorldPoint(mousePoint), Vector2.zero);
@@ -94,4 +81,22 @@ public class BuildingSystem : MonoBehaviour
 
         return hit == true ? hit.transform.gameObject : null;
     }
+
+    #region 배치된 공간 저장/삭제 메서드들
+    public void AddPlacedMap(Vector3 mousePos)
+    {
+        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
+        placedMap.Add(map.WorldToCell(worldPos));
+    }
+
+    public void RemovePlacedMapScreenPos(Vector3 mousePos)
+    {
+        Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
+        placedMap.Remove(map.WorldToCell(worldPos));
+    }
+    public void RemovePlacedMapWorldPos(Vector3 worldPos)
+    {
+        placedMap.Remove(map.WorldToCell(worldPos));
+    }
+    #endregion
 }

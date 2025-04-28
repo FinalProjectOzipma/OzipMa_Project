@@ -2,6 +2,7 @@ using DefaultTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MyUnitAnimationTrigger : MonoBehaviour
 {
@@ -28,6 +29,10 @@ public class MyUnitAnimationTrigger : MonoBehaviour
     public virtual void AttackTrigger()
     {
         Util.Log("myUnitHP: " + myUnit.MyUnitStatus.Health.GetValueToString());
+        if (myUnit.Target == null)
+        {
+            return;
+        }
     }
 
     private void OnDrawGizmos()

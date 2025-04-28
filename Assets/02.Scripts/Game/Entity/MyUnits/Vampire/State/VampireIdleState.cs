@@ -11,7 +11,17 @@ public class VampireIdleState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
-        SetTarget();
+        if (controller.Target == null)
+        {
+            SetTarget();
+        }
+        else
+        {
+            if (!controller.Target.activeSelf)
+            {
+                SetTarget();
+            }
+        }
     }
 
     public override void Exit()
@@ -28,13 +38,20 @@ public class VampireIdleState : MyUnitStateBase
         }
         else
         {
-            if (controller.IsClose())
+            if (controller.Target.activeSelf)
             {
-                StateMachine.ChangeState(data.AttackState);
+                if (controller.IsClose())
+                {
+                    StateMachine.ChangeState(data.AttackState);
+                }
+                else
+                {
+                    StateMachine.ChangeState(data.ChaseState);
+                }
             }
             else
             {
-                StateMachine.ChangeState(data.ChaseState);
+                SetTarget();
             }
         }
     }
@@ -45,6 +62,7 @@ public class VampireIdleState : MyUnitStateBase
         //적이 없으면 그냥 리턴해버리기
         if (enemys.Count == 0)
         {
+            controller.Target = null;
             return;
         }
 

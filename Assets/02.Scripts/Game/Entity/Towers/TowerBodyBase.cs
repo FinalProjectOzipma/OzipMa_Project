@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class TowerBodyBase : MonoBehaviour
 {
+    public float MainSpriteOffset = 0.3f;
     public Animator Anim {  get; private set; }
     public TowerAnimationData AnimData { get; private set;}
+
+    private GameObject mainSprite;
 
     public Vector3 FirePosition
     {
@@ -14,7 +17,13 @@ public class TowerBodyBase : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Anim = Util.FindComponent<Animator>(gameObject, "MainSprite");
+        mainSprite = gameObject.transform.GetChild(0).gameObject;
+
+        Vector3 pos = mainSprite.transform.position;
+        pos.y = -MainSpriteOffset;
+        mainSprite.transform.position = pos;
+
+        Anim = mainSprite.GetComponent<Animator>();
         AnimData = new();
     }
 }

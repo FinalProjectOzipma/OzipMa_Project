@@ -87,6 +87,8 @@ public class MyUnitController : EntityController, IDamagable
     {
         if (Target == null)
             return false;
+        else if (!Target.activeSelf)
+            return false;
         float r = MyUnitStatus.AttackRange.GetValue();
 
         return  r * r> (Target.transform.position - transform.position).sqrMagnitude;

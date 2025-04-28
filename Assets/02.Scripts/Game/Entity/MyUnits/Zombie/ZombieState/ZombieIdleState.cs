@@ -13,7 +13,17 @@ public class ZombieIdleState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
-        SetTarget();
+        if (controller.Target == null)
+        {
+            SetTarget();
+        }
+        else
+        {
+            if (!controller.Target.activeSelf)
+            {
+                SetTarget();
+            }
+        }
     }
 
     public override void Exit()
@@ -24,18 +34,28 @@ public class ZombieIdleState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target != null)
+        if (controller.Target == null)
         {
-            if (controller.IsClose())
+            SetTarget();
+        }
+        else
+        {
+            if (controller.Target.activeSelf)
             {
-                StateMachine.ChangeState(data.AttackState);
+                if (controller.IsClose())
+                {
+                    StateMachine.ChangeState(data.AttackState);
+                }
+                else
+                {
+                    StateMachine.ChangeState(data.ChaseState);
+                }
             }
             else
             {
-                StateMachine.ChangeState(data.ChaseState);
+                SetTarget();
             }
         }
-        SetTarget();
     }
 
     public void SetTarget()
@@ -45,6 +65,7 @@ public class ZombieIdleState : MyUnitStateBase
         //적이 없으면 그냥 리턴해버리기
         if (enemys.Count == 0)
         {
+            controller.Target = null;
             return;
         }
 

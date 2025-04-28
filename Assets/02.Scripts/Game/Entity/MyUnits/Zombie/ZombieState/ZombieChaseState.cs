@@ -32,18 +32,30 @@ public class ZombieChaseState : MyUnitStateBase
         //타겟이 없다면
         if (controller.Target == null)
         {
-            //Idle상태로 현재 상태 변경
             StateMachine.ChangeState(data.IdleState);
         }
         //타겟이 있는데
         else
         {
-            //타겟을 때릴 수 있는가
-            if (controller.IsClose())
-                //전투 상태로 현재 상태 변경
-                StateMachine.ChangeState(data.AttackState);
-            controller.Agent.SetDestination(controller.Target.transform.position);
+            if (controller.Target.activeSelf)
+            {
+                //타겟을 때릴 수 있는가
+                if (controller.IsClose())
+                {
+                    //전투 상태로 현재 상태 변경
+                    StateMachine.ChangeState(data.AttackState);
+                }
+                else
+                {
+                    //타겟에게 가는중
+                    controller.Agent.SetDestination(controller.Target.transform.position);
+                }
+            }
+            //비활성화 되어있다면
+            else
+            {
+                StateMachine.ChangeState(data.IdleState);
+            }
         }
-
     }
 }

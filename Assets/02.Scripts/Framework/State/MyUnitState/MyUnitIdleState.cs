@@ -17,7 +17,7 @@ public class MyUnitIdleState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             SetTarget();
         }
@@ -31,7 +31,7 @@ public class MyUnitIdleState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target != null)
+        if (!controller.Target.activeSelf)
         {
             Debug.Log("타겟지정되어있음");
             if (controller.IsClose())
