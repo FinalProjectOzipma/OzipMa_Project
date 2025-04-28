@@ -30,10 +30,10 @@ public class CoreController : Poolable, IDamagable
         CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
-    public void Init(Core data)
+    public void Init(float maxHealth)
     {
-        core.Health = data.Health;
-        core.MaxHealth = data.MaxHealth;
+        core.Health.SetValue(maxHealth);
+        core.MaxHealth.SetValue(maxHealth);
 
         if(PlayerPrefs.HasKey(coreLevelkey))
         {
