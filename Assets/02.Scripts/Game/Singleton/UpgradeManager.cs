@@ -5,8 +5,5 @@ using UpgradeType = Enums.UpgradeType;
 
 public class UpgradeManager
 {
-    public void<T> Upgrade(UpgradeType type)
-    {
 
-    }
 }
