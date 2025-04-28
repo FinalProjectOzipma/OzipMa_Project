@@ -36,7 +36,7 @@ public class EnemyController : EntityController, IDamagable
             AnimData.StateMachine.CurrentState?.Update();
     }
 
-    public override void Init(Vector2 position, GameObject gameObject = null)
+    public override void Init(Vector2 position)
     {
         base.Init(position);
         transform.position = position;
@@ -47,16 +47,29 @@ public class EnemyController : EntityController, IDamagable
     private string _Body = nameof(_Body);
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
-        Enemy = new Enemy(primaryKey, SpriteImage);
+        if (Enemy == null)
+            Enemy = new Enemy(primaryKey, SpriteImage);
+        else
+            Enemy.Init(primaryKey, SpriteImage);
+
         Status = Enemy.Status;
         IsDead = false;
-        Managers.Resource.Instantiate($"{name}{_Body}", go =>
+
+        if(body == null)
         {
-            go.transform.SetParent(transform);
-            Fx = go.GetOrAddComponent<ObjectFlash>();
-            Spr = go.GetOrAddComponent<SpriteRenderer>();
+            Managers.Resource.Instantiate($"{name}{_Body}", go =>
+            {
+                go.transform.SetParent(transform);
+                Fx = go.GetOrAddComponent<ObjectFlash>();
+                Spr = go.GetOrAddComponent<SpriteRenderer>();
+                body = go;
+                Init(position);
+            });
+        }
+        else
+        {
             Init(position);
-        });
+        }
     }
 
 
@@ -106,7 +119,7 @@ public class EnemyController : EntityController, IDamagable
                 float minus = Status.Defence.GetValue() - abilityValue;
                 if(minus < 0.0f)
                 {
-                    Status.AddHealth(minus);
+                    Status.AddHealth(minus, gameObject);
                     Fx.StartBlinkRed();
                 }
 
@@ -163,11 +176,11 @@ public class EnemyController : EntityController, IDamagable
         }
 
         //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = Status.Defence.GetValue() - damage;
+        float minus = -damage;//Status.Defence.GetValue() - damage;
 
         if (minus < 0.0f)
         {
-            Status.AddHealth(minus);
+            Status.AddHealth(minus, gameObject);
             Fx.StartBlinkFlash();
         }
 

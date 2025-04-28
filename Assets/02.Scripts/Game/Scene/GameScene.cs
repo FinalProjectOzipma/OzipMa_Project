@@ -23,6 +23,11 @@ public class GameScene : SceneBase
         Managers.Resource.Instantiate("BuildingSystem");
     }
 
+    public override void Update()
+    {
+        Managers.Wave.Update();
+    }
+
     public override void Exit()
     {
         base.Exit();
