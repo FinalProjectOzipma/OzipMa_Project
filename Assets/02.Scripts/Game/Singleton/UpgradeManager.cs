@@ -22,7 +22,7 @@ public class UpgradeManager
             return;
         }
 
-        if(Managers.Player.gold > LevelUPGold)
+        if(Managers.Player.gold >= LevelUPGold)
         {
             myUpgradeStatus.Level.AddValue(1);
             myUpgradeStatus.Attack.AddMultiples(UpdateValue);
@@ -54,7 +54,7 @@ public class UpgradeManager
             return;
         }
 
-        if(Managers.Player.gold > LevelUPGold)
+        if(Managers.Player.gold >= LevelUPGold)
         {
             tower.TowerStatus.Level.AddValue(1);
             tower.TowerStatus.Attack.AddMultiples(UpdateValue);
@@ -63,7 +63,12 @@ public class UpgradeManager
             Util.Log("업그레이드 완료" + tower.Name + " " +tower.TowerStatus.Level);
             return;
         }
-        return;
+        else
+        {
+            Util.Log("돈이 부족합니다.");
+            return;
+        }
+
     }
 
 
