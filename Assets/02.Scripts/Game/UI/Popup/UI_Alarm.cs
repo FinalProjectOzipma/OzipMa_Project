@@ -60,22 +60,11 @@ public class UI_Alarm : UI_Popup
         if (isClose) return;
         isClose = true;
 
-        uiSeq = Util.RecyclableSequence();
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-
-        uiSeq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.ButtonImage).transform.DOScale(1.0f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.ButtonText).transform.DOScale(1.0f, 0.1f));
-
-
-        uiSeq.Play().OnComplete(() =>
-        {
-            HidePpoup();
-        });
+        
+        HidePpoup();
+   
 
     }
 

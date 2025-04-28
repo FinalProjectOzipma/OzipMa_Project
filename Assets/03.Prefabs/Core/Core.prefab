@@ -200,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anime: {fileID: 7565779481527292834}
   HpBar: {fileID: 2289498828739574516}
+  coreLevelkey: CoreLevelKey
 --- !u!70 &3519622143484376992
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
