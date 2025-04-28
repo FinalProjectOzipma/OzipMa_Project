@@ -22,7 +22,7 @@ public class VampireIdleState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             SetTarget();
         }

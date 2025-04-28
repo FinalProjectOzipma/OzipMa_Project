@@ -79,7 +79,7 @@ public class MyUnitController : EntityController, IDamagable
     /// <returns></returns>
     public bool IsClose()
     {
-        if (Target == null)
+        if (!Target.activeSelf || Target == null)
             return false;
         float r = MyUnitStatus.AttackRange.GetValue();
 

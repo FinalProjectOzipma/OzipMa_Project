@@ -22,10 +22,9 @@ public class VampireChaseState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             StateMachine.ChangeState(data.IdleState);
-
         }
         else
         {

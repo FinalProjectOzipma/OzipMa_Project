@@ -30,7 +30,7 @@ public class ZombieChaseState : MyUnitStateBase
         base.Update();
         //controller.DetectEnemyRaycast();
         //타겟이 없다면
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             //Idle상태로 현재 상태 변경
             StateMachine.ChangeState(data.IdleState);
