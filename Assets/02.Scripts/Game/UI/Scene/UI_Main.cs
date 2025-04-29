@@ -131,7 +131,7 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+        Managers.UI.GetScene<InventoryUI>().OnSwipe();
         OffButton();
         isButton = false;
     }
