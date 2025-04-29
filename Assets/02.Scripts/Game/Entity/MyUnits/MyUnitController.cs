@@ -17,9 +17,7 @@ public class MyUnitController : EntityController, IDamagable
     public SpriteRenderer spriteRenderer;
     public NavMeshAgent Agent;
     public GameObject Target;
-
-    [SerializeField]
-    private Image hpImage;
+    public HealthView healthView;
     #endregion
 
     #region 정보부
@@ -65,7 +63,9 @@ public class MyUnitController : EntityController, IDamagable
     /// <param name="position">생성위치</param>
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
-        MyUnit = new MyUnit();
+        if (MyUnit == null)
+            MyUnit = new MyUnit();
+
         MyUnit.Init(primaryKey, sprite);
 
         MyUnitStatus = MyUnit.Status as MyUnitStatus;
@@ -79,6 +79,8 @@ public class MyUnitController : EntityController, IDamagable
                 spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
                 body = go;
                 Init(position);
+                healthView = go.GetComponentInChildren<HealthView>();
+                MyUnitStatus.Health.OnChangeHealth = healthView.SetHpBar;
             });
         }
         else
@@ -101,7 +103,7 @@ public class MyUnitController : EntityController, IDamagable
         finalDamage = Mathf.Max(finalDamage, 1f); // 최소 1 보장 (선택사항)
 
         MyUnitStatus.Health.AddValue(-finalDamage);
-        hpImage.fillAmount = MyUnitStatus.Health.Value / MyUnitStatus.MaxHealth;
+
         Fx.StartBlinkFlash();
     }
 

@@ -29,12 +29,14 @@ public class EnemyStatus : StatusBase
         float ratio = stage[index].ModifierRatio;
 
         Attack.SetValue(row.Attack * ratio);
+        Attack.SetValueMultiples(1);
         AttackCoolDown.SetValue(row.AttackCoolDown);
         AttackRange.SetValue(row.AttackRange);
 
         Health.SetMaxHealth(row.Health * ratio);
         Health.SetValue(row.Health * ratio);
         MaxHealth = Health.GetValue();
+
 
         Defence.SetValue(row.Defence);
         MoveSpeed.SetValue(row.MoveSpeed);

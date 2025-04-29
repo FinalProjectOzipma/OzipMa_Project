@@ -47,7 +47,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         button = GetComponent<Button>();
         button.onClick.AddListener(SeletToggle);
 
-        inventoryUI = Managers.UI.GetSceneList<InventoryUI>();
+        inventoryUI = Managers.UI.GetScene<InventoryUI>();
         GetImage((int)Images.Selected).gameObject.SetActive(false);
     }
 
@@ -162,7 +162,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             PreviewObj.transform.position = cellWorldPos;
         }
         previewRenderer.sprite = _sprite;
-        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+        Managers.UI.GetScene<InventoryUI>().OnSwipe();
         buildingSystem.DragController.IsSlotDragging = true;
     }
     public void OnDrag(PointerEventData eventData)
