@@ -1,3 +1,4 @@
+using DefaultTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
@@ -7,11 +8,11 @@ using static UnityEngine.GraphicsBuffer;
 public class TowerProjectile : MonoBehaviour
 {
     public EnemyController Target { get; set; }
-    private Transform targetTransform {  get; set; }
+    private Transform targetTransform { get; set; }
     private Rigidbody2D rb;
-    private float speed = 5f;
+    private float speed = 3f;
     private float attackPower;
-    private Tower tower {  get; set; }
+    private Tower tower { get; set; }
 
     private void Awake()
     {
@@ -25,8 +26,13 @@ public class TowerProjectile : MonoBehaviour
         Target = target;
         targetTransform = target.transform;
 
+        Vector2 dir = targetTransform.position - transform.position;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.localRotation = Quaternion.Euler(0, 0, angle);
+
         Managers.Resource.Instantiate($"{projectileName}Body", go =>
         {
+            transform.rotation = Quaternion.identity;
             go.transform.SetParent(this.transform);
             go.transform.localPosition = Vector3.zero;
         });
@@ -35,10 +41,14 @@ public class TowerProjectile : MonoBehaviour
     private void Update()
     {
         if (targetTransform == null) return;
-        Vector2 dir = (targetTransform.position- transform.position).normalized;
-        rb.velocity = dir * speed;
+        Vector2 dir = targetTransform.position - transform.position;
+        Vector2 normalDir = dir.normalized;
+        rb.velocity = normalDir * speed;
 
-        if(targetTransform.gameObject.activeSelf != true) 
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        if (targetTransform.gameObject.activeSelf != true)
             Managers.Resource.Destroy(gameObject); ;
     }
 
@@ -56,28 +66,30 @@ public class TowerProjectile : MonoBehaviour
     {
         //기본공격
         Target.ApplyDamage(attackPower);
-        // 해당 타워가 갖고있는 공격 속성 모두 적용
-        foreach (TowerType type in tower.TowerTypes)
+        Managers.Audio.audioControler.SelectSFXAttackType(tower.TowerType);
+        // 해당 타워가 갖고있는 공격 속성 적용
+        if (Tower.Abilities.ContainsKey(tower.TowerType) == false) return;
+        DefaultTable.AbilityDefaultValue values = Tower.Abilities[tower.TowerType];
+        switch (tower.TowerType)
         {
-            if (Tower.Abilities.ContainsKey(type) == false) continue;
-            DefaultTable.TowerAbilityDefaultValue values = Tower.Abilities[type];
-            switch (type)
-            {
-                case TowerType.Dot:
-                    Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-                    break;
-                case TowerType.Slow:
-                    Target.ApplySlow(values.AbilityValue, values.AbilityDuration);
-                    break;
-                case TowerType.KnockBack:
-                    Target.ApplyKnockBack(values.AbilityValue, Target.transform.position - transform.position);
-                    break;
-                case TowerType.BonusCoin:
-                    Target.ApplyBonusCoin(values.AbilityValue);
-                    break;
-                default:
-                    break;
-            }
+            case AbilityType.Fire:
+            case AbilityType.Explosive:
+                Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+                break;
+            case AbilityType.Dark:
+                Target.ApplyDamage(attackPower, AbilityType.Dark);
+                break;
+            //case AbilityType.Slow:
+            //    Target.ApplySlow(values.AbilityValue, values.AbilityDuration);
+            //    break;
+            //case AbilityType.KnockBack:
+            //    Target.ApplyKnockBack(values.AbilityValue, Target.transform.position - transform.position);
+            //    break;
+            //case AbilityType.BonusCoin:
+            //    Target.ApplyBonusCoin(values.AbilityValue);
+            //    break;
+            default:
+                break;
         }
     }
 }

@@ -8,6 +8,7 @@ public class Enemy
     public int Reward;
     public bool IsBoss;
 
+    public int PrimaryKey { get; private set; }
     public Sprite Sprite { get; private set; }
     public EnemyStatus Status { get; set; }
     public AtkType AtkType { get; set; }
@@ -15,6 +16,7 @@ public class Enemy
 
     public Enemy(int primaryKey, Sprite sprite)
     {
+        PrimaryKey = primaryKey;
         Sprite = sprite;
 
         Init(primaryKey, sprite);
@@ -23,9 +25,14 @@ public class Enemy
     public void Init(int primaryKey, Sprite sprite)
     {
         var result = Util.TableConverter<DefaultTable.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
-        Status = new EnemyStatus(result[primaryKey]);
-        AtkType = result[primaryKey].AttackType;
-    }
 
-    public void AddHealth(float amount) => Status.Health.AddValue(amount);
+        if (Status == null)
+            Status = new EnemyStatus(result[primaryKey]);
+        else
+            Status.Init(result[primaryKey]);
+
+        AtkType = result[primaryKey].AttackType;
+        Reward = result[primaryKey].Reward;
+        IsBoss = (result[primaryKey].IsBoss == 1);
+    }
 }

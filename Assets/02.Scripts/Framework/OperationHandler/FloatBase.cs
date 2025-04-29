@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class FloatBase
 {
     public float Value;
     public float ValueMultiples = 1.0f;
+    public Action<float> OnChangeValue;
 
     public virtual void Init(float amount)
     {
@@ -14,6 +16,7 @@ public class FloatBase
     {
         if (amount < 0.0f) return;
         Value = amount;
+        OnChangeValue?.Invoke(GetValue());
     }
 
     public virtual float GetValue()
@@ -30,6 +33,7 @@ public class FloatBase
     {
         if (amount < 0) return;
         ValueMultiples = amount;
+        OnChangeValue?.Invoke(GetValue());
     }
 
     public virtual void AddMultiples(float amount)

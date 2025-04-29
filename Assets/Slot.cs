@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Slot : UI_Scene
+public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private enum Images
     {
@@ -28,8 +30,13 @@ public class Slot : UI_Scene
 
     public IGettable Gettable;
 
+    private GameObject PreviewObj;
+    private SpriteRenderer previewRenderer;
     private Sprite _sprite;
+    private BuildingSystem buildingSystem;
+    private InventoryUI inventoryUI;
     private Image _stackGage;
+    private int itemKey { get; set; }
 
     private void Awake()
     {
@@ -38,18 +45,22 @@ public class Slot : UI_Scene
         button = GetComponent<Button>();
         button.onClick.AddListener(SeletToggle);
 
+        inventoryUI = Managers.UI.GetSceneList<InventoryUI>();
         GetImage((int)Images.Selected).gameObject.SetActive(false);
     }
 
     private void SeletToggle()
     {
+        if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
         GameObject imgObj = GetImage((int)Images.Selected).gameObject;
         imgObj.SetActive(!imgObj.activeSelf);
+        IsActive = imgObj.activeInHierarchy;
     }
 
     // 전체 선택될때 호출해야되는 메서드
     public void OnSelect()
     {
+        if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
         IsActive = true;
         GetImage((int)Images.Selected).gameObject.SetActive(true);
     }
@@ -63,9 +74,9 @@ public class Slot : UI_Scene
 
     public void SetData<T>(IGettable gettable) where T : UserObject
     {
-        
         Gettable = gettable;
         T obj = gettable.GetClassAddress<T>();
+        itemKey = obj.PrimaryKey;
         var status = obj.Status;
         _sprite = obj.Sprite;
         GetImage((int)Images.Icon).sprite = _sprite;
@@ -73,4 +84,75 @@ public class Slot : UI_Scene
         GetImage((int)Images.StackGageFill).fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
         GetText((int)TextMeshs.StackText).text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
     }
+
+    #region 드래그 배치
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        if(inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE)
+        {
+            Managers.UI.ShowPopupUI<UI_Alarm>("BatchPopup");
+            Util.Log("배치모드가 아니잖아!!");
+            return;
+        }
+        buildingSystem = BuildingSystem.Instance;
+        Vector2 inputPos = eventData.position;
+        Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
+        cellWorldPos.y -= 0.2f;
+        if (PreviewObj == null)
+        {
+            Managers.Resource.Instantiate("BuildingPreview", go => 
+            {
+                PreviewObj = go;
+                PreviewObj.transform.position = cellWorldPos;
+                previewRenderer = PreviewObj.GetComponent<SpriteRenderer>();
+            });
+        }
+        else
+        {
+            PreviewObj.transform.position = cellWorldPos;
+        }
+        previewRenderer.sprite = _sprite;
+        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+        buildingSystem.DragController.IsSlotDragging = true;
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
+        Vector2 inputPos = eventData.position;
+        Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
+        cellWorldPos.y -= 0.3f;
+        PreviewObj.transform.position = cellWorldPos;
+        if(buildingSystem.CanTowerBuild(inputPos) == false)
+        {
+            previewRenderer.color = Color.red;
+            return;
+        }
+        previewRenderer.color = Color.green;
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
+        Vector2 inputPos = eventData.position;
+        Managers.Resource.Destroy(PreviewObj);
+        PreviewObj = null;
+
+        if (buildingSystem.CanTowerBuild(inputPos) == false)
+        {
+            // 배치 불가능하면 드래그 취소됨
+            return;
+        }
+
+        // 배치 가능
+        DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, itemKey);
+        string towerName = $"{data.Name}Tower";
+        Util.Log($"OnEndDrag : {towerName}를 배치 성공함");
+        Managers.Resource.Instantiate(towerName, go => 
+        {
+            go.transform.position = buildingSystem.UpdatePosition(inputPos);
+            buildingSystem.AddPlacedMap(inputPos);
+            buildingSystem.DragController.IsSlotDragging = false; 
+            go.GetComponent<TowerControlBase>().TakeRoot(itemKey, towerName, (Tower)Gettable);
+        });
+    }
+    #endregion
 }

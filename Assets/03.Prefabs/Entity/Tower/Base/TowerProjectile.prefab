@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 783230816848279095}
   - component: {fileID: 5282869832606713389}
   - component: {fileID: 6490311143481423347}
+  - component: {fileID: -5530734995687411553}
   m_Layer: 0
   m_Name: TowerProjectile
   m_TagString: Untagged
@@ -72,7 +73,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &6490311143481423347
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -108,3 +109,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.06
+--- !u!114 &-5530734995687411553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861699299653737798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6483ecd1ea529640812ffa517fa8a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

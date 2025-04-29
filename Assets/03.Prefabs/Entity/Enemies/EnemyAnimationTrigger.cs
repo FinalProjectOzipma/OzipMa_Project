@@ -1,3 +1,4 @@
+using DefaultTable;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,28 +25,29 @@ public class EnemyAnimationTrigger : MonoBehaviour
         enemy.AnimationFinishTrigger();
     }
 
+    public void AnmationProjectileTrigger()
+    {
+        enemy.AnimationFinishProjectileTrigger();
+    }
+
     public void AttackTrigger()
     {
-        int layer = 1 << 9 | 1 << 10;
+        int layer = (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, attackValue, layer);
 
         foreach (var hit in colliders)
         {
-            MyUnitController unit = hit.GetComponentInParent<MyUnitController>();
-
-            if (unit != null)
-                unit.TakeDamage(enemy.Status.Attack.GetValue());
-            else if (hit.GetComponent<CoreController>() != null)
+            IDamagable damagle = hit.GetComponentInParent<IDamagable>();
+            if (damagle != null)
             {
-                //hit.GetComponent<CoreController>().TakeDamge(enemy.Status.Attack.GetValue());
-                hit.GetComponent<CoreController>().TakeDamge(700);
-
+                damagle.ApplyDamage(enemy.Status.Attack.GetValue(), AbilityType.None, enemy.gameObject);
             }
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
+        if(AttackCheck != null)
+            Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
     }
 }

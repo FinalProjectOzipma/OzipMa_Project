@@ -2,9 +2,9 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-using System.Numerics;
+using UnityEngine;
 
-public class UI_ResearchScene : UI_Base
+public class UI_ResearchScene : UI_Popup
 {
     enum Buttons
     {
@@ -22,40 +22,26 @@ public class UI_ResearchScene : UI_Base
         BackImage
     }
 
-    enum UIObject
+    enum ReseachObject
     {
-        AttackUpgrade,
-        DefenceUpgrade,
-        RandomUpgrade
+        UI_Research
     }
 
-    //public Sprite Sprite;
-
-
-    Sequence sequence;
+    bool isButton = false;
 
     private void Awake()
     {
         Init();
+    }
 
+    private void Start()
+    {
+        uiSeq = Util.RecyclableSequence();
 
-        //test
+        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f,0.1f));
+        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.0f, 0.1f));
 
-        //for (int i = 0; i < Managers.Data.Datas[Enums.Sheet.MyUnit].Count; i++)
-        //{
-        //    MyUnit unit = new();
-        //    unit.Init(i, Sprite);
-        //    Managers.Player.Inventory.Add(unit);
-        //}
-
-        //for (int i = 0; i < Managers.Data.Datas[Enums.Sheet.Tower].Count; i++)
-        //{
-        //    Tower tower = new();
-        //    tower.Init(i, Sprite);
-        //    Managers.Player.Inventory.Add(tower);
-        //}
-
-
+        uiSeq.Play();
     }
 
     public override void Init()
@@ -63,22 +49,23 @@ public class UI_ResearchScene : UI_Base
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
+        Bind<GameObject>(typeof(ReseachObject));
 
 
-        GetTextMeshProUGUI((int)Texts.GoldText).text = Managers.Player.GetGold().ToString();
-        GetTextMeshProUGUI((int)Texts.ZamText).text = Managers.Player.GetZam().ToString();
+        Get<TextMeshProUGUI>((int)Texts.GoldText).text = Managers.Player.GetGold().ToString();
+        Get<TextMeshProUGUI>((int)Texts.ZamText).text = Managers.Player.GetZam().ToString();
         GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBack);
 
     }
-
-    private TextMeshProUGUI GetTextMeshProUGUI(int idx) { return Get<TextMeshProUGUI>(idx); }
 
     private void OnEnable()
     {
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged += UpdateGoldUI;
+            Managers.Player.OnZamChanged += UpdateZamUI;
             UpdateGoldUI(Managers.Player.GetGold());
+            UpdateZamUI(Managers.Player.GetZam());
         }
     }
 
@@ -87,21 +74,45 @@ public class UI_ResearchScene : UI_Base
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged -= UpdateGoldUI;
+            Managers.Player.OnZamChanged -= UpdateZamUI;
         }
 
     }
 
     private void UpdateGoldUI(long gold)
     {
-        GetTextMeshProUGUI((int)Texts.GoldText).text = Util.FormatNumber(Managers.Player.GetGold());
-        GetTextMeshProUGUI((int)Texts.ZamText).text = Util.FormatNumber(Managers.Player.GetZam());
+        Get<TextMeshProUGUI>((int)Texts.GoldText).text = Util.FormatNumber(gold);
+    }
+
+    private void UpdateZamUI(long zam)
+    {
+        Get<TextMeshProUGUI>((int)Texts.ZamText).text = Util.FormatNumber(zam);
     }
 
     public void OnClickBack(PointerEventData data)
     {
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick, this.transform.position);
-        Util.OnClickButtonAnim(this.gameObject, GetImage((int)Images.BackImage), false);
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+
+        HidePpoup();
+        isButton = false;
+
     }
 
+    private void HidePpoup()
+    {
+        uiSeq = Util.RecyclableSequence();
+
+        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(0.2f, 0.1f));
+
+        uiSeq.Play().OnComplete(() =>
+        {
+            ClosePopupUI();
+        });
+    }
 
 }

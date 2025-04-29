@@ -7,11 +7,11 @@ using static Enums;
 public class Tower : UserObject, IGettable
 {
     public TowerStatus TowerStatus { get; private set; }
-    public TowerAtkType AtkType { get; private set; }
+    public AtkType AtkType { get; private set; }
 
-    public List<TowerType> TowerTypes = new();
+    public AbilityType TowerType = new();
     public int Key { get; private set; }
-    public static Dictionary<TowerType, DefaultTable.TowerAbilityDefaultValue> Abilities { get; private set; } // 추후 다른 곳으로 빼고 싶음
+    public static Dictionary<AbilityType, DefaultTable.AbilityDefaultValue> Abilities { get; private set; } // 속성 정보들 캐싱, 추후 다른 곳으로 빼고싶음.
 
     public T GetClassAddress<T>() where T : UserObject
     {
@@ -25,35 +25,59 @@ public class Tower : UserObject, IGettable
 
         // 동적 정보 채우기
         TowerStatus = new TowerStatus(primaryKey);
+        Status = TowerStatus;
 
         // 정적 정보 채우기
         Key = primaryKey;
         AtkType = towerData.AttackType;
-        foreach(int t in towerData.TowerType)
-        {
-            TowerTypes.Add((TowerType)t);
-        }
+        TowerType = towerData.AbilityType;
 
-        if(Abilities == null)
+        if (Abilities == null)
         {
             Abilities = new();
-            var abilities = Util.TableConverter<DefaultTable.TowerAbilityDefaultValue>(Managers.Data.Datas[Sheet.TowerAbilityDefaultValue]);
-            foreach(var ability in abilities)
+            var abilities = Util.TableConverter<DefaultTable.AbilityDefaultValue>(Managers.Data.Datas[Sheet.AbilityDefaultValue]);
+            foreach (var ability in abilities)
             {
                 Abilities.Add(ability.AbilityType, ability);
             }
         }
     }
 
-    public void GradeUpdate()
+    /// <summary>
+    /// 타워 진화
+    /// </summary>
+    /// <returns>진화 성공 여부</returns>
+    public bool GradeUpdate()
     {
-        // TODO:: 알아서하는걸로
-        // ps.손나박한나
+        if (TowerStatus.Grade.GetValue() < 5)
+        {
+            TowerStatus.MaxLevel.AddValue(1);
+            TowerStatus.Attack.AddMultiples(0.5f);
+            TowerStatus.AttackCoolDown.AddMultiples(-0.05f);
+            TowerStatus.AttackRange.SetValue(TowerStatus.AttackRange.GetValue() * 1.02f);
+            return true;
+        }
+        else
+        {
+            // TODO :: 풀각인데 또 뜨면 어떻게해줄건지?
+        }
+        return false;
     }
 
-    public void LevelUpdate()
+    /// <summary>
+    /// 타워 강화
+    /// </summary>
+    /// <returns>강화 성공 여부</returns>
+    public bool LevelUpdate()
     {
-        // TODO:: 알아서하는걸로
-        // ps.손나박한나
+        if(TowerStatus.Level.GetValue() < TowerStatus.MaxLevel.GetValue())
+        {
+            TowerStatus.Level.AddValue(1);
+            TowerStatus.Attack.AddMultiples(0.1f);
+            //TowerStatus.AttackCoolDown.AddMultiples(-0.05f);
+            //TowerStatus.AttackRange.SetValue(TowerStatus.AttackRange.GetValue() * 1.02f);
+            return true;
+        }
+        return false;
     }
 }

@@ -17,7 +17,15 @@ public class GameScene : SceneBase
     {
         base.Enter();
 
-        Managers.Resource.Instantiate("MainLevel3");
+        Managers.Resource.Instantiate("MainLevel3", map => { CurrentMap = map; });
+        Managers.Resource.Instantiate("InventoryUI");
+        Managers.Resource.Instantiate("MainUI");
+        Managers.Resource.Instantiate("BuildingSystem");
+    }
+
+    public override void Update()
+    {
+        Managers.Wave.Update();
     }
 
     public override void Exit()

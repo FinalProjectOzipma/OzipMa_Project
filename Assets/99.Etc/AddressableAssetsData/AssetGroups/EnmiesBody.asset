@@ -17,20 +17,20 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b1c07e24a4d4d4243b7d44bd3909e901
   m_SerializeEntries:
+  - m_GUID: 26fdcc828d347a2429b151b08760ed13
+    m_Address: Wizard_Body
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f3c61c7160749d409a813f70b8dbba2
+    m_Address: ArcherMan_Body
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: eccb9c04f6156344396e602f0d376e24
     m_Address: SwordMan_Body
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ffba613e95156ff44b19857814a7e6ea
-    m_Address: "\uAE40\uBA80\uBC08_Body"
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 2ccb125489dac574b8f26ad8d8c7b05b
-    m_Address: "\uC218\uC9C4\uB134_Body"
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

@@ -17,8 +17,7 @@ public class MyUnitIdleState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
-        Util.Log("상윤님바보(마이유닛 idle상태라는뜻)");
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             SetTarget();
         }
@@ -32,10 +31,10 @@ public class MyUnitIdleState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target != null)
+        if (!controller.Target.activeSelf)
         {
             Debug.Log("타겟지정되어있음");
-            if (controller.IsClose())
+            if (IsClose())
             {
                 StateMachine.ChangeState(data.AttackState);
             }
@@ -70,7 +69,5 @@ public class MyUnitIdleState : MyUnitStateBase
                 controller.Target = enemy;
             }
         }
-        //타겟에게 가게함
-        Util.Log("타겟 지정ㅇ해볼개ㅔ~");
     }
 }

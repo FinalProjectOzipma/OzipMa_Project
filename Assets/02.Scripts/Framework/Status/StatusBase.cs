@@ -20,7 +20,7 @@ public class StatusBase
         Init();
     }
 
-    public virtual void Init()
+    public void Init()
     {
         Level.SetValue(1);
         Stack.SetValue(0);

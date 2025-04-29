@@ -5,12 +5,15 @@ using UnityEngine;
 public class ProjectileTowerController : TowerControlBase
 {
     public string ProjectileName { get; set; }
-    private EnemyController target; // 피격 대상(1마리)
-    protected Vector3 firePosition = Vector3.one; // 발사 위치
-    private float attackPower;
 
-    protected void Awake()
+    private EnemyController target; // 피격 대상(1마리)
+    private TowerBodyBase bodyScript;
+    private float attackPower;
+    private bool isLeft = false;
+
+    protected override void Start()
     {
+        base.Start();
         int index = Name.IndexOf("Tower");
         if (index > 0)
         {
@@ -20,42 +23,35 @@ public class ProjectileTowerController : TowerControlBase
         {
             ProjectileName = Name;
         }
-        Util.Log(ProjectileName);
         Managers.Resource.LoadAssetAsync<GameObject>(ProjectileName); // 미리 로드 
     }
-    public override void TakeRoot(int primaryKey, string name, Vector2 position)
+    protected override void TakeBody()
     {
-        // 정보 세팅
-        Tower = new Tower();
-        Tower.Init(primaryKey, Preview);
-        TowerStatus = Tower.TowerStatus;
-
-        Init();
-
         // 외형 로딩
         Managers.Resource.Instantiate($"{name}Body", go => {
             body = go;
             body.transform.SetParent(transform);
             body.transform.localPosition = Vector3.zero;
-            if (firePosition == Vector3.one) firePosition = Util.FindComponent<Transform>(go, "FirePosition").position; // 외형 로드 시 발사위치 받아두기
+            
+            body.GetComponentInChildren<TowerAnimationTrigger>().ProjectileAttackStart = FireProjectile;
 
-            if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
+            if (body.TryGetComponent<TowerBodyBase>(out bodyScript))
             {
-                Anim = bodyBase.Anim;
-                AnimData = bodyBase.AnimData;
+                Anim = bodyScript.Anim;
+                AnimData = bodyScript.AnimData;
+                TowerStart();
             }
         });
     }
 
     public override void Attack(float AttackPower)
     {
+        if (body == null) return;
         target = detectedEnemies.First.Value;
         if (target == null) return;
 
         attackPower = AttackPower;
-
-        if (body == null) return;
-        body.GetComponentInChildren<TowerTrigger>().ProjectileAttackStart = FireProjectile;
+        FlipControl(target.transform);
     }
 
     public void FireProjectile()
@@ -63,8 +59,28 @@ public class ProjectileTowerController : TowerControlBase
         // Projectile 생성
         Managers.Resource.Instantiate(ProjectileName, go =>
         {
-            go.transform.position = firePosition;
+            go.transform.position = bodyScript.FirePosition;
             go.GetComponent<TowerProjectile>().Init(ProjectileName, attackPower, Tower, target);
         });
+    }
+
+    protected void FlipControl(Transform targetTransform)
+    {
+        float X = transform.position.x;
+        float targetX = targetTransform.position.x;
+        if (targetX > X && isLeft) //타겟이 오른쪽으로 변화
+        {
+            Flip();
+        }
+        else if (targetX < X && !isLeft) // 타겟이 왼쪽으로 변화
+        {
+            Flip();
+        }
+    }
+
+    protected virtual void Flip()
+    {
+        isLeft = !isLeft;
+        body.transform.Rotate(0f, 180f, 0f);
     }
 }

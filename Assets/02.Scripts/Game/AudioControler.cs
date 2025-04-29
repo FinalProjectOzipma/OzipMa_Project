@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.UIElements;
+using static DG.Tweening.DOTweenModuleUtils;
 
 
 public enum BGMClipName
@@ -14,7 +16,7 @@ public enum BGMClipName
 public enum SFXClipName
 {
     ButtonClick,
-    Sword,
+    None,
     MagicSpark,
     Hit,
     Destroy,
@@ -22,7 +24,14 @@ public enum SFXClipName
     Thunder,
     Walk,
     Dead,
-    PowerUp
+    PowerUp,
+    Error,
+    Upgrade,
+    Casting,
+    Projectile,
+    Arrow,
+    Dark,
+    Fire
 }
 
 public class AudioControler : MonoBehaviour
@@ -192,7 +201,7 @@ public class AudioControler : MonoBehaviour
     /// <summary>
     ///   효과음 실행, 다른 스크립트에서 가져가서 실행(효과음 이름, 위치) 
     /// </summary>
-    public void PlaySFX(SFXClipName enumName, Vector3 position)
+    public void PlaySFX(SFXClipName enumName)
     {
         string sfxName = enumName.ToString();
 
@@ -202,21 +211,21 @@ public class AudioControler : MonoBehaviour
             return;
         }
 
-        PlaySFX(sfxDictionary[sfxName], position);
+        PlaySFX(sfxDictionary[sfxName]);
     }
 
 
     /// <summary>
     /// 다른곳에서 받은 효과음 실행
     /// </summary>
-    private void PlaySFX(AudioClip clip, Vector3 position)
+    private void PlaySFX(AudioClip clip)
     {
         // 음소거 상태라면 재생 안됨
         if (isSFXMute) return;
 
         AudioSource sfxSource = GetAudioSource(); // 오디오 소스 가져오기
 
-        sfxSource.transform.position = position; // 재생 위치 설정
+        sfxSource.transform.position = new Vector3(0,0,0); // 재생 위치 설정
         sfxSource.clip = clip;
 
         if(isMasterMute || isSFXMute)
@@ -225,10 +234,23 @@ public class AudioControler : MonoBehaviour
         }
         else
         {
-            sfxSource.volume = Managers.Audio.sfxVolume * Managers.Audio.masterVolume; // SFX 볼륨 설정
+            float volumeMax = Managers.Audio.sfxVolume * Managers.Audio.masterVolume;
+
+            if(volumeMax == 0)
+            {
+                sfxSource.volume = 0;
+            }
+            else
+            {
+                volumeMax = Mathf.Max(volumeMax, 0.1f); // 최소 0.7f로 보장
+                sfxSource.volume = Random.Range(0.1f, volumeMax); // SFX 볼륨 설정
+                sfxSource.pitch = Random.Range(0.95f, 1.05f);
+
+            }
         }
 
         sfxSource.gameObject.SetActive(true);
+   
         sfxSource.Play();
 
         StartCoroutine(ReturnToPool(sfxSource, clip.length + 2.0f)); // 재생 후 다시 풀에 반환
@@ -258,6 +280,33 @@ public class AudioControler : MonoBehaviour
 
         sfxSource.gameObject.SetActive(false); // 오브젝트 비활성화
         sfxPool.Enqueue(sfxSource);            // 큐에 다시 추가
+    }
+
+
+    public void SelectSFXAttackType(AbilityType type)
+    {
+        switch(type)
+        {
+            case AbilityType.None:
+                PlaySFX(SFXClipName.Error);
+                break;
+            case AbilityType.Physical:
+                PlaySFX(SFXClipName.Hit);
+                break;
+            case AbilityType.Magic:
+                PlaySFX(SFXClipName.MagicSpark);
+                break;
+            case AbilityType.Fire:
+                PlaySFX(SFXClipName.Fire);
+                break;
+            case AbilityType.Explosive:
+                PlaySFX(SFXClipName.Destroy);
+                break;
+            case AbilityType.Dark:
+                PlaySFX(SFXClipName.Dark);
+                break;
+        }
+
     }
     #endregion
 

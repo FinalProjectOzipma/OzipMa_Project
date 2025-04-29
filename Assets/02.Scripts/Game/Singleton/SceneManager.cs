@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SceneManager
 {
@@ -23,7 +22,22 @@ public class SceneManager
         CurrentScene = nextScene;
 
         //UI_Loading.LoadScene(typeof(T).Name);
-        UnityEngine.SceneManagement.SceneManager.LoadScene(typeof(T).Name);
-        Managers.Resource.LoadResourceLocationAsync(nextScene.LabelAsync, nextScene.Enter);
+        //UnityEngine.SceneManagement.SceneManager.LoadScene(typeof(T).Name);
+
+        Managers.Resource.Instantiate("LoadScene", go =>
+        {
+            go.SetActive(true);
+            
+            Managers.Resource.LoadResourceLocationAsync(nextScene.LabelAsync, () =>
+            {
+                nextScene.Enter();
+
+                DOVirtual.DelayedCall(0f, () =>
+                {
+                    Managers.Resource.Destroy(go);
+                });
+            });
+        });
     }
+
 }

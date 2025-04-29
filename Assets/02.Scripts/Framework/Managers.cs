@@ -19,6 +19,7 @@ public class Managers : MonoBehaviour
     public static readonly DataManager Data = new();
     public static readonly WaveManager Wave = new();
     public static readonly PlayerManager Player = new();
+    public static readonly UpgradeManager Upgrade = new();
 
     private void Awake()
     {
@@ -27,7 +28,7 @@ public class Managers : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
+
         Instance = this;
         MonoInstance = this;
         DontDestroyOnLoad(this);
@@ -36,6 +37,12 @@ public class Managers : MonoBehaviour
         Pool.Initialize();
         TestInit();
         Scene.Initialize();
+        Upgrade.Intialize();
+    }
+
+    private void Update()
+    {
+        Scene.CurrentScene?.Update();
     }
 
     public new static Coroutine StartCoroutine(IEnumerator coroutine)

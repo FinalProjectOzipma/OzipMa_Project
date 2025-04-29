@@ -17,26 +17,26 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 22664719a67fa65459e9e3b11522b8d0
   m_SerializeEntries:
-  - m_GUID: 73d66612959354546bfbf116bad26fe7
-    m_Address: SwordMan_Brain
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: ecef97a099705214496ec4d70385b9cf
-    m_Address: "\uAE40\uBA80\uBC08_Brain"
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9dd128e549ea21040b6ade3b9ba7682e
-    m_Address: "\uC218\uC9C4\uB134_Brain"
+  - m_GUID: 151cf38c474b104429865b7e857dff58
+    m_Address: Wizard_Brain
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f81835d5ebcdaf5458fc83c42f60b027
     m_Address: MainLevel3
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 73d66612959354546bfbf116bad26fe7
+    m_Address: SwordMan_Brain
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1e84ec3b8ea60164ab97a4a8a2eeaf9a
+    m_Address: ArcherMan_Brain
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

@@ -6,11 +6,12 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
-public class SceneBase
+public abstract class SceneBase
 {
     public Action InitAction;
     public Action SingletonAction;
     public string LabelAsync { get; set; }
+    public GameObject CurrentMap { get; set; }
 
     public virtual void Enter()
     {
@@ -18,6 +19,7 @@ public class SceneBase
         InitAction?.Invoke();
     }
 
+    public abstract void Update();
     public virtual void Exit()
     {
         InitAction = null;

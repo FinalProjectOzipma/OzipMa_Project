@@ -32,7 +32,7 @@ public class MyUnitChaseState : MyUnitStateBase
         base.Update();
         //controller.DetectEnemyRaycast();
         //타겟이 없다면
-        if (controller.Target == null)
+        if (!controller.Target.activeSelf || controller.Target == null)
         {
             //Idle상태로 현재 상태 변경
             StateMachine.ChangeState(data.IdleState);
@@ -41,7 +41,7 @@ public class MyUnitChaseState : MyUnitStateBase
         else
         {
             //타겟을 때릴 수 있는가
-            if (controller.IsClose())
+            if (IsClose())
                 //전투 상태로 현재 상태 변경
                 StateMachine.ChangeState(data.AttackState);
             controller.Agent.SetDestination(controller.Target.transform.position);

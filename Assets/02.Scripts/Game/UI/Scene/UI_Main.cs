@@ -1,0 +1,150 @@
+using DefaultTable;
+using DG.Tweening;
+using TMPro;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+
+
+public class UI_Main : UI_Scene
+{
+
+    enum Buttons
+    {
+        ResearchButton,
+        ManagerButton,
+        SettingButton
+
+    }
+
+    enum Texts
+    {
+        MainGoldText,
+        MainZamText,
+        StageLv,
+        PlayerName,
+        ResearchText,
+        ManagerText
+    }
+
+    enum Images
+    {
+        ProfileImage,
+        ResearchButtonImage,
+        ManagerButtonImage,
+        SettingImage,
+        ProgressImage,
+        CompleteImage
+    }
+
+    enum Objects
+    {
+        ReseachUI,
+        SoundUI,
+        AlarmPopup
+    }
+
+    bool isButton = false;
+
+
+    private void Start()
+    {
+        Init();
+    }
+    public override void Init()
+    {
+        Managers.UI.SetSceneList<UI_Main>(this);
+
+        Bind<Button>(typeof(Buttons));
+        Bind<TextMeshProUGUI>(typeof(Texts));
+        Bind<Image>(typeof(Images));
+
+        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
+        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
+        Get<Button>((int)Buttons.ResearchButton).gameObject.BindEvent(OnClikButtonResearch);
+        Get<Button>((int)Buttons.ManagerButton).gameObject.BindEvent(OnClickManager);
+        Get<Button>((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSetting);
+        Get<TextMeshProUGUI>((int)Texts.StageLv).text = $"Lv {Managers.Player.CurrentStage} - {Managers.Player.CurrentWave + 1}";
+
+        if (Managers.Player != null)
+        {
+            Managers.Player.OnGoldChanged += UpdateGoldUI;
+            Managers.Player.OnZamChanged += UpdateZamUI;
+            Managers.Player.OnStageChanged += UpdateStageUI;
+            UpdateGoldUI(Managers.Player.GetGold());
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (Managers.Player != null)
+        {
+            Managers.Player.OnGoldChanged -= UpdateGoldUI;
+            Managers.Player.OnZamChanged -= UpdateZamUI;
+        }
+
+    }
+
+    private void UpdateGoldUI(long gold)
+    {
+        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(gold);
+    }
+
+    private void UpdateZamUI(long zam)
+    {
+        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(zam);
+    }
+
+    private void UpdateStageUI(int stage, int wave)
+    {
+        Get<TextMeshProUGUI>((int)Texts.StageLv).text = $"Lv {stage} - {wave + 1}";
+    }
+
+
+    private void OnClikButtonResearch(PointerEventData data)
+    {
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.UI.ShowPopupUI<UI_ResearchScene>(Objects.ReseachUI.ToString());
+        isButton = false;
+    }
+
+    private void OnClickSetting(PointerEventData data)
+    {
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.UI.ShowPopupUI<UI_Setting>(Objects.SoundUI.ToString());
+        isButton = false;
+
+      
+    }
+
+    private void OnClickManager(PointerEventData data)
+    {
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+        OffButton();
+        isButton = false;
+    }
+
+    public void OffButton()
+    {
+        Get<Button>((int)Buttons.ManagerButton).gameObject.SetActive(false);
+        Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(false);
+    }
+
+    public void OnButton()
+    {
+        Get<Button>((int)Buttons.ManagerButton).gameObject.SetActive(true);
+        Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(true);
+    }
+}

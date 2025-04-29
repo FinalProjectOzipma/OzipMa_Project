@@ -2,12 +2,14 @@ using DefaultTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class MyUnitAnimationTrigger : MonoBehaviour
 {
+    
     public Transform AttackCheck;
     float attackValue;
-    private MyUnitController myUnit => GetComponentInParent<MyUnitController>();
+    protected MyUnitController myUnit => GetComponentInParent<MyUnitController>();
 
     private void Start()
     {
@@ -24,24 +26,28 @@ public class MyUnitAnimationTrigger : MonoBehaviour
         myUnit.AnimationFinishTrigger();
     }
 
-    public void AttackTrigger()
+    public virtual void AttackTrigger()
     {
-        int layer = 1 << 8;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
-
-        foreach (var hit in colliders)
+        Util.Log("myUnitHP: " + myUnit.MyUnitStatus.Health.GetValueToString());
+        if (myUnit.Target == null)
         {
-            if (hit.GetComponentInParent<EnemyController>() != null)
-            {
-                Util.Log(hit.name);
-                //hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
-                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue());
-            }
+            return;
         }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
+    }
+
+    protected bool IsReflect(GameObject target)
+    {
+        EnemyController enemy = target.GetComponent<EnemyController>();
+
+        if (enemy.Enemy.AtkType == AtkType.ReflectDamage)
+        {
+            return true;
+        }
+        return false;
     }
 }

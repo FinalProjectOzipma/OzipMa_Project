@@ -2,67 +2,78 @@ using DefaultTable1;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : EntityController
+public class EnemyController : EntityController, IDamagable
 {
-
     private Coroutine DotCor;
     private Coroutine SlowCor;
 
     public Rigidbody2D Rigid { get; private set; }
+    public SpriteRenderer Spr { get; private set; }
 
     public Enemy Enemy { get; private set; }
     public EnemyStatus Status { get; private set; }
+    public Stack<GameObject> Targets { get; set; } = new();
+
 
     public Sprite SpriteImage;
     public NavMeshAgent Agent;
-    public GameObject Target;
 
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
+        Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
     }
 
-    public override void Init(int primaryKey, string name, Vector2 position, GameObject gameObject = null)
+    protected override void Update()
     {
-        base.Init(primaryKey, name, position);
-        //EnemyStatus = new EnemyStatus(Row);
-        AnimData = new EnemyAnimationData();
-        AnimData.Init(this);
+        if (AnimData != null)
+            AnimData.StateMachine.CurrentState?.Update();
+    }
+
+    public override void Init(Vector2 position)
+    {
+        base.Init(position);
+        CurrentCondition = AbilityType.None;
         transform.position = position;
+        Targets.Clear();
+        Targets.Push(Managers.Wave.MainCore.gameObject);
     }
 
     private string _Body = nameof(_Body);
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
-        Enemy = new Enemy(primaryKey, SpriteImage);
+        if (Enemy == null)
+            Enemy = new Enemy(primaryKey, SpriteImage);
+        else
+            Enemy.Init(primaryKey, SpriteImage);
+
         Status = Enemy.Status;
-        IsDead = false;
-        Managers.Resource.Instantiate($"{name}{_Body}", go =>
+        Status.InitHealth();
+
+        if(body == null)
         {
-            go.transform.SetParent(transform);
-            Rigid = go.GetOrAddComponent<Rigidbody2D>();
-            Fx = go.GetOrAddComponent<ObjectFlash>();
-            Init(primaryKey, name, position, go);
-        });
-    }
-
-
-    public void ApplyDamage(float attackPower)
-    {
-        //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = -attackPower;
-
-        if (minus < 0.0f)
+            Managers.Resource.Instantiate($"{name}{_Body}", go =>
+            {
+                go.transform.SetParent(transform);
+                Fx = go.GetOrAddComponent<ObjectFlash>();
+                Spr = go.GetOrAddComponent<SpriteRenderer>();
+                body = go;
+                Init(position);
+            });
+        }
+        else
         {
-            Status.AddHealth(minus);
-            Fx.StartBlinkFlash();
+            Init(position);
         }
     }
+
+
 
     public void ApplyDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
     {
@@ -106,10 +117,10 @@ public class EnemyController : EntityController
 
             if(canHit)
             {
-                float minus = Status.Defences[0].GetValue() - abilityValue;
+                float minus = Status.Defence.GetValue() - abilityValue;
                 if(minus < 0.0f)
                 {
-                    Status.AddHealth(minus);
+                    Status.AddHealth(minus, gameObject);
                     Fx.StartBlinkRed();
                 }
 
@@ -142,4 +153,53 @@ public class EnemyController : EntityController
     }
 
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
+    public virtual void AnimationFinishProjectileTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishProjectileTrigger();
+
+    /// <summary>
+    /// go = 데미지 준 애(브레인부분)
+    /// damage = 얼마나 줄지
+    /// </summary>
+    /// <param name="go"></param>
+    /// <param name="damage"></param>
+    public void ApplyDamage(float incomingDamage, AbilityType condition = AbilityType.None, GameObject go = null)
+    {
+        //반사타입 처리
+        if (Enemy.AtkType == AtkType.ReflectDamage)
+        {
+            
+            if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
+            {
+                //float abilityRatio = Status.AbilityValue;
+                float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
+                myunit.ReflectDamage(incomingDamage, abilityRatio);
+                Util.Log("반사해드렸습니다");
+            }
+        }
+
+
+        float defence = Mathf.Max(0f, Status.Defence.GetValue());
+
+        // 부드러운 비율 스케일링
+        float damageScale = incomingDamage / (incomingDamage + defence);
+
+        float finalDamage = incomingDamage * damageScale;
+
+        finalDamage = Mathf.Max(finalDamage, 1f); // 최소 1 보장 (선택사항)
+
+        Status.AddHealth(-finalDamage, gameObject);
+        Fx.StartBlinkFlash();
+        
+
+        int iCondition = (int)condition;
+        if (Times.ContainsKey(iCondition) && Times[iCondition] <= 0f)
+        {
+            CurrentCondition = condition;
+            Times[iCondition] = Conditions[iCondition].CoolDown;
+        }
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
 }

@@ -1,74 +1,70 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
-using System.Threading;
-
+using TMPro;
+using static Enums;
 public class UI_Loading : UI_Base
 {
-    enum Images
+    enum LoadObject
     {
-        LoadBackground,
-        LoadBar
+        LoadingIcon
     }
 
-    public static string NextScene = "YGM_Research";
+    enum Texts
+    {
+        LoadingText
+    }
+
+    GameObject loadingObject;
+    TextMeshProUGUI loadingText;
+    public string baseText = "Loading";
+    public float interval = 0.5f;
+
+    public float speed = 180f;
+    private bool spinning = true;
 
 
     private void Start()
     {
         Init();
-        StartCoroutine(LoadSceneProcess());
+
+        StartCoroutine(AnimateDots());
+        StartCoroutine(Spin());
+        //StartCoroutine(LoadSceneProcess());
 
     }
+
     public override void Init()
     {
-        Bind<Image>(typeof(Images));
+        Bind<GameObject>(typeof(LoadObject));
+        Bind<TextMeshProUGUI>(typeof(Texts));
 
-        GetImage((int)Images.LoadBar).fillAmount = 0.0f;
+        loadingObject = GetObject((int)LoadObject.LoadingIcon).gameObject;
+        loadingText = Get<TextMeshProUGUI>((int)Texts.LoadingText);
+
+
     }
 
-    /// <summary>
-    /// 로딩씬 로드하고 씬전환
-    /// </summary>
-    public static void LoadScene(string sceneName)
+
+    IEnumerator AnimateDots()
     {
-        NextScene =  sceneName;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Ygm_LoadingScene");
-    }
+        int dotCount = 0;
 
-    /// <summary>
-    /// 씬전화 로딩
-    /// </summary>
-    IEnumerator LoadSceneProcess()
-    {
-        AsyncOperation op = UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(NextScene);
-
-        op.allowSceneActivation = false;
-
-        float minWaitTime = 1.0f;
-        float elapsedTime = 0f;
-        while (!op.isDone)
+        while (true)
         {
-            yield return null;
-            elapsedTime += Time.unscaledDeltaTime;
-
-            if (op.progress < 0.9f)
-            {
-                GetImage((int)Images.LoadBar).fillAmount = op.progress;
-            }
-            else
-            {
-                float fill = Mathf.Lerp(0.9f, 1f, (elapsedTime - minWaitTime));
-                GetImage((int)Images.LoadBar).fillAmount = fill;
-
-                if (fill >= 1.0f)
-                {
-                    op.allowSceneActivation = true;
-                    yield break;
-                }
-            }
+            dotCount = (dotCount + 1) % 4;  // 0 ~ 3
+            string dots = new string('.', dotCount);
+            loadingText.text = baseText + dots;
+            yield return new WaitForSeconds(interval);
         }
+    }
 
+    IEnumerator Spin()
+    {
+        while (spinning)
+        {
+            loadingObject.transform.Rotate(0f, 0f, -speed * Time.deltaTime);
+            yield return null;
+        }
     }
 
 

@@ -1,32 +1,37 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Enums;
 
 public abstract class EntityController : Poolable
 {
-    [SerializeField]
-    public int PrimaryKey { get; set; }
-    public string Name { get; set; }
+    protected GameObject body;
+
 
     #region Component
     public Animator Anim { get; private set; }
+    public CapsuleCollider2D Colider { get; private set; }
     public ObjectFlash Fx { get; set; }
 
     #endregion
-    public EntityAnimationData AnimData { get; protected set; }
+
+    public Dictionary<int, KeyPairCondition> Conditions { get; set; } = new();
+    public Dictionary<int, float> Times { get; set; } = new();
+    public AbilityType CurrentCondition { get; set; } = AbilityType.None;
+    public EntityAnimationData AnimData { get; set; }
 
     public bool IsLeft { get; private set; }
-    public int FacDir { get; private set; }
+    public int FacDir { get; private set; } = 1;
 
     public bool IsDead { get; set; }
 
-    public virtual void Init(int primaryKey, string name, Vector2 position, GameObject go = null)
+    public virtual void Init(Vector2 position)
     {
         Anim = GetComponentInChildren<Animator>();
-
-        PrimaryKey = primaryKey;
-        Name = name;
+        Colider = GetComponent<CapsuleCollider2D>();
+        //IsDead = false;
     }
 
     protected virtual void Update()
@@ -41,19 +46,23 @@ public abstract class EntityController : Poolable
             AnimData.StateMachine.CurrentState?.FixedUpdate();
     }
 
-    public void FlipControll(GameObject target)
+    public void FlipControll(GameObject target = null)
     {
-        if (target == null)
-            return;
-
-        Vector2 pos = target.transform.position;
-        Vector2 mePos = transform.position;
-
-        if (pos.x - mePos.x > 0f && IsLeft)
+        if(target != null)
         {
-            OnFlip();
+            Vector2 pos = target.transform.position;
+            Vector2 mePos = transform.position;
+
+            if (pos.x - mePos.x > 0 && IsLeft)
+            {
+                OnFlip();
+            }
+            else if (pos.x - mePos.x < 0 && !IsLeft)
+            {
+                OnFlip();
+            }
         }
-        else if (pos.x - mePos.x < 0f && !IsLeft)
+        else
         {
             OnFlip();
         }
@@ -63,7 +72,7 @@ public abstract class EntityController : Poolable
     {
         IsLeft = !IsLeft;
         FacDir *= -1;
-        transform.Rotate(Vector2.up * 180);
+        transform.Rotate(0f, 180f * FacDir, 0f);
     }
 
     //Root부분 생성해주는 파트

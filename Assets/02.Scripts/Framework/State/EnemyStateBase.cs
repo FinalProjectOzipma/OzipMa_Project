@@ -8,39 +8,37 @@ using UnityEngine.AI;
 public class EnemyStateBase : EntityStateBase
 {
     protected EnemyController controller;
-    protected EnemyAnimationData data;
 
     protected Transform transform;
+    protected SpriteRenderer spr;
     protected Animator anim;
     protected Rigidbody2D rigid;
     protected NavMeshAgent agent;
     protected EnemyStatus status;
+    protected CapsuleCollider2D capCol;
 
     protected bool isLeft;
     protected int facDir = 1;
 
-    protected GameObject core;
-    protected Stack<GameObject> stack;
+    protected Stack<GameObject> targets;
 
-    public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EnemyAnimationData data) : base(stateMachine, animHashKey)
+    public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
         this.transform = controller.transform;
+        this.spr = controller.Spr;
         this.anim = controller.Anim;
         this.rigid = controller.Rigid;
         this.agent = controller.Agent;
         this.status = controller.Status;
-
-        this.stack = new Stack<GameObject>();
-        core = Managers.Player.MainCore.gameObject;
-        stack.Push(core);
-        this.data = data;
+        this.capCol = controller.Colider;
     }
 
     public override void Enter()
     {
         anim.SetBool(animHashKey, true);
         triggerCalled = false;
+        this.targets = controller.Targets;
     }
 
     public override void Exit()
@@ -48,52 +46,105 @@ public class EnemyStateBase : EntityStateBase
         anim.SetBool(animHashKey, false);
     }
 
-    public override void FixedUpdate()
-    {
-        
-    }
-
     public override void Update()
     {
-        if (controller.IsDead)
-            return;
+        base.Update();
 
+        if(!controller.Enemy.IsBoss)
+        {
+            DetectedUnit();
+        }
+
+        if(targets.Count > 0)
+            controller.FlipControll(targets.Peek());
+    }
+
+    protected bool DeadCheck()
+    {
         if (status.Health.GetValue() <= 0.0f)
         {
             controller.StopAllCoroutines();
             controller.IsDead = true;
-            StateMachine.ChangeState(data.DeadState);
+            return true;
         }
 
-
-        if(stack.Count > 0)
-        {
-            SetTarget();
-
-            controller.FlipControll(stack.Peek());
-        }
+        controller.IsDead = false;
+        return false;
     }
 
-    private void SetTarget()
+    protected void DetectedUnit()
     {
-        if (stack.Peek() == core)
+        if (targets.Peek() == Managers.Wave.MainCore.gameObject)
         {
-            Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), 1 << 9);
-            if (col != null) stack.Push(col.gameObject);
+            Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), (int)Enums.Layer.MyUnit);
+            if (col != null) targets.Push(col.gameObject);   
         }
         else
         {
-            if (stack.Peek() == null || !stack.Peek().gameObject.activeInHierarchy ||
-                Vector2.Distance(transform.position, stack.Peek().transform.position) >= status.AttackRange.GetValue())
+            if (!targets.Peek().gameObject.activeInHierarchy ||
+                Vector2.Distance(transform.position, targets.Peek().transform.position) >= status.AttackRange.GetValue())
             {
-                stack.Pop();
+                targets.Pop();
             }
         }
+    }
+
+    public void InnerRange(EnemyStateBase nextState, float dist = -1)
+    {
+        if (dist < 0)
+            dist = status.AttackRange.GetValue();
+
+        if (Vector2.Distance(transform.position, targets.Peek().transform.position) <= dist)
+            StateMachine.ChangeState(nextState);
+    }
+
+    public void OutRange(EnemyStateBase nextState, float dist = -1)
+    {
+        if (dist < 0)
+            dist = status.AttackRange.GetValue();
+
+        if (Vector2.Distance(transform.position, targets.Peek().transform.position) > dist)
+            StateMachine.ChangeState(nextState);
+    }
+
+    protected bool DetectedMap(Vector2 targetPos)
+    {
+        float dist = Vector2.Distance(capCol.transform.position, targetPos);
+        Vector2 size = new Vector2(capCol.bounds.extents.x, capCol.bounds.extents.y);
+        Vector2 dir = (targetPos - (Vector2)capCol.transform.position).normalized;
+
+        Collider2D col = Physics2D.BoxCast(capCol.transform.position, size, 0f, dir, dist, (int)Enums.Layer.Map).collider;
+        if (col != null)
+        {
+            if (agent.remainingDistance < 0.01f)
+                return false;
+
+            return true;
+        }
+
+        return false;
     }
 
     //목적지에 도착했는지 확인하는 용
     protected bool IsArrived()
     {
         return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
+    }
+
+    protected void Fire<T>(GameObject go, Vector2 targetPos) where T : EntityProjectile
+    {
+        EntityProjectile projectile = go.GetComponent<T>();
+        projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
+    }
+
+    protected void SwitchConditionState(AbilityType type, EnemyStateBase state)
+    {
+        if (controller.CurrentCondition == type)
+            StateMachine.ChangeState(state);
+    }
+
+    public override void FixedUpdate()
+    {
+
     }
 }

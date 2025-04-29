@@ -2,12 +2,23 @@ using System;
 
 public class EntityHealth : FloatBase
 {
-    public Action<float> OnChangeHealth;
+    public Action<float, float> OnChangeHealth;
+    private EntityController controller;
+    private float maxHealth;
+
+    public void SetMaxHealth(float maxHealth)
+    {
+        this.maxHealth = maxHealth;
+    }
 
     public override void AddValue(float amount)
     {
         base.AddValue(amount);
-        Util.Log($"{Value}");
-        OnChangeHealth?.Invoke(Value);
+        OnChangeHealth?.Invoke(Value, maxHealth);
+    }
+    public override void SetValue(float amount)
+    {
+        base.SetValue(amount);
+        OnChangeHealth?.Invoke(Value, maxHealth);
     }
 }

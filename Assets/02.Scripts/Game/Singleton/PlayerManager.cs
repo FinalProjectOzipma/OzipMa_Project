@@ -1,25 +1,27 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+///  유저가 저장해야될 필수적인 요소들을 저장하는 곳
+/// </summary>
 public class PlayerManager 
 {
     public Core MainCoreData { get; set; }
-    public CoreController MainCore { get; set; }
     public int Money { get; set; }
     public long gold { get; private set; }
     public long zam { get; private set; }
 
     public event Action<long> OnGoldChanged;
     public event Action<long> OnZamChanged;
+    public event Action<int, int> OnStageChanged;
 
     private string myGoldKey = "myGold";
     private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
-    
+    public int CurrentStage { get; set; }
+    public int CurrentWave { get; set; }
 
     public void Initialize()
     {
@@ -30,16 +32,7 @@ public class PlayerManager
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
 
-        Managers.Resource.Instantiate("Core", go => {
-
-            MainCore = go.GetComponent<CoreController>();
-            go.GetComponent<CoreController>().core = MainCoreData;
-        });
-
-        gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000L;
-        zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
-
-        
+        SetGoldAndJame();
     }
 
     /// <summary>
@@ -111,4 +104,19 @@ public class PlayerManager
         PlayerPrefs.SetString(myGoldKey, gold.ToString());
         PlayerPrefs.SetString(myZamKey, zam.ToString());
     }
+
+    public void SetGoldAndJame()
+    {
+        gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000000L;
+        zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
+    }
+
+
+    public void OnStageWave()
+    {
+        OnStageChanged?.Invoke(CurrentStage, CurrentWave);
+    }
+
+    public string GetStage() => CurrentStage.ToString();
+
 }
