@@ -34,7 +34,7 @@ public class MyUnitIdleState : MyUnitStateBase
         if (!controller.Target.activeSelf)
         {
             Debug.Log("타겟지정되어있음");
-            if (controller.IsClose())
+            if (IsClose())
             {
                 StateMachine.ChangeState(data.AttackState);
             }

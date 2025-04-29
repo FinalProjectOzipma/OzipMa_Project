@@ -36,7 +36,7 @@ public class VampireChaseState : MyUnitStateBase
             //활성화되어있다면
             else
             {
-                if (controller.IsClose())
+                if (IsClose())
                 {
                     StateMachine.ChangeState(data.AttackState);
                 }

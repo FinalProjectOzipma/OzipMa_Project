@@ -24,10 +24,11 @@ public class VampireAnimationTrigger : MyUnitAnimationTrigger
             {
                 Util.Log(hit.name);
                 //데미지 입히기
-                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue(), AbilityType.None, transform.parent.gameObject);
+                EnemyController enemy = hit.GetComponentInParent<EnemyController>();
+                enemy.ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue(), AbilityType.None, transform.parent.gameObject);
                 VampireController vamp = myUnit as VampireController;
                 //흡혈 능력
-                vamp.Heal();
+                vamp.Heal(enemy.Status.Defence.GetValue());
                 Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
             }
         }

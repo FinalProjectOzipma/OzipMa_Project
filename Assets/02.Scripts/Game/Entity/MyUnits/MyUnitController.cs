@@ -10,6 +10,7 @@ public class MyUnitController : EntityController, IDamagable
 
     #region Component
     public Rigidbody2D Rigid { get; private set; }
+    public CapsuleCollider2D capsuleCollider;
     private string _Body = nameof(_Body);
     public SpriteRenderer spriteRenderer;
     public NavMeshAgent Agent;
@@ -79,29 +80,13 @@ public class MyUnitController : EntityController, IDamagable
     }
 
     /// <summary>
-    /// 타겟이 공격거리내에 있다면 true
-    /// 밖에 있다면 false를 반환
-    /// </summary>
-    /// <returns></returns>
-    public bool IsClose()
-    {
-        if (Target == null)
-            return false;
-        else if (!Target.activeSelf)
-            return false;
-        float r = MyUnitStatus.AttackRange.GetValue();
-
-        return  r * r> (Target.transform.position - transform.position).sqrMagnitude;
-    }
-
-    /// <summary>
     /// 직격 피해를 입을때 쓸 데미지
     /// </summary>
     /// <param name="damage"></param>
     public void TakeDamage(float damage)
     {
         //데미지: 적 공격력* [log { (적 공격력)/ (내 방어력)}*10]
-        float dam = damage * Mathf.Log(damage / MyUnitStatus.Defence.GetValue(), 10);
+        float dam = damage * Mathf.Max(Mathf.Log(damage / MyUnitStatus.Defence.GetValue(), 10), );
         MyUnitStatus.Health.AddValue(-dam);
         Fx.StartBlinkFlash();
     }
