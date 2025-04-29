@@ -86,7 +86,7 @@ public class MyUnitController : EntityController, IDamagable
     public void TakeDamage(float damage)
     {
         //데미지: 적 공격력* [log { (적 공격력)/ (내 방어력)}*10]
-        float dam = damage * Mathf.Max(Mathf.Log(damage / MyUnitStatus.Defence.GetValue(), 10), );
+        float dam = Mathf.Log(damage / MyUnitStatus.Defence.GetValue(), 10);
         MyUnitStatus.Health.AddValue(-dam);
         Fx.StartBlinkFlash();
     }
