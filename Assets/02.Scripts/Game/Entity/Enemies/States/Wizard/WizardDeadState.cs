@@ -20,8 +20,6 @@ public class WizardDeadState : WizardStateBase
 
     public override void Update()
     {
-        base.Update();
-
         if (triggerCalled)
         {
             if (controller.gameObject.activeInHierarchy)

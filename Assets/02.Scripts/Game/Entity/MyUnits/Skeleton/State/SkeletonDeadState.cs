@@ -22,7 +22,6 @@ public class SkeletonDeadState : MyUnitStateBase
 
     public override void Update()
     {
-        base.Update();
         if (triggerCalled)
             Managers.Resource.Destroy(controller.gameObject);
     }

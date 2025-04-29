@@ -23,7 +23,6 @@ public class SwordManDeadState : SwordManStateBase
 
     public override void Update()
     {
-        base.Update();
         if (triggerCalled)
         {
             if(controller.gameObject.activeInHierarchy)

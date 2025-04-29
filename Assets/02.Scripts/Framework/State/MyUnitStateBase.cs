@@ -34,14 +34,12 @@ public class MyUnitStateBase : EntityStateBase
 
     public override void Update()
     {
-        if (controller.IsDead)
-            return;
-
         if (controller.MyUnitStatus.Health.GetValue() <= 0.0f)
         {
             controller.StopAllCoroutines();
             controller.IsDead = true;
             StateMachine.ChangeState(data.DeadState);
+            return;
         }
         // Target 있을때만
         controller.FlipControll(controller.Target);

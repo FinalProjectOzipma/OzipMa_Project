@@ -21,6 +21,7 @@ public class SkeletonAttackState : MyUnitStateBase
 
     public override void Update()
     {
+        base.Update();
         if (controller.Target == null)
         {
             StateMachine.ChangeState(data.IdleState);
