@@ -109,6 +109,8 @@ public class WaveManager
                         playerManager.CurrentStage++;
                         playerManager.CurrentWave = 0;
                     }
+
+                    playerManager.OnStageWave();
                 }
 
                 timer = hubTime;

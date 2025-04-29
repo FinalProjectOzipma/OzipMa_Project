@@ -1,3 +1,4 @@
+using DefaultTable;
 using DG.Tweening;
 using TMPro;
 using UnityEngine.EventSystems;
@@ -42,8 +43,6 @@ public class UI_Main : UI_Scene
         AlarmPopup
     }
 
-    Button ManagerButton;
-    Button ResearchButton;
     bool isButton = false;
 
 
@@ -64,10 +63,12 @@ public class UI_Main : UI_Scene
         Get<Button>((int)Buttons.ResearchButton).gameObject.BindEvent(OnClikButtonResearch);
         Get<Button>((int)Buttons.ManagerButton).gameObject.BindEvent(OnClickManager);
         Get<Button>((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSetting);
+        Get<TextMeshProUGUI>((int)Texts.StageLv).text = $"Lv {Managers.Player.CurrentStage} - {Managers.Player.CurrentWave + 1}";
 
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged += UpdateGoldUI;
+            Managers.Player.OnStageChanged += UpdateStageUI;
             UpdateGoldUI(Managers.Player.GetGold());
         }
     }
@@ -75,8 +76,13 @@ public class UI_Main : UI_Scene
 
     private void UpdateGoldUI(long gold)
     {
-        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
-        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
+        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(gold);
+        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(gold);
+    }
+
+    private void UpdateStageUI(int stage, int wave)
+    {
+        Get<TextMeshProUGUI>((int)Texts.StageLv).text = $"Lv {stage} - {wave + 1}";
     }
 
     private void OnClikButtonResearch(PointerEventData data)
