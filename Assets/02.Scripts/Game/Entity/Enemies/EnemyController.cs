@@ -176,8 +176,9 @@ public class EnemyController : EntityController, IDamagable
             }
         }
 
+        float dam = damage * Mathf.Log(damage / Status.Defence.GetValue(), 10);
         //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = -damage;//Status.Defence.GetValue() - damage;
+        float minus = -dam;//Status.Defence.GetValue() - damage;
 
         if (minus < 0.0f)
         {

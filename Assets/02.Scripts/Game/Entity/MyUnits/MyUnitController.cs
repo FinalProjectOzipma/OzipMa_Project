@@ -100,14 +100,9 @@ public class MyUnitController : EntityController, IDamagable
     /// <param name="damage"></param>
     public void TakeDamage(float damage)
     {
-        if (MyUnitStatus.Defence.GetValue() > damage)
-        {   
-            Util.Log("안아프지렁" + "방어력 :" + MyUnitStatus.Defence.GetValue());
-            return;
-        }
-        Util.Log("Damage: "+ damage.ToString());
-        float dam = Mathf.Max(damage - MyUnitStatus.Defence.GetValue(), 0);
-        MyUnitStatus.Health.AddValue(-damage);
+        //데미지: 적 공격력* [log { (적 공격력)/ (내 방어력)}*10]
+        float dam = damage * Mathf.Log(damage / MyUnitStatus.Defence.GetValue(), 10);
+        MyUnitStatus.Health.AddValue(-dam);
         Fx.StartBlinkFlash();
     }
 
@@ -162,5 +157,4 @@ public class MyUnitController : EntityController, IDamagable
     {
         TakeDamage(amount);
     }
-
 }
