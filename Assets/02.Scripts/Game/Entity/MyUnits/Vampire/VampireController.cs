@@ -11,9 +11,12 @@ public class VampireController : MyUnitController
         base.Init(position);
     }
 
-    public void Heal()
+    /// <summary>
+    /// 매개변수에 방어력 넣어주기
+    /// </summary>
+    /// <param name="amount"></param>
+    public void Heal(float amount)
     {
-        Mathf.Min(MyUnitStatus.Health.GetValue() + MyUnitStatus.Attack.GetValue(), MyUnitStatus.MaxHealth);
-        MyUnitStatus.Health.SetValue(MyUnitStatus.Attack.GetValue());
+        float dam = MyUnitStatus.Attack.GetValue() * Mathf.Log(MyUnitStatus.Attack.GetValue() / amount, 10);
     }
 }

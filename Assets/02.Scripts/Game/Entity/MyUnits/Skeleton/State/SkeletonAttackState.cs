@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class SkeletonAttackState : MyUnitStateBase
 {
@@ -33,10 +34,13 @@ public class SkeletonAttackState : MyUnitStateBase
         }
         else
         {
+            if (DetectedMap(controller.Target.transform.position))
+                StateMachine.ChangeState(data.ChaseState);
+
             if (controller.Target.activeSelf)
             {
                 //타겟이 범위 내에 없다면
-                if (!controller.IsClose())
+                if (!IsClose())
                     //추격 상태로 현재 상태 변경
                     StateMachine.ChangeState(data.ChaseState);
             }

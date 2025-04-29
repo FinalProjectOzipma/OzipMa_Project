@@ -137,6 +137,12 @@ public class EnemyStateBase : EntityStateBase
         projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
     }
 
+    protected void SwitchConditionState(AbilityType type, EnemyStateBase state)
+    {
+        if (controller.CurrentCondition == type)
+            StateMachine.ChangeState(state);
+    }
+
     public override void FixedUpdate()
     {
 

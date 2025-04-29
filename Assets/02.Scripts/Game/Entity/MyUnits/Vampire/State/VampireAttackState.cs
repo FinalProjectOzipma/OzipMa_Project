@@ -39,7 +39,7 @@ public class VampireAttackState : MyUnitStateBase
             }
             else
             {
-                if (!controller.IsClose())
+                if (!IsClose())
                 {
                     StateMachine.ChangeState(data.ChaseState);
                 }

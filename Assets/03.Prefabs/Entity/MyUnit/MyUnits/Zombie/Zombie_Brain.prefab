@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 2971055997520344314, guid: 41a97ab28a18d70429c5b7c90e86240a, type: 3}
+    - target: {fileID: 5112076379583237063, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7847156428546326042, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
       propertyPath: m_Radius
       value: 0.85653186
@@ -123,6 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 1650165977, guid: b01b0fd9252267748903bb9c02ddfca9, type: 3}
+  capsuleCollider: {fileID: 0}
   spriteRenderer: {fileID: 2971055997520344314, guid: 41a97ab28a18d70429c5b7c90e86240a, type: 3}
   Agent: {fileID: 8284960681461452516}
   Target: {fileID: 0}
