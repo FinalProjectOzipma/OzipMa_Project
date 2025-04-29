@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.UI;
 
 public class MyUnitController : EntityController, IDamagable
 {
@@ -15,6 +17,9 @@ public class MyUnitController : EntityController, IDamagable
     public SpriteRenderer spriteRenderer;
     public NavMeshAgent Agent;
     public GameObject Target;
+
+    [SerializeField]
+    private Image hpImage;
     #endregion
 
     #region 정보부
@@ -26,6 +31,7 @@ public class MyUnitController : EntityController, IDamagable
     private Coroutine SlowCor;
     private WaitForSeconds dotWFS;
     private WaitForSeconds slowWFS;
+
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
 
     private void Awake()
@@ -95,6 +101,7 @@ public class MyUnitController : EntityController, IDamagable
         finalDamage = Mathf.Max(finalDamage, 1f); // 최소 1 보장 (선택사항)
 
         MyUnitStatus.Health.AddValue(-finalDamage);
+        hpImage.fillAmount = MyUnitStatus.Health.Value / MyUnitStatus.MaxHealth;
         Fx.StartBlinkFlash();
     }
 

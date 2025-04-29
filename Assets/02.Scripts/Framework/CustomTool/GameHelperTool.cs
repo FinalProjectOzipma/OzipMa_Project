@@ -55,6 +55,8 @@ public class GameHelperTool : EditorWindow
                 Managers.Player.CurrentWave = 0;
                 Managers.Player.CurrentStage++;
             }
+
+            Managers.Player.OnStageWave();
         }
     }
 #endif
