@@ -20,6 +20,7 @@ public class SwordManBody : EnemyBodyBase
             ctrl = GetComponentInParent<EnemyController>();
             ctrl.AnimData = new SwordManAnimData();
             ctrl.AnimData.Init(ctrl);
+            ctrl.Status.Health.OnChangeHealth =  healthView.SetHpBar;
         }
         
         base.Init();

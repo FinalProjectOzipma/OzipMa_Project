@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WizardBody : MonoBehaviour
 {
+    public HealthView healthView;
+
     private EnemyController ctrl;
     private void Start()
     {
@@ -15,6 +17,7 @@ public class WizardBody : MonoBehaviour
         ctrl = GetComponentInParent<EnemyController>();
         ctrl.AnimData = new WizardAnimData();
         ctrl.AnimData.Init(ctrl);
+        ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
     }
 
     protected void OnEnable()

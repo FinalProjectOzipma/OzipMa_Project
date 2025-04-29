@@ -24,6 +24,7 @@ public class ArcherManBody : EnemyBodyBase
             ctrl = GetComponentInParent<EnemyController>();
             ctrl.AnimData = new ArcherManAnimData();
             ctrl.AnimData.Init(ctrl);
+            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
         }
         base.Init();
     }

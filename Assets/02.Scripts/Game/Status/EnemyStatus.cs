@@ -32,6 +32,7 @@ public class EnemyStatus : StatusBase
         AttackCoolDown.SetValue(row.AttackCoolDown);
         AttackRange.SetValue(row.AttackRange);
 
+        Health.SetMaxHealth(row.Health * ratio);
         Health.SetValue(row.Health * ratio);
         MaxHealth = Health.GetValue();
 

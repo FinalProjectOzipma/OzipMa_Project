@@ -159,6 +159,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7805944937429276711, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 8495780116696189824, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.035
@@ -175,6 +179,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7905626377083703370}
   m_SourcePrefab: {fileID: 100100000, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
+--- !u!114 &555642692584427267 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7237200632044411863, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
+  m_PrefabInstance: {fileID: 7194986065276703956}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bebd4f312b4a5e94d842df9a2735b768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3428557740966549042 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5498075652551475942, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
@@ -202,6 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24572694411c1054cbe3d823557f1308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthView: {fileID: 555642692584427267}
   conditions:
   - Key: 6
     GameObj: {fileID: 7463672540273308615}

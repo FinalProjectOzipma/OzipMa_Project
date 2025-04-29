@@ -13,6 +13,7 @@ public class MyUnitStatus : StatusBase
         Init();
         var result = Row[PrimaryKey];
 
+        Health.SetMaxHealth(result.Health);
         Health.SetValue(result.Health);
         MaxHealth = Health.GetValue();
 

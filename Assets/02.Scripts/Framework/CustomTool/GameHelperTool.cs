@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class GameHelperTool : EditorWindow
 {
-    [MenuItem("Window/Game Helper Tool")]
+    [MenuItem("Tools/Game Helper Tool")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow(typeof(GameHelperTool));

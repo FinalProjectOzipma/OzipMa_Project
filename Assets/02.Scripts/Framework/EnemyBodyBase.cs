@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class EnemyBodyBase : MonoBehaviour
 {
+    public HealthView healthView;
+
     protected EnemyController ctrl;
 
     private bool timeStart;
