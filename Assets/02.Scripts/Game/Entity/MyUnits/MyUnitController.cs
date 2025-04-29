@@ -98,11 +98,20 @@ public class MyUnitController : EntityController, IDamagable
     /// 직격 피해를 입을때 쓸 데미지
     /// </summary>
     /// <param name="damage"></param>
-    public void TakeDamage(float damage)
+    public void TakeDamage(float incomingDamage)
     {
-        //데미지: 적 공격력* [log { (적 공격력)/ (내 방어력)}*10]
-        float dam = damage * Mathf.Log(damage / MyUnitStatus.Defence.GetValue(), 10);
-        MyUnitStatus.Health.AddValue(-dam);
+        float defence = Mathf.Max(0f, MyUnitStatus.Defence.GetValue());
+
+        // 부드러운 비율 스케일링
+        float damageScale = incomingDamage / (incomingDamage + defence);
+
+        float finalDamage = incomingDamage * damageScale;
+
+        finalDamage = Mathf.Max(finalDamage, 1f); // 최소 1 보장 (선택사항)
+
+        MyUnitStatus.Health.AddValue(-finalDamage);
+
+        MyUnitStatus.Health.AddValue(-finalDamage);
         Fx.StartBlinkFlash();
     }
 
