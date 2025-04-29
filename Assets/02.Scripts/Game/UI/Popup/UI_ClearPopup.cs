@@ -43,10 +43,4 @@ public class UI_ClearPopup : UI_Popup
            .Append(rt.DOLocalMoveY(originalPos.y, 1.0f).SetEase(Ease.InQuad));
     }
 
-
-
-
-
-
-
 }
