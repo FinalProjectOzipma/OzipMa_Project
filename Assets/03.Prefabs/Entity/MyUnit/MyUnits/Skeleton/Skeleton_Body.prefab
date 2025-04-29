@@ -111,6 +111,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5619500107016976293, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6975948361672111888, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
       value: 0.5
