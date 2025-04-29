@@ -37,10 +37,6 @@ public class UI_TowerMenu : UI_Base
         Managers.Resource.Destroy(TargetTower);
         BuildingSystem.Instance.RemovePlacedMapWorldPos(TargetTower.transform.position);
         BuildingSystem.Instance.DragController.SetEditMode(false);
-
-        MyUnitData test = new();
-        test.a = 100;
-        Managers.Data.SaveFirebase<MyUnitData>(test);
     }
  
 }

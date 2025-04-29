@@ -122,8 +122,3 @@ public class DataManager
     #endregion
 
 }
-
-public class MyUnitData
-{
-    public int a;
-}
