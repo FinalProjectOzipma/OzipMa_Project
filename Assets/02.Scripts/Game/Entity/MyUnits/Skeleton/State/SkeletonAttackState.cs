@@ -12,11 +12,16 @@ public class SkeletonAttackState : MyUnitStateBase
     {
         base.Enter();
         controller.Agent.isStopped = true;
+        // Animator Speed 조정
+        Anim.speed = Anim.GetCurrentAnimatorClipInfo(0).Length / controller.MyUnitStatus.AttackCoolDown.GetValue();
+        Util.Log("Current Speed: " + Anim.speed);
     }
 
     public override void Exit()
     {
         base.Exit();
+        controller.Anim.speed = 1.0f;
+        Util.Log("Current Speed: " + Anim.speed);
     }
 
     public override void Update()
