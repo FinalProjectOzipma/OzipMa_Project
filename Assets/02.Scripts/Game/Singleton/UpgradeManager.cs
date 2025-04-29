@@ -81,6 +81,7 @@ public class UpgradeManager
         }
     }
 
+    public int GetUpgradeGold() => TotalUpgradeGold;
 
 
     public void OnUpgradeGold(int gold)
