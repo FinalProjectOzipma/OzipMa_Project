@@ -63,7 +63,9 @@ public class UI_ResearchScene : UI_Popup
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged += UpdateGoldUI;
+            Managers.Player.OnZamChanged += UpdateZamUI;
             UpdateGoldUI(Managers.Player.GetGold());
+            UpdateZamUI(Managers.Player.GetZam());
         }
     }
 
@@ -72,14 +74,19 @@ public class UI_ResearchScene : UI_Popup
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged -= UpdateGoldUI;
+            Managers.Player.OnZamChanged -= UpdateZamUI;
         }
 
     }
 
     private void UpdateGoldUI(long gold)
     {
-        Get<TextMeshProUGUI>((int)Texts.GoldText).text = Util.FormatNumber(Managers.Player.GetGold());
-        Get<TextMeshProUGUI>((int)Texts.ZamText).text = Util.FormatNumber(Managers.Player.GetZam());
+        Get<TextMeshProUGUI>((int)Texts.GoldText).text = Util.FormatNumber(gold);
+    }
+
+    private void UpdateZamUI(long zam)
+    {
+        Get<TextMeshProUGUI>((int)Texts.ZamText).text = Util.FormatNumber(zam);
     }
 
     public void OnClickBack(PointerEventData data)

@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -153,7 +153,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -174,7 +174,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -195,7 +195,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -216,7 +216,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -237,7 +237,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -258,7 +258,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 320
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -279,7 +279,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -300,7 +300,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 448
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -320,7 +320,7 @@ TextureImporter:
       name: light_blue_8
       rect:
         serializedVersion: 2
-        x: 512
+        x: 0
         y: 0
         width: 64
         height: 64
@@ -341,7 +341,7 @@ TextureImporter:
       name: light_blue_9
       rect:
         serializedVersion: 2
-        x: 576
+        x: 64
         y: 0
         width: 64
         height: 64
@@ -362,7 +362,7 @@ TextureImporter:
       name: light_blue_10
       rect:
         serializedVersion: 2
-        x: 639
+        x: 128
         y: 0
         width: 64
         height: 64
@@ -383,7 +383,7 @@ TextureImporter:
       name: light_blue_11
       rect:
         serializedVersion: 2
-        x: 704
+        x: 192
         y: 0
         width: 64
         height: 64
@@ -396,6 +396,90 @@ TextureImporter:
       bones: []
       spriteID: 778c89e930581bd42a1b72dcc51007ca
       internalID: -236434018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: light_blue_12
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 381e4996775cccc43959417117fe15e7
+      internalID: -68393898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: light_blue_13
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc40aa455b6dc574f977ed5609865021
+      internalID: 231158226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: light_blue_14
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ced305ff2ac56b4cb63cafca7170c73
+      internalID: -535175769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: light_blue_15
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44a8f633c8e053c4dbfbdc6bcb17ef4f
+      internalID: 2143178461
       vertices: []
       indices: 
       edges: []
@@ -415,6 +499,10 @@ TextureImporter:
       light_blue_1: -128439960
       light_blue_10: 1152099660
       light_blue_11: -236434018
+      light_blue_12: -68393898
+      light_blue_13: 231158226
+      light_blue_14: -535175769
+      light_blue_15: 2143178461
       light_blue_2: -338649772
       light_blue_3: -1569939102
       light_blue_4: -577416671

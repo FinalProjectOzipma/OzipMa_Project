@@ -68,22 +68,37 @@ public class UI_Main : UI_Scene
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged += UpdateGoldUI;
+            Managers.Player.OnZamChanged += UpdateZamUI;
             Managers.Player.OnStageChanged += UpdateStageUI;
             UpdateGoldUI(Managers.Player.GetGold());
         }
     }
 
+    private void OnDisable()
+    {
+        if (Managers.Player != null)
+        {
+            Managers.Player.OnGoldChanged -= UpdateGoldUI;
+            Managers.Player.OnZamChanged -= UpdateZamUI;
+        }
+
+    }
 
     private void UpdateGoldUI(long gold)
     {
         Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(gold);
-        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(gold);
+    }
+
+    private void UpdateZamUI(long zam)
+    {
+        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(zam);
     }
 
     private void UpdateStageUI(int stage, int wave)
     {
         Get<TextMeshProUGUI>((int)Texts.StageLv).text = $"Lv {stage} - {wave + 1}";
     }
+
 
     private void OnClikButtonResearch(PointerEventData data)
     {

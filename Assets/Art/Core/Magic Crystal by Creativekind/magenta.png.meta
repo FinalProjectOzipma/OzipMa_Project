@@ -69,10 +69,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 2
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -153,7 +153,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -174,7 +174,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -195,7 +195,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -216,7 +216,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -237,7 +237,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -258,7 +258,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 320
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -279,7 +279,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -300,7 +300,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 448
-        y: 0
+        y: 64
         width: 64
         height: 64
       alignment: 7
@@ -320,7 +320,7 @@ TextureImporter:
       name: magenta_8
       rect:
         serializedVersion: 2
-        x: 512
+        x: 0
         y: 0
         width: 64
         height: 64
@@ -341,7 +341,7 @@ TextureImporter:
       name: magenta_9
       rect:
         serializedVersion: 2
-        x: 576
+        x: 64
         y: 0
         width: 64
         height: 64
@@ -362,7 +362,7 @@ TextureImporter:
       name: magenta_10
       rect:
         serializedVersion: 2
-        x: 640
+        x: 128
         y: 0
         width: 64
         height: 64
@@ -383,7 +383,7 @@ TextureImporter:
       name: magenta_11
       rect:
         serializedVersion: 2
-        x: 704
+        x: 192
         y: 0
         width: 64
         height: 64
@@ -396,6 +396,90 @@ TextureImporter:
       bones: []
       spriteID: be88d0a39126cf2438d8e25cb74f1634
       internalID: 1910772386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: magenta_12
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57b7a58af8f25b347b8d40f9b7b4943a
+      internalID: 1188390630
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: magenta_13
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b964a58c2e73a54ea5bd5b51293e4a9
+      internalID: 612033334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: magenta_14
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfc0dc3bc56ef4346a5b3f181183ae0c
+      internalID: 1170117487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: magenta_15
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca8692ad56303b64d9feb5c9457f1442
+      internalID: 798607468
       vertices: []
       indices: 
       edges: []
@@ -415,6 +499,10 @@ TextureImporter:
       magenta_1: -793659550
       magenta_10: -736534481
       magenta_11: 1910772386
+      magenta_12: 1188390630
+      magenta_13: 612033334
+      magenta_14: 1170117487
+      magenta_15: 798607468
       magenta_2: 489145971
       magenta_3: 39098895
       magenta_4: -318851075
