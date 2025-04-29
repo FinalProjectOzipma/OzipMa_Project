@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: Agent
       value: 
       objectReference: {fileID: 6944258856291340217}
+    - target: {fileID: 5112076379583237063, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3635720689636166866, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
     m_RemovedGameObjects: []
@@ -102,6 +106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 164460064, guid: 77d96a34c63ffb7488eee3fea98d1f21, type: 3}
+  capsuleCollider: {fileID: 0}
   spriteRenderer: {fileID: 0}
   Agent: {fileID: 6944258856291340217}
   Target: {fileID: 0}
