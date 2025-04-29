@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +14,7 @@ public class PlayerManager
 
     public event Action<long> OnGoldChanged;
     public event Action<long> OnZamChanged;
+    public event Action<int, int> OnStageChanged;
 
     private string myGoldKey = "myGold";
     private string myZamKey = "myZam";
@@ -108,5 +110,13 @@ public class PlayerManager
         gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 1000000L;
         zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 100L;
     }
+
+
+    public void OnStageWave()
+    {
+        OnStageChanged?.Invoke(CurrentStage, CurrentWave);
+    }
+
+    public string GetStage() => CurrentStage.ToString();
 
 }

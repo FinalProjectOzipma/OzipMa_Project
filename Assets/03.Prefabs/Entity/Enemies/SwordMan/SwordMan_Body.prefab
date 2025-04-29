@@ -189,3 +189,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae2ba1155d73674bbd1a7f93bed994a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conditions:
+  - Key: 6
+    GameObj: {fileID: 5857566528428076154}
+    CoolDown: 1.5
+--- !u!1 &5857566528428076154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 310171221858182931, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
+  m_PrefabInstance: {fileID: 6127062270759111529}
+  m_PrefabAsset: {fileID: 0}

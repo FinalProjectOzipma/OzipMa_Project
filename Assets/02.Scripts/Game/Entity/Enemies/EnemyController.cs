@@ -161,7 +161,7 @@ public class EnemyController : EntityController, IDamagable
     /// </summary>
     /// <param name="go"></param>
     /// <param name="damage"></param>
-    public void ApplyDamage(float damage, AbilityType condition = AbilityType.None, GameObject go = null)
+    public void ApplyDamage(float incomingDamage, AbilityType condition = AbilityType.None, GameObject go = null)
     {
         //반사타입 처리
         if (Enemy.AtkType == AtkType.ReflectDamage)
@@ -171,20 +171,24 @@ public class EnemyController : EntityController, IDamagable
             {
                 //float abilityRatio = Status.AbilityValue;
                 float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
-                myunit.ReflectDamage(damage, abilityRatio);
+                myunit.ReflectDamage(incomingDamage, abilityRatio);
                 Util.Log("반사해드렸습니다");
             }
         }
 
-        float dam = damage * Mathf.Log(damage / Status.Defence.GetValue(), 10);
-        //float minus = Status.Defences[0].GetValue() - attackPower;
-        float minus = -dam;//Status.Defence.GetValue() - damage;
 
-        if (minus < 0.0f)
-        {
-            Status.AddHealth(minus, gameObject);
-            Fx.StartBlinkFlash();
-        }
+        float defence = Mathf.Max(0f, Status.Defence.GetValue());
+
+        // 부드러운 비율 스케일링
+        float damageScale = incomingDamage / (incomingDamage + defence);
+
+        float finalDamage = incomingDamage * damageScale;
+
+        finalDamage = Mathf.Max(finalDamage, 1f); // 최소 1 보장 (선택사항)
+
+        Status.AddHealth(-finalDamage, gameObject);
+        Fx.StartBlinkFlash();
+        
 
         int iCondition = (int)condition;
         if (Times.ContainsKey(iCondition) && Times[iCondition] <= 0f)

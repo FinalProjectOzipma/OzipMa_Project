@@ -30,27 +30,6 @@ public class ArcherManStateBase : EnemyStateBase
             return;
         }
 
-        switch (controller.CurrentCondition)
-        {
-            case AbilityType.None:
-                break;
-            case AbilityType.Physical:
-                break;
-            case AbilityType.Psychic:
-                break;
-            case AbilityType.Magic:
-                break;
-            case AbilityType.Fire:
-                break;
-            case AbilityType.Explosive:
-                break;
-            case AbilityType.Dark:
-                StateMachine.ChangeState(data.DarkState);
-                break;
-            case AbilityType.Count:
-                break;
-            default:
-                break;
-        }
+        SwitchConditionState(AbilityType.Dark, data.DarkState);
     }
 }

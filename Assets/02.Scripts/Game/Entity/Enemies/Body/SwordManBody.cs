@@ -15,10 +15,13 @@ public class SwordManBody : EnemyBodyBase
 
     public override void Init()
     {
-
-        ctrl = GetComponentInParent<EnemyController>();
-        ctrl.AnimData = new SwordManAnimData();
-        ctrl.AnimData.Init(ctrl);
+        if(ctrl == null)
+        {
+            ctrl = GetComponentInParent<EnemyController>();
+            ctrl.AnimData = new SwordManAnimData();
+            ctrl.AnimData.Init(ctrl);
+        }
+        
         base.Init();
     }
 
@@ -30,6 +33,7 @@ public class SwordManBody : EnemyBodyBase
         {
             SwordManAnimData data = ctrl.AnimData as SwordManAnimData;
             ctrl.AnimData.StateMachine.ChangeState(data.ChaseState);
+            Init();
         }
     }
 }

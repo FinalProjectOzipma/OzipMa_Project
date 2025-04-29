@@ -29,5 +29,7 @@ public class SwordManStateBase : EnemyStateBase
             StateMachine.ChangeState(data.DeadState);
             return;
         }
+
+        SwitchConditionState(AbilityType.Dark, data.DarkState);
     }
 }

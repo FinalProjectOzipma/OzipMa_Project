@@ -12,7 +12,6 @@ using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class ArcherManBody : EnemyBodyBase
 {
-
     private void Start()
     {
         Init();
@@ -20,9 +19,12 @@ public class ArcherManBody : EnemyBodyBase
 
     public override void Init()
     {
-        ctrl = GetComponentInParent<EnemyController>();
-        ctrl.AnimData = new ArcherManAnimData();
-        ctrl.AnimData.Init(ctrl);
+        if(ctrl == null)
+        {
+            ctrl = GetComponentInParent<EnemyController>();
+            ctrl.AnimData = new ArcherManAnimData();
+            ctrl.AnimData.Init(ctrl);
+        }
         base.Init();
     }
 
@@ -34,6 +36,7 @@ public class ArcherManBody : EnemyBodyBase
         {
             ArcherManAnimData data = ctrl.AnimData as ArcherManAnimData;
             ctrl.AnimData.StateMachine.ChangeState(data.ChaseState);
+            Init();
         }
     }
 }
