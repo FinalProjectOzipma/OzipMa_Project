@@ -40,7 +40,8 @@ public class InventoryUI : UI_Scene
     {
         InchentText,
         SelectText,
-        PutText
+        PutText,
+        TextInfo,
     }
 
     private enum Images
@@ -261,7 +262,7 @@ public class InventoryUI : UI_Scene
         RectTransform movable = GetRect((int)RectTransforms.Contents);
         if (!isMove)
         {
-            Managers.UI.GetSceneList<UI_Main>().OffButton();
+            Managers.UI.GetScene<UI_Main>().OffButton();
             isMove = true;
             if (!isOpen)
             {
@@ -281,7 +282,7 @@ public class InventoryUI : UI_Scene
                 {
                     isMove = false;
                     isOpen = false;
-                    Managers.UI.GetSceneList<UI_Main>().OnButton();
+                    Managers.UI.GetScene<UI_Main>().OnButton();
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
             }

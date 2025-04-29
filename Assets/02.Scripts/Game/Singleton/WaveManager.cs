@@ -104,6 +104,7 @@ public class WaveManager
                 // 플레이어 측에서 이겼으면 웨이브 증가
                 if (isEnemyAllDead)
                 {
+                    Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(true);
                     if (++playerManager.CurrentWave % 10 == 0)
                     {
                         playerManager.CurrentStage++;
@@ -111,6 +112,10 @@ public class WaveManager
                     }
 
                     playerManager.OnStageWave();
+                }
+                else
+                {
+                    Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(false);
                 }
 
                 timer = hubTime;

@@ -21,6 +21,7 @@ public class GameScene : SceneBase
         Managers.Resource.Instantiate("InventoryUI");
         Managers.Resource.Instantiate("MainUI");
         Managers.Resource.Instantiate("BuildingSystem");
+        Managers.Resource.Instantiate("Ending_Panel");
     }
 
     public override void Update()
