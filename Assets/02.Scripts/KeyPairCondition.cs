@@ -14,6 +14,7 @@ public class KeyPairCondition
 
     public void ObjectActive(bool active)
     {
+        if (GameObj == null) return;
         GameObj.SetActive(active);
         IsExit = !active;
     } 

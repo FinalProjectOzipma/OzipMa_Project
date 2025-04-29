@@ -164,18 +164,22 @@ public class EnemyController : EntityController, IDamagable
     public void ApplyDamage(float incomingDamage, AbilityType condition = AbilityType.None, GameObject go = null)
     {
         //반사타입 처리
-        if (Enemy.AtkType == AtkType.ReflectDamage)
+
+
+        if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
         {
-            
-            if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
+            if (Enemy.AtkType == AtkType.ReflectDamage)
             {
                 //float abilityRatio = Status.AbilityValue;
                 float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
                 myunit.ReflectDamage(incomingDamage, abilityRatio);
                 Util.Log("반사해드렸습니다");
             }
+            else if(myunit.MyUnit.AbilityType == AbilityType.Psychic)
+            {
+                Status.Attack.SetValueMultiples(0.7f);
+            }
         }
-
 
         float defence = Mathf.Max(0f, Status.Defence.GetValue());
 
