@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class UpgradeManager
@@ -7,10 +9,16 @@ public class UpgradeManager
     public int LevelUPGold;
     private float UpdateValue;
 
+    private int TotalUpgradeGold;
+
+
+    public event Action<int> OnChanagedUpgrade;
+
     public void Intialize()
     {
         LevelUPGold = 1000;
         UpdateValue = 0.1f;
+        TotalUpgradeGold = 0;
     }
 
     public void LevelUpMyUnit(MyUnit myUnit)
@@ -40,7 +48,8 @@ public class UpgradeManager
         }
         else
         {
-            Util.Log("돈이 부족합니다.");
+            // 방어용
+            Util.Log("왜 돈이 부족하니?");
             return;
         }
     }
@@ -66,8 +75,26 @@ public class UpgradeManager
         }
         else
         {
-            Util.Log("돈이 부족합니다.");
+            // 방어용
+            Util.Log("왜 돈이 부족하니?");
             return;
         }
     }
+
+    public int GetUpgradeGold() => TotalUpgradeGold;
+
+
+    public void OnUpgradeGold(int gold)
+    {
+        TotalUpgradeGold += gold;
+        OnChanagedUpgrade?.Invoke(TotalUpgradeGold);
+    }
+
+    
+    public void RefresgUpgradeGold()
+    {
+        TotalUpgradeGold = 0;
+        OnChanagedUpgrade?.Invoke(TotalUpgradeGold);
+    }
+
 }

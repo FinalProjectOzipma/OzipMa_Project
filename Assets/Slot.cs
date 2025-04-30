@@ -38,6 +38,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     private Image _stackGage;
     private int itemKey { get; set; }
 
+    private bool isSelect = false;
+
     private void Awake()
     {
         Bind<Image>(typeof(Images));
@@ -52,17 +54,65 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     private void SeletToggle()
     {
         if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
+
+        UserObject userObject = Gettable as UserObject;
         GameObject imgObj = GetImage((int)Images.Selected).gameObject;
         imgObj.SetActive(!imgObj.activeSelf);
         IsActive = imgObj.activeInHierarchy;
+        inventoryUI.isSelect = true;
+
+        if (userObject == null)
+            return;
+
+        bool isMaxLevel = userObject.Status.Level.GetValue() >= userObject.Status.MaxLevel.GetValue();
+
+        if (IsActive)
+        {
+            // 선택 상태로 바뀜
+            if (!isMaxLevel)
+            {
+                Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+                isSelect = true;
+            }
+            else
+            {
+                // 만렙이면 선택은 되지만 비용 증가 없음
+                Util.Log("만렙 유닛 선택됨 (비용 없음)");
+            }
+        }
+        else
+        {
+            // 선택 해제
+            if (!isMaxLevel && isSelect)
+            {
+                Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+                isSelect = false;
+            }
+        }
+
     }
 
     // 전체 선택될때 호출해야되는 메서드
     public void OnSelect()
     {
         if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
-        IsActive = true;
-        GetImage((int)Images.Selected).gameObject.SetActive(true);
+
+        UserObject userObject = Gettable as UserObject;
+
+        if (IsActive)
+        {
+            IsActive = false;
+            Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+        }
+
+        bool isMaxLevel = userObject.Status.Level.GetValue() >= userObject.Status.MaxLevel.GetValue();  
+
+        if(!isMaxLevel)
+        {
+            IsActive = true;
+            Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+            GetImage((int)Images.Selected).gameObject.SetActive(true);
+        }   
     }
 
     public void DisSelect()

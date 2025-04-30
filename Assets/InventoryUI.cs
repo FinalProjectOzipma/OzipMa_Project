@@ -2,7 +2,6 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,7 +40,7 @@ public class InventoryUI : UI_Scene
         InchentText,
         SelectText,
         PutText,
-        TextInfo,
+        TextInfo
     }
 
     private enum Images
@@ -88,6 +87,7 @@ public class InventoryUI : UI_Scene
     private bool isMove;
     private bool isOpen;
     private bool isBatch = false;
+    public bool isSelect = false;
 
     private void Awake()
     {
@@ -109,7 +109,16 @@ public class InventoryUI : UI_Scene
 
         OnTowerTap();
         Managers.UI.SetSceneList<InventoryUI>(this);
+        Managers.Upgrade.OnChanagedUpgrade += UpdateUpgradeGold;
+        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = $"강화 비용 : {Managers.Upgrade.GetUpgradeGold()}";
     }
+
+
+    private void UpdateUpgradeGold(int gold)
+    {
+        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = $"강화 비용 : {gold.ToString()}" ;
+    }
+
 
     /// <summary>
     /// 바인딩
@@ -202,17 +211,29 @@ public class InventoryUI : UI_Scene
 
         uiSeq.Play();
 
-        bool isSelected = CheckActive();
+        //bool isSelected = false;
+
 
         for (int i = 0; i < _currentList.Count; i++)
         {
-            if (!isSelected)
+            if (!isSelect)
+            {
                 slots[i].OnSelect();
+            }   
             else
-                slots[i].DisSelect();
+            {
+                if (slots[i].IsActive)
+                {
+                    slots[i].DisSelect();
+
+                    if (TransformType(_currentList[i])) continue;
+
+                    Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+                }
+            }
         }
 
-        isSelected = !isSelected;
+        isSelect = !isSelect;
     }
 
     private bool CheckActive()
@@ -231,6 +252,8 @@ public class InventoryUI : UI_Scene
         ToggleTab(GetObject((int)GameObjects.OnMyUnit), GetObject((int)GameObjects.DisMyUnit));
         GetButton((int)Buttons.PutBtn).gameObject.SetActive(false);
         Refresh<MyUnit>();
+        Managers.Upgrade.RefresgUpgradeGold();
+        isSelect = false;
     }
     private void OnTowerTap()
     {
@@ -238,6 +261,8 @@ public class InventoryUI : UI_Scene
         ToggleTab(GetObject((int)GameObjects.OnTower), GetObject((int)GameObjects.DisTower));
         GetButton((int)Buttons.PutBtn).gameObject.SetActive(true);
         Refresh<Tower>();
+        Managers.Upgrade.RefresgUpgradeGold();
+        isSelect = false;
     }
 
 
@@ -251,6 +276,8 @@ public class InventoryUI : UI_Scene
         {
             Refresh<Tower>();
         }
+
+        Managers.Upgrade.RefresgUpgradeGold();  
 
         OnAnimation();
 
@@ -367,6 +394,7 @@ public class InventoryUI : UI_Scene
     private void LevelUpUnits<T>(Action<T> levelUpAction) where T : UserObject, IGettable
     {
         bool isAnySelected = false;
+        List<T> updateList = new();
 
         for (int i = 0; i < _currentList.Count; i++)
         {
@@ -380,9 +408,27 @@ public class InventoryUI : UI_Scene
                 continue;
 
             var select = _currentList[i] as T;
-            if (select != null)
+
+            // select가 널이 아니거나 MaxLevel이 아니면 업데이트리스트 추가
+            if(select != null && select.Status.Level != select.Status.MaxLevel)
             {
-                levelUpAction(select);
+                updateList.Add(select);
+            }
+        }
+
+        // 골드 확인, 등급별 강화골드 달라지면 수정해야함
+        if (Managers.Player.GetGold() < Managers.Upgrade.LevelUPGold * updateList.Count)
+        {
+            Managers.UI.ShowPopupUI<UI_Popup>("GoldAlarmPopup");
+            Managers.Upgrade.RefresgUpgradeGold();
+            Refresh<T>();
+            return;
+        }
+        else
+        {
+            for (int i = 0; i < updateList.Count; i++)
+            {
+                levelUpAction(updateList[i]);
                 isAnySelected = true;
             }
         }
@@ -393,8 +439,15 @@ public class InventoryUI : UI_Scene
             return;
         }
 
+        Managers.Upgrade.RefresgUpgradeGold();
+        isSelect = false;
         Refresh<T>();
     }
 
+    public bool TransformType(IGettable gettable)
+    {
+        var max = gettable as UserObject;
 
+        return max.Status.Level.GetValue() == max.Status.MaxLevel.GetValue();
+    }
 }
