@@ -51,7 +51,7 @@ public class TowerFloor : MonoBehaviour
     public void OnAttackFinish()
     {
         // Body 삭제
-        Managers.Resource.Destroy(body);
+        if (animator != null) Managers.Resource.Destroy(body);
         // this.gameObject 삭제
         Managers.Resource.Destroy(gameObject);
     }
