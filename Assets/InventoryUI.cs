@@ -26,6 +26,7 @@ public class InventoryUI : UI_Scene
 
     private enum Buttons
     {
+        BackgroundButton,
         SwipeBtn,
         InchentBtn,
         SelectAllBtn,
@@ -134,6 +135,7 @@ public class InventoryUI : UI_Scene
         GetButton((int)Buttons.InchentBtn).onClick.AddListener(OnClickUpgrade);
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
+        GetButton((int)Buttons.BackgroundButton).onClick.AddListener(OnSwipe);
 
         // Tap -----------------------------------------------------------------
         GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
@@ -302,6 +304,7 @@ public class InventoryUI : UI_Scene
                     isMove = false;
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90.0f));
                 });
+                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(true);
             }
             else
             {
@@ -312,6 +315,7 @@ public class InventoryUI : UI_Scene
                     Managers.UI.GetScene<UI_Main>().OnButton();
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
+                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(false);
             }
         }
     }
