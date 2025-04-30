@@ -26,6 +26,7 @@ public class InventoryUI : UI_Scene
 
     private enum Buttons
     {
+        BackgroundButton,
         SwipeBtn,
         InchentBtn,
         SelectAllBtn,
@@ -78,8 +79,8 @@ public class InventoryUI : UI_Scene
     private Inventory data;
     private List<Slot> slots;
 
+    public Type CurrentTab; // 현재 탭의 타입
     private List<IGettable> _currentList; // UI에 들고있는 현재 인벤토리 데이터
-    private Type _currentTab; // 현재 탭의 타입
     private GameObject prevOn; // 이전 탭의 컴포넌트
     private GameObject prevDis; // 이전 탭의 컴포넌트
 
@@ -134,6 +135,7 @@ public class InventoryUI : UI_Scene
         GetButton((int)Buttons.InchentBtn).onClick.AddListener(OnClickUpgrade);
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
+        GetButton((int)Buttons.BackgroundButton).onClick.AddListener(OnSwipe);
 
         // Tap -----------------------------------------------------------------
         GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
@@ -146,7 +148,7 @@ public class InventoryUI : UI_Scene
     {
         slots.Clear();
         _currentList = data.GetList<T>();
-        _currentTab = typeof(T);
+        CurrentTab = typeof(T);
 
         Transform trans = GetObject((int)GameObjects.UserObjects).transform; // 부모 객체 얻어오기
 
@@ -248,7 +250,7 @@ public class InventoryUI : UI_Scene
 
     private void OnMyUnitTap()
     {
-        _currentTab = typeof(MyUnit);
+        CurrentTab = typeof(MyUnit);
         ToggleTab(GetObject((int)GameObjects.OnMyUnit), GetObject((int)GameObjects.DisMyUnit));
         GetButton((int)Buttons.PutBtn).gameObject.SetActive(false);
         Refresh<MyUnit>();
@@ -257,7 +259,7 @@ public class InventoryUI : UI_Scene
     }
     private void OnTowerTap()
     {
-        _currentTab = typeof(Tower);
+        CurrentTab = typeof(Tower);
         ToggleTab(GetObject((int)GameObjects.OnTower), GetObject((int)GameObjects.DisTower));
         GetButton((int)Buttons.PutBtn).gameObject.SetActive(true);
         Refresh<Tower>();
@@ -268,7 +270,7 @@ public class InventoryUI : UI_Scene
 
     public void OnSwipe()
     {
-        if (_currentTab == typeof(MyUnit))
+        if (CurrentTab == typeof(MyUnit))
         {
             Refresh<MyUnit>();
         }
@@ -302,6 +304,7 @@ public class InventoryUI : UI_Scene
                     isMove = false;
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90.0f));
                 });
+                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(true);
             }
             else
             {
@@ -312,6 +315,7 @@ public class InventoryUI : UI_Scene
                     Managers.UI.GetScene<UI_Main>().OnButton();
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
+                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(false);
             }
         }
     }
@@ -381,11 +385,11 @@ public class InventoryUI : UI_Scene
         uiSeq.Play();
 
 
-        if (_currentTab == typeof(MyUnit))
+        if (CurrentTab == typeof(MyUnit))
         {
             LevelUpUnits<MyUnit>(Managers.Upgrade.LevelUpMyUnit);
         }
-        else if (_currentTab == typeof(Tower))
+        else if (CurrentTab == typeof(Tower))
         {
             LevelUpUnits<Tower>(Managers.Upgrade.LevelUpTower);
         }

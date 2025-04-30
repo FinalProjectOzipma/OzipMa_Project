@@ -146,12 +146,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     #region 드래그 배치
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if(inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE)
-        {
-            Managers.UI.ShowPopupUI<UI_Alarm>("BatchPopup");
-            Util.Log("배치모드가 아니잖아!!");
-            return;
-        }
+        if(inventoryUI.CurrentTab != typeof(Tower)) return;
+
         buildingSystem = BuildingSystem.Instance;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
@@ -170,12 +166,12 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             PreviewObj.transform.position = cellWorldPos;
         }
         previewRenderer.sprite = _sprite;
-        Managers.UI.GetScene<InventoryUI>().OnSwipe();
+        inventoryUI.OnSwipe();
         buildingSystem.DragController.IsSlotDragging = true;
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
+        if (inventoryUI.CurrentTab != typeof(Tower)) return;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
         cellWorldPos.y -= 0.3f;
@@ -189,7 +185,9 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
+        if (inventoryUI.CurrentTab != typeof(Tower)) return;
+        inventoryUI.OnSwipe();
+
         Vector2 inputPos = eventData.position;
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
