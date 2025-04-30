@@ -54,6 +54,8 @@ public class MyUnitController : EntityController, IDamagable
         Rigid = GetComponent<Rigidbody2D>();
         AnimData.Init(this);
         MyUnitStatus.Health.OnChangeHealth = healthView.SetHpBar;
+        MyUnitStatus.Health.AddValue(0.0f);
+        //sethpbar 호출
     }
 
     /// <summary>
