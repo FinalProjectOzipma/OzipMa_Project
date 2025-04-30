@@ -45,6 +45,9 @@ public class TowerFloor : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// TowerFloor의 본체와 외형 각각 Destroy
+    /// </summary>
     public void OnAttackFinish()
     {
         // Body 삭제
