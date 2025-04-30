@@ -52,6 +52,8 @@ public class AreaTowerController : TowerControlBase
             }
         }
 
+        if (target == null) return;
+
         Managers.Resource.Instantiate(floorBrainKey, go =>
         {
             go.transform.position = transform.position;
