@@ -56,6 +56,7 @@ public class AreaTowerController : TowerControlBase
 
         Managers.Resource.Instantiate(floorBrainKey, go =>
         {
+            if (go == null) return;
             go.transform.position = transform.position;
             go.GetComponent<TowerFloor>().Init(floorKey, target.transform.position, TowerStatus.Attack.GetValue(), Tower);
         });

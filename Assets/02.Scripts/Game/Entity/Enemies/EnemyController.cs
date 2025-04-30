@@ -162,9 +162,8 @@ public class EnemyController : EntityController, IDamagable
     /// <param name="damage"></param>
     public void ApplyDamage(float incomingDamage, AbilityType condition = AbilityType.None, GameObject go = null)
     {
+
         //반사타입 처리
-
-
         if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
         {
             if (Enemy.AtkType == AtkType.ReflectDamage)

@@ -28,7 +28,6 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public virtual void AttackTrigger()
     {
-        Util.Log("myUnitHP: " + myUnit.MyUnitStatus.Health.GetValueToString());
         if (myUnit.Target == null)
         {
             return;

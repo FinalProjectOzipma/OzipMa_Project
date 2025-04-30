@@ -34,7 +34,7 @@ public class EntityProjectile : Poolable
     /// <param name="targetPos"></param>
     public virtual void Init(GameObject owner, float ownerAttack, Vector2 targetPos)
     {
-        Owner = owner;
+        Owner = owner.transform.parent.gameObject;
         transform.position = owner.transform.position;
         
         this.ownerLayer = owner.layer;
