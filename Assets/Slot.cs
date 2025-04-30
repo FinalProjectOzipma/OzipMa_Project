@@ -186,6 +186,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         if (inventoryUI.CurrentTab != typeof(Tower)) return;
+
+        // 한번 실행
         inventoryUI.OnSwipe();
 
         Vector2 inputPos = eventData.position;
