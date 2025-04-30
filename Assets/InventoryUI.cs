@@ -90,9 +90,12 @@ public class InventoryUI : UI_Scene
     private bool isBatch = false;
     public bool isSelect = false;
 
+    public Queue<Action> SwipeExcute;
+
     private void Awake()
     {
         Init();
+        SwipeExcute = new Queue<Action>();
     }
 
     public override void Init()
@@ -286,28 +289,41 @@ public class InventoryUI : UI_Scene
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
 
+    private void Update()
+    {
+        if (!isMove && SwipeExcute.Count > 0)
+            SwipeExcute.Dequeue()?.Invoke();
+    }
+
     private void OnAnimation()
     {
         RectTransform movable = GetRect((int)RectTransforms.Contents);
-        if (!isMove)
+
+        if(isMove)
+        {
+            SwipeExcute.Enqueue(OnSwipe);
+        }
+        else
         {
             Managers.UI.GetScene<UI_Main>().OffButton();
             isMove = true;
+
             if (!isOpen)
             {
                 isOpen = true;
                 gameObject.SetActive(true);
                 Get<Image>((int)Images.PutImage).color = Color.white;
                 CurrentState = STATE.SELECTABLE;
+                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90.0f));
                 });
-                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(true);
             }
             else
             {
+                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(false);
                 movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
@@ -315,7 +331,6 @@ public class InventoryUI : UI_Scene
                     Managers.UI.GetScene<UI_Main>().OnButton();
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
-                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(false);
             }
         }
     }
