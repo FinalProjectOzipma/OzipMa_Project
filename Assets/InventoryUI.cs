@@ -226,7 +226,7 @@ public class InventoryUI : UI_Scene
                 {
                     slots[i].DisSelect();
 
-                    if (TransformType(_currentList[i])) continue;
+                    if (IsMaxLevel(_currentList[i])) continue;
 
                     Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
                 }
@@ -396,6 +396,7 @@ public class InventoryUI : UI_Scene
         bool isAnySelected = false;
         List<T> updateList = new();
 
+
         for (int i = 0; i < _currentList.Count; i++)
         {
             if (i >= slots.Count)
@@ -444,10 +445,15 @@ public class InventoryUI : UI_Scene
         Refresh<T>();
     }
 
-    public bool TransformType(IGettable gettable)
+    public bool IsMaxLevel(IGettable gettable)
     {
         var max = gettable as UserObject;
 
         return max.Status.Level.GetValue() == max.Status.MaxLevel.GetValue();
+    }
+
+    public void TextMaxLevel()
+    {
+        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = "최고 레벨 입니다.";
     }
 }

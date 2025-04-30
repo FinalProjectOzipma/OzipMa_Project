@@ -77,6 +77,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             else
             {
                 // 만렙이면 선택은 되지만 비용 증가 없음
+                inventoryUI.TextMaxLevel();
                 Util.Log("만렙 유닛 선택됨 (비용 없음)");
             }
         }
@@ -87,6 +88,13 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             {
                 Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
                 isSelect = false;
+                inventoryUI.isSelect = false;
+            }
+            else
+            {
+                Managers.Upgrade.OnUpgradeGold(0);
+                isSelect = false;
+                inventoryUI.isSelect = false;
             }
         }
 
