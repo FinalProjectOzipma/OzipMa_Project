@@ -67,10 +67,9 @@ public class EntityProjectile : Poolable
 
     private void Update()
     {
-        Util.Log("업데이트 외않되?");
         //웨이브 종료조건
         //TODO : 나중에 현재 웨이브상태 수정되면 다시 조건을 상태를 활용하도록 수정하기
-        if (Managers.Wave.CurEnemyList.Count == 0 || Managers.Wave.CurMyUnitList.Count == 0)
+        if (Managers.Wave.CurrentState != Enums.WaveState.Playing)
         {
             if (gameObject.activeInHierarchy)
                 Managers.Resource.Destroy(gameObject);

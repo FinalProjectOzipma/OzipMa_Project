@@ -7,8 +7,6 @@ public class SkeletonAnimationTrigger : MyUnitAnimationTrigger
     public override void AttackTrigger()
     {
         base.AttackTrigger();
-
-        Util.Log("화살 얍");
         Managers.Resource.Instantiate("Arrow", (go) => { Fire(go); Managers.Audio.audioControler.PlaySFX(SFXClipName.Arrow); });
     }
 
