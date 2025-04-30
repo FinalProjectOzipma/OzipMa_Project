@@ -150,7 +150,7 @@ public class MyUnitController : EntityController, IDamagable
     //반사 데미지 적용
     public void ReflectDamage(float damage, float abilityRatio)
     {
-        TakeDamage(damage);
+        TakeDamage(damage* abilityRatio);
     }
 
     //실제 트리거에서 호출되는 메서드
