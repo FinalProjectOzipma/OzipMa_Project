@@ -63,6 +63,11 @@ public class EntityProjectile : Poolable
     private void FixedUpdate()
     {
         Move();
+        
+        if (Managers.Wave.CurrentState == Enums.WaveState.End)
+        {
+            Managers.Resource.Destroy(gameObject);
+        }
     }
 
     protected virtual void Move()
