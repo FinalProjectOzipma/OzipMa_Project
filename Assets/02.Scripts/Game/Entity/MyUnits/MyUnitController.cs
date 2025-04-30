@@ -53,6 +53,7 @@ public class MyUnitController : EntityController, IDamagable
         transform.position = position;
         Rigid = GetComponent<Rigidbody2D>();
         AnimData.Init(this);
+        MyUnitStatus.Health.OnChangeHealth = healthView.SetHpBar;
     }
 
     /// <summary>
@@ -78,9 +79,8 @@ public class MyUnitController : EntityController, IDamagable
                 Fx = go.GetOrAddComponent<ObjectFlash>();
                 spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
                 body = go;
-                Init(position);
                 healthView = go.GetComponentInChildren<HealthView>();
-                MyUnitStatus.Health.OnChangeHealth = healthView.SetHpBar;
+                Init(position);
             });
         }
         else
