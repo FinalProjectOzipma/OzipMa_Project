@@ -66,7 +66,8 @@ public class EntityProjectile : Poolable
         
         if (Managers.Wave.CurrentState == Enums.WaveState.End)
         {
-            Managers.Resource.Destroy(gameObject);
+            if (gameObject.activeInHierarchy)
+                Managers.Resource.Destroy(gameObject);
         }
     }
 
