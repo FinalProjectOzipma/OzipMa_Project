@@ -33,7 +33,9 @@ public class UI_Research : UI_Base
     {
         Icon,
         FillBackImage,
-        FillImage
+        FillImage,
+        GoldImage,
+        ZamImage
 
     }
 
@@ -87,6 +89,8 @@ public class UI_Research : UI_Base
     private List<MyUnit> myUnitList;
     private List<Tower> towerList;
 
+
+
     private void Awake()
     {
         Init();
@@ -134,9 +138,41 @@ public class UI_Research : UI_Base
             if (progress >= 1f)
             {
                 CompleteResearch();
-            }
+            }    
+        }
 
-        }     
+        if(isResearching)
+        {
+            ChangeGlodZamButton();
+        }
+    }
+
+
+    private void ChangeGlodZamButton()
+    {
+
+        if (Managers.Player.gold < spendGold)
+        {
+            GetButton((int)Buttons.GoldSpendButton).interactable = false;
+            GetText((int)Texts.GoldSpendText).color = Color.red;
+        }
+        else
+        {
+            GetButton((int)Buttons.GoldSpendButton).interactable = true;
+            GetText((int)Texts.GoldSpendText).color = Color.white;
+        }
+
+        if (Managers.Player.zam < spendZam)
+        {
+            GetButton((int)Buttons.JamSpendButton).interactable = false;
+            GetText((int)Texts.JamSpendText).color = Color.red;
+        }
+        else
+        {
+            GetButton((int)Buttons.JamSpendButton).interactable = true;
+            GetText((int)Texts.JamSpendText).color = Color.white;
+        }
+
     }
 
     public override void Init()
@@ -238,11 +274,13 @@ public class UI_Research : UI_Base
         if (isResearching) return; // 이미 진행 중이면 무시
         isComplete = false;
         startTime = DateTime.UtcNow;
+
         PlayerPrefs.SetString(startKey, startTime.ToString());
         PlayerPrefs.SetFloat(durationKey, researchDuration);
         PlayerPrefs.Save();
 
         isResearching = true;
+        GetTextMeshProUGUI((int)Texts.UpgradeButtonText).text = "연구";
         GetButton((int)Buttons.UpgradeButton).interactable = false;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
@@ -258,13 +296,14 @@ public class UI_Research : UI_Base
 
         if (!isResearching)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.StartFailPopup.ToString());
             isPopup = false;
             return;
         }
+
         if (Managers.Player.zam < spendZam)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>(Objects.JamAlarmPopup.ToString());
+            //Managers.UI.GetAlarmPopup().WriteText("잼이 부족합니다. 잼이 없네요.");
             isPopup = false;
             return;
         }
@@ -299,7 +338,6 @@ public class UI_Research : UI_Base
 
         if (!isResearching)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.StartFailPopup.ToString());
             isPopup = false;
             return;
         }
@@ -336,6 +374,11 @@ public class UI_Research : UI_Base
         GetImage((int)Images.FillImage).fillAmount = 1.0f;
         GetTextMeshProUGUI((int)Texts.FillText).text = "100%/100%";
         GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 완료";
+        GetTextMeshProUGUI((int)Texts.UpgradeButtonText).text = "시작";
+        GetButton((int)Buttons.GoldSpendButton).interactable = false;
+        GetButton((int)Buttons.JamSpendButton).interactable = false;
+        GetText((int)Texts.GoldSpendText).color = Color.white;
+        GetText((int)Texts.JamSpendText).color = Color.white;
     }
 
     /// <summary>
@@ -356,6 +399,7 @@ public class UI_Research : UI_Base
         else
         {
             isResearching = true;
+            GetTextMeshProUGUI((int)Texts.UpgradeButtonText).text = "연구";
             GetButton((int)Buttons.UpgradeButton).interactable = false;
         }
     }
@@ -367,6 +411,8 @@ public class UI_Research : UI_Base
     {
         GetImage((int)Images.FillImage).fillAmount = 0.0f;
         GetTextMeshProUGUI((int)Texts.FillText).text ="0%/100%";
+        GetButton((int)Buttons.GoldSpendButton).interactable = false;
+        GetButton((int)Buttons.JamSpendButton).interactable = false;
     }
 
     private void OnClickCheckButton(PointerEventData data)
