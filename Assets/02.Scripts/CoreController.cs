@@ -8,8 +8,6 @@ public class CoreController : Poolable, IDamagable
     public Core core;
     public Animator anime;
     public GameObject HpBar;
-    float hpRatio;
-    Vector3 scale;
     private float spawnY = 2.7f;
 
     public string coreLevelkey = "CoreLevelKey";
@@ -55,7 +53,6 @@ public class CoreController : Poolable, IDamagable
         {
             anime.SetBool("IsDestroy", true);
             Managers.Audio.audioControler.PlaySFX(SFXClipName.Dead);
-            Debug.Log("현재 웨이브 다시 시작");
         }
     }
 

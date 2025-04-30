@@ -124,7 +124,16 @@ public class UI_Research : UI_Base
         
 
             GetImage((int)Images.FillImage).fillAmount = progress;
-            GetTextMeshProUGUI((int)Texts.FillText).text = Mathf.RoundToInt(progress * 100f) + "%" + "/100%";
+
+
+            if(progress >= 0.99f)
+            {
+                GetTextMeshProUGUI((int)Texts.FillText).text = "99%/100%";
+            }
+            else
+            {
+                GetTextMeshProUGUI((int)Texts.FillText).text = Mathf.RoundToInt(progress * 100.0f) + "%" + "/100%";
+            }
 
             float remainingSeconds = Mathf.Max(researchDuration - (float)elapsedSeconds, 0f);
             TimeSpan remainingTime = TimeSpan.FromSeconds(remainingSeconds);
@@ -137,6 +146,7 @@ public class UI_Research : UI_Base
 
             if (progress >= 1f)
             {
+                GetTextMeshProUGUI((int)Texts.FillText).text = "100%/100%";
                 CompleteResearch();
             }    
         }
@@ -461,6 +471,7 @@ public class UI_Research : UI_Base
             researchDuration = 43200.0f;
         }
 
+
         updateStat += researchUpgradeType != ResearchUpgradeType.Random ? 10.0f : 20.0f;
         spendGold += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
         spendZam += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
@@ -492,10 +503,8 @@ public class UI_Research : UI_Base
             Managers.Wave.MainCore.core.CoreLevel.SetValue(updateLevel);
             PlayerPrefs.SetInt(Managers.Wave.MainCore.coreLevelkey, updateLevel);
             Managers.Wave.MainCore.CoreUpgrade();
-            Util.Log("코어레벨 : " + Managers.Wave.MainCore.core.CoreLevel.GetValueToString());
         }
 
-        Debug.Log($"다음 연구시간 : {researchDuration}");
     }
 
 
