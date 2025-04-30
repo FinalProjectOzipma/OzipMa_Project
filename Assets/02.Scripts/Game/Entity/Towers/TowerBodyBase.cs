@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TowerBodyBase : MonoBehaviour
 {
-    public float MainSpriteOffset = 0.25f;
+    public float MainSpriteOffset = 0.3f;
     public Animator Anim {  get; private set; }
     public TowerAnimationData AnimData { get; private set;}
 
