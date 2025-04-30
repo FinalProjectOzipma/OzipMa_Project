@@ -8,7 +8,8 @@ public class CoreController : Poolable, IDamagable
     public Core core;
     public Animator anime;
     public GameObject HpBar;
-    private Image hpImage;
+    float hpRatio;
+    Vector3 scale;
     private float spawnY = 2.7f;
 
     public string coreLevelkey = "CoreLevelKey";
@@ -20,8 +21,6 @@ public class CoreController : Poolable, IDamagable
     {
         core = new Core();
 
-        hpImage = HpBar.GetComponent<Image>();
-
         CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
@@ -30,7 +29,8 @@ public class CoreController : Poolable, IDamagable
     {
         core.Health.SetValue(maxHealth);
         core.MaxHealth.SetValue(maxHealth);
-        hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
+        HpBar.transform.localScale = Vector3.one;
+
         float randomX = Random.Range(-2.0f, 2.0f);
         this.gameObject.transform.position = new Vector2(randomX, spawnY);
 
@@ -46,7 +46,9 @@ public class CoreController : Poolable, IDamagable
     {
 
         core.Health.AddValue(-damage);
-        hpImage.fillAmount = core.Health.Value /core.MaxHealth.Value;
+
+        HpBar.transform.localScale = new Vector3(core.Health.GetValue()/core.MaxHealth.GetValue(), 1,1);
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
 
         if (core.Health.Value == 0)
@@ -57,12 +59,12 @@ public class CoreController : Poolable, IDamagable
         }
     }
 
-    public void UpgradeHealth(float value)
-    {
-        core.Health.AddValue(value);
-        core.MaxHealth.AddValue(value);
-        hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
-    }
+    //public void UpgradeHealth(float value)
+    //{
+    //    core.Health.AddValue(value);
+    //    core.MaxHealth.AddValue(value);
+    //    hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
+    //}
 
     public void SpawnUnit()
     {

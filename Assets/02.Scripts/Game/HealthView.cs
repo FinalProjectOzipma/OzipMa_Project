@@ -10,6 +10,7 @@ public class HealthView : MonoBehaviour
     public EntityHealth health;
 
     private EntityController ctrl;
+    private CoreController core;
 
     private void Start()
     {
