@@ -92,7 +92,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             }
             else
             {
-                Managers.Upgrade.OnUpgradeGold(0);
+                Managers.Upgrade.RefresgUpgradeGold();
                 isSelect = false;
                 inventoryUI.isSelect = false;
             }

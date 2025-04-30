@@ -411,7 +411,7 @@ public class InventoryUI : UI_Scene
             var select = _currentList[i] as T;
 
             // select가 널이 아니거나 MaxLevel이 아니면 업데이트리스트 추가
-            if(select != null && select.Status.Level != select.Status.MaxLevel)
+            if(select != null && !IsMaxLevel(select))
             {
                 updateList.Add(select);
             }
@@ -422,23 +422,30 @@ public class InventoryUI : UI_Scene
         {
             Managers.UI.ShowPopupUI<UI_Popup>("GoldAlarmPopup");
             Managers.Upgrade.RefresgUpgradeGold();
+            isSelect = false;
             Refresh<T>();
             return;
         }
-        else
+        else if(updateList.Count != 0)
         {
             for (int i = 0; i < updateList.Count; i++)
             {
                 levelUpAction(updateList[i]);
                 isAnySelected = true;
             }
+
+            Managers.Audio.audioControler.PlaySFX(SFXClipName.PowerUp);
         }
 
         if (!isAnySelected)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>("InchentPopup");
+            Managers.Upgrade.RefresgUpgradeGold();
+            isSelect = false;
+            Refresh<T>();
             return;
         }
+
 
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
