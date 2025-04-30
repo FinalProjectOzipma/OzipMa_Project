@@ -63,7 +63,7 @@ public class TowerAnimationTrigger : MonoBehaviour
                     target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
                     break;
                 case AbilityType.Dark:
-                    target.ApplyDamage(attackPower, AbilityType.Dark);
+                    target.ApplyDamage(0, AbilityType.Dark);
                     break;
                 //case AbilityType.Slow:
                 //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
