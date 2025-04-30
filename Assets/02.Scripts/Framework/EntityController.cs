@@ -17,9 +17,11 @@ public abstract class EntityController : Poolable
 
     #endregion
 
-    public Dictionary<int, KeyPairCondition> Conditions { get; set; } = new();
+    public Dictionary<int, IConditionable> Conditions { get; set; } = new();
+    public Dictionary<int, ConditionHandler> ConditionHandlers { get; set; } = new();
     public Dictionary<int, float> Times { get; set; } = new();
-    public AbilityType CurrentCondition { get; set; } = AbilityType.None;
+
+
     public EntityAnimationData AnimData { get; set; }
 
     public bool IsLeft { get; private set; }

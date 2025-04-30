@@ -241,4 +241,4 @@ MonoBehaviour:
   conditions:
   - Key: 6
     GameObj: {fileID: 7463672540273308615}
-    CoolDown: 1.5
+    CoolDown: 3

@@ -52,7 +52,7 @@ public class TowerAnimationTrigger : MonoBehaviour
             if (ownerInfo == null) continue;
 
             // 기본 공격
-            target.ApplyDamage(attackPower);
+            target.ApplyDamage(0);
             // 해당 타워가 갖고있는 공격 속성 적용
             if (Tower.Abilities.ContainsKey(ownerInfo.TowerType) == false) continue;
             DefaultTable.AbilityDefaultValue values = Tower.Abilities[ownerInfo.TowerType];
@@ -63,7 +63,7 @@ public class TowerAnimationTrigger : MonoBehaviour
                     target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
                     break;
                 case AbilityType.Dark:
-                    target.ApplyDamage(0, AbilityType.Dark);
+                    target.ApplyDamage(0, AbilityType.Dark, gameObject);
                     break;
                 //case AbilityType.Slow:
                 //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);

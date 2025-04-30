@@ -18,6 +18,8 @@ public class ArcherManAnimData : EntityAnimationData
         this.AttackState = new ArcherManAttackState(StateMachine, AttackHash, controller as EnemyController, this);
         this.DeadState = new ArcherManDeadState(StateMachine, DeadHash, controller as EnemyController, this);
         this.DarkState = new ArcherManDarkState(StateMachine, DarkHash, controller as EnemyController, this);
+
+        controller.Conditions.Add((int)AbilityType.Dark, new DarkCondition<ArcherManStateBase>(StateMachine, ChaseState, DarkState));
         StateMachine.Init(ChaseState);
     }
 }

@@ -42,7 +42,7 @@ public class WaveManager
         CurMyUnitList = new();
 
         CurrentState = Enums.WaveState.Start;
-        timer = hubTime;
+        timer = 0;
 
         // 보스관련애들 넣어두기
         for(int i = 0; i < enemyList.Count; i++)

@@ -20,14 +20,12 @@ MonoBehaviour:
   - m_GUID: d6eb4b8b74587c74f8adda402305a5af
     m_Address: SelectedTabSprite
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3acf77d0fd2b51848b97732dd8379529
     m_Address: TabSprite
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5cc8815c8a53aa49817a387d5ba0786
     m_Address: Slot

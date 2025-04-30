@@ -39,7 +39,6 @@ public class EnemyController : EntityController, IDamagable
     public override void Init(Vector2 position)
     {
         base.Init(position);
-        CurrentCondition = AbilityType.None;
         transform.position = position;
         Targets.Clear();
         Targets.Push(Managers.Wave.MainCore.gameObject);
@@ -191,12 +190,13 @@ public class EnemyController : EntityController, IDamagable
         Status.AddHealth(-finalDamage, gameObject);
         Fx.StartBlinkFlash();
         
-
         int iCondition = (int)condition;
         if (Times.ContainsKey(iCondition) && Times[iCondition] <= 0f)
         {
-            CurrentCondition = condition;
-            Times[iCondition] = Conditions[iCondition].CoolDown;
+            
+            Times[iCondition] = ConditionHandlers[iCondition].CoolDown;
+            ConditionHandlers[iCondition].Attacker = go.transform;
+            Conditions[iCondition]?.Execute();
         }
     }
 

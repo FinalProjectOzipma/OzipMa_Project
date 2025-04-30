@@ -14,17 +14,17 @@ public class EnemyBodyBase : MonoBehaviour
     private CancellationTokenSource disableCancellation; // 비활성화시 취소처리
     private CancellationTokenSource destroyCancellation; // 삭제시 취소처리
 
-    public List<KeyPairCondition> conditions;
+    public List<ConditionHandler> conditions;
 
     public virtual void Init()
     {
         ctrl.Times.Clear();
-        ctrl.Conditions.Clear();
+        ctrl.ConditionHandlers.Clear();
         foreach (var condi in conditions)
         {
             ctrl.Times.Add((int)condi.Key, 0f);
-            ctrl.Conditions.Add((int)condi.Key, condi);
-            condi.GameObj.SetActive(false);
+            ctrl.ConditionHandlers.Add((int)condi.Key, condi);
+            condi.GameObj?.SetActive(false);
         }
 
         timeStart = true;
@@ -54,15 +54,25 @@ public class EnemyBodyBase : MonoBehaviour
 
     async UniTaskVoid StartTime()
     {
-        Dictionary<int, KeyPairCondition> conditions = ctrl.Conditions;
+        Dictionary<int, IConditionable> conditions = ctrl.Conditions;
+        Dictionary<int, ConditionHandler> conditionHandlers = ctrl.ConditionHandlers;
         Dictionary<int, float> times = GetComponentInParent<EnemyController>().Times;
         while (timeStart)
         {
-            foreach (var condi in conditions)
+            foreach (var condi in conditionHandlers)
             {
                 if (times[(int)condi.Key] > 0f && condi.Value.IsExit)
                 {
                     times[(int)condi.Key] -= Time.deltaTime;
+                }
+                else if (times[(int)condi.Key] <= 0f && condi.Value.IsExit)
+                {
+                    times[(int)condi.Key] = 0f;
+
+                    condi.Value.IsExit = false;
+                    condi.Value.Attacker = null;
+
+                    conditions[(int)condi.Key]?.Init();
                 }
             }
 
