@@ -178,6 +178,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         if (inventoryUI.CurrentTab != typeof(Tower)) return;
+        inventoryUI.OnSwipe();
+
         Vector2 inputPos = eventData.position;
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
@@ -198,7 +200,6 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             buildingSystem.AddPlacedMap(inputPos);
             buildingSystem.DragController.IsSlotDragging = false; 
             go.GetComponent<TowerControlBase>().TakeRoot(itemKey, towerName, (Tower)Gettable);
-            inventoryUI.OnSwipe();
         });
     }
     #endregion
