@@ -24,15 +24,19 @@ public class Enemy
 
     public void Init(int primaryKey, Sprite sprite)
     {
-        var result = Util.TableConverter<DefaultTable.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
+        var enemy = Util.TableConverter<DefaultTable.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
+        var stage = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
 
         if (Status == null)
-            Status = new EnemyStatus(result[primaryKey]);
+            Status = new EnemyStatus(enemy[primaryKey]);
         else
-            Status.Init(result[primaryKey]);
+            Status.Init(enemy[primaryKey]);
 
-        AtkType = result[primaryKey].AttackType;
-        Reward = result[primaryKey].Reward;
-        IsBoss = (result[primaryKey].IsBoss == 1);
+        int index = Mathf.Min(Managers.Player.CurrentStage, stage.Count - 1);
+        float rewardRatio = stage[index].RewordRatio;
+
+        AtkType = enemy[primaryKey].AttackType;
+        Reward = (int)(enemy[primaryKey].Reward * rewardRatio);
+        IsBoss = (enemy[primaryKey].IsBoss == 1);
     }
 }
