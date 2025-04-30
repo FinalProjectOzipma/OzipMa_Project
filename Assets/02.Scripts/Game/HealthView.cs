@@ -29,6 +29,7 @@ public class HealthView : MonoBehaviour
     public void SetHpBar(float amount, float maxAmount)
     {
         FillRect.transform.localScale = new Vector3(amount / maxAmount, 1, 1);
+        Util.Log($"{amount / maxAmount}");
     }
 
     private void OnDisable()
