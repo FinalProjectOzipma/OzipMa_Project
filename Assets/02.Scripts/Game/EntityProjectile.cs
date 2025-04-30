@@ -69,7 +69,7 @@ public class EntityProjectile : Poolable
     {
         //웨이브 종료조건
         //TODO : 나중에 현재 웨이브상태 수정되면 다시 조건을 상태를 활용하도록 수정하기
-        if (Managers.Wave.CurrentState != Enums.WaveState.Playing)
+        if (Managers.Wave.CurrentState == Enums.WaveState.End)
         {
             if (gameObject.activeInHierarchy)
                 Managers.Resource.Destroy(gameObject);
