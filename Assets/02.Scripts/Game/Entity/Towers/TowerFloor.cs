@@ -38,6 +38,11 @@ public class TowerFloor : MonoBehaviour
             transform.position = targetPos;
             animator.speed = 1f;
         }
+
+        if(Managers.Wave.CurrentState != Enums.WaveState.Playing)
+        {
+            OnAttackFinish();
+        }
     }
 
     public void OnAttackFinish()
