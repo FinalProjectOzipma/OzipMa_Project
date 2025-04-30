@@ -38,8 +38,16 @@ public class TowerFloor : MonoBehaviour
             transform.position = targetPos;
             animator.speed = 1f;
         }
+
+        if(Managers.Wave.CurrentState != Enums.WaveState.Playing)
+        {
+            OnAttackFinish();
+        }
     }
 
+    /// <summary>
+    /// TowerFloor의 본체와 외형 각각 Destroy
+    /// </summary>
     public void OnAttackFinish()
     {
         // Body 삭제

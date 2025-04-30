@@ -81,7 +81,7 @@ public class TowerAnimationTrigger : MonoBehaviour
     }
 
     /// <summary>
-    /// 장판 제거
+    /// 장판 제거 - 애니메이션 종료 시 호출됨
     /// </summary>
     public void DestroyFloor()
     {
