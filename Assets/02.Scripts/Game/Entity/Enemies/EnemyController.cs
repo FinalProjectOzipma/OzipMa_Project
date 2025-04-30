@@ -73,24 +73,6 @@ public class EnemyController : EntityController, IDamagable
         }
     }
 
-    public void ApplyNerf()
-    {
-
-    }
-
-    private IEnumerator OnNerf(float abilityValue, float abilityDuration)
-    {
-        while (abilityDuration < 0)
-        {
-            abilityDuration -= Time.deltaTime;
-
-            Status.MoveSpeed.SetValueMultiples(abilityValue);
-
-            yield return null;
-        }
-
-        Status.MoveSpeed.SetValueMultiples(1f);
-    }
 
     public void ApplyDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
     {
