@@ -41,7 +41,6 @@ public class EntityProjectile : Poolable
         this.hitLayer = (int)Enums.Layer.Map | (int)Enums.Layer.Enemy | (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
         this.ownerAttack = ownerAttack;
 
-
         float angle = Util.GetAngle(transform.position, targetPos);
         transform.rotation = Quaternion.Euler(Vector3.zero);
         transform.Rotate(Vector3.forward * angle);
