@@ -242,3 +242,6 @@ MonoBehaviour:
   - Key: 6
     GameObj: {fileID: 7463672540273308615}
     CoolDown: 3
+  - Key: 5
+    GameObj: {fileID: 0}
+    CoolDown: 0

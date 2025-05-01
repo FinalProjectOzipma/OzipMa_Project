@@ -157,7 +157,6 @@ public class WaveManager
 
             amount--;
         }
-
         CurrentState = Enums.WaveState.Playing;
     }
 

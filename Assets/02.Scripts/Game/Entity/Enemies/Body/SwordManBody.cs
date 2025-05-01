@@ -26,9 +26,9 @@ public class SwordManBody : EnemyBodyBase
         base.Init();
     }
 
-    protected override void OnEnable()
+    public override void Enable()
     {
-        base.OnEnable();
+        base.Enable();
 
         if (ctrl != null)
         {

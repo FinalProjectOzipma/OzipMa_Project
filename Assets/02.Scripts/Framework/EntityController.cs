@@ -7,8 +7,7 @@ using static Enums;
 
 public abstract class EntityController : Poolable
 {
-    protected GameObject body;
-
+    public GameObject Body { get; protected set; } // 나중에 EntityBodyBase로 만들어서 DeadState때 GetComponent호출 줄이기
 
     #region Component
     public Animator Anim { get; private set; }

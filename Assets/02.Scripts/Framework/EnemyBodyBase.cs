@@ -24,14 +24,16 @@ public class EnemyBodyBase : MonoBehaviour
         {
             ctrl.Times.Add((int)condi.Key, 0f);
             ctrl.ConditionHandlers.Add((int)condi.Key, condi);
-            condi.GameObj?.SetActive(false);
+
+            if(condi.GameObj != null)
+                condi.GameObj.SetActive(false);
         }
 
         timeStart = true;
         StartTime().Forget();
     }
 
-    protected virtual void OnEnable()
+    public virtual void Enable() // 스폰되었을때 실행
     {
         if (disableCancellation != null)
         {
@@ -41,7 +43,7 @@ public class EnemyBodyBase : MonoBehaviour
         disableCancellation = new();
     }
 
-    private void OnDisable()
+    public void Disable() // 죽었을때 실행
     {
         disableCancellation.Cancel();
     }

@@ -17,7 +17,7 @@ public class DarkCondition<T> : IConditionable where T : EntityStateBase
 
     public void Init() {}
 
-    public void Execute()
+    public void Execute(float incomingDamage, DefaultTable.AbilityDefaultValue values)
     {
         stateMachine.ChangeState(darkState);
     }

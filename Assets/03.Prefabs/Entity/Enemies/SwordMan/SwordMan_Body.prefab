@@ -220,6 +220,9 @@ MonoBehaviour:
   - Key: 6
     GameObj: {fileID: 5857566528428076154}
     CoolDown: 3
+  - Key: 5
+    GameObj: {fileID: 0}
+    CoolDown: 0
 --- !u!1 &5857566528428076154 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 310171221858182931, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}

@@ -7,7 +7,7 @@ using System;
 public class ConditionHandler
 {
     public AbilityType Key;
-    public GameObject GameObj;
+    public GameObject GameObj; // 컨디션 오브젝트
     public float CoolDown;
 
     public Transform Attacker { get; set; }
