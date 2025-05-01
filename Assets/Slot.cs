@@ -22,7 +22,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     private enum TextMeshs
     {
         ObjInfo,
-        StackText
+        StackText,
+        MaxLv
     }
 
     private Button button; // 이녀석은 현재 들고 있는 컴포넌트객체니깐 그냥 Get으로 불러드림
@@ -51,6 +52,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
         inventoryUI = Managers.UI.GetScene<InventoryUI>();
         GetImage((int)Images.Selected).gameObject.SetActive(false);
+        GetText((int)TextMeshs.MaxLv).gameObject.SetActive(false);
     }
 
     private void SeletToggle()
@@ -110,6 +112,15 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         GetText((int)TextMeshs.ObjInfo).text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
         GetImage((int)Images.StackGageFill).fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
         GetText((int)TextMeshs.StackText).text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
+
+        if(status.Level.GetValue() >= status.MaxLevel.GetValue())
+        {
+            GetText((int)TextMeshs.MaxLv).gameObject.SetActive(true);
+        }
+        else
+        {
+            GetText((int)TextMeshs.MaxLv).gameObject.SetActive(false);
+        }
 
     }
 
