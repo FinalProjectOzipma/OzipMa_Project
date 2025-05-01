@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -201,6 +202,12 @@ public class InventoryUI : UI_Scene
 
     private void OnSelectAll()
     {
+        bool isButton = false;
+
+        if (isButton) return;
+
+        isButton = true;
+
         if (_currentList == null)
             return;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
@@ -218,37 +225,95 @@ public class InventoryUI : UI_Scene
 
         //bool isSelected = false;
 
+        OnSelectfor();
 
-        for (int i = 0; i < _currentList.Count; i++)
+
+        bool isMax = AllMaxCheck();
+
+        if (!isSelect && !isMax)
         {
-            if (!isSelect)
-            {
-                slots[i].OnSelect();
-            }   
-            else
-            {
-                if (slots[i].IsActive)
-                {
-                    slots[i].DisSelect();
-
-                    if (IsMaxLevel(_currentList[i])) continue;
-
-                    Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
-                }
-            }
+            IsSelectFalse();
+        }
+        else
+        {
+            IsSelectTrue();
         }
 
         isSelect = !isSelect;
+        isButton = false;
+
     }
 
-    private bool CheckActive()
+    public void OnSelectfor()
     {
         for (int i = 0; i < _currentList.Count; i++)
         {
-            if (!slots[i].IsActive) return false;
+            if (!isSelect)
+            {             
+                if (IsMaxLevel(_currentList[i]) || slots[i].IsActive) continue;
+
+                slots[i].OnSelect();
+                Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+            }
+            else
+            {
+
+                if (IsMaxLevel(_currentList[i]) || !slots[i].IsActive) continue;
+
+                slots[i].DisSelect();
+                Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+
+            }
+        }
+    }
+
+
+
+    public void IsSelectFalse()
+    {
+        Get<Image>((int)Images.SelectAllImage).color = Color.red;
+        Get<TextMeshProUGUI>((int)Texts.SelectText).color = Color.white;
+        Get<TextMeshProUGUI>((int)Texts.SelectText).text = "일괄 해제";
+    }
+
+    public void IsSelectTrue()
+    {
+        Get<Image>((int)Images.SelectAllImage).color = Color.white;
+        Get<TextMeshProUGUI>((int)Texts.SelectText).color = Color.black;
+        Get<TextMeshProUGUI>((int)Texts.SelectText).text = "일괄 선택";
+    }
+
+    public void CheckActive()
+    {
+        for (int i = 0; i < _currentList.Count; i++)
+        {
+            if (IsMaxLevel(_currentList[i])) continue;
+
+            if (!slots[i].IsActive)
+            {
+                isSelect = false;
+                IsSelectTrue();
+                return;
+            }
+            else
+            {
+                isSelect = true;
+                IsSelectFalse();
+            }
+        }
+    }
+
+    private bool AllMaxCheck()
+    {
+        int AllMax = 0;
+
+        for (int i = 0; i < _currentList.Count; i++)
+        {
+            if (IsMaxLevel(_currentList[i])) continue;
+            AllMax++;
         }
 
-        return true;
+        return AllMax == 0 ? true : false;
     }
 
     private void OnMyUnitTap()
@@ -259,6 +324,9 @@ public class InventoryUI : UI_Scene
         Refresh<MyUnit>();
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
+        Get<Image>((int)Images.SelectAllImage).color = Color.white;
+        Get<TextMeshProUGUI>((int)Texts.SelectText).color = Color.black;
+        Get<TextMeshProUGUI>((int)Texts.SelectText).text = "일괄 선택";
     }
     private void OnTowerTap()
     {
@@ -268,6 +336,9 @@ public class InventoryUI : UI_Scene
         Refresh<Tower>();
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
+        Get<Image>((int)Images.SelectAllImage).color = Color.white;
+        Get<TextMeshProUGUI>((int)Texts.SelectText).color = Color.black;
+        Get<TextMeshProUGUI>((int)Texts.SelectText).text = "일괄 선택";
     }
 
 
@@ -386,6 +457,12 @@ public class InventoryUI : UI_Scene
 
     private void OnClickUpgrade()
     {
+        bool isButton = false;
+
+        if (isButton) return;
+
+        isButton = true;
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
         uiSeq = Util.RecyclableSequence();
@@ -408,6 +485,8 @@ public class InventoryUI : UI_Scene
         {
             LevelUpUnits<Tower>(Managers.Upgrade.LevelUpTower);
         }
+
+        isButton = false;
     }
 
     private void LevelUpUnits<T>(Action<T> levelUpAction) where T : UserObject, IGettable
@@ -440,8 +519,8 @@ public class InventoryUI : UI_Scene
         if (Managers.Player.GetGold() < Managers.Upgrade.LevelUPGold * updateList.Count)
         {
             Managers.UI.ShowPopupUI<UI_Popup>("GoldAlarmPopup");
-            Managers.Upgrade.RefresgUpgradeGold();
-            isSelect = false;
+            RefreshUpgradeUI();
+            IsSelectTrue();
             Refresh<T>();
             return;
         }
@@ -459,16 +538,21 @@ public class InventoryUI : UI_Scene
         if (!isAnySelected)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>("InchentPopup");
-            Managers.Upgrade.RefresgUpgradeGold();
-            isSelect = false;
+            RefreshUpgradeUI();
             Refresh<T>();
             return;
         }
 
 
+        RefreshUpgradeUI();
+        Refresh<T>();
+    }
+
+    private void RefreshUpgradeUI()
+    {
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
-        Refresh<T>();
+        IsSelectTrue();
     }
 
     public bool IsMaxLevel(IGettable gettable)

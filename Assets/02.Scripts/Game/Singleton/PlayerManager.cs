@@ -107,7 +107,7 @@ public class PlayerManager
 
     public void SetGoldAndJame()
     {
-        gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 3000L;
+        gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 100000L;
         zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 1000L;
     }
 

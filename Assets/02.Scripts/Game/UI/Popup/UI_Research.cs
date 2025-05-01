@@ -82,7 +82,6 @@ public class UI_Research : UI_Base
     
     private float baseTime = 300.0f;
     //private float growthFactor = 2.0f;
-    private bool isPopup = false;
     private bool isComplete = false;
 
     private List<IGettable> rawList;
@@ -301,7 +300,10 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickCompleteResearch(PointerEventData data)
     {
+        bool isPopup = false;
+
         if (isPopup) return;
+
         isPopup = true;
 
         if (!isResearching)
@@ -337,12 +339,9 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickSaveTime(PointerEventData data)
     {
+        bool isPopup = false;
 
-        if (isPopup)
-        {
-            Debug.Log("isPopup이 트루다");
-            return;
-        }
+        if (isPopup) return;
 
         isPopup = true;
 
