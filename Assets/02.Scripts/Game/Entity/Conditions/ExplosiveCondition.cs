@@ -1,9 +1,10 @@
+using Cysharp.Threading.Tasks;
 using DefaultTable;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExplosiveCondition<T> : IConditionable where T : EntityController
+public class ExplosiveCondition<T> : UniTaskHandler, IConditionable where T : EntityController
 {
     private Coroutine dotCor;
     private EnemyController enemyCtrl;
@@ -11,7 +12,10 @@ public class ExplosiveCondition<T> : IConditionable where T : EntityController
 
     private float attackerDamage;
     private float victimDefence;
-    private int a = 0;
+
+    private bool canHit = true;
+    private float coolDown = 0.0f;
+    private float time = 0.0f;
 
     public ExplosiveCondition(T ctrl)
     {
@@ -28,54 +32,48 @@ public class ExplosiveCondition<T> : IConditionable where T : EntityController
     /// <param name="values"></param>
     public void Execute(float attackerDamage, AbilityDefaultValue values) 
     {
+        TokenDisable();
+        TokenEnable();
+
+        time = values.AbilityDuration;
+        coolDown = 0f;
+
         if (typeof(T) == typeof(EnemyController))
             victimDefence = enemyCtrl.Status.Defence.GetValue();
         else
             victimDefence = myunitCtrl.MyUnitStatus.Defence.GetValue();
 
-        ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
+        OnDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown).Forget();
     }
 
     public void Init()
     {
-        
+        Init();
     }
 
-    private void ApplyDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
-    {
-        if (dotCor != null)
-        {
-            enemyCtrl.StopCoroutine(dotCor);
-            dotCor = null;
-        }
 
-        dotCor = StartCoroutine(OnDotDamage(abilityValue, abilityDuration, abilityCooldown));
-    }
-
-    private IEnumerator OnDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
+    async UniTaskVoid OnDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
     {
-        bool canHit = true;
-        float coolDown = 0.0f;
-        ++a;
-        while (abilityDuration > 0)
+        while (time > 0)
         {
-            abilityDuration -= Time.deltaTime;
+            time -= Time.deltaTime;
 
             if (canHit)
             {
                 AddHealth(-abilityValue);
-                coolDown = abilityCooldown;
+                // 0초라서 수정해야됨 최소한 0.2초가 적당한듯?
+                coolDown = 0.2f;
                 canHit = false;
             }
-
-            if (coolDown <= 0.0f)
+            else if (coolDown <= 0.0f)
             {
                 canHit = true;
             }
 
             coolDown -= Time.deltaTime;
-            yield return null;
+            await UniTask.NextFrame(disableCancellation.Token);
         }
+
     }
 
     private void AddHealth(float damage)

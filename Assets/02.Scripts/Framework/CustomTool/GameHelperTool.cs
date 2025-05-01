@@ -59,7 +59,7 @@ public class GameHelperTool : EditorWindow
             Managers.Player.OnStageWave();
         }
 
-        if(Managers.Instance != null) Managers.Game.IsGodMode = EditorGUILayout.Toggle("갓 모드 활성화", !Managers.Game.IsGodMode);
+        if(Managers.Instance != null) Managers.Game.IsGodMode = EditorGUILayout.Toggle("갓 모드 활성화", Managers.Game.IsGodMode);
     }
 #endif
 

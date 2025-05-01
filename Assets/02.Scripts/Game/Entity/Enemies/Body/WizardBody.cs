@@ -11,11 +11,14 @@ public class WizardBody : EnemyBodyBase
 
     public override void Init()
     {
+        if(ctrl == null)
+        {
+            ctrl = GetComponentInParent<EnemyController>();
+            ctrl.AnimData = new WizardAnimData();
+            ctrl.AnimData.Init(ctrl);
+            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
+        }
         base.Init();
-        ctrl = GetComponentInParent<EnemyController>();
-        ctrl.AnimData = new WizardAnimData();
-        ctrl.AnimData.Init(ctrl);
-        ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
     }
 
     public override void Enable()

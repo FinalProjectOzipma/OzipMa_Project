@@ -1,61 +1,76 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
-public class ObjectFlash : MonoBehaviour
+public class ObjectFlash : MonoBehaviour, IUsableUniTask
 {
+    public CancellationTokenSource DisableCancellation { get; set; }
+    public CancellationTokenSource DestroyCancellation { get; set; }
+
     public SpriteRenderer sr;
 
     [Header("Flash FX")]
     [SerializeField] private Color dotColor;
+    [Range(0.001f, 10f)]
     [SerializeField] private float flashDuration;
     [SerializeField] private Material flashMat;
     private Material originMat;
 
-    WaitForSeconds waitFor;
 
     private void Start()
     {
         originMat = sr.material;
-        waitFor = new WaitForSeconds(flashDuration);
+        flashDuration *= 1000f;
+
+        TokenEnable();
     }
 
     private void OnEnable()
     {
-        if(originMat != null)
+        Init();
+    }
+
+    public void Init()
+    {
+        if (originMat != null)
+        {
             sr.material = originMat;
+            sr.color = Color.white;
+        }
     }
 
     public void StartBlinkRed()
     {
         if (gameObject.activeInHierarchy)
-            StartCoroutine(DotFx());
+            DotFx().Forget();
         else
-            StopAllCoroutines();
+            TokenDisable();
     }
 
     public void StartBlinkFlash()
     {
         if (gameObject.activeInHierarchy)
-            StartCoroutine(FlashFX());
+            FlashFX().Forget();
         else
-            StopAllCoroutines();
+            TokenDisable();
     }
 
-    public IEnumerator FlashFX()
+    private async UniTaskVoid FlashFX()
     {
         sr.material = flashMat;
 
-        yield return waitFor;
+        await UniTask.Delay((int)flashDuration, false, PlayerLoopTiming.Update, DisableCancellation.Token);
 
         sr.material = originMat;
     }
 
-    public IEnumerator DotFx()
+    private async UniTaskVoid DotFx()
     {
         sr.color = dotColor;
 
-        yield return waitFor;
+        await UniTask.Delay((int)flashDuration, false, PlayerLoopTiming.Update, DisableCancellation.Token);
 
         sr.color = Color.white;
     }
@@ -78,5 +93,26 @@ public class ObjectFlash : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
+    }
+
+    public void TokenEnable()
+    {
+        if (DisableCancellation != null)
+        {
+            DisableCancellation.Dispose();
+        }
+
+        DisableCancellation = new();
+    }
+
+    public void TokenDisable()
+    {
+        DestroyCancellation?.Cancel();
+    }
+
+    public void TokenDestroy()
+    {
+        DisableCancellation?.Cancel();
+        DestroyCancellation?.Dispose();
     }
 }
