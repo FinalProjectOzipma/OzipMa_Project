@@ -1,5 +1,6 @@
 using DG.Tweening;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -42,28 +43,47 @@ public class UI_Sound : UI_Base
         Get<Slider>((int)Sliders.BGMSlider).value = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
         Get<Slider>((int)Sliders.SFXSlider).value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
 
-        Get<Slider>((int)Sliders.MasterSlider).onValueChanged.AddListener(OnChangeMasterVolume);
-        Get<Slider>((int)Sliders.BGMSlider).onValueChanged.AddListener(OnChangeBGMVolume);
-        Get<Slider>((int)Sliders.SFXSlider).onValueChanged.AddListener(OnChangeSFXVolume);
+        Get<Slider>((int)Sliders.MasterSlider).onValueChanged.AddListener((v) => OnChangeVolume(AudioType.Master, v));
+        Get<Slider>((int)Sliders.BGMSlider).onValueChanged.AddListener((v) => OnChangeVolume(AudioType.BGM, v));
+        Get<Slider>((int)Sliders.SFXSlider).onValueChanged.AddListener((v) => OnChangeVolume(AudioType.SFX, v));
 
         InitVolumeMuted();
 
     }
 
     #region 볼륨 조절 설정
-    public void OnChangeMasterVolume(float value)
+    public void OnChangeVolume(AudioType type, float value)
     {
-        Managers.Audio.audioControler.SetMasterVolume(value);
-    }
+        float dB;
 
-    public void OnChangeBGMVolume(float value)
-    {
-        Managers.Audio.audioControler.SetBGMVolume(value);
-    }
+        bool isMute;
 
-    public void OnChangeSFXVolume(float value)
-    {
-        Managers.Audio.audioControler.SetSFXVolume(value);
+        switch (type)
+        {
+            case AudioType.Master:
+                isMute = Managers.Audio.audioControler.isMasterMute;
+                Managers.Audio.masterVolume = value;
+                break;
+            case AudioType.BGM:
+                isMute = Managers.Audio.audioControler.isBGMMute;
+                Managers.Audio.bgmVolume = value;
+                break;
+            case AudioType.SFX:
+                isMute = Managers.Audio.audioControler.isSFXMute;
+                Managers.Audio.sfxVolume = value;
+                break;
+            default:
+                isMute = false;
+                break;
+        }
+
+
+        if (value <= 0.0001f || isMute)
+            dB = -80.0f;
+        else
+            dB = Mathf.Log10(value) * 20f;
+
+        Managers.Audio.audioControler.SetVolume(type, dB);
     }
     #endregion
 
