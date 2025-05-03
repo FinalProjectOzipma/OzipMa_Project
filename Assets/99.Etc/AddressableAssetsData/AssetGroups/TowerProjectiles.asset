@@ -20,7 +20,8 @@ MonoBehaviour:
   - m_GUID: b5525b156401be94c80f5a8240c1e67e
     m_Address: TurretProjectile
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 612ce66fd919b6345a6e2066c9504330
     m_Address: TurretProjectileBody
@@ -30,7 +31,8 @@ MonoBehaviour:
   - m_GUID: 94ec09606faaadb44a1cd147b6a9b3b9
     m_Address: TowerFloorBrain
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3d733f5b03825bc40922d9b80899cc3c
     m_Address: DemonFloorBody

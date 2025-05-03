@@ -1,4 +1,5 @@
 using GoogleSheet;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,8 +13,7 @@ public class WaveManager
 
     private PlayerManager playerManager;
 
-    private Coroutine enemyCoroutine;
-    private Coroutine unitCoroutine;
+    private Coroutine delayCoroutine;
 
     private List<Table.Wave> waveList;
     private List<Table.Enemy> enemyList;
@@ -23,6 +23,7 @@ public class WaveManager
     public List<GameObject> CurMyUnitList;
 
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
+    private WaitForSeconds waveDelayTime = new WaitForSeconds(2f);
     private bool onSpawn = true;
 
     private GameObject enemySpawn;
@@ -88,39 +89,42 @@ public class WaveManager
                     CurrentState = Enums.WaveState.End;
             }
 
-            if(CurrentState == Enums.WaveState.End)
+            if(CurrentState == Enums.WaveState.End && delayCoroutine == null)
             {
-                foreach(var unit in CurMyUnitList)
-                    Managers.Resource.Destroy(unit);
-
-                foreach(var enemy in CurEnemyList)
-                    Managers.Resource.Destroy(enemy);
-
-                Managers.Resource.Destroy(MainCore.gameObject);
-
-                CurEnemyList.Clear();
-                CurMyUnitList.Clear();
-
-                // 플레이어 측에서 이겼으면 웨이브 증가
-                if (isEnemyAllDead)
+                delayCoroutine = Managers.StartCoroutine(WaveDelay(() => 
                 {
-                    Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(true);
-                    if (++playerManager.CurrentWave % 10 == 0)
+                    foreach (var unit in CurMyUnitList)
+                        Managers.Resource.Destroy(unit);
+
+                    foreach (var enemy in CurEnemyList)
+                        Managers.Resource.Destroy(enemy);
+
+                    Managers.Resource.Destroy(MainCore.gameObject);
+
+                    CurEnemyList.Clear();
+                    CurMyUnitList.Clear();
+
+                    // 플레이어 측에서 이겼으면 웨이브 증가
+                    if (isEnemyAllDead)
                     {
-                        playerManager.CurrentStage++;
-                        playerManager.CurrentWave = 0;
+                        Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(true);
+                        if (++playerManager.CurrentWave % 10 == 0)
+                        {
+                            playerManager.CurrentStage++;
+                            playerManager.CurrentWave = 0;
+                        }
+
+                        playerManager.OnStageWave();
+                    }
+                    else
+                    {
+                        Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(false);
                     }
 
-                    playerManager.OnStageWave();
-                }
-                else
-                {
-                    Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(false);
-                }
-
-                timer = hubTime;
-                onSpawn = true;
-                CurrentState = Enums.WaveState.Start;
+                    timer = hubTime;
+                    onSpawn = true;
+                    CurrentState = Enums.WaveState.Start;
+                }));
             }
         }
     }
@@ -194,4 +198,11 @@ public class WaveManager
         return (playerManager.CurrentWave == 9); // 보스웨이브면 true
     }
 
+    IEnumerator WaveDelay(Action onComplete)
+    {
+        yield return waveDelayTime;
+
+        onComplete?.Invoke();
+        delayCoroutine = null;
+    }
 }

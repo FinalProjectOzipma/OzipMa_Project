@@ -63,7 +63,7 @@ public class TowerAnimationTrigger : MonoBehaviour
                     target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
                     break;
                 case AbilityType.Dark:
-                    target.ApplyDamage(attackPower, AbilityType.Dark);
+                    target.ApplyDamage(0, AbilityType.Dark);
                     break;
                 //case AbilityType.Slow:
                 //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
@@ -81,7 +81,7 @@ public class TowerAnimationTrigger : MonoBehaviour
     }
 
     /// <summary>
-    /// 장판 제거
+    /// 장판 제거 - 애니메이션 종료 시 호출됨
     /// </summary>
     public void DestroyFloor()
     {

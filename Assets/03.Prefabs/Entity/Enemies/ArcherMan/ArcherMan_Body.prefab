@@ -178,10 +178,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1409385341382462297, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7905626377083703370}
+    - targetCorrespondingSourceObject: {fileID: 2824977371618113679, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7475269926805793431}
   m_SourcePrefab: {fileID: 100100000, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
---- !u!114 &555642692584427267 stripped
+--- !u!114 &601624842200670687 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7237200632044411863, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7746436754581746955, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
   m_PrefabInstance: {fileID: 7194986065276703956}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -195,6 +198,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5498075652551475942, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
   m_PrefabInstance: {fileID: 7194986065276703956}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4966885754105261147 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2824977371618113679, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
+  m_PrefabInstance: {fileID: 7194986065276703956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7475269926805793431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966885754105261147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92e3ad162a9ba3345a2b28fc033f3d0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7463672540273308615 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 310171221858182931, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}
@@ -217,7 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24572694411c1054cbe3d823557f1308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthView: {fileID: 555642692584427267}
+  healthView: {fileID: 601624842200670687}
   conditions:
   - Key: 6
     GameObj: {fileID: 7463672540273308615}

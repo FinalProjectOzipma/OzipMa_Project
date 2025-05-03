@@ -146,4 +146,10 @@ public class UIManager
         return null;
     }
 
+
+    public UI_Alarm GetAlarmPopup()
+    {
+        UI_Alarm popUp = _popupStack.Peek() as UI_Alarm;
+        return popUp;
+    }
 }

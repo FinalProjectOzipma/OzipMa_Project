@@ -48,7 +48,7 @@ public class TowerProjectile : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        if (targetTransform.gameObject.activeSelf != true)
+        if (targetTransform.gameObject.activeSelf != true || Managers.Wave.CurrentState != Enums.WaveState.Playing)
             Managers.Resource.Destroy(gameObject); ;
     }
 

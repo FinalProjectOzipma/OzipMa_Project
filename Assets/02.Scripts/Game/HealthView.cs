@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class HealthView : MonoBehaviour
 {
-    public Image FillRect;
+    public GameObject FillRect;
     public EntityHealth health;
 
     private EntityController ctrl;
+    private CoreController core;
 
     private void Start()
     {
@@ -18,7 +19,7 @@ public class HealthView : MonoBehaviour
 
     private void Update()
     {
-        FillRect.fillOrigin = -ctrl.FacDir;
+        transform.localScale = new Vector3(ctrl.FacDir, 1, 1);
     }
 
     /// <summary>
@@ -28,11 +29,11 @@ public class HealthView : MonoBehaviour
     /// <param name="maxAmount"></param>
     public void SetHpBar(float amount, float maxAmount)
     {
-        FillRect.fillAmount = amount / maxAmount;
+        FillRect.transform.localScale = new Vector3(amount / maxAmount, 1, 1);
     }
 
     private void OnDisable()
     {
-        FillRect.fillAmount = 1f;
+        FillRect.transform.localScale = Vector3.one;
     }
 }

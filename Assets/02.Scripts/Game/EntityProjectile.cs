@@ -34,13 +34,12 @@ public class EntityProjectile : Poolable
     /// <param name="targetPos"></param>
     public virtual void Init(GameObject owner, float ownerAttack, Vector2 targetPos)
     {
-        Owner = owner;
+        Owner = owner.transform.parent.gameObject;
         transform.position = owner.transform.position;
         
         this.ownerLayer = owner.layer;
         this.hitLayer = (int)Enums.Layer.Map | (int)Enums.Layer.Enemy | (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
         this.ownerAttack = ownerAttack;
-
 
         float angle = Util.GetAngle(transform.position, targetPos);
         transform.rotation = Quaternion.Euler(Vector3.zero);
@@ -64,6 +63,17 @@ public class EntityProjectile : Poolable
     private void FixedUpdate()
     {
         Move();
+    }
+
+    private void Update()
+    {
+        //웨이브 종료조건
+        //TODO : 나중에 현재 웨이브상태 수정되면 다시 조건을 상태를 활용하도록 수정하기
+        if (Managers.Wave.CurrentState == Enums.WaveState.End)
+        {
+            if (gameObject.activeInHierarchy)
+                Managers.Resource.Destroy(gameObject);
+        }
     }
 
     protected virtual void Move()

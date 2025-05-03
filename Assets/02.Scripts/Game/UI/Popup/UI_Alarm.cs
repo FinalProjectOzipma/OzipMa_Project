@@ -82,6 +82,11 @@ public class UI_Alarm : UI_Popup
         });
     }
 
+    public void WriteText(string text)
+    {
+        Get<Text>((int)Texts.AlarmText).text = text.ToString();
+    }
+
 
 
 }
