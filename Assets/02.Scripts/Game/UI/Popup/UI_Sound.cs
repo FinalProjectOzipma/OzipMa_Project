@@ -51,6 +51,10 @@ public class UI_Sound : UI_Base
 
     }
 
+
+    /// <summary>
+    /// UI 사운드 조절
+    /// </summary>
     #region 볼륨 조절 설정
     public void OnChangeVolume(AudioType type, float value)
     {
@@ -76,7 +80,6 @@ public class UI_Sound : UI_Base
                 isMute = false;
                 break;
         }
-
 
         if (value <= 0.0001f || isMute)
             dB = -80.0f;

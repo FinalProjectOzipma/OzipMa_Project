@@ -28,8 +28,6 @@ public class UI_EndingPanel : UI_Scene
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<RectTransform>(typeof(Rectransforms));
 
-        Get<RectTransform>((int)Rectransforms.ClearUI).localPosition = new Vector3(0.0f, 1200.0f, 0.0f);
-        Get<RectTransform>((int)Rectransforms.OverUI).localPosition = new Vector3(0.0f, 1200.0f, 0.0f);
         Managers.UI.SetSceneList<UI_EndingPanel>(this);
     }
 
