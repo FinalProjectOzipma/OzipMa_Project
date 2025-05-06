@@ -3,45 +3,35 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine;
+using UnityEditor.SceneManagement;
+
 
 
 public class UI_Main : UI_Scene
 {
+    [SerializeField] private Button ResearchButton;
+    [SerializeField] private Button ManagerButton;
+    [SerializeField] private Button SettingButton;
 
-    enum Buttons
-    {
-        ResearchButton,
-        ManagerButton,
-        SettingButton
+    [SerializeField] private TextMeshProUGUI MainGoldText;
+    [SerializeField] private TextMeshProUGUI MainZamText;
+    [SerializeField] private TextMeshProUGUI StageLv;
+    [SerializeField] private TextMeshProUGUI PlayerName;
+    [SerializeField] private TextMeshProUGUI ResearchText;
+    [SerializeField] private TextMeshProUGUI ManagerText;
 
-    }
+    [SerializeField] private Image ProfileImage;
+    [SerializeField] private Image ResearchButtonImage;
+    [SerializeField] private Image ManagerButtonImage;
+    [SerializeField] private Image SettingImage;
+    [SerializeField] private Image ProgressImage;
+    [SerializeField] private Image CompleteImage;
 
-    enum Texts
-    {
-        MainGoldText,
-        MainZamText,
-        StageLv,
-        PlayerName,
-        ResearchText,
-        ManagerText
-    }
+    [SerializeField] private GameObject ReseachUI;
+    [SerializeField] private GameObject SoundUI;
+    [SerializeField] private GameObject AlarmPopup;
 
-    enum Images
-    {
-        ProfileImage,
-        ResearchButtonImage,
-        ManagerButtonImage,
-        SettingImage,
-        ProgressImage,
-        CompleteImage
-    }
-
-    enum Objects
-    {
-        ReseachUI,
-        SoundUI,
-        AlarmPopup
-    }
 
     bool isButton = false;
 
@@ -54,16 +44,12 @@ public class UI_Main : UI_Scene
     {
         Managers.UI.SetSceneList<UI_Main>(this);
 
-        Bind<Button>(typeof(Buttons));
-        Bind<TextMeshProUGUI>(typeof(Texts));
-        Bind<Image>(typeof(Images));
-
-        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(Managers.Player.GetGold());
-        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(Managers.Player.GetZam());
-        Get<Button>((int)Buttons.ResearchButton).gameObject.BindEvent(OnClikButtonResearch);
-        Get<Button>((int)Buttons.ManagerButton).gameObject.BindEvent(OnClickManager);
-        Get<Button>((int)Buttons.SettingButton).gameObject.BindEvent(OnClickSetting);
-        Get<TextMeshProUGUI>((int)Texts.StageLv).text = $"Lv {Managers.Player.CurrentStage} - {Managers.Player.CurrentWave + 1}";
+        MainGoldText.text = Util.FormatNumber(Managers.Player.GetGold());
+        MainZamText.text = Util.FormatNumber(Managers.Player.GetZam());
+        ResearchButton.gameObject.BindEvent(OnClikButtonResearch);
+        ManagerButton.gameObject.BindEvent(OnClickManager);
+        SettingButton.gameObject.BindEvent(OnClickSetting);
+        StageLv.text = $"Lv {Managers.Player.CurrentStage} - {Managers.Player.CurrentWave + 1}";
 
         if (Managers.Player != null)
         {
@@ -86,17 +72,17 @@ public class UI_Main : UI_Scene
 
     private void UpdateGoldUI(long gold)
     {
-        Get<TextMeshProUGUI>((int)Texts.MainGoldText).text = Util.FormatNumber(gold);
+        MainGoldText.text = Util.FormatNumber(gold);
     }
 
     private void UpdateZamUI(long zam)
     {
-        Get<TextMeshProUGUI>((int)Texts.MainZamText).text = Util.FormatNumber(zam);
+        MainZamText.text = Util.FormatNumber(zam);
     }
 
     private void UpdateStageUI(int stage, int wave)
     {
-        Get<TextMeshProUGUI>((int)Texts.StageLv).text = $"Lv {stage} - {wave + 1}";
+        StageLv.text = $"Lv {stage} - {wave + 1}";
     }
 
 
@@ -107,7 +93,7 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.ShowPopupUI<UI_ResearchScene>(Objects.ReseachUI.ToString());
+        Managers.UI.ShowPopupUI<UI_ResearchScene>(ReseachUI.ToString());
         isButton = false;
     }
 
@@ -118,7 +104,7 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.ShowPopupUI<UI_Setting>(Objects.SoundUI.ToString());
+        Managers.UI.ShowPopupUI<UI_Setting>(SoundUI.ToString());
         isButton = false;
 
       
@@ -138,13 +124,13 @@ public class UI_Main : UI_Scene
 
     public void OffButton()
     {
-        Get<Button>((int)Buttons.ManagerButton).gameObject.SetActive(false);
-        Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(false);
+        ManagerButton.gameObject.SetActive(false);
+        ResearchButton.gameObject.SetActive(false);
     }
 
     public void OnButton()
     {
-        Get<Button>((int)Buttons.ManagerButton).gameObject.SetActive(true);
-        Get<Button>((int)Buttons.ResearchButton).gameObject.SetActive(true);
+        ManagerButton.gameObject.SetActive(true);
+        ResearchButton.gameObject.SetActive(true);
     }
 }

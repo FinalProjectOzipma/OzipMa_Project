@@ -5,21 +5,9 @@ using UnityEngine.UI;
 
 public class UI_Setting : UI_Popup
 {
-    enum Buttons
-    {
-        BackButton
-    }
-
-    enum Images
-    {
-        BackImage
-    }
-
-    enum Objects
-    {
-        UI_Sound
-    }
-
+    [SerializeField] private Button BackButton;
+    [SerializeField] private Image BackImage;
+    [SerializeField] private GameObject UI_Sound;
 
     bool isButton = false;
 
@@ -28,36 +16,19 @@ public class UI_Setting : UI_Popup
     {
         Init();
 
+        var seq = DOTween.Sequence();
 
-        uiSeq = Util.RecyclableSequence();
+        seq.Append(UI_Sound.transform.DOScale(1.1f, 0.1f));
+        seq.Append(UI_Sound.transform.DOScale(1.0f, 0.1f));
 
-        uiSeq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.0f, 0.1f));
+        seq.Play();
 
-        uiSeq.Play();
-
-    }
-
-    private void OnEnable()
-    {
-        if (uiSeq == null) return;
-
-        uiSeq = Util.RecyclableSequence();
-
-        uiSeq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.0f, 0.1f));
-
-        uiSeq.Play();
     }
 
 
     public override void Init()
     {
-        Bind<Button>(typeof(Buttons));
-        Bind<Image>(typeof(Images));
-        Bind<GameObject>(typeof(Objects));
-
-        Get<Button>((int)Buttons.BackButton).gameObject.BindEvent(OnClickBack);
+        BackButton.gameObject.BindEvent(OnClickBack);
 
     }
 
@@ -87,8 +58,8 @@ public class UI_Setting : UI_Popup
     {
         var seq = DOTween.Sequence();
 
-        seq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(0.2f, 0.1f));
+        seq.Append(UI_Sound.transform.DOScale(1.1f, 0.1f));
+        seq.Append(UI_Sound.transform.DOScale(0.2f, 0.1f));
 
         seq.Play().OnComplete(() =>
         {

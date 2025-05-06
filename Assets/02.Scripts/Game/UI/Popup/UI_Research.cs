@@ -8,48 +8,31 @@ using UnityEngine.UI;
 
 public class UI_Research : UI_Base
 {
-    enum Buttons
-    {
-        UpgradeButton,
-        GoldSpendButton,
-        JamSpendButton,
-        CheckButton
+    [SerializeField] private Button UpgradeButton;
+    [SerializeField] private Button GoldSpendButton;
+    [SerializeField] private Button ZamSpendButton;
+    [SerializeField] private Button CheckButton;
 
-    }
+    [SerializeField] private TextMeshProUGUI FillText;
+    [SerializeField] private TextMeshProUGUI UpgradeText;
+    [SerializeField] private TextMeshProUGUI UpgradeButtonText;
+    [SerializeField] private TextMeshProUGUI GoldSpendText;
+    [SerializeField] private TextMeshProUGUI ZamSpendText;
+    [SerializeField] private TextMeshProUGUI UpdateLevel;
 
-    enum Texts
-    {
-        FillText,
-        UpgradeText,
-        UpgradeButtonText,
-        GoldSpendText,
-        JamSpendText,
-        UpdateLevel
+    [SerializeField] private Image Icon;
+    [SerializeField] private Image FillBackImage;
+    [SerializeField] private Image FillImage;
+    [SerializeField] private Image GoldImage;
+    [SerializeField] private Image ZamImage;
 
-    }
+    [SerializeField] private GameObject GoldAlarmPopup;
+    [SerializeField] private GameObject ZamAlarmPopup;
+    [SerializeField] private GameObject StartFailPopup;
+
+    [SerializeField] private ParticleSystem StarEffect;
 
 
-    enum Images
-    {
-        Icon,
-        FillBackImage,
-        FillImage,
-        GoldImage,
-        ZamImage
-
-    }
-
-    enum Objects
-    {
-        GoldAlarmPopup,
-        JamAlarmPopup,
-        StartFailPopup
-    }
-
-    enum ParticleSystems
-    {
-        StarEffect
-    }
     public enum ResearchUpgradeType
     {
         Attack,
@@ -120,18 +103,18 @@ public class UI_Research : UI_Base
             elapsedSeconds = passed.TotalSeconds;
             float progress = Mathf.Clamp01((float)elapsedSeconds / researchDuration);
 
-        
 
-            GetImage((int)Images.FillImage).fillAmount = progress;
+
+            FillImage.fillAmount = progress;
 
 
             if(progress >= 0.99f)
             {
-                GetTextMeshProUGUI((int)Texts.FillText).text = "99%/100%";
+                FillText.text = "99%/100%";
             }
             else
             {
-                GetTextMeshProUGUI((int)Texts.FillText).text = Mathf.RoundToInt(progress * 100.0f) + "%" + "/100%";
+                FillText.text = Mathf.RoundToInt(progress * 100.0f) + "%" + "/100%";
             }
 
             float remainingSeconds = Mathf.Max(researchDuration - (float)elapsedSeconds, 0f);
@@ -141,11 +124,11 @@ public class UI_Research : UI_Base
                 remainingTime.Minutes,
                 remainingTime.Seconds);
 
-            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"남은 시간 : {formattedTime}";
+            UpgradeText.text = $"남은 시간 : {formattedTime}";
 
             if (progress >= 1f)
             {
-                GetTextMeshProUGUI((int)Texts.FillText).text = "100%/100%";
+                FillText.text = "100%/100%";
                 CompleteResearch();
             }    
         }
@@ -162,24 +145,24 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.gold < spendGold)
         {
-            GetButton((int)Buttons.GoldSpendButton).interactable = false;
-            GetText((int)Texts.GoldSpendText).color = Color.red;
+            GoldSpendButton.interactable = false;
+            GoldSpendText.color = Color.red;
         }
         else
         {
-            GetButton((int)Buttons.GoldSpendButton).interactable = true;
-            GetText((int)Texts.GoldSpendText).color = Color.white;
+            GoldSpendButton.interactable = true;
+            GoldSpendText.color = Color.white;
         }
 
         if (Managers.Player.zam < spendZam)
         {
-            GetButton((int)Buttons.JamSpendButton).interactable = false;
-            GetText((int)Texts.JamSpendText).color = Color.red;
+            ZamSpendButton.interactable = false;
+            ZamSpendText.color = Color.red;
         }
         else
         {
-            GetButton((int)Buttons.JamSpendButton).interactable = true;
-            GetText((int)Texts.JamSpendText).color = Color.white;
+            ZamSpendButton.interactable = true;
+            ZamSpendText.color = Color.white;
         }
 
     }
@@ -249,31 +232,22 @@ public class UI_Research : UI_Base
             spendZam = long.Parse(PlayerPrefs.GetString(spendZamKey));
         }
 
-
-        Bind<Button>(typeof(Buttons));
-        Bind<TextMeshProUGUI>(typeof(Texts));
-        Bind<Image>(typeof(Images));
-        Bind<ParticleSystem>(typeof(ParticleSystems));
-
-        GetButton((int)Buttons.UpgradeButton).gameObject.BindEvent(StartResearch); // 업그레드 시작 버튼
-        GetButton((int)Buttons.GoldSpendButton).gameObject.BindEvent(OnClickSaveTime); // 골드 사용 시 시간 감소
-        GetButton((int)Buttons.JamSpendButton).gameObject.BindEvent(OnClickCompleteResearch); // 잼 사용 시 연구 완료
-        GetButton((int)Buttons.CheckButton).gameObject.BindEvent(OnClickCheckButton);
+        UpgradeButton.gameObject.BindEvent(StartResearch); // 업그레드 시작 버튼
+        GoldSpendButton.gameObject.BindEvent(OnClickSaveTime); // 골드 사용 시 시간 감소
+        ZamSpendButton.gameObject.BindEvent(OnClickCompleteResearch); // 잼 사용 시 연구 완료
+        CheckButton.gameObject.BindEvent(OnClickCheckButton);
 
 
-        GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";      
-        GetTextMeshProUGUI((int)Texts.GoldSpendText).text = Util.FormatNumber(spendGold);
-        GetTextMeshProUGUI((int)Texts.JamSpendText).text = Util.FormatNumber(spendZam);
+        UpdateLevel.text = $"Lv {updateLevel}";
+        GoldSpendText.text = Util.FormatNumber(spendGold);
+        ZamSpendText.text = Util.FormatNumber(spendZam);
 
         if(researchUpgradeType != ResearchUpgradeType.Random)
-            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
+            UpgradeText.text = $"업그레이드 : +{updateStat}";
         else
-            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat - 20.0f}~{updateStat}";
+            UpgradeText.text = $"업그레이드 : +{updateStat - 20.0f}~{updateStat}";
 
     }
-
-    private TextMeshProUGUI GetTextMeshProUGUI(int idx) { return Get<TextMeshProUGUI>(idx); }
-
 
     /// <summary>
     /// 업그레이드 버튼 누르면 호출해서 업그레이드 시작
@@ -289,8 +263,8 @@ public class UI_Research : UI_Base
         PlayerPrefs.Save();
 
         isResearching = true;
-        GetTextMeshProUGUI((int)Texts.UpgradeButtonText).text = "연구";
-        GetButton((int)Buttons.UpgradeButton).interactable = false;
+        UpgradeButtonText.text = "연구";
+        UpgradeButton.interactable = false;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
 
@@ -314,7 +288,7 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.zam < spendZam)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.JamAlarmPopup.ToString());
+            Managers.UI.ShowPopupUI<UI_Alarm>(ZamAlarmPopup.ToString());
             //Managers.UI.GetAlarmPopup().WriteText("잼이 부족합니다. 잼이 없네요.");
             isPopup = false;
             return;
@@ -353,7 +327,7 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.gold < spendGold)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.GoldAlarmPopup.ToString());
+            Managers.UI.ShowPopupUI<UI_Alarm>(GoldAlarmPopup.ToString());
             isPopup = false;
             return;
         }
@@ -378,16 +352,16 @@ public class UI_Research : UI_Base
     {
 
         isResearching = false;
-        Get<Button>((int)Buttons.UpgradeButton).gameObject.SetActive(false);
-        Get<Button>((int)Buttons.CheckButton).gameObject.SetActive(true);
-        GetImage((int)Images.FillImage).fillAmount = 1.0f;
-        GetTextMeshProUGUI((int)Texts.FillText).text = "100%/100%";
-        GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 완료";
-        GetTextMeshProUGUI((int)Texts.UpgradeButtonText).text = "시작";
-        GetButton((int)Buttons.GoldSpendButton).interactable = false;
-        GetButton((int)Buttons.JamSpendButton).interactable = false;
-        GetText((int)Texts.GoldSpendText).color = Color.white;
-        GetText((int)Texts.JamSpendText).color = Color.white;
+        UpgradeButton.gameObject.SetActive(false);
+        CheckButton.gameObject.SetActive(true);
+        FillImage.fillAmount = 1.0f;
+        FillText.text = "100%/100%";
+        UpgradeText.text = $"업그레이드 완료";
+        UpgradeButtonText.text = "시작";
+        GoldSpendButton.interactable = false;
+        ZamSpendButton.interactable = false;
+        GoldSpendText.color = Color.white;
+        ZamSpendText.color = Color.white;
     }
 
     /// <summary>
@@ -408,8 +382,8 @@ public class UI_Research : UI_Base
         else
         {
             isResearching = true;
-            GetTextMeshProUGUI((int)Texts.UpgradeButtonText).text = "연구";
-            GetButton((int)Buttons.UpgradeButton).interactable = false;
+            UpgradeButtonText.text = "연구";
+            UpgradeButton.interactable = false;
         }
     }
 
@@ -418,10 +392,10 @@ public class UI_Research : UI_Base
     /// </summary>
     void ResetProgress()
     {
-        GetImage((int)Images.FillImage).fillAmount = 0.0f;
-        GetTextMeshProUGUI((int)Texts.FillText).text ="0%/100%";
-        GetButton((int)Buttons.GoldSpendButton).interactable = false;
-        GetButton((int)Buttons.JamSpendButton).interactable = false;
+        FillImage.fillAmount = 0.0f;
+        FillText.text ="0%/100%";
+        GoldSpendButton.interactable = false;
+        ZamSpendButton.interactable = false;
     }
 
     private void OnClickCheckButton(PointerEventData data)
@@ -429,19 +403,19 @@ public class UI_Research : UI_Base
         if (isComplete) return;
         isComplete = true;
 
-        Get<ParticleSystem>((int)ParticleSystems.StarEffect).Play();
+        StarEffect.Play();
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Upgrade);
 
-        Get<Button>((int)Buttons.UpgradeButton).gameObject.SetActive(true);
-        Get<Button>((int)Buttons.CheckButton).gameObject.SetActive(false);
-        GetButton((int)Buttons.UpgradeButton).interactable = true;
+        UpgradeButton.gameObject.SetActive(true);
+        CheckButton.gameObject.SetActive(false);
+        UpgradeButton.interactable = true;
 
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
 
-        GetImage((int)Images.FillImage).fillAmount = 0.0f;
-        GetTextMeshProUGUI((int)Texts.FillText).text = "0%/100%";
+        FillImage.fillAmount = 0.0f;
+        FillText.text = "0%/100%";
 
       
         updateLevel++;
@@ -485,16 +459,16 @@ public class UI_Research : UI_Base
 
         StatUpgrade(researchUpgradeType); // 스탯 업그레이드
 
-        GetTextMeshProUGUI((int)Texts.UpdateLevel).text = $"Lv {updateLevel}";
+        UpdateLevel.text = $"Lv {updateLevel}";
 
         if (researchUpgradeType != ResearchUpgradeType.Random)
-            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat}";
+            UpgradeText.text = $"업그레이드 : +{updateStat}";
         else
-            GetTextMeshProUGUI((int)Texts.UpgradeText).text = $"업그레이드 : +{updateStat - 20.0f}~{updateStat}";
+            UpgradeText.text = $"업그레이드 : +{updateStat - 20.0f}~{updateStat}";
 
 
-        GetTextMeshProUGUI((int)Texts.GoldSpendText).text = Util.FormatNumber(spendGold);
-        GetTextMeshProUGUI((int)Texts.JamSpendText).text = Util.FormatNumber(spendZam);
+        GoldSpendText.text = Util.FormatNumber(spendGold);
+        ZamSpendText.text = Util.FormatNumber(spendZam);
 
 
         if(researchUpgradeType == ResearchUpgradeType.Core)

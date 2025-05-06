@@ -4,18 +4,11 @@ using TMPro;
 using static Enums;
 public class UI_Loading : UI_Base
 {
-    enum LoadObject
-    {
-        LoadingIcon
-    }
-
-    enum Texts
-    {
-        LoadingText
-    }
+    [SerializeField] private GameObject LoadingIcon;
+    [SerializeField] private TextMeshProUGUI LoadingText;
 
     GameObject loadingObject;
-    TextMeshProUGUI loadingText;
+    TextMeshProUGUI textEffect;
     public string baseText = "Loading";
     public float interval = 0.5f;
 
@@ -33,17 +26,6 @@ public class UI_Loading : UI_Base
 
     }
 
-    public override void Init()
-    {
-        Bind<GameObject>(typeof(LoadObject));
-        Bind<TextMeshProUGUI>(typeof(Texts));
-
-        loadingObject = GetObject((int)LoadObject.LoadingIcon);
-        loadingText = Get<TextMeshProUGUI>((int)Texts.LoadingText);
-
-
-    }
-
 
     IEnumerator AnimateDots()
     {
@@ -53,7 +35,7 @@ public class UI_Loading : UI_Base
         {
             dotCount = (dotCount + 1) % 4;  // 0 ~ 3
             string dots = new string('.', dotCount);
-            loadingText.text = baseText + dots;
+            LoadingText.text = baseText + dots;
             yield return new WaitForSeconds(interval);
         }
     }
@@ -62,7 +44,7 @@ public class UI_Loading : UI_Base
     {
         while (spinning)
         {
-            loadingObject.transform.Rotate(0f, 0f, -speed * Time.deltaTime);
+            LoadingIcon.transform.Rotate(0f, 0f, -speed * Time.deltaTime);
             yield return null;
         }
     }
