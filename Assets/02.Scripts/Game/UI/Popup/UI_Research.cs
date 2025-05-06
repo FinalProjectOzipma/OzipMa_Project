@@ -610,8 +610,10 @@ public class UI_Research : UI_Base
                 break;
             case ResearchUpgradeType.Core:
                 CoreController core = Managers.Wave.MainCore.GetComponent<CoreController>();
-                core.core.MaxHealth.AddValue(updateStat);
-                core.core.Health.SetValue(core.core.MaxHealth.Value);
+                core.core.Health.MaxValue += updateStat;
+                core.core.Health.SetValue(core.core.Health.MaxValue);
+                core.core.Health.SetMaxHealth(core.core.Health.MaxValue);
+                PlayerPrefs.SetFloat(core.coreHealthkey, core.core.Health.MaxValue);
                 break;
         }
 

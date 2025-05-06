@@ -135,10 +135,10 @@ public class WaveManager
         // TODO:: 알아서해 Feat: 박한나
         Util.Log($"{playerManager.CurrentStage}");
         Util.Log($"{playerManager.CurrentWave}");
-        Managers.Resource.Instantiate("Core", go => {
+        Managers.Resource.Instantiate("Core_Brain", go => {
 
             MainCore = go.GetComponent<CoreController>();
-            MainCore.Init(Managers.Player.MainCoreData.MaxHealth.Value);
+            MainCore.Init(Managers.Player.MainCoreData.Health.Value);
             int needAmount = waveList[idx].EnemyAmount;
             Managers.StartCoroutine(Spawn(needAmount));
         });

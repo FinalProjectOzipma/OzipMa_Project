@@ -10,7 +10,6 @@ public class HealthView : MonoBehaviour
     public EntityHealth health;
 
     private EntityController ctrl;
-    private CoreController core;
 
     private void Start()
     {
@@ -19,7 +18,11 @@ public class HealthView : MonoBehaviour
 
     private void Update()
     {
-        transform.localScale = new Vector3(ctrl.FacDir, 1, 1);
+        if(ctrl != null)
+        {
+            transform.localScale = new Vector3(ctrl.FacDir, 1, 1);
+        }
+
     }
 
     /// <summary>

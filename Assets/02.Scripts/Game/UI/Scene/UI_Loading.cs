@@ -38,7 +38,7 @@ public class UI_Loading : UI_Base
         Bind<GameObject>(typeof(LoadObject));
         Bind<TextMeshProUGUI>(typeof(Texts));
 
-        loadingObject = GetObject((int)LoadObject.LoadingIcon).gameObject;
+        loadingObject = GetObject((int)LoadObject.LoadingIcon);
         loadingText = Get<TextMeshProUGUI>((int)Texts.LoadingText);
 
 
