@@ -36,6 +36,14 @@ public class BuildingSystem : MonoBehaviour
         Util.Log($"그리드 : {map.transform.parent.parent.gameObject.name}");
     }
 
+    public void BuildingInit(Dictionary<Vector3Int, int> gridObjectMap = null)
+    {
+        if (gridObjectMap != null)
+        {
+            // TODO :: 배치 해줘야 됨;;
+        }
+    }
+
     /// <summary>
     /// 그리드에서 eventPosition에 해당되는 Cell의 Center Position을 반환
     /// </summary>

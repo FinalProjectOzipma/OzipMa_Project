@@ -125,12 +125,20 @@ public class DataManager
     }
 
     /// <summary>
-    /// 게임 데이터 파이어베이스에 저장
+    /// 게임 데이터를 파이어베이스에 저장
     /// </summary>
     public void SaveGameData()
     {
         Managers.Player.SaveInit();
         SaveFirebase<PlayerManager>(Managers.Player);
+    }
+
+    public void LoadGameData()
+    {
+        LoadFirebase<PlayerManager>(loadedData =>
+        {
+            Managers.Player.LoadPlayerData(loadedData);
+        });
     }
     #endregion
 
