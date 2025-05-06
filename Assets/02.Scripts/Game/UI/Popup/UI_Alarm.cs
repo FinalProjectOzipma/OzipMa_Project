@@ -42,6 +42,21 @@ public class UI_Alarm : UI_Popup
         uiSeq.Play();
     }
 
+    private void OnEnable()
+    {
+        if (uiSeq == null) return;
+
+        uiSeq = Util.RecyclableSequence();
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
+
+        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.0f, 0.1f));
+
+        uiSeq.Play();
+
+    }
+
     public override void Init()
     {
         base.Init();

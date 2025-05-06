@@ -1188,6 +1188,7 @@ GameObject:
   - component: {fileID: 4906059875974664963}
   - component: {fileID: 4804282009194032351}
   - component: {fileID: 1453411519368731614}
+  - component: {fileID: 3793017661777177850}
   m_Layer: 5
   m_Name: SoundUI
   m_TagString: Untagged
@@ -1288,6 +1289,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3130fe1650510eb42a7d459df3e78f1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3793017661777177850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3665518891093569514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6483ecd1ea529640812ffa517fa8a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3974836623996294799

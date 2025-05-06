@@ -75,7 +75,7 @@ public class UIManager
             T popup = Util.GetOrAddComponent<T>(go);
             _popupStack.Push(popup);
 
-            go.transform.SetParent(Root.transform);
+            //go.transform.SetParent(Root.transform);
 
         });
     }

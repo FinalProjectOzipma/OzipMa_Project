@@ -28,13 +28,26 @@ public class UI_Setting : UI_Popup
     {
         Init();
 
-        var seq = DOTween.Sequence();
 
-        seq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.1f, 0.1f));
-        seq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.0f, 0.1f));
+        uiSeq = Util.RecyclableSequence();
 
-        seq.Play();
+        uiSeq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.0f, 0.1f));
 
+        uiSeq.Play();
+
+    }
+
+    private void OnEnable()
+    {
+        if (uiSeq == null) return;
+
+        uiSeq = Util.RecyclableSequence();
+
+        uiSeq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Get<GameObject>((int)Objects.UI_Sound).transform.DOScale(1.0f, 0.1f));
+
+        uiSeq.Play();
     }
 
 

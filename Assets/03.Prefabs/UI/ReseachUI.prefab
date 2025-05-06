@@ -28502,6 +28502,7 @@ GameObject:
   - component: {fileID: 7659984327134429427}
   - component: {fileID: 7524738448990450450}
   - component: {fileID: 6980535656190702337}
+  - component: {fileID: 4969172211575671531}
   m_Layer: 5
   m_Name: ReseachUI
   m_TagString: Untagged
@@ -28602,6 +28603,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba82a01526acdcc41b0e4a16113bea85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4969172211575671531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167196912203241713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6483ecd1ea529640812ffa517fa8a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8194518876109774662
