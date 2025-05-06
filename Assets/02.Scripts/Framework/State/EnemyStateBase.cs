@@ -12,7 +12,6 @@ public class EnemyStateBase : EntityStateBase
 
     protected Transform transform;
     protected SpriteRenderer spr;
-    protected Animator anim;
     protected Rigidbody2D rigid;
     protected NavMeshAgent agent;
     protected EnemyStatus status;
@@ -26,25 +25,26 @@ public class EnemyStateBase : EntityStateBase
     public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
+        this.status = controller.Status as EnemyStatus;
+
         this.transform = controller.transform;
         this.spr = controller.Spr;
-        this.anim = controller.Anim;
+        this.Anim = controller.Anim;
         this.rigid = controller.Rigid;
-        this.agent = controller.Agent;
-        this.status = controller.Status;
         this.capCol = controller.Colider;
+        this.agent = controller.Agent;
     }
 
     public override void Enter()
     {
-        anim.SetBool(animHashKey, true);
+        Anim.SetBool(animHashKey, true);
         triggerCalled = false;
         this.targets = controller.Targets;
     }
 
     public override void Exit()
     {
-        anim.SetBool(animHashKey, false);
+        Anim.SetBool(animHashKey, false);
     }
 
     public override void Update()

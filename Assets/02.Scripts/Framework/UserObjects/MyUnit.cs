@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class MyUnit : UserObject, IGettable
 {
-
     public AtkType AtkType { get; set; }
     public AbilityType AbilityType { get; set; }
     public T GetClassAddress<T>() where T : UserObject

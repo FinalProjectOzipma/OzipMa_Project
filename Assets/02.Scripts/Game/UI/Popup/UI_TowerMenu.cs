@@ -5,15 +5,8 @@ using UnityEngine.UI;
 
 public class UI_TowerMenu : UI_Base
 {
-    enum Buttons
-    {
-        DeleteButton
-    }
-
-    enum Images
-    {
-        ButtonImage
-    }
+    [SerializeField] private Button DeleteButton;
+    [SerializeField] private Image ButtonImage;
 
     public GameObject TargetTower;
 
@@ -24,10 +17,7 @@ public class UI_TowerMenu : UI_Base
 
     public override void Init()
     {
-        Bind<Button>(typeof(Buttons));
-        Bind<Image>(typeof(Images));
-
-        Get<Button>((int)Buttons.DeleteButton).gameObject.BindEvent(OnClickDelete);
+        DeleteButton.gameObject.BindEvent(OnClickDelete);
     }
 
 

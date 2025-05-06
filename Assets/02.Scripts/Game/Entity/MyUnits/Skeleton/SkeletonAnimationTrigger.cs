@@ -21,7 +21,7 @@ public class SkeletonAnimationTrigger : MyUnitAnimationTrigger
             if (myUnit.Target.activeSelf)
             {
                 EntityProjectile arrow = go.GetComponent<EntityProjectile>();
-                arrow.Init(transform.gameObject, myUnit.MyUnitStatus.Attack.GetValue(), myUnit.Target.transform.position);
+                arrow.Init(transform.gameObject, myUnit.Status.Attack.GetValue(), myUnit.Target.transform.position);
             }
         }
     }

@@ -1,3 +1,4 @@
+using DefaultTable;
 using DG.Tweening;
 using System;
 using System.Collections;
@@ -7,8 +8,10 @@ using static Enums;
 
 public abstract class EntityController : Poolable
 {
+    protected string entityName;
     public GameObject Body { get; protected set; } // 나중에 EntityBodyBase로 만들어서 DeadState때 GetComponent호출 줄이기
 
+    public StatusBase Status { get; protected set; }
     #region Component
     public Animator Anim { get; private set; }
     public CapsuleCollider2D Colider { get; private set; }
@@ -77,5 +80,29 @@ public abstract class EntityController : Poolable
     }
 
     //Root부분 생성해주는 파트
-    public abstract void TakeRoot(int primaryKey, string name, Vector2 position); 
+    public abstract void TakeRoot(int primaryKey, string name, Vector2 position);
+
+    protected void ApplyCondition(AbilityType condition, float damage, GameObject atker = null, AbilityDefaultValue values = null)
+    {
+        int iCondition = (int)condition;
+        if (Times.ContainsKey(iCondition))
+        {
+            if (Times[iCondition] <= 0f)
+            {
+                Times[iCondition] = ConditionHandlers[iCondition].CoolDown;
+                ConditionHandlers[iCondition].Attacker = atker.transform;
+
+                if (Conditions.ContainsKey(iCondition))
+                    Conditions[iCondition].Execute(damage, values);
+                else
+                    Util.LogWarning($"{entityName}에 현재 키로 된 Conditions가 없습니다.");
+            }
+        }
+        else
+        {
+            // 실수 방지 경고로그
+            if (Conditions.ContainsKey(iCondition))
+                Util.LogWarning($"{entityName} 바디에 {condition}키를 추가해주세요");
+        }
+    }
 }

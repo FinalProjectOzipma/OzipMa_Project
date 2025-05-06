@@ -6,26 +6,14 @@ using UnityEngine.UI;
 
 public class UI_Alarm : UI_Popup
 {
-    enum Buttons
-    {
-        AlarmButton
-    }
+    [SerializeField] private Button AlarmButton;
 
-    enum Texts
-    {
-        AlarmText,
-        ButtonText
-    }
+    [SerializeField] private TextMeshProUGUI AlarmText;
+    [SerializeField] private TextMeshProUGUI ButtonText;
 
-    enum Images
-    {
-        ButtonImage
-    }
+    [SerializeField] private Image ButtonImage;
 
-    enum Objects
-    {
-        BG
-    }
+    [SerializeField] private GameObject BG;
 
     private bool isClose = false;
     private void Start()
@@ -36,8 +24,8 @@ public class UI_Alarm : UI_Popup
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
 
-        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(BG.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(BG.transform.DOScale(1.0f, 0.1f));
 
         uiSeq.Play();
     }
@@ -46,12 +34,7 @@ public class UI_Alarm : UI_Popup
     {
         base.Init();
 
-        Bind<Button>(typeof(Buttons));
-        Bind<Image>(typeof(Images));
-        Bind<TextMeshProUGUI>(typeof(Texts));
-        Bind<GameObject>(typeof(Objects));
-
-        Get<Button>((int)Buttons.AlarmButton).gameObject.BindEvent(CloseAlarmPopup);
+        AlarmButton.gameObject.BindEvent(CloseAlarmPopup);
 
     }
     
@@ -72,8 +55,8 @@ public class UI_Alarm : UI_Popup
     {
         uiSeq = Util.RecyclableSequence();
 
-        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(0.2f, 0.1f));
+        uiSeq.Append(BG.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(BG.transform.DOScale(0.2f, 0.1f));
 
         uiSeq.Play().OnComplete(() =>
         {
@@ -84,9 +67,6 @@ public class UI_Alarm : UI_Popup
 
     public void WriteText(string text)
     {
-        Get<Text>((int)Texts.AlarmText).text = text.ToString();
+        AlarmText.text = text.ToString();
     }
-
-
-
 }

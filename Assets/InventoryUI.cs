@@ -1,6 +1,8 @@
+using DefaultTable;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,49 +10,32 @@ using UnityEngine.UI;
 public class InventoryUI : UI_Scene
 {
     #region ComponentID
-    private enum GameObjects
-    {
-        UserObjects,
 
-        // Tab
-        OnMyUnit,
-        DisMyUnit,
-        OnTower,
-        DisTower,
-    }
+    [SerializeField] private GameObject UserObjects;
+    [SerializeField] private GameObject OnMyUnit;
+    [SerializeField] private GameObject DisMyUnit;
+    [SerializeField] private GameObject OnTower;
+    [SerializeField] private GameObject DisTower;
 
-    private enum RectTransforms
-    {
-        Contents,
-    }
+    [SerializeField] private RectTransform Contents;
 
-    private enum Buttons
-    {
-        BackgroundButton,
-        SwipeBtn,
-        InchentBtn,
-        SelectAllBtn,
-        PutBtn,
+    [SerializeField] private Button BackgroundButton;
+    [SerializeField] private Button SwipeBtn;
+    [SerializeField] private Button InchentBtn;
+    [SerializeField] private Button SelectAllBtn;
+    [SerializeField] private Button PutBtn;
+    [SerializeField] private Button MyUnitTab;
+    [SerializeField] private Button TowerTab;
 
-        MyUnitTab,
-        TowerTab,
-    }
+    [SerializeField] private TextMeshProUGUI InchentText;
+    [SerializeField] private TextMeshProUGUI SelectText;
+    [SerializeField] private TextMeshProUGUI PutText;
+    [SerializeField] private TextMeshProUGUI TextInfo;
 
-    private enum Texts
-    {
-        InchentText,
-        SelectText,
-        PutText,
-        TextInfo
-    }
-
-    private enum Images
-    {
-        InchentImage,
-        SelectAllImage,
-        PutImage,
-        SwipeIcon,
-    }
+    [SerializeField] private Image InchentImage;
+    [SerializeField] private Image SelectAllImage;
+    [SerializeField] private Image PutImage;
+    [SerializeField] private Image SwipeIcon;
     #endregion
 
     #region ResourceKey
@@ -107,20 +92,20 @@ public class InventoryUI : UI_Scene
 
         SetBind();
         // 바인딩 후 셋팅
-        _moveDistance = GetRect((int)RectTransforms.Contents).anchoredPosition;
-        prevOn = GetObject((int)GameObjects.OnTower);
-        prevDis = GetObject((int)GameObjects.DisTower);
+        _moveDistance = Contents.anchoredPosition;
+        prevOn = OnTower;
+        prevDis = DisTower;
 
         OnTowerTap();
         Managers.UI.SetSceneList<InventoryUI>(this);
         Managers.Upgrade.OnChanagedUpgrade += UpdateUpgradeGold;
-        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = $"강화 비용 : {Managers.Upgrade.GetUpgradeGold()}";
+        TextInfo.text = $"강화 비용 : {Managers.Upgrade.GetUpgradeGold()}";
     }
 
 
     private void UpdateUpgradeGold(int gold)
     {
-        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = $"강화 비용 : {gold.ToString()}" ;
+        TextInfo.text = $"강화 비용 : {gold.ToString()}" ;
     }
 
 
@@ -129,21 +114,15 @@ public class InventoryUI : UI_Scene
     /// </summary>
     private void SetBind()
     {
-        Bind<GameObject>(typeof(GameObjects));
-        Bind<RectTransform>(typeof(RectTransforms));
-        Bind<Button>(typeof(Buttons));
-        Bind<TextMeshProUGUI>(typeof(Texts));
-        Bind<Image>(typeof(Images));
-
-        GetButton((int)Buttons.InchentBtn).onClick.AddListener(OnClickUpgrade);
-        GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
-        GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
-        GetButton((int)Buttons.BackgroundButton).onClick.AddListener(OnSwipe);
+        InchentBtn.onClick.AddListener(OnClickUpgrade);
+        SelectAllBtn.onClick.AddListener(OnSelectAll);
+        SwipeBtn.onClick.AddListener(OnSwipe);
+        BackgroundButton.onClick.AddListener(OnSwipe);
 
         // Tap -----------------------------------------------------------------
-        GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
-        GetButton((int)Buttons.TowerTab).onClick.AddListener(OnTowerTap);
-        GetButton((int)Buttons.PutBtn).onClick.AddListener(OnPut);
+        MyUnitTab.onClick.AddListener(OnMyUnitTap);
+        TowerTab.onClick.AddListener(OnTowerTap);
+        PutBtn.onClick.AddListener(OnPut);
         // ---------------------------------------------------------------------
     }
 
@@ -153,7 +132,7 @@ public class InventoryUI : UI_Scene
         _currentList = data.GetList<T>();
         CurrentTab = typeof(T);
 
-        Transform trans = GetObject((int)GameObjects.UserObjects).transform; // 부모 객체 얻어오기
+        Transform trans = UserObjects.transform; // 부모 객체 얻어오기
 
         int cnt = 0;
         if (_currentList != null)
@@ -207,12 +186,12 @@ public class InventoryUI : UI_Scene
 
         uiSeq = Util.RecyclableSequence();
 
-        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.SelectAllImage).transform.DOScale(1.0f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.SelectText).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(SelectAllImage.transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(SelectText.transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(SelectAllImage.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(SelectText.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(SelectAllImage.transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(SelectText.transform.DOScale(1.0f, 0.1f));
 
         uiSeq.Play();
 
@@ -254,8 +233,8 @@ public class InventoryUI : UI_Scene
     private void OnMyUnitTap()
     {
         CurrentTab = typeof(MyUnit);
-        ToggleTab(GetObject((int)GameObjects.OnMyUnit), GetObject((int)GameObjects.DisMyUnit));
-        GetButton((int)Buttons.PutBtn).gameObject.SetActive(false);
+        ToggleTab(OnMyUnit, DisMyUnit);
+        PutBtn.gameObject.SetActive(false);
         Refresh<MyUnit>();
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
@@ -263,8 +242,8 @@ public class InventoryUI : UI_Scene
     private void OnTowerTap()
     {
         CurrentTab = typeof(Tower);
-        ToggleTab(GetObject((int)GameObjects.OnTower), GetObject((int)GameObjects.DisTower));
-        GetButton((int)Buttons.PutBtn).gameObject.SetActive(true);
+        ToggleTab(OnTower, DisTower);
+        PutBtn.gameObject.SetActive(true);
         Refresh<Tower>();
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
@@ -297,7 +276,7 @@ public class InventoryUI : UI_Scene
 
     private void OnAnimation()
     {
-        RectTransform movable = GetRect((int)RectTransforms.Contents);
+        RectTransform movable = Contents;
 
         if(isMove)
         {
@@ -312,24 +291,24 @@ public class InventoryUI : UI_Scene
             {
                 isOpen = true;
                 gameObject.SetActive(true);
-                Get<Image>((int)Images.PutImage).color = Color.white;
+                PutImage.color = Color.white;
                 CurrentState = STATE.SELECTABLE;
-                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(true);
+                BackgroundButton.gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
-                    GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90.0f));
+                    SwipeIcon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90.0f));
                 });
             }
             else
             {
-                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(false);
+                BackgroundButton.gameObject.SetActive(false);
                 movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
                     isOpen = false;
                     Managers.UI.GetScene<UI_Main>().OnButton();
-                    GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
+                    SwipeIcon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
             }
         }
@@ -359,25 +338,25 @@ public class InventoryUI : UI_Scene
 
         uiSeq = Util.RecyclableSequence();
 
-        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.PutImage).transform.DOScale(1.0f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.PutText).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(PutImage.transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(PutText.transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(PutImage.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(PutText.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(PutImage.transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(PutText.transform.DOScale(1.0f, 0.1f));
 
         uiSeq.Play();
 
         if (CurrentState == STATE.PUTABLE)
         {
-            Get<Image>((int)Images.PutImage).color = Color.white;
+            PutImage.color = Color.white;
             CurrentState = STATE.SELECTABLE;
             isBatch = false;
         }
         else if (CurrentState == STATE.SELECTABLE)
         {
             // 배치모드 ON
-            Get<Image>((int)Images.PutImage).color = Color.gray;
+            PutImage.color = Color.gray;
             CurrentState = STATE.PUTABLE;
             isBatch = false;
         }
@@ -390,12 +369,12 @@ public class InventoryUI : UI_Scene
 
         uiSeq = Util.RecyclableSequence();
 
-        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(0.9f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<Image>((int)Images.InchentImage).transform.DOScale(1.0f, 0.1f));
-        uiSeq.Join(Get<TextMeshProUGUI>((int)Texts.InchentText).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(InchentImage.transform.DOScale(0.9f, 0.1f));
+        uiSeq.Join(InchentText.transform.DOScale(0.9f, 0.1f));
+        uiSeq.Append(InchentImage.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Join(InchentText.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(InchentImage.transform.DOScale(1.0f, 0.1f));
+        uiSeq.Join(InchentText.transform.DOScale(1.0f, 0.1f));
 
         uiSeq.Play();
 
@@ -480,6 +459,6 @@ public class InventoryUI : UI_Scene
 
     public void TextMaxLevel()
     {
-        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = "최고 레벨 입니다.";
+        TextInfo.text = "최고 레벨 입니다.";
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WizardBody : EnemyBodyBase
+public class WizardBody : EntityBodyBase
 {
     private void Start()
     {

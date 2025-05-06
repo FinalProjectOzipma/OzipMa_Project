@@ -22,14 +22,9 @@ public class MyUnitController : EntityController, IDamagable
 
     #region 정보부
     public MyUnit MyUnit { get; private set; }
-    public MyUnitStatus MyUnitStatus { get; private set; }
     #endregion
 
-    private Coroutine DotCor;
-    private Coroutine SlowCor;
-    private WaitForSeconds dotWFS;
-    private WaitForSeconds slowWFS;
-
+    //죽었을때 처리
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
 
     private void Awake()
@@ -38,23 +33,25 @@ public class MyUnitController : EntityController, IDamagable
         Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
+
+        // 컨디션 초기화 (도트데미지)
+        Conditions.Add((int)AbilityType.Explosive, new ExplosiveCondition<MyUnitController>(this));
     }
 
     protected override void Update()
     {
         if (AnimData != null)
             AnimData.StateMachine.CurrentState?.Update();
-        FlipControll(Target);
     }
 
     public override void Init(Vector2 position)
     {
         base.Init(position);
         transform.position = position;
-        Rigid = GetComponent<Rigidbody2D>();
+
         AnimData.Init(this);
-        MyUnitStatus.Health.OnChangeHealth = healthView.SetHpBar;
-        MyUnitStatus.Health.AddValue(0.0f);
+        Status.Health.OnChangeHealth = healthView.SetHpBar;
+        Status.Health.AddValue(0.0f);
         //sethpbar 호출
     }
 
@@ -66,12 +63,16 @@ public class MyUnitController : EntityController, IDamagable
     /// <param name="position">생성위치</param>
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
+        entityName = name;
+
         if (MyUnit == null)
             MyUnit = new MyUnit();
 
         MyUnit.Init(primaryKey, sprite);
 
-        MyUnitStatus = MyUnit.Status as MyUnitStatus;
+        MyUnit.Status.InitHealth();
+        Status = MyUnit.Status as MyUnitStatus;
+
         // 초기화부분
         if (Body == null)
         {
@@ -81,7 +82,6 @@ public class MyUnitController : EntityController, IDamagable
                 Fx = go.GetOrAddComponent<ObjectFlash>();
                 spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
                 Body = go;
-                healthView = go.GetComponentInChildren<HealthView>();
                 Init(position);
             });
         }
@@ -89,13 +89,16 @@ public class MyUnitController : EntityController, IDamagable
             Init(position);
     }
 
+
+    #region 데미지 입는 메서드
+
     /// <summary>
-    /// 직격 피해를 입을때 쓸 데미지
+    /// 실제 데미지 입는 메서드
     /// </summary>
     /// <param name="damage"></param>
     public void TakeDamage(float incomingDamage)
     {
-        float defence = Mathf.Max(0f, MyUnitStatus.Defence.GetValue());
+        float defence = Mathf.Max(0f, Status.Defence.GetValue());
 
         // 부드러운 비율 스케일링
         float damageScale = incomingDamage / (incomingDamage + defence);
@@ -104,60 +107,32 @@ public class MyUnitController : EntityController, IDamagable
 
         finalDamage = Mathf.Max(finalDamage, 1f); // 최소 1 보장 (선택사항)
 
-        MyUnitStatus.Health.AddValue(-finalDamage);
+        Status.Health.AddValue(-finalDamage);
 
         Fx.StartBlinkFlash();
     }
 
-    //도트 데미지 적용
-    public void TakeDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
-    {
-        if (DotCor != null)
-        {
-            StopCoroutine(DotCor);
-            DotCor = null;
-        }
-        dotWFS = new(abilityCooldown);
-        DotCor = StartCoroutine(OnDotDamage(abilityValue, abilityDuration, abilityCooldown));
-    }  
-    //도트 데미지 코루틴
-    private IEnumerator OnDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
-    {
-        while(abilityDuration > 0)
-        {
-            abilityDuration -= Time.deltaTime;
-            TakeDamage(abilityValue);
-            yield return dotWFS;
-        }
-    }
-
-    //슬로우 적용
-    public void TakeSlow(float abilityValue, float abilityDuration)
-    {
-        if (SlowCor != null)
-        {
-            StopCoroutine(SlowCor);
-            SlowCor = null;
-        }
-        slowWFS = new(abilityDuration);
-        SlowCor = StartCoroutine(OnSlow(abilityValue, abilityDuration));
-    }
-    //슬로우 코루틴
-    private IEnumerator OnSlow(float abilityValue, float abilityDuration)
-    {
-        MyUnitStatus.MoveSpeed.SetValueMultiples(abilityValue);
-        yield return slowWFS;
-    }
-
-    //반사 데미지 적용
+    /// <summary>
+    /// 반사 데미지 적용
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="abilityRatio"></param>
     public void ReflectDamage(float damage, float abilityRatio)
     {
         TakeDamage(damage* abilityRatio);
     }
 
-    //실제 트리거에서 호출되는 메서드
+    /// <summary>
+    /// 애니메이션 트리거에서 호출되는 메서드
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="condition"></param>
+    /// <param name="go"></param>
+    /// <param name="abilities"></param>
     public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue abilities = null)
     {
         TakeDamage(amount);
+        ApplyCondition(condition, amount, go, abilities);
     }
+    #endregion
 }
