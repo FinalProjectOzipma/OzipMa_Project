@@ -240,7 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 7377928430184646330}
   dotColor: {r: 1, g: 0, b: 0, a: 0.2901961}
-  flashDuration: 0.5
+  flashDuration: 0.1
   flashMat: {fileID: 2100000, guid: 35a86253d8b3de742b1e8eada64caafe, type: 2}
 --- !u!114 &1543262437732843262
 MonoBehaviour:

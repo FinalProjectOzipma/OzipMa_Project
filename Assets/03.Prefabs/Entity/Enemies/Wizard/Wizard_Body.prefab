@@ -321,6 +321,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthView: {fileID: 8024925956600049884}
+  conditions:
+  - Key: 5
+    GameObj: {fileID: 0}
+    CoolDown: 0
 --- !u!1 &2588102485692038488 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2824977371618113679, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}

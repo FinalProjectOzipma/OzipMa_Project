@@ -34,7 +34,8 @@ public class RangeTowerController : TowerControlBase
             // 해당 타워가 갖고있는 공격 속성 적용
             if (Tower.Abilities.ContainsKey(Tower.TowerType) == false) continue;
             DefaultTable.AbilityDefaultValue values = Tower.Abilities[Tower.TowerType];
-            switch (Tower.TowerType)
+            target.ApplyDamage(AttackPower, values.AbilityType, gameObject, values);
+            /*switch (Tower.TowerType)
             {
                 case AbilityType.Fire:
                 case AbilityType.Explosive:
@@ -54,7 +55,7 @@ public class RangeTowerController : TowerControlBase
                 //    break;
                 default:
                     break;
-            }
+            }*/
         }
     }
 

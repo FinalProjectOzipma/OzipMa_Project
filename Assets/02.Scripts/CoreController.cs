@@ -115,6 +115,9 @@ public class CoreController : Poolable, IDamagable
 
     public void TakeDamge(float damage)
     {
+
+        if (Managers.Game.IsGodMode) return;
+
         core.Health.AddValue(-damage);
 
         //HpBar.transform.localScale = new Vector3(core.Health.GetValue()/core.MaxHealth.GetValue(), 1,1);
@@ -155,7 +158,7 @@ public class CoreController : Poolable, IDamagable
         });
     }
 
-    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue abilities = null)
     {
         TakeDamge(amount);
        

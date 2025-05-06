@@ -31,6 +31,6 @@ public class GameScene : SceneBase
 
     public override void Exit()
     {
-        base.Exit();
+        
     }
 }
