@@ -10,18 +10,14 @@ using UnityEngine.UI;
 
 public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    private enum Images
-    {
-        Icon,
-        StackGageFill,
-        Selected
-    }
 
-    private enum TextMeshs
-    {
-        ObjInfo,
-        StackText
-    }
+    [SerializeField] private Image Icon;
+    [SerializeField] private Image StackGageFill;
+    [SerializeField] private Image Selected;
+
+    [SerializeField] private TextMeshProUGUI ObjInfo;
+    [SerializeField] private TextMeshProUGUI StackText;
+
 
     private Button button; // 이녀석은 현재 들고 있는 컴포넌트객체니깐 그냥 Get으로 불러드림
 
@@ -42,13 +38,11 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
     private void Awake()
     {
-        Bind<Image>(typeof(Images));
-        Bind<TextMeshProUGUI>(typeof(TextMeshs));
         button = GetComponent<Button>();
         button.onClick.AddListener(SeletToggle);
 
         inventoryUI = Managers.UI.GetScene<InventoryUI>();
-        GetImage((int)Images.Selected).gameObject.SetActive(false);
+        Selected.gameObject.SetActive(false);
     }
 
     private void SeletToggle()
@@ -56,7 +50,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
 
         UserObject userObject = Gettable as UserObject;
-        GameObject imgObj = GetImage((int)Images.Selected).gameObject;
+        GameObject imgObj = Selected.gameObject;
         imgObj.SetActive(!imgObj.activeSelf);
         IsActive = imgObj.activeInHierarchy;
         inventoryUI.isSelect = true;
@@ -119,14 +113,14 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         {
             IsActive = true;
             Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
-            GetImage((int)Images.Selected).gameObject.SetActive(true);
+            Selected.gameObject.SetActive(true);
         }   
     }
 
     public void DisSelect()
     {
         IsActive = false;
-        GetImage((int)Images.Selected).gameObject.SetActive(false);
+        Selected.gameObject.SetActive(false);
     }
 
 
@@ -137,10 +131,10 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         itemKey = obj.PrimaryKey;
         var status = obj.Status;
         _sprite = obj.Sprite;
-        GetImage((int)Images.Icon).sprite = _sprite;
-        GetText((int)TextMeshs.ObjInfo).text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
-        GetImage((int)Images.StackGageFill).fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
-        GetText((int)TextMeshs.StackText).text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
+        Icon.sprite = _sprite;
+        ObjInfo.text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
+        StackGageFill.fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
+        StackText.text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
     }
 
     #region 드래그 배치

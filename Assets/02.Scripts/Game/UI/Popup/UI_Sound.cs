@@ -6,19 +6,13 @@ using UnityEngine.UI;
 
 public class UI_Sound : UI_Base
 {
-    enum Buttons
-    {
-        MasterMuteButton,
-        BGMBMuteButton,
-        SFMMuteButton
-    }
+    [SerializeField] private Button MasterMuteButton;
+    [SerializeField] private Button BGMBMuteButton;
+    [SerializeField] private Button SFMMuteButton;
 
-    enum Sliders
-    {
-        MasterSlider,
-        BGMSlider,
-        SFXSlider
-    }
+    [SerializeField] private Slider MasterSlider;
+    [SerializeField] private Slider BGMSlider;
+    [SerializeField] private Slider SFXSlider;
 
 
     private void Awake()
@@ -30,21 +24,20 @@ public class UI_Sound : UI_Base
 
     public override void Init()
     {
-        Bind<Button>(typeof(Buttons));
-        Bind<Slider>(typeof(Sliders));
 
 
-        GetButton((int)Buttons.MasterMuteButton).gameObject.BindEvent(OnClickMasterMuted);
-        GetButton((int)Buttons.BGMBMuteButton).gameObject.BindEvent(OnClickBGMMuted);
-        GetButton((int)Buttons.SFMMuteButton).gameObject.BindEvent(OnClickSFXMuted);
 
-        Get<Slider>((int)Sliders.MasterSlider).value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
-        Get<Slider>((int)Sliders.BGMSlider).value = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
-        Get<Slider>((int)Sliders.SFXSlider).value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
+        MasterMuteButton.gameObject.BindEvent(OnClickMasterMuted);
+        BGMBMuteButton.gameObject.BindEvent(OnClickBGMMuted);
+        SFMMuteButton.gameObject.BindEvent(OnClickSFXMuted);
 
-        Get<Slider>((int)Sliders.MasterSlider).onValueChanged.AddListener(OnChangeMasterVolume);
-        Get<Slider>((int)Sliders.BGMSlider).onValueChanged.AddListener(OnChangeBGMVolume);
-        Get<Slider>((int)Sliders.SFXSlider).onValueChanged.AddListener(OnChangeSFXVolume);
+        MasterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
+        BGMSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
+        SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
+
+        MasterSlider.onValueChanged.AddListener(OnChangeMasterVolume);
+        BGMSlider.onValueChanged.AddListener(OnChangeBGMVolume);
+        SFXSlider.onValueChanged.AddListener(OnChangeSFXVolume);
 
         InitVolumeMuted();
 
@@ -77,11 +70,11 @@ public class UI_Sound : UI_Base
 
         if (Managers.Audio.audioControler.isMasterMute)
         {
-            GetButton((int)Buttons.MasterMuteButton).GetComponent<Image>().color = Color.gray;
+            MasterMuteButton.GetComponent<Image>().color = Color.gray;
         }
         else
         {
-            GetButton((int)Buttons.MasterMuteButton).GetComponent<Image>().color = Color.white;
+            MasterMuteButton.GetComponent<Image>().color = Color.white;
         }
 
     }
@@ -95,11 +88,11 @@ public class UI_Sound : UI_Base
 
         if (Managers.Audio.audioControler.isBGMMute)
         {
-            GetButton((int)Buttons.BGMBMuteButton).GetComponent<Image>().color = Color.gray;
+            BGMBMuteButton.GetComponent<Image>().color = Color.gray;
         }
         else
         {
-            GetButton((int)Buttons.BGMBMuteButton).GetComponent<Image>().color = Color.white;
+            BGMBMuteButton.GetComponent<Image>().color = Color.white;
         }
     }
 
@@ -112,11 +105,11 @@ public class UI_Sound : UI_Base
 
         if (Managers.Audio.audioControler.isSFXMute)
         {
-            GetButton((int)Buttons.SFMMuteButton).GetComponent<Image>().color = Color.gray;
+            SFMMuteButton.GetComponent<Image>().color = Color.gray;
         }
         else
         {
-            GetButton((int)Buttons.SFMMuteButton).GetComponent<Image>().color = Color.white;
+            SFMMuteButton.GetComponent<Image>().color = Color.white;
         }
     }
     #endregion
@@ -129,29 +122,29 @@ public class UI_Sound : UI_Base
     {
         if (Managers.Audio.audioControler.isMasterMute)
         {
-            GetButton((int)Buttons.MasterMuteButton).GetComponent<Image>().color = Color.gray;
+            MasterMuteButton.GetComponent<Image>().color = Color.gray;
         }
         else
         {
-            GetButton((int)Buttons.MasterMuteButton).GetComponent<Image>().color = Color.white;
+            MasterMuteButton.GetComponent<Image>().color = Color.white;
         }
 
         if (Managers.Audio.audioControler.isBGMMute)
         {
-            GetButton((int)Buttons.BGMBMuteButton).GetComponent<Image>().color = Color.gray;
+            BGMBMuteButton.GetComponent<Image>().color = Color.gray;
         }
         else
         {
-            GetButton((int)Buttons.BGMBMuteButton).GetComponent<Image>().color = Color.white;
+            BGMBMuteButton.GetComponent<Image>().color = Color.white;
         }
 
         if (Managers.Audio.audioControler.isSFXMute)
         {
-            GetButton((int)Buttons.SFMMuteButton).GetComponent<Image>().color = Color.gray;
+            SFMMuteButton.GetComponent<Image>().color = Color.gray;
         }
         else
         {
-            GetButton((int)Buttons.SFMMuteButton).GetComponent<Image>().color = Color.white;
+            SFMMuteButton.GetComponent<Image>().color = Color.white;
         }
 
 

@@ -6,26 +6,14 @@ using UnityEngine;
 
 public class UI_ResearchScene : UI_Popup
 {
-    enum Buttons
-    {
-        BackButton
-    }
+    [SerializeField] private Button BackButton;
 
-    enum Texts
-    {
-        GoldText,
-        ZamText
-    }
+    [SerializeField] private TextMeshProUGUI GoldText;
+    [SerializeField] private TextMeshProUGUI ZamText;
 
-    enum Images
-    {
-        BackImage
-    }
+    [SerializeField] private Image BackImage;
 
-    enum ReseachObject
-    {
-        UI_Research
-    }
+    [SerializeField] private GameObject UI_Research;
 
     bool isButton = false;
 
@@ -38,23 +26,17 @@ public class UI_ResearchScene : UI_Popup
     {
         uiSeq = Util.RecyclableSequence();
 
-        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f,0.1f));
-        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(UI_Research.transform.DOScale(1.1f,0.1f));
+        uiSeq.Append(UI_Research.transform.DOScale(1.0f, 0.1f));
 
         uiSeq.Play();
     }
 
     public override void Init()
     {
-        Bind<Button>(typeof(Buttons));
-        Bind<TextMeshProUGUI>(typeof(Texts));
-        Bind<Image>(typeof(Images));
-        Bind<GameObject>(typeof(ReseachObject));
-
-
-        Get<TextMeshProUGUI>((int)Texts.GoldText).text = Managers.Player.GetGold().ToString();
-        Get<TextMeshProUGUI>((int)Texts.ZamText).text = Managers.Player.GetZam().ToString();
-        GetButton((int)Buttons.BackButton).gameObject.BindEvent(OnClickBack);
+        GoldText.text = Managers.Player.GetGold().ToString();
+        ZamText.text = Managers.Player.GetZam().ToString();
+        BackButton.gameObject.BindEvent(OnClickBack);
 
     }
 
@@ -81,12 +63,12 @@ public class UI_ResearchScene : UI_Popup
 
     private void UpdateGoldUI(long gold)
     {
-        Get<TextMeshProUGUI>((int)Texts.GoldText).text = Util.FormatNumber(gold);
+        GoldText.text = Util.FormatNumber(gold);
     }
 
     private void UpdateZamUI(long zam)
     {
-        Get<TextMeshProUGUI>((int)Texts.ZamText).text = Util.FormatNumber(zam);
+        ZamText.text = Util.FormatNumber(zam);
     }
 
     public void OnClickBack(PointerEventData data)
@@ -106,8 +88,8 @@ public class UI_ResearchScene : UI_Popup
     {
         uiSeq = Util.RecyclableSequence();
 
-        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(0.2f, 0.1f));
+        uiSeq.Append(UI_Research.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(UI_Research.transform.DOScale(0.2f, 0.1f));
 
         uiSeq.Play().OnComplete(() =>
         {
