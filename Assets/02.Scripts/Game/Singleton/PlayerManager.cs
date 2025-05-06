@@ -174,6 +174,7 @@ public class PlayerManager
             {
                 Tower tower = new Tower();
                 tower.Init(primaryKey, original.GetComponent<TowerControlBase>().Preview);
+                tower.Status = TowerInfos[primaryKey]; // 동적 정보 넘김
                 Inventory.Add<Tower>(tower);
             });
         }
@@ -184,6 +185,7 @@ public class PlayerManager
             {
                 MyUnit unit = new MyUnit();
                 unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
+                unit.Status = MyUnitInfos[primaryKey]; // 동적 정보 넘김
                 Inventory.Add<MyUnit>(unit);
             });
         }
