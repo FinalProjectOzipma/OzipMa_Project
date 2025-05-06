@@ -75,18 +75,22 @@ public class DataManager
 
     #region 데이터베이스 - Firebase
     /// <summary>
-    /// 파이어베이스에 저장 (쓰기)
+    /// 파이어베이스에 직접 저장 (쓰기)
     /// </summary>
     /// <typeparam name="T">저장할 데이터 타입</typeparam>
     /// <param name="data">저장할 데이터</param>
-    public void SaveFirebase<T>(T data)
+    public void SaveFirebase<T>(T data, string parent = null)
     {
         string json = JsonConvert.SerializeObject(data);
-        _databaseReference.Child("users").Child(userID).Child(typeof(T).Name).SetRawJsonValueAsync(json);
+        if(parent == null)
+        {
+            parent = typeof(T).Name;
+        }
+        _databaseReference.Child("users").Child(userID).Child(parent).SetRawJsonValueAsync(json);
     }
 
     /// <summary>
-    /// 파이어베이스에서 로드 (읽기)
+    /// 파이어베이스에서 직접 로드 (읽기)
     /// </summary>
     /// <typeparam name="T">읽어올 데이터 타입</typeparam>
     /// <param name="onComplete">로드완료 후 실행할 Action</param>
@@ -118,6 +122,15 @@ public class DataManager
         {
             Util.Log("Firebase's Data Not Found");
         }
+    }
+
+    /// <summary>
+    /// 게임 데이터 파이어베이스에 저장
+    /// </summary>
+    public void SaveGameData()
+    {
+        Managers.Player.SaveInit();
+        SaveFirebase<PlayerManager>(Managers.Player);
     }
     #endregion
 

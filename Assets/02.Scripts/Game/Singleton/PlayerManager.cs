@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -22,6 +23,10 @@ public class PlayerManager
 
     public int CurrentStage { get; set; }
     public int CurrentWave { get; set; }
+
+    public List<TowerStatus> TowerInfos;
+    public List<StatusBase> MyUnitInfos;
+    public Dictionary<Vector3Int, int> GridObjectMap;
 
     public void Initialize()
     {
@@ -119,4 +124,27 @@ public class PlayerManager
 
     public string GetStage() => CurrentStage.ToString();
 
+    public void SaveInit()
+    {
+        // 1. Tower의 동적 데이터 저장 목적
+        TowerInfos = new();
+        List<IGettable> towers = Inventory.GetList<Tower>();
+        foreach (var item in towers)
+        {
+            Tower tower = (Tower)item;
+            TowerInfos.Add(tower.TowerStatus);
+        }
+
+        // 2. MyUnit의 동적 데이터 저장 목적 
+        //MyUnitInfos = new();
+        //List<IGettable> myUnits = Inventory.GetList<MyUnit>();
+        //foreach (var item in myUnits)
+        //{
+        //    MyUnit myUnit = (MyUnit)item;
+        //    MyUnitInfos.Add(myUnit.Status);
+        //}
+
+        // 3. 배치된 오브젝트 데이터 저장
+        GridObjectMap = BuildingSystem.Instance.GridObjectMap;
+    }
 }

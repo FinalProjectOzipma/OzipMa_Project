@@ -8,10 +8,10 @@ public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem Instance {  get; private set; }
     public DragController DragController { get; private set; }
+    public Dictionary<Vector3Int, int> GridObjectMap { get; private set; } = new();
 
     [SerializeField] private LayerMask CanDragLayerMask;
     [SerializeField] private LayerMask TowerBuildLayerMask;
-    private HashSet<Vector3Int> placedMap = new();
     private Tilemap map;
     private Camera cam;
 
@@ -60,7 +60,7 @@ public class BuildingSystem : MonoBehaviour
         // 이미 설치된 공간인지 확인
         Vector3Int point = map.WorldToCell(worldPos);
         //Util.Log($"CanTowerBuild : {point.x}, {point.y}");
-        if (placedMap.Contains(point))
+        if (GridObjectMap.ContainsKey(point))
         { 
             canBuild = false;
             return canBuild;
@@ -83,20 +83,26 @@ public class BuildingSystem : MonoBehaviour
     }
 
     #region 배치된 공간 저장/삭제 메서드들
-    public void AddPlacedMap(Vector3 mousePos)
+    public void AddPlacedMap(Vector3 mousePos, int id)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        placedMap.Add(map.WorldToCell(worldPos));
+        GridObjectMap.Add(map.WorldToCell(worldPos), id);
     }
 
-    public void RemovePlacedMapScreenPos(Vector3 mousePos)
+    public int RemovePlacedMapScreenPos(Vector3 mousePos)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        placedMap.Remove(map.WorldToCell(worldPos));
+        Vector3Int gridPoint = map.WorldToCell(worldPos);
+        int id = GridObjectMap[gridPoint];
+        GridObjectMap.Remove(gridPoint);
+        return id;
     }
-    public void RemovePlacedMapWorldPos(Vector3 worldPos)
+    public int RemovePlacedMapWorldPos(Vector3 worldPos)
     {
-        placedMap.Remove(map.WorldToCell(worldPos));
+        Vector3Int gridPoint = map.WorldToCell(worldPos);
+        int id = GridObjectMap[gridPoint];
+        GridObjectMap.Remove(gridPoint);
+        return id;
     }
     #endregion
 }

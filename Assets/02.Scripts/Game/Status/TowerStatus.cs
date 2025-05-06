@@ -7,9 +7,10 @@ using static Enums;
 
 public class TowerStatus : StatusBase
 {
-    
+    public int PrimaryKey { get; set; }
     public TowerStatus(int id)
     {
+        PrimaryKey = id;
         var Row = Managers.Data.Datas[Enums.Sheet.Tower][id] as DefaultTable.Tower;
         Attack.SetValue(Row.AttackDamage);
         AttackCoolDown.SetValue(Row.AttackCoolDown);

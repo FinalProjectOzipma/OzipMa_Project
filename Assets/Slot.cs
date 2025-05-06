@@ -207,7 +207,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Managers.Resource.Instantiate(towerName, go => 
         {
             go.transform.position = buildingSystem.UpdatePosition(inputPos);
-            buildingSystem.AddPlacedMap(inputPos);
+            buildingSystem.AddPlacedMap(inputPos, itemKey);
             buildingSystem.DragController.IsSlotDragging = false; 
             go.GetComponent<TowerControlBase>().TakeRoot(itemKey, towerName, (Tower)Gettable);
         });
