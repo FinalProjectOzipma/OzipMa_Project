@@ -24,7 +24,7 @@ public class ArcherManDeadState : ArcherManStateBase
         {
             if (controller.gameObject.activeInHierarchy)
             {
-                controller.Body.GetComponent<EnemyBodyBase>().Disable(); // 비활성화
+                controller.Body.GetComponent<EntityBodyBase>().Disable(); // 비활성화
                 Managers.Player.AddGold(controller.Enemy.Reward);
                 Managers.Wave.CurEnemyList.Remove(controller.gameObject);
                 Managers.Resource.Destroy(controller.gameObject);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ZombieAttackState : MyUnitStateBase
 {
-    public ZombieAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public ZombieAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 
@@ -14,7 +14,7 @@ public class ZombieAttackState : MyUnitStateBase
         base.Enter();
         controller.Agent.isStopped = true;
         // Animator Speed 조정
-        Anim.speed = Anim.GetCurrentAnimatorClipInfo(0).Length / controller.MyUnitStatus.AttackCoolDown.GetValue();
+        Anim.speed = Anim.GetCurrentAnimatorClipInfo(0).Length / controller.Status.AttackCoolDown.GetValue();
     }
 
     public override void Exit()

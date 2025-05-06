@@ -5,14 +5,12 @@ using UnityEngine.AI;
 
 public class EnemyController : EntityController, IDamagable
 {
-    private string enemyName;
     private Coroutine SlowCor;
 
     public Rigidbody2D Rigid { get; private set; }
     public SpriteRenderer Spr { get; private set; }
 
     public Enemy Enemy { get; private set; }
-    public EnemyStatus Status { get; private set; }
     public Stack<GameObject> Targets { get; set; } = new();
 
 
@@ -43,13 +41,13 @@ public class EnemyController : EntityController, IDamagable
         Targets.Clear();
         Targets.Push(Managers.Wave.MainCore.gameObject);
 
-        Body.GetComponent<EnemyBodyBase>().Enable(); // 죽었을때 Disable 처리해줘야됨
+        Body.GetComponent<EntityBodyBase>().Enable(); // 죽었을때 Disable 처리해줘야됨
     }
 
     private string _Body = nameof(_Body);
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
-        enemyName = name;
+        entityName = name;
 
         if (Enemy == null)
             Enemy = new Enemy(primaryKey, SpriteImage);
@@ -151,27 +149,7 @@ public class EnemyController : EntityController, IDamagable
 
         Status.AddHealth(-finalDamage, gameObject);
         Fx.StartBlinkFlash();
-        
-        int iCondition = (int)condition;
-        if(Times.ContainsKey(iCondition))
-        {
-            if (Times[iCondition] <= 0f)
-            {
-                Times[iCondition] = ConditionHandlers[iCondition].CoolDown;
-                ConditionHandlers[iCondition].Attacker = go.transform;
-
-                if (Conditions.ContainsKey(iCondition))
-                    Conditions[iCondition].Execute(incomingDamage, values);
-                else
-                    Util.LogWarning($"{enemyName}에 현재 키로된 Conditions가 없습니다.");
-            }
-        }
-        else
-        {
-            // 실수 방지 경고로그
-            if (Conditions.ContainsKey(iCondition))
-                Util.LogWarning($"{enemyName} 바디에 {condition}키를 추가해주세요");
-        }
+        ApplyCondition(condition, incomingDamage, go, values);
     }
 
     private void OnDisable()

@@ -15,7 +15,7 @@ public class SwordManDarkState : SwordManStateBase
         base.Enter();
 
         time = darkCoolDown;
-        anim.speed = 0.5f;
+        Anim.speed = 0.5f;
         handler = controller.ConditionHandlers[(int)AbilityType.Dark];
         handler.ObjectActive(true);
     }
@@ -23,7 +23,7 @@ public class SwordManDarkState : SwordManStateBase
     public override void Exit()
     {
         base.Exit();
-        anim.speed = 1f;
+        Anim.speed = 1f;
         handler.ObjectActive(false);
     }
 

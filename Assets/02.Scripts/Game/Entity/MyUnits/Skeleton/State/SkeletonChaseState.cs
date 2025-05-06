@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class SkeletonChaseState : MyUnitStateBase
 {
-    public SkeletonChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public SkeletonChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, SkeletonAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 
