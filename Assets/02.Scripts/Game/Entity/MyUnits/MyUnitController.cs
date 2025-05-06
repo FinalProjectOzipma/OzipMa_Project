@@ -73,14 +73,14 @@ public class MyUnitController : EntityController, IDamagable
 
         MyUnitStatus = MyUnit.Status as MyUnitStatus;
         // 초기화부분
-        if (body == null)
+        if (Body == null)
         {
             Managers.Resource.Instantiate($"{name}{_Body}", go =>
             {
                 go.transform.SetParent(transform);
                 Fx = go.GetOrAddComponent<ObjectFlash>();
                 spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
-                body = go;
+                Body = go;
                 healthView = go.GetComponentInChildren<HealthView>();
                 Init(position);
             });
@@ -156,7 +156,7 @@ public class MyUnitController : EntityController, IDamagable
     }
 
     //실제 트리거에서 호출되는 메서드
-    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue abilities = null)
     {
         TakeDamage(amount);
     }

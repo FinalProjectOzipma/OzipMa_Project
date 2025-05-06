@@ -13,6 +13,7 @@ public class EntityHealth : FloatBase
 
     public override void AddValue(float amount)
     {
+        if (Managers.Game.IsGodMode) return;
         base.AddValue(amount);
         OnChangeHealth?.Invoke(Value, maxHealth);
     }

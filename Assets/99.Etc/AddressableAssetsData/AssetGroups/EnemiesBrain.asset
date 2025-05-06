@@ -20,8 +20,7 @@ MonoBehaviour:
   - m_GUID: 151cf38c474b104429865b7e857dff58
     m_Address: Wizard_Brain
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f81835d5ebcdaf5458fc83c42f60b027
     m_Address: MainLevel3
@@ -32,14 +31,12 @@ MonoBehaviour:
   - m_GUID: 73d66612959354546bfbf116bad26fe7
     m_Address: SwordMan_Brain
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 1e84ec3b8ea60164ab97a4a8a2eeaf9a
     m_Address: ArcherMan_Brain
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
