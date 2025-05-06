@@ -6,11 +6,6 @@ public class EntityHealth : FloatBase
     private EntityController controller;
     public float MaxValue { get; set; }
 
-    public void SetMaxHealth(float maxHealth)
-    {
-        this.MaxValue = maxHealth;
-    }
-
     public override void AddValue(float amount)
     {
         if (Managers.Game.IsGodMode) return;

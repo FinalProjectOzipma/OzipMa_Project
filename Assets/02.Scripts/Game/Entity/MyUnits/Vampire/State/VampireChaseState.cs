@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VampireChaseState : MyUnitStateBase
 {
-    public VampireChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public VampireChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, VampireAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 

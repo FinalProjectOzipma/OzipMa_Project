@@ -18,7 +18,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     private void Init()
     {
-        attackValue = myUnit.MyUnitStatus.AttackRange.GetValue();
+        attackValue = myUnit.Status.AttackRange.GetValue();
     }
 
     public void AnimationTrigger()

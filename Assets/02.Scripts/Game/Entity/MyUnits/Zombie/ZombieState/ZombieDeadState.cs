@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ZombieDeadState : MyUnitStateBase
 {
-    public ZombieDeadState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public ZombieDeadState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 

@@ -13,7 +13,7 @@ public class ArcherManDarkState : ArcherManStateBase
     public override void Enter()
     {
         base.Enter();
-        anim.speed = 0.5f;
+        Anim.speed = 0.5f;
         time = darkCoolDown;
         handler = controller.ConditionHandlers[(int)AbilityType.Dark];
         handler.ObjectActive(true);
@@ -22,7 +22,7 @@ public class ArcherManDarkState : ArcherManStateBase
     public override void Exit()
     {
         base.Exit();
-        anim.speed = 1f;
+        Anim.speed = 1f;
         handler.ObjectActive(false);
     }
 
