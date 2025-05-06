@@ -29,7 +29,5 @@ public class ArcherManStateBase : EnemyStateBase
             StateMachine.ChangeState(data.DeadState);
             return;
         }
-
-        SwitchConditionState(AbilityType.Dark, data.DarkState);
     }
 }

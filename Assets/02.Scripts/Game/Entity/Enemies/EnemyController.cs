@@ -1,14 +1,11 @@
-using DefaultTable1;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyController : EntityController, IDamagable
 {
-    private Coroutine DotCor;
+    private string enemyName;
     private Coroutine SlowCor;
 
     public Rigidbody2D Rigid { get; private set; }
@@ -28,6 +25,9 @@ public class EnemyController : EntityController, IDamagable
         Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
+
+        // 컨디션 초기화
+        Conditions.Add((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(this));
     }
 
     protected override void Update()
@@ -39,31 +39,34 @@ public class EnemyController : EntityController, IDamagable
     public override void Init(Vector2 position)
     {
         base.Init(position);
-        CurrentCondition = AbilityType.None;
         transform.position = position;
         Targets.Clear();
         Targets.Push(Managers.Wave.MainCore.gameObject);
+
+        Body.GetComponent<EnemyBodyBase>().Enable(); // 죽었을때 Disable 처리해줘야됨
     }
 
     private string _Body = nameof(_Body);
     public override void TakeRoot(int primaryKey, string name, Vector2 position)
     {
+        enemyName = name;
+
         if (Enemy == null)
             Enemy = new Enemy(primaryKey, SpriteImage);
         else
             Enemy.Init(primaryKey, SpriteImage);
 
+        Enemy.Status.InitHealth();
         Status = Enemy.Status;
-        Status.InitHealth();
 
-        if(body == null)
+        if(Body == null)
         {
             Managers.Resource.Instantiate($"{name}{_Body}", go =>
             {
                 go.transform.SetParent(transform);
                 Fx = go.GetOrAddComponent<ObjectFlash>();
                 Spr = go.GetOrAddComponent<SpriteRenderer>();
-                body = go;
+                Body = go;
                 Init(position);
             });
         }
@@ -73,18 +76,6 @@ public class EnemyController : EntityController, IDamagable
         }
     }
 
-
-
-    public void ApplyDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
-    {
-        if(DotCor != null)
-        {
-            StopCoroutine(DotCor);
-            DotCor = null;
-        }
-             
-        DotCor = StartCoroutine(OnDotDamage(abilityValue, abilityDuration, abilityCooldown));
-    }
 
     public void ApplySlow(float abilityValue, float abilityDuration)
     {
@@ -105,37 +96,6 @@ public class EnemyController : EntityController, IDamagable
     public void ApplyBonusCoin(float abilityValue)
     {
         Enemy.Reward += (int)abilityValue;
-    }
-
-    private IEnumerator OnDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
-    {
-        bool canHit = true;
-        float coolDown = 0.0f;
-        while (abilityDuration > 0)
-        {
-            abilityDuration -= Time.deltaTime;
-
-            if(canHit)
-            {
-                float minus = Status.Defence.GetValue() - abilityValue;
-                if(minus < 0.0f)
-                {
-                    Status.AddHealth(minus, gameObject);
-                    Fx.StartBlinkRed();
-                }
-
-                coolDown = abilityCooldown;
-                canHit = false;
-            }
-
-            if(coolDown <= 0.0f)
-            {
-                canHit = true;
-            }
-
-            coolDown -= Time.deltaTime;
-            yield return null;
-        }
     }
 
     private IEnumerator OnSlow(float abilityValue, float abilityDuration)
@@ -161,21 +121,24 @@ public class EnemyController : EntityController, IDamagable
     /// </summary>
     /// <param name="go"></param>
     /// <param name="damage"></param>
-    public void ApplyDamage(float incomingDamage, AbilityType condition = AbilityType.None, GameObject go = null)
+    public void ApplyDamage(float incomingDamage, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue values = null)
     {
+
         //반사타입 처리
-        if (Enemy.AtkType == AtkType.ReflectDamage)
+        if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
         {
-            
-            if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
+            if (Enemy.AtkType == AtkType.ReflectDamage)
             {
                 //float abilityRatio = Status.AbilityValue;
                 float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
                 myunit.ReflectDamage(incomingDamage, abilityRatio);
                 Util.Log("반사해드렸습니다");
             }
+            else if(myunit.MyUnit.AbilityType == AbilityType.Psychic)
+            {
+                Status.Attack.SetValueMultiples(0.7f);
+            }
         }
-
 
         float defence = Mathf.Max(0f, Status.Defence.GetValue());
 
@@ -189,12 +152,25 @@ public class EnemyController : EntityController, IDamagable
         Status.AddHealth(-finalDamage, gameObject);
         Fx.StartBlinkFlash();
         
-
         int iCondition = (int)condition;
-        if (Times.ContainsKey(iCondition) && Times[iCondition] <= 0f)
+        if(Times.ContainsKey(iCondition))
         {
-            CurrentCondition = condition;
-            Times[iCondition] = Conditions[iCondition].CoolDown;
+            if (Times[iCondition] <= 0f)
+            {
+                Times[iCondition] = ConditionHandlers[iCondition].CoolDown;
+                ConditionHandlers[iCondition].Attacker = go.transform;
+
+                if (Conditions.ContainsKey(iCondition))
+                    Conditions[iCondition].Execute(incomingDamage, values);
+                else
+                    Util.LogWarning($"{enemyName}에 현재 키로된 Conditions가 없습니다.");
+            }
+        }
+        else
+        {
+            // 실수 방지 경고로그
+            if (Conditions.ContainsKey(iCondition))
+                Util.LogWarning($"{enemyName} 바디에 {condition}키를 추가해주세요");
         }
     }
 

@@ -8,7 +8,6 @@ public class CoreController : Poolable, IDamagable
     public Core core;
     public Animator anime;
     public GameObject HpBar;
-    private Image hpImage;
     private float spawnY = 2.7f;
 
     public string coreLevelkey = "CoreLevelKey";
@@ -20,8 +19,6 @@ public class CoreController : Poolable, IDamagable
     {
         core = new Core();
 
-        hpImage = HpBar.GetComponent<Image>();
-
         CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
@@ -30,7 +27,8 @@ public class CoreController : Poolable, IDamagable
     {
         core.Health.SetValue(maxHealth);
         core.MaxHealth.SetValue(maxHealth);
-        hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
+        HpBar.transform.localScale = Vector3.one;
+
         float randomX = Random.Range(-2.0f, 2.0f);
         this.gameObject.transform.position = new Vector2(randomX, spawnY);
 
@@ -44,25 +42,27 @@ public class CoreController : Poolable, IDamagable
 
     public void TakeDamge(float damage)
     {
+        if (Managers.Game.IsGodMode) return;
 
         core.Health.AddValue(-damage);
-        hpImage.fillAmount = core.Health.Value /core.MaxHealth.Value;
+
+        HpBar.transform.localScale = new Vector3(core.Health.GetValue()/core.MaxHealth.GetValue(), 1,1);
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
 
         if (core.Health.Value == 0)
         {
             anime.SetBool("IsDestroy", true);
             Managers.Audio.audioControler.PlaySFX(SFXClipName.Dead);
-            Debug.Log("현재 웨이브 다시 시작");
         }
     }
 
-    public void UpgradeHealth(float value)
-    {
-        core.Health.AddValue(value);
-        core.MaxHealth.AddValue(value);
-        hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
-    }
+    //public void UpgradeHealth(float value)
+    //{
+    //    core.Health.AddValue(value);
+    //    core.MaxHealth.AddValue(value);
+    //    hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
+    //}
 
     public void SpawnUnit()
     {
@@ -83,7 +83,7 @@ public class CoreController : Poolable, IDamagable
         });
     }
 
-    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue abilities = null)
     {
         TakeDamge(amount);
        

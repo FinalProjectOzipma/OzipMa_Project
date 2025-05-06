@@ -20,8 +20,7 @@ MonoBehaviour:
   - m_GUID: 904ea5a9f3ca434459301048c2222f4b
     m_Address: TestAssets
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5dc0ef1758b3e314ca2f682dc98405e1
     m_Address: SprSquare
@@ -38,20 +37,23 @@ MonoBehaviour:
   - m_GUID: 1e8814447cec9ec48958bd06326a5e35
     m_Address: BuildingSystem
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9022147e7eefbbb498be3c68a8f0e34a
     m_Address: EnergyShot
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ddc372fda984a524db1ea1a163f85201
     m_Address: Lightning
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad6f68befca0dc14d993419cd409f298
+    m_Address: Ending_Panel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}

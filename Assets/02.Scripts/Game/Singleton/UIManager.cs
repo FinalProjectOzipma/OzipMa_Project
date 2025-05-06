@@ -134,7 +134,7 @@ public class UIManager
     /// <summary>
     /// 추가된 UI씬 가져오기
     /// </summary>
-    public T GetSceneList<T>() where T : UI_Scene
+    public T GetScene<T>() where T : UI_Scene
     {
         string key = typeof(T).ToString();
 
@@ -146,4 +146,10 @@ public class UIManager
         return null;
     }
 
+
+    public UI_Alarm GetAlarmPopup()
+    {
+        UI_Alarm popUp = _popupStack.Peek() as UI_Alarm;
+        return popUp;
+    }
 }

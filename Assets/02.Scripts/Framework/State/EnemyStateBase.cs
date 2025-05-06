@@ -7,6 +7,7 @@ using UnityEngine.AI;
 
 public class EnemyStateBase : EntityStateBase
 {
+
     protected EnemyController controller;
 
     protected Transform transform;
@@ -125,22 +126,10 @@ public class EnemyStateBase : EntityStateBase
         return false;
     }
 
-    //목적지에 도착했는지 확인하는 용
-    protected bool IsArrived()
-    {
-        return !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
-    }
-
     protected void Fire<T>(GameObject go, Vector2 targetPos) where T : EntityProjectile
     {
         EntityProjectile projectile = go.GetComponent<T>();
         projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
-    }
-
-    protected void SwitchConditionState(AbilityType type, EnemyStateBase state)
-    {
-        if (controller.CurrentCondition == type)
-            StateMachine.ChangeState(state);
     }
 
     public override void FixedUpdate()

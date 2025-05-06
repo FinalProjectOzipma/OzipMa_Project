@@ -53,6 +53,9 @@ public class MyUnitController : EntityController, IDamagable
         transform.position = position;
         Rigid = GetComponent<Rigidbody2D>();
         AnimData.Init(this);
+        MyUnitStatus.Health.OnChangeHealth = healthView.SetHpBar;
+        MyUnitStatus.Health.AddValue(0.0f);
+        //sethpbar 호출
     }
 
     /// <summary>
@@ -70,17 +73,16 @@ public class MyUnitController : EntityController, IDamagable
 
         MyUnitStatus = MyUnit.Status as MyUnitStatus;
         // 초기화부분
-        if (body == null)
+        if (Body == null)
         {
             Managers.Resource.Instantiate($"{name}{_Body}", go =>
             {
                 go.transform.SetParent(transform);
                 Fx = go.GetOrAddComponent<ObjectFlash>();
                 spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
-                body = go;
-                Init(position);
+                Body = go;
                 healthView = go.GetComponentInChildren<HealthView>();
-                MyUnitStatus.Health.OnChangeHealth = healthView.SetHpBar;
+                Init(position);
             });
         }
         else
@@ -150,11 +152,11 @@ public class MyUnitController : EntityController, IDamagable
     //반사 데미지 적용
     public void ReflectDamage(float damage, float abilityRatio)
     {
-        TakeDamage(damage);
+        TakeDamage(damage* abilityRatio);
     }
 
     //실제 트리거에서 호출되는 메서드
-    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null)
+    public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue abilities = null)
     {
         TakeDamage(amount);
     }

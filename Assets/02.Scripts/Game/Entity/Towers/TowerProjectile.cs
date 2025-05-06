@@ -48,7 +48,7 @@ public class TowerProjectile : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
-        if (targetTransform.gameObject.activeSelf != true)
+        if (targetTransform.gameObject.activeSelf != true || Managers.Wave.CurrentState != Enums.WaveState.Playing)
             Managers.Resource.Destroy(gameObject); ;
     }
 
@@ -70,7 +70,8 @@ public class TowerProjectile : MonoBehaviour
         // 해당 타워가 갖고있는 공격 속성 적용
         if (Tower.Abilities.ContainsKey(tower.TowerType) == false) return;
         DefaultTable.AbilityDefaultValue values = Tower.Abilities[tower.TowerType];
-        switch (tower.TowerType)
+        Target.ApplyDamage(attackPower, values.AbilityType, gameObject, values);
+        /*switch (tower.TowerType)
         {
             case AbilityType.Fire:
             case AbilityType.Explosive:
@@ -90,6 +91,6 @@ public class TowerProjectile : MonoBehaviour
             //    break;
             default:
                 break;
-        }
+        }*/
     }
 }

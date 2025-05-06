@@ -51,37 +51,15 @@ public class TowerAnimationTrigger : MonoBehaviour
             if (target == null) continue;
             if (ownerInfo == null) continue;
 
-            // 기본 공격
-            target.ApplyDamage(attackPower);
             // 해당 타워가 갖고있는 공격 속성 적용
             if (Tower.Abilities.ContainsKey(ownerInfo.TowerType) == false) continue;
             DefaultTable.AbilityDefaultValue values = Tower.Abilities[ownerInfo.TowerType];
-            switch (ownerInfo.TowerType)
-            {
-                case AbilityType.Fire:
-                case AbilityType.Explosive:
-                    target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-                    break;
-                case AbilityType.Dark:
-                    target.ApplyDamage(attackPower, AbilityType.Dark);
-                    break;
-                //case AbilityType.Slow:
-                //    target.ApplySlow(values.AbilityValue, values.AbilityDuration);
-                //    break;
-                //case AbilityType.KnockBack:
-                //    target.ApplyKnockBack(values.AbilityValue, target.transform.position - transform.position);
-                //    break;
-                //case AbilityType.BonusCoin:
-                //    target.ApplyBonusCoin(values.AbilityValue);
-                //    break;
-                default:
-                    break;
-            }
+            target.ApplyDamage(attackPower, ownerInfo.TowerType, gameObject, values);
         }
     }
 
     /// <summary>
-    /// 장판 제거
+    /// 장판 제거 - 애니메이션 종료 시 호출됨
     /// </summary>
     public void DestroyFloor()
     {

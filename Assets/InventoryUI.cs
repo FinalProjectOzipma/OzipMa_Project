@@ -2,7 +2,6 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -27,6 +26,7 @@ public class InventoryUI : UI_Scene
 
     private enum Buttons
     {
+        BackgroundButton,
         SwipeBtn,
         InchentBtn,
         SelectAllBtn,
@@ -40,7 +40,8 @@ public class InventoryUI : UI_Scene
     {
         InchentText,
         SelectText,
-        PutText
+        PutText,
+        TextInfo
     }
 
     private enum Images
@@ -78,8 +79,8 @@ public class InventoryUI : UI_Scene
     private Inventory data;
     private List<Slot> slots;
 
+    public Type CurrentTab; // 현재 탭의 타입
     private List<IGettable> _currentList; // UI에 들고있는 현재 인벤토리 데이터
-    private Type _currentTab; // 현재 탭의 타입
     private GameObject prevOn; // 이전 탭의 컴포넌트
     private GameObject prevDis; // 이전 탭의 컴포넌트
 
@@ -87,10 +88,14 @@ public class InventoryUI : UI_Scene
     private bool isMove;
     private bool isOpen;
     private bool isBatch = false;
+    public bool isSelect = false;
+
+    public Queue<Action> SwipeExcute;
 
     private void Awake()
     {
         Init();
+        SwipeExcute = new Queue<Action>();
     }
 
     public override void Init()
@@ -108,7 +113,16 @@ public class InventoryUI : UI_Scene
 
         OnTowerTap();
         Managers.UI.SetSceneList<InventoryUI>(this);
+        Managers.Upgrade.OnChanagedUpgrade += UpdateUpgradeGold;
+        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = $"강화 비용 : {Managers.Upgrade.GetUpgradeGold()}";
     }
+
+
+    private void UpdateUpgradeGold(int gold)
+    {
+        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = $"강화 비용 : {gold.ToString()}" ;
+    }
+
 
     /// <summary>
     /// 바인딩
@@ -124,6 +138,7 @@ public class InventoryUI : UI_Scene
         GetButton((int)Buttons.InchentBtn).onClick.AddListener(OnClickUpgrade);
         GetButton((int)Buttons.SelectAllBtn).onClick.AddListener(OnSelectAll);
         GetButton((int)Buttons.SwipeBtn).onClick.AddListener(OnSwipe);
+        GetButton((int)Buttons.BackgroundButton).onClick.AddListener(OnSwipe);
 
         // Tap -----------------------------------------------------------------
         GetButton((int)Buttons.MyUnitTab).onClick.AddListener(OnMyUnitTap);
@@ -136,7 +151,7 @@ public class InventoryUI : UI_Scene
     {
         slots.Clear();
         _currentList = data.GetList<T>();
-        _currentTab = typeof(T);
+        CurrentTab = typeof(T);
 
         Transform trans = GetObject((int)GameObjects.UserObjects).transform; // 부모 객체 얻어오기
 
@@ -201,17 +216,29 @@ public class InventoryUI : UI_Scene
 
         uiSeq.Play();
 
-        bool isSelected = CheckActive();
+        //bool isSelected = false;
+
 
         for (int i = 0; i < _currentList.Count; i++)
         {
-            if (!isSelected)
+            if (!isSelect)
+            {
                 slots[i].OnSelect();
+            }   
             else
-                slots[i].DisSelect();
+            {
+                if (slots[i].IsActive)
+                {
+                    slots[i].DisSelect();
+
+                    if (IsMaxLevel(_currentList[i])) continue;
+
+                    Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+                }
+            }
         }
 
-        isSelected = !isSelected;
+        isSelect = !isSelect;
     }
 
     private bool CheckActive()
@@ -226,23 +253,27 @@ public class InventoryUI : UI_Scene
 
     private void OnMyUnitTap()
     {
-        _currentTab = typeof(MyUnit);
+        CurrentTab = typeof(MyUnit);
         ToggleTab(GetObject((int)GameObjects.OnMyUnit), GetObject((int)GameObjects.DisMyUnit));
         GetButton((int)Buttons.PutBtn).gameObject.SetActive(false);
         Refresh<MyUnit>();
+        Managers.Upgrade.RefresgUpgradeGold();
+        isSelect = false;
     }
     private void OnTowerTap()
     {
-        _currentTab = typeof(Tower);
+        CurrentTab = typeof(Tower);
         ToggleTab(GetObject((int)GameObjects.OnTower), GetObject((int)GameObjects.DisTower));
         GetButton((int)Buttons.PutBtn).gameObject.SetActive(true);
         Refresh<Tower>();
+        Managers.Upgrade.RefresgUpgradeGold();
+        isSelect = false;
     }
 
 
     public void OnSwipe()
     {
-        if (_currentTab == typeof(MyUnit))
+        if (CurrentTab == typeof(MyUnit))
         {
             Refresh<MyUnit>();
         }
@@ -251,24 +282,39 @@ public class InventoryUI : UI_Scene
             Refresh<Tower>();
         }
 
+        Managers.Upgrade.RefresgUpgradeGold();  
+
         OnAnimation();
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
 
+    private void Update()
+    {
+        if (!isMove && SwipeExcute.Count > 0)
+            SwipeExcute.Dequeue()?.Invoke();
+    }
+
     private void OnAnimation()
     {
         RectTransform movable = GetRect((int)RectTransforms.Contents);
-        if (!isMove)
+
+        if(isMove)
         {
-            Managers.UI.GetSceneList<UI_Main>().OffButton();
+            SwipeExcute.Enqueue(OnSwipe);
+        }
+        else
+        {
+            Managers.UI.GetScene<UI_Main>().OffButton();
             isMove = true;
+
             if (!isOpen)
             {
                 isOpen = true;
                 gameObject.SetActive(true);
                 Get<Image>((int)Images.PutImage).color = Color.white;
                 CurrentState = STATE.SELECTABLE;
+                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
@@ -277,11 +323,12 @@ public class InventoryUI : UI_Scene
             }
             else
             {
+                GetButton((int)Buttons.BackgroundButton).gameObject.SetActive(false);
                 movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
                     isOpen = false;
-                    Managers.UI.GetSceneList<UI_Main>().OnButton();
+                    Managers.UI.GetScene<UI_Main>().OnButton();
                     GetImage((int)Images.SwipeIcon).transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
                 });
             }
@@ -353,11 +400,11 @@ public class InventoryUI : UI_Scene
         uiSeq.Play();
 
 
-        if (_currentTab == typeof(MyUnit))
+        if (CurrentTab == typeof(MyUnit))
         {
             LevelUpUnits<MyUnit>(Managers.Upgrade.LevelUpMyUnit);
         }
-        else if (_currentTab == typeof(Tower))
+        else if (CurrentTab == typeof(Tower))
         {
             LevelUpUnits<Tower>(Managers.Upgrade.LevelUpTower);
         }
@@ -366,6 +413,8 @@ public class InventoryUI : UI_Scene
     private void LevelUpUnits<T>(Action<T> levelUpAction) where T : UserObject, IGettable
     {
         bool isAnySelected = false;
+        List<T> updateList = new();
+
 
         for (int i = 0; i < _currentList.Count; i++)
         {
@@ -379,21 +428,58 @@ public class InventoryUI : UI_Scene
                 continue;
 
             var select = _currentList[i] as T;
-            if (select != null)
+
+            // select가 널이 아니거나 MaxLevel이 아니면 업데이트리스트 추가
+            if(select != null && !IsMaxLevel(select))
             {
-                levelUpAction(select);
+                updateList.Add(select);
+            }
+        }
+
+        // 골드 확인, 등급별 강화골드 달라지면 수정해야함
+        if (Managers.Player.GetGold() < Managers.Upgrade.LevelUPGold * updateList.Count)
+        {
+            Managers.UI.ShowPopupUI<UI_Popup>("GoldAlarmPopup");
+            Managers.Upgrade.RefresgUpgradeGold();
+            isSelect = false;
+            Refresh<T>();
+            return;
+        }
+        else if(updateList.Count != 0)
+        {
+            for (int i = 0; i < updateList.Count; i++)
+            {
+                levelUpAction(updateList[i]);
                 isAnySelected = true;
             }
+
+            Managers.Audio.audioControler.PlaySFX(SFXClipName.PowerUp);
         }
 
         if (!isAnySelected)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>("InchentPopup");
+            Managers.Upgrade.RefresgUpgradeGold();
+            isSelect = false;
+            Refresh<T>();
             return;
         }
 
+
+        Managers.Upgrade.RefresgUpgradeGold();
+        isSelect = false;
         Refresh<T>();
     }
 
+    public bool IsMaxLevel(IGettable gettable)
+    {
+        var max = gettable as UserObject;
 
+        return max.Status.Level.GetValue() == max.Status.MaxLevel.GetValue();
+    }
+
+    public void TextMaxLevel()
+    {
+        Get<TextMeshProUGUI>((int)Texts.TextInfo).text = "최고 레벨 입니다.";
+    }
 }

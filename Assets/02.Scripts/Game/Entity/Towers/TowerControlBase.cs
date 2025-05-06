@@ -93,6 +93,7 @@ public abstract class TowerControlBase : MonoBehaviour
         Tower.Sprite = Preview;
         TowerStatus = Tower.TowerStatus;
 
+        attackCooldown = TowerStatus.AttackCoolDown.GetValue();
         TowerStatus.AttackRange.OnChangeValue = null;
         TowerStatus.AttackRange.OnChangeValue += ApplyAttackRange;
 

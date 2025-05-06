@@ -2,26 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WizardBody : MonoBehaviour
+public class WizardBody : EnemyBodyBase
 {
-    public HealthView healthView;
-
-    private EnemyController ctrl;
     private void Start()
     {
         Init();
     }
 
-    public void Init()
+    public override void Init()
     {
-        ctrl = GetComponentInParent<EnemyController>();
-        ctrl.AnimData = new WizardAnimData();
-        ctrl.AnimData.Init(ctrl);
-        ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
+        if(ctrl == null)
+        {
+            ctrl = GetComponentInParent<EnemyController>();
+            ctrl.AnimData = new WizardAnimData();
+            ctrl.AnimData.Init(ctrl);
+            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
+        }
+        base.Init();
     }
 
-    protected void OnEnable()
+    public override void Enable()
     {
+        base.Enable();
         if (ctrl != null)
         {
             WizardAnimData data = ctrl.AnimData as WizardAnimData;

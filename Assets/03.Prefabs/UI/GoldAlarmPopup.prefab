@@ -90,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6073676477330558728, guid: 6d32586343263fb469af22872b66ceea, type: 3}
       propertyPath: m_Name
-      value: AlarmPopup
+      value: GoldAlarmPopup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

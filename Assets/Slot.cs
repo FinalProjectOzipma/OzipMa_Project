@@ -38,6 +38,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     private Image _stackGage;
     private int itemKey { get; set; }
 
+    private bool isSelect = false;
+
     private void Awake()
     {
         Bind<Image>(typeof(Images));
@@ -45,24 +47,80 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         button = GetComponent<Button>();
         button.onClick.AddListener(SeletToggle);
 
-        inventoryUI = Managers.UI.GetSceneList<InventoryUI>();
+        inventoryUI = Managers.UI.GetScene<InventoryUI>();
         GetImage((int)Images.Selected).gameObject.SetActive(false);
     }
 
     private void SeletToggle()
     {
         if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
+
+        UserObject userObject = Gettable as UserObject;
         GameObject imgObj = GetImage((int)Images.Selected).gameObject;
         imgObj.SetActive(!imgObj.activeSelf);
         IsActive = imgObj.activeInHierarchy;
+        inventoryUI.isSelect = true;
+
+        if (userObject == null)
+            return;
+
+        bool isMaxLevel = userObject.Status.Level.GetValue() >= userObject.Status.MaxLevel.GetValue();
+
+        if (IsActive)
+        {
+            // 선택 상태로 바뀜
+            if (!isMaxLevel)
+            {
+                Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+                isSelect = true;
+            }
+            else
+            {
+                // 만렙이면 선택은 되지만 비용 증가 없음
+                inventoryUI.TextMaxLevel();
+                Util.Log("만렙 유닛 선택됨 (비용 없음)");
+            }
+        }
+        else
+        {
+            // 선택 해제
+            if (!isMaxLevel && isSelect)
+            {
+                Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+                isSelect = false;
+                inventoryUI.isSelect = false;
+            }
+            else
+            {
+                Managers.Upgrade.RefresgUpgradeGold();
+                isSelect = false;
+                inventoryUI.isSelect = false;
+            }
+        }
+
     }
 
     // 전체 선택될때 호출해야되는 메서드
     public void OnSelect()
     {
         if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
-        IsActive = true;
-        GetImage((int)Images.Selected).gameObject.SetActive(true);
+
+        UserObject userObject = Gettable as UserObject;
+
+        if (IsActive)
+        {
+            IsActive = false;
+            Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+        }
+
+        bool isMaxLevel = userObject.Status.Level.GetValue() >= userObject.Status.MaxLevel.GetValue();  
+
+        if(!isMaxLevel)
+        {
+            IsActive = true;
+            Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+            GetImage((int)Images.Selected).gameObject.SetActive(true);
+        }   
     }
 
     public void DisSelect()
@@ -88,12 +146,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     #region 드래그 배치
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if(inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE)
-        {
-            Managers.UI.ShowPopupUI<UI_Alarm>("BatchPopup");
-            Util.Log("배치모드가 아니잖아!!");
-            return;
-        }
+        if(inventoryUI.CurrentTab != typeof(Tower)) return;
+
         buildingSystem = BuildingSystem.Instance;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
@@ -112,12 +166,12 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             PreviewObj.transform.position = cellWorldPos;
         }
         previewRenderer.sprite = _sprite;
-        Managers.UI.GetSceneList<InventoryUI>().OnSwipe();
+        inventoryUI.OnSwipe();
         buildingSystem.DragController.IsSlotDragging = true;
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
+        if (inventoryUI.CurrentTab != typeof(Tower)) return;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
         cellWorldPos.y -= 0.3f;
@@ -131,7 +185,11 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (inventoryUI.CurrentState != InventoryUI.STATE.PUTABLE) return;
+        if (inventoryUI.CurrentTab != typeof(Tower)) return;
+
+        // 한번 실행
+        inventoryUI.OnSwipe();
+
         Vector2 inputPos = eventData.position;
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;

@@ -20,6 +20,6 @@ public class StartScene : SceneBase
 
     public override void Exit()
     {
-        base.Exit();
+
     }
 }

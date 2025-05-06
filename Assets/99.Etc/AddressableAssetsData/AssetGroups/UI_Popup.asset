@@ -20,14 +20,12 @@ MonoBehaviour:
   - m_GUID: 7dc69b3c4b1be8049aa65d0dc2d8081e
     m_Address: Test2
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Popup
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7c578a8510ea6c74e9367544b68595e2
     m_Address: TestPopup
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Popup
+    m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6cec58193c71c754888e4a40e976bc59
     m_Address: Assets/03.Prefabs/Entity/Tower/Base/FloorTower.prefab
@@ -61,12 +59,14 @@ MonoBehaviour:
   - m_GUID: 9579e7a15eb52814aad406139e8416b9
     m_Address: MainUI
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 62789a068af58fb47ae20617abdf361e
     m_Address: JamAlarmPopup
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d9ec071f4c2369b4ab8a571e505a2862
     m_Address: GoldAlarmPopup
@@ -94,6 +94,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7f0503e47b3254e45afb5644812e987b
     m_Address: InchentPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 650b86604e0a9b54382cadabb411f986
+    m_Address: MaxLevelPopup
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
