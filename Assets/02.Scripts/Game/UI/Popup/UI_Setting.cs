@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class UI_Setting : UI_Popup
 {
+
+    [SerializeField] private Button SoundButton;
+    [SerializeField] private Button LanguageButton;
+    [SerializeField] private Button AccountButton;
     [SerializeField] private Button BackButton;
-    [SerializeField] private Image BackImage;
-    [SerializeField] private GameObject UI_Sound;
+    [SerializeField] private GameObject Setting;
 
     bool isButton = false;
 
@@ -16,54 +19,70 @@ public class UI_Setting : UI_Popup
     {
         Init();
 
-        var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
-        seq.Append(UI_Sound.transform.DOScale(1.1f, 0.1f));
-        seq.Append(UI_Sound.transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(Setting.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Setting.transform.DOScale(1.0f, 0.1f));
 
-        seq.Play();
+        uiSeq.Play();
+    }
 
+    private void OnEnable()
+    {
+        if (uiSeq != null)
+        {
+            uiSeq = Util.RecyclableSequence();
+
+            uiSeq.Append(Setting.transform.DOScale(1.1f, 0.1f));
+            uiSeq.Append(Setting.transform.DOScale(1.0f, 0.1f));
+
+            uiSeq.Play();
+        }
     }
 
 
     public override void Init()
     {
-        BackButton.gameObject.BindEvent(OnClickBack);
-
+        SoundButton.onClick.AddListener(OnClickSound);
+        BackButton.onClick.AddListener(OnClickBack);
     }
 
-    public void OnClickBack(PointerEventData data)
+
+    public void OnClickSound()
     {
         if (isButton) return;
 
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-   
-        var seq = DOTween.Sequence();
+        Managers.UI.ShowPopupUI<UI_Sound>("SoundUI");
+        isButton = false;
+    }
 
-        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(0.9f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.1f, 0.1f));
-        //seq.Append(Get<Image>((int)Images.BackImage).transform.DOScale(1.0f, 0.1f));
 
-        seq.Play().OnComplete(() =>
-        {
-            HidePpoup();
-            isButton = false;
-        });
+    public void OnClickBack()
+    {
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+
+        HidePpoup();
     }
 
 
     private void HidePpoup()
     {
-        var seq = DOTween.Sequence();
+        uiSeq = Util.RecyclableSequence();
 
-        seq.Append(UI_Sound.transform.DOScale(1.1f, 0.1f));
-        seq.Append(UI_Sound.transform.DOScale(0.2f, 0.1f));
+        uiSeq.Append(Setting.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(Setting.transform.DOScale(0.2f, 0.1f));
 
-        seq.Play().OnComplete(() =>
+        uiSeq.Play().OnComplete(() =>
         {
             ClosePopupUI();
+            isButton = false;
         });
     }
 

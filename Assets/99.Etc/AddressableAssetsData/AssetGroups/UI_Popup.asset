@@ -51,7 +51,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dd2ff314000d2524ca6483a719a9ac9c
-    m_Address: SoundUI
+    m_Address: SettingUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
@@ -100,6 +100,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 650b86604e0a9b54382cadabb411f986
     m_Address: MaxLevelPopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c2339ca73afa0448a5fb10c931d000c
+    m_Address: SoundUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

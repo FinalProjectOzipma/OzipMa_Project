@@ -32,7 +32,7 @@ public class SceneManager
             {
                 nextScene.Enter();
 
-                DOVirtual.DelayedCall(0f, () =>
+                DOVirtual.DelayedCall(0.0f, () =>
                 {
                     Managers.Resource.Destroy(go);
                 });

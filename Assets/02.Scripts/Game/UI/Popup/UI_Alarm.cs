@@ -47,10 +47,7 @@ public class UI_Alarm : UI_Popup
 
     public override void Init()
     {
-        base.Init();
-
         AlarmButton.gameObject.BindEvent(CloseAlarmPopup);
-
     }
     
     public void CloseAlarmPopup(PointerEventData data)

@@ -363,7 +363,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 11
   m_TargetDisplay: 0
 --- !u!114 &2274216852860145704
 MonoBehaviour:
@@ -417,6 +417,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b293ad22361147a42ad6c598c306d467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AlarmButton: {fileID: 98246453032782373}
+  AlarmText: {fileID: 3936239299441172115}
+  ButtonText: {fileID: 1769584854572842609}
+  ButtonImage: {fileID: 6459045544093258910}
+  BG: {fileID: 7539504231351531875}
 --- !u!114 &7757157443227071238
 MonoBehaviour:
   m_ObjectHideFlags: 0

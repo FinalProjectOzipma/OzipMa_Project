@@ -32,8 +32,7 @@ public class UI_Main : UI_Scene
     enum Objects
     {
         ReseachUI,
-        SoundUI,
-        AlarmPopup
+        SoundUI
     }
 
 
@@ -108,7 +107,7 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.ShowPopupUI<UI_Setting>(Objects.SoundUI.ToString());
+        Managers.UI.ShowPopupUI<UI_Setting>("SettingUI");
         isButton = false;
 
       
