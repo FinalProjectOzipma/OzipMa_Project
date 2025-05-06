@@ -332,6 +332,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd929b6a45f0b9e418929e84c1256f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpgradeButton: {fileID: 7772451376085663096}
+  GoldSpendButton: {fileID: 4614921566434338921}
+  ZamSpendButton: {fileID: 4204198847154750180}
+  CheckButton: {fileID: 2425369439973293698}
+  FillText: {fileID: 4414047840199191806}
+  UpgradeText: {fileID: 7081356820701254736}
+  UpgradeButtonText: {fileID: 4735863686033639903}
+  GoldSpendText: {fileID: 5402523776176742164}
+  ZamSpendText: {fileID: 8468380507821559385}
+  UpdateLevel: {fileID: 296422062821915030}
+  Icon: {fileID: 9036496452970973710}
+  FillBackImage: {fileID: 7460124468468799438}
+  FillImage: {fileID: 184899830240670434}
+  GoldImage: {fileID: 4838622539307219571}
+  ZamImage: {fileID: 8866183016680278305}
+  StarEffect: {fileID: 1574931491502548192}
   researchUpgradeType: 3
 --- !u!1 &476227090794721881
 GameObject:
@@ -5697,7 +5713,7 @@ GameObject:
   - component: {fileID: 6395690696608782064}
   - component: {fileID: 5408476927855454967}
   m_Layer: 5
-  m_Name: JamSpendText
+  m_Name: ZamSpendText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5832,7 +5848,7 @@ GameObject:
   - component: {fileID: 237103636519898433}
   - component: {fileID: 4204198847154750180}
   m_Layer: 5
-  m_Name: JamSpendButton
+  m_Name: ZamSpendButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5953,7 +5969,7 @@ GameObject:
   - component: {fileID: 5491633979230627432}
   - component: {fileID: 4813097146044668748}
   m_Layer: 5
-  m_Name: JamSpendText
+  m_Name: ZamSpendText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6623,7 +6639,7 @@ GameObject:
   - component: {fileID: 8660193505585878409}
   - component: {fileID: 5753794922396581794}
   m_Layer: 5
-  m_Name: JamSpendText
+  m_Name: ZamSpendText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11733,6 +11749,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd929b6a45f0b9e418929e84c1256f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpgradeButton: {fileID: 7311080069858150180}
+  GoldSpendButton: {fileID: 2655475983131530713}
+  ZamSpendButton: {fileID: 181190308673755078}
+  CheckButton: {fileID: 1458333902362304088}
+  FillText: {fileID: 484216528274594101}
+  UpgradeText: {fileID: 9172264748574260578}
+  UpgradeButtonText: {fileID: 5121317024870734384}
+  GoldSpendText: {fileID: 5244487653742477030}
+  ZamSpendText: {fileID: 5408476927855454967}
+  UpdateLevel: {fileID: 2868880636830757089}
+  Icon: {fileID: 1381162388300717264}
+  FillBackImage: {fileID: 3790207654355652751}
+  FillImage: {fileID: 2665519694501323889}
+  GoldImage: {fileID: 6629350169086437934}
+  ZamImage: {fileID: 7648160480148756843}
+  StarEffect: {fileID: 8252401241138649582}
   researchUpgradeType: 2
 --- !u!1 &1717671484105808158
 GameObject:
@@ -18698,7 +18730,7 @@ GameObject:
   - component: {fileID: 6428862220139868703}
   - component: {fileID: 1358885821411425767}
   m_Layer: 5
-  m_Name: JamSpendButton
+  m_Name: ZamSpendButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19956,6 +19988,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd929b6a45f0b9e418929e84c1256f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpgradeButton: {fileID: 6834591762563149128}
+  GoldSpendButton: {fileID: 1558706966507204101}
+  ZamSpendButton: {fileID: 1358885821411425767}
+  CheckButton: {fileID: 2956791851975744559}
+  FillText: {fileID: 3483383530792492831}
+  UpgradeText: {fileID: 2857855365682775415}
+  UpgradeButtonText: {fileID: 1526543936313006349}
+  GoldSpendText: {fileID: 661097642575005825}
+  ZamSpendText: {fileID: 5753794922396581794}
+  UpdateLevel: {fileID: 8525526118173300588}
+  Icon: {fileID: 3873865789667392282}
+  FillBackImage: {fileID: 5954226427208053968}
+  FillImage: {fileID: 2145207314034743363}
+  GoldImage: {fileID: 7766443180211436887}
+  ZamImage: {fileID: 5198787981964484193}
+  StarEffect: {fileID: 859687711662094369}
   researchUpgradeType: 1
 --- !u!1 &4372516839447129170
 GameObject:
@@ -27605,6 +27653,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd929b6a45f0b9e418929e84c1256f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpgradeButton: {fileID: 6975278303398779300}
+  GoldSpendButton: {fileID: 3484651918321433593}
+  ZamSpendButton: {fileID: 2120568870673356567}
+  CheckButton: {fileID: 7091434984931918423}
+  FillText: {fileID: 7278432359232148527}
+  UpgradeText: {fileID: 4207469756361287548}
+  UpgradeButtonText: {fileID: 5718774525497509799}
+  GoldSpendText: {fileID: 3914507505118841122}
+  ZamSpendText: {fileID: 4813097146044668748}
+  UpdateLevel: {fileID: 5381745243876700752}
+  Icon: {fileID: 4434655874282616163}
+  FillBackImage: {fileID: 3136165556915896591}
+  FillImage: {fileID: 215084136085972859}
+  GoldImage: {fileID: 6123005032220600371}
+  ZamImage: {fileID: 907294937334286891}
+  StarEffect: {fileID: 5242107415006009688}
   researchUpgradeType: 0
 --- !u!1 &7558460441553036810
 GameObject:
@@ -28112,7 +28176,7 @@ GameObject:
   - component: {fileID: 3658590481184169879}
   - component: {fileID: 2120568870673356567}
   m_Layer: 5
-  m_Name: JamSpendButton
+  m_Name: ZamSpendButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28367,7 +28431,7 @@ GameObject:
   - component: {fileID: 3251714088727877358}
   - component: {fileID: 8468380507821559385}
   m_Layer: 5
-  m_Name: JamSpendText
+  m_Name: ZamSpendText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28605,6 +28669,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba82a01526acdcc41b0e4a16113bea85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackButton: {fileID: 8941973037351167878}
+  GoldText: {fileID: 5039075940927327090}
+  ZamText: {fileID: 1724445308227113836}
+  BackImage: {fileID: 3834758830365253452}
+  UI_Research: {fileID: 6931974249848842989}
 --- !u!114 &4969172211575671531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29243,7 +29312,7 @@ GameObject:
   - component: {fileID: 1105156919996709089}
   - component: {fileID: 181190308673755078}
   m_Layer: 5
-  m_Name: JamSpendButton
+  m_Name: ZamSpendButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

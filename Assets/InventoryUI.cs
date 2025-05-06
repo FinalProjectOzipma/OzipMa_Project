@@ -250,16 +250,16 @@ public class InventoryUI : UI_Scene
 
     public void IsSelectFalse()
     {
-        Get<Image>((int)Images.SelectAllImage).color = Color.red;
-        Get<TextMeshProUGUI>((int)Texts.SelectText).color = Color.white;
-        Get<TextMeshProUGUI>((int)Texts.SelectText).text = "일괄 해제";
+        SelectAllImage.color = Color.red;
+        SelectText.color = Color.white;
+        SelectText.text = "일괄 해제";
     }
 
     public void IsSelectTrue()
     {
-        Get<Image>((int)Images.SelectAllImage).color = Color.white;
-        Get<TextMeshProUGUI>((int)Texts.SelectText).color = Color.black;
-        Get<TextMeshProUGUI>((int)Texts.SelectText).text = "일괄 선택";
+        SelectAllImage.color = Color.white;
+        SelectText.color = Color.black;
+        SelectText.text = "일괄 선택";
     }
 
     public void CheckActive()
@@ -303,9 +303,9 @@ public class InventoryUI : UI_Scene
         Refresh<MyUnit>();
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
-        Get<Image>((int)Images.SelectAllImage).color = Color.white;
-        Get<TextMeshProUGUI>((int)Texts.SelectText).color = Color.black;
-        Get<TextMeshProUGUI>((int)Texts.SelectText).text = "일괄 선택";
+        SelectAllImage.color = Color.white;
+        SelectText.color = Color.black;
+        SelectText.text = "일괄 선택";
     }
     private void OnTowerTap()
     {
@@ -315,9 +315,9 @@ public class InventoryUI : UI_Scene
         Refresh<Tower>();
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
-        Get<Image>((int)Images.SelectAllImage).color = Color.white;
-        Get<TextMeshProUGUI>((int)Texts.SelectText).color = Color.black;
-        Get<TextMeshProUGUI>((int)Texts.SelectText).text = "일괄 선택";
+        SelectAllImage.color = Color.white;
+        SelectText.color = Color.black;
+        SelectText.text = "일괄 선택";
     }
 
 

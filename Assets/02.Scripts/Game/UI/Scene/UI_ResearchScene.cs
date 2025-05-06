@@ -49,8 +49,8 @@ public class UI_ResearchScene : UI_Popup
         {
             uiSeq = Util.RecyclableSequence();
 
-            uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.1f, 0.1f));
-            uiSeq.Append(Get<GameObject>((int)ReseachObject.UI_Research).transform.DOScale(1.0f, 0.1f));
+            uiSeq.Append(UI_Research.transform.DOScale(1.1f, 0.1f));
+            uiSeq.Append(UI_Research.transform.DOScale(1.0f, 0.1f));
 
             uiSeq.Play();
         }

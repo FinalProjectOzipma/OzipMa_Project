@@ -464,6 +464,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b8537ec9df1b945b81bb4ae8cd9120, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  RewordGold: {fileID: 903566445104936835}
+  RewordExp: {fileID: 5868474407108623795}
+  ClearUI: {fileID: 350931868830878458}
+  OverUI: {fileID: 987175094157104727}
 --- !u!1 &5798759839033989852
 GameObject:
   m_ObjectHideFlags: 0

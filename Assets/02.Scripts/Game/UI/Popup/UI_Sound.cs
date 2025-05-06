@@ -35,28 +35,50 @@ public class UI_Sound : UI_Base
         BGMSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
         SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
 
-        MasterSlider.onValueChanged.AddListener(OnChangeMasterVolume);
-        BGMSlider.onValueChanged.AddListener(OnChangeBGMVolume);
-        SFXSlider.onValueChanged.AddListener(OnChangeSFXVolume);
+        MasterSlider.onValueChanged.AddListener((v) => OnChangeVolume(AudioType.Master, v));
+        BGMSlider.onValueChanged.AddListener((v) => OnChangeVolume(AudioType.BGM, v));
+        SFXSlider.onValueChanged.AddListener((v) => OnChangeVolume(AudioType.SFX, v));
 
         InitVolumeMuted();
 
     }
 
     #region 볼륨 조절 설정
-    public void OnChangeMasterVolume(float value)
-    {
-        Managers.Audio.audioControler.SetMasterVolume(value);
-    }
 
-    public void OnChangeBGMVolume(float value)
-    {
-        Managers.Audio.audioControler.SetBGMVolume(value);
-    }
 
-    public void OnChangeSFXVolume(float value)
+
+    public void OnChangeVolume(AudioType type, float value)
     {
-        Managers.Audio.audioControler.SetSFXVolume(value);
+        float dB;
+
+        bool isMute;
+
+        switch (type)
+        {
+            case AudioType.Master:
+                isMute = Managers.Audio.audioControler.isMasterMute;
+                Managers.Audio.masterVolume = value;
+                break;
+            case AudioType.BGM:
+                isMute = Managers.Audio.audioControler.isBGMMute;
+                Managers.Audio.bgmVolume = value;
+                break;
+            case AudioType.SFX:
+                isMute = Managers.Audio.audioControler.isSFXMute;
+                Managers.Audio.sfxVolume = value;
+                break;
+            default:
+                isMute = false;
+                break;
+        }
+
+        if (value <= 0.0001f || isMute)
+            dB = -80.0f;
+        else
+            dB = Mathf.Log10(value) * 20f;
+
+        Managers.Audio.audioControler.SetVolume(type, dB);
+
     }
     #endregion
 

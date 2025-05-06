@@ -1100,6 +1100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ec1d2dc29f5d0141a61eef68ffc6a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MasterMuteButton: {fileID: 3392906047251134181}
+  BGMBMuteButton: {fileID: 6197073416234255405}
+  SFMMuteButton: {fileID: 6548103294748930182}
+  MasterSlider: {fileID: 8076499091077463502}
+  BGMSlider: {fileID: 3067327842884737751}
+  SFXSlider: {fileID: 6011613702325266766}
 --- !u!1 &3466086629181044610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,6 +1297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3130fe1650510eb42a7d459df3e78f1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BackButton: {fileID: 653630568532583580}
+  BackImage: {fileID: 8355360150041403320}
+  UI_Sound: {fileID: 3425043755624041372}
 --- !u!114 &3793017661777177850
 MonoBehaviour:
   m_ObjectHideFlags: 0

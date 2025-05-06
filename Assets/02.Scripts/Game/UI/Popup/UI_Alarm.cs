@@ -38,8 +38,8 @@ public class UI_Alarm : UI_Popup
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
 
-        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(Get<GameObject>((int)Objects.BG).transform.DOScale(1.0f, 0.1f));
+        uiSeq.Append(BG.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(BG.transform.DOScale(1.0f, 0.1f));
 
         uiSeq.Play();
 

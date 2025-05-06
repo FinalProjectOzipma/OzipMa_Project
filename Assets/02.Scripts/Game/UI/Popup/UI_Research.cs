@@ -26,9 +26,13 @@ public class UI_Research : UI_Base
     [SerializeField] private Image GoldImage;
     [SerializeField] private Image ZamImage;
 
-    [SerializeField] private GameObject GoldAlarmPopup;
-    [SerializeField] private GameObject ZamAlarmPopup;
-    [SerializeField] private GameObject StartFailPopup;
+
+    enum Objects
+    {
+        GoldAlarmPopup,
+        ZamAlarmPopup,
+        StartFailPopup
+    }
 
     [SerializeField] private ParticleSystem StarEffect;
 
@@ -288,7 +292,7 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.zam < spendZam)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(ZamAlarmPopup.ToString());
+            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.ZamAlarmPopup.ToString());
             //Managers.UI.GetAlarmPopup().WriteText("잼이 부족합니다. 잼이 없네요.");
             isPopup = false;
             return;
@@ -327,7 +331,7 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.gold < spendGold)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(GoldAlarmPopup.ToString());
+            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.GoldAlarmPopup.ToString());
             isPopup = false;
             return;
         }

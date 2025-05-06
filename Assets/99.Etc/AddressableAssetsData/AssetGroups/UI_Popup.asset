@@ -63,7 +63,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 62789a068af58fb47ae20617abdf361e
-    m_Address: JamAlarmPopup
+    m_Address: ZamAlarmPopup
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
