@@ -7,6 +7,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public abstract class UI_Base : MonoBehaviour
@@ -89,4 +90,25 @@ public abstract class UI_Base : MonoBehaviour
     }
     #endregion
 #endif
+
+    // 팝업창 애니메이션
+    public void AnimePopup(GameObject popUp, bool close = false)
+    {
+        uiSeq = Util.RecyclableSequence();
+
+        if (!close)
+        {
+            Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
+            uiSeq.Append(popUp.transform.DOScale(1.1f, 0.1f));
+            uiSeq.Append(popUp.transform.DOScale(1.0f, 0.1f));
+            uiSeq.Play();
+        }
+        else
+        {
+            uiSeq.Append(popUp.transform.DOScale(1.1f, 0.1f));
+            uiSeq.Append(popUp.transform.DOScale(0.2f, 0.1f));
+        }
+
+    }
+
 }

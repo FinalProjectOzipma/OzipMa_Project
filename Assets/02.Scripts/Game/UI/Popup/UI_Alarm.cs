@@ -20,29 +20,14 @@ public class UI_Alarm : UI_Popup
     {
         Init();
 
-        uiSeq = Util.RecyclableSequence();
-
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
-
-        uiSeq.Append(BG.transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(BG.transform.DOScale(1.0f, 0.1f));
-
-        uiSeq.Play();
+        AnimePopup(BG);
     }
 
     private void OnEnable()
     {
         if (uiSeq == null) return;
 
-        uiSeq = Util.RecyclableSequence();
-
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
-
-        uiSeq.Append(BG.transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(BG.transform.DOScale(1.0f, 0.1f));
-
-        uiSeq.Play();
-
+        AnimePopup(BG);
     }
 
     public override void Init()
@@ -65,10 +50,7 @@ public class UI_Alarm : UI_Popup
 
     private void HidePpoup()
     {
-        uiSeq = Util.RecyclableSequence();
-
-        uiSeq.Append(BG.transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(BG.transform.DOScale(0.2f, 0.1f));
+        AnimePopup(BG, true);
 
         uiSeq.Play().OnComplete(() =>
         {
