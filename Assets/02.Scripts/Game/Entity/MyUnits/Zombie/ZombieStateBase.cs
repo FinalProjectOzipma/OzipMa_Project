@@ -29,5 +29,7 @@ public class ZombieStateBase : MyUnitStateBase
             StateMachine.ChangeState(data.DeadState);
             return;
         }
+        if (Managers.Wave.CurEnemyList.Count == 0)
+            StateMachine.ChangeState(data.IdleState);
     }
 }

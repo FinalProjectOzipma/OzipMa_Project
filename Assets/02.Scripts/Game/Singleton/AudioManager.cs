@@ -8,9 +8,9 @@ using static UnityEngine.Rendering.HDROutputUtils;
 public class AudioManager
 {
 
-    [Range(0f, 1f)] public float masterVolume = 1f; // 마스터 볼륨
-    [Range(0f, 1f)] public float bgmVolume = 1f; // BGM 볼륨
-    [Range(0f, 1f)] public float sfxVolume = 1f; // SFX 볼륨
+    [Range (0,1)] public float masterVolume = 1f; // 마스터 볼륨
+    [Range(0, 1)] public float bgmVolume = 1f; // BGM 볼륨
+    [Range(0, 1)] public float sfxVolume = 1f; // SFX 볼륨
 
     public AudioControler audioControler;
 

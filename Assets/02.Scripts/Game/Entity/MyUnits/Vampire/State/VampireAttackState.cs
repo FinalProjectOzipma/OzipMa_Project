@@ -25,23 +25,15 @@ public class VampireAttackState : VampireStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target == null)
+
+        OutRange(data.ChaseState);
+
+        if (triggerCalled) // 화살 만드는 Attack구간
         {
+            Heal();
+            target.GetComponent<EnemyController>().ApplyDamage(controller.Status.Attack.GetValue(), controller.MyUnit.AbilityType, controller.gameObject);
+            triggerCalled = false;
             StateMachine.ChangeState(data.IdleState);
-        }
-        else
-        {
-            if (!controller.Target.activeSelf)
-            {
-                StateMachine.ChangeState(data.IdleState);
-            }
-            else
-            {
-                if (!IsClose())
-                {
-                    StateMachine.ChangeState(data.ChaseState);
-                }
-            }
         }
     }
 }

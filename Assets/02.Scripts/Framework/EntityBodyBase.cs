@@ -58,7 +58,7 @@ public class EntityBodyBase : MonoBehaviour
     {
         Dictionary<int, IConditionable> conditions = ctrl.Conditions;
         Dictionary<int, ConditionHandler> conditionHandlers = ctrl.ConditionHandlers;
-        Dictionary<int, float> times = GetComponentInParent<EnemyController>().Times;
+        Dictionary<int, float> times = GetComponentInParent<EntityController>().Times;
         while (timeStart)
         {
             foreach (var condi in conditionHandlers)

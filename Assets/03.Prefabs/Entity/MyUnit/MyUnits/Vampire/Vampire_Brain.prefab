@@ -72,18 +72,18 @@ PrefabInstance:
       propertyPath: Agent
       value: 
       objectReference: {fileID: 6944258856291340217}
+    - target: {fileID: 3635720689636166866, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 4389322158939576911, guid: f23c6199ba51e52488cce97c3a913055, type: 3}
     - target: {fileID: 5112076379583237063, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
       propertyPath: m_ObstacleAvoidanceType
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3635720689636166866, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1773844028320060821, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6173124635569673618}
     - targetCorrespondingSourceObject: {fileID: 1773844028320060821, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
       insertIndex: -1
       addedObject: {fileID: 866595739887945220}
@@ -93,24 +93,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1773844028320060821, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
   m_PrefabInstance: {fileID: 2787526696321041534}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6173124635569673618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4481852920313500139}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4bbcf060604572c4cac771471d6e4a89, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sprite: {fileID: 164460064, guid: 77d96a34c63ffb7488eee3fea98d1f21, type: 3}
-  capsuleCollider: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  Agent: {fileID: 6944258856291340217}
-  Target: {fileID: 0}
-  hpImage: {fileID: 0}
 --- !u!50 &866595739887945220
 Rigidbody2D:
   serializedVersion: 4

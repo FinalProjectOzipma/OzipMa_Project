@@ -44,7 +44,8 @@ public class ArcherManAttackState : ArcherManStateBase
     private void CreateArrow(string objectName)
     {
         Managers.Resource.Instantiate(objectName, (go) => 
-        { Fire<EntityProjectile>(go, targets.Peek().transform.position);
+        { 
+            Fire<EntityProjectile>(go, targets.Peek().transform.position);
             Managers.Audio.audioControler.PlaySFX(SFXClipName.Arrow);
         });
     }

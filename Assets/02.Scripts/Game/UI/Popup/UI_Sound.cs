@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UI_Sound : UI_Base
+public class UI_Sound : UI_Popup
 {
     [SerializeField] private Button MasterMuteButton;
     [SerializeField] private Button BGMBMuteButton;
     [SerializeField] private Button SFMMuteButton;
+    [SerializeField] private Button BackButton;
 
     [SerializeField] private Slider MasterSlider;
     [SerializeField] private Slider BGMSlider;
     [SerializeField] private Slider SFXSlider;
+
 
 
     private void Awake()
@@ -20,43 +22,85 @@ public class UI_Sound : UI_Base
         Init();
     }
 
+    private void Start()
+    {
+        uiSeq = Util.RecyclableSequence();
+
+        uiSeq.Append(transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(transform.DOScale(1.0f, 0.1f));
+
+        uiSeq.Play();
+    }
+
+    private void OnEnable()
+    {
+        if (uiSeq != null)
+        {
+            uiSeq = Util.RecyclableSequence();
+
+            uiSeq.Append(transform.DOScale(1.1f, 0.1f));
+            uiSeq.Append(transform.DOScale(1.0f, 0.1f));
+
+            uiSeq.Play();
+        }
+    }
 
 
     public override void Init()
     {
-
-
-
         MasterMuteButton.gameObject.BindEvent(OnClickMasterMuted);
         BGMBMuteButton.gameObject.BindEvent(OnClickBGMMuted);
         SFMMuteButton.gameObject.BindEvent(OnClickSFXMuted);
+        BackButton.gameObject.BindEvent(OnClickBack);
 
         MasterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
         BGMSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
         SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
 
-        MasterSlider.onValueChanged.AddListener(OnChangeMasterVolume);
-        BGMSlider.onValueChanged.AddListener(OnChangeBGMVolume);
-        SFXSlider.onValueChanged.AddListener(OnChangeSFXVolume);
+        MasterSlider.onValueChanged.AddListener((v) => OnChangeVolume(AudioType.Master, v));
+        BGMSlider.onValueChanged.AddListener((v) => OnChangeVolume(AudioType.BGM, v));
+        SFXSlider.onValueChanged.AddListener((v) => OnChangeVolume(AudioType.SFX, v));
+
 
         InitVolumeMuted();
 
     }
 
+
     #region 볼륨 조절 설정
-    public void OnChangeMasterVolume(float value)
-    {
-        Managers.Audio.audioControler.SetMasterVolume(value);
-    }
 
-    public void OnChangeBGMVolume(float value)
+    public void OnChangeVolume(AudioType type, float value)
     {
-        Managers.Audio.audioControler.SetBGMVolume(value);
-    }
+        float dB;
 
-    public void OnChangeSFXVolume(float value)
-    {
-        Managers.Audio.audioControler.SetSFXVolume(value);
+        bool isMute;
+
+        switch (type)
+        {
+            case AudioType.Master:
+                isMute = Managers.Audio.audioControler.isMasterMute;
+                Managers.Audio.masterVolume = value;
+                break;
+            case AudioType.BGM:
+                isMute = Managers.Audio.audioControler.isBGMMute;
+                Managers.Audio.bgmVolume = value;
+                break;
+            case AudioType.SFX:
+                isMute = Managers.Audio.audioControler.isSFXMute;
+                Managers.Audio.sfxVolume = value;
+                break;
+            default:
+                isMute = false;
+                break;
+        }
+
+        if (value <= 0.0001f || isMute)
+            dB = -80.0f;
+        else
+            dB = Mathf.Log10(value) * 20f;
+
+        Managers.Audio.audioControler.SetVolume(type, dB);
+
     }
     #endregion
 
@@ -114,9 +158,7 @@ public class UI_Sound : UI_Base
     }
     #endregion
 
-    /// <summary>
-    /// 나가기 버튼
-    /// </summary>
+
  
     public void InitVolumeMuted()
     {
@@ -146,7 +188,36 @@ public class UI_Sound : UI_Base
         {
             SFMMuteButton.GetComponent<Image>().color = Color.white;
         }
+    }
 
 
+    /// <summary>
+    /// 나가기 버튼
+    /// </summary>
+    public void OnClickBack(PointerEventData data)
+    {
+        bool isButton = false;
+
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+
+        HidePpoup();
+    }
+
+
+    private void HidePpoup()
+    {
+        uiSeq = DOTween.Sequence();
+
+        uiSeq.Append(this.gameObject.transform.DOScale(1.1f, 0.1f));
+        uiSeq.Append(this.gameObject.transform.DOScale(0.2f, 0.1f));
+
+        uiSeq.Play().OnComplete(() =>
+        {
+            ClosePopupUI();
+        });
     }
 }

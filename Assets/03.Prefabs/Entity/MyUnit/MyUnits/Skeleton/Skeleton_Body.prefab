@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8481051753841024820}
   m_Layer: 9
-  m_Name: GameObject
+  m_Name: AttackCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,6 +71,10 @@ PrefabInstance:
       propertyPath: dotColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3675584278211520331, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: AttackCheck
+      value: 
+      objectReference: {fileID: 8481051753841024820}
     - target: {fileID: 5498075652551475942, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -160,19 +164,30 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1409385341382462297, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8725195386256813284}
+      addedObject: {fileID: 5094987287544378505}
   m_SourcePrefab: {fileID: 100100000, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
 --- !u!4 &3150193821825504871 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5498075652551475942, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
   m_PrefabInstance: {fileID: 7492488096722982017}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7892879418749309473 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 753101940187940512, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+  m_PrefabInstance: {fileID: 7492488096722982017}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bebd4f312b4a5e94d842df9a2735b768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8391770410487291864 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1409385341382462297, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
   m_PrefabInstance: {fileID: 7492488096722982017}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8725195386256813284
+--- !u!114 &5094987287544378505
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,7 +196,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 8391770410487291864}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f5b81788d647d54cafdd9bcdd68ba9b, type: 3}
+  m_Script: {fileID: 11500000, guid: 21c702aa25327774b88eb50e4b7acc35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackCheck: {fileID: 8481051753841024820}
+  healthView: {fileID: 7892879418749309473}
+  conditions: []

@@ -19,19 +19,19 @@ public class UI_EndingPanel : UI_Scene
     {
         base.Init();
 
-        ClearUI.localPosition = new Vector3(0.0f, 1200.0f, 0.0f);
-        OverUI.localPosition = new Vector3(0.0f, 1200.0f, 0.0f);
+        ClearUI.anchoredPosition = new Vector3(0.0f, 400.0f, 0.0f);
+        OverUI.anchoredPosition = new Vector3(0.0f, 400.0f, 0.0f);
         Managers.UI.SetSceneList<UI_EndingPanel>(this);
     }
 
     public void MoveEndingPanel(bool isClear)
     {
         RectTransform whatRect = isClear ? ClearUI : OverUI; 
-        Vector3 originalPos = whatRect.localPosition;
+        Vector3 originalPos = whatRect.anchoredPosition;
 
         Sequence seq = DOTween.Sequence();
-        seq.Append(whatRect.DOLocalMoveY(originalPos.y - 500f, 1.0f).SetEase(Ease.OutQuad))
+        seq.Append(whatRect.DOAnchorPosY(originalPos.y - 400f, 1.0f).SetEase(Ease.OutQuad))
            .AppendInterval(2.0f)
-           .Append(whatRect.DOLocalMoveY(originalPos.y, 1.0f).SetEase(Ease.InQuad));
+           .Append(whatRect.DOAnchorPosY(originalPos.y, 1.0f).SetEase(Ease.InQuad));
     }
 }

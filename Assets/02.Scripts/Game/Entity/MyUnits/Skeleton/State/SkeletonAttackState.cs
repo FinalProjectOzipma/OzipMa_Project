@@ -5,6 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class SkeletonAttackState : SkeletonStateBase
 {
+    private string Arrow = nameof(Arrow);
     public SkeletonAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, SkeletonAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
@@ -26,27 +27,27 @@ public class SkeletonAttackState : SkeletonStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target == null || !controller.Target.activeSelf)
-        {
-            StateMachine.ChangeState(data.IdleState);
-        }
-        else
-        {
-            if (DetectedMap(controller.Target.transform.position))
-                StateMachine.ChangeState(data.ChaseState);
 
-            if (controller.Target.activeSelf)
-            {
-                //타겟이 범위 내에 없다면
-                if (!IsClose())
-                    //추격 상태로 현재 상태 변경
-                    StateMachine.ChangeState(data.ChaseState);
-            }
-            else
-            {
-                //탐색 상태로 현재 상태 변경
-                StateMachine.ChangeState(data.IdleState);
-            }
+        if (DetectedMap(target.transform.position))
+            StateMachine.ChangeState(data.ChaseState);
+
+        OutRange(data.ChaseState);
+
+        if (projectileCalled) // 화살 만드는 Attack구간
+        {
+            CreateArrow(Arrow);
+            projectileCalled = false;
         }
+
+        if (triggerCalled) // 공격 모션이 끝나는 구간
+            StateMachine.ChangeState(data.IdleState);
+    }
+    private void CreateArrow(string objectName)
+    {
+        Managers.Resource.Instantiate(objectName, (go) =>
+        {
+            Fire<EntityProjectile>(go, target.transform.position);
+            Managers.Audio.audioControler.PlaySFX(SFXClipName.Arrow);
+        });
     }
 }

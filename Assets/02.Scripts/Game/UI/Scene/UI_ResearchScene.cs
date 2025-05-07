@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class UI_ResearchScene : UI_Popup
 {
@@ -32,6 +33,8 @@ public class UI_ResearchScene : UI_Popup
         uiSeq.Play();
     }
 
+
+
     public override void Init()
     {
         GoldText.text = Managers.Player.GetGold().ToString();
@@ -42,6 +45,16 @@ public class UI_ResearchScene : UI_Popup
 
     private void OnEnable()
     {
+        if(uiSeq != null)
+        {
+            uiSeq = Util.RecyclableSequence();
+
+            uiSeq.Append(UI_Research.transform.DOScale(1.1f, 0.1f));
+            uiSeq.Append(UI_Research.transform.DOScale(1.0f, 0.1f));
+
+            uiSeq.Play();
+        }
+
         if (Managers.Player != null)
         {
             Managers.Player.OnGoldChanged += UpdateGoldUI;

@@ -50,6 +50,7 @@ MonoBehaviour:
   isMasterMute: 0
   isBGMMute: 0
   isSFXMute: 0
+  Mixer: {fileID: 24100000, guid: 891d81b0caa67144f9bb5b5a7ab63f6a, type: 2}
   bgmSource: {fileID: 0}
   sfxPrefab: {fileID: 3328890202286742413, guid: 9a40affe1cf9c1b49a7fea883e75d6e6, type: 3}
   poolSize: 10
@@ -62,7 +63,7 @@ AudioSource:
   m_GameObject: {fileID: 5867901130829429327}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6318244961819352116, guid: 891d81b0caa67144f9bb5b5a7ab63f6a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

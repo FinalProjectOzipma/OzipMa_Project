@@ -27,7 +27,6 @@ public class UpgradeManager
 
         if (myUnit.Status.Level.GetValue() == myUnit.Status.MaxLevel.GetValue())
         {
-            Util.Log("만렙입니다");
             return;
         }
 
@@ -40,8 +39,6 @@ public class UpgradeManager
             myUpgradeStatus.MoveSpeed.AddMultiples(UpdateValue);
 
             Managers.Player.SpenGold(LevelUPGold);
-            Util.Log("업그레이드 완료" + myUnit.Name + " " + myUnit.Status.Level.GetValueToString());
-            Util.Log("MaxLevel" + myUnit.Status.MaxLevel.GetValueToString());
             //myUnit.AttackCoolDown.AddMultiples(-myUnitUpdateValue);
             //myUnit.AttackRange.AddMultiples(myUnitUpdateValue);
             return;
@@ -70,7 +67,6 @@ public class UpgradeManager
             tower.TowerStatus.Attack.AddMultiples(UpdateValue);
 
             Managers.Player.SpenGold(LevelUPGold);
-            Util.Log("업그레이드 완료" + tower.Name + " " + tower.TowerStatus.Level);
             return;
         }
         else
