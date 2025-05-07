@@ -29,14 +29,24 @@ public class VampireStateBase : MyUnitStateBase
             StateMachine.ChangeState(data.DeadState);
             return;
         }
+        if (Managers.Wave.CurEnemyList.Count == 0)
+            StateMachine.ChangeState(data.IdleState);
     }
 
     /// <summary>
-    /// 매개변수에 이미 계산 다 된 회복량 넣어주기
+    /// 흡혈
     /// </summary>
-    /// <param name="amount"></param>
-    public void Heal(float amount)
+    public void Heal()
     {
+        if (target == null || !target.activeSelf)
+        {
+            return;
+        }
+        float atkValue = controller.MyUnit.Status.Attack.GetValue();
+        float defence = target.GetComponent<EnemyController>().Enemy.Status.Attack.GetValue();
+        float damageScale = atkValue / (atkValue + defence);
+
+        float amount = atkValue * damageScale;
         controller.Status.Health.AddValue(amount);
     }
 }

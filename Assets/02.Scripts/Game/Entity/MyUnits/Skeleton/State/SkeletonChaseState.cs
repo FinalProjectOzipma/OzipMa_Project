@@ -23,25 +23,15 @@ public class SkeletonChaseState : SkeletonStateBase
     public override void Update()
     {
         base.Update();
-        //타겟이 없을 때
-        if (target == null || !target.activeSelf)
-        {
-            //Idle상태로 현재 상태 변경
-            StateMachine.ChangeState(data.IdleState);
-        }
-        //타겟이 있을때 
-        else
-        {
-            //맵 감지
-            if (!DetectedMap(controller.Target.transform.position))
-                InnerRange(data.IdleState);
-            //가까우면 공격상태로 바꿈
-            if (IsClose())
-            {
-                StateMachine.ChangeState(data.AttackState);
-            }
-        }
+        agent.SetDestination(target.transform.position);
+        //맵 감지
+        if (!DetectedMap(controller.Target.transform.position))
+            InnerRange(data.IdleState);
 
-        controller.Agent.SetDestination(controller.Target.transform.position);
+        //가까우면 공격상태로 바꿈
+        if (IsClose())
+        {
+            StateMachine.ChangeState(data.AttackState);
+        }
     }
 }

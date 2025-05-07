@@ -22,29 +22,13 @@ public class VampireChaseState : VampireStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target == null)
+        
+        agent.SetDestination(target.transform.position);
+
+        //가까우면 공격상태로 바꿈
+        if (IsClose())
         {
-            StateMachine.ChangeState(data.IdleState);
-        }
-        else
-        {
-            //비활성화 되어있다면
-            if (!controller.Target.activeSelf)
-            {
-                StateMachine.ChangeState(data.IdleState);
-            }
-            //활성화되어있다면
-            else
-            {
-                if (IsClose())
-                {
-                    StateMachine.ChangeState(data.AttackState);
-                }
-                else
-                {
-                    controller.Agent.SetDestination(controller.Target.transform.position);
-                }
-            }
+            StateMachine.ChangeState(data.AttackState);
         }
     }
 }
