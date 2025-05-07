@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Table = DefaultTable;
 using static UnityEngine.Rendering.DebugUI;
+using static UnityEngine.GraphicsBuffer;
 
 public class ZombieIdleState : ZombieStateBase
 {
@@ -16,6 +17,7 @@ public class ZombieIdleState : ZombieStateBase
     {
         base.Enter();
         agent.isStopped = true;
+
         time = attackCoolDown;
     }
 
@@ -27,13 +29,11 @@ public class ZombieIdleState : ZombieStateBase
     public override void Update()
     {
         base.Update();
-        if (target == null || !target.activeSelf)
-        {
+        if (Managers.Wave.CurEnemyList.Count == 0)
             return;
-        }
         else if (!IsClose())
         {
-            StateMachine.ChangeState(data.ChaseState);
+            StateMachine.ChangeState(data.AttackState);
         }
         else if (time < 0)
         {

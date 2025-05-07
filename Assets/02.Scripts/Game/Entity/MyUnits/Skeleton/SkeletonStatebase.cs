@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class SkeletonStateBase : MyUnitStateBase
 {
@@ -29,5 +30,7 @@ public class SkeletonStateBase : MyUnitStateBase
             StateMachine.ChangeState(data.DeadState);
             return;
         }
+        if (Managers.Wave.CurEnemyList.Count == 0)
+            StateMachine.ChangeState(data.IdleState);
     }
 }

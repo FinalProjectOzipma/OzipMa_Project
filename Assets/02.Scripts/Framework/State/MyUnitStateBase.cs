@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
-using static UnityEngine.RuleTile.TilingRuleOutput;
+
 
 public class MyUnitStateBase : EntityStateBase
 {
@@ -14,17 +14,21 @@ public class MyUnitStateBase : EntityStateBase
 
     protected CapsuleCollider2D capCol;
     protected NavMeshAgent agent;
-
+    protected Transform transform;
+    protected SpriteRenderer SR;
     public MyUnitStateBase(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
         this.status = controller.Status as MyUnitStatus;
         
+        this.transform = controller.transform;
         this.Anim = controller.Anim;
         this.animHashKey = animHashKey;
 
         capCol = controller.GetComponent<CapsuleCollider2D>();
         agent = controller.GetComponent<NavMeshAgent>();
+        this.transform = controller.transform;
+        this.SR = controller.spriteRenderer;
     }
 
     public override void Enter()
@@ -60,9 +64,10 @@ public class MyUnitStateBase : EntityStateBase
     {
         base.Update();
         // Target 있을때만
-        if (target != null || target.activeSelf)
+        if (target != null && target.activeSelf)
         {
             controller.FlipControll(target);
+            return;
         }
         else if (Managers.Wave.CurEnemyList.Count > 0)
         {
@@ -70,12 +75,31 @@ public class MyUnitStateBase : EntityStateBase
         }
     }
 
+    /// <summary>
+    /// 안으로 들어왔을때
+    /// </summary>
+    /// <param name="nextState"></param>
+    /// <param name="dist"></param>
     public void InnerRange(MyUnitStateBase nextState, float dist = -1)
     {
         if (dist < 0)
             dist = controller.Status.AttackRange.GetValue();
 
         if (Vector2.Distance(controller.transform.position, controller.Target.transform.position) <= dist)
+            StateMachine.ChangeState(nextState);
+    }
+
+    /// <summary>
+    /// 바깥으로 나갔을때
+    /// </summary>
+    /// <param name="nextState"></param>
+    /// <param name="dist"></param>
+    public void OutRange(MyUnitStateBase nextState, float dist = -1)
+    {
+        if (dist < 0)
+            dist = status.AttackRange.GetValue();
+
+        if (Vector2.Distance(transform.position, target.transform.position) > dist)
             StateMachine.ChangeState(nextState);
     }
 
@@ -131,9 +155,9 @@ public class MyUnitStateBase : EntityStateBase
             controller.Target = null;
             return;
         }
-
         float minDistance = float.MaxValue;
         controller.Target = enemys[0];
+        target = controller.Target;
         //적들과의 거리를 비교하고
         foreach (GameObject enemy in enemys)
         {
@@ -143,7 +167,21 @@ public class MyUnitStateBase : EntityStateBase
             {
                 minDistance = distance;
                 controller.Target = enemy;
+                target = controller.Target;
+                Util.Log("타겟지정되다");
             }
         }
+    }
+
+    /// <summary>
+    /// 투사체 생성메서드
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="go"></param>
+    /// <param name="targetPos"></param>
+    protected void Fire<T>(GameObject go, Vector2 targetPos) where T : EntityProjectile
+    {
+        EntityProjectile projectile = go.GetComponent<T>();
+        projectile.Init(SR.gameObject, status.Attack.GetValue(), targetPos);
     }
 }
