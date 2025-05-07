@@ -206,6 +206,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f99e961fe5a9ea49afe4e83154cfbe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UserObjects: {fileID: 7570796315363034414}
+  OnMyUnit: {fileID: 2178645051814990626}
+  DisMyUnit: {fileID: 5692444962183358708}
+  OnTower: {fileID: 6049541843255165631}
+  DisTower: {fileID: 2498617443900878404}
+  Contents: {fileID: 8561284418822098767}
+  BackgroundButton: {fileID: 8826251551393192489}
+  SwipeBtn: {fileID: 5980258723698542711}
+  InchentBtn: {fileID: 3115444300432801471}
+  SelectAllBtn: {fileID: 5337300832599658905}
+  PutBtn: {fileID: 856642880023148553}
+  MyUnitTab: {fileID: 7397194189675426052}
+  TowerTab: {fileID: 5222973456471077831}
+  InchentText: {fileID: 4503165751704629413}
+  SelectText: {fileID: 7539582071759678487}
+  PutText: {fileID: 4928114584715407045}
+  TextInfo: {fileID: 1192613528587052506}
+  InchentImage: {fileID: 5549547998226363963}
+  SelectAllImage: {fileID: 3533631733941611004}
+  PutImage: {fileID: 2748630661851429838}
+  SwipeIcon: {fileID: 3144340038645457359}
   CurrentState: 0
   isSelect: 0
 --- !u!1 &1309299372655672331

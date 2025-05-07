@@ -13,6 +13,7 @@ public class UI_Main : UI_Scene
     [SerializeField] private Button ResearchButton;
     [SerializeField] private Button ManagerButton;
     [SerializeField] private Button SettingButton;
+    [SerializeField] private Button DictionaryButton;
 
     [SerializeField] private TextMeshProUGUI MainGoldText;
     [SerializeField] private TextMeshProUGUI MainZamText;
@@ -20,6 +21,7 @@ public class UI_Main : UI_Scene
     [SerializeField] private TextMeshProUGUI PlayerName;
     [SerializeField] private TextMeshProUGUI ResearchText;
     [SerializeField] private TextMeshProUGUI ManagerText;
+    [SerializeField] private TextMeshProUGUI DictionaryText;
 
     [SerializeField] private Image ProfileImage;
     [SerializeField] private Image ResearchButtonImage;
@@ -27,6 +29,7 @@ public class UI_Main : UI_Scene
     [SerializeField] private Image SettingImage;
     [SerializeField] private Image ProgressImage;
     [SerializeField] private Image CompleteImage;
+    [SerializeField] private Image DictionaryButtonImage;
 
 
     enum Objects
