@@ -1,33 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class CoreController : Poolable, IDamagable
 {
     public Core core;
     public Animator anime;
-    public GameObject HpBar;
+    private GameObject body;
     private float spawnY = 2.7f;
+    private CapsuleCollider2D coreColider;
 
-    public string coreLevelkey = "CoreLevelKey";
+    [HideInInspector]public string coreLevelkey = "CoreLevelKey";
+    [HideInInspector]public string coreHealthkey = "CoreHealthKey";
     
-    public Vector2 CenterPos { get; private set; }
+    //public Vector2 CenterPos { get; private set; }
     // Start is called before the first frame update
 
     private void Awake()
     {
         core = new Core();
-
-        CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
+        coreColider = GetComponent<CapsuleCollider2D>();
+        //CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
 
     public void Init(float maxHealth)
     {
-        core.Health.SetValue(maxHealth);
-        core.MaxHealth.SetValue(maxHealth);
-        HpBar.transform.localScale = Vector3.one;
+        if(body == null)
+        {
+            Managers.Resource.Instantiate("Core_Body", go =>
+            {
+                body = go;
+                body.transform.SetParent(transform);
+                body.transform.localPosition = Vector3.zero;
+
+                if (body.TryGetComponent<CoreBase>(out CoreBase coreBase))
+                {
+                    anime = coreBase.Anim;
+                    SetHealth(maxHealth, coreBase);
+                }
+
+            });
+        }
+        else
+        {
+            if (body.TryGetComponent<CoreBase>(out CoreBase coreBase))
+            {
+                SetHealth(maxHealth, coreBase);
+            }
+        }
+
 
         float randomX = Random.Range(-2.0f, 2.0f);
         this.gameObject.transform.position = new Vector2(randomX, spawnY);
@@ -39,20 +64,70 @@ public class CoreController : Poolable, IDamagable
         }
         
     }
+    
+
+    // 코어 체력 저장된 값 가져오기, 파이어베이스 연동하면 사라질 메새드 테스트용
+    private void SetHealth(float maxHealth, CoreBase coreBase)
+    {
+        if (PlayerPrefs.HasKey(coreHealthkey))
+        {
+            core.Health.SetValue(PlayerPrefs.GetFloat(coreHealthkey));
+            core.Health.MaxValue = PlayerPrefs.GetFloat(coreHealthkey);
+            core.Health.OnChangeHealth = coreBase.healthView.SetHpBar;
+            Util.Log($"저장된 코어 체력 : {core.Health.MaxValue}");
+        }
+        else
+        {
+            core.Health.SetValue(maxHealth);
+            core.Health.MaxValue = maxHealth;
+            core.Health.OnChangeHealth = coreBase.healthView.SetHpBar;
+        }
+
+    }
+
+
+    private void OnEnable()
+    {
+        if(coreColider != null)
+        {
+            if (!coreColider.enabled) coreColider.enabled = true;
+        }
+    }
+
+
+    //protected override void TakeBody()
+    //{
+    //    // 외형 로딩
+    //    Managers.Resource.Instantiate($"{name}Body", go => {
+    //        body = go;
+    //        body.transform.SetParent(transform);
+    //        body.transform.localPosition = Vector3.zero;
+
+    //        if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
+    //        {
+    //            Anim = bodyBase.Anim;
+    //            AnimData = bodyBase.AnimData;
+    //            TowerStart();
+    //        }
+    //    });
+    //}
+
 
     public void TakeDamge(float damage)
     {
+
         if (Managers.Game.IsGodMode) return;
 
         core.Health.AddValue(-damage);
 
-        HpBar.transform.localScale = new Vector3(core.Health.GetValue()/core.MaxHealth.GetValue(), 1,1);
+        //HpBar.transform.localScale = new Vector3(core.Health.GetValue()/core.MaxHealth.GetValue(), 1,1);
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
 
         if (core.Health.Value == 0)
         {
             anime.SetBool("IsDestroy", true);
+            coreColider.enabled = false;
             Managers.Audio.audioControler.PlaySFX(SFXClipName.Dead);
         }
     }

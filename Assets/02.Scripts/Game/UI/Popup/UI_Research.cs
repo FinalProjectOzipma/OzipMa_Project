@@ -26,9 +26,13 @@ public class UI_Research : UI_Base
     [SerializeField] private Image GoldImage;
     [SerializeField] private Image ZamImage;
 
-    [SerializeField] private GameObject GoldAlarmPopup;
-    [SerializeField] private GameObject ZamAlarmPopup;
-    [SerializeField] private GameObject StartFailPopup;
+
+    enum Objects
+    {
+        GoldAlarmPopup,
+        ZamAlarmPopup,
+        StartFailPopup
+    }
 
     [SerializeField] private ParticleSystem StarEffect;
 
@@ -65,10 +69,8 @@ public class UI_Research : UI_Base
     
     private float baseTime = 300.0f;
     //private float growthFactor = 2.0f;
-    private bool isPopup = false;
     private bool isComplete = false;
 
-    private List<IGettable> rawList;
     private List<MyUnit> myUnitList;
     private List<Tower> towerList;
 
@@ -77,7 +79,6 @@ public class UI_Research : UI_Base
     private void Awake()
     {
         Init();
-        rawList = new();
         myUnitList = new();
         towerList = new();
     }
@@ -275,7 +276,10 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickCompleteResearch(PointerEventData data)
     {
+        bool isPopup = false;
+
         if (isPopup) return;
+
         isPopup = true;
 
         if (!isResearching)
@@ -286,7 +290,7 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.zam < spendZam)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(ZamAlarmPopup.ToString());
+            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.ZamAlarmPopup.ToString());
             //Managers.UI.GetAlarmPopup().WriteText("잼이 부족합니다. 잼이 없네요.");
             isPopup = false;
             return;
@@ -311,12 +315,9 @@ public class UI_Research : UI_Base
     /// </summary>
     public void OnClickSaveTime(PointerEventData data)
     {
+        bool isPopup = false;
 
-        if (isPopup)
-        {
-            Debug.Log("isPopup이 트루다");
-            return;
-        }
+        if (isPopup) return;
 
         isPopup = true;
 
@@ -328,7 +329,7 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.gold < spendGold)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(GoldAlarmPopup.ToString());
+            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.GoldAlarmPopup.ToString());
             isPopup = false;
             return;
         }
@@ -484,25 +485,8 @@ public class UI_Research : UI_Base
 
     public void StatUpgrade(ResearchUpgradeType upgradeType)
     {
-        rawList = Managers.Player.Inventory.GetList<MyUnit>();
-
-        foreach (var item in rawList)
-        {
-            if (item is MyUnit unit)
-            {
-                myUnitList.Add(unit);
-            }
-        }
-
-        rawList = Managers.Player.Inventory.GetList<Tower>();
-
-        foreach (var item in rawList)
-        {
-            if (item is Tower tower)
-            {
-                towerList.Add(tower);
-            }
-        }
+        SeperatedIGettable<MyUnit>(myUnitList);
+        SeperatedIGettable<Tower>(towerList);
 
         switch (upgradeType)
         {
@@ -585,11 +569,26 @@ public class UI_Research : UI_Base
                 break;
             case ResearchUpgradeType.Core:
                 CoreController core = Managers.Wave.MainCore.GetComponent<CoreController>();
-                core.core.MaxHealth.AddValue(updateStat);
-                core.core.Health.SetValue(core.core.MaxHealth.Value);
+                core.core.Health.MaxValue += updateStat;
+                core.core.Health.SetValue(core.core.Health.MaxValue);
+                PlayerPrefs.SetFloat(core.coreHealthkey, core.core.Health.MaxValue);
                 break;
         }
 
+    }
+
+    private void SeperatedIGettable<T>(List<T> list) where T : IGettable
+    {
+        var rawList = Managers.Player.Inventory.GetList<T>();
+        if (rawList == null) return;
+
+        foreach (var item in rawList)
+        {
+            if (item is T unit)
+            {
+                list.Add(unit);
+            }
+        }
     }
 
 

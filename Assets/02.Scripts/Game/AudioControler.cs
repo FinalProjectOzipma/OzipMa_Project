@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Audio;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using static DG.Tweening.DOTweenModuleUtils;
+using static UnityEngine.Rendering.DebugUI;
 
 
 public enum BGMClipName
@@ -34,6 +38,13 @@ public enum SFXClipName
     Fire
 }
 
+public enum AudioType
+{
+    Master,
+    BGM,
+    SFX
+}
+
 public class AudioControler : MonoBehaviour
 {
     public AudioManager audioManager; // 오디오 매니저
@@ -45,6 +56,7 @@ public class AudioControler : MonoBehaviour
     public bool isBGMMute = false;
     public bool isSFXMute = false;
 
+    public AudioMixer Mixer;
     public AudioSource bgmSource; // BGM을 재생하는 AudioSource
     private Dictionary<string, AudioClip> bgmDictionary = new Dictionary<string, AudioClip>(); // bgmData 데이터 저장할 딕셔너리
 
@@ -52,6 +64,10 @@ public class AudioControler : MonoBehaviour
     public int poolSize = 10;    // 초기 sfxPrefab 오브젝트 풀 크기
     private Queue<AudioSource> sfxPool = new Queue<AudioSource>(); // sfx 오디오 소스를 저장할 큐 (오브젝트 풀링)
     private Dictionary<string, AudioClip> sfxDictionary = new Dictionary<string, AudioClip>(); // sfxData 데이터 저장할 딕셔너리
+
+    private string masterVolume = AudioType.Master.ToString();
+    private string BGMVolume = AudioType.BGM.ToString();
+    private string SFXVolume = AudioType.SFX.ToString();
 
 
     /// <summary>
@@ -70,6 +86,7 @@ public class AudioControler : MonoBehaviour
     private void Start()
     {
         OnSceneLoaded();
+        
     }
 
     /// <summary>
@@ -160,18 +177,27 @@ public class AudioControler : MonoBehaviour
     /// </summary>
     private IEnumerator FadeInBGM(AudioClip newBGM)
     {
-        float startVolume = bgmSource.volume;
-        float targetVolume = Managers.Audio.bgmVolume; // 저장된 BGM 볼륨 값 사용
+        float currentVolume;
+
+        Mixer.GetFloat(BGMVolume, out currentVolume);
+
+        float targetVolume = Mathf.Log10(Managers.Audio.bgmVolume) * 20f; // 저장된 BGM 볼륨 값 사용
+
 
         // 기존 BGM 서서히 감소
         for (float t = 0; t < 1; t += Time.deltaTime)
         {
             if (isBGMMute)
             {
-                bgmSource.volume = 0;
+                Mixer.SetFloat(BGMVolume,-80.0f);
+                //bgmSource.volume = 0;
                 break;
             }
-            bgmSource.volume = Mathf.Lerp(startVolume, 0, t);
+
+            float vol = Mathf.Lerp(currentVolume, -80.0f, t);
+            Mixer.SetFloat(BGMVolume, vol);
+
+            //bgmSource.volume = Mathf.Lerp(startVolume, 0, t);
             yield return null;
         }
 
@@ -184,16 +210,19 @@ public class AudioControler : MonoBehaviour
         {
             if (isBGMMute)
             {
-                bgmSource.volume = 0;
+                Mixer.SetFloat(BGMVolume, -80.0f);
+                //bgmSource.volume = 0;
                 yield break;
             }
 
-            bgmSource.volume = Mathf.Lerp(0, targetVolume, t);
+            float vol = Mathf.Lerp(-80f, targetVolume, t);
+            Mixer.SetFloat(BGMVolume, vol);
+            //bgmSource.volume = Mathf.Lerp(0, targetVolume, t);
             yield return null;
         }
 
         // 최종 볼륨 설정
-        if (!isBGMMute) bgmSource.volume = targetVolume;
+        if (!isBGMMute) Mixer.SetFloat(BGMVolume, targetVolume);
     }
     #endregion
 
@@ -228,25 +257,27 @@ public class AudioControler : MonoBehaviour
         sfxSource.transform.position = new Vector3(0,0,0); // 재생 위치 설정
         sfxSource.clip = clip;
 
-        if(isMasterMute || isSFXMute)
+        if(isSFXMute || Managers.Audio.sfxVolume <= 0)
         {
-            sfxSource.volume = 0;
+            Mixer.SetFloat(SFXVolume, -80.0f);
+            //sfxSource.volume = 0;
         }
         else
         {
-            float volumeMax = Managers.Audio.sfxVolume * Managers.Audio.masterVolume;
+            Mixer.SetFloat(SFXVolume, Mathf.Log10(Managers.Audio.sfxVolume) * 20f);
+            //float volumeMax = Managers.Audio.sfxVolume * Managers.Audio.masterVolume;
 
-            if(volumeMax == 0)
-            {
-                sfxSource.volume = 0;
-            }
-            else
-            {
-                volumeMax = Mathf.Max(volumeMax, 0.1f); // 최소 0.7f로 보장
-                sfxSource.volume = Random.Range(0.1f, volumeMax); // SFX 볼륨 설정
-                sfxSource.pitch = Random.Range(0.95f, 1.05f);
+            //if(volumeMax == 0)
+            //{
+            //    sfxSource.volume = 0;
+            //}
+            //else
+            //{
+            //    volumeMax = Mathf.Max(volumeMax, 0.1f); // 최소 0.7f로 보장
+            //    sfxSource.volume = Random.Range(0.1f, volumeMax); // SFX 볼륨 설정
+            //    sfxSource.pitch = Random.Range(0.95f, 1.05f);
 
-            }
+            //}
         }
 
         sfxSource.gameObject.SetActive(true);
@@ -313,33 +344,14 @@ public class AudioControler : MonoBehaviour
     #region 사운드 UI와 연결되는 메서드
 
     /// <summary>
-    /// 마스터 볼륨 세팅
+    /// 볼륨 세팅
     /// </summary
-    public void SetMasterVolume(float volume)
-    {
-        Managers.Audio.masterVolume = Mathf.Clamp01(volume);
-        UpdateVolumes();
+    public void SetVolume(AudioType type, float volume)
+    {    
+        Mixer.SetFloat(type.ToString(), volume);
         SaveVolumes();
     }
 
-    /// <summary>
-    /// BGM 볼륨 세팅
-    /// </summary
-    public void SetBGMVolume(float volume)
-    {
-        Managers.Audio.bgmVolume = Mathf.Clamp01(volume);
-        UpdateVolumes();
-        SaveVolumes();
-    }
-
-    /// <summary>
-    /// SFX 볼륨 세팅
-    /// </summary
-    public void SetSFXVolume(float volume)
-    {
-        Managers.Audio.sfxVolume = Mathf.Clamp01(volume);
-        SaveVolumes();
-    }
 
     /// <summary>
     /// 마스터 볼륨 음소거 설정
@@ -347,7 +359,10 @@ public class AudioControler : MonoBehaviour
     public void ToggleMasterMute()
     {
         isMasterMute = !isMasterMute;
-        UpdateVolumes();
+
+        if(isMasterMute) Mixer.SetFloat(masterVolume, -80.0f);
+        else Mixer.SetFloat(masterVolume, Managers.Audio.masterVolume);
+
         SaveMuteSettings();
     }
 
@@ -357,7 +372,9 @@ public class AudioControler : MonoBehaviour
     public void ToggleBGMMute()
     {
         isBGMMute = !isBGMMute;
-        UpdateVolumes();
+
+        if (isBGMMute) Mixer.SetFloat(BGMVolume, -80.0f);
+        else Mixer.SetFloat(BGMVolume, Managers.Audio.bgmVolume);
         SaveMuteSettings();
     }
 
@@ -367,6 +384,8 @@ public class AudioControler : MonoBehaviour
     public void ToggleSFXMute()
     {
         isSFXMute = !isSFXMute;
+        if (isSFXMute) Mixer.SetFloat(SFXVolume, -80.0f);
+        else Mixer.SetFloat(SFXVolume, Managers.Audio.sfxVolume);
         SaveMuteSettings();
     }
 
@@ -390,7 +409,6 @@ public class AudioControler : MonoBehaviour
         Managers.Audio.masterVolume = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
         Managers.Audio.bgmVolume = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
         Managers.Audio.sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 1.0f);
-        UpdateVolumes();
     }
 
     /// <summary>
@@ -413,25 +431,15 @@ public class AudioControler : MonoBehaviour
         isMasterMute = PlayerPrefs.GetInt("MasterMuted", 0) == 1;
         isBGMMute = PlayerPrefs.GetInt("BGMMuted", 0) == 1;
         isSFXMute = PlayerPrefs.GetInt("SFXMuted", 0) == 1;
-        UpdateVolumes();
-    }
 
-    /// <summary>
-    /// BGM 업데이트 매서드
-    /// </summary
-    public void UpdateVolumes()
-    {
-        if (bgmSource != null)
-        {
-            if(isMasterMute || isBGMMute)
-            {
-                bgmSource.volume = 0;
-            }
-            else
-            {
-                bgmSource.volume = Managers.Audio.bgmVolume * Managers.Audio.masterVolume;
-            }
-        }
+        if (isMasterMute) Mixer.SetFloat(masterVolume, -80.0f);
+        else Mixer.SetFloat(masterVolume, Mathf.Log10(Managers.Audio.masterVolume) * 20f);
+
+        if (isBGMMute) Mixer.SetFloat(BGMVolume, -80.0f);
+        else Mixer.SetFloat(BGMVolume, Mathf.Log10(Managers.Audio.bgmVolume) * 20f);
+
+        if (isSFXMute) Mixer.SetFloat(SFXVolume, -80.0f);
+        else Mixer.SetFloat(SFXVolume, Mathf.Log10(Managers.Audio.sfxVolume) * 20f);
     }
     #endregion
 

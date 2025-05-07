@@ -28,9 +28,12 @@ public class UI_Main : UI_Scene
     [SerializeField] private Image ProgressImage;
     [SerializeField] private Image CompleteImage;
 
-    [SerializeField] private GameObject ReseachUI;
-    [SerializeField] private GameObject SoundUI;
-    [SerializeField] private GameObject AlarmPopup;
+
+    enum Objects
+    {
+        ReseachUI,
+        SoundUI
+    }
 
 
     bool isButton = false;
@@ -93,7 +96,7 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.ShowPopupUI<UI_ResearchScene>(ReseachUI.ToString());
+        Managers.UI.ShowPopupUI<UI_ResearchScene>(Objects.ReseachUI.ToString());
         isButton = false;
     }
 
@@ -104,7 +107,7 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.ShowPopupUI<UI_Setting>(SoundUI.ToString());
+        Managers.UI.ShowPopupUI<UI_Setting>("SettingUI");
         isButton = false;
 
       

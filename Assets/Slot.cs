@@ -17,6 +17,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
     [SerializeField] private TextMeshProUGUI ObjInfo;
     [SerializeField] private TextMeshProUGUI StackText;
+    [SerializeField] private TextMeshProUGUI MaxLv;
 
 
     private Button button; // 이녀석은 현재 들고 있는 컴포넌트객체니깐 그냥 Get으로 불러드림
@@ -50,47 +51,23 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
 
         UserObject userObject = Gettable as UserObject;
-        GameObject imgObj = Selected.gameObject;
-        imgObj.SetActive(!imgObj.activeSelf);
-        IsActive = imgObj.activeInHierarchy;
-        inventoryUI.isSelect = true;
 
         if (userObject == null)
             return;
 
         bool isMaxLevel = userObject.Status.Level.GetValue() >= userObject.Status.MaxLevel.GetValue();
 
-        if (IsActive)
-        {
-            // 선택 상태로 바뀜
-            if (!isMaxLevel)
-            {
-                Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
-                isSelect = true;
-            }
-            else
-            {
-                // 만렙이면 선택은 되지만 비용 증가 없음
-                inventoryUI.TextMaxLevel();
-                Util.Log("만렙 유닛 선택됨 (비용 없음)");
-            }
-        }
-        else
-        {
-            // 선택 해제
-            if (!isMaxLevel && isSelect)
-            {
-                Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
-                isSelect = false;
-                inventoryUI.isSelect = false;
-            }
-            else
-            {
-                Managers.Upgrade.RefresgUpgradeGold();
-                isSelect = false;
-                inventoryUI.isSelect = false;
-            }
-        }
+        if (isMaxLevel) return;
+
+        GameObject imgObj = Selected.gameObject;
+        imgObj.SetActive(!imgObj.activeSelf);
+        IsActive = imgObj.activeInHierarchy;
+        inventoryUI.isSelect = true;
+
+        inventoryUI.CheckActive();
+
+        if (IsActive) Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+        else Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
 
     }
 
@@ -98,23 +75,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     public void OnSelect()
     {
         if (inventoryUI.CurrentState != InventoryUI.STATE.SELECTABLE) return;
-
-        UserObject userObject = Gettable as UserObject;
-
-        if (IsActive)
-        {
-            IsActive = false;
-            Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
-        }
-
-        bool isMaxLevel = userObject.Status.Level.GetValue() >= userObject.Status.MaxLevel.GetValue();  
-
-        if(!isMaxLevel)
-        {
-            IsActive = true;
-            Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
-            Selected.gameObject.SetActive(true);
-        }   
+        IsActive = true;
+        Selected.gameObject.SetActive(true);
     }
 
     public void DisSelect()
@@ -135,6 +97,15 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         ObjInfo.text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
         StackGageFill.fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
         StackText.text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
+
+        if (status.Level.GetValue() >= status.MaxLevel.GetValue())
+        {
+            MaxLv.gameObject.SetActive(true);
+        }
+        else
+        {
+            MaxLv.gameObject.SetActive(false);
+        }
     }
 
     #region 드래그 배치
