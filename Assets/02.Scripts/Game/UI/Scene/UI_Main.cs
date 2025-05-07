@@ -132,11 +132,13 @@ public class UI_Main : UI_Scene
     {
         ManagerButton.gameObject.SetActive(false);
         ResearchButton.gameObject.SetActive(false);
+        DictionaryButton.gameObject.SetActive(false);
     }
 
     public void OnButton()
     {
         ManagerButton.gameObject.SetActive(true);
         ResearchButton.gameObject.SetActive(true);
+        DictionaryButton.gameObject.SetActive(true);
     }
 }
