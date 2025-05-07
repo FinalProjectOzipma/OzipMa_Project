@@ -25,9 +25,9 @@ public class VampireAnimationTrigger : MyUnitAnimationTrigger
                 //데미지 입히기
                 EnemyController enemy = hit.GetComponentInParent<EnemyController>();
                 enemy.ApplyDamage(myUnit.Status.Attack.GetValue(), AbilityType.None, transform.parent.gameObject);
-                VampireBody vamp = myUnit as VampireBody;
-                //흡혈 능력
-                vamp.Heal(enemy.Status.Defence.GetValue());
+                //VampireBody vamp = myUnit as VampireBody;
+                ////흡혈 능력
+                //vamp.Heal(enemy.Status.Defence.GetValue());
                 Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
             }
         }

@@ -31,14 +31,4 @@ public class VampireBody : EntityBodyBase
         }
         base.Init();
     }
-
-    //TODO: 어택상태일때나 트리거로 흡혈 능력 
-    /// <summary>
-    /// 매개변수에 방어력 넣어주기
-    /// </summary>
-    /// <param name="amount"></param>
-    public void Heal(float amount)
-    {
-        float dam = ctrl.Status.Attack.GetValue() * Mathf.Log(ctrl.Status.Attack.GetValue() / amount, 10);
-    }
 }

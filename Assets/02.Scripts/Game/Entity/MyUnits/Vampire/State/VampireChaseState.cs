@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VampireChaseState : MyUnitStateBase
+public class VampireChaseState : VampireStateBase
 {
     public VampireChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, VampireAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
