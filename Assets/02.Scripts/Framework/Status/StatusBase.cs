@@ -33,6 +33,6 @@ public class StatusBase
         MaxLevel.SetValue(20);
         Grade.SetValue(0);
     }
-    public void InitHealth() => Health.SetValue(MaxHealth);
+    public void InitHealth() => Health.SetValue(Health.MaxValue);
     public void AddHealth(float amount, GameObject go) => Health.AddValue(amount);
 }

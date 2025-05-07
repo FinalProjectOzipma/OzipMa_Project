@@ -26,7 +26,7 @@ public class MyUnitController : EntityController, IDamagable
 
     //죽었을때 처리
     public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
-
+    public virtual void AnimationFinishProjectileTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishProjectileTrigger();
     private void Awake()
     {
         Agent = GetComponent<NavMeshAgent>();
