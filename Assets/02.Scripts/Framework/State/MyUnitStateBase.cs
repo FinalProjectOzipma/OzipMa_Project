@@ -168,7 +168,6 @@ public class MyUnitStateBase : EntityStateBase
                 minDistance = distance;
                 controller.Target = enemy;
                 target = controller.Target;
-                Util.Log("타겟지정되다");
             }
         }
     }
