@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class SkeletonAttackState : MyUnitStateBase
+public class SkeletonAttackState : SkeletonStateBase
 {
     public SkeletonAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, SkeletonAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
@@ -26,7 +26,7 @@ public class SkeletonAttackState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target == null)
+        if (controller.Target == null || !controller.Target.activeSelf)
         {
             StateMachine.ChangeState(data.IdleState);
         }

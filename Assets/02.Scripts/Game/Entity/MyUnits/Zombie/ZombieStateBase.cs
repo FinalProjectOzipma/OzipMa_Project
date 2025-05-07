@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkeletonStateBase : MyUnitStateBase
+public class ZombieStateBase : MyUnitStateBase
 {
-    protected SkeletonAnimationData data;
-    public SkeletonStateBase(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    protected ZombieAnimationData data;
+    public ZombieStateBase(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
-        this.data = data as SkeletonAnimationData;
+        this.data = data as ZombieAnimationData;
     }
 
     public override void Enter()

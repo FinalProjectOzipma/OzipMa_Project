@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SkeletonIdleState : MyUnitStateBase
+public class SkeletonIdleState : SkeletonStateBase
 {
     public SkeletonIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, SkeletonAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {

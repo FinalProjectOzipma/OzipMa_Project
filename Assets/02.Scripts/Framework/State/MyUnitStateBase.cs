@@ -10,8 +10,6 @@ public class MyUnitStateBase : EntityStateBase
     protected MyUnitController controller;
     protected MyUnitStatus status;
 
-    protected EntityAnimationData data;
-
     protected GameObject target;
 
     protected CapsuleCollider2D capCol;
@@ -23,8 +21,6 @@ public class MyUnitStateBase : EntityStateBase
         this.status = controller.Status as MyUnitStatus;
         
         this.Anim = controller.Anim;
-
-        this.data = data;
         this.animHashKey = animHashKey;
 
         capCol = controller.GetComponent<CapsuleCollider2D>();
@@ -42,6 +38,7 @@ public class MyUnitStateBase : EntityStateBase
     {
         Anim.SetBool(animHashKey, false);
     }
+
     protected bool DeadCheck()
     {
         if (status.Health.GetValue() <= 0.0f)
@@ -61,8 +58,16 @@ public class MyUnitStateBase : EntityStateBase
 
     public override void Update()
     {
+        base.Update();
         // Target 있을때만
-        controller.FlipControll(target);
+        if (target != null || target.activeSelf)
+        {
+            controller.FlipControll(target);
+        }
+        else if (Managers.Wave.CurEnemyList.Count > 0)
+        {
+            SetTarget();
+        }
     }
 
     public void InnerRange(MyUnitStateBase nextState, float dist = -1)
@@ -141,6 +146,4 @@ public class MyUnitStateBase : EntityStateBase
             }
         }
     }
-
-
 }

@@ -25,7 +25,7 @@ public class EnemyAnimationTrigger : MonoBehaviour
         enemy.AnimationFinishTrigger();
     }
 
-    public void AnmationProjectileTrigger()
+    public void AnimationProjectileTrigger()
     {
         enemy.AnimationFinishProjectileTrigger();
     }
@@ -37,10 +37,10 @@ public class EnemyAnimationTrigger : MonoBehaviour
 
         foreach (var hit in colliders)
         {
-            IDamagable damagle = hit.GetComponentInParent<IDamagable>();
-            if (damagle != null)
+            IDamagable damable = hit.GetComponentInParent<IDamagable>();
+            if (damable != null)
             {
-                damagle.ApplyDamage(enemy.Status.Attack.GetValue(), AbilityType.None, enemy.gameObject);
+                damable.ApplyDamage(enemy.Status.Attack.GetValue(), AbilityType.None, enemy.gameObject);
             }
         }
     }

@@ -26,27 +26,29 @@ public class MyUnitAnimationTrigger : MonoBehaviour
         myUnit.AnimationFinishTrigger();
     }
 
+    public void AnimationProjectileTrigger()
+    {
+        myUnit.AnimationFinishProjectileTrigger();
+    }
+
     public virtual void AttackTrigger()
     {
-        if (myUnit.Target == null)
+        int layer = (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, attackValue, layer);
+
+        foreach (var hit in colliders)
         {
-            return;
+            IDamagable damable = hit.GetComponentInParent<IDamagable>();
+            if (damable != null)
+            {
+                damable.ApplyDamage(myUnit.Status.Attack.GetValue(), myUnit.MyUnit.AbilityType, myUnit.gameObject);
+            }
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
-    }
-
-    protected bool IsReflect(GameObject target)
-    {
-        EnemyController enemy = target.GetComponent<EnemyController>();
-
-        if (enemy.Enemy.AtkType == AtkType.ReflectDamage)
-        {
-            return true;
-        }
-        return false;
+        if (AttackCheck != null)
+            Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
     }
 }

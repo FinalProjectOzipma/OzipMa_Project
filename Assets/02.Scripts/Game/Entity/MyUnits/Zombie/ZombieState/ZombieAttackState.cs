@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZombieAttackState : MyUnitStateBase
+public class ZombieAttackState : ZombieStateBase
 {
     public ZombieAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
@@ -20,6 +20,8 @@ public class ZombieAttackState : MyUnitStateBase
     public override void Exit()
     {
         base.Exit();
+
+
         controller.Anim.speed = 1.0f;
     }
 
