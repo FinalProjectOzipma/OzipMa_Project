@@ -71,7 +71,6 @@ public class UI_Research : UI_Base
     //private float growthFactor = 2.0f;
     private bool isComplete = false;
 
-    private List<IGettable> rawList;
     private List<MyUnit> myUnitList;
     private List<Tower> towerList;
 
@@ -80,7 +79,6 @@ public class UI_Research : UI_Base
     private void Awake()
     {
         Init();
-        rawList = new();
         myUnitList = new();
         towerList = new();
     }
@@ -487,25 +485,8 @@ public class UI_Research : UI_Base
 
     public void StatUpgrade(ResearchUpgradeType upgradeType)
     {
-        rawList = Managers.Player.Inventory.GetList<MyUnit>();
-
-        foreach (var item in rawList)
-        {
-            if (item is MyUnit unit)
-            {
-                myUnitList.Add(unit);
-            }
-        }
-
-        rawList = Managers.Player.Inventory.GetList<Tower>();
-
-        foreach (var item in rawList)
-        {
-            if (item is Tower tower)
-            {
-                towerList.Add(tower);
-            }
-        }
+        SeperatedIGettable<MyUnit>(myUnitList);
+        SeperatedIGettable<Tower>(towerList);
 
         switch (upgradeType)
         {
@@ -590,11 +571,24 @@ public class UI_Research : UI_Base
                 CoreController core = Managers.Wave.MainCore.GetComponent<CoreController>();
                 core.core.Health.MaxValue += updateStat;
                 core.core.Health.SetValue(core.core.Health.MaxValue);
-                core.core.Health.SetMaxHealth(core.core.Health.MaxValue);
                 PlayerPrefs.SetFloat(core.coreHealthkey, core.core.Health.MaxValue);
                 break;
         }
 
+    }
+
+    private void SeperatedIGettable<T>(List<T> list) where T : IGettable
+    {
+        var rawList = Managers.Player.Inventory.GetList<T>();
+        if (rawList == null) return;
+
+        foreach (var item in rawList)
+        {
+            if (item is T unit)
+            {
+                list.Add(unit);
+            }
+        }
     }
 
 
