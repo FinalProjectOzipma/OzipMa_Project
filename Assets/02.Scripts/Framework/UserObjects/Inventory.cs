@@ -36,6 +36,13 @@ public class Inventory
         }
     }
 
+    public void ClearList<T>() where T : IGettable
+    {
+        Type tType = typeof(T);
+        if (inventory.ContainsKey(tType.Name) == false) return;
+        inventory[tType.Name].Clear();
+    }
+
     public List<IGettable> GetList<T>() where T : IGettable
     {
         if(inventory.TryGetValue(typeof(T).Name, out var list))

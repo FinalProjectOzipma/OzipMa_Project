@@ -10,8 +10,8 @@ public class PlayerManager
 {
     public Core MainCoreData { get; set; }
     public int Money { get; set; }
-    public long gold { get; private set; }
-    public long zam { get; private set; }
+    public long gold { get;  set; }
+    public long zam { get; set; }
 
     public event Action<long> OnGoldChanged;
     public event Action<long> OnZamChanged;
@@ -24,7 +24,7 @@ public class PlayerManager
     public int CurrentStage { get; set; }
     public int CurrentWave { get; set; }
 
-    public Dictionary<int, TowerStatus> TowerInfos;
+    public Dictionary<string, TowerStatus> TowerInfos; // 키 - $"Tower{PrimaryKey}" 형태가 될 것
     public Dictionary<int, MyUnitStatus> MyUnitInfos;
     public Dictionary<Vector3Int, int> GridObjectMap;
 
@@ -129,19 +129,25 @@ public class PlayerManager
         // 1. Tower의 동적 데이터 저장 목적
         TowerInfos = new();
         List<IGettable> towers = Inventory.GetList<Tower>();
-        foreach (var item in towers)
+        if(towers != null)
         {
-            Tower tower = (Tower)item;
-            TowerInfos.Add(tower.PrimaryKey, tower.TowerStatus);
+            foreach (var item in towers)
+            {
+                Tower tower = (Tower)item;
+                TowerInfos.Add($"Tower{tower.PrimaryKey.ToString()}", tower.TowerStatus);
+            }
         }
 
         // 2. MyUnit의 동적 데이터 저장 목적 
         MyUnitInfos = new();
         List<IGettable> myUnits = Inventory.GetList<MyUnit>();
-        foreach (var item in myUnits)
+        if (myUnits != null)
         {
-            MyUnit myUnit = (MyUnit)item;
-            MyUnitInfos.Add(myUnit.PrimaryKey, myUnit.Status as MyUnitStatus);
+            foreach (var item in myUnits)
+            {
+                MyUnit myUnit = (MyUnit)item;
+                MyUnitInfos.Add(myUnit.PrimaryKey, myUnit.Status as MyUnitStatus);
+            }
         }
 
         // 3. 배치된 오브젝트 데이터 저장
@@ -156,38 +162,56 @@ public class PlayerManager
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
         
         Money = data.Money;
-        gold = data.gold;
-        zam = data.zam;
+        gold = 0;
+        zam = 0;
+        AddZam(data.zam);
+        AddGold(data.gold);
 
         CurrentStage = data.CurrentStage;
         CurrentWave = data.CurrentWave;
 
         TowerInfos = data.TowerInfos;
         MyUnitInfos = data.MyUnitInfos;
-        BuildingSystem.Instance.BuildingInit(data.GridObjectMap);
 
-        // ===== 인벤토리에 추가 =====
-        List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
-        foreach (int primaryKey in TowerInfos.Keys)
+        // ===== 인벤토리에 추가 - 타워 =====
+        if(TowerInfos != null)
         {
-            Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[primaryKey]}Tower", original => 
+            Inventory.ClearList<Tower>();
+            List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
+            foreach (string Key in TowerInfos.Keys)
             {
-                Tower tower = new Tower();
-                tower.Init(primaryKey, original.GetComponent<TowerControlBase>().Preview);
-                tower.Status = TowerInfos[primaryKey]; // 동적 정보 넘김
-                Inventory.Add<Tower>(tower);
-            });
+                int primaryKey = int.Parse(Key.Replace("Tower",""));
+                Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[primaryKey].Name}Tower", original => 
+                {
+                    Tower tower = new Tower();
+                    tower.Init(primaryKey, original.GetComponent<TowerControlBase>().Preview);
+                    tower.TowerStatus.SetDatas(TowerInfos[Key]); // 동적 정보 넘김
+                    Inventory.Add<Tower>(tower);
+                });
+            }
+
+            // ===== 원래 배치대로 타워 배치 =====
+            if(data.GridObjectMap != null)
+            {
+                BuildingSystem.Instance.BuildingInit(data.GridObjectMap);
+            }
         }
-        List<DefaultTable.MyUnit> MyUnits = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
-        foreach(int primaryKey in MyUnitInfos.Keys)
+
+        // ===== 인벤토리에 추가 - 아군 유닛 =====
+        if (MyUnitInfos != null)
         {
-            Managers.Resource.LoadAssetAsync<GameObject>($"{MyUnits[primaryKey]}_Brain", original => 
+            Inventory.ClearList<MyUnit>();
+            List<DefaultTable.MyUnit> MyUnits = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
+            foreach(int primaryKey in MyUnitInfos.Keys)
             {
-                MyUnit unit = new MyUnit();
-                unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
-                unit.Status = MyUnitInfos[primaryKey]; // 동적 정보 넘김
-                Inventory.Add<MyUnit>(unit);
-            });
+                Managers.Resource.LoadAssetAsync<GameObject>($"{MyUnits[primaryKey]}_Brain", original => 
+                {
+                    MyUnit unit = new MyUnit();
+                    unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
+                    unit.Status = MyUnitInfos[primaryKey]; // 동적 정보 넘김
+                    Inventory.Add<MyUnit>(unit);
+                });
+            }
         }
     }
 }

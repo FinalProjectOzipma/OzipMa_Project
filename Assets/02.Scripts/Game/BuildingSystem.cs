@@ -38,9 +38,18 @@ public class BuildingSystem : MonoBehaviour
 
     public void BuildingInit(Dictionary<Vector3Int, int> gridObjectMap = null)
     {
-        if (gridObjectMap != null)
+        if (gridObjectMap != null && gridObjectMap.Count > 0)
         {
-            // TODO :: 배치 해줘야 됨;;
+            // TODO :: 원래 있던대로 배치, Load된 데이터로 초기화된 타워로 배치해야 함. 
+            foreach(Vector3Int point in gridObjectMap.Keys)
+            {
+                int primaryKey = gridObjectMap[point];
+                Tower towerInfo = Managers.Player.Inventory.GetItem<Tower>(primaryKey);
+                Managers.Resource.Instantiate($"{towerInfo.Name}Tower", go => 
+                {
+                    go.transform.position = map.GetCellCenterWorld(point);
+                });
+            }
         }
     }
 

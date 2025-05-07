@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UGS;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataManager
@@ -86,7 +87,7 @@ public class DataManager
         {
             parent = typeof(T).Name;
         }
-        _databaseReference.Child("users").Child(userID).Child(parent).SetRawJsonValueAsync(json);
+        var saveTask = _databaseReference.Child("users").Child(userID).Child(parent).SetRawJsonValueAsync(json);
     }
 
     /// <summary>
@@ -120,6 +121,7 @@ public class DataManager
         }
         else
         {
+            // TODO :: 파이어베이스 로드 실패 시 디폴트 데이터로 로드할 수 있는 장치가 필요함 
             Util.Log("Firebase's Data Not Found");
         }
     }
@@ -141,5 +143,4 @@ public class DataManager
         });
     }
     #endregion
-
 }
