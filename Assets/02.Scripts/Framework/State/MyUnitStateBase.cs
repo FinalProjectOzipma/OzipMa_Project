@@ -47,6 +47,7 @@ public class MyUnitStateBase : EntityStateBase
     {
         if (status.Health.GetValue() <= 0.0f)
         {
+            Util.Log(status.Health.GetValue().ToString());
             controller.StopAllCoroutines();
             controller.IsDead = true;
             return true;
@@ -82,6 +83,10 @@ public class MyUnitStateBase : EntityStateBase
     /// <param name="dist"></param>
     public void InnerRange(MyUnitStateBase nextState, float dist = -1)
     {
+        if (controller.Target == null)
+        {
+            return;
+        }
         if (dist < 0)
             dist = controller.Status.AttackRange.GetValue();
 

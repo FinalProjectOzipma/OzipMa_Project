@@ -18,7 +18,10 @@ public class MyUnit : UserObject, IGettable
         base.Init(primaryKey, sprite); 
         Name = result[primaryKey].Name;
         Description = result[primaryKey].Description;
-        Status = new MyUnitStatus(primaryKey, result);
+        if (Status == null)
+            Status = new MyUnitStatus(primaryKey, result);
+        else
+            (Status as MyUnitStatus).StatusInit();
         RankType = result[primaryKey].Rank;
         AtkType = result[primaryKey].AttackType;
         AbilityType = result[primaryKey].AbilityType;
