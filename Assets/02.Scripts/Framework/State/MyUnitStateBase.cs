@@ -120,7 +120,7 @@ public class MyUnitStateBase : EntityStateBase
     }
 
     /// <summary>
-    /// 맵 감지
+    /// 몬스터와 타겟사이에 벽에 걸리면 true, 없으면 false
     /// </summary>
     /// <param name="targetPos"></param>
     /// <returns></returns>
