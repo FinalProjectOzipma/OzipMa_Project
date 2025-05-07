@@ -7,7 +7,7 @@ using UnityEngine.AI;
 using UnityEngine.UIElements;
 using static UnityEngine.GraphicsBuffer;
 
-public class ZombieChaseState : MyUnitStateBase
+public class ZombieChaseState : ZombieStateBase
 {
     public ZombieChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {

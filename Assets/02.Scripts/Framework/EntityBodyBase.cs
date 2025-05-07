@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class EnemyBodyBase : MonoBehaviour
+public class EntityBodyBase : MonoBehaviour
 {
     public HealthView healthView;
 
-    protected EnemyController ctrl;
+    protected EntityController ctrl;
 
     private bool timeStart;
     private CancellationTokenSource disableCancellation; // 비활성화시 취소처리

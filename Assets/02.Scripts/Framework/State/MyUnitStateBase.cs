@@ -8,17 +8,21 @@ using static UnityEngine.RuleTile.TilingRuleOutput;
 public class MyUnitStateBase : EntityStateBase
 {
     protected MyUnitController controller;
-    protected MyUnitAnimationData data;
+    protected MyUnitStatus status;
+
+    protected GameObject target;
+
     protected CapsuleCollider2D capCol;
     protected NavMeshAgent agent;
-    protected GameObject Target;
-    public MyUnitStateBase(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey)
+
+    public MyUnitStateBase(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
     {
-        StateMachine = stateMachine;
-        this.Anim = controller.Anim;
         this.controller = controller;
-        this.data = data;
+        this.status = controller.Status as MyUnitStatus;
+        
+        this.Anim = controller.Anim;
         this.animHashKey = animHashKey;
+
         capCol = controller.GetComponent<CapsuleCollider2D>();
         agent = controller.GetComponent<NavMeshAgent>();
     }
@@ -27,6 +31,7 @@ public class MyUnitStateBase : EntityStateBase
     {
         Anim.SetBool(animHashKey, true);
         triggerCalled = false;
+        this.target = controller.Target;
     }
 
     public override void Exit()
@@ -34,28 +39,41 @@ public class MyUnitStateBase : EntityStateBase
         Anim.SetBool(animHashKey, false);
     }
 
+    protected bool DeadCheck()
+    {
+        if (status.Health.GetValue() <= 0.0f)
+        {
+            controller.StopAllCoroutines();
+            controller.IsDead = true;
+            return true;
+        }
+
+        controller.IsDead = false;
+        return false;
+    }
+
     public override void FixedUpdate()
     {
-        
     }
 
     public override void Update()
     {
-        if (controller.MyUnitStatus.Health.GetValue() <= 0.0f)
-        {
-            controller.StopAllCoroutines();
-            controller.IsDead = true;
-            StateMachine.ChangeState(data.DeadState);
-            return;
-        }
+        base.Update();
         // Target 있을때만
-        controller.FlipControll(controller.Target);
+        if (target != null || target.activeSelf)
+        {
+            controller.FlipControll(target);
+        }
+        else if (Managers.Wave.CurEnemyList.Count > 0)
+        {
+            SetTarget();
+        }
     }
 
     public void InnerRange(MyUnitStateBase nextState, float dist = -1)
     {
         if (dist < 0)
-            dist = controller.MyUnitStatus.AttackRange.GetValue();
+            dist = controller.Status.AttackRange.GetValue();
 
         if (Vector2.Distance(controller.transform.position, controller.Target.transform.position) <= dist)
             StateMachine.ChangeState(nextState);
@@ -72,7 +90,7 @@ public class MyUnitStateBase : EntityStateBase
             return false;
         else if (!controller.Target.activeSelf)
             return false;
-        float r = controller.MyUnitStatus.AttackRange.GetValue();
+        float r = controller.Status.AttackRange.GetValue();
 
         return r * r > (controller.Target.transform.position - controller.transform.position).sqrMagnitude;
     }

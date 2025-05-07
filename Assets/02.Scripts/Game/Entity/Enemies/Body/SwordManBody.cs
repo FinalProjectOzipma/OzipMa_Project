@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SwordManBody : EnemyBodyBase
+public class SwordManBody : EntityBodyBase
 {
     private void Start()
     {

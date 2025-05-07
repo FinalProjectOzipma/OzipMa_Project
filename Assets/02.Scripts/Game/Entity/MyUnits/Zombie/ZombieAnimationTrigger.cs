@@ -13,7 +13,7 @@ public class ZombieAnimationTrigger : MyUnitAnimationTrigger
         }
         int layer = 1 << 8;
 
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.MyUnitStatus.AttackRange.GetValue(), layer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.Status.AttackRange.GetValue(), layer);
         foreach (var hit in colliders)
         {
             if (hit.gameObject != myUnit.Target)
@@ -23,8 +23,7 @@ public class ZombieAnimationTrigger : MyUnitAnimationTrigger
             if (hit.GetComponentInParent<EnemyController>() != null)
             {
                 //데미지 입히기
-                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.MyUnitStatus.Attack.GetValue(), AbilityType.None, transform.parent.gameObject);
-                VampireController vamp = myUnit as VampireController;
+                hit.GetComponentInParent<EnemyController>().ApplyDamage(myUnit.Status.Attack.GetValue(), myUnit.MyUnit.AbilityType, transform.parent.gameObject);
                 Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
             }
         }

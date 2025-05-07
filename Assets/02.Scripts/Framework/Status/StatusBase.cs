@@ -5,9 +5,14 @@ using UnityEngine;
 
 public class StatusBase
 {
+    public EntityHealth Health { get; set; } = new();
+
     public FloatBase Attack { get; set; } = new FloatBase();
     public FloatBase AttackCoolDown { get; set; } = new FloatBase();
     public FloatBase AttackRange { get; set; } = new FloatBase();
+    public FloatBase Defence { get; set; } = new FloatBase();
+
+    public FloatBase MoveSpeed { get; set; } = new FloatBase();
 
     public IntegerBase Level { get; set; } = new IntegerBase();
     public IntegerBase Stack { get; set; } = new IntegerBase();
@@ -28,4 +33,6 @@ public class StatusBase
         MaxLevel.SetValue(20);
         Grade.SetValue(0);
     }
+    public void InitHealth() => Health.SetValue(Health.MaxValue);
+    public void AddHealth(float amount, GameObject go) => Health.AddValue(amount);
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class SkeletonIdleState : MyUnitStateBase
+public class SkeletonIdleState : SkeletonStateBase
 {
-    public SkeletonIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, MyUnitAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public SkeletonIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, SkeletonAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 
@@ -54,7 +54,7 @@ public class SkeletonIdleState : MyUnitStateBase
                 else
                 {
                     //공격범위에 있으면서 공격쿨타임이 돌았다면
-                    if (time >= controller.MyUnitStatus.AttackCoolDown.GetValue())
+                    if (time >= controller.Status.AttackCoolDown.GetValue())
                     {
                         //공격상태로 전환
                         StateMachine.ChangeState(data.AttackState);
