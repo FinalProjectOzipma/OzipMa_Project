@@ -31,12 +31,29 @@ public class PhnMyUnitScene : GameScene
         Managers.Data.LoadGameData(() => 
         {
             // TODO :: 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅해줘야 함. 
+            DefaultTowerAdd();
             DefaultUnitAdd(); // 인벤 데이터 추가
         });
 
-        //InitAction?.Invoke();
-        DefaultUnitAdd(); // 인벤 데이터 추가
+        // 인벤 데이터 추가
+        DefaultTowerAdd();
+        DefaultUnitAdd(); 
         InitAction?.Invoke();
+    }
+
+    private void DefaultTowerAdd()
+    {
+        List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
+        for (int i = 0; i < Towers.Count; i++)
+        {
+            int key = i;
+            Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[key].Name}Tower", original =>
+            {
+                Tower tower = new Tower();
+                tower.Init(key, original.GetComponent<TowerControlBase>().Preview);
+                Managers.Player.Inventory.Add<Tower>(tower);
+            });
+        }
     }
 
     private void DefaultUnitAdd()

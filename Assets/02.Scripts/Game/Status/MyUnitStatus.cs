@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 public class MyUnitStatus : StatusBase
 {
+    public MyUnitStatus() { }
     public MyUnitStatus(int PrimaryKey, List<DefaultTable.MyUnit> Row)
     {
         Init();

@@ -17,11 +17,17 @@ public class GameScene : SceneBase
     {
         base.Enter();
 
-        Managers.Resource.Instantiate("MainLevel3", map => { CurrentMap = map; });
+        Managers.Resource.Instantiate("MainLevel3", map => 
+        {
+            CurrentMap = map; 
+            BuildingSystem.Instance?.Init(); 
+        });
         Managers.Resource.Instantiate("InventoryUI");
         Managers.Resource.Instantiate("MainUI");
-        Managers.Resource.Instantiate("BuildingSystem");
+        //Managers.Resource.Instantiate("BuildingSystem");
         Managers.Resource.Instantiate("Ending_Panel");
+
+        
     }
 
     public override void Update()

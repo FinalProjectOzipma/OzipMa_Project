@@ -24,7 +24,7 @@ public class BuildingSystem : MonoBehaviour
         }
 
         Instance = this;
-
+        DontDestroyOnLoad(gameObject);
         Init();
     }
 
