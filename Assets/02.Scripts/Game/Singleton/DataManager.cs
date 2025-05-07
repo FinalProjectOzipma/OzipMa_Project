@@ -95,15 +95,15 @@ public class DataManager
     /// </summary>
     /// <typeparam name="T">읽어올 데이터 타입</typeparam>
     /// <param name="onComplete">로드완료 후 실행할 Action</param>
-    public void LoadFirebase<T>(Action<T> onComplete)
+    public void LoadFirebase<T>(Action<T> onComplete, Action onFailed = null)
     {
         Managers.StartCoroutine(WaitingData<T>(result =>
         {
             onComplete(result);
-        }));
+        }, onFailed));
     }
 
-    private IEnumerator WaitingData<T>(Action<T> onComplete)
+    private IEnumerator WaitingData<T>(Action<T> onComplete, Action onFailed = null)
     {
         var firebaseData = _databaseReference.Child("users").Child(userID).Child(typeof(T).Name).GetValueAsync();
         yield return new WaitUntil(() => firebaseData.IsCompleted);
@@ -122,6 +122,7 @@ public class DataManager
         else
         {
             // TODO :: 파이어베이스 로드 실패 시 디폴트 데이터로 로드할 수 있는 장치가 필요함 
+            onFailed?.Invoke();
             Util.Log("Firebase's Data Not Found");
         }
     }
@@ -135,12 +136,12 @@ public class DataManager
         SaveFirebase<PlayerManager>(Managers.Player);
     }
 
-    public void LoadGameData()
+    public void LoadGameData(Action onFailed = null)
     {
         LoadFirebase<PlayerManager>(loadedData =>
         {
             Managers.Player.LoadPlayerData(loadedData);
-        });
+        }, onFailed);
     }
     #endregion
 }
