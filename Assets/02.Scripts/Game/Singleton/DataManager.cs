@@ -94,7 +94,7 @@ public class DataManager
     /// 파이어베이스에서 직접 로드 (읽기)
     /// </summary>
     /// <typeparam name="T">읽어올 데이터 타입</typeparam>
-    /// <param name="onComplete">로드완료 후 실행할 Action</param>7
+    /// <param name="onComplete">로드완료 후 실행할 Action</param>
     public void LoadFirebase<T>(Action<T> onComplete)
     {
         Managers.StartCoroutine(WaitingData<T>(result =>
