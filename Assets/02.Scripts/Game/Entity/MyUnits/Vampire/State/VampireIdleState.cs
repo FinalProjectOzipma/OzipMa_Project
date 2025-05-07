@@ -29,11 +29,9 @@ public class VampireIdleState : VampireStateBase
         if (Managers.Wave.CurEnemyList.Count == 0)
             return;
 
-        else if (!DetectedMap(target.transform.position))
-        {
-            InnerRange(data.ChaseState);
-        }
-        else if (time < 0)
+        InnerRange(data.ChaseState);
+
+        if (time < 0)
         {
             StateMachine.ChangeState(data.AttackState);
         }

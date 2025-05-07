@@ -34,7 +34,10 @@ public class SkeletonIdleState : SkeletonStateBase
         //맵 감지
         else if (!DetectedMap(target.transform.position))
         {
-            InnerRange(data.ChaseState);
+            if (!IsClose())
+            {
+                StateMachine.ChangeState(data.ChaseState);
+            }
         }
         //공격쿨타임이 돌았을 때
         else if (time < 0)

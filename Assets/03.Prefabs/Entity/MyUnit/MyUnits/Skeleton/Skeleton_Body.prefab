@@ -71,6 +71,10 @@ PrefabInstance:
       propertyPath: dotColor.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3675584278211520331, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
+      propertyPath: AttackCheck
+      value: 
+      objectReference: {fileID: 8481051753841024820}
     - target: {fileID: 5498075652551475942, guid: dbf9a80b329c43844ad8d17c2733f81e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

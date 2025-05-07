@@ -31,9 +31,9 @@ public class ZombieIdleState : ZombieStateBase
         base.Update();
         if (Managers.Wave.CurEnemyList.Count == 0)
             return;
-        else if (!DetectedMap(controller.Target.transform.position))
+        else if (!IsClose())
         {
-            InnerRange(data.ChaseState);
+            StateMachine.ChangeState(data.AttackState);
         }
         else if (time < 0)
         {

@@ -67,6 +67,7 @@ public class MyUnitStateBase : EntityStateBase
         if (target != null && target.activeSelf)
         {
             controller.FlipControll(target);
+            return;
         }
         else if (Managers.Wave.CurEnemyList.Count > 0)
         {
@@ -154,7 +155,6 @@ public class MyUnitStateBase : EntityStateBase
             controller.Target = null;
             return;
         }
-
         float minDistance = float.MaxValue;
         controller.Target = enemys[0];
         target = controller.Target;
@@ -168,6 +168,7 @@ public class MyUnitStateBase : EntityStateBase
                 minDistance = distance;
                 controller.Target = enemy;
                 target = controller.Target;
+                Util.Log("타겟지정되다");
             }
         }
     }
