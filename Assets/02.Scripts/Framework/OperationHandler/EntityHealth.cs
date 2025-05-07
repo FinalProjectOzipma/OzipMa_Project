@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class EntityHealth : FloatBase
 {
@@ -9,7 +10,14 @@ public class EntityHealth : FloatBase
     public override void AddValue(float amount)
     {
         if (Managers.Game.IsGodMode) return;
-        base.AddValue(amount);
+        if (amount < 0)
+        {
+            base.AddValue(amount);
+        }
+        else
+        {
+            SetValue(Mathf.Min(MaxValue, amount+ Value));
+        }
         OnChangeHealth?.Invoke(Value, MaxValue);
     }
     public override void SetValue(float amount)
