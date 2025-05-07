@@ -38,11 +38,11 @@ public class SkeletonIdleState : SkeletonStateBase
             {
                 OutRange(data.ChaseState);
             }
-        }
-        //공격쿨타임이 돌았을 때
-        else if (time < 0)
-        {
-            StateMachine.ChangeState(data.AttackState);
+            //공격쿨타임이 돌았을 때
+            else if (time < 0)
+            {
+                StateMachine.ChangeState(data.AttackState);
+            }
         }
     }
 }
