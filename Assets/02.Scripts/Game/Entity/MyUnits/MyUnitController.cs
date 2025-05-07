@@ -8,20 +8,17 @@ using UnityEngine.UI;
 
 public class MyUnitController : EntityController, IDamagable
 {
-    public Sprite sprite;   //아이콘
-
     #region Component
     public Rigidbody2D Rigid { get; private set; }
-    public CapsuleCollider2D capsuleCollider;
-    private string _Body = nameof(_Body);
     public SpriteRenderer spriteRenderer;
     public NavMeshAgent Agent;
-    public GameObject Target;
-    public HealthView healthView;
     #endregion
 
     #region 정보부
     public MyUnit MyUnit { get; private set; }
+    public GameObject Target;
+    public Sprite sprite;   //아이콘
+    private string _Body = nameof(_Body);
     #endregion
 
     //죽었을때 처리
@@ -48,11 +45,8 @@ public class MyUnitController : EntityController, IDamagable
     {
         base.Init(position);
         transform.position = position;
-
-        AnimData.Init(this);
-        Status.Health.OnChangeHealth = healthView.SetHpBar;
-        Status.Health.AddValue(0.0f);
-        //sethpbar 호출
+        Target = null;
+        Body.GetComponent<EntityBodyBase>().Enable(); // 죽었을때 Disable 처리해줘야됨
     }
 
     /// <summary>

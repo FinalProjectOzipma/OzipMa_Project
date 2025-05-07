@@ -31,20 +31,27 @@ public class MyUnitAnimationTrigger : MonoBehaviour
         myUnit.AnimationFinishProjectileTrigger();
     }
 
-    public virtual void AttackTrigger()
+    public void AttackTrigger()
     {
         int layer = (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, attackValue, layer);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.Status.AttackRange.GetValue(), layer);
 
         foreach (var hit in colliders)
         {
+            //타겟이 아닌경우 패스
+            if (hit.gameObject != myUnit.Target)
+            {
+                continue;
+            }
             IDamagable damable = hit.GetComponentInParent<IDamagable>();
             if (damable != null)
             {
                 damable.ApplyDamage(myUnit.Status.Attack.GetValue(), myUnit.MyUnit.AbilityType, myUnit.gameObject);
+                Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
             }
         }
     }
+
 
     private void OnDrawGizmos()
     {

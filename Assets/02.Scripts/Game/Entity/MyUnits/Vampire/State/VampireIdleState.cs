@@ -4,24 +4,18 @@ using UnityEngine;
 
 public class VampireIdleState : VampireStateBase
 {
+    private float attackCoolDown;
     public VampireIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, VampireAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
+        attackCoolDown = status.AttackCoolDown.GetValue();
     }
 
     public override void Enter()
     {
         base.Enter();
-        if (controller.Target == null)
-        {
-            SetTarget();
-        }
-        else
-        {
-            if (!controller.Target.activeSelf)
-            {
-                SetTarget();
-            }
-        }
+        agent.isStopped = true;
+
+        time = attackCoolDown;
     }
 
     public override void Exit()
@@ -32,27 +26,16 @@ public class VampireIdleState : VampireStateBase
     public override void Update()
     {
         base.Update();
-        if (controller.Target == null)
+        if (Managers.Wave.CurEnemyList.Count == 0)
+            return;
+
+        else if (!DetectedMap(target.transform.position))
         {
-            SetTarget();
+            InnerRange(data.ChaseState);
         }
-        else
+        else if (time < 0)
         {
-            if (controller.Target.activeSelf)
-            {
-                if (IsClose())
-                {
-                    StateMachine.ChangeState(data.AttackState);
-                }
-                else
-                {
-                    StateMachine.ChangeState(data.ChaseState);
-                }
-            }
-            else
-            {
-                SetTarget();
-            }
+            StateMachine.ChangeState(data.AttackState);
         }
     }
 }

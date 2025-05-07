@@ -2,27 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class SkeletonIdleState : SkeletonStateBase
 {
+    private float attackCoolDown;
     public SkeletonIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, SkeletonAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
+        attackCoolDown = status.AttackCoolDown.GetValue();
     }
 
     public override void Enter()
     {
         base.Enter();
-        if (controller.Target == null)
-        {
-            SetTarget();
-        }
-        else
-        {
-            if (!controller.Target.activeSelf)
-            {
-                SetTarget();
-            }
-        }
+        agent.isStopped = true;
+
+        time = attackCoolDown;
     }
 
     public override void Exit()
@@ -33,38 +28,18 @@ public class SkeletonIdleState : SkeletonStateBase
     public override void Update()
     {
         base.Update();
-        time += Time.deltaTime;
-        //타겟이 없다면
-        if (controller.Target == null)
+        //현재 적의 수가 0이 되면
+        if (Managers.Wave.CurEnemyList.Count == 0)
+            return;
+        //맵 감지
+        else if (!DetectedMap(target.transform.position))
         {
-            SetTarget();
+            InnerRange(data.ChaseState);
         }
-        //타겟이 존재하는데
-        else
+        //공격쿨타임이 돌았을 때
+        else if (time < 0)
         {
-            //비활성화 되어있지 않다면
-            if (controller.Target.activeSelf)
-            {
-                //공격범위 외라면
-                if (!IsClose())
-                {
-                    //추격상태로 전환
-                    StateMachine.ChangeState(data.ChaseState);
-                }
-                else
-                {
-                    //공격범위에 있으면서 공격쿨타임이 돌았다면
-                    if (time >= controller.Status.AttackCoolDown.GetValue())
-                    {
-                        //공격상태로 전환
-                        StateMachine.ChangeState(data.AttackState);
-                    }
-                }
-            }
-            else
-            {
-                SetTarget();
-            }
+            StateMachine.ChangeState(data.AttackState);
         }
     }
 }
