@@ -116,7 +116,7 @@ public class DragController : MonoBehaviour
         {
             dragObject.transform.position = buildingSystem.UpdatePosition(inputPos);
             int key = buildingSystem.RemovePlacedMapScreenPos(eventPosition);
-            buildingSystem.AddPlacedMap(inputPos, key);
+            buildingSystem.AddPlacedMapScreenPos(inputPos, key);
             dragObject = null;
             return;
         }

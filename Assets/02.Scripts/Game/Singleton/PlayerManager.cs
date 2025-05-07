@@ -26,7 +26,7 @@ public class PlayerManager
 
     public Dictionary<string, TowerStatus> TowerInfos; // 키 - $"Tower{PrimaryKey}" 형태가 될 것
     public Dictionary<int, MyUnitStatus> MyUnitInfos;
-    public Dictionary<Vector3Int, int> GridObjectMap;
+    public Dictionary<string, int> GridObjectMap;
 
     public void Initialize()
     {
@@ -151,7 +151,11 @@ public class PlayerManager
         }
 
         // 3. 배치된 오브젝트 데이터 저장
-        GridObjectMap = BuildingSystem.Instance.GridObjectMap;
+        GridObjectMap = new();
+        foreach (Vector3Int point in BuildingSystem.Instance.GridObjectMap.Keys)
+        {
+            GridObjectMap.Add(point.ToString(), BuildingSystem.Instance.GridObjectMap[point]);
+        }
     }
 
     public void LoadPlayerData(PlayerManager data)
@@ -193,7 +197,19 @@ public class PlayerManager
             // ===== 원래 배치대로 타워 배치 =====
             if(data.GridObjectMap != null)
             {
-                BuildingSystem.Instance.BuildingInit(data.GridObjectMap);
+                Dictionary<Vector3Int, int> convertedMap = new();
+                foreach (string pointStr in data.GridObjectMap.Keys)
+                {
+                    if(Util.TryStringToVector3Int(pointStr, out Vector3Int res) == true)
+                    {
+                        convertedMap.Add(res, data.GridObjectMap[pointStr]);
+                    }
+                }
+                BuildingSystem.Instance.BuildingInit(convertedMap);
+            }
+            else
+            {
+                Util.Log("GameData의 GridObjectMap이 Null입니다.");
             }
         }
 

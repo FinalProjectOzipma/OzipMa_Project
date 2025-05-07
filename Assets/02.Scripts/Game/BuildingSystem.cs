@@ -45,9 +45,13 @@ public class BuildingSystem : MonoBehaviour
             {
                 int primaryKey = gridObjectMap[point];
                 Tower towerInfo = Managers.Player.Inventory.GetItem<Tower>(primaryKey);
-                Managers.Resource.Instantiate($"{towerInfo.Name}Tower", go => 
+
+                string towerName = $"{towerInfo.Name}Tower";
+                Managers.Resource.Instantiate(towerName, go => 
                 {
                     go.transform.position = map.GetCellCenterWorld(point);
+                    BuildingSystem.Instance.AddPlacedMapCell(point, primaryKey);
+                    go.GetComponent<TowerControlBase>().TakeRoot(primaryKey, towerName, towerInfo);
                 });
             }
         }
@@ -100,10 +104,14 @@ public class BuildingSystem : MonoBehaviour
     }
 
     #region 배치된 공간 저장/삭제 메서드들
-    public void AddPlacedMap(Vector3 mousePos, int id)
+    public void AddPlacedMapScreenPos(Vector3 mousePos, int id)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
         GridObjectMap.Add(map.WorldToCell(worldPos), id);
+    }
+    public void AddPlacedMapCell(Vector3Int cellPoint, int id)
+    {
+        GridObjectMap.Add(cellPoint, id);
     }
 
     public int RemovePlacedMapScreenPos(Vector3 mousePos)
