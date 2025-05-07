@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class Inventory
 {
+    Dictionary<string, IGettable> userObject = new Dictionary<string, IGettable>();
     Dictionary<string, List<IGettable>> inventory = new Dictionary<string, List<IGettable>>();
     Dictionary<RankType, List<IGettable>> units = new Dictionary<RankType, List<IGettable>>();
+
 
     public Inventory()
     {
@@ -25,6 +27,7 @@ public class Inventory
         }
 
         inventory[typeof(T).Name].Add(gettable);
+        userObject[$"{typeof(T).Name}{gettable.PrimaryKey}"] = gettable;
 
         if(typeof(T) == typeof(MyUnit))
         {
@@ -40,6 +43,14 @@ public class Inventory
             return list;
         }
 
+        return null;
+    }
+
+    public T GetItem<T>(int key) where T : UserObject
+    {
+        if (userObject.TryGetValue($"{typeof(T).Name}{key}", out var value)) return value as T;
+
+        Util.LogWarning("해당 되는 키에 오브젝트를 가져오질 못했습니다.");
         return null;
     }
 }
