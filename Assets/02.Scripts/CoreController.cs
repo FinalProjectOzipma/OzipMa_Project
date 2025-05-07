@@ -154,7 +154,7 @@ public class CoreController : Poolable, IDamagable
             Managers.Wave.CurMyUnitList.Add(go);
             MyUnitController ctrl = go.GetComponent<MyUnitController>();
             ctrl.Target = GameObject.Find("Test");
-            ctrl.TakeRoot(random, $"{name}", transform.position);
+            ctrl.TakeRoot(myUnit.PrimaryKey, $"{name}", transform.position);
         });
     }
 

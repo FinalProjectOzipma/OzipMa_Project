@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Audio;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using static UnityEngine.Rendering.HDROutputUtils;
@@ -13,7 +14,6 @@ public class AudioManager
     [Range(0, 1)] public float sfxVolume = 1f; // SFX 볼륨
 
     public AudioControler audioControler;
-
 
     public void Initialize()
     {

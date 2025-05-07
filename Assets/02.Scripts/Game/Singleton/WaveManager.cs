@@ -187,8 +187,8 @@ public class WaveManager
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
         {
-            EnemyController ctrl = go.GetComponent<EnemyController>(); 
-            ctrl.TakeRoot(random, name, enemySpawn.transform.position);
+            EnemyController ctrl = go.GetComponent<EnemyController>();
+            ctrl.TakeRoot(spawnenemy.EnemyPrimaryKey, name, enemySpawn.transform.position);
 
             // 웨이브 몬스터 추가
             Managers.Wave.CurEnemyList.Add(ctrl.gameObject);
