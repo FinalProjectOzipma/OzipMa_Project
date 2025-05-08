@@ -10,8 +10,8 @@ using UnityEngine;
 public class PlayerManager 
 {
     public Core MainCoreData { get; set; }
-    public long Gold { get; private set; }
-    public long Gem { get; private set; }
+    public long Gold { get; set; }
+    public long Gem { get; set; }
 
     public event Action<long> OnGoldChanged;
     public event Action<long> OnZamChanged;
@@ -37,7 +37,7 @@ public class PlayerManager
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
 
-        SetGoldAndJame();
+        //SetGoldAndJame();
     }
 
     /// <summary>
@@ -206,10 +206,7 @@ public class PlayerManager
                         convertedMap.Add(res, data.GridObjectMap[pointStr]);
                     }
                 }
-                //Managers.Resource.Instantiate("BuildingSystem", bs => 
-                //{ 
-                //    bs.GetComponent<BuildingSystem>().BuildingInit(convertedMap); 
-                //});
+
                 BuildingSystem.Instance.BuildingInit(convertedMap);
             }
             else
