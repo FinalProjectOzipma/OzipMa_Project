@@ -17,16 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ef86a0084b44c3640a271d4adad06e51
   m_SerializeEntries:
-  - m_GUID: 7dc69b3c4b1be8049aa65d0dc2d8081e
-    m_Address: Test2
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7c578a8510ea6c74e9367544b68595e2
-    m_Address: TestPopup
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6cec58193c71c754888e4a40e976bc59
     m_Address: Assets/03.Prefabs/Entity/Tower/Base/FloorTower.prefab
     m_ReadOnly: 0
@@ -82,12 +72,6 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac89bf2f077c8904d84580a6ef98d201
     m_Address: TowerMenu
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c9f77d65493cca84badbc9cb4281afe6
-    m_Address: BatchPopup
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
