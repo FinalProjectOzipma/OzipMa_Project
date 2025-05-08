@@ -165,11 +165,10 @@ public class PlayerManager
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
         
-        Money = data.Money;
-        gold = 0;
-        zam = 0;
-        AddZam(data.zam);
-        AddGold(data.gold);
+        Gold = 0;
+        Gem = 0;
+        AddGem(data.Gem);
+        AddGold(data.Gold);
 
         CurrentStage = data.CurrentStage;
         CurrentWave = data.CurrentWave;
