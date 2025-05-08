@@ -12,7 +12,37 @@ public class PhnMyUnitScene : GameScene
     {
         base.Enter();
 
+
         // 테스트용
+        //List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
+        //for (int i = 0; i < Towers.Count; i++)
+        //{
+        //    int key = i;
+        //    Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[key].Name}Tower", original =>
+        //    {
+        //        Tower tower = new Tower();
+        //        tower.Init(key, original.GetComponent<TowerControlBase>().Preview);
+        //        Managers.Player.Inventory.Add<Tower>(tower);
+        //    });
+        //}
+
+        // 파이어베이스 테스트
+        //Managers.Data.SaveGameData();
+        //Managers.Data.LoadGameData(() => 
+        //{
+        //    // TODO :: 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅해줘야 함. 
+        //    DefaultTowerAdd();
+        //    DefaultUnitAdd(); // 인벤 데이터 추가
+        //});
+
+        // 인벤 데이터 추가
+        DefaultTowerAdd();
+        DefaultUnitAdd(); 
+        InitAction?.Invoke();
+    }
+
+    private void DefaultTowerAdd()
+    {
         List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
         for (int i = 0; i < Towers.Count; i++)
         {
@@ -24,10 +54,6 @@ public class PhnMyUnitScene : GameScene
                 Managers.Player.Inventory.Add<Tower>(tower);
             });
         }
-
-        //InitAction?.Invoke();
-        DefaultUnitAdd(); // 인벤 데이터 추가
-        InitAction?.Invoke();
     }
 
     private void DefaultUnitAdd()

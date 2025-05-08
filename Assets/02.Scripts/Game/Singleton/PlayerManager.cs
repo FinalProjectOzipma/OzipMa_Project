@@ -1,4 +1,6 @@
+using DefaultTable;
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,8 +11,8 @@ public class PlayerManager
 {
     public Core MainCoreData { get; set; }
     public int Money { get; set; }
-    public long gold { get; private set; }
-    public long zam { get; private set; }
+    public long gold { get;  set; }
+    public long zam { get; set; }
 
     public event Action<long> OnGoldChanged;
     public event Action<long> OnZamChanged;
@@ -22,6 +24,10 @@ public class PlayerManager
 
     public int CurrentStage { get; set; }
     public int CurrentWave { get; set; }
+
+    public Dictionary<string, TowerStatus> TowerInfos; // 키 - $"Tower{PrimaryKey}" 형태가 될 것
+    public Dictionary<string, MyUnitStatus> MyUnitInfos;
+    public Dictionary<string, int> GridObjectMap; // 키 - Vector3Int를 ToString()한 것이 들어감 
 
     public void Initialize()
     {
@@ -119,4 +125,116 @@ public class PlayerManager
 
     public string GetStage() => CurrentStage.ToString();
 
+    public void SaveInit()
+    {
+        // 1. Tower의 동적 데이터 저장 목적
+        TowerInfos = new();
+        List<IGettable> towers = Inventory.GetList<Tower>();
+        if(towers != null)
+        {
+            foreach (var item in towers)
+            {
+                Tower tower = (Tower)item;
+                TowerInfos.Add($"Tower{tower.PrimaryKey.ToString()}", tower.TowerStatus);
+            }
+        }
+
+        // 2. MyUnit의 동적 데이터 저장 목적 
+        MyUnitInfos = new();
+        List<IGettable> myUnits = Inventory.GetList<MyUnit>();
+        if (myUnits != null)
+        {
+            foreach (var item in myUnits)
+            {
+                MyUnit myUnit = (MyUnit)item;
+                MyUnitInfos.Add($"MyUnit{myUnit.PrimaryKey.ToString()}", myUnit.Status as MyUnitStatus);
+            }
+        }
+
+        // 3. 배치된 오브젝트 데이터 저장
+        GridObjectMap = new();
+        foreach (Vector3Int point in BuildingSystem.Instance.GridObjectMap?.Keys)
+        {
+            GridObjectMap.Add(point.ToString(), BuildingSystem.Instance.GridObjectMap[point]);
+        }
+    }
+
+    public void LoadPlayerData(PlayerManager data)
+    {
+        // ===== MainCore는 오프라인 진행도 계산 후에 적용해야하나?????? =====
+        //MainCoreData.Health = data.MainCoreData.Health;
+        //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
+        //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
+        
+        Money = data.Money;
+        gold = 0;
+        zam = 0;
+        AddZam(data.zam);
+        AddGold(data.gold);
+
+        CurrentStage = data.CurrentStage;
+        CurrentWave = data.CurrentWave;
+
+        TowerInfos = data.TowerInfos;
+        MyUnitInfos = data.MyUnitInfos;
+
+        // ===== 인벤토리에 추가 - 타워 =====
+        if(TowerInfos != null)
+        {
+            Inventory.ClearList<Tower>();
+            List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
+            foreach (string Key in TowerInfos.Keys)
+            {
+                int primaryKey = int.Parse(Key.Replace("Tower",""));
+                Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[primaryKey].Name}Tower", original => 
+                {
+                    Tower tower = new Tower();
+                    tower.Init(primaryKey, original.GetComponent<TowerControlBase>().Preview);
+                    tower.TowerStatus.SetDatas(TowerInfos[Key]); // 동적 정보 넘김
+                    Inventory.Add<Tower>(tower);
+                });
+            }
+
+            // ===== 원래 배치대로 타워 배치 =====
+            if(data.GridObjectMap != null)
+            {
+                Dictionary<Vector3Int, int> convertedMap = new();
+                foreach (string pointStr in data.GridObjectMap.Keys)
+                {
+                    if(Util.TryStringToVector3Int(pointStr, out Vector3Int res) == true)
+                    {
+                        Util.Log($"LoadPlayerData의 여기가 가끔 안돼요 : {res.ToString()}");
+                        convertedMap.Add(res, data.GridObjectMap[pointStr]);
+                    }
+                }
+                //Managers.Resource.Instantiate("BuildingSystem", bs => 
+                //{ 
+                //    bs.GetComponent<BuildingSystem>().BuildingInit(convertedMap); 
+                //});
+                BuildingSystem.Instance.BuildingInit(convertedMap);
+            }
+            else
+            {
+                Util.Log("GameData의 GridObjectMap이 Null입니다.");
+            }
+        }
+
+        // ===== 인벤토리에 추가 - 아군 유닛 =====
+        if (MyUnitInfos != null)
+        {
+            Inventory.ClearList<MyUnit>();
+            List<DefaultTable.MyUnit> MyUnits = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
+            foreach(string Key in MyUnitInfos.Keys)
+            {
+                int primaryKey = int.Parse(Key.Replace("MyUnit", ""));
+                Managers.Resource.LoadAssetAsync<GameObject>($"{MyUnits[primaryKey].Name}_Brain", original => 
+                {
+                    MyUnit unit = new MyUnit();
+                    unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
+                    //unit.Status = MyUnitInfos[Key]; // 동적 정보 넘김 // TODO :: 데이터만 넘기는 함수 필요해요
+                    Inventory.Add<MyUnit>(unit);
+                });
+            }
+        }
+    }
 }

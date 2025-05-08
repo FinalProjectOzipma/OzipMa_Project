@@ -115,8 +115,8 @@ public class DragController : MonoBehaviour
         if (isEditMode && buildingSystem.CanTowerBuild(inputPos))
         {
             dragObject.transform.position = buildingSystem.UpdatePosition(inputPos);
-            buildingSystem.RemovePlacedMapScreenPos(eventPosition);
-            buildingSystem.AddPlacedMap(inputPos);
+            int key = buildingSystem.RemovePlacedMapScreenPos(eventPosition);
+            buildingSystem.AddPlacedMapScreenPos(inputPos, key);
             dragObject = null;
             return;
         }

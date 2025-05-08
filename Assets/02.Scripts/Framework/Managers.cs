@@ -84,4 +84,10 @@ public class Managers : MonoBehaviour
         Scene.BsyEnemyScene.SingletonAction += Wave.Initialize;
         Scene.BsyEnemyScene.SingletonAction += Game.Initialize;
     }
+
+    void OnApplicationQuit()
+    {
+        // 게임 종료될 때 게임 데이터 저장 
+        Data.SaveGameData();
+    }
 }
