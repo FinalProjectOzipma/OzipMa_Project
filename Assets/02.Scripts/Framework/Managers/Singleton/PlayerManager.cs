@@ -28,11 +28,21 @@ public class PlayerManager
     public Dictionary<string, MyUnitStatus> MyUnitInfos;
     public Dictionary<string, int> GridObjectMap; // 키 - Vector3Int를 ToString()한 것이 들어감 
 
+    public ResearchData AttackResearchData { get; set; }
+    public ResearchData DefenceResearchData { get; set; }
+    public ResearchData CoreResearchData { get; set; }
+    public ResearchData RandomResearchData { get; set; }
     public void Initialize()
     {
         // 처음 시작할때 선언
         Inventory = new Inventory();
         MainCoreData = new Core();
+
+        AttackResearchData = new(ResearchUpgradeType.Attack);
+        DefenceResearchData = new(ResearchUpgradeType.Defence);
+        CoreResearchData = new(ResearchUpgradeType.Core);
+        RandomResearchData = new(ResearchUpgradeType.Random);
+        // 저장된게 있으면 선언
 
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
@@ -234,5 +244,37 @@ public class PlayerManager
                 });
             }
         }
+    }
+}
+
+public enum ResearchUpgradeType
+{
+    Attack,
+    Defence,
+    Core,
+    Random
+}
+
+
+public class ResearchData
+{
+    public ResearchUpgradeType type;
+    public string startTime;
+    public float researchDuration;
+    public int updateLevel;
+    public float updateStat;
+    public long spendGold;
+    public long spendZam;
+
+
+    public ResearchData(ResearchUpgradeType _type)
+    {
+        type = _type;
+        startTime = "";
+        researchDuration = 0;
+        updateLevel = 0;
+        updateStat = 0;
+        spendGold = 0;
+        spendZam = 0;
     }
 }
