@@ -10,8 +10,8 @@ using UnityEngine;
 public class PlayerManager 
 {
     public Core MainCoreData { get; set; }
-    public long Gold { get; private set; }
-    public long Gem { get; private set; }
+    public long Gold { get; set; }
+    public long Gem { get; set; }
 
     public event Action<long> OnGoldChanged;
     public event Action<long> OnZamChanged;
@@ -47,7 +47,7 @@ public class PlayerManager
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
 
-        SetGoldAndJame();
+        //SetGoldAndJame();
     }
 
     /// <summary>
@@ -182,6 +182,7 @@ public class PlayerManager
 
         CurrentStage = data.CurrentStage;
         CurrentWave = data.CurrentWave;
+        OnStageWave();
 
         TowerInfos = data.TowerInfos;
         MyUnitInfos = data.MyUnitInfos;
@@ -215,10 +216,7 @@ public class PlayerManager
                         convertedMap.Add(res, data.GridObjectMap[pointStr]);
                     }
                 }
-                //Managers.Resource.Instantiate("BuildingSystem", bs => 
-                //{ 
-                //    bs.GetComponent<BuildingSystem>().BuildingInit(convertedMap); 
-                //});
+
                 BuildingSystem.Instance.BuildingInit(convertedMap);
             }
             else
@@ -239,7 +237,7 @@ public class PlayerManager
                 {
                     MyUnit unit = new MyUnit();
                     unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
-                    //unit.Status = MyUnitInfos[Key]; // 동적 정보 넘김 // TODO :: 데이터만 넘기는 함수 필요해요
+                    (unit.Status as MyUnitStatus).SetDatas(MyUnitInfos[Key]); // 동적 정보 넘김
                     Inventory.Add<MyUnit>(unit);
                 });
             }
