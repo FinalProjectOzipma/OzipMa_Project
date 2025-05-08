@@ -36,8 +36,8 @@ public class PhnMyUnitScene : GameScene
         //});
 
         // 인벤 데이터 추가
-        DefaultTowerAdd();
-        DefaultUnitAdd(); 
+        //DefaultTowerAdd();
+        //DefaultUnitAdd(); 
         InitAction?.Invoke();
     }
 
