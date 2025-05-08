@@ -38,7 +38,10 @@ public class EnemyAnimationTrigger : MonoBehaviour
         foreach (var hit in colliders)
         {
             IDamagable damable = hit.GetComponentInParent<IDamagable>();
-            if (damable != null)
+            if (!enemy.Targets.TryPeek(out var target))
+                return;
+
+            if (target == hit.gameObject && damable != null)
             {
                 damable.ApplyDamage(enemy.Status.Attack.GetValue(), AbilityType.None, enemy.gameObject);
             }

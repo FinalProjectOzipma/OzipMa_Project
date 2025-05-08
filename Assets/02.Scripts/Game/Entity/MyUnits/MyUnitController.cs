@@ -65,7 +65,8 @@ public class MyUnitController : EntityController, IDamagable
         MyUnit.Init(primaryKey, sprite);
 
         MyUnit.Status.InitHealth();
-        Status = MyUnit.Status as MyUnitStatus;
+
+        Status = MyUnit.Status;
 
         // 초기화부분
         if (Body == null)
@@ -81,6 +82,7 @@ public class MyUnitController : EntityController, IDamagable
         }
         else
             Init(position);
+        Util.Log(Status.Health.GetValueToString());
     }
 
 

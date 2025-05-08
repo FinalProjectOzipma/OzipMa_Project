@@ -12,7 +12,6 @@ public class ZombieDeadState : ZombieStateBase
     {
         base.Enter();
         controller.Agent.isStopped = true;
-        Managers.Wave.CurMyUnitList.Remove(controller.gameObject);
         controller.Target = null;
     }
 
@@ -24,6 +23,13 @@ public class ZombieDeadState : ZombieStateBase
     public override void Update()
     {
         if (triggerCalled)
-            Managers.Resource.Destroy(controller.gameObject);
+        {
+            if (controller.gameObject.activeSelf)
+            {
+                controller.Body.GetComponent<EntityBodyBase>().Disable();
+                Managers.Wave.CurMyUnitList.Remove(controller.gameObject);
+                Managers.Resource.Destroy(controller.gameObject);
+            }
+        }
     }
 }

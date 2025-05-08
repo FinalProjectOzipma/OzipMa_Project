@@ -29,20 +29,20 @@ public class SkeletonIdleState : SkeletonStateBase
     {
         base.Update();
         //현재 적의 수가 0이 되면
-        if (Managers.Wave.CurEnemyList.Count == 0)
+        if (Managers.Wave.CurEnemyList.Count <= 0)
             return;
         //맵 감지
         else if (!DetectedMap(target.transform.position))
         {
             if (!IsClose())
             {
-                StateMachine.ChangeState(data.ChaseState);
+                OutRange(data.ChaseState);
             }
-        }
-        //공격쿨타임이 돌았을 때
-        else if (time < 0)
-        {
-            StateMachine.ChangeState(data.AttackState);
+            //공격쿨타임이 돌았을 때
+            else if (time < 0)
+            {
+                StateMachine.ChangeState(data.AttackState);
+            }
         }
     }
 }
