@@ -172,6 +172,7 @@ public class PlayerManager
 
         CurrentStage = data.CurrentStage;
         CurrentWave = data.CurrentWave;
+        OnStageWave();
 
         TowerInfos = data.TowerInfos;
         MyUnitInfos = data.MyUnitInfos;
