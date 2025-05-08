@@ -1,3 +1,4 @@
+using DefaultTable;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -25,8 +26,8 @@ public class PlayerManager
     public int CurrentWave { get; set; }
 
     public Dictionary<string, TowerStatus> TowerInfos; // 키 - $"Tower{PrimaryKey}" 형태가 될 것
-    public Dictionary<int, MyUnitStatus> MyUnitInfos;
-    public Dictionary<string, int> GridObjectMap;
+    public Dictionary<string, MyUnitStatus> MyUnitInfos;
+    public Dictionary<string, int> GridObjectMap; // 키 - Vector3Int를 ToString()한 것이 들어감 
 
     public void Initialize()
     {
@@ -146,13 +147,13 @@ public class PlayerManager
             foreach (var item in myUnits)
             {
                 MyUnit myUnit = (MyUnit)item;
-                MyUnitInfos.Add(myUnit.PrimaryKey, myUnit.Status as MyUnitStatus);
+                MyUnitInfos.Add($"MyUnit{myUnit.PrimaryKey.ToString()}", myUnit.Status as MyUnitStatus);
             }
         }
 
         // 3. 배치된 오브젝트 데이터 저장
         GridObjectMap = new();
-        foreach (Vector3Int point in BuildingSystem.Instance.GridObjectMap.Keys)
+        foreach (Vector3Int point in BuildingSystem.Instance.GridObjectMap?.Keys)
         {
             GridObjectMap.Add(point.ToString(), BuildingSystem.Instance.GridObjectMap[point]);
         }
@@ -202,9 +203,14 @@ public class PlayerManager
                 {
                     if(Util.TryStringToVector3Int(pointStr, out Vector3Int res) == true)
                     {
+                        Util.Log($"LoadPlayerData의 여기가 가끔 안돼요 : {res.ToString()}");
                         convertedMap.Add(res, data.GridObjectMap[pointStr]);
                     }
                 }
+                //Managers.Resource.Instantiate("BuildingSystem", bs => 
+                //{ 
+                //    bs.GetComponent<BuildingSystem>().BuildingInit(convertedMap); 
+                //});
                 BuildingSystem.Instance.BuildingInit(convertedMap);
             }
             else
@@ -218,13 +224,14 @@ public class PlayerManager
         {
             Inventory.ClearList<MyUnit>();
             List<DefaultTable.MyUnit> MyUnits = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
-            foreach(int primaryKey in MyUnitInfos.Keys)
+            foreach(string Key in MyUnitInfos.Keys)
             {
-                Managers.Resource.LoadAssetAsync<GameObject>($"{MyUnits[primaryKey]}_Brain", original => 
+                int primaryKey = int.Parse(Key.Replace("MyUnit", ""));
+                Managers.Resource.LoadAssetAsync<GameObject>($"{MyUnits[primaryKey].Name}_Brain", original => 
                 {
                     MyUnit unit = new MyUnit();
                     unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
-                    unit.Status = MyUnitInfos[primaryKey]; // 동적 정보 넘김
+                    //unit.Status = MyUnitInfos[Key]; // 동적 정보 넘김 // TODO :: 데이터만 넘기는 함수 필요해요
                     Inventory.Add<MyUnit>(unit);
                 });
             }

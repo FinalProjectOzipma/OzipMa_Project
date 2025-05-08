@@ -28,12 +28,12 @@ public class PhnMyUnitScene : GameScene
 
         // 파이어베이스 테스트
         //Managers.Data.SaveGameData();
-        Managers.Data.LoadGameData(() => 
-        {
-            // TODO :: 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅해줘야 함. 
-            DefaultTowerAdd();
-            DefaultUnitAdd(); // 인벤 데이터 추가
-        });
+        //Managers.Data.LoadGameData(() => 
+        //{
+        //    // TODO :: 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅해줘야 함. 
+        //    DefaultTowerAdd();
+        //    DefaultUnitAdd(); // 인벤 데이터 추가
+        //});
 
         // 인벤 데이터 추가
         DefaultTowerAdd();
