@@ -17,12 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b9a76ead35befee45a06c9529e5f4cdf
   m_SerializeEntries:
-  - m_GUID: e94de9eaa5652ff4c8a230a4fabc4b04
-    m_Address: Core
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6a39d47d6d17b0d42a69ac406f801cc3
     m_Address: EnemySpawn
     m_ReadOnly: 0
