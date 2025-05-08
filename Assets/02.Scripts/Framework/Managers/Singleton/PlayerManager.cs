@@ -227,7 +227,7 @@ public class PlayerManager
                 {
                     MyUnit unit = new MyUnit();
                     unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
-                    //unit.Status = MyUnitInfos[Key]; // 동적 정보 넘김 // TODO :: 데이터만 넘기는 함수 필요해요
+                    (unit.Status as MyUnitStatus).SetDatas(MyUnitInfos[Key]); // 동적 정보 넘김
                     Inventory.Add<MyUnit>(unit);
                 });
             }
