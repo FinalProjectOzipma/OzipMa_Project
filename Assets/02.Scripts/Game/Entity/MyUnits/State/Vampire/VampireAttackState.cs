@@ -32,7 +32,7 @@ public class VampireAttackState : VampireStateBase
         {
             Heal();
             target.GetComponent<EnemyController>().ApplyDamage(controller.Status.Attack.GetValue(), controller.MyUnit.AbilityType, controller.gameObject);
-            Managers.Resource.Instantiate("VampireEffect");
+            Managers.Resource.Instantiate("Vampiric");
             triggerCalled = false;
             StateMachine.ChangeState(data.IdleState);
         }

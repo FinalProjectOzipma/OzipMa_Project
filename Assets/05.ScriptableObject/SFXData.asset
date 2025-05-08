@@ -47,3 +47,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c09d44264b759419eaafa569f53b749a, type: 3}
   - key: Fire
     clip: {fileID: 8300000, guid: ede067c21ee0a43c69f7b8a217babed5, type: 3}
+  - key: Coin
+    clip: {fileID: 8300000, guid: 5cd73b5d2c9fd45cd8cf969c73c8f6e5, type: 3}

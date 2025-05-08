@@ -26,7 +26,7 @@ public class FieldGold : Poolable
         centerVector.z = 0f;
 
         // 처음 시퀀스가 끝났을때 다음 골드도 실행 시킬 수 있도록 다음골드로 바꾸기
-        seq.Append(transform.DOMove(centerVector, 0.5f)).Join(transform.DOScale(new Vector2(5, 5), 0.5f)).InsertCallback(0.1f, () =>
+        seq.Append(transform.DOMove(centerVector, 1f)).Join(transform.DOScale(new Vector2(5, 5), 1f)).InsertCallback(0.1f, () =>
         {
             NextGold = true;
         });
