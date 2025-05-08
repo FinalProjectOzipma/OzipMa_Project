@@ -47,6 +47,7 @@ public class MyUnitStateBase : EntityStateBase
     {
         if (status.Health.GetValue() <= 0.0f)
         {
+            Util.Log(status.Health.GetValue().ToString());
             controller.StopAllCoroutines();
             controller.IsDead = true;
             return true;
@@ -82,6 +83,10 @@ public class MyUnitStateBase : EntityStateBase
     /// <param name="dist"></param>
     public void InnerRange(MyUnitStateBase nextState, float dist = -1)
     {
+        if (controller.Target == null)
+        {
+            return;
+        }
         if (dist < 0)
             dist = controller.Status.AttackRange.GetValue();
 
@@ -120,7 +125,7 @@ public class MyUnitStateBase : EntityStateBase
     }
 
     /// <summary>
-    /// 맵 감지
+    /// 몬스터와 타겟사이에 벽에 걸리면 true, 없으면 false
     /// </summary>
     /// <param name="targetPos"></param>
     /// <returns></returns>
@@ -168,7 +173,6 @@ public class MyUnitStateBase : EntityStateBase
                 minDistance = distance;
                 controller.Target = enemy;
                 target = controller.Target;
-                Util.Log("타겟지정되다");
             }
         }
     }

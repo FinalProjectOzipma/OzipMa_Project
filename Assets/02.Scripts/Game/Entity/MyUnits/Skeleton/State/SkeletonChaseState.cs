@@ -24,8 +24,9 @@ public class SkeletonChaseState : SkeletonStateBase
     {
         base.Update();
         agent.SetDestination(target.transform.position);
+
         //맵 감지
-        if (!DetectedMap(controller.Target.transform.position))
+        if (controller.Target != null &&!DetectedMap(controller.Target.transform.position))
             InnerRange(data.IdleState);
 
         //가까우면 공격상태로 바꿈
