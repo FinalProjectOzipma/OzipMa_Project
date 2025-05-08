@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DragController : MonoBehaviour
 {
@@ -16,7 +18,8 @@ public class DragController : MonoBehaviour
     private GameObject towerMenu; // 불러온 타워메뉴창 프리팹 저장
     private UI_TowerMenu uiTowerMenu;
     private float pressTime = 0f; // 홀드 경과 시간
-    private bool isEditMode = false; 
+    private bool isEditMode = false;
+    public Button deleteButton;
 
     private void Start()
     {
@@ -25,6 +28,7 @@ public class DragController : MonoBehaviour
         {
             towerMenu = go;
             towerMenu.SetActive(false);
+            deleteButton = towerMenu.GetComponentInChildren<Button>(true);
             uiTowerMenu = towerMenu.GetComponent<UI_TowerMenu>();
             SetEditMode(false);
         });
@@ -38,7 +42,15 @@ public class DragController : MonoBehaviour
         if(Input.GetMouseButton(0) && !isEditDragging)
         {
             eventPosition = Input.mousePosition;
+
+            if (IsSpecificUIButtonClicked(eventPosition, deleteButton))
+            {
+                // 버튼을 눌렀을 때만 동작
+                return;
+            }
+
             GameObject detectedObj = buildingSystem.GetCurrentDragObject(eventPosition);
+
             if (detectedObj == null)
             {
                 // 다른 곳 클릭했을 시 숨기기
@@ -46,7 +58,7 @@ public class DragController : MonoBehaviour
                 return;
             }
 
-            if(isEditMode)
+            if (isEditMode)
             {
                 BeginDrag(detectedObj);
                 return;
@@ -130,5 +142,27 @@ public class DragController : MonoBehaviour
     {
         isEditMode = isOn;
         towerMenu.SetActive(isOn);
+    }
+
+    public bool IsSpecificUIButtonClicked(Vector2 screenPosition, Button targetButton)
+    {
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
+        {
+            position = screenPosition
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        foreach (RaycastResult result in results)
+        {
+            Button hitButton = result.gameObject.GetComponentInParent<Button>();
+            if (hitButton == targetButton)
+            {
+                return true;
+            }
+        }
+
+        return false; // 해당 버튼 아님
     }
 }
