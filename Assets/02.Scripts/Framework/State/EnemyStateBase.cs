@@ -132,6 +132,13 @@ public class EnemyStateBase : EntityStateBase
         projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
     }
 
+    protected void OnDead()
+    {
+        controller.Body.GetComponent<EntityBodyBase>().Disable(); // 비활성화
+        Managers.Wave.CurEnemyList.Remove(controller.gameObject);
+        Managers.Resource.Destroy(controller.gameObject);
+    }
+
     public override void FixedUpdate()
     {
 

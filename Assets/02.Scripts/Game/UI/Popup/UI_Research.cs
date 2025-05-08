@@ -145,7 +145,7 @@ public class UI_Research : UI_Base
     private void ChangeGlodZamButton()
     {
 
-        if (Managers.Player.gold < spendGold)
+        if (Managers.Player.Gold < spendGold)
         {
             GoldSpendButton.interactable = false;
             GoldSpendText.color = Color.red;
@@ -156,7 +156,7 @@ public class UI_Research : UI_Base
             GoldSpendText.color = Color.white;
         }
 
-        if (Managers.Player.zam < spendZam)
+        if (Managers.Player.Gem < spendZam)
         {
             ZamSpendButton.interactable = false;
             ZamSpendText.color = Color.red;
@@ -288,7 +288,7 @@ public class UI_Research : UI_Base
             return;
         }
 
-        if (Managers.Player.zam < spendZam)
+        if (Managers.Player.Gem < spendZam)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>(Objects.ZamAlarmPopup.ToString());
             //Managers.UI.GetAlarmPopup().WriteText("잼이 부족합니다. 잼이 없네요.");
@@ -327,7 +327,7 @@ public class UI_Research : UI_Base
             return;
         }
 
-        if (Managers.Player.gold < spendGold)
+        if (Managers.Player.Gold < spendGold)
         {
             Managers.UI.ShowPopupUI<UI_Alarm>(Objects.GoldAlarmPopup.ToString());
             isPopup = false;
