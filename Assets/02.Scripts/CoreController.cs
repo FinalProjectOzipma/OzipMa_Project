@@ -142,7 +142,7 @@ public class CoreController : Poolable, IDamagable
     public void SpawnUnit()
     {
         List<IGettable> myUnitsList = Managers.Player.Inventory.GetList<MyUnit>();
-
+        if (myUnitsList == null) return;
         int random = UnityEngine.Random.Range(0, myUnitsList.Count);
 
         MyUnit myUnit = myUnitsList[random].GetClassAddress<MyUnit>();

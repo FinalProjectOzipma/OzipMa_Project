@@ -1,13 +1,20 @@
+using Firebase.Database;
 using GoogleSheet;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UGS;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class DataManager
 {
     public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
 
+    private DatabaseReference _databaseReference;
+    private string userID = "user001";
+    
     public void Initialize()
     {
         // 필요한 데이터들을 Load 및 Datas에 캐싱해두는 작업
@@ -17,8 +24,10 @@ public class DataManager
         LoadData<DefaultTable.Enemy>();
         LoadData<DefaultTable.Tower>();
         LoadData<DefaultTable.AbilityDefaultValue>();
-    }
 
+        _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
+    }
+    #region 디폴트 데이터 - Google Sheet
     /// <summary>
     /// idx번째 행 DefaultTable.ITable 타입의 나는 패연두
     /// </summary>
@@ -63,4 +72,76 @@ public class DataManager
             }
         }, true);
     }
+    #endregion
+
+    #region 데이터베이스 - Firebase
+    /// <summary>
+    /// 파이어베이스에 직접 저장 (쓰기)
+    /// </summary>
+    /// <typeparam name="T">저장할 데이터 타입</typeparam>
+    /// <param name="data">저장할 데이터</param>
+    public void SaveFirebase<T>(T data, string parent = null)
+    {
+        string json = JsonConvert.SerializeObject(data);
+        if(parent == null)
+        {
+            parent = typeof(T).Name;
+        }
+        var saveTask = _databaseReference.Child("users").Child(userID).Child(parent).SetRawJsonValueAsync(json);
+    }
+
+    /// <summary>
+    /// 파이어베이스에서 직접 로드 (읽기)
+    /// </summary>
+    /// <typeparam name="T">읽어올 데이터 타입</typeparam>
+    /// <param name="onComplete">로드완료 후 실행할 Action</param>
+    public void LoadFirebase<T>(Action<T> onComplete, Action onFailed = null)
+    {
+        Managers.StartCoroutine(WaitingData<T>(result =>
+        {
+            onComplete(result);
+        }, onFailed));
+    }
+
+    private IEnumerator WaitingData<T>(Action<T> onComplete, Action onFailed = null)
+    {
+        var firebaseData = _databaseReference.Child("users").Child(userID).Child(typeof(T).Name).GetValueAsync();
+        yield return new WaitUntil(() => firebaseData.IsCompleted);
+
+        Util.Log("Process is Complete");
+
+        DataSnapshot snapshot = firebaseData.Result;
+        string jsonData = snapshot.GetRawJsonValue();
+
+        if(jsonData != null)
+        {
+            T result = JsonConvert.DeserializeObject<T>(jsonData);
+            onComplete.Invoke(result);
+            Util.Log("Firebase's Data 잘 불러옴");
+        }
+        else
+        {
+            // TODO :: 파이어베이스 로드 실패 시 디폴트 데이터로 로드할 수 있는 장치가 필요함 
+            onFailed?.Invoke();
+            Util.Log("Firebase's Data Not Found");
+        }
+    }
+
+    /// <summary>
+    /// 게임 데이터를 파이어베이스에 저장
+    /// </summary>
+    public void SaveGameData()
+    {
+        Managers.Player.SaveInit();
+        SaveFirebase<PlayerManager>(Managers.Player);
+    }
+
+    public void LoadGameData(Action onFailed = null)
+    {
+        LoadFirebase<PlayerManager>(loadedData =>
+        {
+            Managers.Player.LoadPlayerData(loadedData);
+        }, onFailed);
+    }
+    #endregion
 }

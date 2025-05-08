@@ -5,7 +5,7 @@ public class FloatBase
 {
     public float Value;
     public float ValueMultiples = 1.0f;
-    public Action<float> OnChangeValue;
+    public event Action<float> OnChangeValue;
 
     public virtual void Init(float amount)
     {

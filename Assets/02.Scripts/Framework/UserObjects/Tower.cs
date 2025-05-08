@@ -6,7 +6,7 @@ using static Enums;
 
 public class Tower : UserObject, IGettable
 {
-    public TowerStatus TowerStatus { get; private set; }
+    public TowerStatus TowerStatus { get; set; }
     public AtkType AtkType { get; private set; }
 
     public AbilityType TowerType = new();
@@ -29,6 +29,7 @@ public class Tower : UserObject, IGettable
 
         // 정적 정보 채우기
         Key = primaryKey;
+        Name = towerData.Name;
         AtkType = towerData.AttackType;
         TowerType = towerData.AbilityType;
 

@@ -154,6 +154,31 @@ public class Util
         return res;
     }
 
+    public static bool TryStringToVector3Int(string str, out Vector3Int result)
+    {
+        result = Vector3Int.zero;
+
+        if (string.IsNullOrWhiteSpace(str))
+            return false;
+
+        string[] trimmed = str.Trim('(', ')').Split(',');
+
+        if (trimmed.Length != 3)
+            return false;
+
+        bool successX = int.TryParse(trimmed[0].Trim(), out int x);
+        bool successY = int.TryParse(trimmed[1].Trim(), out int y);
+        bool successZ = int.TryParse(trimmed[2].Trim(), out int z);
+
+        if (successX && successY && successZ)
+        {
+            result = new Vector3Int(x, y, z);
+            return true;
+        }
+
+        return false;
+    }
+
     // 디버그를 위한
     public static void Log(string message)
     {

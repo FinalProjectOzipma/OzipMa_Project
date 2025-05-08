@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "960267472316",
+    "firebase_url": "https://ozipmaproject-default-rtdb.firebaseio.com",
+    "project_id": "ozipmaproject",
+    "storage_bucket": "ozipmaproject.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960267472316:android:368bcabee8c6319640afb9",
+        "android_client_info": {
+          "package_name": "com.OzipMaCompany.OzipMa_Project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmyIXxX90t0Z7VlM6miNxNpDPaW85OrVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,10 +8,10 @@ public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem Instance {  get; private set; }
     public DragController DragController { get; private set; }
+    public Dictionary<Vector3Int, int> GridObjectMap { get; private set; } = new();
 
     [SerializeField] private LayerMask CanDragLayerMask;
     [SerializeField] private LayerMask TowerBuildLayerMask;
-    private HashSet<Vector3Int> placedMap = new();
     private Tilemap map;
     private Camera cam;
 
@@ -24,7 +24,7 @@ public class BuildingSystem : MonoBehaviour
         }
 
         Instance = this;
-
+        DontDestroyOnLoad(gameObject);
         Init();
     }
 
@@ -34,6 +34,27 @@ public class BuildingSystem : MonoBehaviour
         cam = Camera.main;
         DragController = GetComponent<DragController>();
         Util.Log($"그리드 : {map.transform.parent.parent.gameObject.name}");
+    }
+
+    public void BuildingInit(Dictionary<Vector3Int, int> gridObjectMap = null)
+    {
+        if (gridObjectMap != null && gridObjectMap.Count > 0)
+        {
+            // TODO :: 원래 있던대로 배치, Load된 데이터로 초기화된 타워로 배치해야 함. 
+            foreach(Vector3Int point in gridObjectMap.Keys)
+            {
+                int primaryKey = gridObjectMap[point];
+                Tower towerInfo = Managers.Player.Inventory.GetItem<Tower>(primaryKey);
+
+                string towerName = $"{towerInfo.Name}Tower";
+                Managers.Resource.Instantiate(towerName, go => 
+                {
+                    go.transform.position = map.GetCellCenterWorld(point);
+                    BuildingSystem.Instance.AddPlacedMapCell(point, primaryKey);
+                    go.GetComponent<TowerControlBase>().TakeRoot(primaryKey, towerName, towerInfo);
+                });
+            }
+        }
     }
 
     /// <summary>
@@ -60,7 +81,7 @@ public class BuildingSystem : MonoBehaviour
         // 이미 설치된 공간인지 확인
         Vector3Int point = map.WorldToCell(worldPos);
         //Util.Log($"CanTowerBuild : {point.x}, {point.y}");
-        if (placedMap.Contains(point))
+        if (GridObjectMap.ContainsKey(point))
         { 
             canBuild = false;
             return canBuild;
@@ -83,20 +104,30 @@ public class BuildingSystem : MonoBehaviour
     }
 
     #region 배치된 공간 저장/삭제 메서드들
-    public void AddPlacedMap(Vector3 mousePos)
+    public void AddPlacedMapScreenPos(Vector3 mousePos, int id)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        placedMap.Add(map.WorldToCell(worldPos));
+        GridObjectMap.Add(map.WorldToCell(worldPos), id);
+    }
+    public void AddPlacedMapCell(Vector3Int cellPoint, int id)
+    {
+        GridObjectMap.Add(cellPoint, id);
     }
 
-    public void RemovePlacedMapScreenPos(Vector3 mousePos)
+    public int RemovePlacedMapScreenPos(Vector3 mousePos)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        placedMap.Remove(map.WorldToCell(worldPos));
+        Vector3Int gridPoint = map.WorldToCell(worldPos);
+        int id = GridObjectMap[gridPoint];
+        GridObjectMap.Remove(gridPoint);
+        return id;
     }
-    public void RemovePlacedMapWorldPos(Vector3 worldPos)
+    public int RemovePlacedMapWorldPos(Vector3 worldPos)
     {
-        placedMap.Remove(map.WorldToCell(worldPos));
+        Vector3Int gridPoint = map.WorldToCell(worldPos);
+        int id = GridObjectMap[gridPoint];
+        GridObjectMap.Remove(gridPoint);
+        return id;
     }
     #endregion
 }

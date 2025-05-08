@@ -94,7 +94,7 @@ public abstract class TowerControlBase : MonoBehaviour
         TowerStatus = Tower.TowerStatus;
 
         attackCooldown = TowerStatus.AttackCoolDown.GetValue();
-        TowerStatus.AttackRange.OnChangeValue = null;
+        TowerStatus.AttackRange.OnChangeValue -= ApplyAttackRange;
         TowerStatus.AttackRange.OnChangeValue += ApplyAttackRange;
 
         Init();
