@@ -22,6 +22,9 @@ public class WaveManager
     public List<GameObject> CurEnemyList;
     public List<GameObject> CurMyUnitList;
 
+    public event Action OnStartBossMap;
+    public event Action OnEndBossMap;
+
     private WaitForSeconds spawnTime = new WaitForSeconds(0.5f);
     private WaitForSeconds waveDelayTime = new WaitForSeconds(2f);
     private bool onSpawn = true;
@@ -178,12 +181,14 @@ public class WaveManager
 
         DefaultTable.Enemy spawnenemy = enemyList[random];
 
-        // 테스트 코드
+        // CurrentWave : 0 ~ 9
         if(playerManager.CurrentWave == 9)
         {
             int index = playerManager.CurrentStage % bossList.Count;
             spawnenemy = bossList[index];
             random = bossList[index].EnemyPrimaryKey;
+
+            OnStartBossMap?.Invoke();
         }
         else
         {
@@ -192,6 +197,9 @@ public class WaveManager
                 spawnenemy = enemyList[0];
                 random = 0;
             }
+
+            if(playerManager.CurrentWave == 0) 
+                OnEndBossMap?.Invoke();
         }
         
         

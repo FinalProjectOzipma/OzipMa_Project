@@ -27,11 +27,12 @@ public class VampireAttackState : VampireStateBase
         base.Update();
 
         OutRange(data.ChaseState);
-
-        if (triggerCalled) // 화살 만드는 Attack구간
+        //트리거 호출시
+        if (triggerCalled) 
         {
             Heal();
             target.GetComponent<EnemyController>().ApplyDamage(controller.Status.Attack.GetValue(), controller.MyUnit.AbilityType, controller.gameObject);
+            Managers.Resource.Instantiate("VampireEffect");
             triggerCalled = false;
             StateMachine.ChangeState(data.IdleState);
         }
