@@ -82,7 +82,6 @@ public class MyUnitController : EntityController, IDamagable
         }
         else
             Init(position);
-        Util.Log(Status.Health.GetValueToString());
     }
 
 

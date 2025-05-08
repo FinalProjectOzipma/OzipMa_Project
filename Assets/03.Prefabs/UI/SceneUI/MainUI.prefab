@@ -1032,18 +1032,21 @@ MonoBehaviour:
   ResearchButton: {fileID: 3810920615706241696}
   ManagerButton: {fileID: 3573475599891237790}
   SettingButton: {fileID: 404942574631484196}
+  DictionaryButton: {fileID: 1370278461511042445}
   MainGoldText: {fileID: 8791209290402008976}
   MainZamText: {fileID: 8537971291893153474}
   StageLv: {fileID: 63621689121794228}
   PlayerName: {fileID: 4517478891624779269}
   ResearchText: {fileID: 3318086331611519887}
   ManagerText: {fileID: 3559717819355900134}
+  DictionaryText: {fileID: 3345835437249856065}
   ProfileImage: {fileID: 4196508173171014455}
   ResearchButtonImage: {fileID: 5030528420427003368}
   ManagerButtonImage: {fileID: 2618918464457143686}
   SettingImage: {fileID: 5720731305921808228}
   ProgressImage: {fileID: 5777532735623169000}
   CompleteImage: {fileID: 5051033988698368246}
+  DictionaryButtonImage: {fileID: 6839875386264933104}
 --- !u!1 &5360368594268813351
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,6 +1058,7 @@ GameObject:
   - component: {fileID: 2346200997999942251}
   - component: {fileID: 6131041734101357372}
   - component: {fileID: 7163873765006100607}
+  - component: {fileID: 3806509517578626150}
   m_Layer: 5
   m_Name: GoldBG
   m_TagString: Untagged
@@ -1121,6 +1125,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3806509517578626150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5360368594268813351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e225d9425e195b743925b803ee4645a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoldIcon: {fileID: 2145949681937902634}
 --- !u!1 &5514950130149924375
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro.EditorUtilities;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -132,9 +133,20 @@ public class EnemyStateBase : EntityStateBase
         projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
     }
 
+    protected void DropCoin()
+    {
+        Managers.Resource.Instantiate(nameof(FieldGold), (go) => 
+        {
+            go.SetActive(true);
+            go.transform.position = controller.Body.transform.position; // 골드 위치 초기화
+            Managers.Wave.FieldGolds.Enqueue(go.GetComponent<FieldGold>()); // 필드 골드를 현재 웨이브에 전달
+        });
+    }
+
     protected void OnDead()
     {
         controller.Body.GetComponent<EntityBodyBase>().Disable(); // 비활성화
+        DropCoin();
         Managers.Wave.CurEnemyList.Remove(controller.gameObject);
         Managers.Resource.Destroy(controller.gameObject);
     }

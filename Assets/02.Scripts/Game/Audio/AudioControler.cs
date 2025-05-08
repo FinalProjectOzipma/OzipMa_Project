@@ -35,7 +35,8 @@ public enum SFXClipName
     Projectile,
     Arrow,
     Dark,
-    Fire
+    Fire,
+    Coin
 }
 
 public enum AudioType

@@ -29,6 +29,7 @@ public class Enums
     {
         Start,
         Playing,
+        Reward,
         End,
     }
 }
