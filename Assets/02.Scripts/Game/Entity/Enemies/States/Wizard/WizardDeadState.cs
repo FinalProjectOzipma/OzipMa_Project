@@ -24,10 +24,8 @@ public class WizardDeadState : WizardStateBase
         {
             if (controller.gameObject.activeInHierarchy)
             {
-                controller.Body.GetComponent<EntityBodyBase>().Disable();
-                Managers.Player.AddGold(controller.Enemy.Reward);
-                Managers.Wave.CurEnemyList.Remove(controller.gameObject);
-                Managers.Resource.Destroy(controller.gameObject);
+                OnDead();
+                Managers.Wave.CurrentGem = controller.Enemy.Reward;
             }
         }
     }

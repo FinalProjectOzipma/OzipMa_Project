@@ -8,9 +8,8 @@ using UnityEngine;
 public class PlayerManager 
 {
     public Core MainCoreData { get; set; }
-    public int Money { get; set; }
-    public long gold { get; private set; }
-    public long zam { get; private set; }
+    public long Gold { get; private set; }
+    public long Gem { get; private set; }
 
     public event Action<long> OnGoldChanged;
     public event Action<long> OnZamChanged;
@@ -40,17 +39,17 @@ public class PlayerManager
     /// </summary>
     public void AddGold(long amount)
     {
-        gold += amount;
-        OnGoldChanged?.Invoke(gold);
+        Gold += amount;
+        OnGoldChanged?.Invoke(Gold);
     }
 
     /// <summary>
     /// 잼 추가
     /// </summary>
-    public void AddZam(long amount)
+    public void AddGem(long amount)
     {
-        zam += amount;
-        OnZamChanged?.Invoke(zam);
+        Gem += amount;
+        OnZamChanged?.Invoke(Gem);
     }
 
     /// <summary>
@@ -58,17 +57,17 @@ public class PlayerManager
     /// </summary>
     public void SpenGold(long amount)
     {
-        if (gold < amount)
+        if (Gold < amount)
         {
             Debug.Log("돈이 부족합니다");
             return;
         }
 
-        gold -= amount;
+        Gold -= amount;
 
-        if (gold <= 0) gold = 0;
+        if (Gold <= 0) Gold = 0;
 
-        OnGoldChanged?.Invoke(gold);
+        OnGoldChanged?.Invoke(Gold);
     }
 
     /// <summary>
@@ -76,39 +75,39 @@ public class PlayerManager
     /// </summary>
     public void SpenZam(long amount)
     {
-        if (zam < amount)
+        if (Gem < amount)
         {
             Debug.Log("돈이 부족합니다");
             return;
         }
 
-        zam -= amount;
+        Gem -= amount;
 
-        if (zam <= 0) gold = 0;
+        if (Gem <= 0) Gold = 0;
 
-        OnZamChanged?.Invoke(zam);
+        OnZamChanged?.Invoke(Gem);
     }
 
     /// <summary>
     /// 다른 곳에서 골드 사용하기
     /// </summary>
-    public long GetGold() => gold;
+    public long GetGold() => Gold;
 
     /// <summary>
     /// 다른 곳에서 잼 사용하기
     /// </summary>
-    public long GetZam() => zam;
+    public long GetZam() => Gem;
 
     public void SaveEcomomy()
     {
-        PlayerPrefs.SetString(myGoldKey, gold.ToString());
-        PlayerPrefs.SetString(myZamKey, zam.ToString());
+        PlayerPrefs.SetString(myGoldKey, Gold.ToString());
+        PlayerPrefs.SetString(myZamKey, Gem.ToString());
     }
 
     public void SetGoldAndJame()
     {
-        gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 100000L;
-        zam = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 1000L;
+        Gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 100000L;
+        Gem = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 1000L;
     }
 
 

@@ -30,7 +30,7 @@ public class UpgradeManager
             return;
         }
 
-        if (Managers.Player.gold >= LevelUPGold)
+        if (Managers.Player.Gold >= LevelUPGold)
         {
             myUpgradeStatus.Level.AddValue(1);
             myUpgradeStatus.Attack.AddMultiples(UpdateValue);
@@ -61,7 +61,7 @@ public class UpgradeManager
             return;
         }
 
-        if (Managers.Player.gold >= LevelUPGold)
+        if (Managers.Player.Gold >= LevelUPGold)
         {
             tower.TowerStatus.Level.AddValue(1);
             tower.TowerStatus.Attack.AddMultiples(UpdateValue);

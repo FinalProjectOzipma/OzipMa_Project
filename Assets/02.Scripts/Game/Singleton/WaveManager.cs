@@ -30,6 +30,8 @@ public class WaveManager
 
     public CoreController MainCore { get; set; }
     public Enums.WaveState CurrentState { get; set; }
+    public long CurrentGold { get; set; }
+    public long CurrentGem { get; set; }
 
     public void Initialize()
     {
@@ -114,6 +116,7 @@ public class WaveManager
                             playerManager.CurrentWave = 0;
                         }
 
+                        Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold);
                         playerManager.OnStageWave();
                     }
                     else
@@ -123,6 +126,11 @@ public class WaveManager
 
                     timer = hubTime;
                     onSpawn = true;
+                    Managers.Player.AddGold(CurrentGold);
+                    Managers.Player.AddGem(CurrentGem);
+
+                    CurrentGold = 0;
+                    CurrentGem = 0;
                     CurrentState = Enums.WaveState.Start;
                 }));
             }

@@ -24,6 +24,11 @@ public class UI_EndingPanel : UI_Scene
         Managers.UI.SetSceneList<UI_EndingPanel>(this);
     }
 
+    public void SetRewardText(long gold)
+    {
+        RewordGold.text = $"{gold}";
+    }
+
     public void MoveEndingPanel(bool isClear)
     {
         RectTransform whatRect = isClear ? ClearUI : OverUI; 
