@@ -24,6 +24,7 @@ public class UI_TowerMenu : UI_Base
     // 버튼 클릭하면 타켓타워 삭제
     public void OnClickDelete(PointerEventData data)
     {
+        Util.Log("클릭 성공");
         Managers.Resource.Destroy(TargetTower);
         BuildingSystem.Instance.RemovePlacedMapWorldPos(TargetTower.transform.position);
         BuildingSystem.Instance.DragController.SetEditMode(false);
