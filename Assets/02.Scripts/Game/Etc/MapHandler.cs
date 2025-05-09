@@ -23,6 +23,7 @@ public class MapHandler : MonoBehaviour
         dotSeq.Append(BossGate.transform.DOScale(5f, 0.4f));
         dotSeq.Append(BossGate.transform.DOScale(1f, 0f));
         dotSeq.Append(BossGate.transform.DOLocalMoveY(gateDownOffset * 10, 0f));
+
         Managers.Wave.OnStartBossMap += StartBossMap;
         Managers.Wave.OnEndBossMap += EndBossMap;
     }
