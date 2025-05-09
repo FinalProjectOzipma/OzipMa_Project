@@ -62,7 +62,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 33f01c842082a554b91b98b19850ee1f
-    m_Address: Vampiric
+    m_Address: VampireEffect
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
