@@ -54,11 +54,12 @@ public class AreaTowerController : TowerControlBase
 
         if (target == null) return;
 
+        // 장판 생성
         Managers.Resource.Instantiate(floorBrainKey, go =>
         {
             if (go == null) return;
-            go.transform.position = transform.position;
-            go.GetComponent<TowerFloor>().Init(floorKey, target.transform.position, TowerStatus.Attack.GetValue(), Tower);
+            go.transform.position = target.transform.position;
+            go.GetComponent<TowerFloor>().Init(floorKey, TowerStatus.Attack.GetValue(), Tower);
         });
     }
 }

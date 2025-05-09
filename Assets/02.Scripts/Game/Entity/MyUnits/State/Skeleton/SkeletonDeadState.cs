@@ -13,6 +13,7 @@ public class SkeletonDeadState : SkeletonStateBase
         controller.Agent.isStopped = true;
         Managers.Wave.CurMyUnitList.Remove(controller.gameObject);
         controller.Target = null;
+        //TODO: 아군 죽는 사운드 필요
     }
 
     public override void Exit()

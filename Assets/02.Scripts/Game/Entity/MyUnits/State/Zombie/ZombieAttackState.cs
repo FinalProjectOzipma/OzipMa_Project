@@ -26,7 +26,7 @@ public class ZombieAttackState : ZombieStateBase
     public override void Update()
     {
         base.Update();
-
+        //TODO: 
         OutRange(data.ChaseState, status.AttackRange.GetValue());
     }
 }

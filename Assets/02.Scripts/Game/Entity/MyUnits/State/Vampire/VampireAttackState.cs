@@ -36,6 +36,7 @@ public class VampireAttackState : VampireStateBase
             {
                 go.transform.position = target.transform.position;
             });
+            //TODO: 뱀파이어 공격 사운드 들어가야함
             triggerCalled = false;
             StateMachine.ChangeState(data.IdleState);
         }
