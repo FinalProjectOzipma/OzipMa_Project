@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -147,7 +147,553 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 816
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7403e53ad01f7ee449005e06bc4d2e69
+      internalID: 1114063817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_1
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 816
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 664b9fc65440bc446b8d2d5eacfb151d
+      internalID: -1846294833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_2
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 816
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ef884320b1a2f24f8032f1b832c9d1d
+      internalID: -1982959407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_3
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 816
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91f480df096523c419b9ac56de5bd13c
+      internalID: 333175213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_4
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 816
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72152e6975a8f734192d5586a3f36246
+      internalID: -1862295949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_5
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 816
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20979f9c2589a6a459026a718d2c1604
+      internalID: -2079583423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 612
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e755461b5007ac24fa13bb78ab5714b1
+      internalID: 2100813746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_7
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 612
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d227bd45099b724ea5ed6b45bcfbc83
+      internalID: 1703795565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_8
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 612
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac6b49bfb0241bb4aa6dd42c4ba7e086
+      internalID: 517709863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_9
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 612
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 585cbc3f44780a24e915b235fbc4a867
+      internalID: 1549907436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_10
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 612
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23bbfa6ead1707741bcd024315c9eada
+      internalID: 306590460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_11
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 612
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd4abc5e6b308734382800bf7ce30e7c
+      internalID: 263215741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 408
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d688228f8be87f847b1a949a5c152f53
+      internalID: 421379207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_13
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 408
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da9880c1f25ee614d8f8cbd690ffcdae
+      internalID: -5674290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_14
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 408
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89d574abbfc22e24f8007a6889146eda
+      internalID: -1614486064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_15
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 408
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0eebc0a08fe8dd41891de932dfb2a8e
+      internalID: 1358010465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_16
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 408
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2585087937c10de429df2dc103aa6ecf
+      internalID: 648262683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_17
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 408
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 878ab50961b11bd4dbcd2f192af29704
+      internalID: 1735471277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 204
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fcf6fa79b81509418df4047d835804f
+      internalID: 1437185235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_19
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 204
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4cbf9d443113bc4fb84332a8cd82349
+      internalID: -1230231997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_20
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 204
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ef7c4ac96e023e469152518bea7d0f8
+      internalID: -1910823230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_21
+      rect:
+        serializedVersion: 2
+        x: 510
+        y: 204
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ba107bbf1a4d9a418dde892dae3d971
+      internalID: 1830493053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_22
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 204
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d90f2ed083b27644bfc83da90950164
+      internalID: 1122072288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_23
+      rect:
+        serializedVersion: 2
+        x: 850
+        y: 204
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 400721f8850e05e49a70b2c01a9b5459
+      internalID: 12836336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b288a1a4fa0d664f8c25c2ab5de3878
+      internalID: -1039205966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_deathfire_crescendo_25
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 0
+        width: 170
+        height: 204
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db1fff6721813d5449310465004a34ac
+      internalID: 1899439199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -158,7 +704,33 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fx_f4_deathfire_crescendo_0: 1114063817
+      fx_f4_deathfire_crescendo_1: -1846294833
+      fx_f4_deathfire_crescendo_10: 306590460
+      fx_f4_deathfire_crescendo_11: 263215741
+      fx_f4_deathfire_crescendo_12: 421379207
+      fx_f4_deathfire_crescendo_13: -5674290
+      fx_f4_deathfire_crescendo_14: -1614486064
+      fx_f4_deathfire_crescendo_15: 1358010465
+      fx_f4_deathfire_crescendo_16: 648262683
+      fx_f4_deathfire_crescendo_17: 1735471277
+      fx_f4_deathfire_crescendo_18: 1437185235
+      fx_f4_deathfire_crescendo_19: -1230231997
+      fx_f4_deathfire_crescendo_2: -1982959407
+      fx_f4_deathfire_crescendo_20: -1910823230
+      fx_f4_deathfire_crescendo_21: 1830493053
+      fx_f4_deathfire_crescendo_22: 1122072288
+      fx_f4_deathfire_crescendo_23: 12836336
+      fx_f4_deathfire_crescendo_24: -1039205966
+      fx_f4_deathfire_crescendo_25: 1899439199
+      fx_f4_deathfire_crescendo_3: 333175213
+      fx_f4_deathfire_crescendo_4: -1862295949
+      fx_f4_deathfire_crescendo_5: -2079583423
+      fx_f4_deathfire_crescendo_6: 2100813746
+      fx_f4_deathfire_crescendo_7: 1703795565
+      fx_f4_deathfire_crescendo_8: 517709863
+      fx_f4_deathfire_crescendo_9: 1549907436
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
