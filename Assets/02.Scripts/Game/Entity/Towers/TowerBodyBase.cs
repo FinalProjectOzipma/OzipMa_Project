@@ -12,7 +12,12 @@ public class TowerBodyBase : MonoBehaviour
 
     public Vector3 FirePosition
     {
-        get => gameObject.transform.GetChild(transform.childCount - 1).position;
+        get
+        {
+            Vector3 finalFirePos = gameObject.transform.GetChild(transform.childCount - 1).position;
+            finalFirePos.y -= MainSpriteOffset;
+            return finalFirePos;
+        }
     }
 
     protected virtual void Awake()
