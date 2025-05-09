@@ -46,7 +46,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Floor
+    path: Blood
   m_ScaleCurves: []
   m_FloatCurves:
   - serializedVersion: 2
@@ -117,7 +117,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Size.x
-    path: Floor
+    path: Blood
     classID: 212
     script: {fileID: 0}
     flags: 0
@@ -147,7 +147,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Size.y
-    path: Floor
+    path: Blood
     classID: 212
     script: {fileID: 0}
     flags: 0
@@ -204,7 +204,7 @@ AnimationClip:
     - time: 0.65
       value: {fileID: 603040309, guid: 07a6df5313584214f853bfd697dce2b5, type: 3}
     attribute: m_Sprite
-    path: Floor
+    path: Blood
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -216,7 +216,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 2139420970
+      path: 2127620795
       attribute: 4197328169
       script: {fileID: 0}
       typeID: 212
@@ -225,7 +225,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2139420970
+      path: 2127620795
       attribute: 2368279999
       script: {fileID: 0}
       typeID: 212
@@ -243,7 +243,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2139420970
+      path: 2127620795
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -252,7 +252,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2139420970
+      path: 2127620795
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -452,7 +452,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Floor
+    path: Blood
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -473,7 +473,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Floor
+    path: Blood
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -494,7 +494,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Floor
+    path: Blood
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -524,7 +524,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Size.x
-    path: Floor
+    path: Blood
     classID: 212
     script: {fileID: 0}
     flags: 0
@@ -554,7 +554,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Size.y
-    path: Floor
+    path: Blood
     classID: 212
     script: {fileID: 0}
     flags: 0
@@ -597,4 +597,11 @@ AnimationClip:
     flags: 0
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.7
+    functionName: End
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
