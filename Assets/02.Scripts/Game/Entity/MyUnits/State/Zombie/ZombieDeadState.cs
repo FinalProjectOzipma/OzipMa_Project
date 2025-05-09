@@ -13,6 +13,7 @@ public class ZombieDeadState : ZombieStateBase
         base.Enter();
         controller.Agent.isStopped = true;
         controller.Target = null;
+        //TODO: 아군 죽는 사운드 필요
     }
 
     public override void Exit()
