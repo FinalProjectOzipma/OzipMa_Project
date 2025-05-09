@@ -18,7 +18,7 @@ public class FieldGold : Poolable
         seq = Util.RecyclableSequence();
         particle.Stop();
 
-        Transform rect = Managers.UI.GetScene<UI_Gold>().GetGoldTextBG().transform;
+        Transform rect = Managers.UI.GetScene<UI_Gold>().GetGoldPoint().transform;
         Vector3 goldVector = Camera.main.ScreenToWorldPoint(rect.position);
         goldVector.z = 0f;
 
@@ -36,7 +36,7 @@ public class FieldGold : Poolable
             NextGold = false;
             Managers.Audio.audioControler.PlaySFX(SFXClipName.Coin);
             canDestroy = true;
-            //particle.Play(); 파티클 사용할꺼면.. 주석 풀기
+            particle.Play(); //파티클 사용할꺼면.. 주석 풀기
             
             // 웨이브 끝나는 조건
             if (wave.FieldGolds.Count == 0)

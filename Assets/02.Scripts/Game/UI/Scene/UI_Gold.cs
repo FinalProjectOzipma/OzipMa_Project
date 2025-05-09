@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class UI_Gold : UI_Scene
 {
-    [SerializeField] private TextMeshProUGUI MainGoldText;
+    [SerializeField] private RectTransform GoldPoint;
 
     public void Start()
     {
         Managers.UI.SetSceneList<UI_Gold>(this);
     }
 
-    public TextMeshProUGUI GetGoldTextBG()
+    public RectTransform GetGoldPoint()
     {
-        return MainGoldText;
+        return GoldPoint;
     }
 }
