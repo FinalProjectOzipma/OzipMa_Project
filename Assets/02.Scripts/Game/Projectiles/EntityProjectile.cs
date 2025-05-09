@@ -8,6 +8,7 @@ public class EntityProjectile : Poolable
 {
     #region Component
     private Rigidbody2D rigid;
+    [SerializeField] protected SpriteTrail spTrail;
     #endregion
     
     public float Speed;
@@ -45,6 +46,8 @@ public class EntityProjectile : Poolable
         transform.rotation = Quaternion.Euler(Vector3.zero);
         transform.Rotate(Vector3.forward * angle);
 
+        spTrail?.SetActive(true, transform);
+
         dir = (targetPos - (Vector2)owner.transform.position).normalized;
 
 
@@ -72,7 +75,10 @@ public class EntityProjectile : Poolable
         if (Managers.Wave.CurrentState == Enums.WaveState.End)
         {
             if (gameObject.activeInHierarchy)
+            {
                 Managers.Resource.Destroy(gameObject);
+                spTrail?.SetActive(false);
+            }
         }
     }
 
@@ -102,6 +108,9 @@ public class EntityProjectile : Poolable
     protected virtual void OnPoolDestroy(int hitLayer)
     {
         if (gameObject.activeInHierarchy)
+        {
             Managers.Resource.Destroy(gameObject);
+            spTrail?.SetActive(false);
+        }
     }
 }

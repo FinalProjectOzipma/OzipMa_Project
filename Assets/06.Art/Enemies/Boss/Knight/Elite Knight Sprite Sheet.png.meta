@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -140,7 +140,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 576
+        y: 928
         width: 96
         height: 96
       alignment: 0
@@ -161,7 +161,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 576
+        y: 928
         width: 96
         height: 96
       alignment: 0
@@ -182,7 +182,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 576
+        y: 928
         width: 96
         height: 96
       alignment: 0
@@ -203,7 +203,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 576
+        y: 928
         width: 96
         height: 96
       alignment: 0
@@ -224,7 +224,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 576
+        y: 928
         width: 96
         height: 96
       alignment: 0
@@ -245,7 +245,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 480
-        y: 576
+        y: 928
         width: 96
         height: 96
       alignment: 0
@@ -266,7 +266,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 576
-        y: 576
+        y: 928
         width: 96
         height: 96
       alignment: 0
@@ -287,7 +287,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 672
-        y: 576
+        y: 928
         width: 96
         height: 96
       alignment: 0
@@ -308,7 +308,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 480
+        y: 832
         width: 96
         height: 96
       alignment: 0
@@ -329,7 +329,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 480
+        y: 832
         width: 96
         height: 96
       alignment: 0
@@ -350,7 +350,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 480
+        y: 832
         width: 96
         height: 96
       alignment: 0
@@ -371,7 +371,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 480
+        y: 832
         width: 96
         height: 96
       alignment: 0
@@ -392,7 +392,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 480
+        y: 832
         width: 96
         height: 96
       alignment: 0
@@ -413,7 +413,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 480
-        y: 480
+        y: 832
         width: 96
         height: 96
       alignment: 0
@@ -434,7 +434,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 576
-        y: 480
+        y: 832
         width: 96
         height: 96
       alignment: 0
@@ -455,7 +455,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 672
-        y: 480
+        y: 832
         width: 96
         height: 96
       alignment: 0
@@ -476,7 +476,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 384
+        y: 736
         width: 96
         height: 96
       alignment: 0
@@ -497,7 +497,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 384
+        y: 736
         width: 96
         height: 96
       alignment: 0
@@ -518,7 +518,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 384
+        y: 736
         width: 96
         height: 96
       alignment: 0
@@ -539,7 +539,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 384
+        y: 736
         width: 96
         height: 96
       alignment: 0
@@ -560,7 +560,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 384
+        y: 736
         width: 96
         height: 96
       alignment: 0
@@ -581,7 +581,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 480
-        y: 384
+        y: 736
         width: 96
         height: 96
       alignment: 0
@@ -602,7 +602,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 576
-        y: 384
+        y: 736
         width: 96
         height: 96
       alignment: 0
@@ -623,7 +623,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 672
-        y: 384
+        y: 736
         width: 96
         height: 96
       alignment: 0
@@ -644,7 +644,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 288
+        y: 640
         width: 96
         height: 96
       alignment: 0
@@ -665,7 +665,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 288
+        y: 640
         width: 96
         height: 96
       alignment: 0
@@ -686,7 +686,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 288
+        y: 640
         width: 96
         height: 96
       alignment: 0
@@ -707,7 +707,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 288
+        y: 640
         width: 96
         height: 96
       alignment: 0
@@ -728,7 +728,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 288
+        y: 640
         width: 96
         height: 96
       alignment: 0
@@ -749,7 +749,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 480
-        y: 288
+        y: 640
         width: 96
         height: 96
       alignment: 0
@@ -770,7 +770,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 576
-        y: 288
+        y: 640
         width: 96
         height: 96
       alignment: 0
@@ -791,7 +791,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 672
-        y: 288
+        y: 640
         width: 96
         height: 96
       alignment: 0
@@ -812,7 +812,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 192
+        y: 544
         width: 96
         height: 96
       alignment: 0
@@ -833,7 +833,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 192
+        y: 544
         width: 96
         height: 96
       alignment: 0
@@ -854,7 +854,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 192
+        y: 544
         width: 96
         height: 96
       alignment: 0
@@ -875,7 +875,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 192
+        y: 544
         width: 96
         height: 96
       alignment: 0
@@ -896,7 +896,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 192
+        y: 544
         width: 96
         height: 96
       alignment: 0
@@ -917,7 +917,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 480
-        y: 192
+        y: 544
         width: 96
         height: 96
       alignment: 0
@@ -938,7 +938,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 576
-        y: 192
+        y: 544
         width: 96
         height: 96
       alignment: 0
@@ -959,7 +959,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 672
-        y: 192
+        y: 544
         width: 96
         height: 96
       alignment: 0
@@ -979,8 +979,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_40
       rect:
         serializedVersion: 2
-        x: 768
-        y: 192
+        x: 0
+        y: 448
         width: 96
         height: 96
       alignment: 0
@@ -1000,8 +1000,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_41
       rect:
         serializedVersion: 2
-        x: 864
-        y: 192
+        x: 96
+        y: 448
         width: 96
         height: 96
       alignment: 0
@@ -1021,8 +1021,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_42
       rect:
         serializedVersion: 2
-        x: 960
-        y: 192
+        x: 192
+        y: 448
         width: 96
         height: 96
       alignment: 0
@@ -1042,8 +1042,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_43
       rect:
         serializedVersion: 2
-        x: 1056
-        y: 192
+        x: 288
+        y: 448
         width: 96
         height: 96
       alignment: 0
@@ -1063,8 +1063,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_44
       rect:
         serializedVersion: 2
-        x: 1152
-        y: 192
+        x: 384
+        y: 448
         width: 96
         height: 96
       alignment: 0
@@ -1084,8 +1084,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_45
       rect:
         serializedVersion: 2
-        x: 1248
-        y: 192
+        x: 480
+        y: 448
         width: 96
         height: 96
       alignment: 0
@@ -1105,8 +1105,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_46
       rect:
         serializedVersion: 2
-        x: 1344
-        y: 192
+        x: 576
+        y: 448
         width: 96
         height: 96
       alignment: 0
@@ -1126,8 +1126,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_47
       rect:
         serializedVersion: 2
-        x: 1440
-        y: 192
+        x: 672
+        y: 448
         width: 96
         height: 96
       alignment: 0
@@ -1147,8 +1147,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_48
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 192
+        x: 0
+        y: 352
         width: 96
         height: 96
       alignment: 0
@@ -1168,8 +1168,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_49
       rect:
         serializedVersion: 2
-        x: 1632
-        y: 192
+        x: 96
+        y: 352
         width: 96
         height: 96
       alignment: 0
@@ -1189,8 +1189,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_50
       rect:
         serializedVersion: 2
-        x: 1728
-        y: 192
+        x: 192
+        y: 352
         width: 96
         height: 96
       alignment: 0
@@ -1210,8 +1210,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_51
       rect:
         serializedVersion: 2
-        x: 1824
-        y: 192
+        x: 288
+        y: 352
         width: 96
         height: 96
       alignment: 0
@@ -1231,8 +1231,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_52
       rect:
         serializedVersion: 2
-        x: 1920
-        y: 192
+        x: 384
+        y: 352
         width: 96
         height: 96
       alignment: 0
@@ -1252,8 +1252,8 @@ TextureImporter:
       name: Elite Knight Sprite Sheet_53
       rect:
         serializedVersion: 2
-        x: 2016
-        y: 192
+        x: 480
+        y: 352
         width: 96
         height: 96
       alignment: 0
@@ -1274,7 +1274,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 96
+        y: 256
         width: 96
         height: 96
       alignment: 0
@@ -1295,7 +1295,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 96
+        y: 256
         width: 96
         height: 96
       alignment: 0
@@ -1316,7 +1316,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 96
+        y: 256
         width: 96
         height: 96
       alignment: 0
@@ -1337,7 +1337,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 96
+        y: 256
         width: 96
         height: 96
       alignment: 0
@@ -1358,7 +1358,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 160
         width: 96
         height: 96
       alignment: 0
@@ -1379,7 +1379,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 0
+        y: 160
         width: 96
         height: 96
       alignment: 0
@@ -1400,7 +1400,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 0
+        y: 160
         width: 96
         height: 96
       alignment: 0
@@ -1421,7 +1421,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 288
-        y: 0
+        y: 160
         width: 96
         height: 96
       alignment: 0
@@ -1442,7 +1442,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 0
+        y: 160
         width: 96
         height: 96
       alignment: 0
@@ -1463,7 +1463,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 480
-        y: 0
+        y: 160
         width: 96
         height: 96
       alignment: 0

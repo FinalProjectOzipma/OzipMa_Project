@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sr: {fileID: 7377928430184646330}
   dotColor: {r: 0, g: 0, b: 0, a: 0}
-  flashDuration: 0.5
+  flashDuration: 0.1
   flashMat: {fileID: 0}
 --- !u!114 &3675584278211520331
 MonoBehaviour:
