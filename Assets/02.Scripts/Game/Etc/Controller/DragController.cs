@@ -104,6 +104,8 @@ public class DragController : MonoBehaviour
         spriteRenderer = curTowerBody.GetMainSpriteObj().GetComponent<SpriteRenderer>();
 
         curTowerController.TowerStop(); // 편집모드에서는 타워 작동 멈추기
+        if (curTowerBody != null) curTowerBody.ShowRangeIndicator(); // 사거리 표시
+        Util.Log("사거리 표시 켜는 곳");
 
         // 드래그 오브젝트 위치 업데이트
         if (dragObject != null)
@@ -112,9 +114,6 @@ public class DragController : MonoBehaviour
             isEditDragging = true;
         }
 
-        // 사거리 표시
-        if (curTowerBody != null) curTowerBody.ShowRangeIndicator();
-        Util.Log("상또삐 BeginDrag");
     }
 
     /// <summary>
