@@ -9,7 +9,7 @@ using Table = DefaultTable;
 public class WaveManager
 {
     private float hubTime = 5f;
-    private float timer;
+    public float Timer { get; set; }
 
     private PlayerManager playerManager;
 
@@ -36,6 +36,8 @@ public class WaveManager
     public long CurrentGold { get; set; }
     public long CurrentGem { get; set; }
 
+    public Queue<FieldGold> FieldGolds { get; set; } = new();
+
     public void Initialize()
     {
         playerManager = Managers.Player;
@@ -47,7 +49,7 @@ public class WaveManager
         CurMyUnitList = new();
 
         CurrentState = Enums.WaveState.Start;
-        timer = 0;
+        Timer = 0;
 
         // 보스관련애들 넣어두기
         for(int i = 0; i < enemyList.Count; i++)
@@ -62,20 +64,20 @@ public class WaveManager
         });
     }
 
+    bool isCoreDead = false;
+    bool isEnemyAllDead = false;
     public void Update()
     {
         // 유저 데이터가 없으면 null처리
         if (playerManager == null)
             return;
 
-        if (timer >= 0.0f && CurrentState == Enums.WaveState.Start)
-            timer -= Time.deltaTime;
+        if (Timer >= 0.0f && CurrentState != Enums.WaveState.Playing)
+            Timer -= Time.deltaTime;
 
-        if(timer <= 0.0f)
+        if(Timer <= 0.0f)
         {
-            bool isCoreDead = false;
-            bool isEnemyAllDead = false;
-
+           
             if(CurrentState == Enums.WaveState.Start)
             {
                 if(onSpawn)
@@ -91,61 +93,63 @@ public class WaveManager
                 isEnemyAllDead = (CurEnemyList.Count == 0);
 
                 if (isCoreDead || isEnemyAllDead)
-                    CurrentState = Enums.WaveState.End;
+                {
+                    CurrentState = Enums.WaveState.Reward;
+                    if(isEnemyAllDead) Managers.Effect.InvokeEffect<GoldEffect>();
+                }
+                
             }
 
-            if(CurrentState == Enums.WaveState.End && delayCoroutine == null)
+            if(CurrentState == Enums.WaveState.Reward)
+                CurrentState = isCoreDead ? Enums.WaveState.End : Enums.WaveState.Reward;
+            
+
+            // End 변환점은 FieldGold 클래스에 있음 보상 다 받으면 실행
+            if(CurrentState == Enums.WaveState.End)
             {
-                delayCoroutine = Managers.StartCoroutine(WaveDelay(() => 
+                foreach (var unit in CurMyUnitList)
+                    Managers.Resource.Destroy(unit);
+
+                foreach (var enemy in CurEnemyList)
+                    Managers.Resource.Destroy(enemy);
+
+                Managers.Resource.Destroy(MainCore.gameObject);
+
+                CurEnemyList.Clear();
+                CurMyUnitList.Clear();
+
+                // 플레이어 측에서 이겼으면 웨이브 증가
+                if (isEnemyAllDead)
                 {
-                    foreach (var unit in CurMyUnitList)
-                        Managers.Resource.Destroy(unit);
-
-                    foreach (var enemy in CurEnemyList)
-                        Managers.Resource.Destroy(enemy);
-
-                    Managers.Resource.Destroy(MainCore.gameObject);
-
-                    CurEnemyList.Clear();
-                    CurMyUnitList.Clear();
-
-                    // 플레이어 측에서 이겼으면 웨이브 증가
-                    if (isEnemyAllDead)
+                    Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(true);
+                    if (++playerManager.CurrentWave % 10 == 0)
                     {
-                        Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(true);
-                        if (++playerManager.CurrentWave % 10 == 0)
-                        {
-                            playerManager.CurrentStage++;
-                            playerManager.CurrentWave = 0;
-                        }
-
-                        Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold);
-                        playerManager.OnStageWave();
-                    }
-                    else
-                    {
-                        Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(false);
+                        playerManager.CurrentStage++;
+                        playerManager.CurrentWave = 0;
                     }
 
-                    timer = hubTime;
-                    onSpawn = true;
-                    Managers.Player.AddGold(CurrentGold);
-                    Managers.Player.AddGem(CurrentGem);
+                    Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold);
+                    playerManager.OnStageWave();
+                }
+                else
+                {
+                    Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(false);
+                }
 
-                    CurrentGold = 0;
-                    CurrentGem = 0;
-                    CurrentState = Enums.WaveState.Start;
-                }));
+                Timer = hubTime;
+                onSpawn = true;
+                Managers.Player.AddGold(CurrentGold);
+                Managers.Player.AddGem(CurrentGem);
+
+                CurrentGold = 0;
+                CurrentGem = 0;
+                CurrentState = Enums.WaveState.Start;
             }
         }
     }
 
     public void StartWave(int idx)
     {
-        // 순서대로 처리해줘
-        // TODO:: 알아서해 Feat: 박한나
-        Util.Log($"{playerManager.CurrentStage}");
-        Util.Log($"{playerManager.CurrentWave}");
         Managers.Resource.Instantiate("Core_Brain", go => {
 
             MainCore = go.GetComponent<CoreController>();
