@@ -105,7 +105,6 @@ public class DragController : MonoBehaviour
 
         curTowerController.TowerStop(); // 편집모드에서는 타워 작동 멈추기
         if (curTowerBody != null) curTowerBody.ShowRangeIndicator(); // 사거리 표시
-        Util.Log("사거리 표시 켜는 곳");
 
         // 드래그 오브젝트 위치 업데이트
         if (dragObject != null)
@@ -169,6 +168,12 @@ public class DragController : MonoBehaviour
         towerMenu.SetActive(isOn);
     }
 
+    /// <summary>
+    /// 특정 위치에 특정 버튼이 있는지 확인
+    /// </summary>
+    /// <param name="screenPosition">체크할 위치</param>
+    /// <param name="targetButton">체크할 대상 버튼</param>
+    /// <returns></returns>
     public bool IsSpecificUIButtonClicked(Vector2 screenPosition, Button targetButton)
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current)
