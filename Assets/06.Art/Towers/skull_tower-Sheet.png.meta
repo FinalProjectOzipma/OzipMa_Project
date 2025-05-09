@@ -132,6 +132,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -140,7 +153,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 7
@@ -161,7 +174,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 7
@@ -182,7 +195,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 7
@@ -203,7 +216,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 7
@@ -224,7 +237,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 512
-        y: 384
+        y: 896
         width: 128
         height: 128
       alignment: 7
@@ -244,8 +257,8 @@ TextureImporter:
       name: skull_tower-Sheet_5
       rect:
         serializedVersion: 2
-        x: 640
-        y: 384
+        x: 0
+        y: 768
         width: 128
         height: 128
       alignment: 7
@@ -265,8 +278,8 @@ TextureImporter:
       name: skull_tower-Sheet_6
       rect:
         serializedVersion: 2
-        x: 768
-        y: 384
+        x: 128
+        y: 768
         width: 128
         height: 128
       alignment: 7
@@ -286,8 +299,8 @@ TextureImporter:
       name: skull_tower-Sheet_7
       rect:
         serializedVersion: 2
-        x: 896
-        y: 384
+        x: 256
+        y: 768
         width: 128
         height: 128
       alignment: 7
@@ -307,8 +320,8 @@ TextureImporter:
       name: skull_tower-Sheet_8
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 384
+        x: 384
+        y: 768
         width: 128
         height: 128
       alignment: 7
@@ -328,8 +341,8 @@ TextureImporter:
       name: skull_tower-Sheet_9
       rect:
         serializedVersion: 2
-        x: 1152
-        y: 384
+        x: 512
+        y: 768
         width: 128
         height: 128
       alignment: 7
@@ -349,8 +362,8 @@ TextureImporter:
       name: skull_tower-Sheet_10
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 384
+        x: 640
+        y: 768
         width: 128
         height: 128
       alignment: 7
@@ -370,8 +383,8 @@ TextureImporter:
       name: skull_tower-Sheet_12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 256
+        x: 128
+        y: 640
         width: 128
         height: 128
       alignment: 7
@@ -391,8 +404,8 @@ TextureImporter:
       name: skull_tower-Sheet_13
       rect:
         serializedVersion: 2
-        x: 128
-        y: 256
+        x: 256
+        y: 640
         width: 128
         height: 128
       alignment: 7
@@ -412,8 +425,8 @@ TextureImporter:
       name: skull_tower-Sheet_14
       rect:
         serializedVersion: 2
-        x: 256
-        y: 256
+        x: 384
+        y: 640
         width: 128
         height: 128
       alignment: 7
@@ -433,8 +446,8 @@ TextureImporter:
       name: skull_tower-Sheet_15
       rect:
         serializedVersion: 2
-        x: 384
-        y: 256
+        x: 512
+        y: 640
         width: 128
         height: 128
       alignment: 7
@@ -454,8 +467,8 @@ TextureImporter:
       name: skull_tower-Sheet_16
       rect:
         serializedVersion: 2
-        x: 512
-        y: 256
+        x: 640
+        y: 640
         width: 128
         height: 128
       alignment: 7
@@ -475,8 +488,8 @@ TextureImporter:
       name: skull_tower-Sheet_17
       rect:
         serializedVersion: 2
-        x: 640
-        y: 256
+        x: 768
+        y: 640
         width: 128
         height: 128
       alignment: 7
@@ -496,8 +509,8 @@ TextureImporter:
       name: skull_tower-Sheet_18
       rect:
         serializedVersion: 2
-        x: 768
-        y: 256
+        x: 896
+        y: 640
         width: 128
         height: 128
       alignment: 7
@@ -517,8 +530,8 @@ TextureImporter:
       name: skull_tower-Sheet_19
       rect:
         serializedVersion: 2
-        x: 896
-        y: 256
+        x: 0
+        y: 512
         width: 128
         height: 128
       alignment: 7
@@ -538,8 +551,8 @@ TextureImporter:
       name: skull_tower-Sheet_20
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 256
+        x: 128
+        y: 512
         width: 128
         height: 128
       alignment: 7
@@ -559,8 +572,8 @@ TextureImporter:
       name: skull_tower-Sheet_21
       rect:
         serializedVersion: 2
-        x: 1152
-        y: 256
+        x: 256
+        y: 512
         width: 128
         height: 128
       alignment: 7
@@ -580,8 +593,8 @@ TextureImporter:
       name: skull_tower-Sheet_22
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 256
+        x: 384
+        y: 512
         width: 128
         height: 128
       alignment: 7
@@ -601,8 +614,8 @@ TextureImporter:
       name: skull_tower-Sheet_23
       rect:
         serializedVersion: 2
-        x: 1408
-        y: 256
+        x: 512
+        y: 512
         width: 128
         height: 128
       alignment: 7
@@ -622,8 +635,8 @@ TextureImporter:
       name: skull_tower-Sheet_24
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 256
+        x: 640
+        y: 512
         width: 128
         height: 128
       alignment: 7
@@ -643,8 +656,8 @@ TextureImporter:
       name: skull_tower-Sheet_25
       rect:
         serializedVersion: 2
-        x: 1664
-        y: 256
+        x: 768
+        y: 512
         width: 128
         height: 128
       alignment: 7
@@ -664,8 +677,8 @@ TextureImporter:
       name: skull_tower-Sheet_26
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 896
+        y: 512
         width: 128
         height: 128
       alignment: 7
@@ -685,8 +698,8 @@ TextureImporter:
       name: skull_tower-Sheet_27
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 0
+        y: 384
         width: 128
         height: 128
       alignment: 7
@@ -706,8 +719,8 @@ TextureImporter:
       name: skull_tower-Sheet_28
       rect:
         serializedVersion: 2
-        x: 256
-        y: 128
+        x: 128
+        y: 384
         width: 128
         height: 128
       alignment: 7
@@ -727,8 +740,8 @@ TextureImporter:
       name: skull_tower-Sheet_29
       rect:
         serializedVersion: 2
-        x: 384
-        y: 128
+        x: 256
+        y: 384
         width: 128
         height: 128
       alignment: 7
@@ -748,8 +761,8 @@ TextureImporter:
       name: skull_tower-Sheet_30
       rect:
         serializedVersion: 2
-        x: 512
-        y: 128
+        x: 384
+        y: 384
         width: 128
         height: 128
       alignment: 7
@@ -769,8 +782,8 @@ TextureImporter:
       name: skull_tower-Sheet_31
       rect:
         serializedVersion: 2
-        x: 640
-        y: 128
+        x: 512
+        y: 384
         width: 128
         height: 128
       alignment: 7
@@ -790,8 +803,8 @@ TextureImporter:
       name: skull_tower-Sheet_32
       rect:
         serializedVersion: 2
-        x: 768
-        y: 128
+        x: 640
+        y: 384
         width: 128
         height: 128
       alignment: 7
@@ -811,8 +824,8 @@ TextureImporter:
       name: skull_tower-Sheet_33
       rect:
         serializedVersion: 2
-        x: 896
-        y: 128
+        x: 768
+        y: 384
         width: 128
         height: 128
       alignment: 7
@@ -832,8 +845,8 @@ TextureImporter:
       name: skull_tower-Sheet_34
       rect:
         serializedVersion: 2
-        x: 1024
-        y: 128
+        x: 896
+        y: 384
         width: 128
         height: 128
       alignment: 7
@@ -853,8 +866,8 @@ TextureImporter:
       name: skull_tower-Sheet_35
       rect:
         serializedVersion: 2
-        x: 1152
-        y: 128
+        x: 0
+        y: 256
         width: 128
         height: 128
       alignment: 7
@@ -874,8 +887,8 @@ TextureImporter:
       name: skull_tower-Sheet_36
       rect:
         serializedVersion: 2
-        x: 1280
-        y: 128
+        x: 128
+        y: 256
         width: 128
         height: 128
       alignment: 7
@@ -895,8 +908,8 @@ TextureImporter:
       name: skull_tower-Sheet_37
       rect:
         serializedVersion: 2
-        x: 1408
-        y: 128
+        x: 256
+        y: 256
         width: 128
         height: 128
       alignment: 7
@@ -916,8 +929,8 @@ TextureImporter:
       name: skull_tower-Sheet_38
       rect:
         serializedVersion: 2
-        x: 1536
-        y: 128
+        x: 384
+        y: 256
         width: 128
         height: 128
       alignment: 7
@@ -937,8 +950,8 @@ TextureImporter:
       name: skull_tower-Sheet_39
       rect:
         serializedVersion: 2
-        x: 1664
-        y: 128
+        x: 512
+        y: 256
         width: 128
         height: 128
       alignment: 7
@@ -958,8 +971,8 @@ TextureImporter:
       name: skull_tower-Sheet_40
       rect:
         serializedVersion: 2
-        x: 1792
-        y: 128
+        x: 640
+        y: 256
         width: 128
         height: 128
       alignment: 7
@@ -979,8 +992,8 @@ TextureImporter:
       name: skull_tower-Sheet_41
       rect:
         serializedVersion: 2
-        x: 1920
-        y: 128
+        x: 768
+        y: 256
         width: 128
         height: 128
       alignment: 7
@@ -1000,8 +1013,8 @@ TextureImporter:
       name: skull_tower-Sheet_42
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 896
+        y: 256
         width: 128
         height: 128
       alignment: 7
@@ -1021,8 +1034,8 @@ TextureImporter:
       name: skull_tower-Sheet_43
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 0
+        y: 128
         width: 128
         height: 128
       alignment: 7
@@ -1042,8 +1055,8 @@ TextureImporter:
       name: skull_tower-Sheet_44
       rect:
         serializedVersion: 2
-        x: 256
-        y: 0
+        x: 128
+        y: 128
         width: 128
         height: 128
       alignment: 7
@@ -1063,8 +1076,8 @@ TextureImporter:
       name: skull_tower-Sheet_45
       rect:
         serializedVersion: 2
-        x: 384
-        y: 0
+        x: 256
+        y: 128
         width: 128
         height: 128
       alignment: 7
@@ -1084,8 +1097,8 @@ TextureImporter:
       name: skull_tower-Sheet_46
       rect:
         serializedVersion: 2
-        x: 512
-        y: 0
+        x: 384
+        y: 128
         width: 128
         height: 128
       alignment: 7
@@ -1102,11 +1115,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: skull_tower-Sheet_47
+      name: skull_tower-Sheet_11
       rect:
         serializedVersion: 2
-        x: 640
-        y: 0
+        x: 0
+        y: 640
         width: 128
         height: 128
       alignment: 7
@@ -1116,302 +1129,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a3e6f98ad732f842b452f726ac03e47
-      internalID: 2017124354
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_48
-      rect:
-        serializedVersion: 2
-        x: 768
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4436e823a2f91af43920fce20f845c1b
-      internalID: -1575367457
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_49
-      rect:
-        serializedVersion: 2
-        x: 896
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 90f8a4bc035662148a4049841115b318
-      internalID: -1395375057
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_50
-      rect:
-        serializedVersion: 2
-        x: 1024
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 144fdda7ce25e1741b3343ed3769d742
-      internalID: -1306005523
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_51
-      rect:
-        serializedVersion: 2
-        x: 1152
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 66c60acc5f466e14ea577248777dc538
-      internalID: -797389925
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_52
-      rect:
-        serializedVersion: 2
-        x: 1280
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c2e11d38a7cbc54a966696885da1cbb
-      internalID: -503595234
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_53
-      rect:
-        serializedVersion: 2
-        x: 1408
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 52f2fda884ba3b644b8d4b1341552cd5
-      internalID: -209448625
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_54
-      rect:
-        serializedVersion: 2
-        x: 1536
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 480616ea17611c54ab86bd284b9b18bb
-      internalID: 549772390
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_55
-      rect:
-        serializedVersion: 2
-        x: 1664
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 11a6dea71c0051c47b082a14d9382a1a
-      internalID: 1830145081
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_56
-      rect:
-        serializedVersion: 2
-        x: 1792
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ea00ef84f78b6241ba440ceae65e60e
-      internalID: 828424270
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_57
-      rect:
-        serializedVersion: 2
-        x: 1920
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 29f2b006ff49a23428fa28f6f044e146
-      internalID: 1015902998
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_58
-      rect:
-        serializedVersion: 2
-        x: 2048
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d2d0c39c1f93b5142adba1aa89384868
-      internalID: -119163852
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_59
-      rect:
-        serializedVersion: 2
-        x: 2176
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d96e693e44122fb4bb53180db8cf1d77
-      internalID: -848031911
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_60
-      rect:
-        serializedVersion: 2
-        x: 2304
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b85c08c0fe0d7744bb8437defa073f82
-      internalID: -152445111
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: skull_tower-Sheet_61
-      rect:
-        serializedVersion: 2
-        x: 2432
-        y: 0
-        width: 128
-        height: 128
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 399cb563c9960a04c83c291d2c77ce49
-      internalID: 467769975
+      spriteID: c34c98ab88c716544bd6c37c90678d49
+      internalID: 2015374398
       vertices: []
       indices: 
       edges: []
@@ -1469,23 +1188,8 @@ TextureImporter:
       skull_tower-Sheet_44: -7907190
       skull_tower-Sheet_45: 712336480
       skull_tower-Sheet_46: -1500244793
-      skull_tower-Sheet_47: 2017124354
-      skull_tower-Sheet_48: -1575367457
-      skull_tower-Sheet_49: -1395375057
       skull_tower-Sheet_5: 1647793416
-      skull_tower-Sheet_50: -1306005523
-      skull_tower-Sheet_51: -797389925
-      skull_tower-Sheet_52: -503595234
-      skull_tower-Sheet_53: -209448625
-      skull_tower-Sheet_54: 549772390
-      skull_tower-Sheet_55: 1830145081
-      skull_tower-Sheet_56: 828424270
-      skull_tower-Sheet_57: 1015902998
-      skull_tower-Sheet_58: -119163852
-      skull_tower-Sheet_59: -848031911
       skull_tower-Sheet_6: -475412761
-      skull_tower-Sheet_60: -152445111
-      skull_tower-Sheet_61: 467769975
       skull_tower-Sheet_7: 2100745830
       skull_tower-Sheet_8: 1869865169
       skull_tower-Sheet_9: 1055895240
