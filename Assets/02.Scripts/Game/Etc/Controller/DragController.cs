@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class DragController : MonoBehaviour
 {
+    [HideInInspector] public Button DeleteButton;
     public bool IsSlotDragging = false;
 
     private BuildingSystem buildingSystem;
@@ -19,7 +20,8 @@ public class DragController : MonoBehaviour
     private UI_TowerMenu uiTowerMenu;
     private float pressTime = 0f; // 홀드 경과 시간
     private bool isEditMode = false;
-    public Button deleteButton;
+    private TowerControlBase curTowerController;
+    private TowerBodyBase curTowerBody;
 
     private void Start()
     {
@@ -28,7 +30,7 @@ public class DragController : MonoBehaviour
         {
             towerMenu = go;
             towerMenu.SetActive(false);
-            deleteButton = towerMenu.GetComponentInChildren<Button>(true);
+            DeleteButton = towerMenu.GetComponentInChildren<Button>(true);
             uiTowerMenu = towerMenu.GetComponent<UI_TowerMenu>();
             SetEditMode(false);
         });
@@ -43,7 +45,7 @@ public class DragController : MonoBehaviour
         {
             eventPosition = Input.mousePosition;
 
-            if (IsSpecificUIButtonClicked(eventPosition, deleteButton))
+            if (IsSpecificUIButtonClicked(eventPosition, DeleteButton))
             {
                 // 버튼을 눌렀을 때만 동작
                 return;
@@ -90,24 +92,40 @@ public class DragController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 오브젝트 드래그 시작
+    /// </summary>
+    /// <param name="detectedObj">클릭 감지된 오브젝트</param>
     public void BeginDrag(GameObject detectedObj)
     {
         uiTowerMenu.TargetTower = dragObject = detectedObj.transform.root.gameObject;
-        dragObject.GetComponent<TowerControlBase>().TowerStop();
-        spriteRenderer = Util.FindComponent<SpriteRenderer>(detectedObj, "MainSprite");
+        curTowerController = dragObject.GetComponent<TowerControlBase>();
+        curTowerBody = curTowerController.GetTowerBodyBase();
+        spriteRenderer = curTowerBody.GetMainSpriteObj().GetComponent<SpriteRenderer>();
+
+        curTowerController.TowerStop(); // 편집모드에서는 타워 작동 멈추기
+
+        // 드래그 오브젝트 위치 업데이트
         if (dragObject != null)
         {
             dragObject.transform.position = buildingSystem.UpdatePosition(eventPosition);
             isEditDragging = true;
         }
+
+        // 사거리 표시
+        if (curTowerBody != null) curTowerBody.ShowRangeIndicator();
+        Util.Log("상또삐 BeginDrag");
     }
 
+    /// <summary>
+    /// 오브젝트 드래그 업데이트
+    /// </summary>
     public void Drag()
     {
-        // 편집메뉴UI, 타워 위치 조정
+        // 편집메뉴UI, 타워 위치 업데이트
         towerMenu.transform.position = dragObject.transform.position = buildingSystem.UpdatePosition(Input.mousePosition);
 
-        // 배치 가능/불가능 색상
+        // 배치 가능/불가능 색상 표시
         if (buildingSystem.CanTowerBuild(Input.mousePosition))
         {
             spriteRenderer.color = Color.green;
@@ -116,11 +134,15 @@ public class DragController : MonoBehaviour
         spriteRenderer.color = Color.red;
     }
 
+    /// <summary>
+    /// 오브젝트 드래그 끝
+    /// </summary>
     public void EndDrag()
     {
         isEditDragging = false;
         spriteRenderer.color = Color.white;
-        dragObject.GetComponent<TowerControlBase>().TowerStart();
+        if (curTowerController != null) curTowerController.TowerStart(); // 타워 작동 재개
+        if (curTowerBody != null) curTowerBody.HideRangeIndicator(); // 사거리 표시 끄기
 
         // 드래그 종료 위치에 배치 완료 
         Vector2 inputPos = Input.mousePosition;
@@ -138,6 +160,10 @@ public class DragController : MonoBehaviour
         dragObject = null;
     }
 
+    /// <summary>
+    /// 편집모드 On/Off
+    /// </summary>
+    /// <param name="isOn">true:켜기, false:끄기</param>
     public void SetEditMode(bool isOn)
     {
         isEditMode = isOn;

@@ -107,6 +107,15 @@ public abstract class TowerControlBase : MonoBehaviour
         TakeBody();
     }
 
+    public TowerBodyBase GetTowerBodyBase()
+    {
+        if(body != null)
+        {
+            return body.GetComponent<TowerBodyBase>();
+        }
+        return null;
+    }
+
     /// <summary>
     /// 외형 로딩
     /// </summary>
@@ -131,13 +140,13 @@ public abstract class TowerControlBase : MonoBehaviour
         }
     }
 
-    public void StartAnimation(int AnimHash)
+    protected void StartAnimation(int AnimHash)
     {
         if (Anim == null) return;
         Anim?.SetTrigger(AnimHash);
     }
 
-    public void ApplyAttackRange(float newValue)
+    protected void ApplyAttackRange(float newValue)
     {
         if(range == null) range = GetComponent<CircleCollider2D>();
         range.radius = TowerStatus == null ? 1f : newValue;
