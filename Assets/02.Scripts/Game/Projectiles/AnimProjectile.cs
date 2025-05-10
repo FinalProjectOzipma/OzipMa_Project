@@ -47,6 +47,7 @@ public class AnimProjectile : EntityProjectile
             return;
 
         anim.SetBool(destroyHash, true);
+        spTrail.SetActive(false);
         OnDestroy = true;
     }
 

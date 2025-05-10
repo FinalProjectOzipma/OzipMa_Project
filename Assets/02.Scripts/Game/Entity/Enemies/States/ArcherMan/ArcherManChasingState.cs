@@ -12,16 +12,21 @@ public class ArcherManChasingState : ArcherManStateBase
     {
         base.Enter();
         agent.isStopped = false;
+
+        controller.SpTrail.SetActive(true, null);
     }
 
     public override void Exit()
     {
         base.Exit();
+        controller.SpTrail.SetActive(false, null);
     }
 
     public override void Update()
     {
         base.Update();
+
+        controller.SpTrail.FacingDir = controller.FacDir;
 
         agent.SetDestination(targets.Peek().transform.position);
         
