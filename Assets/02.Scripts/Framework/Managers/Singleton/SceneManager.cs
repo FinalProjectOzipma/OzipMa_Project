@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class SceneManager
 {
@@ -23,6 +24,8 @@ public class SceneManager
 
         Managers.Resource.Instantiate("LoadScene", go =>
         {
+
+
             go.SetActive(true);
             
             Managers.Resource.LoadResourceLocationAsync(nextScene.LabelAsync, () =>

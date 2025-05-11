@@ -17,8 +17,6 @@ public class PlayerManager
     public event Action<long> OnZamChanged;
     public event Action<int, int> OnStageChanged;
 
-    private string myGoldKey = "myGold";
-    private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
     public int CurrentStage { get; set; }
@@ -114,18 +112,6 @@ public class PlayerManager
     /// </summary>
     public long GetZam() => Gem;
 
-    public void SaveEcomomy()
-    {
-        PlayerPrefs.SetString(myGoldKey, Gold.ToString());
-        PlayerPrefs.SetString(myZamKey, Gem.ToString());
-    }
-
-    public void SetGoldAndJame()
-    {
-        Gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 100000L;
-        Gem = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 1000L;
-    }
-
 
     public void OnStageWave()
     {
@@ -175,8 +161,9 @@ public class PlayerManager
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
         
-        Gold = 0;
+        Gold = 100000;
         Gem = 0;
+
         AddGem(data.Gem);
         AddGold(data.Gold);
 
@@ -186,6 +173,36 @@ public class PlayerManager
 
         TowerInfos = data.TowerInfos;
         MyUnitInfos = data.MyUnitInfos;
+
+
+
+        if (data.MainCoreData != null)
+        {
+            MainCoreData = data.MainCoreData;
+            Util.Log("코어레벨_Load" + MainCoreData.CoreLevel.GetValue().ToString());
+        }
+
+
+        // ===== 연구 정보=====
+        if (data.AttackResearchData != null)
+        {
+            AttackResearchData = data.AttackResearchData;
+        }
+
+        if (data.DefenceResearchData != null)
+        {
+            DefenceResearchData = data.DefenceResearchData;
+        }
+
+        if (data.CoreResearchData != null)
+        {
+            CoreResearchData = data.CoreResearchData;
+        }
+
+        if (data.RandomResearchData != null)
+        {
+            RandomResearchData = data.RandomResearchData;
+        }
 
         // ===== 인벤토리에 추가 - 타워 =====
         if(TowerInfos != null)
@@ -271,7 +288,7 @@ public class ResearchData
         startTime = "";
         researchDuration = 0;
         updateLevel = 0;
-        updateStat = 0;
+        updateStat = 0.0f;
         spendGold = 0;
         spendZam = 0;
     }

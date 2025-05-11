@@ -1,5 +1,8 @@
+using Firebase.Database;
+using System;
 using System.Collections;
 using System.Resources;
+using System.Threading.Tasks;
 using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -34,12 +37,17 @@ public class Managers : MonoBehaviour
         MonoInstance = this;
         DontDestroyOnLoad(this);
 
+        // 로컬 캐시 비활설화
+        FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
+
         Data.Initialize();
         Pool.Initialize();
         TestInit();
         Scene.Initialize();
         Upgrade.Intialize();
+
     }
+    
 
     private void Update()
     {
@@ -70,9 +78,10 @@ public class Managers : MonoBehaviour
         Scene.PhnMyUnitScene.SingletonAction += Game.Initialize;
     }
 
+
     void OnApplicationQuit()
     {
-        // 게임 종료될 때 게임 데이터 저장 
         Data.SaveGameData();
     }
+
 }

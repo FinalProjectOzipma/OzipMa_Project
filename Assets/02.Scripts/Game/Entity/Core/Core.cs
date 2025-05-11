@@ -11,6 +11,7 @@ public class Core
 
     public Core()
     {
+        Health.MaxValue = 100.0f;
         Health.SetValue(100.0f);
         CoreLevel.SetValue(1);
     }

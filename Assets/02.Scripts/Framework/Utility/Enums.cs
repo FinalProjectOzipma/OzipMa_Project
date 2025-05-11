@@ -27,6 +27,7 @@ public class Enums
 
     public enum WaveState
     {
+        None,
         Start,
         Playing,
         End,

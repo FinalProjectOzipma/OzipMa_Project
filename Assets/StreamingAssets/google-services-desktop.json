@@ -1,22 +1,22 @@
 {
   "project_info": {
-    "project_number": "960267472316",
-    "firebase_url": "https://ozipmaproject-default-rtdb.firebaseio.com",
-    "project_id": "ozipmaproject",
-    "storage_bucket": "ozipmaproject.firebasestorage.app"
+    "project_number": "950212416815",
+    "firebase_url": "https://fir-testygm-default-rtdb.firebaseio.com",
+    "project_id": "fir-testygm",
+    "storage_bucket": "fir-testygm.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:960267472316:android:368bcabee8c6319640afb9",
+        "mobilesdk_app_id": "1:950212416815:android:c00217c88073adf1957dda",
         "android_client_info": {
-          "package_name": "com.OzipMaCompany.OzipMa_Project"
+          "package_name": "com.YgmTest.FireBaseTest"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAmyIXxX90t0Z7VlM6miNxNpDPaW85OrVY"
+          "current_key": "AIzaSyBqddJJSrNJjo9l-jB8PUqMtyPrR2TAZYc"
         }
       ],
       "services": {

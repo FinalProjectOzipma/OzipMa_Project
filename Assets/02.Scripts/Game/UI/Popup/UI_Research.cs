@@ -5,6 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Firebase.Database;
+using System.Threading.Tasks;
+using Unity.Mathematics;
 
 public class UI_Research : UI_Base
 {
@@ -59,7 +62,7 @@ public class UI_Research : UI_Base
     private List<MyUnit> myUnitList;
     private List<Tower> towerList;
 
-    private ResearchData reseachData;
+    private ResearchData researchData;
 
 
 
@@ -73,7 +76,7 @@ public class UI_Research : UI_Base
     private void Start()
     {
 
-        if (!string.IsNullOrEmpty(reseachData.startTime))
+        if (!string.IsNullOrEmpty(researchData.startTime))
         {
             // 재접속 시 시간 계산
             LoadAndCheckProgress();
@@ -88,11 +91,11 @@ public class UI_Research : UI_Base
     {
         if (isResearching)
         {
-            TimeSpan passed = DateTime.UtcNow - startTime; // 업그레이드 시작 시간을 기준으로 현재 시간 사이의 차이
+            DateTime currentTIme = Managers.Game.ServerUtcNow;
+
+            TimeSpan passed = currentTIme - startTime; // 업그레이드 시작 시간을 기준으로 현재 시간 사이의 차이
             elapsedSeconds = passed.TotalSeconds;
             float progress = Mathf.Clamp01((float)elapsedSeconds / researchDuration);
-
-
 
             FillImage.fillAmount = progress;
 
@@ -160,11 +163,11 @@ public class UI_Research : UI_Base
     {
         ResearchType(researchUpgradeType);
 
-        updateLevel = reseachData.updateLevel == 0 ? 1 : reseachData.updateLevel;
-        researchDuration = reseachData.researchDuration == 0 ? baseTime : reseachData.researchDuration;
+        updateLevel = researchData.updateLevel == 0 ? 1 : researchData.updateLevel;
+        researchDuration = researchData.researchDuration == 0 ? baseTime : researchData.researchDuration;
 
 
-        if (reseachData.updateStat == 0)
+        if (researchData.updateStat == 0)
         {
             if (researchUpgradeType != ResearchUpgradeType.Random)
             {
@@ -177,11 +180,11 @@ public class UI_Research : UI_Base
         }
         else
         {
-            updateStat = reseachData.updateStat;
+            updateStat = researchData.updateStat;
         }
 
 
-        if (reseachData.spendGold == 0)
+        if (researchData.spendGold == 0)
         {
             if (researchUpgradeType != ResearchUpgradeType.Random)
             {
@@ -194,10 +197,10 @@ public class UI_Research : UI_Base
         }
         else
         {
-            spendGold = reseachData.spendGold;
+            spendGold = researchData.spendGold;
         }
 
-        if (reseachData.spendZam == 0)
+        if (researchData.spendZam == 0)
         {
             if (researchUpgradeType != ResearchUpgradeType.Random)
             {
@@ -210,13 +213,13 @@ public class UI_Research : UI_Base
         }
         else
         {
-            spendZam = reseachData.spendZam;
+            spendZam = researchData.spendZam;
         }
 
-        UpgradeButton.gameObject.BindEvent(StartResearch); // 업그레드 시작 버튼
+        UpgradeButton.gameObject.BindEvent(OnClickStartResearch); // 업그레드 시작 버튼
         GoldSpendButton.gameObject.BindEvent(OnClickSaveTime); // 골드 사용 시 시간 감소
         ZamSpendButton.gameObject.BindEvent(OnClickCompleteResearch); // 잼 사용 시 연구 완료
-        CheckButton.gameObject.BindEvent(OnClickCheckButton);
+        CheckButton.gameObject.BindEvent(OnClickCompleteButton);
 
 
         UpdateLevel.text = $"Lv {updateLevel}";
@@ -233,21 +236,68 @@ public class UI_Research : UI_Base
     /// <summary>
     /// 업그레이드 버튼 누르면 호출해서 업그레이드 시작
     /// </summary>
-    public void StartResearch(PointerEventData data)
+    public void OnClickStartResearch(PointerEventData data)
     {
         if (isResearching) return; // 이미 진행 중이면 무시
-        isComplete = false;
-        startTime = DateTime.UtcNow;
+        StartTimeCheck();
 
-        reseachData.startTime = startTime.ToString();
-        reseachData.researchDuration = researchDuration;
+    }
+
+    // 서비시간과 로컬시간 확인하고 연구 시작
+    private async void StartTimeCheck()
+    {
+        await Managers.Game.Init();
+        StartResearch();
+    }
+
+    // 연구 시작
+    public void StartResearch()
+    {
+        isComplete = false;
+
+
+        if (!string.IsNullOrEmpty(researchData.startTime))
+        {
+            LoadAndCheckProgress();
+            return;
+        }
+
+        startTime = Managers.Game.ServerUtcNow;
+        researchData.startTime = startTime.ToString("o");
+        researchData.researchDuration = researchDuration;
 
         isResearching = true;
+        CheckButton.gameObject.SetActive(false);
         UpgradeButtonText.text = "연구";
         UpgradeButton.interactable = false;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
 
+
+    /// <summary>
+    /// 서버에 저장된 시간과 진행 시간 가져와서 업데이트 해주는 함수
+    /// </summary>
+    private void LoadAndCheckProgress()
+    {
+        startTime = DateTime.Parse(researchData.startTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        researchDuration = researchData.researchDuration;
+
+        TimeSpan passed = Managers.Game.ServerUtcNow - startTime;
+        float elapsedSeconds = (float)passed.TotalSeconds;
+
+        if (elapsedSeconds >= researchDuration)
+        {
+            CompleteResearch();
+        }
+        else
+        {
+            isResearching = true;
+            CheckButton.gameObject.SetActive(false);
+            UpgradeButtonText.text = "연구";
+            UpgradeButton.gameObject.SetActive(true);
+            UpgradeButton.interactable = false;
+        }
+    }
 
     /// <summary>
     /// 잼 사용으로 바로 연구 완료
@@ -314,8 +364,8 @@ public class UI_Research : UI_Base
         Managers.Player.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
 
-        reseachData.startTime = startTime.ToString();
-        reseachData.researchDuration = researchDuration;
+        researchData.startTime = startTime.ToString("o");
+        researchData.researchDuration = researchDuration;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
         if (isPopup)
@@ -330,7 +380,6 @@ public class UI_Research : UI_Base
     /// </summary>
     void CompleteResearch()
     {
-
         isResearching = false;
         UpgradeButton.gameObject.SetActive(false);
         CheckButton.gameObject.SetActive(true);
@@ -344,31 +393,10 @@ public class UI_Research : UI_Base
         ZamSpendText.color = Color.white;
     }
 
-    /// <summary>
-    /// PlayerPrefs에 저장된 시간과 진행 시간 가져와서 업데이트 해주는 함수
-    /// </summary>
-    private void LoadAndCheckProgress()
-    {
-        startTime = DateTime.Parse(reseachData.startTime);
-        researchDuration = reseachData.researchDuration;
 
-        TimeSpan passed = DateTime.UtcNow - startTime;
-        float elapsedSeconds = (float)passed.TotalSeconds;
-
-        if (elapsedSeconds >= researchDuration)
-        {
-            CompleteResearch();
-        }
-        else
-        {
-            isResearching = true;
-            UpgradeButtonText.text = "연구";
-            UpgradeButton.interactable = false;
-        }
-    }
 
     /// <summary>
-    /// PlayerPrefs에 없으면 초기값 0으로 UI 표시
+    /// 저장된 값 없으면 초기값 0으로 UI 표시
     /// </summary>
     void ResetProgress()
     {
@@ -378,10 +406,47 @@ public class UI_Research : UI_Base
         ZamSpendButton.interactable = false;
     }
 
-    private void OnClickCheckButton(PointerEventData data)
+    // 완료 버튼 클릭 매서드
+    private void OnClickCompleteButton(PointerEventData data)
     {
         if (isComplete) return;
         isComplete = true;
+
+        _ = HandleCheckButton();
+    }
+
+    // 치트 검사
+    private async Task HandleCheckButton()
+    {
+        bool IsCheat = await CheckTimeCheat();
+
+        if (IsCheat)
+        {
+            StartTimeCheck();
+
+        }
+        else
+        {
+            OnUpgrade();
+        }
+    }
+
+    // 서버시간 가져와서 저장된 시작값 차이 계산
+    private async Task<bool> CheckTimeCheat()
+    {
+        await Managers.Game.Init();
+
+        DateTime storedStartTime = DateTime.Parse(researchData.startTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        DateTime now = Managers.Game.ServerUtcNow;
+        TimeSpan elapsed = now - storedStartTime;
+
+        return (Math.Abs(Managers.Game.ServerTimeOffset) > 30);
+
+    }
+
+    // 치트가 아니면 업그레이드 시작
+    private void OnUpgrade()
+    {
 
         StarEffect.Play();
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Upgrade);
@@ -424,19 +489,18 @@ public class UI_Research : UI_Base
             researchDuration = 43200.0f;
         }
 
+        StatUpgrade(researchUpgradeType); // 스탯 업그레이드
 
         updateStat += researchUpgradeType != ResearchUpgradeType.Random ? 10.0f : 20.0f;
         spendGold += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
         spendZam += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
 
-        reseachData.startTime = "";
-        reseachData.researchDuration = researchDuration;
-        reseachData.updateLevel = updateLevel;
-        reseachData.updateStat = updateStat;
-        reseachData.spendGold = spendGold;
-        reseachData.spendZam = spendZam;
-
-        StatUpgrade(researchUpgradeType); // 스탯 업그레이드
+        researchData.startTime = "";
+        researchData.researchDuration = researchDuration;
+        researchData.updateLevel = updateLevel;
+        researchData.updateStat = updateStat;
+        researchData.spendGold = spendGold;
+        researchData.spendZam = spendZam;
 
         UpdateLevel.text = $"Lv {updateLevel}";
 
@@ -449,16 +513,9 @@ public class UI_Research : UI_Base
         GoldSpendText.text = Util.FormatNumber(spendGold);
         ZamSpendText.text = Util.FormatNumber(spendZam);
 
-
-        if (researchUpgradeType == ResearchUpgradeType.Core)
-        {
-            Managers.Player.MainCoreData.CoreLevel.SetValue(updateLevel);
-            Managers.Wave.MainCore.CoreUpgrade();
-        }
-
     }
 
-
+    // 실제 유닛과 타워 스탯 업그레이드
     public void StatUpgrade(ResearchUpgradeType upgradeType)
     {
         SeperatedIGettable<MyUnit>(myUnitList);
@@ -471,15 +528,8 @@ public class UI_Research : UI_Base
                 foreach (var unitAttack in myUnitList)
                 {
                     unitAttack.Status.Attack.AddValue(updateStat);
-
+                    Util.Log("유닛공격력:" + unitAttack.Status.Attack.GetValue().ToString());
                 }
-
-                foreach (var i in Managers.Wave.CurMyUnitList)
-                {
-                    MyUnitController attackUp = i.GetComponent<MyUnitController>();
-                    attackUp.MyUnit.Status.Attack.AddValue(updateStat);
-                }
-
 
                 foreach (var towerAttack in towerList)
                 {
@@ -495,12 +545,6 @@ public class UI_Research : UI_Base
                     defenceStatus.Defence.AddValue(updateStat);
                 }
 
-                foreach (var i in Managers.Wave.CurMyUnitList)
-                {
-                    MyUnitController controler = i.GetComponent<MyUnitController>();
-                    MyUnitStatus curDefence = controler.MyUnit.Status as MyUnitStatus;
-                    curDefence.Defence.AddValue(updateStat);
-                }
                 break;
             case ResearchUpgradeType.Random:
 
@@ -519,12 +563,6 @@ public class UI_Research : UI_Base
                         towerAttack.TowerStatus.Attack.AddValue(randomStat);
                     }
 
-                    foreach (var i in Managers.Wave.CurMyUnitList)
-                    {
-                        MyUnitController attackUp = i.GetComponent<MyUnitController>();
-                        attackUp.MyUnit.Status.Attack.AddValue(updateStat);
-                    }
-
                 }
                 else
                 {
@@ -534,26 +572,28 @@ public class UI_Research : UI_Base
 
                         defenceStatus.Defence.AddValue(updateStat);
                     }
-
-                    foreach (var i in Managers.Wave.CurMyUnitList)
-                    {
-                        MyUnitController controler = i.GetComponent<MyUnitController>();
-                        MyUnitStatus curDefence = controler.MyUnit.Status as MyUnitStatus;
-                        curDefence.Defence.AddValue(updateStat);
-                    }
                 }
                 break;
             case ResearchUpgradeType.Core:
                 CoreController core = Managers.Wave.MainCore.GetComponent<CoreController>();
                 core.core.Health.MaxValue += updateStat;
                 core.core.Health.SetValue(core.core.Health.MaxValue);
+                core.core.CoreLevel.SetValue(updateLevel);
+                core.CoreUpgrade();
+
+                Managers.Player.MainCoreData.Health.MaxValue += updateStat;
+                Managers.Player.MainCoreData.Health.SetValue(Managers.Player.MainCoreData.Health.MaxValue);
+                Managers.Player.MainCoreData.CoreLevel.SetValue(updateLevel);
                 break;
         }
 
     }
 
+    // 유닛과 타워 인벤에서 분리해서 리스트 생성
     private void SeperatedIGettable<T>(List<T> list) where T : IGettable
     {
+        list.Clear();
+
         var rawList = Managers.Player.Inventory.GetList<T>();
         if (rawList == null) return;
 
@@ -572,20 +612,18 @@ public class UI_Research : UI_Base
         switch (researchUpgradeType)
         {
             case ResearchUpgradeType.Attack:
-                reseachData = Managers.Player.AttackResearchData;
+                researchData = Managers.Player.AttackResearchData;
                 break;
             case ResearchUpgradeType.Defence:
-                reseachData = Managers.Player.DefenceResearchData;
+                researchData = Managers.Player.DefenceResearchData;
                 break;
             case ResearchUpgradeType.Core:
-                reseachData = Managers.Player.CoreResearchData;
+                researchData = Managers.Player.CoreResearchData;
                 break;
             case ResearchUpgradeType.Random:
-                reseachData = Managers.Player.RandomResearchData;
+                researchData = Managers.Player.RandomResearchData;
                 break;
         }
     }
-
-
 
 }

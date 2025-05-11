@@ -32,6 +32,7 @@ public class GameScene : SceneBase
                 // 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅해줘야 함. 
                 DefaultTowerAdd();
                 DefaultUnitAdd();
+                Managers.Wave.GmaeStart();
             });
         });
         Managers.Resource.Instantiate("Ending_Panel");

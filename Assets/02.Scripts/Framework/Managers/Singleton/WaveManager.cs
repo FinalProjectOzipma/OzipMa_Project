@@ -43,7 +43,7 @@ public class WaveManager
         CurEnemyList = new();
         CurMyUnitList = new();
 
-        CurrentState = Enums.WaveState.Start;
+        CurrentState = Enums.WaveState.None;
         timer = 0;
 
         // 보스관련애들 넣어두기
@@ -57,6 +57,11 @@ public class WaveManager
         {
             enemySpawn = go;
         });
+    }
+
+    public void GmaeStart()
+    {
+        CurrentState = Enums.WaveState.Start;
     }
 
     public void Update()
