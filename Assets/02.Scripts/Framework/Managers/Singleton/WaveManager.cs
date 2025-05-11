@@ -64,6 +64,11 @@ public class WaveManager
         });
     }
 
+    public void GmaeStart()
+    {
+        CurrentState = Enums.WaveState.Start;
+    }
+
     bool isCoreDead = false;
     bool isEnemyAllDead = false;
     public void Update()
