@@ -45,7 +45,7 @@ public class ArcherManAttackState : ArcherManStateBase
     {
         Managers.Resource.Instantiate(objectName, (go) => 
         { 
-            Fire<EntityProjectile>(go, targets.Peek().transform.position);
+            Fire<EntityProjectile>(go, targets.Peek().GetComponentInChildren<SpriteRenderer>().transform.position);
             Managers.Audio.audioControler.PlaySFX(SFXClipName.Arrow);
         });
     }

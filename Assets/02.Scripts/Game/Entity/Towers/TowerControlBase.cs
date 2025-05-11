@@ -23,6 +23,10 @@ public abstract class TowerControlBase : MonoBehaviour
     private float attackCooldown = 0f;
     private CircleCollider2D range;
 
+    /// <summary>
+    /// 공격 유형별 Attack 구현
+    /// </summary>
+    /// <param name="AttackPower">기본 공격력</param>
     public abstract void Attack(float AttackPower);
 
     protected virtual void Start()

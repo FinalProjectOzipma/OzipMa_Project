@@ -30,6 +30,7 @@ public class Enums
         None,
         Start,
         Playing,
+        Reward,
         End,
     }
 }

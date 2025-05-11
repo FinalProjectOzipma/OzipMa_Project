@@ -24,6 +24,7 @@ public class Managers : MonoBehaviour
     public static readonly WaveManager Wave = new();
     public static readonly PlayerManager Player = new();
     public static readonly UpgradeManager Upgrade = new();
+    public static readonly EffectManager Effect = new();
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class Managers : MonoBehaviour
         Pool.Initialize();
         TestInit();
         Scene.Initialize();
+        Effect.Initialize();
         Upgrade.Intialize();
 
     }
