@@ -30,7 +30,7 @@ public class MyUnitController : EntityController, IDamagable
         Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
-
+        
         // 컨디션 초기화 (도트데미지)
         Conditions.Add((int)AbilityType.Explosive, new ExplosiveCondition<MyUnitController>(this));
     }

@@ -9,13 +9,13 @@ using VInspector.Libs;
 
 public class UI_Gacha : UI_Popup
 {
-    [SerializeField] private List<Button> TowerGachaBtns;
-    [SerializeField] private List<Button> MyUnitGachaBtns;
+    [SerializeField] private Button TowerGachaBtn;
+    [SerializeField] private Button UnitGachaBtn;
 
     private GachaSystem gacha;
     private List<IGettable> result;
 
-    [SerializeField] private List<UI_GachaSlot> slots;
+    private List<UI_GachaSlot> slots;
 
 
     private void Start()
@@ -44,12 +44,13 @@ public class UI_Gacha : UI_Popup
         }
         //TODO: 인벤토리에 넣어주는 작업 필요
     }
+
     public void ShowResult(int num)
-    {
+    { 
         foreach (UserObject data in result)
         {
             Managers.Resource.Instantiate($"{data.RankType}_Slot", go =>
-            go.GetComponent<UI_GachaSlot>().Setup(data));
+            go.GetComponent<UI_GachaSlot>().Setup(data as MyUnit));
         }
         result.Clear();
     }
