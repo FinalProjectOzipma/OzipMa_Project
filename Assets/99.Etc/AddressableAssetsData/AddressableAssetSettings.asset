@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: ef86a0084b44c3640a271d4adad06e51
   m_currentHash:
     serializedVersion: 2
-    Hash: 7c14ebc8b1af7363b1ae743d45caaa1f
+    Hash: ffd83f20cd12726e8af0ee96ed46f6fc
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -59,6 +59,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bdfa3590d43126c42b9936b55a37e19a, type: 2}
   - {fileID: 11400000, guid: 92af4683009a9b249825de816f1b7ab0, type: 2}
   - {fileID: 11400000, guid: a18810cfafc87f04a9e8e5725ad1023d, type: 2}
+  - {fileID: 11400000, guid: ebd96f63300c30d4bba93167b7bc52a1, type: 2}
   m_BuildSettings:
     m_CompileScriptsInVirtualMode: 0
     m_CleanupStreamingAssetsAfterBuilds: 1
@@ -104,6 +105,8 @@ MonoBehaviour:
     - Popup
     - GameScene
     - Audio
+    - MyUnit
+    - Tower
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 2105134837dec9f44b7338b37fcbf576, type: 2}
