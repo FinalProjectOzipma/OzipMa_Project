@@ -15,7 +15,7 @@ public class DragController : MonoBehaviour
     private GameObject dragObject;
     private bool isEditDragging = false;
 
-    public float HoldTimeThreshold = 0.4f; // 홀드 지연 시간
+    public float HoldTimeThreshold = 0.3f; // 홀드 지연 시간
     private GameObject towerMenu; // 불러온 타워메뉴창 프리팹 저장
     private UI_TowerMenu uiTowerMenu;
     private float pressTime = 0f; // 홀드 경과 시간
@@ -52,7 +52,6 @@ public class DragController : MonoBehaviour
             }
 
             GameObject detectedObj = buildingSystem.GetCurrentDragObject(eventPosition);
-
             if (detectedObj == null)
             {
                 // 다른 곳 클릭했을 시 숨기기
@@ -60,12 +59,14 @@ public class DragController : MonoBehaviour
                 return;
             }
 
+            // 이미 편집모드면 클릭만해도 드래그가능
             if (isEditMode)
             {
                 BeginDrag(detectedObj);
                 return;
             }
 
+            // 첫 드래그는 HoldTimeThreshold초 이상 클릭해야 시작됨
             pressTime += Time.deltaTime;
             if (pressTime >= HoldTimeThreshold)
             {
