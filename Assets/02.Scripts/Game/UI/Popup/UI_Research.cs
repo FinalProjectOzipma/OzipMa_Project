@@ -76,7 +76,7 @@ public class UI_Research : UI_Base
     private void Start()
     {
 
-        if (!string.IsNullOrEmpty(researchData.startTime))
+        if (!string.IsNullOrEmpty(researchData.StartTime))
         {
             // 재접속 시 시간 계산
             LoadAndCheckProgress();
@@ -163,11 +163,11 @@ public class UI_Research : UI_Base
     {
         ResearchType(researchUpgradeType);
 
-        updateLevel = researchData.updateLevel == 0 ? 1 : researchData.updateLevel;
-        researchDuration = researchData.researchDuration == 0 ? baseTime : researchData.researchDuration;
+        updateLevel = researchData.UpdateLevel == 0 ? 1 : researchData.UpdateLevel;
+        researchDuration = researchData.ResearchDuration == 0 ? baseTime : researchData.ResearchDuration;
 
 
-        if (researchData.updateStat == 0)
+        if (researchData.UpdateStat == 0)
         {
             if (researchUpgradeType != ResearchUpgradeType.Random)
             {
@@ -180,11 +180,11 @@ public class UI_Research : UI_Base
         }
         else
         {
-            updateStat = researchData.updateStat;
+            updateStat = researchData.UpdateStat;
         }
 
 
-        if (researchData.spendGold == 0)
+        if (researchData.SpendGold == 0)
         {
             if (researchUpgradeType != ResearchUpgradeType.Random)
             {
@@ -197,10 +197,10 @@ public class UI_Research : UI_Base
         }
         else
         {
-            spendGold = researchData.spendGold;
+            spendGold = researchData.SpendGold;
         }
 
-        if (researchData.spendZam == 0)
+        if (researchData.SpendZam == 0)
         {
             if (researchUpgradeType != ResearchUpgradeType.Random)
             {
@@ -213,7 +213,7 @@ public class UI_Research : UI_Base
         }
         else
         {
-            spendZam = researchData.spendZam;
+            spendZam = researchData.SpendZam;
         }
 
         UpgradeButton.gameObject.BindEvent(OnClickStartResearch); // 업그레드 시작 버튼
@@ -256,15 +256,15 @@ public class UI_Research : UI_Base
         isComplete = false;
 
 
-        if (!string.IsNullOrEmpty(researchData.startTime))
+        if (!string.IsNullOrEmpty(researchData.StartTime))
         {
             LoadAndCheckProgress();
             return;
         }
 
         startTime = Managers.Game.ServerUtcNow;
-        researchData.startTime = startTime.ToString("o");
-        researchData.researchDuration = researchDuration;
+        researchData.StartTime = startTime.ToString("o");
+        researchData.ResearchDuration = researchDuration;
 
         isResearching = true;
         CheckButton.gameObject.SetActive(false);
@@ -279,8 +279,8 @@ public class UI_Research : UI_Base
     /// </summary>
     private void LoadAndCheckProgress()
     {
-        startTime = DateTime.Parse(researchData.startTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-        researchDuration = researchData.researchDuration;
+        startTime = DateTime.Parse(researchData.StartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        researchDuration = researchData.ResearchDuration;
 
         TimeSpan passed = Managers.Game.ServerUtcNow - startTime;
         float elapsedSeconds = (float)passed.TotalSeconds;
@@ -364,8 +364,8 @@ public class UI_Research : UI_Base
         Managers.Player.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
 
-        researchData.startTime = startTime.ToString("o");
-        researchData.researchDuration = researchDuration;
+        researchData.StartTime = startTime.ToString("o");
+        researchData.ResearchDuration = researchDuration;
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
         if (isPopup)
@@ -436,7 +436,7 @@ public class UI_Research : UI_Base
     {
         await Managers.Game.Init();
 
-        DateTime storedStartTime = DateTime.Parse(researchData.startTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        DateTime storedStartTime = DateTime.Parse(researchData.StartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
         DateTime now = Managers.Game.ServerUtcNow;
         TimeSpan elapsed = now - storedStartTime;
 
@@ -495,12 +495,12 @@ public class UI_Research : UI_Base
         spendGold += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
         spendZam += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
 
-        researchData.startTime = "";
-        researchData.researchDuration = researchDuration;
-        researchData.updateLevel = updateLevel;
-        researchData.updateStat = updateStat;
-        researchData.spendGold = spendGold;
-        researchData.spendZam = spendZam;
+        researchData.StartTime = "";
+        researchData.ResearchDuration = researchDuration;
+        researchData.UpdateLevel = updateLevel;
+        researchData.UpdateStat = updateStat;
+        researchData.SpendGold = spendGold;
+        researchData.SpendZam = spendZam;
 
         UpdateLevel.text = $"Lv {updateLevel}";
 

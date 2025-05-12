@@ -143,6 +143,8 @@ public class DataManager
         {
             Managers.Player.LoadPlayerData(loadedData);
             Managers.Wave.GmaeStart();
+            Managers.Game.ServerTImeInit();
+
         }, onFailed);
     }
     #endregion

@@ -97,7 +97,14 @@ MonoBehaviour:
   - m_GUID: 6d32586343263fb469af22872b66ceea
     m_Address: AlarmPopup
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17ec5e461a27420438daed7ccb7ce919
+    m_Address: OffLinePopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}

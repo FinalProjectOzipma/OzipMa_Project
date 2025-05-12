@@ -30,6 +30,9 @@ public class PlayerManager
     public ResearchData DefenceResearchData { get; set; }
     public ResearchData CoreResearchData { get; set; }
     public ResearchData RandomResearchData { get; set; }
+
+    public string RewordStartTime = "";
+
     public void Initialize()
     {
         // 처음 시작할때 선언
@@ -161,7 +164,7 @@ public class PlayerManager
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
         
-        Gold = 100000;
+        Gold = 0;
         Gem = 0;
 
         AddGem(data.Gem);
@@ -174,6 +177,7 @@ public class PlayerManager
         TowerInfos = data.TowerInfos;
         MyUnitInfos = data.MyUnitInfos;
 
+        RewordStartTime = data.RewordStartTime;
 
 
         if (data.MainCoreData != null)
@@ -274,22 +278,23 @@ public enum ResearchUpgradeType
 public class ResearchData
 {
     public ResearchUpgradeType type;
-    public string startTime;
-    public float researchDuration;
-    public int updateLevel;
-    public float updateStat;
-    public long spendGold;
-    public long spendZam;
+    public string StartTime;
+    public float ResearchDuration;
+    public int UpdateLevel;
+    public float UpdateStat;
+    public long SpendGold;
+    public long SpendZam;
 
 
     public ResearchData(ResearchUpgradeType _type)
     {
         type = _type;
-        startTime = "";
-        researchDuration = 0;
-        updateLevel = 0;
-        updateStat = 0.0f;
-        spendGold = 0;
-        spendZam = 0;
+        StartTime = "";
+        ResearchDuration = 0;
+        UpdateLevel = 0;
+        UpdateStat = 0.0f;
+        SpendGold = 0;
+        SpendZam = 0;
     }
 }
+

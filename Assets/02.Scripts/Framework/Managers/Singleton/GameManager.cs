@@ -42,11 +42,11 @@ public class GameManager
         throw new Exception("서버 시간 가져오기 실패");
     }
 
-    public async Task<DateTime> SeverStartTime()
-    {
-        long serverMillis = await GetServerTimeMillis();
-        DateTime serverTime = DateTimeOffset.FromUnixTimeMilliseconds(serverMillis).UtcDateTime;
 
-        return serverTime;
+    public async void ServerTImeInit()
+    {
+        await Init();
+        Managers.Resource.Instantiate("OffLinePopup");
     }
+
 }
