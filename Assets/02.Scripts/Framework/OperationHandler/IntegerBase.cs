@@ -16,7 +16,7 @@ public class IntegerBase
         Value = amount;
     }
 
-    public virtual float GetValue()
+    public virtual int GetValue()
     {
         return Value;
     }

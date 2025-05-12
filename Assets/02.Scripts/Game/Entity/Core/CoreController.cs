@@ -41,6 +41,7 @@ public class CoreController : Poolable, IDamagable
                 {
                     anime = coreBase.Anim;
                     SetHealth(maxHealth, coreBase);
+                    Util.Log("널 일 때 체력 세팅");
                 }
 
             });
@@ -50,6 +51,8 @@ public class CoreController : Poolable, IDamagable
             if (body.TryGetComponent<CoreBase>(out CoreBase coreBase))
             {
                 SetHealth(maxHealth, coreBase);
+                Util.Log("널이 아닐 때 체력 세팅");
+                Util.Log("최대체력:" + maxHealth);
             }
         }
 
@@ -57,32 +60,18 @@ public class CoreController : Poolable, IDamagable
         float randomX = Random.Range(-2.0f, 2.0f);
         this.gameObject.transform.position = new Vector2(randomX, spawnY);
 
-        if (PlayerPrefs.HasKey(coreLevelkey))
-        {
-            core.CoreLevel.SetValue(PlayerPrefs.GetInt(coreLevelkey));
-            CoreUpgrade();
-        }
-        
+        core.CoreLevel.SetValue(Managers.Player.MainCoreData.CoreLevel.GetValue());
+        Util.Log("코어레벨"+Managers.Player.MainCoreData.CoreLevel.GetValue().ToString());
+        CoreUpgrade();
     }
-    
 
-    // 코어 체력 저장된 값 가져오기, 파이어베이스 연동하면 사라질 메새드 테스트용
+
+    
     private void SetHealth(float maxHealth, CoreBase coreBase)
     {
-        if (PlayerPrefs.HasKey(coreHealthkey))
-        {
-            core.Health.SetValue(PlayerPrefs.GetFloat(coreHealthkey));
-            core.Health.MaxValue = PlayerPrefs.GetFloat(coreHealthkey);
-            core.Health.OnChangeHealth = coreBase.healthView.SetHpBar;
-            Util.Log($"저장된 코어 체력 : {core.Health.MaxValue}");
-        }
-        else
-        {
-            core.Health.SetValue(maxHealth);
-            core.Health.MaxValue = maxHealth;
-            core.Health.OnChangeHealth = coreBase.healthView.SetHpBar;
-        }
-
+        core.Health.MaxValue = maxHealth;
+        core.Health.SetValue(maxHealth);
+        core.Health.OnChangeHealth += coreBase.healthView.SetHpBar;
     }
 
 
@@ -95,23 +84,6 @@ public class CoreController : Poolable, IDamagable
     }
 
 
-    //protected override void TakeBody()
-    //{
-    //    // 외형 로딩
-    //    Managers.Resource.Instantiate($"{name}Body", go => {
-    //        body = go;
-    //        body.transform.SetParent(transform);
-    //        body.transform.localPosition = Vector3.zero;
-
-    //        if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
-    //        {
-    //            Anim = bodyBase.Anim;
-    //            AnimData = bodyBase.AnimData;
-    //            TowerStart();
-    //        }
-    //    });
-    //}
-
 
     public void TakeDamge(float damage)
     {
@@ -119,8 +91,6 @@ public class CoreController : Poolable, IDamagable
         if (Managers.Game.IsGodMode) return;
 
         core.Health.AddValue(-damage);
-
-        //HpBar.transform.localScale = new Vector3(core.Health.GetValue()/core.MaxHealth.GetValue(), 1,1);
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
 
@@ -132,12 +102,7 @@ public class CoreController : Poolable, IDamagable
         }
     }
 
-    //public void UpgradeHealth(float value)
-    //{
-    //    core.Health.AddValue(value);
-    //    core.MaxHealth.AddValue(value);
-    //    hpImage.fillAmount = core.Health.Value / core.MaxHealth.Value;
-    //}
+
 
     public void SpawnUnit()
     {
@@ -160,31 +125,30 @@ public class CoreController : Poolable, IDamagable
 
     public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue abilities = null)
     {
-        TakeDamge(amount);
-       
+        TakeDamge(amount);    
     }
 
     public void CoreUpgrade()
     {
         if (core.CoreLevel.GetValue() < 5)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 1);
+            anime.SetInteger("Level", 1);
         }
         else if (core.CoreLevel.GetValue() < 10)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 6);
+            anime.SetInteger("Level", 6);
         }
         else if (core.CoreLevel.GetValue() < 15)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 11);
+            anime.SetInteger("Level", 11);
         }
         else if (core.CoreLevel.GetValue() < 20)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 16);
+            anime.SetInteger("Level", 16);
         }
         else if (core.CoreLevel.GetValue() >= 20)
         {
-            Managers.Wave.MainCore.anime.SetInteger("Level", 21);
+            anime.SetInteger("Level", 21);
         }
     }
 }

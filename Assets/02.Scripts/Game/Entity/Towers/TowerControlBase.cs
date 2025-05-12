@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public abstract class TowerControlBase : MonoBehaviour
 
     protected LinkedList<EnemyController> detectedEnemies = new(); // 범위 내 적들
     protected GameObject body; // 현재 나의 외형
+    protected TowerBodyBase towerBodyBase;
 
     private float attackCooldown = 0f;
     private CircleCollider2D range;
@@ -36,8 +38,7 @@ public abstract class TowerControlBase : MonoBehaviour
 
     public void Init()
     {
-        range = GetComponent<CircleCollider2D>();
-        range.radius = TowerStatus == null ? 1f : TowerStatus.AttackRange.GetValue();
+        ApplyAttackRange(TowerStatus.AttackRange.GetValue());
     }
 
     private void Update()
@@ -73,6 +74,7 @@ public abstract class TowerControlBase : MonoBehaviour
     /// </summary>
     public void TowerStart()
     {
+        Init();
         IsPlaced = true;
         StartAnimation(AnimData.StartHash);
     }
@@ -107,6 +109,16 @@ public abstract class TowerControlBase : MonoBehaviour
         TakeBody();
     }
 
+    public TowerBodyBase GetTowerBodyBase()
+    {
+        if(towerBodyBase != null) return towerBodyBase;
+        if(body != null)
+        {
+            return body.GetComponent<TowerBodyBase>();
+        }
+        return null;
+    }
+
     /// <summary>
     /// 외형 로딩
     /// </summary>
@@ -131,16 +143,23 @@ public abstract class TowerControlBase : MonoBehaviour
         }
     }
 
-    public void StartAnimation(int AnimHash)
+    protected void StartAnimation(int AnimHash)
     {
         if (Anim == null) return;
         Anim?.SetTrigger(AnimHash);
     }
 
-    public void ApplyAttackRange(float newValue)
+    protected void ApplyAttackRange(float newValue)
     {
         if(range == null) range = GetComponent<CircleCollider2D>();
         range.radius = TowerStatus == null ? 1f : newValue;
-        Util.Log($"어택레인지 {newValue}만큼으로 늘어났다");
+
+        // 타워 사거리 표시기 업데이트
+        if(body != null)
+        {
+            GetTowerBodyBase().AttackRangeObj.transform.localScale = Vector3.one * newValue;
+        }
+
+        Util.Log($"{Name} 타워의 어택레인지 {newValue}만큼으로 세팅됐다");
     }
 }

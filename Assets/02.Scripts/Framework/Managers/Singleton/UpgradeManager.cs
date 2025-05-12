@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using Firebase.Database;
 
 public class UpgradeManager
 {
@@ -13,6 +14,7 @@ public class UpgradeManager
 
 
     public event Action<int> OnChanagedUpgrade;
+
 
     public void Intialize()
     {
@@ -65,6 +67,8 @@ public class UpgradeManager
         {
             tower.TowerStatus.Level.AddValue(1);
             tower.TowerStatus.Attack.AddMultiples(UpdateValue);
+            tower.TowerStatus.AttackRange.AddValue(0.1f);
+            
 
             Managers.Player.SpenGold(LevelUPGold);
             return;
@@ -92,5 +96,7 @@ public class UpgradeManager
         TotalUpgradeGold = 0;
         OnChanagedUpgrade?.Invoke(TotalUpgradeGold);
     }
+
+
 
 }
