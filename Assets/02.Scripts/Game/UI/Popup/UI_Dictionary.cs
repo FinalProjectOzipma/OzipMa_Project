@@ -14,7 +14,4 @@ public class UI_Dictionary : UI_Popup
     [SerializeField] private GameObject UIDictionary;
     [SerializeField] private RectTransform Content;
 
-
-
-
 }

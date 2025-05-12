@@ -26,7 +26,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/01.Scenes/BsyEnemyScene.unity
     guid: 1cb5b8dc3231d174bb2d54327b568836
-  - enabled: 1
+  - enabled: 0
     path: Assets/01.Scenes/PhnMyUnitScene.unity
     guid: ef68da8eac6d1104b9150ecf12ffa05a
   m_configObjects:
