@@ -46,7 +46,6 @@ public class GameManager
     public async void ServerTImeInit()
     {
         await Init();
-        Managers.Resource.Instantiate("OffLinePopup");
     }
 
 }

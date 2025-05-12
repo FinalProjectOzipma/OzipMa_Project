@@ -36,7 +36,6 @@ public class GameScene : SceneBase
             });
         });
         Managers.Resource.Instantiate("Ending_Panel");
-        Managers.Resource.Instantiate("OffLinePopup");
 
 
     }
