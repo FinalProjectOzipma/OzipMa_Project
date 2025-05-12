@@ -47,6 +47,7 @@ public abstract class TowerControlBase : MonoBehaviour
         ApplyAttackRange(TowerStatus.AttackRange.GetValue());
         if(AttackRangeObj == null) // 인스펙터창에서 넣어줬으나 혹시 없다면 찾아줌
         {
+            Util.Log("웬만하면 실행되지 않아야 하는 코드입니다.");
             AttackRangeObj = transform.Find("AttackRangeSprite").gameObject;
         }
     }
@@ -87,7 +88,6 @@ public abstract class TowerControlBase : MonoBehaviour
         Init();
         IsPlaced = true;
         StartAnimation(AnimData.StartHash);
-        HideRangeIndicator();
     }
 
     /// <summary>
@@ -168,6 +168,5 @@ public abstract class TowerControlBase : MonoBehaviour
         if(range == null) range = GetComponent<CircleCollider2D>();
         range.radius = TowerStatus == null ? 1f : newValue;
         AttackRangeObj.transform.localScale = Vector3.one * newValue; // 타워 사거리 표시기 업데이트
-        Util.Log($"{Name} 타워의 어택레인지 {newValue}만큼으로 세팅됐다");
     }
 }
