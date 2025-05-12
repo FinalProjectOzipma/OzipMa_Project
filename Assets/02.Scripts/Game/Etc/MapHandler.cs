@@ -8,6 +8,7 @@ public class MapHandler : MonoBehaviour
     public GameObject MainProps;
     public GameObject BossProps;
     public GameObject BossGate;
+    public List<Vector3Int> BuildAreaList = new List<Vector3Int>();
 
     private Sequence dotSeq; // DOTween 시퀀스
     private Vector3 gateUpPos = new Vector3(0f, 5f, 1f);

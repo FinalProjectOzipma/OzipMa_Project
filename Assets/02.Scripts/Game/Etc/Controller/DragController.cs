@@ -178,8 +178,13 @@ public class DragController : MonoBehaviour
         isEditMode = isOn;
         towerMenu.SetActive(isOn);
 
-        if(!isOn)
+        if(isOn)
         {
+            buildingSystem.ShowBuildAreas(); // 빌드 가능 구역 반짝이 키기
+        }
+        else if(!isOn)
+        {
+            buildingSystem.HideBuildAreas(); // 빌드 가능 구역 반짝이 끄기
             curTowerController?.HideRangeIndicator(); // 편집모드를 끌 때 사거리 표시 끄기
         }
     }

@@ -14,6 +14,9 @@ public class BuildingSystem : MonoBehaviour
     [SerializeField] private LayerMask TowerBuildLayerMask;
     private Tilemap map;
     private Camera cam;
+    private MapHandler mapHandler;
+    private string buildHighlightOrigin = "BuildHighlight";
+    private List<GameObject> curHighlights = new();
 
     private void Awake()
     {
@@ -31,11 +34,13 @@ public class BuildingSystem : MonoBehaviour
     public void Init()
     {
         map = Util.FindComponent<Tilemap>(Managers.Scene.CurrentScene.CurrentMap, "TowerBuildArea");
+        mapHandler = map?.transform.root.GetComponent<MapHandler>();
         cam = Camera.main;
         DragController = GetComponent<DragController>();
-        Util.Log($"그리드 : {map.transform.parent.parent.gameObject.name}");
+        //Util.Log($"그리드 : {map.transform.parent.parent.gameObject.name}");
     }
 
+    #region BuildingSystem 에서 직접해주는 행위들
     /// <summary>
     /// 배치되어 시작하는 타워들 설치
     /// </summary>
@@ -61,6 +66,45 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 빌드 가능한 구역들을 보여주는 오브젝트 표시하기 
+    /// </summary>
+    public void ShowBuildAreas()
+    {
+        if (mapHandler == null)
+        {
+            Util.LogWarning("mapHandler가 null인 상태로 진행되고 있습니다. map과 mapHandler를 잘 찾고있는지 확인해보세요.");
+            return;
+        }
+
+        curHighlights.Clear();
+        foreach (Vector3Int point in mapHandler.BuildAreaList)
+        {
+            if(GridObjectMap.ContainsKey(point) == false)
+            {
+                // 여전히 빌드 가능한 구역
+                Managers.Resource.Instantiate(buildHighlightOrigin, obj =>
+                {
+                    curHighlights.Add(obj);
+                    obj.transform.position = map.GetCellCenterWorld(point);
+                });
+            }
+        }
+    }
+
+    /// <summary>
+    /// 빌드 가능한 구역들을 보여주는 오브젝트 모두 끄기
+    /// </summary>
+    public void HideBuildAreas()
+    {
+        foreach(GameObject highlight in curHighlights)
+        {
+            Managers.Resource.Destroy(highlight); // Pool로 반환
+        }
+    }
+    #endregion
+
+    #region BuildingSystem 제공 기능들
     /// <summary>
     /// 그리드에서 eventPosition에 해당되는 Cell의 Center Position을 반환
     /// </summary>
@@ -98,6 +142,12 @@ public class BuildingSystem : MonoBehaviour
         }
         return canBuild;
     }
+
+    /// <summary>
+    /// 특정 포인트에 위치한 드래그 가능한 오브젝트 반환
+    /// </summary>
+    /// <param name="mousePoint">오브젝트를 가져올 위치(Screen좌표값)</param>
+    /// <returns>특정 포인트에 위치한 드래그 가능한 오브젝트</returns>
     public GameObject GetCurrentDragObject(Vector3 mousePoint)
     {
         Ray2D ray = new Ray2D(cam.ScreenToWorldPoint(mousePoint), Vector2.zero);
@@ -105,6 +155,7 @@ public class BuildingSystem : MonoBehaviour
 
         return hit == true ? hit.transform.gameObject : null;
     }
+    #endregion
 
     #region 배치된 공간 저장/삭제 메서드들
     public void AddPlacedMapScreenPos(Vector3 mousePos, int id)
