@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UGS;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -141,7 +142,12 @@ public class DataManager
         LoadFirebase<PlayerManager>(loadedData =>
         {
             Managers.Player.LoadPlayerData(loadedData);
+            Managers.Wave.GmaeStart();
+            Managers.Game.ServerTImeInit();
+            Managers.Resource.Instantiate("OffLinePopup");
+
         }, onFailed);
     }
     #endregion
+
 }

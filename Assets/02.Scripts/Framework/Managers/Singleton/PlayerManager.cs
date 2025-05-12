@@ -10,15 +10,13 @@ using UnityEngine;
 public class PlayerManager 
 {
     public Core MainCoreData { get; set; }
-    public long Gold { get; private set; }
-    public long Gem { get; private set; }
+    public long Gold { get; set; }
+    public long Gem { get; set; }
 
     public event Action<long> OnGoldChanged;
     public event Action<long> OnZamChanged;
     public event Action<int, int> OnStageChanged;
 
-    private string myGoldKey = "myGold";
-    private string myZamKey = "myZam";
     public Inventory Inventory { get; set; } = new Inventory();
 
     public int CurrentStage { get; set; }
@@ -28,16 +26,29 @@ public class PlayerManager
     public Dictionary<string, MyUnitStatus> MyUnitInfos;
     public Dictionary<string, int> GridObjectMap; // 키 - Vector3Int를 ToString()한 것이 들어감 
 
+    public ResearchData AttackResearchData { get; set; }
+    public ResearchData DefenceResearchData { get; set; }
+    public ResearchData CoreResearchData { get; set; }
+    public ResearchData RandomResearchData { get; set; }
+
+    public string RewordStartTime = "";
+
     public void Initialize()
     {
         // 처음 시작할때 선언
         Inventory = new Inventory();
         MainCoreData = new Core();
 
+        AttackResearchData = new(ResearchUpgradeType.Attack);
+        DefenceResearchData = new(ResearchUpgradeType.Defence);
+        CoreResearchData = new(ResearchUpgradeType.Core);
+        RandomResearchData = new(ResearchUpgradeType.Random);
+        // 저장된게 있으면 선언
+
         // 저장된게 있으면 선언
         // Inventory = 가져오는거
 
-        SetGoldAndJame();
+        //SetGoldAndJame();
     }
 
     /// <summary>
@@ -104,18 +115,6 @@ public class PlayerManager
     /// </summary>
     public long GetZam() => Gem;
 
-    public void SaveEcomomy()
-    {
-        PlayerPrefs.SetString(myGoldKey, Gold.ToString());
-        PlayerPrefs.SetString(myZamKey, Gem.ToString());
-    }
-
-    public void SetGoldAndJame()
-    {
-        Gold = PlayerPrefs.HasKey(myGoldKey) ? long.Parse(PlayerPrefs.GetString(myGoldKey)) : 100000L;
-        Gem = PlayerPrefs.HasKey(myZamKey) ? long.Parse(PlayerPrefs.GetString(myZamKey)) : 1000L;
-    }
-
 
     public void OnStageWave()
     {
@@ -167,14 +166,47 @@ public class PlayerManager
         
         Gold = 0;
         Gem = 0;
+
         AddGem(data.Gem);
         AddGold(data.Gold);
 
         CurrentStage = data.CurrentStage;
         CurrentWave = data.CurrentWave;
+        OnStageWave();
 
         TowerInfos = data.TowerInfos;
         MyUnitInfos = data.MyUnitInfos;
+
+        RewordStartTime = data.RewordStartTime;
+
+
+        if (data.MainCoreData != null)
+        {
+            MainCoreData = data.MainCoreData;
+            Util.Log("코어레벨_Load" + MainCoreData.CoreLevel.GetValue().ToString());
+        }
+
+
+        // ===== 연구 정보=====
+        if (data.AttackResearchData != null)
+        {
+            AttackResearchData = data.AttackResearchData;
+        }
+
+        if (data.DefenceResearchData != null)
+        {
+            DefenceResearchData = data.DefenceResearchData;
+        }
+
+        if (data.CoreResearchData != null)
+        {
+            CoreResearchData = data.CoreResearchData;
+        }
+
+        if (data.RandomResearchData != null)
+        {
+            RandomResearchData = data.RandomResearchData;
+        }
 
         // ===== 인벤토리에 추가 - 타워 =====
         if(TowerInfos != null)
@@ -205,10 +237,7 @@ public class PlayerManager
                         convertedMap.Add(res, data.GridObjectMap[pointStr]);
                     }
                 }
-                //Managers.Resource.Instantiate("BuildingSystem", bs => 
-                //{ 
-                //    bs.GetComponent<BuildingSystem>().BuildingInit(convertedMap); 
-                //});
+
                 BuildingSystem.Instance.BuildingInit(convertedMap);
             }
             else
@@ -229,10 +258,43 @@ public class PlayerManager
                 {
                     MyUnit unit = new MyUnit();
                     unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
-                    //unit.Status = MyUnitInfos[Key]; // 동적 정보 넘김 // TODO :: 데이터만 넘기는 함수 필요해요
+                    (unit.Status as MyUnitStatus).SetDatas(MyUnitInfos[Key]); // 동적 정보 넘김
                     Inventory.Add<MyUnit>(unit);
                 });
             }
         }
     }
 }
+
+public enum ResearchUpgradeType
+{
+    Attack,
+    Defence,
+    Core,
+    Random
+}
+
+
+public class ResearchData
+{
+    public ResearchUpgradeType type;
+    public string StartTime;
+    public float ResearchDuration;
+    public int UpdateLevel;
+    public float UpdateStat;
+    public long SpendGold;
+    public long SpendZam;
+
+
+    public ResearchData(ResearchUpgradeType _type)
+    {
+        type = _type;
+        StartTime = "";
+        ResearchDuration = 0;
+        UpdateLevel = 0;
+        UpdateStat = 0.0f;
+        SpendGold = 0;
+        SpendZam = 0;
+    }
+}
+
