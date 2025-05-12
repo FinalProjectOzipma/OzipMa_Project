@@ -9,6 +9,8 @@ public class EnemyController : EntityController, IDamagable
 
     public Rigidbody2D Rigid { get; private set; }
     public SpriteRenderer Spr { get; private set; }
+    public SpriteTrail SpTrail { get; private set; }
+
 
     public Enemy Enemy { get; private set; }
     public Stack<GameObject> Targets { get; set; } = new();
@@ -64,6 +66,7 @@ public class EnemyController : EntityController, IDamagable
                 go.transform.SetParent(transform);
                 Fx = go.GetOrAddComponent<ObjectFlash>();
                 Spr = go.GetOrAddComponent<SpriteRenderer>();
+                SpTrail = go.GetComponentInChildren<SpriteTrail>();
                 Body = go;
                 Init(position);
             });
