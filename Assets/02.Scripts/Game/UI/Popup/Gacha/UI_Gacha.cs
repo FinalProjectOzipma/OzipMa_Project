@@ -9,14 +9,15 @@ using VInspector.Libs;
 
 public class UI_Gacha : UI_Popup
 {
-    [SerializeField] private Button TowerGachaBtn;
-    [SerializeField] private Button UnitGachaBtn;
+    [SerializeField] private List<Button> TowerGachaBtn;
+    [SerializeField] private List<Button> UnitGachaBtn;
 
     private GachaSystem gacha;
     private List<IGettable> result;
 
     private List<UI_GachaSlot> slots;
 
+    
 
     private void Start()
     {
@@ -32,6 +33,8 @@ public class UI_Gacha : UI_Popup
             result.Add(gacha.GetRandomTower());
         }
         //TODO: 인벤토리에 넣어주는 작업 필요
+
+        Managers.Resource.Instantiate("GachaResult");
     }
     
     public void UnitOnClick(int num)
@@ -43,15 +46,7 @@ public class UI_Gacha : UI_Popup
             result.Add(gacha.GetRandomUnit());
         }
         //TODO: 인벤토리에 넣어주는 작업 필요
-    }
 
-    public void ShowResult(int num)
-    { 
-        foreach (UserObject data in result)
-        {
-            Managers.Resource.Instantiate($"{data.RankType}_Slot", go =>
-            go.GetComponent<UI_GachaSlot>().Setup(data as MyUnit));
-        }
-        result.Clear();
+        Managers.Resource.Instantiate("GachaResult");
     }
 }
