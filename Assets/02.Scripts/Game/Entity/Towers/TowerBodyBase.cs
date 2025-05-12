@@ -5,6 +5,8 @@ using UnityEngine;
 public class TowerBodyBase : MonoBehaviour
 {
     public float MainSpriteOffset = 0.3f;
+    public GameObject FirePositionObj;
+    public GameObject AttackRangeObj;
     public Animator Anim {  get; private set; }
     public TowerAnimationData AnimData { get; private set;}
 
@@ -14,7 +16,7 @@ public class TowerBodyBase : MonoBehaviour
     {
         get
         {
-            Vector3 finalFirePos = gameObject.transform.GetChild(transform.childCount - 1).position;
+            Vector3 finalFirePos = FirePositionObj.transform.position;
             finalFirePos.y -= MainSpriteOffset;
             return finalFirePos;
         }
@@ -30,5 +32,14 @@ public class TowerBodyBase : MonoBehaviour
 
         Anim = mainSprite.GetComponent<Animator>();
         AnimData = new();
+    }
+
+    /// <summary>
+    /// TowerBody의 MainSprite 게임오브젝트 반환
+    /// </summary>
+    /// <returns>"MainSprite" 게임오브젝트</returns>
+    public GameObject GetMainSpriteObj()
+    {
+        return mainSprite;
     }
 }

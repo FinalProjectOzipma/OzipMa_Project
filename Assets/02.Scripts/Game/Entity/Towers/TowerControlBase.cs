@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,11 +15,13 @@ public abstract class TowerControlBase : MonoBehaviour
     public TowerStatus TowerStatus { get; protected set; } // 캐싱용
     public Animator Anim { get; protected set; }
     public TowerAnimationData AnimData { get; protected set; }
+    public GameObject AttackRangeObj;
     [field:SerializeField] public Sprite Preview { get; protected set; }
     #endregion
 
     protected LinkedList<EnemyController> detectedEnemies = new(); // 범위 내 적들
     protected GameObject body; // 현재 나의 외형
+    protected TowerBodyBase towerBodyBase;
 
     private float attackCooldown = 0f;
     private CircleCollider2D range;
@@ -29,6 +32,11 @@ public abstract class TowerControlBase : MonoBehaviour
     /// <param name="AttackPower">기본 공격력</param>
     public abstract void Attack(float AttackPower);
 
+    /// <summary>
+    /// 외형 로딩
+    /// </summary>
+    protected abstract void TakeBody();
+
     protected virtual void Start()
     {
         Name = gameObject.name;
@@ -36,8 +44,11 @@ public abstract class TowerControlBase : MonoBehaviour
 
     public void Init()
     {
-        range = GetComponent<CircleCollider2D>();
-        range.radius = TowerStatus == null ? 1f : TowerStatus.AttackRange.GetValue();
+        ApplyAttackRange(TowerStatus.AttackRange.GetValue());
+        if(AttackRangeObj == null) // 인스펙터창에서 넣어줬으나 혹시 없다면 찾아줌
+        {
+            AttackRangeObj = transform.Find("AttackRangeSprite").gameObject;
+        }
     }
 
     private void Update()
@@ -73,8 +84,10 @@ public abstract class TowerControlBase : MonoBehaviour
     /// </summary>
     public void TowerStart()
     {
+        Init();
         IsPlaced = true;
         StartAnimation(AnimData.StartHash);
+        HideRangeIndicator();
     }
 
     /// <summary>
@@ -83,7 +96,8 @@ public abstract class TowerControlBase : MonoBehaviour
     public void TowerStop()
     {
         IsPlaced = false;
-        StartAnimation(AnimData.EndHash);
+        StartAnimation(AnimData.EndHash); // 타워 보관 애니메이션 실행
+        ShowRangeIndicator(); // 타워 사거리 표시
     }
 
     /// <summary>
@@ -107,11 +121,23 @@ public abstract class TowerControlBase : MonoBehaviour
         TakeBody();
     }
 
-    /// <summary>
-    /// 외형 로딩
-    /// </summary>
-    protected abstract void TakeBody();
-    
+    public TowerBodyBase GetTowerBodyBase()
+    {
+        if(towerBodyBase != null) return towerBodyBase;
+        if(body != null)
+        {
+            return body.GetComponent<TowerBodyBase>();
+        }
+        return null;
+    }
+    public void ShowRangeIndicator()
+    {
+        AttackRangeObj.SetActive(true);
+    }
+    public void HideRangeIndicator()
+    {
+        AttackRangeObj.SetActive(false);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -131,16 +157,17 @@ public abstract class TowerControlBase : MonoBehaviour
         }
     }
 
-    public void StartAnimation(int AnimHash)
+    protected void StartAnimation(int AnimHash)
     {
         if (Anim == null) return;
         Anim?.SetTrigger(AnimHash);
     }
 
-    public void ApplyAttackRange(float newValue)
+    protected void ApplyAttackRange(float newValue)
     {
         if(range == null) range = GetComponent<CircleCollider2D>();
         range.radius = TowerStatus == null ? 1f : newValue;
-        Util.Log($"어택레인지 {newValue}만큼으로 늘어났다");
+        AttackRangeObj.transform.localScale = Vector3.one * newValue; // 타워 사거리 표시기 업데이트
+        Util.Log($"{Name} 타워의 어택레인지 {newValue}만큼으로 세팅됐다");
     }
 }

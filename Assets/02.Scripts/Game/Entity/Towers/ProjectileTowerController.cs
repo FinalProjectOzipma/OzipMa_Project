@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileTowerController : TowerControlBase
@@ -37,6 +38,7 @@ public class ProjectileTowerController : TowerControlBase
 
             if (body.TryGetComponent<TowerBodyBase>(out bodyScript))
             {
+                towerBodyBase = bodyScript;
                 Anim = bodyScript.Anim;
                 AnimData = bodyScript.AnimData;
                 TowerStart();

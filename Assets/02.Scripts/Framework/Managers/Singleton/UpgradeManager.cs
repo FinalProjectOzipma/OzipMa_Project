@@ -67,6 +67,8 @@ public class UpgradeManager
         {
             tower.TowerStatus.Level.AddValue(1);
             tower.TowerStatus.Attack.AddMultiples(UpdateValue);
+            tower.TowerStatus.AttackRange.AddValue(0.1f);
+            
 
             Managers.Player.SpenGold(LevelUPGold);
             return;

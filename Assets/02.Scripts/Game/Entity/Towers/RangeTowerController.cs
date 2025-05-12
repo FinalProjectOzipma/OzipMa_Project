@@ -14,6 +14,7 @@ public class RangeTowerController : TowerControlBase
 
             if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
             {
+                towerBodyBase = bodyBase;
                 Anim = bodyBase.Anim;
                 AnimData = bodyBase.AnimData;
                 TowerStart();

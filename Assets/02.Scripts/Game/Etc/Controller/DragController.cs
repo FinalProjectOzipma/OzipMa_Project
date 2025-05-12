@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class DragController : MonoBehaviour
 {
+    [HideInInspector] public Button DeleteButton;
     public bool IsSlotDragging = false;
 
     private BuildingSystem buildingSystem;
@@ -14,12 +15,13 @@ public class DragController : MonoBehaviour
     private GameObject dragObject;
     private bool isEditDragging = false;
 
-    public float HoldTimeThreshold = 0.4f; // 홀드 지연 시간
+    public float HoldTimeThreshold = 0.3f; // 홀드 지연 시간
     private GameObject towerMenu; // 불러온 타워메뉴창 프리팹 저장
     private UI_TowerMenu uiTowerMenu;
     private float pressTime = 0f; // 홀드 경과 시간
     private bool isEditMode = false;
-    public Button deleteButton;
+    private TowerControlBase curTowerController;
+    private TowerBodyBase curTowerBody;
 
     private void Start()
     {
@@ -28,7 +30,7 @@ public class DragController : MonoBehaviour
         {
             towerMenu = go;
             towerMenu.SetActive(false);
-            deleteButton = towerMenu.GetComponentInChildren<Button>(true);
+            DeleteButton = towerMenu.GetComponentInChildren<Button>(true);
             uiTowerMenu = towerMenu.GetComponent<UI_TowerMenu>();
             SetEditMode(false);
         });
@@ -43,14 +45,13 @@ public class DragController : MonoBehaviour
         {
             eventPosition = Input.mousePosition;
 
-            if (IsSpecificUIButtonClicked(eventPosition, deleteButton))
+            if (IsSpecificUIButtonClicked(eventPosition, DeleteButton))
             {
                 // 버튼을 눌렀을 때만 동작
                 return;
             }
 
             GameObject detectedObj = buildingSystem.GetCurrentDragObject(eventPosition);
-
             if (detectedObj == null)
             {
                 // 다른 곳 클릭했을 시 숨기기
@@ -58,12 +59,14 @@ public class DragController : MonoBehaviour
                 return;
             }
 
+            // 이미 편집모드면 클릭만해도 드래그가능
             if (isEditMode)
             {
                 BeginDrag(detectedObj);
                 return;
             }
 
+            // 첫 드래그는 HoldTimeThreshold초 이상 클릭해야 시작됨
             pressTime += Time.deltaTime;
             if (pressTime >= HoldTimeThreshold)
             {
@@ -90,24 +93,37 @@ public class DragController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 오브젝트 드래그 시작
+    /// </summary>
+    /// <param name="detectedObj">클릭 감지된 오브젝트</param>
     public void BeginDrag(GameObject detectedObj)
     {
         uiTowerMenu.TargetTower = dragObject = detectedObj.transform.root.gameObject;
-        dragObject.GetComponent<TowerControlBase>().TowerStop();
-        spriteRenderer = Util.FindComponent<SpriteRenderer>(detectedObj, "MainSprite");
+        curTowerController = dragObject.GetComponent<TowerControlBase>();
+        curTowerBody = curTowerController.GetTowerBodyBase();
+        spriteRenderer = curTowerBody.GetMainSpriteObj().GetComponent<SpriteRenderer>();
+
+        curTowerController.TowerStop(); // 편집모드에서는 타워 작동 멈추기
+
+        // 드래그 오브젝트 위치 업데이트
         if (dragObject != null)
         {
             dragObject.transform.position = buildingSystem.UpdatePosition(eventPosition);
             isEditDragging = true;
         }
+
     }
 
+    /// <summary>
+    /// 오브젝트 드래그 업데이트
+    /// </summary>
     public void Drag()
     {
-        // 편집메뉴UI, 타워 위치 조정
+        // 편집메뉴UI, 타워 위치 업데이트
         towerMenu.transform.position = dragObject.transform.position = buildingSystem.UpdatePosition(Input.mousePosition);
 
-        // 배치 가능/불가능 색상
+        // 배치 가능/불가능 색상 표시
         if (buildingSystem.CanTowerBuild(Input.mousePosition))
         {
             spriteRenderer.color = Color.green;
@@ -116,11 +132,17 @@ public class DragController : MonoBehaviour
         spriteRenderer.color = Color.red;
     }
 
+    /// <summary>
+    /// 오브젝트 드래그 끝
+    /// </summary>
     public void EndDrag()
     {
         isEditDragging = false;
         spriteRenderer.color = Color.white;
-        dragObject.GetComponent<TowerControlBase>().TowerStart();
+        if (curTowerController != null)
+        {
+            curTowerController.TowerStart(); // 타워 작동 재개
+        }
 
         // 드래그 종료 위치에 배치 완료 
         Vector2 inputPos = Input.mousePosition;
@@ -138,12 +160,22 @@ public class DragController : MonoBehaviour
         dragObject = null;
     }
 
+    /// <summary>
+    /// 편집모드 On/Off
+    /// </summary>
+    /// <param name="isOn">true:켜기, false:끄기</param>
     public void SetEditMode(bool isOn)
     {
         isEditMode = isOn;
         towerMenu.SetActive(isOn);
     }
 
+    /// <summary>
+    /// 특정 위치에 특정 버튼이 있는지 확인
+    /// </summary>
+    /// <param name="screenPosition">체크할 위치</param>
+    /// <param name="targetButton">체크할 대상 버튼</param>
+    /// <returns></returns>
     public bool IsSpecificUIButtonClicked(Vector2 screenPosition, Button targetButton)
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current)
