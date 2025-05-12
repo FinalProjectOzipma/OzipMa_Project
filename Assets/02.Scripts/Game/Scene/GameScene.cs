@@ -26,18 +26,18 @@ public class GameScene : SceneBase
         Managers.Resource.Instantiate("BuildingSystem", bs => 
         {
             BuildingSystem.Instance?.Init();
-            //Managers.Data.LoadGameData(() =>
-            //{
-            //    // TODO :: 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅해줘야 함. 
-            //    DefaultTowerAdd();
-            //    DefaultUnitAdd(); 
-            //});
+            Managers.Data.LoadGameData(() =>
+            {
+                // 로드 데이터 실패 시 실행되는 곳
+                // 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅해줘야 함. 
+                DefaultTowerAdd();
+                DefaultUnitAdd();
+                Managers.Wave.GmaeStart();
+            });
         });
         Managers.Resource.Instantiate("Ending_Panel");
 
-        // 인벤 데이터 추가
-        DefaultTowerAdd();
-        DefaultUnitAdd(); 
+
     }
 
     public override void Update()
