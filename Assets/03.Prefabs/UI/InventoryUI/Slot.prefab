@@ -537,7 +537,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8346464506574001126
 CanvasRenderer:
@@ -589,6 +589,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd42f7bd65db8f4b82c61740460e8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Icon: {fileID: 7121464155472169805}
+  StackGageFill: {fileID: 2260868732732599621}
+  Selected: {fileID: 6749095907347676631}
+  ObjInfo: {fileID: 813586529727044011}
+  StackText: {fileID: 5399559203254056434}
+  MaxLv: {fileID: 996952013508248611}
 --- !u!114 &8575559726348495867
 MonoBehaviour:
   m_ObjectHideFlags: 0
