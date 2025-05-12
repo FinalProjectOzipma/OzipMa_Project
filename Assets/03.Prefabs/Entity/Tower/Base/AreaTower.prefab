@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7564536453906231807, guid: adddf6dfdaa7e5b44b40dba6c7b38edc, type: 3}
       propertyPath: m_Name
-      value: FloorTower
+      value: AreaTower
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -77,4 +77,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97d1b62950fd94b4cb0625ec6238e0af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 1
   IsPlaced: 0
+  AttackRangeObj: {fileID: 2899844409660334791}
+  <Preview>k__BackingField: {fileID: 0}
+--- !u!1 &2899844409660334791 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5583769234840790816, guid: adddf6dfdaa7e5b44b40dba6c7b38edc, type: 3}
+  m_PrefabInstance: {fileID: 7296915139327182311}
+  m_PrefabAsset: {fileID: 0}

@@ -36,11 +36,15 @@ public class BuildingSystem : MonoBehaviour
         Util.Log($"그리드 : {map.transform.parent.parent.gameObject.name}");
     }
 
+    /// <summary>
+    /// 배치되어 시작하는 타워들 설치
+    /// </summary>
+    /// <param name="gridObjectMap">배치 위치/ID 데이터</param>
     public void BuildingInit(Dictionary<Vector3Int, int> gridObjectMap = null)
     {
         if (gridObjectMap != null && gridObjectMap.Count > 0)
         {
-            // TODO :: 원래 있던대로 배치, Load된 데이터로 초기화된 타워로 배치해야 함. 
+            // Load된 데이터로 세팅된 타워로 배치해야 함. 
             foreach(Vector3Int point in gridObjectMap.Keys)
             {
                 int primaryKey = gridObjectMap[point];
@@ -80,7 +84,6 @@ public class BuildingSystem : MonoBehaviour
 
         // 이미 설치된 공간인지 확인
         Vector3Int point = map.WorldToCell(worldPos);
-        //Util.Log($"CanTowerBuild : {point.x}, {point.y}");
         if (GridObjectMap.ContainsKey(point))
         { 
             canBuild = false;
