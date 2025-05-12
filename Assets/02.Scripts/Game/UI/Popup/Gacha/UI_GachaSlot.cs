@@ -14,7 +14,10 @@ public class UI_GachaSlot : UI_Base
     private string initStr;
     public UserObject userObj { get; private set; }
 
-    //데이터 받는함수
+    /// <summary>
+    /// 데이터 받는함수
+    /// </summary>
+    /// <param name="userObj"></param>
     public void Setup(UserObject userObj)
     {
         spr = Icon.sprite;
@@ -27,7 +30,9 @@ public class UI_GachaSlot : UI_Base
         count = 1;
     }
 
-    //중복 되는거 더해주기
+    /// <summary>
+    /// 중복 되는거 더해주기
+    /// </summary>
     public void AddCount()
     {
         CountTxt.enabled = true;
@@ -35,7 +40,9 @@ public class UI_GachaSlot : UI_Base
         CountTxt.text = count.ToString();
     }
 
-    //초기화 작업
+    /// <summary>
+    /// 초기화 작업
+    /// </summary>
     public override void Init()
     {
         userObj = null;

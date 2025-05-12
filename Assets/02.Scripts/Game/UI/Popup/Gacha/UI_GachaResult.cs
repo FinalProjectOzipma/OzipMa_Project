@@ -16,6 +16,9 @@ public class UI_GachaResult : UI_Popup
         Bg.onClick.AddListener(CloseResult);
     }
 
+    /// <summary>
+    /// 결과창 닫기
+    /// </summary>
     private void CloseResult()
     {
         foreach(UI_GachaSlot tf in slots)
@@ -28,6 +31,10 @@ public class UI_GachaResult : UI_Popup
         Managers.Resource.Destroy(gameObject);
     }
 
+    /// <summary>
+    /// 결과 보여주기
+    /// </summary>
+    /// <param name="result"></param>
     public void ShowResult(List<IGettable> result)
     {
         foreach (UserObject data in result)
@@ -47,10 +54,15 @@ public class UI_GachaResult : UI_Popup
                 });
             }
         }
-
         Bg.enabled = true;
     }
 
+    /// <summary>
+    /// 중복 오브젝트 검사
+    /// </summary>
+    /// <param name="data"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
     private bool FindUO(UserObject data, out int index)
     {
         for (int i = 0; i< slots.Count; i++)
