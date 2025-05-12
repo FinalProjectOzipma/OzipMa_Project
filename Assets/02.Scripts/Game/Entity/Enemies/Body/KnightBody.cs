@@ -1,5 +1,11 @@
+using UnityEngine;
+
 public class KnightBody : EntityBodyBase
 {
+    // AttackRange
+    public BoxCollider2D Slash;
+    public CircleCollider2D BuffRange; // 영어 어케 적음
+
     private void Start()
     {
         Init();
@@ -13,6 +19,8 @@ public class KnightBody : EntityBodyBase
             ctrl.AnimData = new KnightAnimData();
             ctrl.AnimData.Init(ctrl);
             ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
+
+            //ctrl.Conditions.Add(new KnightAtkBuff());
         }
         base.Init();
     }

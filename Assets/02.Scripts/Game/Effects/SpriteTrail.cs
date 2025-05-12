@@ -140,6 +140,6 @@ public class SpriteTrail : MonoBehaviour, IUsableUniTask
             go.transform.localScale = trans.localScale;
         }
 
-        go.GetComponent<TrailObject>().Active(spr.sprite, Alpha, facingDir);
+        go.GetComponent<TrailObject>().Active(spr.sprite, Alpha, facingDir, spr.sortingOrder);
     }
 }

@@ -33,11 +33,6 @@ public class ExplosiveCondition<T> : UniTaskHandler, IConditionable where T : En
         OnDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown).Forget();
     }
 
-    public void Init()
-    {
-        Init();
-    }
-
 
     async UniTaskVoid OnDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
     {

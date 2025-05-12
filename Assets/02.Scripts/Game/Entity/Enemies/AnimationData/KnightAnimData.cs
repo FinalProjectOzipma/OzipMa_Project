@@ -16,6 +16,6 @@ public class KnightAnimData : EntityAnimationData
         this.ChaseState = new KnightChasingState(StateMachine, ChaseHash, controller as EnemyController, this);
         this.AttackState = new KnightAttackState(StateMachine, AttackHash, controller as EnemyController, this);
         this.DeadState = new KnightDeadState(StateMachine, DeadHash, controller as EnemyController, this);
-        StateMachine.Init(ChaseState);
+        StateMachine.Init(IdleState);
     }
 }

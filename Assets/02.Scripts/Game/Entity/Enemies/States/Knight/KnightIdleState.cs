@@ -25,12 +25,7 @@ public class KnightIdleState : KnightStateBase
     {
         base.Update();
 
-        if (time < 0f)
-        {
-            int rand = Random.Range(0, 2);
-
-            if (rand == 1)
-                StateMachine.ChangeState(data.ChaseState);
-        }
+        if(time <= 0f)
+            StateMachine.ChangeState(data.ChaseState);
     }
 }

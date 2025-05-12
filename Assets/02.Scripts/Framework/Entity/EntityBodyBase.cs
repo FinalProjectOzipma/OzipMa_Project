@@ -20,6 +20,9 @@ public class EntityBodyBase : MonoBehaviour
     {
         ctrl.Times.Clear();
         ctrl.ConditionHandlers.Clear();
+        // 컨디션 초기화
+        ctrl.Conditions.Add((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(ctrl));
+
         foreach (var condi in conditions)
         {
             ctrl.Times.Add((int)condi.Key, 0f);
@@ -73,8 +76,6 @@ public class EntityBodyBase : MonoBehaviour
 
                     condi.Value.IsExit = false;
                     condi.Value.Attacker = null;
-
-                    conditions[(int)condi.Key]?.Init();
                 }
             }
 

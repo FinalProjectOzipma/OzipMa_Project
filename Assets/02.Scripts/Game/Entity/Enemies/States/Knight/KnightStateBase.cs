@@ -5,9 +5,11 @@ using UnityEngine;
 public class KnightStateBase : EnemyStateBase
 {
     protected KnightAnimData data;
+    protected WaveManager wave;
     public KnightStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
         this.data = data as KnightAnimData;
+        wave = Managers.Wave;
     }
 
     public override void Enter()
