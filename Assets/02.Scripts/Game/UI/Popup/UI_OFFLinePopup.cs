@@ -101,6 +101,12 @@ public class UI_OFFLinePopup : UI_Popup
     {
         float cappedElapsedHours = Mathf.Min(elapsedMinute, 2880f); // 최대 48시간 제한
 
+        if (cappedElapsedHours < 1.0f)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
+        
         rewordGold =(Managers.Player.CurrentStage + 1) * baseGoldPerMinute * (int)cappedElapsedHours;
         rewordGem = Mathf.FloorToInt(cappedElapsedHours * 60 * baseGemChance);
     }
