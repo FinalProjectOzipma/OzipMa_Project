@@ -7,12 +7,12 @@ using UnityEngine.UI;
 public class UI_GachaSlot : UI_Base
 {
     [SerializeField] private Image Icon;
-    [SerializeField] private UserObject userObj;
     [SerializeField] private TextMeshProUGUI CountTxt;
 
     private int count;
     private Sprite spr;
     private string initStr;
+    public UserObject userObj { get; private set; }
 
     //데이터 받는함수
     public void Setup(UserObject userObj)
@@ -40,7 +40,6 @@ public class UI_GachaSlot : UI_Base
     {
         userObj = null;
         Icon.sprite = spr;
-        Icon.enabled = false;
         count = 0;
         CountTxt.text = initStr;
         CountTxt.enabled = false;

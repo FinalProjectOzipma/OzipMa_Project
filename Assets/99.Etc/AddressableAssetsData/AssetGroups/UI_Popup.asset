@@ -137,14 +137,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 1afa8c0e2061e454dbb0cedfc808b1fd
-    m_Address: GachaResultUI
+  - m_GUID: 60d5eab68daee584996471c8a8ea9ad6
+    m_Address: LegendarySlot
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 60d5eab68daee584996471c8a8ea9ad6
-    m_Address: LegendarySlot
+  - m_GUID: 1afa8c0e2061e454dbb0cedfc808b1fd
+    m_Address: GachaResultUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

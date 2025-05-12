@@ -5,7 +5,6 @@ using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
-using VInspector.Libs;
 
 public class GachaUI : UI_Popup
 {
@@ -32,7 +31,6 @@ public class GachaUI : UI_Popup
 
     public override void Init()
     {
-        Util.Log("초기화 히얍!");
         MyUnitSingleButton.onClick.AddListener(() => UnitOnClick(1));
         MyUnitDualButton.onClick.AddListener(() => UnitOnClick(10));
         MyUnitHundredButton.onClick.AddListener(() => UnitOnClick(100));
@@ -48,7 +46,9 @@ public class GachaUI : UI_Popup
 
         for (int i = 0; i < num; i++)
         {
-            result.Add(gacha.GetRandomTower());
+            var res = gacha.GetRandomTower();
+            result.Add(res);
+            Managers.Player.Inventory.Add<Tower>(res);
         }
         //TODO: 인벤토리에 넣어주는 작업 필요
 
@@ -69,12 +69,16 @@ public class GachaUI : UI_Popup
             Managers.Player.Inventory.Add<MyUnit>(res);
         }
 
-        Util.Log("인벤에 넣어드렸습니다");
+
         Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
-            Util.Log("결과창 생성해드렸습니다~");
-            go.transform.SetParent(RectTransform, false);
-            go.GetComponent<UI_GachaResult>().ShowResult(result);
+            UI_GachaResult res = go.GetComponent<UI_GachaResult>();
+            res.ShowResult(result);
         });
+    }
+
+    private void BackOnClick()
+    {
+        ClosePopupUI();
     }
 }

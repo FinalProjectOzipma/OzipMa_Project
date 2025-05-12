@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using VInspector.Libs;
 
 public class UI_GachaResult : UI_Popup
 {
@@ -33,15 +32,36 @@ public class UI_GachaResult : UI_Popup
     {
         foreach (UserObject data in result)
         {
-            Managers.Resource.Instantiate($"{data.RankType}_Slot", go =>
+            if (FindUO(data, out int index))
             {
-                var component = go.GetComponent<UI_GachaSlot>();
-                slots.Add(component);
-                go.transform.SetParent(ResultSlots);
-                component.Setup(data);
-            });
+                slots[index].AddCount();
+            }
+            else
+            {
+                Managers.Resource.Instantiate($"{data.RankType}_Slot", go =>
+                {
+                    var component = go.GetComponent<UI_GachaSlot>();
+                    slots.Add(component);
+                    go.transform.SetParent(ResultSlots);
+                    component.Setup(data);
+                });
+            }
         }
 
         Bg.enabled = true;
+    }
+
+    private bool FindUO(UserObject data, out int index)
+    {
+        for (int i = 0; i< slots.Count; i++)
+        {
+            if (slots[i].userObj.Name == data.Name)
+            {
+                index = i;
+                return true;
+            }
+        }
+        index = -1;
+        return false;
     }
 }

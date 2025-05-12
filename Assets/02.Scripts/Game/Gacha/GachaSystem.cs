@@ -65,7 +65,7 @@ public class GachaSystem
 
         Tower returnValue = new();
 
-        Managers.Resource.LoadAssetAsync<GameObject>($"{name}_Brain", (prefab) =>
+        Managers.Resource.LoadAssetAsync<GameObject>($"{name}Tower", (prefab) =>
         {
             Tower tower = new Tower();
             tower.Init(key, prefab.GetComponent<TowerControlBase>().Preview);
