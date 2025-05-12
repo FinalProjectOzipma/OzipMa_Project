@@ -25,6 +25,7 @@ public class DataManager
         LoadData<DefaultTable.Enemy>();
         LoadData<DefaultTable.Tower>();
         LoadData<DefaultTable.AbilityDefaultValue>();
+        LoadData<DefaultTable.Gacha>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
