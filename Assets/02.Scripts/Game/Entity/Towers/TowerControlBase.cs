@@ -87,7 +87,6 @@ public abstract class TowerControlBase : MonoBehaviour
         Init();
         IsPlaced = true;
         StartAnimation(AnimData.StartHash);
-        HideRangeIndicator();
     }
 
     /// <summary>

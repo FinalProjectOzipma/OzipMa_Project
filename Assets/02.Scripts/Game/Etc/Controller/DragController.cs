@@ -55,7 +55,8 @@ public class DragController : MonoBehaviour
             if (detectedObj == null)
             {
                 // 다른 곳 클릭했을 시 숨기기
-                SetEditMode(false);
+                if(isEditMode) SetEditMode(false);
+                // 아무 클릭 감지된 것은 return;
                 return;
             }
 
@@ -70,7 +71,6 @@ public class DragController : MonoBehaviour
             pressTime += Time.deltaTime;
             if (pressTime >= HoldTimeThreshold)
             {
-                SetEditMode(true);
                 BeginDrag(detectedObj);        
             }
         }
@@ -99,6 +99,15 @@ public class DragController : MonoBehaviour
     /// <param name="detectedObj">클릭 감지된 오브젝트</param>
     public void BeginDrag(GameObject detectedObj)
     {
+        // 이전에 편집하던 타워는 사거리 표시 끄기
+        if (isEditMode)
+        {
+            curTowerController?.HideRangeIndicator(); 
+        }
+
+        // 현재 감지된 타워로 새로운 작업
+        SetEditMode(true);
+
         uiTowerMenu.TargetTower = dragObject = detectedObj.transform.root.gameObject;
         curTowerController = dragObject.GetComponent<TowerControlBase>();
         curTowerBody = curTowerController.GetTowerBodyBase();
@@ -168,6 +177,11 @@ public class DragController : MonoBehaviour
     {
         isEditMode = isOn;
         towerMenu.SetActive(isOn);
+
+        if(!isOn)
+        {
+            curTowerController?.HideRangeIndicator(); // 편집모드를 끌 때 사거리 표시 끄기
+        }
     }
 
     /// <summary>
