@@ -110,7 +110,6 @@ public class DragController : MonoBehaviour
 
         // 현재 감지된 타워로 새로운 작업
         SetEditMode(true);
-
         uiTowerMenu.TargetTower = dragObject = detectedObj.transform.root.gameObject;
         curTowerController = dragObject.GetComponent<TowerControlBase>();
         curTowerBody = curTowerController.GetTowerBodyBase();
@@ -183,7 +182,7 @@ public class DragController : MonoBehaviour
 
         if (isOn)
         {
-            buildingSystem.ShowBuildHighlight(); // 빌드 가능 구역 반짝이 키기
+            buildingSystem.ShowBuildHighlight(); // 빌드 가능 구역 반짝이 켜기
         }
         else if (!isOn)
         {
@@ -197,7 +196,7 @@ public class DragController : MonoBehaviour
     /// </summary>
     /// <param name="screenPosition">체크할 위치</param>
     /// <param name="targetButton">체크할 대상 버튼</param>
-    /// <returns></returns>
+    /// <returns>특정 버튼이 맞는지 여부</returns>
     public bool IsSpecificUIButtonClicked(Vector2 screenPosition, Button targetButton)
     {
         PointerEventData eventData = new PointerEventData(EventSystem.current)

@@ -101,6 +101,8 @@ public class InventoryUI : UI_Scene
         Managers.UI.SetSceneList<InventoryUI>(this);
         Managers.Upgrade.OnChanagedUpgrade += UpdateUpgradeGold;
         TextInfo.text = $"강화 비용 : {Managers.Upgrade.GetUpgradeGold()}";
+
+        BackgroundButton.gameObject.SetActive(false);
     }
 
 
