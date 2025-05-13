@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class GachaSystem
 {
-    //단일 유닛뽑기
+    /// <summary>
+    /// 단일 유닛뽑기
+    /// </summary>
+    /// <returns></returns>
     public MyUnit GetRandomUnit()
     {
         int rand = Random.Range(0, 100);
@@ -14,15 +17,19 @@ public class GachaSystem
 
         //랭크뽑기
         if (rand < 70) selectedRank = RankType.Normal; //70%
-        else selectedRank = RankType.Rare; //TODO: 임시로 쓰는것. 랭크 추가시 지울것
-        //else if (rand < 90) selectedRank = RankType.Rare; //20%
+        //TODO: 임시로 쓰는것. 랭크 추가시 지울것
+        else if (rand < 90) selectedRank = RankType.Rare; //20%
+        else selectedRank = RankType.Epic;
         //else if (rand < 98) selectedRank = RankType.Epic; //8%
         //else selectedRank = RankType.Legend; //2%
 
         return GetSelectUnit(selectedRank);
     }
 
-    //단일 타워뽑기
+    /// <summary>
+    /// 단일 타워뽑기
+    /// </summary>
+    /// <returns></returns>
     public Tower GetRandomTower()
     {
         int rand = Random.Range(0, 100);
@@ -38,7 +45,11 @@ public class GachaSystem
         return GetSelectTower(selectedRank);
     }
 
-    //특정 랭크 유닛 뽑기
+    /// <summary>
+    /// 특정 랭크 유닛 뽑기
+    /// </summary>
+    /// <param name="rank"></param>
+    /// <returns></returns>
     public MyUnit GetSelectUnit(RankType rank)
     {
         //해당 랭크 중에서 유닛id뽑기
@@ -62,6 +73,11 @@ public class GachaSystem
         return returnValue;
     }
 
+    /// <summary>
+    /// 특정 랭크 타워 뽑기
+    /// </summary>
+    /// <param name="rank"></param>
+    /// <returns></returns>
     public Tower GetSelectTower(RankType rank)
     {
         //해당 랭크 중에서 유닛id뽑기
