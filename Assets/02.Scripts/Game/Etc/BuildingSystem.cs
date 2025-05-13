@@ -73,7 +73,8 @@ public class BuildingSystem : MonoBehaviour
                 Managers.Resource.Instantiate(towerName, go => 
                 {
                     go.transform.position = map.GetCellCenterWorld(point);
-                    BuildingSystem.Instance.AddPlacedMapCell(point, primaryKey);
+                    AddPlacedMapCell(point, primaryKey); // 이때 배치 가능 구역 표시가 켜짐
+                    HideBuildHighlight(); // 시작할 때니까 배치 가능 구역 끄기
                     go.GetComponent<TowerControlBase>().TakeRoot(primaryKey, towerName, towerInfo);
                 });
             }
@@ -93,7 +94,7 @@ public class BuildingSystem : MonoBehaviour
     /// <summary>
     /// 배치 가능한 구역들을 보여주는 오브젝트 표시하기 
     /// </summary>
-    public void ShowBuildHighlight()
+    public void ShowBuildHighlight(bool isGreen = true)
     {
         if (mapHandler == null)
         {
@@ -106,7 +107,7 @@ public class BuildingSystem : MonoBehaviour
             if (GridObjectMap.ContainsKey(point) == false)
             {
                 // 빌드 가능한 구역 표시
-                mapHandler.ShowBuildHighlight(map.GetCellCenterWorld(point));
+                mapHandler.ShowBuildHighlight(map.GetCellCenterWorld(point), isGreen);
             }
         }
     }
@@ -220,9 +221,4 @@ public class BuildingSystem : MonoBehaviour
         return id;
     }
     #endregion
-
-    public void UpdateTowerCountUI()
-    {
-        OnTowerCountChanged?.Invoke(GridObjectMap.Count, MaxTowerCount);
-    }
 }

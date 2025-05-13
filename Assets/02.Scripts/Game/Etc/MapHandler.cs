@@ -8,7 +8,7 @@ public class MapHandler : MonoBehaviour
     public GameObject BossProps;
     public GameObject BossGate;
 
-    private List<GameObject> curHighlights = new();
+    private List<SpriteRenderer> curHighlights = new();
     private Sequence dotSeq; // DOTween 시퀀스
     private Vector3 gateUpPos = new Vector3(0f, 5f, 1f);
     private float gateDownOffset = -1f;
@@ -36,7 +36,7 @@ public class MapHandler : MonoBehaviour
         {
             Managers.Resource.Instantiate(buildHighlightOrigin, obj =>
             {
-                curHighlights.Add(obj);
+                curHighlights.Add(obj.GetComponentInChildren<SpriteRenderer>());
                 obj.SetActive(false);
             });
         }
@@ -50,12 +50,17 @@ public class MapHandler : MonoBehaviour
     /// 1개의 Highlight를 켜줌
     /// </summary>
     /// <param name="pos">Highlight할 위치</param>
-    public void ShowBuildHighlight(Vector3 pos)
+    public void ShowBuildHighlight(Vector3 pos, bool isGreen = true)
     {
         if (curHighlights.Count <= curHighlight_index) return;
 
-        curHighlights[curHighlight_index].transform.position = pos;
-        curHighlights[curHighlight_index].SetActive(true);
+        curHighlights[curHighlight_index].transform.root.position = pos;
+        curHighlights[curHighlight_index].transform.root.gameObject.SetActive(true);
+        if(isGreen)
+            curHighlights[curHighlight_index].color = Define.GlowGreen;
+        else
+            curHighlights[curHighlight_index].color = Define.GlowRed;
+
         curHighlight_index++;
         isHighlightOn = true;
     }
@@ -67,9 +72,9 @@ public class MapHandler : MonoBehaviour
     {
         if (isHighlightOn == false) return; // 중복 작업 방지
 
-        foreach(GameObject obj  in curHighlights)
+        foreach(SpriteRenderer obj in curHighlights)
         {
-            obj.SetActive(false);
+            obj.transform.root.gameObject.SetActive(false);
         }
         curHighlight_index = 0;
         isHighlightOn = false;

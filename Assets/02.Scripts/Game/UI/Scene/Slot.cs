@@ -156,7 +156,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(inventoryUI.CurrentTab != typeof(Tower)) return;
-        buildingSystem.ShowBuildHighlight(); // 배치 구역 표시 켜기
+        buildingSystem.ShowBuildHighlight(!buildingSystem.IsTowerCountFull()); // 배치 구역 표시 켜기
 
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
