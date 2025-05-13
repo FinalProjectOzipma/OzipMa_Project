@@ -21,7 +21,8 @@ public class EntityBodyBase : MonoBehaviour
         ctrl.Times.Clear();
         ctrl.ConditionHandlers.Clear();
         // 컨디션 초기화
-        ctrl.Conditions.Add((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(ctrl));
+        
+        ctrl.Conditions.TryAdd((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(ctrl));
 
         foreach (var condi in conditions)
         {
@@ -66,20 +67,21 @@ public class EntityBodyBase : MonoBehaviour
         {
             foreach (var condi in conditionHandlers)
             {
-                if (times[(int)condi.Key] > 0f && condi.Value.IsExit)
-                {
-                    times[(int)condi.Key] -= Time.deltaTime;
-                }
-                else if (times[(int)condi.Key] <= 0f && condi.Value.IsExit)
+                if (times[(int)condi.Key] <= 0f && condi.Value.IsExit)
                 {
                     times[(int)condi.Key] = 0f;
 
                     condi.Value.IsExit = false;
                     condi.Value.Attacker = null;
                 }
-            }
 
-            await UniTask.NextFrame(disableCancellation.Token);
+                await UniTask.NextFrame(disableCancellation.Token);
+
+                if (times[(int)condi.Key] > 0f && condi.Value.IsExit)
+                {
+                    times[(int)condi.Key] -= Time.deltaTime;
+                }
+            }
         }
     }
 }

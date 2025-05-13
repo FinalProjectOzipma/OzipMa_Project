@@ -4,7 +4,6 @@ public class KnightBody : EntityBodyBase
 {
     // AttackRange
     public BoxCollider2D Slash;
-    public CircleCollider2D BuffRange; // 영어 어케 적음
 
     private void Start()
     {
@@ -20,7 +19,8 @@ public class KnightBody : EntityBodyBase
             ctrl.AnimData.Init(ctrl);
             ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
 
-            //ctrl.Conditions.Add(new KnightAtkBuff());
+            // 컨디션
+            ctrl.Conditions.Add((int)AbilityType.Buff, new KnightBuff(ctrl));
         }
         base.Init();
     }

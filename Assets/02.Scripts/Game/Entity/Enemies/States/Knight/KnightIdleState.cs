@@ -25,7 +25,20 @@ public class KnightIdleState : KnightStateBase
     {
         base.Update();
 
-        if(time <= 0f)
+        int rand = Random.Range(0, 2);
+        
+        if (time <= 0f)
+        {
+            if(rand == 0)
+            {
+                if (controller.ConditionHandlers[(int)AbilityType.Buff].CurDuration <= 0f)
+                {
+                    StateMachine.ChangeState(data.AtkBuffState);
+                    return;
+                }
+            }
+
             StateMachine.ChangeState(data.ChaseState);
+        }
     }
 }

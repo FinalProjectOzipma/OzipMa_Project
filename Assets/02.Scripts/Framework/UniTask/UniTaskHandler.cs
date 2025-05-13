@@ -14,8 +14,10 @@ public class UniTaskHandler
         {
             disableCancellation.Dispose();
         }
-
-        disableCancellation = new();
+        else
+        {
+            disableCancellation = new();
+        }
     }
 
     public void TokenDisable()

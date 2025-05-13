@@ -147,7 +147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6958726734523814568
 Transform:
   m_ObjectHideFlags: 0
@@ -501,9 +501,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthView: {fileID: 9218879763151947692}
-  conditions: []
+  conditions:
+  - Key: 7
+    GameObj: {fileID: 3682574672217106662}
+    CoolDown: 0
+    Duration: 10
   Slash: {fileID: 7108869702008061598}
-  BuffRange: {fileID: 8144406242934158065}
 --- !u!4 &6358453545307762753 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5498075652551475942, guid: 2f95b263ac669694f90f900bc00f6146, type: 3}

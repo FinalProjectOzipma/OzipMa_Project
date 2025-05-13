@@ -72,6 +72,7 @@ public enum AbilityType
     Fire,
     Explosive,
     Dark,
+    Buff,
 
     Count
 }
