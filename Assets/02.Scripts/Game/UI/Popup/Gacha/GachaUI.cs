@@ -42,7 +42,16 @@ public class GachaUI : UI_Popup
 
     private void TowerOnClick(int num)
     {
-        //TODO: 크리스탈 비용 추가 필요!!!
+        if (Managers.Player.Gem < num * 300)
+        {
+            Managers.Player.AddGem(- num * 300);
+            Managers.Resource.Instantiate("AlarmPopup", go =>
+            {
+                go.GetComponent<UI_Alarm>().WriteText("젬이 부족합니다");
+            });
+            return;
+        }
+
 
         if (num == 10)
         {
@@ -73,10 +82,21 @@ public class GachaUI : UI_Popup
     private void UnitOnClick(int num)
     {
         //TODO: 크리스탈 비용소모 추가 필요!!!
+        if (Managers.Player.Gem < num * 300)
+        {
+            Managers.Player.AddGem(-num * 300);
+            Managers.Resource.Instantiate("AlarmPopup", go =>
+            {
+                go.GetComponent<UI_Alarm>().WriteText("젬이 부족합니다");
+            });
+            return;
+        }
+
         if (num == 10)
         {
-            num -= 1;
-            gacha.GetSelectUnit(RankType.Epic);
+            Util.Log("우왕 에픽 하지만 없는걸...");
+            //num -= 1;
+            //gacha.GetSelectUnit(RankType.Epic);
         }
         else if (num == 100)
         {
