@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -52,13 +53,16 @@ public class GachaUI : UI_Popup
         if (num == 10)
         {
             num -= 1;
-            gacha.GetSelectTower(RankType.Epic);
+            var res = gacha.GetSelectTower(RankType.Epic);
+            result.Add(res);
+            Managers.Player.Inventory.Add<Tower>(res);
         }
         else if (num == 100)
         {
             Util.Log("우왕 레전더리 하지만 없는걸...");
             //num -= 1;
             //gacha.GetSelectTower(RankType.Legend);
+            //Managers.Player.Inventory.Add<Tower>(res);
         }
         result = new();
 
@@ -89,13 +93,17 @@ public class GachaUI : UI_Popup
         {
             Util.Log("우왕 에픽 하지만 없는걸...");
             num -= 1;
-            gacha.GetSelectUnit(RankType.Epic);
+            var res = gacha.GetSelectUnit(RankType.Epic);
+            result.Add(res);
+            Managers.Player.Inventory.Add<MyUnit>(res);
         }
         else if (num == 100)
         {
             Util.Log("우왕 레전더리 하지만 없는걸...");
-            num -= 1;
-            gacha.GetSelectUnit(RankType.Legend);
+            //num -= 1;
+            //var res = gacha.GetSelectUnit(RankType.Legend);
+            //result.Add(res);
+            //Managers.Player.Inventory.Add<MyUnit>(res);
         }
         result = new();
 
