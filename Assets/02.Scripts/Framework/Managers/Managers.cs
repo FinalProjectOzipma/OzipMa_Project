@@ -116,6 +116,4 @@ public class Managers : MonoBehaviour
             Debug.LogWarning($"게임 종료 저장 실패: {ex.Message}");
         }
     }
-
-
 }
