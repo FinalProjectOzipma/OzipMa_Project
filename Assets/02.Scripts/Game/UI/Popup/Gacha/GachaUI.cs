@@ -75,8 +75,9 @@ public class GachaUI : UI_Popup
         //TODO: 크리스탈 비용소모 추가 필요!!!
         if (num == 10)
         {
-            num -= 1;
-            gacha.GetSelectUnit(RankType.Epic);
+            Util.Log("우왕 에픽 하지만 없는걸...");
+            //num -= 1;
+            //gacha.GetSelectUnit(RankType.Epic);
         }
         else if (num == 100)
         {

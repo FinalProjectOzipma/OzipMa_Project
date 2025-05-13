@@ -31,13 +31,19 @@ public class Inventory
                 //이미 인벤토리에 존재하는것이라면.
                 if (uo.Name == input.Name)
                 {
+                    if (uo.Status.Grade.Value == 5)
+                    {
+                        //이미 최대 합성에 도달했다면 잼으로 바꿔먹다
+                        Managers.Player.AddGem(100);
+                        return;
+                    }
                     uo.Status.Stack.AddValue(1);
                     uo.UpGrade();
                     return;
                 }
             }
         }
-        //T 타입 딕셔너리에 존재하지않는다면
+        //T 타입 딕셔너리에 존재하지 않는다면
         else
         {
             inventory.Add(typeof(T).Name, new List<IGettable>());
