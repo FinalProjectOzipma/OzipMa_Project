@@ -12,7 +12,7 @@ public class Enums
         Enemy,
         Tower,
         AbilityDefaultValue,
-
+        Gacha,
         Count
     }
 
