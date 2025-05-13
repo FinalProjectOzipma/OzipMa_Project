@@ -36,7 +36,8 @@ public enum SFXClipName
     Arrow,
     Dark,
     Fire,
-    Coin
+    Coin,
+    Card,
 }
 
 public enum AudioType
