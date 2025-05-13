@@ -12,10 +12,12 @@ public class GameManager
 
     public double ServerTimeOffset = 0; // 서버 시간 - DateTime.UtcNow (초)
 
+
     public void Initialize()
     {
 
     }
+
 
     public async Task Init()
     {
