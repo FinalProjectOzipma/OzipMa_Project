@@ -49,6 +49,7 @@ public class GachaUI : UI_Popup
             Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
             return;
         }
+        result = new();
 
         if (num == 10)
         {
@@ -64,7 +65,6 @@ public class GachaUI : UI_Popup
             //gacha.GetSelectTower(RankType.Legend);
             //Managers.Player.Inventory.Add<Tower>(res);
         }
-        result = new();
 
         for (int i = 0; i < num; i++)
         {
@@ -89,6 +89,8 @@ public class GachaUI : UI_Popup
             return;
         }
 
+        result = new();
+
         if (num == 10)
         {
             Util.Log("우왕 에픽 하지만 없는걸...");
@@ -105,7 +107,6 @@ public class GachaUI : UI_Popup
             //result.Add(res);
             //Managers.Player.Inventory.Add<MyUnit>(res);
         }
-        result = new();
 
         for (int i = 0; i < num; i++)
         {
