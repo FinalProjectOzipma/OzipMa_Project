@@ -15,8 +15,6 @@ public class BuildingSystem : MonoBehaviour
     private Tilemap map;
     private Camera cam;
     private MapHandler mapHandler;
-    private string buildHighlightOrigin = "BuildHighlight";
-    private List<GameObject> curHighlights = new();
 
     private void Awake()
     {
@@ -37,7 +35,6 @@ public class BuildingSystem : MonoBehaviour
         mapHandler = map?.transform.root.GetComponent<MapHandler>();
         cam = Camera.main;
         DragController = GetComponent<DragController>();
-        //Util.Log($"그리드 : {map.transform.parent.parent.gameObject.name}");
     }
 
     #region BuildingSystem 에서 직접해주는 행위들
@@ -66,10 +63,20 @@ public class BuildingSystem : MonoBehaviour
         }
     }
 
+
     /// <summary>
-    /// 빌드 가능한 구역들을 보여주는 오브젝트 표시하기 
+    /// 배치 가능 구역 초기화, 보여주기
     /// </summary>
-    public void ShowBuildAreas()
+    public void RefreshBuildHighlight()
+    {
+        HideBuildHighlight();
+        ShowBuildHighlight();
+    }
+
+    /// <summary>
+    /// 배치 가능한 구역들을 보여주는 오브젝트 표시하기 
+    /// </summary>
+    public void ShowBuildHighlight()
     {
         if (mapHandler == null)
         {
@@ -77,30 +84,28 @@ public class BuildingSystem : MonoBehaviour
             return;
         }
 
-        curHighlights.Clear();
-        foreach (Vector3Int point in mapHandler.BuildAreaList)
+        foreach (Vector3Int point in mapHandler.BuildHighlightList)
         {
-            if(GridObjectMap.ContainsKey(point) == false)
+            if (GridObjectMap.ContainsKey(point) == false)
             {
-                // 여전히 빌드 가능한 구역
-                Managers.Resource.Instantiate(buildHighlightOrigin, obj =>
-                {
-                    curHighlights.Add(obj);
-                    obj.transform.position = map.GetCellCenterWorld(point);
-                });
+                // 빌드 가능한 구역 표시
+                mapHandler.ShowBuildHighlight(map.GetCellCenterWorld(point));
             }
         }
     }
 
     /// <summary>
-    /// 빌드 가능한 구역들을 보여주는 오브젝트 모두 끄기
+    /// 배치 가능한 구역들을 보여주는 오브젝트 모두 끄기
     /// </summary>
-    public void HideBuildAreas()
+    public void HideBuildHighlight()
     {
-        foreach(GameObject highlight in curHighlights)
+        if (mapHandler == null)
         {
-            Managers.Resource.Destroy(highlight); // Pool로 반환
+            Util.LogWarning("mapHandler가 null인 상태로 진행되고 있습니다. map과 mapHandler를 잘 찾고있는지 확인해보세요.");
+            return;
         }
+
+        mapHandler.HideAllHighlights();
     }
     #endregion
 
@@ -161,11 +166,13 @@ public class BuildingSystem : MonoBehaviour
     public void AddPlacedMapScreenPos(Vector3 mousePos, int id)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        GridObjectMap.Add(map.WorldToCell(worldPos), id);
+        AddPlacedMapCell(map.WorldToCell(worldPos), id);
     }
     public void AddPlacedMapCell(Vector3Int cellPoint, int id)
     {
         GridObjectMap.Add(cellPoint, id);
+
+        RefreshBuildHighlight();
     }
 
     public int RemovePlacedMapScreenPos(Vector3 mousePos)

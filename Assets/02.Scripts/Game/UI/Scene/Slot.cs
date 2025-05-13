@@ -44,6 +44,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
         inventoryUI = Managers.UI.GetScene<InventoryUI>();
         Selected.gameObject.SetActive(false);
+
+        buildingSystem = BuildingSystem.Instance;
     }
 
     private void SeletToggle()
@@ -112,8 +114,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(inventoryUI.CurrentTab != typeof(Tower)) return;
+        buildingSystem.ShowBuildHighlight(); // 배치 구역 표시 켜기
 
-        buildingSystem = BuildingSystem.Instance;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
         cellWorldPos.y -= 0.2f;
@@ -151,6 +153,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         if (inventoryUI.CurrentTab != typeof(Tower)) return;
+        buildingSystem.HideBuildHighlight(); // 배치 구역 표시 끄기
 
         // 한번 실행
         inventoryUI.OnSwipe();
@@ -173,7 +176,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         {
             go.transform.position = buildingSystem.UpdatePosition(inputPos);
             buildingSystem.AddPlacedMapScreenPos(inputPos, itemKey);
-            buildingSystem.DragController.IsSlotDragging = false; 
+            buildingSystem.DragController.IsSlotDragging = false;
             go.GetComponent<TowerControlBase>().TakeRoot(itemKey, towerName, (Tower)Gettable);
         });
     }
