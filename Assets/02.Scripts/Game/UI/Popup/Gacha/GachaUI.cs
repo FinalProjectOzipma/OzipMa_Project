@@ -42,6 +42,19 @@ public class GachaUI : UI_Popup
 
     private void TowerOnClick(int num)
     {
+        //TODO: 크리스탈 비용 추가 필요!!!
+
+        if (num == 10)
+        {
+            num -= 1;
+            gacha.GetSelectTower(RankType.Epic);
+        }
+        else if (num == 100)
+        {
+            Util.Log("우왕 레전더리 하지만 없는걸...");
+            //num -= 1;
+            //gacha.GetSelectTower(RankType.Legend);
+        }
         result = new();
 
         for (int i = 0; i < num; i++)
@@ -59,6 +72,18 @@ public class GachaUI : UI_Popup
 
     private void UnitOnClick(int num)
     {
+        //TODO: 크리스탈 비용소모 추가 필요!!!
+        if (num == 10)
+        {
+            num -= 1;
+            gacha.GetSelectUnit(RankType.Epic);
+        }
+        else if (num == 100)
+        {
+            Util.Log("우왕 레전더리 하지만 없는걸...");
+            //num -= 1;
+            //gacha.GetSelectUnit(RankType.Legend);
+        }
         result = new();
 
         for (int i = 0; i < num; i++)
@@ -67,8 +92,6 @@ public class GachaUI : UI_Popup
             result.Add(res);
             Managers.Player.Inventory.Add<MyUnit>(res);
         }
-
-
         Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
