@@ -123,7 +123,6 @@ public class UI_Main : UI_Scene
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
         Managers.UI.GetScene<InventoryUI>().OnSwipe();
-        OffButton();
         isButton = false;
     }
 
@@ -135,7 +134,6 @@ public class UI_Main : UI_Scene
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
         Managers.UI.ShowPopupUI<GachaUI>(nameof(GachaUI));
-        OffButton();
         isButton = false;
     }
 

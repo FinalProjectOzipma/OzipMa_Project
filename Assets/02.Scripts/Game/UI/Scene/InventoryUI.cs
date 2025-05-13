@@ -24,19 +24,17 @@ public class InventoryUI : UI_Scene
     [SerializeField] private Button SwipeBtn;
     [SerializeField] private Button InchentBtn;
     [SerializeField] private Button SelectAllBtn;
-    [SerializeField] private Button PutBtn;
     [SerializeField] private Button MyUnitTab;
     [SerializeField] private Button TowerTab;
 
     [SerializeField] private TextMeshProUGUI InchentText;
     [SerializeField] private TextMeshProUGUI SelectText;
-    [SerializeField] private TextMeshProUGUI PutText;
     [SerializeField] private TextMeshProUGUI TextInfo;
 
     [SerializeField] private Image InchentImage;
     [SerializeField] private Image SelectAllImage;
-    [SerializeField] private Image PutImage;
     [SerializeField] private Image SwipeIcon;
+    [SerializeField] private Image SwipeIconoff;
     #endregion
 
     #region ResourceKey
@@ -73,7 +71,6 @@ public class InventoryUI : UI_Scene
     // Animation
     private bool isMove;
     private bool isOpen;
-    private bool isBatch = false;
     public bool isSelect = false;
 
     public Queue<Action> SwipeExcute;
@@ -100,13 +97,13 @@ public class InventoryUI : UI_Scene
         OnTowerTap();
         Managers.UI.SetSceneList<InventoryUI>(this);
         Managers.Upgrade.OnChanagedUpgrade += UpdateUpgradeGold;
-        TextInfo.text = $"강화 비용 : {Managers.Upgrade.GetUpgradeGold()}";
+        TextInfo.text = $"{Managers.Upgrade.GetUpgradeGold()}";
     }
 
 
     private void UpdateUpgradeGold(int gold)
     {
-        TextInfo.text = $"강화 비용 : {gold.ToString()}" ;
+        TextInfo.text = $"{gold.ToString()}" ;
     }
 
 
@@ -123,7 +120,6 @@ public class InventoryUI : UI_Scene
         // Tap -----------------------------------------------------------------
         MyUnitTab.onClick.AddListener(OnMyUnitTap);
         TowerTab.onClick.AddListener(OnTowerTap);
-        PutBtn.onClick.AddListener(OnPut);
         // ---------------------------------------------------------------------
     }
 
@@ -299,7 +295,6 @@ public class InventoryUI : UI_Scene
     {
         CurrentTab = typeof(MyUnit);
         ToggleTab(OnMyUnit, DisMyUnit);
-        PutBtn.gameObject.SetActive(false);
         Refresh<MyUnit>();
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
@@ -311,7 +306,6 @@ public class InventoryUI : UI_Scene
     {
         CurrentTab = typeof(Tower);
         ToggleTab(OnTower, DisTower);
-        PutBtn.gameObject.SetActive(true);
         Refresh<Tower>();
         Managers.Upgrade.RefresgUpgradeGold();
         isSelect = false;
@@ -355,31 +349,30 @@ public class InventoryUI : UI_Scene
         }
         else
         {
-            Managers.UI.GetScene<UI_Main>().OffButton();
             isMove = true;
 
             if (!isOpen)
             {
                 isOpen = true;
                 gameObject.SetActive(true);
-                PutImage.color = Color.white;
                 CurrentState = STATE.SELECTABLE;
                 BackgroundButton.gameObject.SetActive(true);
-                movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
+                movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y + 180.0f, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
-                    SwipeIcon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -90.0f));
+                    SwipeIcon.gameObject.SetActive(false);
+                    SwipeIconoff.gameObject.SetActive(true);
                 });
             }
             else
             {
                 BackgroundButton.gameObject.SetActive(false);
-                movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y -180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
                     isOpen = false;
-                    Managers.UI.GetScene<UI_Main>().OnButton();
-                    SwipeIcon.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90.0f));
+                    SwipeIcon.gameObject.SetActive(true);
+                    SwipeIconoff.gameObject.SetActive(false);
                 });
             }
         }
@@ -397,42 +390,6 @@ public class InventoryUI : UI_Scene
         changeOn.SetActive(true);
         changeDis.SetActive(false);
     }
-
-    private void OnPut()
-    {
-        if (isBatch) return;
-
-        isBatch = true;
-        Refresh<Tower>();
-
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-
-        uiSeq = Util.RecyclableSequence();
-
-        uiSeq.Append(PutImage.transform.DOScale(0.9f, 0.1f));
-        uiSeq.Join(PutText.transform.DOScale(0.9f, 0.1f));
-        uiSeq.Append(PutImage.transform.DOScale(1.1f, 0.1f));
-        uiSeq.Join(PutText.transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(PutImage.transform.DOScale(1.0f, 0.1f));
-        uiSeq.Join(PutText.transform.DOScale(1.0f, 0.1f));
-
-        uiSeq.Play();
-
-        if (CurrentState == STATE.PUTABLE)
-        {
-            PutImage.color = Color.white;
-            CurrentState = STATE.SELECTABLE;
-            isBatch = false;
-        }
-        else if (CurrentState == STATE.SELECTABLE)
-        {
-            // 배치모드 ON
-            PutImage.color = Color.gray;
-            CurrentState = STATE.PUTABLE;
-            isBatch = false;
-        }
-    }
-
 
     private void OnClickUpgrade()
     {
