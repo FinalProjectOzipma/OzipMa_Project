@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DefaultTable;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,38 +25,58 @@ public class ExplosiveCondition<T> : UniTaskHandler, IConditionable where T : En
     /// <param name="values"></param>
     public void Execute(float attackerDamage, AbilityDefaultValue values) 
     {
-        TokenDisable();
-        TokenEnable();
-
+        canHit = true;
         time = values.AbilityDuration;
         coolDown = 0f;
 
+        TokenEnable();
         OnDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown).Forget();
     }
 
 
     async UniTaskVoid OnDotDamage(float abilityValue, float abilityDuration, float abilityCooldown)
     {
-        while (time > 0)
+        try
         {
-            time -= Time.deltaTime;
-
-            if (canHit)
+            while (time > 0)
             {
-                AddHealth(-abilityValue);
-                // 0초라서 수정해야됨 최소한 0.2초가 적당한듯?
-                coolDown = 0.2f;
-                canHit = false;
-            }
-            else if (coolDown <= 0.0f)
-            {
-                canHit = true;
-            }
+                if (disableCancellation == null || disableCancellation.IsCancellationRequested || !ctrl.gameObject.activeInHierarchy)
+                {
+                    TokenDisable();
+                    break;
+                }
 
-            coolDown -= Time.deltaTime;
-            await UniTask.NextFrame(disableCancellation.Token);
+                if (canHit)
+                {
+                    AddHealth(-abilityValue);
+                    // 0초라서 수정해야됨 최소한 0.2초가 적당한듯?
+                    coolDown = 0.2f;
+                    canHit = false;
+                }
+                else if (coolDown > 0.0f)
+                {
+                    coolDown -= Time.deltaTime;
+                }
+                else
+                {
+                    canHit = true;
+                }
+
+                await UniTask.NextFrame(disableCancellation.Token);
+            }
         }
-
+        catch(OperationCanceledException)
+        {
+            Util.Log("OnDamage 취소됨");
+        }
+        catch(ObjectDisposedException)
+        {
+            Util.Log("OnDamage: Token이 Dispose됨");
+        }
+        catch (Exception ex)
+        {
+            Util.Log($"OnDamage 에러 발생 : {ex}");
+        }
     }
 
     private void AddHealth(float damage)

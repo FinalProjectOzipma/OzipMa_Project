@@ -194,7 +194,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthView: {fileID: 5835017873562409557}
-  conditions: []
+  conditions:
+  - Key: 5
+    GameObj: {fileID: 0}
+    CoolDown: 0
+    Duration: 0
 --- !u!114 &4304516208242763490
 MonoBehaviour:
   m_ObjectHideFlags: 0

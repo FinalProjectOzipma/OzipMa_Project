@@ -118,8 +118,16 @@ public class SpriteTrail : MonoBehaviour, IUsableUniTask
                 time -= Time.deltaTime;
             }
 
+            if (DisableCancellation == null || DisableCancellation.IsCancellationRequested || !gameObject.activeInHierarchy)
+            {
+                TokenDisable();
+                break;
+            }
+
             await UniTask.NextFrame(DisableCancellation.Token);
         }
+
+        TokenDisable();
     }
 
     private void SetTrail(GameObject go)
