@@ -50,7 +50,6 @@ public class GachaUI : UI_Popup
             result.Add(res);
             Managers.Player.Inventory.Add<Tower>(res);
         }
-        //TODO: 인벤토리에 넣어주는 작업 필요
 
         Managers.Resource.Instantiate("GachaResultUI", (go)=>
         {
@@ -76,7 +75,7 @@ public class GachaUI : UI_Popup
             res.ShowResult(result);
         });
     }
-
+    
     private void BackOnClick()
     {
         ClosePopupUI();
