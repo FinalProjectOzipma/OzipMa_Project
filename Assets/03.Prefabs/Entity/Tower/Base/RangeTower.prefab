@@ -77,4 +77,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84541dc3090e13b4c9577c785125d17c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 1
   IsPlaced: 0
+  AttackRangeObj: {fileID: 2349081264177944554}
+  <Preview>k__BackingField: {fileID: 0}
+--- !u!1 &2349081264177944554 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5583769234840790816, guid: adddf6dfdaa7e5b44b40dba6c7b38edc, type: 3}
+  m_PrefabInstance: {fileID: 7918476577525641418}
+  m_PrefabAsset: {fileID: 0}

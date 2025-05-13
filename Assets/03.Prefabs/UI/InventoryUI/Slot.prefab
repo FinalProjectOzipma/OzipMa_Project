@@ -508,6 +508,7 @@ GameObject:
   - component: {fileID: 3792999522659055817}
   - component: {fileID: 7645919462784830843}
   - component: {fileID: 8575559726348495867}
+  - component: {fileID: 3703878775468146159}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -537,7 +538,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8346464506574001126
 CanvasRenderer:
@@ -589,6 +590,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd42f7bd65db8f4b82c61740460e8e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Icon: {fileID: 7121464155472169805}
+  StackGageFill: {fileID: 2260868732732599621}
+  Selected: {fileID: 6749095907347676631}
+  ObjInfo: {fileID: 813586529727044011}
+  StackText: {fileID: 5399559203254056434}
+  MaxLv: {fileID: 996952013508248611}
 --- !u!114 &8575559726348495867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,6 +640,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3703878775468146159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6869967363284244515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e344a2fb85999c43be326573817be8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdTime: 0.5
 --- !u!1 &8328239871950971861
 GameObject:
   m_ObjectHideFlags: 0

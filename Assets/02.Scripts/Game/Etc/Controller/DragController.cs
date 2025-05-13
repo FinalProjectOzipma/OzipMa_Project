@@ -55,7 +55,8 @@ public class DragController : MonoBehaviour
             if (detectedObj == null)
             {
                 // 다른 곳 클릭했을 시 숨기기
-                SetEditMode(false);
+                if(isEditMode) SetEditMode(false);
+                // 아무 클릭 감지된 것은 return;
                 return;
             }
 
@@ -70,7 +71,6 @@ public class DragController : MonoBehaviour
             pressTime += Time.deltaTime;
             if (pressTime >= HoldTimeThreshold)
             {
-                SetEditMode(true);
                 BeginDrag(detectedObj);        
             }
         }
@@ -99,13 +99,21 @@ public class DragController : MonoBehaviour
     /// <param name="detectedObj">클릭 감지된 오브젝트</param>
     public void BeginDrag(GameObject detectedObj)
     {
+        // 이전에 편집하던 타워는 사거리 표시 끄기
+        if (isEditMode)
+        {
+            curTowerController?.HideRangeIndicator(); 
+        }
+
+        // 현재 감지된 타워로 새로운 작업
+        SetEditMode(true);
+
         uiTowerMenu.TargetTower = dragObject = detectedObj.transform.root.gameObject;
         curTowerController = dragObject.GetComponent<TowerControlBase>();
         curTowerBody = curTowerController.GetTowerBodyBase();
         spriteRenderer = curTowerBody.GetMainSpriteObj().GetComponent<SpriteRenderer>();
 
         curTowerController.TowerStop(); // 편집모드에서는 타워 작동 멈추기
-        if (curTowerBody != null) curTowerBody.ShowRangeIndicator(); // 사거리 표시
 
         // 드래그 오브젝트 위치 업데이트
         if (dragObject != null)
@@ -140,8 +148,10 @@ public class DragController : MonoBehaviour
     {
         isEditDragging = false;
         spriteRenderer.color = Color.white;
-        if (curTowerController != null) curTowerController.TowerStart(); // 타워 작동 재개
-        if (curTowerBody != null) curTowerBody.HideRangeIndicator(); // 사거리 표시 끄기
+        if (curTowerController != null)
+        {
+            curTowerController.TowerStart(); // 타워 작동 재개
+        }
 
         // 드래그 종료 위치에 배치 완료 
         Vector2 inputPos = Input.mousePosition;
@@ -167,6 +177,11 @@ public class DragController : MonoBehaviour
     {
         isEditMode = isOn;
         towerMenu.SetActive(isOn);
+
+        if(!isOn)
+        {
+            curTowerController?.HideRangeIndicator(); // 편집모드를 끌 때 사거리 표시 끄기
+        }
     }
 
     /// <summary>

@@ -21,7 +21,24 @@ public class Inventory
 
     public void Add<T>(T gettable) where T : UserObject, IGettable
     {
-        if(inventory.ContainsKey(typeof(T).Name) == false)
+        // T 타입 딕셔너리에 존재한다면 
+        if (inventory.ContainsKey(typeof(T).Name))
+        {
+            foreach(IGettable ge in inventory[typeof(T).Name])
+            {
+                UserObject uo = ge as UserObject;
+                UserObject input = gettable as UserObject;
+                //이미 인벤토리에 존재하는것이라면.
+                if (uo.Name == input.Name)
+                {
+                    uo.Status.Stack.AddValue(1);
+                    uo.UpGrade();
+                    return;
+                }
+            }
+        }
+        //T 타입 딕셔너리에 존재하지않는다면
+        else
         {
             inventory.Add(typeof(T).Name, new List<IGettable>());
         }

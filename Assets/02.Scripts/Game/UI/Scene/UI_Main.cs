@@ -14,6 +14,7 @@ public class UI_Main : UI_Scene
     [SerializeField] private Button ManagerButton;
     [SerializeField] private Button SettingButton;
     [SerializeField] private Button DictionaryButton;
+    [SerializeField] private Button GachaButton;
 
     [SerializeField] private TextMeshProUGUI MainGoldText;
     [SerializeField] private TextMeshProUGUI MainZamText;
@@ -35,7 +36,7 @@ public class UI_Main : UI_Scene
     enum Objects
     {
         ReseachUI,
-        SoundUI
+        SoundUI,
     }
 
 
@@ -55,6 +56,7 @@ public class UI_Main : UI_Scene
         ResearchButton.gameObject.BindEvent(OnClikButtonResearch);
         ManagerButton.gameObject.BindEvent(OnClickManager);
         SettingButton.gameObject.BindEvent(OnClickSetting);
+        GachaButton.gameObject.BindEvent(OnClickGacha);
         StageLv.text = $"Lv {Managers.Player.CurrentStage} - {Managers.Player.CurrentWave + 1}";
 
         if (Managers.Player != null)
@@ -73,7 +75,6 @@ public class UI_Main : UI_Scene
             Managers.Player.OnGoldChanged -= UpdateGoldUI;
             Managers.Player.OnZamChanged -= UpdateZamUI;
         }
-
     }
 
     private void UpdateGoldUI(long gold)
@@ -112,8 +113,6 @@ public class UI_Main : UI_Scene
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
         Managers.UI.ShowPopupUI<UI_Setting>("SettingUI");
         isButton = false;
-
-      
     }
 
     private void OnClickManager(PointerEventData data)
@@ -128,11 +127,24 @@ public class UI_Main : UI_Scene
         isButton = false;
     }
 
+    private void OnClickGacha(PointerEventData data)
+    {
+        if (isButton) return;
+
+        isButton = true;
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.UI.ShowPopupUI<GachaUI>(nameof(GachaUI));
+        OffButton();
+        isButton = false;
+    }
+
     public void OffButton()
     {
         ManagerButton.gameObject.SetActive(false);
         ResearchButton.gameObject.SetActive(false);
         DictionaryButton.gameObject.SetActive(false);
+        GachaButton.gameObject.SetActive(false);
     }
 
     public void OnButton()
@@ -140,5 +152,6 @@ public class UI_Main : UI_Scene
         ManagerButton.gameObject.SetActive(true);
         ResearchButton.gameObject.SetActive(true);
         DictionaryButton.gameObject.SetActive(true);
+        GachaButton.gameObject.SetActive(true);
     }
 }

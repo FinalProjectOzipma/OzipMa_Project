@@ -79,4 +79,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 1
   IsPlaced: 0
-  <Name>k__BackingField: 
+  AttackRangeObj: {fileID: 7451151991736930407}
+  <Preview>k__BackingField: {fileID: 0}
+--- !u!1 &7451151991736930407 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5583769234840790816, guid: adddf6dfdaa7e5b44b40dba6c7b38edc, type: 3}
+  m_PrefabInstance: {fileID: 3033816235194988359}
+  m_PrefabAsset: {fileID: 0}

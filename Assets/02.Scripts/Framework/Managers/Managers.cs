@@ -80,28 +80,33 @@ public class Managers : MonoBehaviour
         Scene.PhnMyUnitScene.SingletonAction += Game.Initialize;
     }
 
+
+
+
+
+
     //안드로이드 IOS에서 백그라운드 시 호출
-    private async void OnApplicationPause(bool pause)
+    private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
-            await SaveQuitTimeAndSaveData(); // 앱이 백그라운드로 가면 저장
+            SaveQuitTimeAndSaveData(); // 안전한 시점
         }
     }
 
+
+
     // 앱 종료 시 호출
-    private async void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
-        await SaveQuitTimeAndSaveData(); // 앱 완전히 종료 시도 시에도 저장
+        SaveQuitTimeAndSaveData(); // 앱 완전히 종료 시도 시에도 저장
     }
 
     // 종료시간과 플레이어 데이터 저장
-    private async Task SaveQuitTimeAndSaveData()
+    private void SaveQuitTimeAndSaveData()
     {
         try
         {
-            await Managers.Game.Init();  // 서버 시간 동기화
-
             Managers.Player.RewordStartTime = Managers.Game.ServerUtcNow.ToString("o");
 
             Data.SaveGameData();  // 서버 시간 포함한 저장

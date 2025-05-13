@@ -23,11 +23,11 @@ public class UI_OFFLinePopup : UI_Popup
     [SerializeField] private GameObject UIOffLine;
 
 
-    private int baseGoldPerStage = 10; // 1스테이지당 10골드
+    private int baseGoldPerMinute = 1; // 1분당 1골드
     private float baseGemChance = 0.02f;  // 1분당 2% 확률로 1잼 지급
 
     private DateTime rewordStartTime;
-    private float elapsedHours; // 경과되는 시간
+    private float elapsedMinute; // 경과되는 시간
     private int rewordGold;
     private int rewordGem;
 
@@ -48,7 +48,11 @@ public class UI_OFFLinePopup : UI_Popup
 
     private void Start()
     {
-        string formattedTime = string.Format("{0:F1}시간", elapsedHours);
+        int totalMinutes = Mathf.FloorToInt(elapsedMinute);
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
+
+        string formattedTime = string.Format("{0}시간 {1}분", hours, minutes);
         TimerText.text = formattedTime;
         RewordGoldText.text = rewordGold.ToString();
         RewordZamText.text = rewordGem.ToString();
@@ -61,8 +65,8 @@ public class UI_OFFLinePopup : UI_Popup
 
         rewordStartTime = DateTime.Parse(Managers.Player.RewordStartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
 
-        TimeSpan passed = Managers.Game.ServerUtcNow - rewordStartTime; // 오프라인 경과 시간
-        elapsedHours = (float)(passed).TotalHours;
+        TimeSpan passed = Managers.Game.LastSyncedServerTime - rewordStartTime; // 오프라인 경과 시간
+        elapsedMinute = (float)(passed).TotalMinutes;
 
         GetReword();
     }
@@ -95,9 +99,15 @@ public class UI_OFFLinePopup : UI_Popup
 
     private void GetReword()
     {
-        float cappedElapsedHours = Mathf.Min(elapsedHours, 24f); // 최대 24시간 제한
+        float cappedElapsedHours = Mathf.Min(elapsedMinute, 2880f); // 최대 48시간 제한
 
-        rewordGold =(Managers.Player.CurrentStage + 1) * baseGoldPerStage * (int)cappedElapsedHours;
+        if (cappedElapsedHours < 1.0f)
+        {
+            this.gameObject.SetActive(false);
+            return;
+        }
+        
+        rewordGold =(Managers.Player.CurrentStage + 1) * baseGoldPerMinute * (int)cappedElapsedHours;
         rewordGem = Mathf.FloorToInt(cappedElapsedHours * 60 * baseGemChance);
     }
 

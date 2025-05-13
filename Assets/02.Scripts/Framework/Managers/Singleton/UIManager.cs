@@ -76,7 +76,6 @@ public class UIManager
             _popupStack.Push(popup);
 
             go.transform.SetParent(Root.transform);
-
         });
     }
 
@@ -147,9 +146,9 @@ public class UIManager
     }
 
 
-    public UI_Alarm GetAlarmPopup()
+    public T GetPopup<T>() where T : UI_Popup
     {
-        UI_Alarm popUp = _popupStack.Peek() as UI_Alarm;
+        T popUp = _popupStack.Peek() as T;
         return popUp;
     }
 

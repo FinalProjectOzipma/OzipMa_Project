@@ -22,4 +22,27 @@ public class UserObject
     }
 
     public T GetUpCasting<T>() where T : StatusBase => Status as T;
+
+    /// <summary>
+    /// 합성기능
+    /// </summary>
+    public void UpGrade()
+    {
+        while (true)
+        {
+            //스택이 맥스스택보다 낮다? 그레이드가 최대 그래이드다???
+            if (Status.Stack.Value < Status.MaxStack.Value 
+                || Status.Grade.Value == MaxGrade.Value)
+                break;
+
+            //스택 = 스택 - 맥스스택
+            Status.Stack.Value -= Status.MaxStack.Value;
+
+            //그레이드 올리기
+            Status.Grade.AddValue(1);
+            
+            //맥스스텍값 5올리기
+            Status.MaxStack.AddValue(5);
+        }
+    }
 }

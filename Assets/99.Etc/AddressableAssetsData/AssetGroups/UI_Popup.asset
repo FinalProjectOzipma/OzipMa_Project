@@ -106,6 +106,60 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdaa3df82cd9eee4a8c27d44aca2c0ff
+    m_Address: InfoUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03aaf063775cf47429f8c3463f2f0079
+    m_Address: DefaultSlot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf64a6cd03b154443bc15cc0753a15b6
+    m_Address: Epic_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1afa8c0e2061e454dbb0cedfc808b1fd
+    m_Address: GachaResultUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3b00a64ff4f7f84b9c06ab550e2eaaf
+    m_Address: GachaUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60d5eab68daee584996471c8a8ea9ad6
+    m_Address: Legendary_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29630d3f62704d54e8ca1841d0d9d301
+    m_Address: Myth_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6e92e6aca9cb8c4d9f92481e3020f2c
+    m_Address: Normal_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72f74e40b3ea2274e8a834b9e61d989b
+    m_Address: Rare_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:

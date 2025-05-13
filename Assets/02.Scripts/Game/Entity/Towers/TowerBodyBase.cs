@@ -34,15 +34,6 @@ public class TowerBodyBase : MonoBehaviour
         AnimData = new();
     }
 
-    public void ShowRangeIndicator()
-    {
-        AttackRangeObj.SetActive(true);
-    }
-    public void HideRangeIndicator()
-    {
-        AttackRangeObj.SetActive(false);
-    }
-
     /// <summary>
     /// TowerBody의 MainSprite 게임오브젝트 반환
     /// </summary>

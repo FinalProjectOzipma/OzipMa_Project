@@ -25,6 +25,7 @@ public class DataManager
         LoadData<DefaultTable.Enemy>();
         LoadData<DefaultTable.Tower>();
         LoadData<DefaultTable.AbilityDefaultValue>();
+        LoadData<DefaultTable.Gacha>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
@@ -144,7 +145,6 @@ public class DataManager
             Managers.Player.LoadPlayerData(loadedData);
             Managers.Wave.GmaeStart();
             Managers.Game.ServerTImeInit();
-            Managers.Resource.Instantiate("OffLinePopup");
 
         }, onFailed);
     }

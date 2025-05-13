@@ -15,7 +15,7 @@ MonoBehaviour:
   m_DefaultGroup: ef86a0084b44c3640a271d4adad06e51
   m_currentHash:
     serializedVersion: 2
-    Hash: 7c14ebc8b1af7363b1ae743d45caaa1f
+    Hash: d06149c64cb4b7762619164e4647d10f
   m_OptimizeCatalogSize: 0
   m_BuildRemoteCatalog: 0
   m_BundleLocalCatalog: 0
@@ -104,6 +104,8 @@ MonoBehaviour:
     - Popup
     - GameScene
     - Audio
+    - MyUnit
+    - Tower
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 2105134837dec9f44b7338b37fcbf576, type: 2}
