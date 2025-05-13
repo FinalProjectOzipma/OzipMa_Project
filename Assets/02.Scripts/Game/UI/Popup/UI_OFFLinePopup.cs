@@ -65,7 +65,7 @@ public class UI_OFFLinePopup : UI_Popup
 
         rewordStartTime = DateTime.Parse(Managers.Player.RewordStartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
 
-        TimeSpan passed = Managers.Game.ServerUtcNow - rewordStartTime; // 오프라인 경과 시간
+        TimeSpan passed = Managers.Game.LastSyncedServerTime - rewordStartTime; // 오프라인 경과 시간
         elapsedMinute = (float)(passed).TotalMinutes;
 
         GetReword();

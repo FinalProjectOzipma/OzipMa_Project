@@ -12,10 +12,13 @@ public class GameManager
 
     public double ServerTimeOffset = 0; // 서버 시간 - DateTime.UtcNow (초)
 
+    public DateTime LastSyncedServerTime { get; private set; }
+
     public void Initialize()
     {
 
     }
+
 
     public async Task Init()
     {
@@ -24,6 +27,8 @@ public class GameManager
 
         // 서버 시간 - 현재 로컬 UTC 시간 = 오차
         ServerTimeOffset = (serverTime - DateTime.UtcNow).TotalSeconds;
+        
+        LastSyncedServerTime = serverTime;
     }
 
     public DateTime ServerUtcNow => DateTime.UtcNow.AddSeconds(ServerTimeOffset);
@@ -46,6 +51,7 @@ public class GameManager
     public async void ServerTImeInit()
     {
         await Init();
+        Managers.Resource.Instantiate("OffLinePopup");
     }
 
 }

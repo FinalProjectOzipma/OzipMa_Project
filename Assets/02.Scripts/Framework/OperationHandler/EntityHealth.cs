@@ -1,8 +1,10 @@
+using Newtonsoft.Json;
 using System;
 using UnityEngine;
 
 public class EntityHealth : FloatBase
 {
+    [JsonIgnore]
     public Action<float, float> OnChangeHealth;
     private EntityController controller;
     public float MaxValue { get; set; }
