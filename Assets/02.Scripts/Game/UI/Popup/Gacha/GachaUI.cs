@@ -85,10 +85,12 @@ public class GachaUI : UI_Popup
         if (Managers.Player.Gem < num * 300)
         {
             Managers.Player.AddGem(-num * 300);
-            Managers.Resource.Instantiate("AlarmPopup", go =>
-            {
-                go.GetComponent<UI_Alarm>().WriteText("젬이 부족합니다");
-            });
+
+            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
+            //Managers.Resource.Instantiate("AlarmPopup", go =>
+            //{
+            //    go.GetComponent<UI_Alarm>().WriteText("젬이 부족합니다");
+            //});
             return;
         }
 

@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3015682482129933889, guid: 6d32586343263fb469af22872b66ceea, type: 3}
+      propertyPath: m_SortingOrder
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3936239299441172115, guid: 6d32586343263fb469af22872b66ceea, type: 3}
       propertyPath: m_text
       value: "\uCD5C\uACE0 \uB808\uBCA8\uC5D0 \uB3C4\uB2EC\uD55C \uC720\uB2DB\uC740

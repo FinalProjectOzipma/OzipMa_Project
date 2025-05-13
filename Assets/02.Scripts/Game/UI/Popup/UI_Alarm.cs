@@ -43,12 +43,12 @@ public class UI_Alarm : UI_Popup
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
         
-        HidePpoup();
+        HidePopup();
    
 
     }
 
-    private void HidePpoup()
+    private void HidePopup()
     {
         AnimePopup(BG, true);
 
