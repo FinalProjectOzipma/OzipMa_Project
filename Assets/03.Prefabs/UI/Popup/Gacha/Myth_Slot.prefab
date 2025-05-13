@@ -90,12 +90,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1327147409969636366, guid: 03aaf063775cf47429f8c3463f2f0079, type: 3}
       propertyPath: m_Name
-      value: Myth_Slot Variant
+      value: Myth_Slot
       objectReference: {fileID: 0}
     - target: {fileID: 2806467543540286444, guid: 03aaf063775cf47429f8c3463f2f0079, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: fd544271bef754a36aa1ad7a34240c7e, type: 3}
+    - target: {fileID: 4949146312127990018, guid: 03aaf063775cf47429f8c3463f2f0079, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5827356115970077252, guid: 03aaf063775cf47429f8c3463f2f0079, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -32,6 +32,7 @@ public class Tower : UserObject, IGettable
         Name = towerData.Name;
         AtkType = towerData.AttackType;
         TowerType = towerData.AbilityType;
+        RankType = towerData.Rank;
 
         if (Abilities == null)
         {

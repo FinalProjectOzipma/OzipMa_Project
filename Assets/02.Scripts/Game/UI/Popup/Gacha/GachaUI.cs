@@ -42,6 +42,28 @@ public class GachaUI : UI_Popup
 
     private void TowerOnClick(int num)
     {
+        if (Managers.Player.Gem < num * 300)
+        {
+            Managers.Player.AddGem(- num * 300);
+            Managers.Resource.Instantiate("AlarmPopup", go =>
+            {
+                go.GetComponent<UI_Alarm>().WriteText("젬이 부족합니다");
+            });
+            return;
+        }
+
+
+        if (num == 10)
+        {
+            num -= 1;
+            gacha.GetSelectTower(RankType.Epic);
+        }
+        else if (num == 100)
+        {
+            Util.Log("우왕 레전더리 하지만 없는걸...");
+            //num -= 1;
+            //gacha.GetSelectTower(RankType.Legend);
+        }
         result = new();
 
         for (int i = 0; i < num; i++)
@@ -50,7 +72,6 @@ public class GachaUI : UI_Popup
             result.Add(res);
             Managers.Player.Inventory.Add<Tower>(res);
         }
-        //TODO: 인벤토리에 넣어주는 작업 필요
 
         Managers.Resource.Instantiate("GachaResultUI", (go)=>
         {
@@ -60,6 +81,31 @@ public class GachaUI : UI_Popup
 
     private void UnitOnClick(int num)
     {
+        //TODO: 크리스탈 비용소모 추가 필요!!!
+        if (Managers.Player.Gem < num * 300)
+        {
+            Managers.Player.AddGem(-num * 300);
+
+            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
+            //Managers.Resource.Instantiate("AlarmPopup", go =>
+            //{
+            //    go.GetComponent<UI_Alarm>().WriteText("젬이 부족합니다");
+            //});
+            return;
+        }
+
+        if (num == 10)
+        {
+            Util.Log("우왕 에픽 하지만 없는걸...");
+            //num -= 1;
+            //gacha.GetSelectUnit(RankType.Epic);
+        }
+        else if (num == 100)
+        {
+            Util.Log("우왕 레전더리 하지만 없는걸...");
+            //num -= 1;
+            //gacha.GetSelectUnit(RankType.Legend);
+        }
         result = new();
 
         for (int i = 0; i < num; i++)
@@ -68,15 +114,13 @@ public class GachaUI : UI_Popup
             result.Add(res);
             Managers.Player.Inventory.Add<MyUnit>(res);
         }
-
-
         Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
         });
     }
-
+    
     private void BackOnClick()
     {
         ClosePopupUI();

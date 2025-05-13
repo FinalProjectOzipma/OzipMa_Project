@@ -1,6 +1,5 @@
-using System.Collections;
+using DG.Tweening;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,20 +38,18 @@ public class UI_GachaResult : UI_Popup
     {
         foreach (UserObject data in result)
         {
-            if (FindUO(data, out int index))
+            Managers.Resource.Instantiate($"{data.RankType}_Slot", go =>
             {
-                slots[index].AddCount();
-            }
-            else
-            {
-                Managers.Resource.Instantiate($"{data.RankType}_Slot", go =>
+                var component = go.GetComponent<UI_GachaSlot>();
+                slots.Add(component);
+                go.transform.SetParent(ResultSlots);
+                component.Setup(data);
+                go.transform.localScale = Vector3.one * 10f;
+                go.transform.DOScale(1f, 0.15f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
-                    var component = go.GetComponent<UI_GachaSlot>();
-                    slots.Add(component);
-                    go.transform.SetParent(ResultSlots);
-                    component.Setup(data);
+                    component.FadeOut();
                 });
-            }
+            });
         }
         Bg.enabled = true;
     }
