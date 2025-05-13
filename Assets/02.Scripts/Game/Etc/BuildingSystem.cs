@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,11 +11,18 @@ public class BuildingSystem : MonoBehaviour
     public DragController DragController { get; private set; }
     public Dictionary<Vector3Int, int> GridObjectMap { get; private set; } = new();
 
+    public int CurrentTowerCount { get => GridObjectMap.Count; }
+    public int MaxTowerCount = 2;
+
+    public event Action<int, int> OnTowerCountChanged;
+
     [SerializeField] private LayerMask CanDragLayerMask;
     [SerializeField] private LayerMask TowerBuildLayerMask;
     private Tilemap map;
     private Camera cam;
     private MapHandler mapHandler;
+
+    private TowerEditUI towerLimitUI;
 
     private void Awake()
     {
@@ -31,10 +39,19 @@ public class BuildingSystem : MonoBehaviour
 
     public void Init()
     {
+        cam = Camera.main;
         map = Util.FindComponent<Tilemap>(Managers.Scene.CurrentScene.CurrentMap, "TowerBuildArea");
         mapHandler = map?.transform.root.GetComponent<MapHandler>();
-        cam = Camera.main;
         DragController = GetComponent<DragController>();
+
+        // 타워 개수 제한 UI 생성
+        if(towerLimitUI == null)
+        {
+            Managers.Resource.Instantiate("TowerEditUI", obj =>
+            {
+                towerLimitUI = obj.GetComponent<TowerEditUI>();
+            });
+        }
     }
 
     #region BuildingSystem 에서 직접해주는 행위들
@@ -122,11 +139,11 @@ public class BuildingSystem : MonoBehaviour
     }
 
     /// <summary>
-    /// 타워 배치 가능 여부 확인
+    /// 타워 배치 가능 위치인지 확인
     /// </summary>
     /// <param name="mousePoint">터치 포인트</param>
     /// <returns>배치 가능 여부</returns>
-    public bool CanTowerBuild(Vector3 mousePoint)
+    public bool CanTowerBuildArea(Vector3 mousePoint)
     {
         bool canBuild = false;
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePoint);
@@ -146,6 +163,16 @@ public class BuildingSystem : MonoBehaviour
             canBuild = true;
         }
         return canBuild;
+    }
+
+    public bool IsTowerCountFull()
+    {
+        if(CurrentTowerCount + 1> MaxTowerCount)
+        {
+            OnTowerCountChanged?.Invoke(GridObjectMap.Count + 1, MaxTowerCount);
+            return true;
+        }
+        return false;
     }
 
     /// <summary>
@@ -168,27 +195,34 @@ public class BuildingSystem : MonoBehaviour
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
         AddPlacedMapCell(map.WorldToCell(worldPos), id);
     }
-    public void AddPlacedMapCell(Vector3Int cellPoint, int id)
+    public void AddPlacedMapCell(Vector3Int cellPoint, int id) // Add는 이 함수를 꼭 지나감.
     {
         GridObjectMap.Add(cellPoint, id);
 
         RefreshBuildHighlight();
+
+        OnTowerCountChanged?.Invoke(GridObjectMap.Count, MaxTowerCount);
     }
 
     public int RemovePlacedMapScreenPos(Vector3 mousePos)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        Vector3Int gridPoint = map.WorldToCell(worldPos);
-        int id = GridObjectMap[gridPoint];
-        GridObjectMap.Remove(gridPoint);
-        return id;
+        return RemovePlacedMapWorldPos(worldPos);
     }
-    public int RemovePlacedMapWorldPos(Vector3 worldPos)
+    public int RemovePlacedMapWorldPos(Vector3 worldPos) // Remove는 이함수를 꼭 지나감.
     {
         Vector3Int gridPoint = map.WorldToCell(worldPos);
         int id = GridObjectMap[gridPoint];
         GridObjectMap.Remove(gridPoint);
+
+        OnTowerCountChanged?.Invoke(GridObjectMap.Count, MaxTowerCount);
+
         return id;
     }
     #endregion
+
+    public void UpdateTowerCountUI()
+    {
+        OnTowerCountChanged?.Invoke(GridObjectMap.Count, MaxTowerCount);
+    }
 }

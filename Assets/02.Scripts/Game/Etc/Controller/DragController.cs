@@ -135,7 +135,7 @@ public class DragController : MonoBehaviour
         towerMenu.transform.position = dragObject.transform.position = buildingSystem.UpdatePosition(Input.mousePosition);
 
         // 배치 가능/불가능 색상 표시
-        if (buildingSystem.CanTowerBuild(Input.mousePosition))
+        if (buildingSystem.CanTowerBuildArea(Input.mousePosition))
         {
             spriteRenderer.color = Color.green;
             return;
@@ -157,7 +157,7 @@ public class DragController : MonoBehaviour
 
         // 드래그 종료 위치에 배치 완료 
         Vector2 inputPos = Input.mousePosition;
-        if (isEditMode && buildingSystem.CanTowerBuild(inputPos))
+        if (isEditMode && buildingSystem.CanTowerBuildArea(inputPos))
         {
             dragObject.transform.position = buildingSystem.UpdatePosition(inputPos);
             int key = buildingSystem.RemovePlacedMapScreenPos(eventPosition);
@@ -182,11 +182,11 @@ public class DragController : MonoBehaviour
 
         if (isOn)
         {
-            buildingSystem.ShowBuildHighlight(); // 빌드 가능 구역 반짝이 켜기
+            buildingSystem.ShowBuildHighlight(); // 배치 가능 구역 반짝이 켜기
         }
         else if (!isOn)
         {
-            buildingSystem.HideBuildHighlight(); // 빌드 가능 구역 반짝이 끄기
+            buildingSystem.HideBuildHighlight(); // 배치 가능 구역 반짝이 끄기
             curTowerController?.HideRangeIndicator(); // 편집모드를 끌 때 사거리 표시 끄기
         }
     }

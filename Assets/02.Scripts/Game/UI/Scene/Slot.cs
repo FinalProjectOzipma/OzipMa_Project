@@ -143,7 +143,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
         cellWorldPos.y -= 0.3f;
         PreviewObj.transform.position = cellWorldPos;
-        if(buildingSystem.CanTowerBuild(inputPos) == false)
+        if(buildingSystem.CanTowerBuildArea(inputPos) == false)
         {
             previewRenderer.color = Color.red;
             return;
@@ -162,9 +162,10 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
 
-        if (buildingSystem.CanTowerBuild(inputPos) == false)
+        if (buildingSystem.CanTowerBuildArea(inputPos) == false || buildingSystem.IsTowerCountFull() == true)
         {
             // 배치 불가능하면 드래그 취소됨
+            buildingSystem.DragController.IsSlotDragging = false;
             return;
         }
 
