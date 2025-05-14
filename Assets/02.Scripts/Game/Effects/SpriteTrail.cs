@@ -118,7 +118,7 @@ public class SpriteTrail : MonoBehaviour, IUsableUniTask
                 time -= Time.deltaTime;
             }
 
-            if (DisableCancellation == null || DisableCancellation.IsCancellationRequested || !gameObject.activeInHierarchy)
+            if (this == null || DisableCancellation == null || DisableCancellation.IsCancellationRequested || !gameObject.activeInHierarchy)
             {
                 TokenDisable();
                 break;

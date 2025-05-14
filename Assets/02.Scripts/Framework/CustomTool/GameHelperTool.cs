@@ -27,14 +27,14 @@ public class GameHelperTool : EditorWindow
         {
             if (Managers.Instance == null) return;
 
-            EntityAllKill(Managers.Wave.CurMyUnitList);
+            EntityAllKill<MyUnitController>(Managers.Wave.CurMyUnitList);
         }
 
         if (GUILayout.Button("ENEMY ALL KILL", GUILayout.Width(256)))
         {
             if (Managers.Instance == null) return;
 
-            EntityAllKill(Managers.Wave.CurEnemyList);
+            EntityAllKill<EnemyController>(Managers.Wave.CurEnemyList);
         }
 
       
@@ -46,7 +46,7 @@ public class GameHelperTool : EditorWindow
                 Util.Log("현재 게임 상태가 Playing중일때만 가능합니다.");
                 return;
             }
-            EntityAllKill(Managers.Wave.CurMyUnitList);
+            EntityAllKill<MyUnitController>(Managers.Wave.CurMyUnitList);
             EditorApplication.isPaused = true;
             Managers.Wave.MainCore.ApplyDamage(100000000f);
 
@@ -63,9 +63,9 @@ public class GameHelperTool : EditorWindow
     }
 #endif
 
-    private void EntityAllKill(List<GameObject> list)
+    private void EntityAllKill<T>(List<T> list) where T : EntityController
     {
-        List<GameObject> entities = list;
+        List<T> entities = list;
         for (int i = 0; i < entities.Count; i++)
         {
             entities[i].GetComponent<IDamagable>().ApplyDamage(1000000f);

@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class EntityBodyBase : MonoBehaviour
 {
+    public SpriteRenderer Spr;
+
     public HealthView healthView;
 
     protected EntityController ctrl;
@@ -16,8 +18,17 @@ public class EntityBodyBase : MonoBehaviour
 
     public List<ConditionHandler> conditions;
 
+    private void OnValidate()
+    {
+        if (Application.isPlaying) return;
+        if (TryGetComponent<SpriteRenderer>(out var spr))
+            Spr = spr;
+    }
+
     public virtual void Init()
     {
+        Spr.color = Color.white;
+
         ctrl.Times.Clear();
         ctrl.ConditionHandlers.Clear();
         // 컨디션 초기화
@@ -81,7 +92,7 @@ public class EntityBodyBase : MonoBehaviour
                     }
                 }
 
-                if (disableCancellation == null || disableCancellation.IsCancellationRequested || !ctrl.gameObject.activeInHierarchy)
+                if (this == null || disableCancellation == null || disableCancellation.IsCancellationRequested || !ctrl.gameObject.activeInHierarchy)
                 {
                     Disable();
                     break;

@@ -116,8 +116,8 @@ public class CoreController : Poolable, IDamagable
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
         {
-            Managers.Wave.CurMyUnitList.Add(go);
             MyUnitController ctrl = go.GetComponent<MyUnitController>();
+            Managers.Wave.CurMyUnitList.Add(ctrl);
             ctrl.Target = GameObject.Find("Test");
             ctrl.TakeRoot(myUnit.PrimaryKey, $"{name}", transform.position);
         });

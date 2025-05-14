@@ -28,7 +28,7 @@ public class ZombieDeadState : ZombieStateBase
             if (controller.gameObject.activeSelf)
             {
                 controller.Body.GetComponent<EntityBodyBase>().Disable();
-                Managers.Wave.CurMyUnitList.Remove(controller.gameObject);
+                Managers.Wave.CurMyUnitList.Remove(controller);
                 Managers.Resource.Destroy(controller.gameObject);
             }
         }
