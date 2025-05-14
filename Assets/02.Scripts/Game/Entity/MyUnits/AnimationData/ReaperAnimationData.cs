@@ -16,6 +16,7 @@ public class ReaperAnimationData : EntityAnimationData
         ChaseState = new ReaperChaseState(StateMachine, IdleHash, controller as MyUnitController, this);
         AttackState = new ReaperAttackState(StateMachine, IdleHash, controller as MyUnitController, this);
         DeadState = new ReaperDeadState(StateMachine, IdleHash, controller as MyUnitController, this);
+        
         StateMachine.Init(IdleState);
     }
 }

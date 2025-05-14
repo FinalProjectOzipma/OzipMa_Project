@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReaperAttackState : MyUnitStateBase
+public class ReaperAttackState : ReaperStatebase
 {
     public ReaperAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
@@ -11,6 +11,7 @@ public class ReaperAttackState : MyUnitStateBase
     public override void Enter()
     {
         base.Enter();
+        controller.Agent.isStopped = true;
     }
 
     public override void Exit()
@@ -21,5 +22,15 @@ public class ReaperAttackState : MyUnitStateBase
     public override void Update()
     {
         base.Update();
+
+        OutRange(data.ChaseState);
+
+        if (projectileCalled) // 범위 스킬 소환하는거
+        {
+            projectileCalled = false;
+        }
+
+        if (triggerCalled) // 공격 모션이 끝나는 구간
+            StateMachine.ChangeState(data.IdleState);
     }
 }

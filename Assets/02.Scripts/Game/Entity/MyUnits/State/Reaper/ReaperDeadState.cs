@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReaperDeadState : MyUnitStateBase
+public class ReaperDeadState : ReaperStatebase
 {
     public ReaperDeadState(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
