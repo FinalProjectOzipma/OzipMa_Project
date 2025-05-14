@@ -48,28 +48,7 @@ public class KnightAttackState : KnightStateBase
             isAttacked = true;
 
             // TODO::
-            Attack();
-        }
-    }
-
-    private void Attack()
-    {
-        int layer = (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
-
-        float angle = Util.GetAngle(body.transform.position, targets.Peek().transform.position);
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(body.transform.position, body.Slash.bounds.size, angle,layer);
-
-        body.Slash.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        //Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, attackValue, layer);
-
-        foreach (var hit in colliders)
-        {
-            IDamagable damable = hit.GetComponentInParent<IDamagable>();
-            if (damable != null)
-            {
-                damable.ApplyDamage(status.Attack.GetValue(), AbilityType.None, hit.gameObject);
-                // 여기는 넉백
-            }
+            body.Attack(targets.Peek());
         }
     }
 }
