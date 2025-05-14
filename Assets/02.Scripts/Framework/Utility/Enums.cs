@@ -13,6 +13,7 @@ public class Enums
         Tower,
         AbilityDefaultValue,
         Gacha,
+        InchentMultiplier,
         Count
     }
 
