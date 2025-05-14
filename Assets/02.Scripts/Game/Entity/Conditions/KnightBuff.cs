@@ -30,6 +30,9 @@ public class KnightBuff : IConditionable
     // 버프 할당
     async UniTaskVoid StartBuff()
     {
+        var stage = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
+        int index = Mathf.Min(Managers.Player.CurrentStage, stage.Count - 1);
+
         // 버프 시간안에 반복
         int layerMask = (int)Enums.Layer.Core | (int)Enums.Layer.MyUnit;
         var cir = condiHandler.GameObj.GetComponent<CircleCollider2D>();
@@ -48,12 +51,9 @@ public class KnightBuff : IConditionable
             {
                 foreach (var col in cols)
                 {
-                    if (col == null)
-                        continue;
-
                     if (col.TryGetComponent<IDamagable>(out var dmg))
                     {
-                        dmg.ApplyDamage(40f);
+                        dmg.ApplyDamage(10f * stage[index].ModifierRatio);
                     }
                 }
 
