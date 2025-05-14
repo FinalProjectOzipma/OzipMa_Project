@@ -82,7 +82,7 @@ public abstract class EntityController : Poolable
     //Root부분 생성해주는 파트
     public abstract void TakeRoot(int primaryKey, string name, Vector2 position);
 
-    protected void ApplyCondition(AbilityType condition, float damage, GameObject atker = null, AbilityDefaultValue values = null)
+    public void ApplyCondition(AbilityType condition, float damage, GameObject atker = null, AbilityDefaultValue values = null)
     {
         int iCondition = (int)condition;
         if (Times.ContainsKey(iCondition))

@@ -19,25 +19,7 @@ public class SceneManager
         CurrentScene?.Exit();
         CurrentScene = nextScene;
 
-        //UI_Loading.LoadScene(typeof(T).Name);
-        //UnityEngine.SceneManagement.SceneManager.LoadScene(typeof(T).Name);
-
-        Managers.Resource.Instantiate("LoadScene", go =>
-        {
-
-
-            go.SetActive(true);
-            
-            Managers.Resource.LoadResourceLocationAsync(nextScene.LabelAsync, () =>
-            {
-                nextScene.Enter();
-
-                DOVirtual.DelayedCall(0.0f, () =>
-                {
-                    Managers.Resource.Destroy(go);
-                });
-            });
-        });
+        nextScene.Enter();
     }
 
 }

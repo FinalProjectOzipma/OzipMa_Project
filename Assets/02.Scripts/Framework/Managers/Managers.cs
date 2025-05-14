@@ -25,6 +25,7 @@ public class Managers : MonoBehaviour
     public static readonly PlayerManager Player = new();
     public static readonly UpgradeManager Upgrade = new();
     public static readonly EffectManager Effect = new();
+    public static readonly AuthManager Auth = new();
 
     private void Awake()
     {
@@ -116,6 +117,4 @@ public class Managers : MonoBehaviour
             Debug.LogWarning($"게임 종료 저장 실패: {ex.Message}");
         }
     }
-
-
 }

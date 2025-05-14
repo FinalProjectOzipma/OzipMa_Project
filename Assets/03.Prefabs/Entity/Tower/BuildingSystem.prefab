@@ -51,6 +51,7 @@ MonoBehaviour:
   TowerBuildLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  BuildSlotCount: 10
 --- !u!114 &8887083631839071206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,3 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1185d077c8c51744489c8e2ffe52d9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeleteButton: {fileID: 0}
+  IsSlotDragging: 0
+  HoldTimeThreshold: 0.3

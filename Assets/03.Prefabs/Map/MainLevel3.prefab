@@ -3449,6 +3449,17 @@ MonoBehaviour:
   MainProps: {fileID: 3621678801006468816}
   BossProps: {fileID: 7649180189211132953}
   BossGate: {fileID: 1686782118013164546}
+  BuildHighlightList:
+  - {x: 2, y: -1, z: 0}
+  - {x: 2, y: -2, z: 0}
+  - {x: 2, y: -5, z: 0}
+  - {x: 3, y: 3, z: 0}
+  - {x: 0, y: 3, z: 0}
+  - {x: -1, y: 3, z: 0}
+  - {x: -4, y: 3, z: 0}
+  - {x: -3, y: -1, z: 0}
+  - {x: -3, y: -2, z: 0}
+  - {x: -3, y: -5, z: 0}
 --- !u!1 &3327065305441270091
 GameObject:
   m_ObjectHideFlags: 0

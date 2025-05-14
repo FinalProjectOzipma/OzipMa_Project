@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -10,7 +11,6 @@ public class EntityBodyBase : MonoBehaviour
 
     protected EntityController ctrl;
 
-    private bool timeStart;
     private CancellationTokenSource disableCancellation; // 비활성화시 취소처리
     private CancellationTokenSource destroyCancellation; // 삭제시 취소처리
 
@@ -20,6 +20,8 @@ public class EntityBodyBase : MonoBehaviour
     {
         ctrl.Times.Clear();
         ctrl.ConditionHandlers.Clear();
+        // 컨디션 초기화
+
         foreach (var condi in conditions)
         {
             ctrl.Times.Add((int)condi.Key, 0f);
@@ -29,7 +31,6 @@ public class EntityBodyBase : MonoBehaviour
                 condi.GameObj.SetActive(false);
         }
 
-        timeStart = true;
         StartTime().Forget();
     }
 
@@ -59,26 +60,48 @@ public class EntityBodyBase : MonoBehaviour
         Dictionary<int, IConditionable> conditions = ctrl.Conditions;
         Dictionary<int, ConditionHandler> conditionHandlers = ctrl.ConditionHandlers;
         Dictionary<int, float> times = GetComponentInParent<EntityController>().Times;
-        while (timeStart)
+
+        try
         {
-            foreach (var condi in conditionHandlers)
+            while (true)
             {
-                if (times[(int)condi.Key] > 0f && condi.Value.IsExit)
+                foreach (var condi in conditionHandlers)
                 {
-                    times[(int)condi.Key] -= Time.deltaTime;
+                    if (times[(int)condi.Key] <= 0f && condi.Value.IsExit)
+                    {
+                        times[(int)condi.Key] = 0f;
+
+                        condi.Value.IsExit = false;
+                        condi.Value.Attacker = null;
+                    }
+
+                    if (times[(int)condi.Key] > 0f && condi.Value.IsExit)
+                    {
+                        times[(int)condi.Key] -= Time.deltaTime;
+                    }
                 }
-                else if (times[(int)condi.Key] <= 0f && condi.Value.IsExit)
+
+                if (disableCancellation == null || disableCancellation.IsCancellationRequested || !ctrl.gameObject.activeInHierarchy)
                 {
-                    times[(int)condi.Key] = 0f;
-
-                    condi.Value.IsExit = false;
-                    condi.Value.Attacker = null;
-
-                    conditions[(int)condi.Key]?.Init();
+                    Disable();
+                    break;
                 }
+
+                await UniTask.NextFrame(disableCancellation.Token);
             }
-
-            await UniTask.NextFrame(disableCancellation.Token);
         }
+        catch (OperationCanceledException)
+        {
+            Util.Log("StartTime 정상 취소됨");
+        }
+        catch (ObjectDisposedException)
+        {
+            Util.LogWarning("StartTime 토큰 Dispose됨");
+        }
+        catch (System.Exception ex)
+        {
+            Util.LogWarning($"StartTime 예외 발생: {ex}");
+        }
+
     }
 }

@@ -17,11 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: ef86a0084b44c3640a271d4adad06e51
   m_SerializeEntries:
-  - m_GUID: 6cec58193c71c754888e4a40e976bc59
-    m_Address: Assets/03.Prefabs/Entity/Tower/Base/FloorTower.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f3744012c691db14f8c83bcbf860876e
     m_Address: InventoryUI
     m_ReadOnly: 0

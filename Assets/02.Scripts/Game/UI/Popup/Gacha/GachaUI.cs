@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -45,26 +46,25 @@ public class GachaUI : UI_Popup
         if (Managers.Player.Gem < num * 300)
         {
             Managers.Player.AddGem(- num * 300);
-            Managers.Resource.Instantiate("AlarmPopup", go =>
-            {
-                go.GetComponent<UI_Alarm>().WriteText("젬이 부족합니다");
-            });
+            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
             return;
         }
-
+        result = new();
 
         if (num == 10)
         {
             num -= 1;
-            gacha.GetSelectTower(RankType.Epic);
+            var res = gacha.GetSelectTower(RankType.Epic);
+            result.Add(res);
+            Managers.Player.Inventory.Add<Tower>(res);
         }
         else if (num == 100)
         {
             Util.Log("우왕 레전더리 하지만 없는걸...");
             //num -= 1;
             //gacha.GetSelectTower(RankType.Legend);
+            //Managers.Player.Inventory.Add<Tower>(res);
         }
-        result = new();
 
         for (int i = 0; i < num; i++)
         {
@@ -81,32 +81,32 @@ public class GachaUI : UI_Popup
 
     private void UnitOnClick(int num)
     {
-        //TODO: 크리스탈 비용소모 추가 필요!!!
         if (Managers.Player.Gem < num * 300)
         {
             Managers.Player.AddGem(-num * 300);
 
             Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
-            //Managers.Resource.Instantiate("AlarmPopup", go =>
-            //{
-            //    go.GetComponent<UI_Alarm>().WriteText("젬이 부족합니다");
-            //});
             return;
         }
+
+        result = new();
 
         if (num == 10)
         {
             Util.Log("우왕 에픽 하지만 없는걸...");
-            //num -= 1;
-            //gacha.GetSelectUnit(RankType.Epic);
+            num -= 1;
+            var res = gacha.GetSelectUnit(RankType.Epic);
+            result.Add(res);
+            Managers.Player.Inventory.Add<MyUnit>(res);
         }
         else if (num == 100)
         {
             Util.Log("우왕 레전더리 하지만 없는걸...");
             //num -= 1;
-            //gacha.GetSelectUnit(RankType.Legend);
+            //var res = gacha.GetSelectUnit(RankType.Legend);
+            //result.Add(res);
+            //Managers.Player.Inventory.Add<MyUnit>(res);
         }
-        result = new();
 
         for (int i = 0; i < num; i++)
         {
@@ -119,10 +119,5 @@ public class GachaUI : UI_Popup
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
         });
-    }
-    
-    private void BackOnClick()
-    {
-        ClosePopupUI();
     }
 }
