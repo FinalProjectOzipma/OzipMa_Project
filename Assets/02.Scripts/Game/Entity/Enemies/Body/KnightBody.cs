@@ -4,7 +4,10 @@ using static UnityEngine.GraphicsBuffer;
 public class KnightBody : EntityBodyBase
 {
     // AttackRange
-    public BoxCollider2D Slash;
+    public GameObject Slash;
+
+    [SerializeField] private Vector2 slashSize;
+    [SerializeField] private Vector2 slashPos;
 
     public override void Enable()
     {
@@ -13,7 +16,6 @@ public class KnightBody : EntityBodyBase
         if(ctrl == null)
         {
             this.ctrl = transform.root.TryGetComponent<EnemyController>(out var ctrl) ? ctrl : null;
-
             // 애니메이션 데이터 생성 및 초기화
             ctrl.AnimData = new KnightAnimData();
             ctrl.AnimData.Init(ctrl);
@@ -36,26 +38,42 @@ public class KnightBody : EntityBodyBase
         base.Init();
     }
 
-
+    private float angle;
+    private Vector2 pivotOffset;
     public void Attack(GameObject target)
     {
-        if(target == null) return;
-        
-        int layer = (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
+        int hitLayer = (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
+        angle = Util.GetAngle(transform.position, target.transform.position);
 
-        float angle = Util.GetAngle(transform.position, target.transform.position);
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, Slash.size, angle, layer);
         Slash.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-        //Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, attackValue, layer);
+        float length = slashSize.x / 2;
+        Vector2 dir = target.transform.position - transform.position;
 
-        foreach (var hit in colliders)
+        pivotOffset = new Vector2
+        (
+            dir.normalized.x * length,
+            dir.normalized.y * length
+        );
+
+
+        Collider2D[] cols = Physics2D.OverlapBoxAll((Vector2)transform.position + pivotOffset, slashSize, angle, hitLayer);
+
+        if (cols.Length == 0) return;
+
+        foreach (var col in cols)
         {
-            IDamagable damable = hit.GetComponentInParent<IDamagable>();
-            if (damable != null)
+            if (col.TryGetComponent<IDamagable>(out var result))
             {
-                damable.ApplyDamage(ctrl.Status.Attack.GetValue(), AbilityType.None, hit.gameObject);
-                // 여기는 넉백
+                result.ApplyDamage(ctrl.Status.Attack.GetValue());
             }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Matrix4x4 matrix = Matrix4x4.TRS((Vector2)transform.position + pivotOffset, Quaternion.Euler(0,0,angle), Vector2.one);
+        Gizmos.matrix = matrix;
+
+        Gizmos.DrawWireCube(Vector2.zero, slashSize);
     }
 }

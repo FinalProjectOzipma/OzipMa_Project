@@ -64,7 +64,7 @@ public class WaveManager
         });
     }
 
-    public void GmaeStart()
+    public void GameStart()
     {
         CurrentState = Enums.WaveState.Start;
     }

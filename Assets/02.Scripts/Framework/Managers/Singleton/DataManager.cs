@@ -12,9 +12,10 @@ using UnityEngine;
 public class DataManager
 {
     public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
+    public bool IsGameDataLoadFinished {  get; private set; }
 
     private DatabaseReference _databaseReference;
-    private string userID = "user004";
+    private string userID = "user001";
     
     public void Initialize()
     {
@@ -123,9 +124,9 @@ public class DataManager
         }
         else
         {
-            // TODO :: 파이어베이스 로드 실패 시 디폴트 데이터로 로드할 수 있는 장치가 필요함 
             onFailed?.Invoke();
             Util.Log("Firebase's Data Not Found");
+            IsGameDataLoadFinished = true;
         }
     }
 
@@ -143,12 +144,15 @@ public class DataManager
         LoadFirebase<PlayerManager>(loadedData =>
         {
             Managers.Player.LoadPlayerData(loadedData);
-            Managers.Wave.GmaeStart();
             Managers.Game.ServerTImeInit();
             Managers.Resource.Instantiate("OffLinePopup");
-
+            IsGameDataLoadFinished = true;
         }, onFailed);
     }
     #endregion
 
+    public void SetUserID(string userId)
+    {
+        userID = userId;
+    }
 }

@@ -17,27 +17,7 @@ public class GameScene : SceneBase
     {
         base.Enter();
 
-        Managers.Resource.Instantiate("MainLevel3", map => 
-        {
-            CurrentMap = map; 
-        });
-        Managers.Resource.Instantiate("InventoryUI");
-        Managers.Resource.Instantiate("MainUI");
-        Managers.Resource.Instantiate("BuildingSystem", bs => 
-        {
-            BuildingSystem.Instance?.Init();
-            Managers.Data.LoadGameData(() =>
-            {
-                // 로드 데이터 실패 시 실행되는 곳
-                // 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅해줘야 함. 
-                DefaultTowerAdd();
-                DefaultUnitAdd();
-                Managers.Wave.GmaeStart();
-            });
-        });
-        Managers.Resource.Instantiate("Ending_Panel");
-
-
+        Managers.StartCoroutine(LoadGameScene());
     }
 
     public override void Update()
@@ -48,6 +28,76 @@ public class GameScene : SceneBase
     public override void Exit()
     {
         
+    }
+
+    IEnumerator LoadGameScene()
+    {
+        // 0. 로딩 화면 보여주기 =======================================================
+        bool isGroupLoadFinished = false;        
+        GameObject loading = null;
+        Managers.Resource.Instantiate("LoadScene", go =>
+        {
+            go.SetActive(true);
+            loading = go;
+            // 그룹로드 
+            Managers.Resource.LoadResourceLocationAsync(LabelAsync, () =>
+            {
+                isGroupLoadFinished = true;
+            });
+        });
+
+        while(loading == null)
+        {
+            yield return null;
+        }
+
+        // 1. 사용자 인증 ==============================================================
+#if UNITY_EDITOR
+#else
+        yield return Managers.Auth.AnonymousLoginCoroutine();
+#endif
+
+        // 2. 그룹 로드 완료되면 넘어가기 ==============================================
+        while (!isGroupLoadFinished)
+        {
+            yield return null;
+        }
+
+        // 3. 필요한 것들 생성 =========================================================
+        InstantiateGameObjs();
+
+        // 4. 정보 로드 ================================================================
+        Managers.Data.LoadGameData(() =>
+        {
+            // 로드 실패 시 
+            // 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅
+            DefaultTowerAdd();
+            DefaultUnitAdd();
+        });
+        while(!Managers.Data.IsGameDataLoadFinished)
+        {
+            yield return null;
+        }
+
+        // 4. 로딩창 끄고 게임 시작 ====================================================
+        if(loading != null) Managers.Resource.Destroy(loading);
+        Managers.Wave.GameStart();
+    }
+
+    private void InstantiateGameObjs()
+    {
+        // 전부 로드는 미리 되어있기 때문에 바로 생성됨
+        Managers.Resource.Instantiate("MainLevel3", map =>
+        {
+            CurrentMap = map;
+        });
+        Managers.Resource.Instantiate("InventoryUI");
+        Managers.Resource.Instantiate("MainUI");
+        Managers.Resource.Instantiate("BuildingSystem", bs =>
+        {
+            BuildingSystem.Instance?.Init();
+        });
+        Managers.Resource.Instantiate("Ending_Panel");
     }
 
     private void DefaultTowerAdd()

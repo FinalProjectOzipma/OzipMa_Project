@@ -25,6 +25,7 @@ public class Managers : MonoBehaviour
     public static readonly PlayerManager Player = new();
     public static readonly UpgradeManager Upgrade = new();
     public static readonly EffectManager Effect = new();
+    public static readonly AuthManager Auth = new();
 
     private void Awake()
     {
