@@ -118,8 +118,16 @@ public class SpriteTrail : MonoBehaviour, IUsableUniTask
                 time -= Time.deltaTime;
             }
 
+            if (DisableCancellation == null || DisableCancellation.IsCancellationRequested || !gameObject.activeInHierarchy)
+            {
+                TokenDisable();
+                break;
+            }
+
             await UniTask.NextFrame(DisableCancellation.Token);
         }
+
+        TokenDisable();
     }
 
     private void SetTrail(GameObject go)
@@ -140,6 +148,6 @@ public class SpriteTrail : MonoBehaviour, IUsableUniTask
             go.transform.localScale = trans.localScale;
         }
 
-        go.GetComponent<TrailObject>().Active(spr.sprite, Alpha, facingDir);
+        go.GetComponent<TrailObject>().Active(spr.sprite, Alpha, facingDir, spr.sortingOrder);
     }
 }

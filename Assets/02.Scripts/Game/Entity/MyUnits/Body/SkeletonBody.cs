@@ -7,26 +7,30 @@ public class SkeletonBody : EntityBodyBase
     public override void Enable()
     {
         base.Enable();
-        if (ctrl != null)
+        if (ctrl == null)
         {
-            SkeletonAnimationData data = ctrl.AnimData as SkeletonAnimationData;
-            ctrl.AnimData.StateMachine.ChangeState(data.IdleState);
+            this.ctrl = transform.root.TryGetComponent<MyUnitController>(out var ctrl) ? ctrl : null;
+
+            // 애니메이션 데이터 생성 및 초기화
+            ctrl.AnimData = new SkeletonAnimationData();
+            ctrl.AnimData.Init(ctrl);
+
+            // 스탯 초기화
+            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
+
+            // 컨디션 초기화
+            ctrl.Conditions.TryAdd((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(ctrl));
         }
-    }
-    private void Start()
-    {
+
         Init();
     }
 
     public override void Init()
     {
-        if (ctrl == null)
-        {
-            ctrl = GetComponentInParent<MyUnitController>();
-            ctrl.AnimData = new SkeletonAnimationData();
-            ctrl.AnimData.Init(ctrl);
-            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
-        }
+        // 상태머신 초기화
+        SkeletonAnimationData data = ctrl.AnimData as SkeletonAnimationData;
+        ctrl.AnimData.StateMachine.ChangeState(data.IdleState);
+
         base.Init();
     }
 }
