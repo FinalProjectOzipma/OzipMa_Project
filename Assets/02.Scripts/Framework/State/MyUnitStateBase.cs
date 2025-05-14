@@ -153,7 +153,7 @@ public class MyUnitStateBase : EntityStateBase
     public void SetTarget()
     {
         //Managers.Wave에서 남은 적 리스트 가져오기
-        List<GameObject> enemys = Managers.Wave.CurEnemyList;
+        List<EnemyController> enemys = Managers.Wave.CurEnemyList;
         //적이 없으면 그냥 리턴해버리기
         if (enemys.Count == 0)
         {
@@ -161,17 +161,17 @@ public class MyUnitStateBase : EntityStateBase
             return;
         }
         float minDistance = float.MaxValue;
-        controller.Target = enemys[0];
+        controller.Target = enemys[0].gameObject;
         target = controller.Target;
         //적들과의 거리를 비교하고
-        foreach (GameObject enemy in enemys)
+        foreach (EnemyController enemy in enemys)
         {
             float distance = (controller.transform.position - enemy.transform.position).magnitude;
 
             if (distance < minDistance)
             {
                 minDistance = distance;
-                controller.Target = enemy;
+                controller.Target = enemy.gameObject;
                 target = controller.Target;
             }
         }

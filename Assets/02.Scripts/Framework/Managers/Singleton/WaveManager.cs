@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 using Table = DefaultTable;
 
 public class WaveManager
@@ -19,8 +20,8 @@ public class WaveManager
     private List<Table.Enemy> enemyList;
     private List<Table.Enemy> bossList;
 
-    public List<GameObject> CurEnemyList;
-    public List<GameObject> CurMyUnitList;
+    public List<EnemyController> CurEnemyList;
+    public List<MyUnitController> CurMyUnitList;
 
     public event Action OnStartBossMap;
     public event Action OnEndBossMap;
@@ -113,10 +114,10 @@ public class WaveManager
             if(CurrentState == Enums.WaveState.End)
             {
                 foreach (var unit in CurMyUnitList)
-                    Managers.Resource.Destroy(unit);
+                    unit.EntityDestroy();
 
                 foreach (var enemy in CurEnemyList)
-                    Managers.Resource.Destroy(enemy);
+                    enemy.EntityDestroy();
 
                 Managers.Resource.Destroy(MainCore.gameObject);
 
@@ -216,7 +217,7 @@ public class WaveManager
             ctrl.TakeRoot(spawnenemy.EnemyPrimaryKey, name, enemySpawn.transform.position);
 
             // 웨이브 몬스터 추가
-            Managers.Wave.CurEnemyList.Add(ctrl.gameObject);
+            Managers.Wave.CurEnemyList.Add(ctrl);
         });
 
         return (playerManager.CurrentWave == 9); // 보스웨이브면 true

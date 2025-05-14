@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
@@ -6,8 +7,12 @@ public class KnightBody : EntityBodyBase
     // AttackRange
     public GameObject Slash;
 
+    [Header("기본 공격")]
     [SerializeField] private Vector2 slashSize;
-    [SerializeField] private Vector2 slashPos;
+
+    [Header("태불망")]
+    [SerializeField] private float sunFireCapeRadius;
+    [SerializeField] private Vector2 sunFireCapePos;
 
     public override void Enable()
     {
@@ -69,11 +74,33 @@ public class KnightBody : EntityBodyBase
         }
     }
 
-    private void OnDrawGizmos()
+    public void OnSunFireCapeAttack(float amount)
     {
-        Matrix4x4 matrix = Matrix4x4.TRS((Vector2)transform.position + pivotOffset, Quaternion.Euler(0,0,angle), Vector2.one);
+        int hitLayer = (int)Enums.Layer.Core | (int)Enums.Layer.MyUnit;
+        Collider2D[] cols = Physics2D.OverlapCircleAll((Vector2)transform.position + sunFireCapePos, sunFireCapeRadius, hitLayer);
+
+        foreach(var col in cols)
+        {
+            if(col.TryGetComponent<EntityController>(out var victim))
+            {
+                victim.Status.AddHealth(amount, col.gameObject);
+                victim.Fx.StartBlinkRed();
+            }
+        }
+    }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        // slash
+        Matrix4x4 matrix = Matrix4x4.TRS((Vector2)transform.position + pivotOffset, Quaternion.Euler(0, 0, angle), Vector2.one);
         Gizmos.matrix = matrix;
 
         Gizmos.DrawWireCube(Vector2.zero, slashSize);
+
+        // sunFireCape
+        Gizmos.matrix = Matrix4x4.identity;
+        Gizmos.DrawWireSphere((Vector2)transform.position + sunFireCapePos, sunFireCapeRadius);
     }
+#endif
 }

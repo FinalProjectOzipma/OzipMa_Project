@@ -11,7 +11,7 @@ public class SkeletonDeadState : SkeletonStateBase
     {
         base.Enter();
         controller.Agent.isStopped = true;
-        Managers.Wave.CurMyUnitList.Remove(controller.gameObject);
+        Managers.Wave.CurMyUnitList.Remove(controller);
         controller.Target = null;
         //TODO: 아군 죽는 사운드 필요
     }
