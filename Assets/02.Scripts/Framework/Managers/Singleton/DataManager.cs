@@ -15,7 +15,7 @@ public class DataManager
     public bool IsGameDataLoadFinished {  get; private set; }
 
     private DatabaseReference _databaseReference;
-    private string userID = "user001";
+    private string userID = "user004";
     
     public void Initialize()
     {

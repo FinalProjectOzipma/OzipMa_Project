@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,10 +28,16 @@ public class ReaperAttackState : ReaperStatebase
 
         if (projectileCalled) // 범위 스킬 소환하는거
         {
+            Slash();
             projectileCalled = false;
         }
 
         if (triggerCalled) // 공격 모션이 끝나는 구간
             StateMachine.ChangeState(data.IdleState);
+    }
+
+    private void Slash()
+    {
+        
     }
 }
