@@ -23,13 +23,11 @@ public class MapHandler : MonoBehaviour
     {
         // 보스Gate 애니메이션 시퀀스 등록
         dotSeq = Util.RecyclableSequence();
+        dotSeq.Append(DOVirtual.DelayedCall(0.1f, () => { BossGate.SetActive(true); }));
         dotSeq.Append(BossGate.transform.DOLocalMoveY(gateDownOffset, 0.3f));
-        dotSeq.Append(BossGate.transform.DOScale(1.1f, 0.6f));
-        dotSeq.Append(BossGate.transform.DOScale(1f, 0.6f));
-
-        dotSeq.Append(BossGate.transform.DOScale(5f, 0.4f));
-        dotSeq.Append(BossGate.transform.DOScale(1f, 0f));
-        dotSeq.Append(BossGate.transform.DOLocalMoveY(gateDownOffset * 10, 0f));
+        dotSeq.Append(BossGate.transform.DOScale(1f, 0.2f));
+        dotSeq.Append(BossGate.transform.DOScale(2f, 3f)); // 확대
+        dotSeq.Append(DOVirtual.DelayedCall(0.1f, () => { BossGate.SetActive(false); }));
 
         // 배치 구역 Highlight 오브젝트 미리 생성해두기
         for (int i = 0; i < BuildHighlightList.Count; i++)

@@ -29,6 +29,7 @@ public class ExplosiveCondition<T> : UniTaskHandler, IConditionable where T : En
         time = values.AbilityDuration;
         coolDown = 0f;
 
+        TokenDisable();
         TokenEnable();
         OnDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown).Forget();
     }
@@ -62,8 +63,11 @@ public class ExplosiveCondition<T> : UniTaskHandler, IConditionable where T : En
                     canHit = true;
                 }
 
+                time -= Time.deltaTime;
                 await UniTask.NextFrame(disableCancellation.Token);
             }
+            ctrl.Body.GetComponent<EntityBodyBase>().Spr.color = Color.white;
+            ctrl.ConditionHandlers[(int)AbilityType.Explosive].IsExit = true;
         }
         catch(OperationCanceledException)
         {

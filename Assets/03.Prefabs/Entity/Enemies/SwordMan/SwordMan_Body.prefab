@@ -212,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ae2ba1155d73674bbd1a7f93bed994a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Spr: {fileID: 3703111718992530899}
   healthView: {fileID: 4505690364343254626}
   conditions:
   - Key: 6

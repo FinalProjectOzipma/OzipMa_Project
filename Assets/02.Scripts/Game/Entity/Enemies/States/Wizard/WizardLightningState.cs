@@ -23,7 +23,7 @@ public class WizardLightningState : WizardStateBase
         else
         {
             for(int i = 0; i < wave.CurMyUnitList.Count; i++)
-                hitObject.Push(wave.CurMyUnitList[i]);
+                hitObject.Push(wave.CurMyUnitList[i].gameObject);
         }
 
     }

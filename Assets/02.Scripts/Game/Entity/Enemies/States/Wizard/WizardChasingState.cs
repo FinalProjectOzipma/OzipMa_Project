@@ -16,7 +16,7 @@ public class WizardChasingState : WizardStateBase
         if (wave.CurMyUnitList.Count > 0)
         {
             int rand = Random.Range(0, wave.CurMyUnitList.Count);
-            targets.Push(wave.CurMyUnitList[rand]);
+            targets.Push(wave.CurMyUnitList[rand].gameObject);
         }
     }
 
