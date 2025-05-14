@@ -49,3 +49,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: ede067c21ee0a43c69f7b8a217babed5, type: 3}
   - key: Coin
     clip: {fileID: 8300000, guid: 5cd73b5d2c9fd45cd8cf969c73c8f6e5, type: 3}
+  - key: Card
+    clip: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}

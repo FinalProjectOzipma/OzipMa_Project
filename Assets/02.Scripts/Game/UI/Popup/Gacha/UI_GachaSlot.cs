@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_GachaSlot : UI_Base
 {
+    [SerializeField] private RectTransform AnimRoot;
     [SerializeField] private Image Icon;
-    [SerializeField] private TextMeshProUGUI CountTxt;
+    [SerializeField] private Image Cover;
 
-    private int count;
-    private Sprite spr;
-    private string initStr;
+    private Color coverColor;
+
     public UserObject userObj { get; private set; }
+
+    private void Awake()
+    {
+        coverColor = Cover.color;
+        coverColor.a = 1f;
+    }
 
     /// <summary>
     /// 데이터 받는함수
@@ -20,24 +25,9 @@ public class UI_GachaSlot : UI_Base
     /// <param name="userObj"></param>
     public void Setup(UserObject userObj)
     {
-        spr = Icon.sprite;
-        initStr = CountTxt.text;
-
         this.userObj = userObj;
 
         Icon.sprite = userObj.Sprite;
-        CountTxt.enabled = false;
-        count = 1;
-    }
-
-    /// <summary>
-    /// 중복 되는거 더해주기
-    /// </summary>
-    public void AddCount()
-    {
-        CountTxt.enabled = true;
-        count++;
-        CountTxt.text = count.ToString();
     }
 
     /// <summary>
@@ -46,9 +36,17 @@ public class UI_GachaSlot : UI_Base
     public override void Init()
     {
         userObj = null;
-        Icon.sprite = spr;
-        count = 0;
-        CountTxt.text = initStr;
-        CountTxt.enabled = false;
+        Cover.color = coverColor;
+
+        // AnimRoot 스케일 초기화
+        AnimRoot.localScale = Vector3.one;
+    }
+
+    /// <summary>
+    /// 커버이미지 점점 투명해지게 함
+    /// </summary>
+    public void FadeOut()
+    {
+        Cover.DOFade(0f, 0.2f).SetEase(Ease.InOutCirc);
     }
 }

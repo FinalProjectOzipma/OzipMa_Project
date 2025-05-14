@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks.Triggers;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
@@ -42,7 +43,28 @@ public class GachaUI : UI_Popup
 
     private void TowerOnClick(int num)
     {
+        if (Managers.Player.Gem < num * 300)
+        {
+            Managers.Player.AddGem(- num * 300);
+            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
+            return;
+        }
         result = new();
+
+        if (num == 10)
+        {
+            num -= 1;
+            var res = gacha.GetSelectTower(RankType.Epic);
+            result.Add(res);
+            Managers.Player.Inventory.Add<Tower>(res);
+        }
+        else if (num == 100)
+        {
+            Util.Log("우왕 레전더리 하지만 없는걸...");
+            //num -= 1;
+            //gacha.GetSelectTower(RankType.Legend);
+            //Managers.Player.Inventory.Add<Tower>(res);
+        }
 
         for (int i = 0; i < num; i++)
         {
@@ -50,7 +72,6 @@ public class GachaUI : UI_Popup
             result.Add(res);
             Managers.Player.Inventory.Add<Tower>(res);
         }
-        //TODO: 인벤토리에 넣어주는 작업 필요
 
         Managers.Resource.Instantiate("GachaResultUI", (go)=>
         {
@@ -60,7 +81,32 @@ public class GachaUI : UI_Popup
 
     private void UnitOnClick(int num)
     {
+        if (Managers.Player.Gem < num * 300)
+        {
+            Managers.Player.AddGem(-num * 300);
+
+            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
+            return;
+        }
+
         result = new();
+
+        if (num == 10)
+        {
+            Util.Log("우왕 에픽 하지만 없는걸...");
+            num -= 1;
+            var res = gacha.GetSelectUnit(RankType.Epic);
+            result.Add(res);
+            Managers.Player.Inventory.Add<MyUnit>(res);
+        }
+        else if (num == 100)
+        {
+            Util.Log("우왕 레전더리 하지만 없는걸...");
+            //num -= 1;
+            //var res = gacha.GetSelectUnit(RankType.Legend);
+            //result.Add(res);
+            //Managers.Player.Inventory.Add<MyUnit>(res);
+        }
 
         for (int i = 0; i < num; i++)
         {
@@ -68,17 +114,10 @@ public class GachaUI : UI_Popup
             result.Add(res);
             Managers.Player.Inventory.Add<MyUnit>(res);
         }
-
-
         Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
         });
-    }
-
-    private void BackOnClick()
-    {
-        ClosePopupUI();
     }
 }

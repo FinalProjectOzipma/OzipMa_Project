@@ -19,6 +19,12 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     [SerializeField] private TextMeshProUGUI StackText;
     [SerializeField] private TextMeshProUGUI MaxLv;
 
+    [SerializeField] private GameObject Normal_Slot;
+    [SerializeField] private GameObject Rare_Slot;
+    [SerializeField] private GameObject Epic_Slot;
+    [SerializeField] private GameObject Legendary_Slot;
+    [SerializeField] private GameObject Myth_Slot;
+
 
     private Button button; // 이녀석은 현재 들고 있는 컴포넌트객체니깐 그냥 Get으로 불러드림
 
@@ -44,6 +50,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
         inventoryUI = Managers.UI.GetScene<InventoryUI>();
         Selected.gameObject.SetActive(false);
+
+        buildingSystem = BuildingSystem.Instance;
     }
 
     private void SeletToggle()
@@ -92,11 +100,14 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         T obj = gettable.GetClassAddress<T>();
         itemKey = obj.PrimaryKey;
         var status = obj.Status;
+
+        SelectedSlot(obj);
         _sprite = obj.Sprite;
         Icon.sprite = _sprite;
         ObjInfo.text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
         StackGageFill.fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
         StackText.text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
+
 
         if (status.Level.GetValue() >= status.MaxLevel.GetValue())
         {
@@ -108,12 +119,45 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         }
     }
 
+
+    private void SelectedSlot<T>(T go) where T : UserObject
+    {
+        RankType rank = go.RankType;
+
+        // 모든 슬롯 비활성화
+        Normal_Slot.SetActive(false);
+        Rare_Slot.SetActive(false);
+        Epic_Slot.SetActive(false);
+        Legendary_Slot.SetActive(false);
+        Myth_Slot.SetActive(false);
+
+        // 선택된 슬롯만 활성화
+        switch (rank)
+        {
+            case RankType.Normal:
+                Normal_Slot.SetActive(true);
+                break;
+            case RankType.Rare:
+                Rare_Slot.SetActive(true);
+                break;
+            case RankType.Epic:
+                Epic_Slot.SetActive(true);
+                break;
+            case RankType.Legend:
+                Legendary_Slot.SetActive(true);
+                break;
+            case RankType.Myth:
+                Myth_Slot.SetActive(true);
+                break;
+        }
+    }
+
     #region 드래그 배치
     public void OnBeginDrag(PointerEventData eventData)
     {
         if(inventoryUI.CurrentTab != typeof(Tower)) return;
+        buildingSystem.ShowBuildHighlight(!buildingSystem.IsTowerCountFull()); // 배치 구역 표시 켜기
 
-        buildingSystem = BuildingSystem.Instance;
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
         cellWorldPos.y -= 0.2f;
@@ -141,7 +185,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
         cellWorldPos.y -= 0.3f;
         PreviewObj.transform.position = cellWorldPos;
-        if(buildingSystem.CanTowerBuild(inputPos) == false)
+        if(buildingSystem.CanTowerBuildArea(inputPos) == false)
         {
             previewRenderer.color = Color.red;
             return;
@@ -151,6 +195,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         if (inventoryUI.CurrentTab != typeof(Tower)) return;
+        buildingSystem.HideBuildHighlight(); // 배치 구역 표시 끄기
 
         // 한번 실행
         inventoryUI.OnSwipe();
@@ -159,9 +204,10 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
 
-        if (buildingSystem.CanTowerBuild(inputPos) == false)
+        if (buildingSystem.CanTowerBuildArea(inputPos) == false || buildingSystem.IsTowerCountFull() == true)
         {
             // 배치 불가능하면 드래그 취소됨
+            buildingSystem.DragController.IsSlotDragging = false;
             return;
         }
 
@@ -173,7 +219,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         {
             go.transform.position = buildingSystem.UpdatePosition(inputPos);
             buildingSystem.AddPlacedMapScreenPos(inputPos, itemKey);
-            buildingSystem.DragController.IsSlotDragging = false; 
+            buildingSystem.DragController.IsSlotDragging = false;
             go.GetComponent<TowerControlBase>().TakeRoot(itemKey, towerName, (Tower)Gettable);
         });
     }

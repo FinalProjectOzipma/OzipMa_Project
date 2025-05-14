@@ -14,7 +14,7 @@ public class DataManager
     public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
 
     private DatabaseReference _databaseReference;
-    private string userID = "user003";
+    private string userID = "user004";
     
     public void Initialize()
     {
@@ -145,6 +145,7 @@ public class DataManager
             Managers.Player.LoadPlayerData(loadedData);
             Managers.Wave.GmaeStart();
             Managers.Game.ServerTImeInit();
+            Managers.Resource.Instantiate("OffLinePopup");
 
         }, onFailed);
     }
