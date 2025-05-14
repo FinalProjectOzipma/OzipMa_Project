@@ -2,14 +2,15 @@ using DefaultTable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_Dictionary : UI_Popup
 {
     [SerializeField] private Button MyUnitBtn;
     [SerializeField] private Button TowerBtn;
+    [SerializeField] private Button BGClose;
     //[SerializeField] private Button BackButton;
 
     [SerializeField] private GameObject UIDictionary;
@@ -60,7 +61,7 @@ public class UI_Dictionary : UI_Popup
     {
         MyUnitBtn.onClick.AddListener(OnMyUnitTap);
         TowerBtn.onClick.AddListener(OnTowerTap);
-        //BackButton.onClick.AddListener(OnClickBackButton);
+        BGClose.gameObject.BindEvent(OnClickClose);
     }
 
 
@@ -196,8 +197,8 @@ public class UI_Dictionary : UI_Popup
 
     }
 
-    //public void OnClickBackButton()
-    //{
-    //    ClosePopupUI();
-    //}
+    public void OnClickClose(PointerEventData data)
+    {
+        Managers.UI.GetScene<UI_Main>().OnClickDictionary(data);
+    }
 }

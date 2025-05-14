@@ -73,7 +73,6 @@ public class UI_Main : UI_Scene
         GachaButton.gameObject.BindEvent(OnClickGacha);
         DictionaryButton.gameObject.BindEvent(OnClickDictionary);
         StageLv.text = $"Lv {Managers.Player.CurrentStage} - {Managers.Player.CurrentWave + 1}";
-        PlayerName.text = Managers.Data.UserID;
 
         if (Managers.Player != null)
         {
@@ -109,7 +108,7 @@ public class UI_Main : UI_Scene
     }
 
 
-    private void OnClikButtonResearch(PointerEventData data)
+    public void OnClikButtonResearch(PointerEventData data)
     {
         if (isButton) return;
         isButton = true;
@@ -158,7 +157,7 @@ public class UI_Main : UI_Scene
 
     }
 
-    private void OnClickGacha(PointerEventData data)
+    public void OnClickGacha(PointerEventData data)
     {
         if (isButton) return;
 
@@ -185,7 +184,7 @@ public class UI_Main : UI_Scene
         isButton = false;
     }
 
-    private void OnClickDictionary(PointerEventData data)
+    public void OnClickDictionary(PointerEventData data)
     {
         if (isButton) return;
         isButton = true;

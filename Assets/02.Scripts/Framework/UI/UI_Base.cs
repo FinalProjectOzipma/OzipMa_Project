@@ -98,7 +98,7 @@ public abstract class UI_Base : MonoBehaviour
 
         if (!close)
         {
-            Managers.Audio.audioControler.PlaySFX(SFXClipName.Error);
+            Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
             uiSeq.Append(popUp.transform.DOScale(1.1f, 0.1f));
             uiSeq.Append(popUp.transform.DOScale(1.0f, 0.1f));
             uiSeq.Play();

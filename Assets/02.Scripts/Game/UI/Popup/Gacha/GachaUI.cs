@@ -15,7 +15,7 @@ public class GachaUI : UI_Popup
     [SerializeField] private Button TowerSingleButton;
     [SerializeField] private Button TowerDualButton;
     [SerializeField] private Button TowerHundredButton;
-    [SerializeField] private Button CloseButton;
+    [SerializeField] private Button BGClose;
 
     [SerializeField] private RectTransform RectTransform;
 
@@ -38,7 +38,7 @@ public class GachaUI : UI_Popup
         TowerSingleButton.onClick.AddListener(() => TowerOnClick(1));
         TowerDualButton.onClick.AddListener(() => TowerOnClick(10));
         TowerHundredButton.onClick.AddListener(() => TowerOnClick(100));
-        CloseButton.onClick.AddListener(ClosePopupUI);
+        BGClose.gameObject.BindEvent((Managers.UI.GetScene<UI_Main>().OnClickGacha));
     }
 
     private void TowerOnClick(int num)

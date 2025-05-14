@@ -12,10 +12,11 @@ using UnityEngine;
 public class DataManager
 {
     public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
+    public bool IsGameDataLoadFinished { get; private set; }
 
     private DatabaseReference _databaseReference;
-    public string UserID = "user002";
-    
+    private string userID = "user002";
+
     public void Initialize()
     {
         // 필요한 데이터들을 Load 및 Datas에 캐싱해두는 작업
@@ -68,7 +69,7 @@ public class DataManager
         {
 
             Datas[type] = new List<ITable>();
-            for (int i =0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 Datas[type].Add(list[i]);
             }
@@ -85,11 +86,11 @@ public class DataManager
     public void SaveFirebase<T>(T data, string parent = null)
     {
         string json = JsonConvert.SerializeObject(data);
-        if(parent == null)
+        if (parent == null)
         {
             parent = typeof(T).Name;
         }
-        var saveTask = _databaseReference.Child("users").Child(UserID).Child(parent).SetRawJsonValueAsync(json);
+        var saveTask = _databaseReference.Child("users").Child(userID).Child(parent).SetRawJsonValueAsync(json);
     }
 
     /// <summary>
@@ -107,7 +108,7 @@ public class DataManager
 
     private IEnumerator WaitingData<T>(Action<T> onComplete, Action onFailed = null)
     {
-        var firebaseData = _databaseReference.Child("users").Child(UserID).Child(typeof(T).Name).GetValueAsync();
+        var firebaseData = _databaseReference.Child("users").Child(userID).Child(typeof(T).Name).GetValueAsync();
         yield return new WaitUntil(() => firebaseData.IsCompleted);
 
         Util.Log("Process is Complete");
@@ -115,7 +116,7 @@ public class DataManager
         DataSnapshot snapshot = firebaseData.Result;
         string jsonData = snapshot.GetRawJsonValue();
 
-        if(jsonData != null)
+        if (jsonData != null)
         {
             T result = JsonConvert.DeserializeObject<T>(jsonData);
             onComplete.Invoke(result);
@@ -123,9 +124,9 @@ public class DataManager
         }
         else
         {
-            // TODO :: 파이어베이스 로드 실패 시 디폴트 데이터로 로드할 수 있는 장치가 필요함 
             onFailed?.Invoke();
             Util.Log("Firebase's Data Not Found");
+            IsGameDataLoadFinished = true;
         }
     }
 
@@ -143,12 +144,15 @@ public class DataManager
         LoadFirebase<PlayerManager>(loadedData =>
         {
             Managers.Player.LoadPlayerData(loadedData);
-            Managers.Wave.GmaeStart();
             Managers.Game.ServerTImeInit();
             Managers.Resource.Instantiate("OffLinePopup");
-
+            IsGameDataLoadFinished = true;
         }, onFailed);
     }
     #endregion
 
+    public void SetUserID(string userId)
+    {
+        userID = userId;
+    }
 }
