@@ -1,10 +1,7 @@
-using DefaultTable;
-using DG.Tweening;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine;
-using UnityEditor.SceneManagement;
 
 
 

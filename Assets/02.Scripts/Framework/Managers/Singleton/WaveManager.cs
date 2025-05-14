@@ -13,8 +13,6 @@ public class WaveManager
 
     private PlayerManager playerManager;
 
-    private Coroutine delayCoroutine;
-
     private List<Table.Wave> waveList;
     private List<Table.Enemy> enemyList;
     private List<Table.Enemy> bossList;
@@ -220,13 +218,5 @@ public class WaveManager
         });
 
         return (playerManager.CurrentWave == 9); // 보스웨이브면 true
-    }
-
-    IEnumerator WaveDelay(Action onComplete)
-    {
-        yield return waveDelayTime;
-
-        onComplete?.Invoke();
-        delayCoroutine = null;
     }
 }

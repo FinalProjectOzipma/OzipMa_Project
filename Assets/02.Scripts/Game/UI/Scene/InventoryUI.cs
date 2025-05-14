@@ -1,10 +1,7 @@
-using DefaultTable;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -103,7 +100,7 @@ public class InventoryUI : UI_Scene
 
     private void UpdateUpgradeGold(int gold)
     {
-        TextInfo.text = $"{gold.ToString()}" ;
+        TextInfo.text = $"{gold.ToString()}";
     }
 
 
@@ -224,7 +221,7 @@ public class InventoryUI : UI_Scene
         for (int i = 0; i < _currentList.Count; i++)
         {
             if (!isSelect)
-            {             
+            {
                 if (IsMaxLevel(_currentList[i]) || slots[i].IsActive) continue;
 
                 slots[i].OnSelect();
@@ -326,7 +323,7 @@ public class InventoryUI : UI_Scene
             Refresh<Tower>();
         }
 
-        Managers.Upgrade.RefresgUpgradeGold();  
+        Managers.Upgrade.RefresgUpgradeGold();
 
         OnAnimation();
 
@@ -343,7 +340,7 @@ public class InventoryUI : UI_Scene
     {
         RectTransform movable = Contents;
 
-        if(isMove)
+        if (isMove)
         {
             SwipeExcute.Enqueue(OnSwipe);
         }
@@ -367,7 +364,7 @@ public class InventoryUI : UI_Scene
             else
             {
                 BackgroundButton.gameObject.SetActive(false);
-                movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y -180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y - 180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
                     isOpen = false;
@@ -445,7 +442,7 @@ public class InventoryUI : UI_Scene
             var select = _currentList[i] as T;
 
             // select가 널이 아니거나 MaxLevel이 아니면 업데이트리스트 추가
-            if(select != null && !IsMaxLevel(select))
+            if (select != null && !IsMaxLevel(select))
             {
                 updateList.Add(select);
             }
@@ -460,7 +457,7 @@ public class InventoryUI : UI_Scene
             Refresh<T>();
             return;
         }
-        else if(updateList.Count != 0)
+        else if (updateList.Count != 0)
         {
             for (int i = 0; i < updateList.Count; i++)
             {

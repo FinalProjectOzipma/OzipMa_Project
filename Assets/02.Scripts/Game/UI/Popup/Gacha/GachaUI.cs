@@ -1,9 +1,4 @@
-using Cysharp.Threading.Tasks.Triggers;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,7 +40,7 @@ public class GachaUI : UI_Popup
     {
         if (Managers.Player.Gem < num * 300)
         {
-            Managers.Player.AddGem(- num * 300);
+            Managers.Player.AddGem(-num * 300);
             Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
             return;
         }
@@ -73,7 +68,7 @@ public class GachaUI : UI_Popup
             Managers.Player.Inventory.Add<Tower>(res);
         }
 
-        Managers.Resource.Instantiate("GachaResultUI", (go)=>
+        Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
             go.GetComponent<UI_GachaResult>().ShowResult(result);
         });

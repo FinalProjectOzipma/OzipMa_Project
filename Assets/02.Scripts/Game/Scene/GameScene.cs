@@ -52,10 +52,13 @@ public class GameScene : SceneBase
         }
 
         // 1. 사용자 인증 ==============================================================
-        //yield return Managers.Auth.AnonymousLoginCoroutine();
-
+#if UNITY_EDITOR
+#else
+        yield return Managers.Auth.AnonymousLoginCoroutine();
+#endif
+        
         // 2. 그룹 로드 완료되면 넘어가기 ==============================================
-        while(!isGroupLoadFinished)
+        while (!isGroupLoadFinished)
         {
             yield return null;
         }

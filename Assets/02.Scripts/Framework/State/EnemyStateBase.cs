@@ -1,8 +1,4 @@
-using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -49,12 +45,12 @@ public class EnemyStateBase : EntityStateBase
     {
         base.Update();
 
-        if(!controller.Enemy.IsBoss)
+        if (!controller.Enemy.IsBoss)
         {
             DetectedUnit();
         }
 
-        if(targets.Count > 0)
+        if (targets.Count > 0)
             controller.FlipControll(targets.Peek());
     }
 
@@ -76,7 +72,7 @@ public class EnemyStateBase : EntityStateBase
         if (targets.Peek() == Managers.Wave.MainCore.gameObject)
         {
             Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), (int)Enums.Layer.MyUnit);
-            if (col != null) targets.Push(col.gameObject);   
+            if (col != null) targets.Push(col.gameObject);
         }
         else
         {
@@ -132,7 +128,7 @@ public class EnemyStateBase : EntityStateBase
 
     protected void DropCoin()
     {
-        Managers.Resource.Instantiate(nameof(FieldGold), (go) => 
+        Managers.Resource.Instantiate(nameof(FieldGold), (go) =>
         {
             go.SetActive(true);
             go.transform.position = controller.Body.transform.position; // 골드 위치 초기화

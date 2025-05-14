@@ -41,8 +41,6 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     private Image _stackGage;
     private int itemKey { get; set; }
 
-    private bool isSelect = false;
-
     private void Awake()
     {
         button = GetComponent<Button>();

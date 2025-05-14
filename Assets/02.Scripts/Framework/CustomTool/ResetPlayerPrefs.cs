@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 public class ResetPlayerPrefs : MonoBehaviour
 {
     [MenuItem("Window/PlayerPrefs 초기화")]
@@ -13,3 +14,4 @@ public class ResetPlayerPrefs : MonoBehaviour
     }
 
 }
+#endif
