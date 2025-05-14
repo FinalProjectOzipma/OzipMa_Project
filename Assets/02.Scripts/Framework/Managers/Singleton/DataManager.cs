@@ -14,7 +14,7 @@ public class DataManager
     public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
 
     private DatabaseReference _databaseReference;
-    private string userID = "user002";
+    public string UserID = "user002";
     
     public void Initialize()
     {
@@ -89,7 +89,7 @@ public class DataManager
         {
             parent = typeof(T).Name;
         }
-        var saveTask = _databaseReference.Child("users").Child(userID).Child(parent).SetRawJsonValueAsync(json);
+        var saveTask = _databaseReference.Child("users").Child(UserID).Child(parent).SetRawJsonValueAsync(json);
     }
 
     /// <summary>
@@ -107,7 +107,7 @@ public class DataManager
 
     private IEnumerator WaitingData<T>(Action<T> onComplete, Action onFailed = null)
     {
-        var firebaseData = _databaseReference.Child("users").Child(userID).Child(typeof(T).Name).GetValueAsync();
+        var firebaseData = _databaseReference.Child("users").Child(UserID).Child(typeof(T).Name).GetValueAsync();
         yield return new WaitUntil(() => firebaseData.IsCompleted);
 
         Util.Log("Process is Complete");

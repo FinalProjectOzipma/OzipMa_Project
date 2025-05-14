@@ -1,10 +1,7 @@
-using DefaultTable;
 using DG.Tweening;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -329,8 +326,6 @@ public class InventoryUI : UI_Scene
         Managers.Upgrade.RefresgUpgradeGold();  
 
         OnAnimation();
-
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
     }
 
     private void Update()
@@ -357,6 +352,7 @@ public class InventoryUI : UI_Scene
                 gameObject.SetActive(true);
                 CurrentState = STATE.SELECTABLE;
                 BackgroundButton.gameObject.SetActive(true);
+                Managers.UI.GetScene<UI_Main>().OnManagerMenu();
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y + 180.0f, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
@@ -367,6 +363,7 @@ public class InventoryUI : UI_Scene
             else
             {
                 BackgroundButton.gameObject.SetActive(false);
+                Managers.UI.GetScene<UI_Main>().OFFManagerMenu();
                 movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y -180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
