@@ -115,6 +115,7 @@ public abstract class EntityController : Poolable
     {
         float alpha = 1;
         EntityBodyBase body = Body.GetComponent<EntityBodyBase>();
+        body.Disable();
 
         while(alpha > 0f)
         {

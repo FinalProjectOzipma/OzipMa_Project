@@ -74,7 +74,9 @@ public class EntityBodyBase : MonoBehaviour
 
         try
         {
-            while (true)
+            while (this != null && disableCancellation != null && 
+                !disableCancellation.IsCancellationRequested && ctrl != null && 
+                ctrl.gameObject.activeInHierarchy)
             {
                 foreach (var condi in conditionHandlers)
                 {
@@ -92,27 +94,15 @@ public class EntityBodyBase : MonoBehaviour
                     }
                 }
 
-                if (this == null || disableCancellation == null || disableCancellation.IsCancellationRequested || !ctrl.gameObject.activeInHierarchy)
-                {
-                    Disable();
+                if (disableCancellation == null)
                     break;
-                }
-
-                await UniTask.NextFrame(disableCancellation.Token);
+                else
+                    await UniTask.NextFrame(disableCancellation.Token);
             }
-        }
-        catch (OperationCanceledException)
-        {
-            Util.Log("StartTime 정상 취소됨");
         }
         catch (ObjectDisposedException)
         {
             Util.LogWarning("StartTime 토큰 Dispose됨");
         }
-        catch (System.Exception ex)
-        {
-            Util.LogWarning($"StartTime 예외 발생: {ex}");
-        }
-
     }
 }
