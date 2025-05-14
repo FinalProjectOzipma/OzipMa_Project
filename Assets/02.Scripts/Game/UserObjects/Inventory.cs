@@ -34,7 +34,9 @@ public class Inventory
                     if (uo.Status.Grade.Value == 5)
                     {
                         //이미 최대 합성에 도달했다면 잼으로 바꿔먹다
+                        Util.Log($"이전 잼잼티비: {Managers.Player.Gem}");
                         Managers.Player.AddGem(100);
+                        Util.Log($"이후 잼잼티비: {Managers.Player.Gem}");
                         return;
                     }
                     uo.Status.Stack.AddValue(1);

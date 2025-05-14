@@ -45,10 +45,12 @@ public class GachaUI : UI_Popup
     {
         if (Managers.Player.Gem < num * 300)
         {
-            Managers.Player.AddGem(- num * 300);
+            Util.Log($"돈 없는 잼잼티비: {Managers.Player.Gem}");
             Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
             return;
         }
+        Managers.Player.AddGem(-num * 300);
+
         result = new();
 
         if (num == 10)
@@ -83,12 +85,11 @@ public class GachaUI : UI_Popup
     {
         if (Managers.Player.Gem < num * 300)
         {
-            Managers.Player.AddGem(-num * 300);
-
+            Util.Log($"돈 없는 잼잼티비: {Managers.Player.Gem}");
             Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
             return;
         }
-
+        Managers.Player.AddGem(-num * 300);
         result = new();
 
         if (num == 10)
