@@ -18,9 +18,6 @@ public class EnemyStateBase : EntityStateBase
     protected EnemyStatus status;
     protected CapsuleCollider2D capCol;
 
-    protected bool isLeft;
-    protected int facDir = 1;
-
     protected Stack<GameObject> targets;
 
     public EnemyStateBase(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey)

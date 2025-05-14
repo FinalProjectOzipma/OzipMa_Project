@@ -25,9 +25,6 @@ public class EnemyController : EntityController, IDamagable
         Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
-
-        // 컨디션 초기화
-        Conditions.Add((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(this));
     }
 
     protected override void Update()
