@@ -79,6 +79,11 @@ public class PhnMyUnitScene : GameScene
             unit.Init(2, prefab.GetComponent<MyUnitController>().sprite);
             Managers.Player.Inventory.Add<MyUnit>(unit);
         });
+        Managers.Resource.LoadAssetAsync<GameObject>("Reaper_Brain", (prefab) =>
+        {
+            MyUnit unit = new MyUnit();
+            unit.Init(3, prefab.GetComponent<MyUnitController>().sprite);
+        });
     }
 
     public override void Exit()

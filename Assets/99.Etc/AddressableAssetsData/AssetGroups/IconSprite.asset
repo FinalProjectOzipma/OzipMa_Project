@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: MyUnitEffect
+  m_Name: IconSprite
   m_EditorClassIdentifier: 
-  m_GroupName: MyUnitEffect
+  m_GroupName: IconSprite
   m_Data:
     m_SerializedData: []
-  m_GUID: 5674c02bed3bab14182a2c1c1a8fbcb3
+  m_GUID: 5ab474eb303c6dc439e629395214203e
   m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: c5718269f06010d4f9bc39e377d74f2c, type: 2}
-    - {fileID: 11400000, guid: 8750327abddc1a74dac280278b211d66, type: 2}
+    - {fileID: 11400000, guid: f01fe2e0ad9d48f41a21ef5ecce33a5a, type: 2}
+    - {fileID: 11400000, guid: 4918110a1f841ce4ca8be15c93e521e0, type: 2}

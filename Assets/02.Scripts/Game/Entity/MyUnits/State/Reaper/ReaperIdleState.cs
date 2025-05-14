@@ -41,13 +41,4 @@ public class ReaperIdleState : ReaperStatebase
             }
         }
     }
-
-    private void MakeRangeSkill()
-    {
-        Managers.Resource.Instantiate("", go =>
-        {
-            //스킬 projectile추가예정
-        
-        });
-    }
 }

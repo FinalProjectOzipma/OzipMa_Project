@@ -38,6 +38,6 @@ public class ReaperAttackState : ReaperStatebase
 
     private void Slash()
     {
-        
+        Managers.Resource.Instantiate("Slash");
     }
 }
