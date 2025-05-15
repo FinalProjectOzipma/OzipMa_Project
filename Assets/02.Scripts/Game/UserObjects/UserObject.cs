@@ -38,13 +38,11 @@ public class UserObject
             //스택 = 스택 - 맥스스택
             Status.Stack.Value -= Status.MaxStack.Value;
 
-            //그레이드 올리기
-            Status.Grade.AddValue(1);
-            
+            //최대레벨 1 증가
+            Status.MaxLevel.AddValue(1);
+
             //맥스스텍값 5올리기
             Status.MaxStack.AddValue(5);
-
-            ApplyUpgrade();
         }
     }
 
@@ -55,7 +53,7 @@ public class UserObject
     {
         var result = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
         float multiplier = result[Status.Grade.Value -1].Multiplier;
-        Status.MaxLevel.AddValue(10);
+        
 
         Status.Attack.SetValueMultiples(multiplier);
         Status.Defence.SetValueMultiples(multiplier);

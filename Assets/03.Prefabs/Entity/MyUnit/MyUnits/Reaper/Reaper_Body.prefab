@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spr: {fileID: 3882506101236890688}
-  Alpha: 32
+  Alpha: 6
   trailRate: 0.3
 --- !u!114 &6481043058189466714 stripped
 MonoBehaviour:
