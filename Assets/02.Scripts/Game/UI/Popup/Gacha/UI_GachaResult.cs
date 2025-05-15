@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UI_GachaResult : UI_Popup
 {
+    [SerializeField] private ScrollRect ScrollRect;
     [SerializeField] private Transform ResultSlots;
     [SerializeField] private Button Bg;
     private List<UI_GachaSlot> slots;
@@ -20,7 +21,7 @@ public class UI_GachaResult : UI_Popup
     /// </summary>
     private void CloseResult()
     {
-        foreach(UI_GachaSlot tf in slots)
+        foreach (UI_GachaSlot tf in slots)
         {
             tf.Init();
             Managers.Resource.Destroy(tf.gameObject);
@@ -36,6 +37,9 @@ public class UI_GachaResult : UI_Popup
     /// <param name="result"></param>
     public void ShowResult(List<IGettable> result)
     {
+        ScrollRect.verticalNormalizedPosition = 1f;
+        ScrollRect.velocity = Vector2.zero;
+
         foreach (UserObject data in result)
         {
             Managers.Resource.Instantiate($"{data.RankType}_Slot", go =>
@@ -53,25 +57,5 @@ public class UI_GachaResult : UI_Popup
             });
         }
         Bg.enabled = true;
-    }
-
-    /// <summary>
-    /// 중복 오브젝트 검사
-    /// </summary>
-    /// <param name="data"></param>
-    /// <param name="index"></param>
-    /// <returns></returns>
-    private bool FindUO(UserObject data, out int index)
-    {
-        for (int i = 0; i< slots.Count; i++)
-        {
-            if (slots[i].userObj.Name == data.Name)
-            {
-                index = i;
-                return true;
-            }
-        }
-        index = -1;
-        return false;
     }
 }
