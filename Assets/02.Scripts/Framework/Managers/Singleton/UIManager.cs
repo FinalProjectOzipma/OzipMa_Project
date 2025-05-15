@@ -9,6 +9,7 @@ public class UIManager
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
     Dictionary<string, UI_Scene> uiSceneList = new Dictionary<string, UI_Scene>();
+    Dictionary<string, UI_Popup> uiPopupList = new Dictionary<string, UI_Popup>();
 
     public GameObject Root
     {
@@ -16,7 +17,10 @@ public class UIManager
         {
 			GameObject root = GameObject.Find("@UI_Root");
 			if (root == null)
+            {
 				root = new GameObject { name = "@UI_Root" };
+
+            }
             return root;
 		}
     }
@@ -27,42 +31,14 @@ public class UIManager
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true;
 
+        go.transform.SetParent(Root.transform);
+
         if (sort)
         {
             canvas.sortingOrder = _order;
             _order++;
         }
-        else
-        {
-            canvas.sortingOrder = 0;
-        }
     }
-
-    /*public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
-	{
-		if (string.IsNullOrEmpty(name))
-			name = typeof(T).Name;
-
-		GameObject go = Managers.Resource.Instantiate($"UI/SubItem/{name}");
-		if (parent != null)
-			go.transform.SetParent(parent);
-
-		return Util.GetOrAddComponent<T>(go);
-	}*/
-
-    //public void ShowSceneUI<T>(string name = null) where T : UI_Scene
-    //{
-    //    if (string.IsNullOrEmpty(name))
-    //        name = typeof(T).Name;
-
-    //    Managers.Resource.Instantiate(name, go => 
-    //    {
-    //        T sceneUI = Util.GetOrAddComponent<T>(go);
-    //        _sceneUI = sceneUI;
-
-    //        go.transform.SetParent(Root.transform);
-    //    });
-    //}
 
 
     public void ShowPopupUI<T>(string name = null) where T : UI_Popup
@@ -70,13 +46,21 @@ public class UIManager
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
 
-        Managers.Resource.Instantiate(name, go =>
+        if (uiPopupList.TryGetValue(name, out var result))
         {
-            T popup = Util.GetOrAddComponent<T>(go);
-            _popupStack.Push(popup);
-
-            go.transform.SetParent(Root.transform);
-        });
+            _popupStack.Push(result);
+            result.gameObject.SetActive(true);
+        }
+        else
+        {
+            Managers.Resource.Instantiate(name, go =>
+            {
+                T popup = Util.GetOrAddComponent<T>(go);
+                uiPopupList.Add(name, popup);
+                _popupStack.Push(popup);
+                //go.transform.SetParent(Root.transform);
+            });
+        }   
     }
 
     public void ClosePopupUI(UI_Popup popup)
