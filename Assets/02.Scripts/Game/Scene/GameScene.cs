@@ -65,7 +65,8 @@ public class GameScene : SceneBase
         }
 
         // 5. 로딩창 끄고 게임 시작 ====================================================
-        if (loading != null) Managers.Resource.Destroy(loading);
+        if (loading != null) 
+            Managers.Resource.Destroy(loading);
         Managers.Wave.GameStart();
     }
 

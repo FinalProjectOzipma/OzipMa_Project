@@ -2,18 +2,17 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using static Enums;
+using DG.Tweening;
 public class UI_Loading : UI_Base
 {
     [SerializeField] private GameObject LoadingIcon;
     [SerializeField] private TextMeshProUGUI LoadingText;
 
-    GameObject loadingObject;
-    TextMeshProUGUI textEffect;
     public string baseText = "Loading";
     public float interval = 0.5f;
 
     public float speed = 180f;
-    private bool spinning = true;
+    private RectTransform iconRectTransform;
 
 
     private void Start()
@@ -21,8 +20,13 @@ public class UI_Loading : UI_Base
         Init();
 
         StartCoroutine(AnimateDots());
-        StartCoroutine(Spin());
-        //StartCoroutine(LoadSceneProcess());
+
+        iconRectTransform = LoadingIcon.GetComponent<RectTransform>();
+        Tweener tween = iconRectTransform
+            .DORotate(Vector3.forward * 180, 1f)
+            .SetEase(Ease.Linear)
+            .SetLoops(-1, LoopType.Incremental)
+            .SetAutoKill(false);
 
     }
 
@@ -39,15 +43,4 @@ public class UI_Loading : UI_Base
             yield return new WaitForSeconds(interval);
         }
     }
-
-    IEnumerator Spin()
-    {
-        while (spinning)
-        {
-            LoadingIcon.transform.Rotate(0f, 0f, -speed * Time.deltaTime);
-            yield return null;
-        }
-    }
-
-
 }
