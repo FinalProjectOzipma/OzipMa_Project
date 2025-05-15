@@ -17,11 +17,10 @@ public class GachaSystem
 
         //랭크뽑기
         if (rand < 70) selectedRank = RankType.Normal; //70%
-        //TODO: 임시로 쓰는것. 랭크 추가시 지울것
+
         else if (rand < 90) selectedRank = RankType.Rare; //20%
-        else selectedRank = RankType.Epic;
-        //else if (rand < 98) selectedRank = RankType.Epic; //8%
-        //else selectedRank = RankType.Legend; //2%
+        else if (rand < 98) selectedRank = RankType.Epic; //8%
+        else selectedRank = RankType.Legend; //2%
 
         return GetSelectUnit(selectedRank);
     }
@@ -65,8 +64,9 @@ public class GachaSystem
 
         Managers.Resource.LoadAssetAsync<GameObject>($"{name}_Brain", (prefab) =>
         {
-            MyUnit unit = new MyUnit();
-            unit.Init(key, prefab.GetComponent<MyUnitController>().sprite);
+            MyUnit unit = new();
+            Sprite sprite = prefab.GetComponent<MyUnitController>().sprite;
+            unit.Init(key, sprite);
             returnValue = unit;
         });
 

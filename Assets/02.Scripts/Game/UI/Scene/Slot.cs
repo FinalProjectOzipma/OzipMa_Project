@@ -39,6 +39,10 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     private BuildingSystem buildingSystem;
     private InventoryUI inventoryUI;
     private Image _stackGage;
+
+    public Action<bool> onSelectionChanged;  // 선택 변경 이벤트
+
+
     private int itemKey { get; set; }
 
     private void Awake()
@@ -50,6 +54,8 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Selected.gameObject.SetActive(false);
 
         buildingSystem = BuildingSystem.Instance;
+
+        onSelectionChanged += OnSlotSelectionChanged;
     }
 
     private void SeletToggle()
@@ -65,16 +71,35 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
         if (isMaxLevel) return;
 
+
         GameObject imgObj = Selected.gameObject;
         imgObj.SetActive(!imgObj.activeSelf);
         IsActive = imgObj.activeInHierarchy;
+
+        onSelectionChanged?.Invoke(IsActive);
         inventoryUI.isSelect = true;
 
         inventoryUI.CheckActive();
 
-        if (IsActive) Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
-        else Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+        if (IsActive)
+        {
+            Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+        }
+        else
+        {
+            Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+        }
 
+    }
+
+    private void OnSlotSelectionChanged(bool isActive)
+    {
+        inventoryUI.activeSlotCount += isActive ? 1 : -1;
+
+        if (inventoryUI.activeSlotCount > 0)
+            inventoryUI.OnInchenBtn();
+        else
+            inventoryUI.OFFInchenBtn();
     }
 
     // 전체 선택될때 호출해야되는 메서드

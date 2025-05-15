@@ -164,7 +164,7 @@ public class PlayerManager
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
         
-        Gold = 0;
+        Gold = 100000;
         Gem = 0;
 
         AddGem(data.Gem);

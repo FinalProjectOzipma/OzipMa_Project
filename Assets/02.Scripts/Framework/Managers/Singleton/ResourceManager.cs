@@ -100,6 +100,12 @@ public class ResourceManager
 
     public void Destroy(GameObject gameObject)
     {
+        if(gameObject.TryGetComponent<UI_Base>(out var uibase))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         if (gameObject.TryGetComponent<Poolable>(out var poolable))
         {
             Managers.Pool.Release(poolable);

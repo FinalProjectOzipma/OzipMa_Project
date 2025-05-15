@@ -132,7 +132,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 60d5eab68daee584996471c8a8ea9ad6
-    m_Address: Legendary_Slot
+    m_Address: Legend_Slot
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
@@ -151,6 +151,18 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72f74e40b3ea2274e8a834b9e61d989b
     m_Address: Rare_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f7f236fd3875b334ea1d2a43666d88c1
+    m_Address: DictionaryUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 039216ddf90735342afbabc47fff43a1
+    m_Address: DSlot
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

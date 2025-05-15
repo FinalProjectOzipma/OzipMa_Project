@@ -43,6 +43,22 @@ public class UserObject
             
             //맥스스텍값 5올리기
             Status.MaxStack.AddValue(5);
+
+            ApplyUpgrade();
         }
+    }
+
+    /// <summary>
+    /// 합성시 증가 스텟 적용하기
+    /// </summary>
+    private void ApplyUpgrade()
+    {
+        var result = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
+        float multiplier = result[Status.Grade.Value -1].Multiplier;
+        Status.MaxLevel.AddValue(10);
+
+        Status.Attack.AddMultiples(multiplier);
+        Status.Defence.AddMultiples(multiplier);
+        Status.Health.MaxValue += Status.Health.MaxValue * multiplier;
     }
 }
