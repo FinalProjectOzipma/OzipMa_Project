@@ -12,10 +12,11 @@ public class ReaperAnimationData : EntityAnimationData
 
     public override void Init(EntityController controller)
     {
+        base.Init();
         IdleState = new ReaperIdleState(StateMachine, IdleHash, controller as MyUnitController, this);
-        ChaseState = new ReaperChaseState(StateMachine, IdleHash, controller as MyUnitController, this);
-        AttackState = new ReaperAttackState(StateMachine, IdleHash, controller as MyUnitController, this);
-        DeadState = new ReaperDeadState(StateMachine, IdleHash, controller as MyUnitController, this);
+        ChaseState = new ReaperChaseState(StateMachine, ChaseHash, controller as MyUnitController, this);
+        AttackState = new ReaperAttackState(StateMachine, AttackHash, controller as MyUnitController, this);
+        DeadState = new ReaperDeadState(StateMachine, DeadHash, controller as MyUnitController, this);
         
         StateMachine.Init(IdleState);
     }

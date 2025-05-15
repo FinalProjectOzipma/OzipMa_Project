@@ -132,7 +132,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 60d5eab68daee584996471c8a8ea9ad6
-    m_Address: Legendary_Slot
+    m_Address: Legend_Slot
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

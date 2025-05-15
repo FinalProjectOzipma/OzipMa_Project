@@ -11,6 +11,7 @@ public class ReaperChaseState : ReaperStatebase
     public override void Enter()
     {
         base.Enter();
+        controller.Agent.isStopped = false;
     }
 
     public override void Exit()
@@ -21,5 +22,12 @@ public class ReaperChaseState : ReaperStatebase
     public override void Update()
     {
         base.Update();
+        agent.SetDestination(target.transform.position);
+
+        //가까우면 공격상태로 바꿈
+        if (IsClose())
+        {
+            StateMachine.ChangeState(data.AttackState);
+        }
     }
 }
