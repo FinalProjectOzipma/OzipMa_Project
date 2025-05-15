@@ -35,12 +35,14 @@ public class UI_Loading : UI_Base
     {
         int dotCount = 0;
 
+        WaitForSeconds dotsWaitForSeconds = new WaitForSeconds(interval);
+
         while (true)
         {
             dotCount = (dotCount + 1) % 4;  // 0 ~ 3
             string dots = new string('.', dotCount);
             LoadingText.text = baseText + dots;
-            yield return new WaitForSeconds(interval);
+            yield return dotsWaitForSeconds;
         }
     }
 }
