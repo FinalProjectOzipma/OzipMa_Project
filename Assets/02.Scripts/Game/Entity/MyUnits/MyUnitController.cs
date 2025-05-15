@@ -12,6 +12,7 @@ public class MyUnitController : EntityController, IDamagable
     public Rigidbody2D Rigid { get; private set; }
     public SpriteRenderer spriteRenderer;
     public NavMeshAgent Agent;
+    public SpriteTrail ST;
     #endregion
 
     #region 정보부
@@ -76,6 +77,7 @@ public class MyUnitController : EntityController, IDamagable
                 go.transform.SetParent(transform);
                 Fx = go.GetOrAddComponent<ObjectFlash>();
                 spriteRenderer = go.GetOrAddComponent<SpriteRenderer>();
+                ST = go.GetComponent<SpriteTrail>();
                 Body = go;
                 Init(position);
             });

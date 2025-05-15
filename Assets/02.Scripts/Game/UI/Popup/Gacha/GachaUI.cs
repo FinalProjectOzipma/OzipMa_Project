@@ -43,8 +43,7 @@ public class GachaUI : UI_Popup
     private void UnitOnClick(int num)
     {
         if (Managers.Player.Gem < num * 300)
-        {
-            Util.Log($"돈 없는 잼잼티비: {Managers.Player.Gem}");
+        { 
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
