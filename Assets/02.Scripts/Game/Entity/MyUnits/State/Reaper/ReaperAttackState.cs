@@ -28,6 +28,7 @@ public class ReaperAttackState : ReaperStatebase
 
         if (projectileCalled) // 범위 스킬 소환하는거
         {
+            Util.Log("개쩌는 슬래쉬 이얍!");
             Slash();
             projectileCalled = false;
         }
@@ -38,6 +39,9 @@ public class ReaperAttackState : ReaperStatebase
 
     private void Slash()
     {
-        Managers.Resource.Instantiate("Slash");
+        Managers.Resource.Instantiate("Slash", (go) =>
+        {
+            Util.Log("개쩌는 이펙트 이얍!");
+        });
     }
 }
