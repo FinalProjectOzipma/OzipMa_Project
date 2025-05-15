@@ -1,7 +1,4 @@
-using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager
@@ -12,20 +9,20 @@ public class UIManager
     Dictionary<string, UI_Scene> uiSceneList = new Dictionary<string, UI_Scene>();
     Dictionary<string, UI_Popup> uiPopupList = new Dictionary<string, UI_Popup>();
 
-    Queue<GameObject> notificationQ = new(); 
+    Queue<GameObject> notificationQ = new();
 
     public GameObject Root
     {
         get
         {
-			GameObject root = GameObject.Find("@UI_Root");
-			if (root == null)
+            GameObject root = GameObject.Find("@UI_Root");
+            if (root == null)
             {
-				root = new GameObject { name = "@UI_Root" };
+                root = new GameObject { name = "@UI_Root" };
 
             }
             return root;
-		}
+        }
     }
 
     public void SetCanvas(GameObject go, bool sort = true)
@@ -41,10 +38,6 @@ public class UIManager
             canvas.sortingOrder = _order;
             _order++;
         }
-        else
-        {
-            canvas.sortingOrder = 0;
-        }
     }
 
     public void Notify(string msg, bool isGreen = true)
@@ -59,7 +52,7 @@ public class UIManager
 
     public void NotifyDequeue()
     {
-        if(notificationQ.Count > 0)
+        if (notificationQ.Count > 0)
         {
             Managers.Resource.Destroy(notificationQ.Dequeue());
             return;
@@ -67,24 +60,6 @@ public class UIManager
 
         Util.LogWarning("Notify Queue가 비어있습니다.");
     }
-
-    /*public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
-	{
-		if (string.IsNullOrEmpty(name))
-			name = typeof(T).Name;
-
-		GameObject go = Managers.Resource.Instantiate($"UI/SubItem/{name}");
-		if (parent != null)
-			go.transform.SetParent(parent);
-
-		return Util.GetOrAddComponent<T>(go);
-	}*/
-
-    //public void ShowSceneUI<T>(string name = null) where T : UI_Scene
-    //{
-    //    if (string.IsNullOrEmpty(name))
-    //        name = typeof(T).Name;
-
 
     public void ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
@@ -105,13 +80,13 @@ public class UIManager
                 _popupStack.Push(popup);
                 //go.transform.SetParent(Root.transform);
             });
-        }   
+        }
     }
 
     public void ClosePopupUI(UI_Popup popup)
     {
-		if (_popupStack.Count == 0)
-			return;
+        if (_popupStack.Count == 0)
+            return;
 
         if (_popupStack.Peek() != popup)
         {
