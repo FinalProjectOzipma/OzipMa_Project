@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class UIManager
@@ -11,18 +9,20 @@ public class UIManager
     Dictionary<string, UI_Scene> uiSceneList = new Dictionary<string, UI_Scene>();
     Dictionary<string, UI_Popup> uiPopupList = new Dictionary<string, UI_Popup>();
 
+    Queue<GameObject> notificationQ = new();
+
     public GameObject Root
     {
         get
         {
-			GameObject root = GameObject.Find("@UI_Root");
-			if (root == null)
+            GameObject root = GameObject.Find("@UI_Root");
+            if (root == null)
             {
-				root = new GameObject { name = "@UI_Root" };
+                root = new GameObject { name = "@UI_Root" };
 
             }
             return root;
-		}
+        }
     }
 
     public void SetCanvas(GameObject go, bool sort = true)
@@ -40,6 +40,31 @@ public class UIManager
         }
     }
 
+    /// <summary>
+    /// 알림 UI 띄우기
+    /// </summary>
+    /// <param name="msg">알림 메세지</param>
+    /// <param name="isGreen">true : 초록색 알림, false : 빨간색 알림</param>
+    public void Notify(string msg, bool isGreen = true)
+    {
+        Managers.Resource.Instantiate("NotificationUI", obj =>
+        {
+            notificationQ.Enqueue(obj);
+            NotificationUI ui = obj.GetComponent<NotificationUI>();
+            ui.SetMessage(msg, isGreen);
+        });
+    }
+
+    public void NotifyDequeue()
+    {
+        if (notificationQ.Count > 0)
+        {
+            Managers.Resource.Destroy(notificationQ.Dequeue());
+            return;
+        }
+
+        Util.LogWarning("Notify Queue가 비어있습니다.");
+    }
 
     public void ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
@@ -60,13 +85,13 @@ public class UIManager
                 _popupStack.Push(popup);
                 //go.transform.SetParent(Root.transform);
             });
-        }   
+        }
     }
 
     public void ClosePopupUI(UI_Popup popup)
     {
-		if (_popupStack.Count == 0)
-			return;
+        if (_popupStack.Count == 0)
+            return;
 
         if (_popupStack.Peek() != popup)
         {
