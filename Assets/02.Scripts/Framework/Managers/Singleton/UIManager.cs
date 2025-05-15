@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,6 +10,8 @@ public class UIManager
 
     Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
     Dictionary<string, UI_Scene> uiSceneList = new Dictionary<string, UI_Scene>();
+
+    Queue<GameObject> notificationQ = new(); 
 
     public GameObject Root
     {
@@ -42,9 +45,21 @@ public class UIManager
     {
         Managers.Resource.Instantiate("NotificationUI", obj =>
         {
+            notificationQ.Enqueue(obj);
             NotificationUI ui = obj.GetComponent<NotificationUI>();
             ui.SetMessage(msg, isGreen);
         });
+    }
+
+    public void NotifyDequeue()
+    {
+        if(notificationQ.Count > 0)
+        {
+            Managers.Resource.Destroy(notificationQ.Dequeue());
+            return;
+        }
+
+        Util.LogWarning("Notify Queue가 비어있습니다.");
     }
 
     /*public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base

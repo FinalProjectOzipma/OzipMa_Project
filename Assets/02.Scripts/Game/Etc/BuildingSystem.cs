@@ -43,6 +43,7 @@ public class BuildingSystem : MonoBehaviour
         DragController = GetComponent<DragController>();
 
         // 설치 개수 메세지 UI 구독
+        OnTowerCountChanged -= Managers.UI.Notify;
         OnTowerCountChanged += Managers.UI.Notify;
     }
 
@@ -65,7 +66,7 @@ public class BuildingSystem : MonoBehaviour
                 Managers.Resource.Instantiate(towerName, go => 
                 {
                     go.transform.position = map.GetCellCenterWorld(point);
-                    AddPlacedMapCell(point, primaryKey); // 이때 배치 가능 구역 표시가 켜짐
+                    AddPlacedMapCell(point, primaryKey, false); // 이때 배치 가능 구역 표시가 켜짐
                     HideBuildHighlight(); // 시작할 때니까 배치 가능 구역 끄기
                     go.GetComponent<TowerControlBase>().TakeRoot(primaryKey, towerName, towerInfo);
                 });
@@ -158,11 +159,12 @@ public class BuildingSystem : MonoBehaviour
         return canBuild;
     }
 
-    public bool IsTowerCountFull()
+    public bool IsTowerCountFull(bool onMessage = true)
     {
         if(CurrentTowerCount + 1> MaxTowerCount)
         {
-            OnTowerCountChanged?.Invoke($"타워 배치 제한 {GridObjectMap.Count + 1} / {MaxTowerCount}", false);
+            if(onMessage) 
+                OnTowerCountChanged?.Invoke($"타워 배치 제한 {GridObjectMap.Count + 1} / {MaxTowerCount}", false);
             return true;
         }
         return false;
@@ -183,32 +185,34 @@ public class BuildingSystem : MonoBehaviour
     #endregion
 
     #region 배치된 공간 저장/삭제 메서드들
-    public void AddPlacedMapScreenPos(Vector3 mousePos, int id)
+    public void AddPlacedMapScreenPos(Vector3 mousePos, int id, bool nofity = true)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        AddPlacedMapCell(map.WorldToCell(worldPos), id);
+        AddPlacedMapCell(map.WorldToCell(worldPos), id, nofity);
     }
-    public void AddPlacedMapCell(Vector3Int cellPoint, int id) // Add는 이 함수를 꼭 지나감.
+    public void AddPlacedMapCell(Vector3Int cellPoint, int id, bool nofity = true) // Add는 이 함수를 꼭 지나감.
     {
         GridObjectMap.Add(cellPoint, id);
 
         RefreshBuildHighlight();
 
-        OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);
+        if(nofity)
+            OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);
     }
 
-    public int RemovePlacedMapScreenPos(Vector3 mousePos)
+    public int RemovePlacedMapScreenPos(Vector3 mousePos, bool nofity = true)
     {
         Vector3 worldPos = cam.ScreenToWorldPoint(mousePos);
-        return RemovePlacedMapWorldPos(worldPos);
+        return RemovePlacedMapWorldPos(worldPos, nofity);
     }
-    public int RemovePlacedMapWorldPos(Vector3 worldPos) // Remove는 이함수를 꼭 지나감.
+    public int RemovePlacedMapWorldPos(Vector3 worldPos, bool nofity = true) // Remove는 이함수를 꼭 지나감.
     {
         Vector3Int gridPoint = map.WorldToCell(worldPos);
         int id = GridObjectMap[gridPoint];
         GridObjectMap.Remove(gridPoint);
 
-        OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);
+        if (nofity)
+            OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);
 
         return id;
     }
