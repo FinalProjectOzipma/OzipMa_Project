@@ -27,6 +27,7 @@ public class DataManager
         LoadData<DefaultTable.Tower>();
         LoadData<DefaultTable.AbilityDefaultValue>();
         LoadData<DefaultTable.Gacha>();
+        LoadData<DefaultTable.InchentMultiplier>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }

@@ -47,7 +47,6 @@ public class MyUnitStateBase : EntityStateBase
     {
         if (status.Health.GetValue() <= 0.0f)
         {
-            Util.Log(status.Health.GetValue().ToString());
             controller.StopAllCoroutines();
             controller.IsDead = true;
             return true;
