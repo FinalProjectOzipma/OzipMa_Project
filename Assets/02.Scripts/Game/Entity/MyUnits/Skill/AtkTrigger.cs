@@ -18,7 +18,7 @@ public class AtkTrigger : Poolable
     private int hitLayer;
 
 
-    public void Init(GameObject ownerObject, float ownerAttack, GameObject target, bool isSingleAttack = true)
+    public void Init(GameObject ownerObject, float ownerAttack, GameObject target = null, bool isSingleAttack = true)
     {
         this.ownerObject = ownerObject;
 
@@ -53,6 +53,7 @@ public class AtkTrigger : Poolable
 
         foreach (var hit in colliders)
         {
+            Util.Log(hit.name);
             IDamagable damagle = hit.GetComponent<IDamagable>();
             if (damagle != null)
             {
@@ -70,5 +71,11 @@ public class AtkTrigger : Poolable
             Managers.Resource.Destroy(gameObject);
             OnDestroy = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(trigger.transform.position, trigger.radius);
     }
 }
