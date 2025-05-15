@@ -195,7 +195,7 @@ public class InventoryUI : UI_Scene
 
         if (_currentList == null)
             return;
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         uiSeq = Util.RecyclableSequence();
 
@@ -431,7 +431,7 @@ public class InventoryUI : UI_Scene
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         uiSeq = Util.RecyclableSequence();
 
@@ -500,7 +500,7 @@ public class InventoryUI : UI_Scene
                 isAnySelected = true;
             }
 
-            Managers.Audio.audioControler.PlaySFX(SFXClipName.PowerUp);
+            Managers.Audio.PlaySFX(SFXClipName.PowerUp);
         }
 
         if (!isAnySelected)

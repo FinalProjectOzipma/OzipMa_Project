@@ -60,12 +60,12 @@ public class AudioControler : MonoBehaviour
 
     public AudioMixer Mixer;
     public AudioSource bgmSource; // BGM을 재생하는 AudioSource
-    private Dictionary<string, AudioClip> bgmDictionary = new Dictionary<string, AudioClip>(); // bgmData 데이터 저장할 딕셔너리
+    public Dictionary<string, AudioClip> bgmDictionary = new Dictionary<string, AudioClip>(); // bgmData 데이터 저장할 딕셔너리
 
     public GameObject sfxPrefab; // 효과음 재생을 위한 오브젝트 프리팹
     public int poolSize = 10;    // 초기 sfxPrefab 오브젝트 풀 크기
     private Queue<AudioSource> sfxPool = new Queue<AudioSource>(); // sfx 오디오 소스를 저장할 큐 (오브젝트 풀링)
-    private Dictionary<string, AudioClip> sfxDictionary = new Dictionary<string, AudioClip>(); // sfxData 데이터 저장할 딕셔너리
+    public Dictionary<string, AudioClip> sfxDictionary = new Dictionary<string, AudioClip>(); // sfxData 데이터 저장할 딕셔너리
 
     private string masterVolume = AudioType.Master.ToString();
     private string BGMVolume = AudioType.BGM.ToString();
@@ -83,20 +83,6 @@ public class AudioControler : MonoBehaviour
         InitSFXPool(); // sfx 오브젝트 풀 초기화
         LoadVolumes(); // 저장된 볼륨 값 로드
         LoadMuteSettings(); // 저장된 음소거 설정 로드
-    }
-
-    private void Start()
-    {
-        OnSceneLoaded();
-        
-    }
-
-    /// <summary>
-    /// 씬에 따라 BGM 로드해주는 메서드
-    /// </summary>
-    private void OnSceneLoaded()
-    {
-        PlayBGM(BGMClipName.gameClip1.ToString()); // 씬 이름에 따라 BGM 자동 재생
     }
 
     #region 오디오 초기화 설정
@@ -229,27 +215,12 @@ public class AudioControler : MonoBehaviour
     #endregion
 
     #region SFX 관련 메서드
-    /// <summary>
-    ///   효과음 실행, 다른 스크립트에서 가져가서 실행(효과음 이름, 위치) 
-    /// </summary>
-    public void PlaySFX(SFXClipName enumName)
-    {
-        string sfxName = enumName.ToString();
-
-        if (!sfxDictionary.ContainsKey(sfxName))
-        {
-            Debug.LogWarning($"효과음 이름이 다릅니다. 효과음 이름과 스크립트에서 매개변수명 확인");
-            return;
-        }
-
-        PlaySFX(sfxDictionary[sfxName]);
-    }
 
 
     /// <summary>
-    /// 다른곳에서 받은 효과음 실행
+    /// 효과음 실행
     /// </summary>
-    private void PlaySFX(AudioClip clip)
+    public void PlaySFX(AudioClip clip)
     {
         // 음소거 상태라면 재생 안됨
         if (isSFXMute) return;
@@ -267,19 +238,6 @@ public class AudioControler : MonoBehaviour
         else
         {
             Mixer.SetFloat(SFXVolume, Mathf.Log10(Managers.Audio.sfxVolume) * 20f);
-            //float volumeMax = Managers.Audio.sfxVolume * Managers.Audio.masterVolume;
-
-            //if(volumeMax == 0)
-            //{
-            //    sfxSource.volume = 0;
-            //}
-            //else
-            //{
-            //    volumeMax = Mathf.Max(volumeMax, 0.1f); // 최소 0.7f로 보장
-            //    sfxSource.volume = Random.Range(0.1f, volumeMax); // SFX 볼륨 설정
-            //    sfxSource.pitch = Random.Range(0.95f, 1.05f);
-
-            //}
         }
 
         sfxSource.gameObject.SetActive(true);
@@ -315,32 +273,6 @@ public class AudioControler : MonoBehaviour
         sfxPool.Enqueue(sfxSource);            // 큐에 다시 추가
     }
 
-
-    public void SelectSFXAttackType(AbilityType type)
-    {
-        switch(type)
-        {
-            case AbilityType.None:
-                PlaySFX(SFXClipName.Error);
-                break;
-            case AbilityType.Physical:
-                PlaySFX(SFXClipName.Hit);
-                break;
-            case AbilityType.Magic:
-                PlaySFX(SFXClipName.MagicSpark);
-                break;
-            case AbilityType.Fire:
-                PlaySFX(SFXClipName.Fire);
-                break;
-            case AbilityType.Explosive:
-                PlaySFX(SFXClipName.Destroy);
-                break;
-            case AbilityType.Dark:
-                PlaySFX(SFXClipName.Dark);
-                break;
-        }
-
-    }
     #endregion
 
     #region 사운드 UI와 연결되는 메서드

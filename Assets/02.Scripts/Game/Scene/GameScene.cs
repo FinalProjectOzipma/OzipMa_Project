@@ -80,6 +80,7 @@ public class GameScene : SceneBase
         Managers.Resource.Instantiate("MainUI");
         Managers.Resource.Instantiate("BuildingSystem");
         Managers.Resource.Instantiate("Ending_Panel");
+        Managers.Audio.OnSceneLoaded();
     }
 
     private void DefaultTowerAdd()

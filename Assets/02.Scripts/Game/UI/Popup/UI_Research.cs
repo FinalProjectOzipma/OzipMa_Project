@@ -272,7 +272,7 @@ public class UI_Research : UI_Base
         CheckButton.gameObject.SetActive(false);
         UpgradeButtonText.text = "연구";
         UpgradeButton.interactable = false;
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
     }
 
 
@@ -330,7 +330,7 @@ public class UI_Research : UI_Base
         elapsedSeconds = researchDuration;
 
         CompleteResearch();
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         if (isPopup)
         {
@@ -368,7 +368,7 @@ public class UI_Research : UI_Base
 
         researchData.StartTime = startTime.ToString("o");
         researchData.ResearchDuration = researchDuration;
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         if (isPopup)
         {
@@ -453,14 +453,14 @@ public class UI_Research : UI_Base
 
         StarEffect.Play();
         LodingAnime.SetActive(false);
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Upgrade);
+        Managers.Audio.PlaySFX(SFXClipName.Upgrade);
 
         UpgradeButton.gameObject.SetActive(true);
         CheckButton.gameObject.SetActive(false);
         UpgradeButton.interactable = true;
 
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
 
         FillImage.fillAmount = 0.0f;

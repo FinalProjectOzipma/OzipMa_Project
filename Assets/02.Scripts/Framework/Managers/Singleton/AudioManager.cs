@@ -1,10 +1,12 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceLocations;
 using static UnityEngine.Rendering.HDROutputUtils;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class AudioManager
 {
@@ -26,7 +28,56 @@ public class AudioManager
         });
     }
 
+    
+    /// <summary>
+    /// 씬에 따라 BGM 로드해주는 메서드
+    /// </summary>
+    public void OnSceneLoaded()
+    {
+        audioControler.PlayBGM(BGMClipName.gameClip1.ToString()); // 씬 이름에 따라 BGM 자동 재생
+    }
 
 
+    public void SelectSFXAttackType(AbilityType type)
+    {
+        switch (type)
+        {
+            case AbilityType.None:
+                PlaySFX(SFXClipName.Error);
+                break;
+            case AbilityType.Physical:
+                PlaySFX(SFXClipName.Hit);
+                break;
+            case AbilityType.Magic:
+                PlaySFX(SFXClipName.MagicSpark);
+                break;
+            case AbilityType.Fire:
+                PlaySFX(SFXClipName.Fire);
+                break;
+            case AbilityType.Explosive:
+                PlaySFX(SFXClipName.Destroy);
+                break;
+            case AbilityType.Dark:
+                PlaySFX(SFXClipName.Dark);
+                break;
+        }
+
+    }
+
+    /// <summary>
+    ///   효과음 실행, 다른 스크립트에서 가져가서 실행(효과음 이름, 위치) 
+    /// </summary>
+    public void PlaySFX(SFXClipName enumName)
+    {
+        string sfxName = enumName.ToString();
+
+        if (!audioControler.sfxDictionary.ContainsKey(sfxName))
+        {
+            Debug.LogWarning($"효과음 이름이 다릅니다. 효과음 이름과 스크립트에서 매개변수명 확인");
+            return;
+        }
+
+        audioControler.PlaySFX(audioControler.sfxDictionary[sfxName]);
+    }
 
 }
