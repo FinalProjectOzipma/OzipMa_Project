@@ -40,6 +40,11 @@ public class UIManager
         }
     }
 
+    /// <summary>
+    /// 알림 UI 띄우기
+    /// </summary>
+    /// <param name="msg">알림 메세지</param>
+    /// <param name="isGreen">true : 초록색 알림, false : 빨간색 알림</param>
     public void Notify(string msg, bool isGreen = true)
     {
         Managers.Resource.Instantiate("NotificationUI", obj =>
