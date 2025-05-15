@@ -73,11 +73,13 @@ public class UI_Dictionary : UI_Popup
         CurrentTab = typeof(T);
         Transform trans = Content.transform; // 부모 객체 얻어오기
 
+        int cnt = 0;
         for (int i = 0; i < Dlist.Count; i++)
         {
             try
             {
                 SlotActive<T>(trans, trans.GetChild(i).gameObject, i, Dlist);
+                cnt++;
             }
             catch (Exception)
             {
@@ -89,8 +91,15 @@ public class UI_Dictionary : UI_Popup
                     slotGo.transform.SetParent(trans);
                     slotGo.transform.localScale = new Vector3(1f, 1f, 1f);
                     SlotActive<T>(trans, slotGo, i, Dlist);
+                    cnt++;
                 });
             }
+
+        }
+
+        while (cnt < trans.childCount) // 만약 이전에 슬롯이 필요없는 상황이면 비활성화
+        {
+            trans.GetChild(cnt++).gameObject.SetActive(false);
         }
     }
 
@@ -115,23 +124,35 @@ public class UI_Dictionary : UI_Popup
         slotGo.SetActive(true);
         slots.Add(slot);
 
-        for(int i = 0; i < list.Count; i++)
+        bool exists = false;
+        T matchedItem = default;
+
+        UserObject currentItem = list[index] as UserObject;
+        if (currentItem == null)
+            return;
+
+        foreach (var x in _currenInventList)
         {
-            T item = list[i];
-            int itemKey = (item as UserObject).PrimaryKey;
-
-            bool exists = _currenInventList.Any(x => (x as UserObject).PrimaryKey == itemKey);
-
-            if (exists)
+            UserObject userObj = x as UserObject;
+            if (userObj != null && userObj.PrimaryKey == currentItem.PrimaryKey)
             {
-                slot.Screen.SetActive(false);
-                slot.SetData<T>(_currenInventList[slot.Index]);
+                exists = true;
+                matchedItem = x as T;
+                break;
             }
-            else
-            {
-                slot.Screen.SetActive(true);
-                slot.SetData<T>(list[slot.Index]);
-            }
+        }
+
+        if (exists)
+        {
+            slot.Screen.SetActive(false);
+            slot.Button.interactable = true;
+            slot.SetData<T>(matchedItem);
+        }
+        else
+        {
+            slot.Screen.SetActive(true);
+            slot.Button.interactable = false;
+            slot.SetData<T>(list[index]);
         }
 
     }
