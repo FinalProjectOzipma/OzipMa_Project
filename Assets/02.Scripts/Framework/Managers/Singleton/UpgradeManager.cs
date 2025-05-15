@@ -35,10 +35,10 @@ public class UpgradeManager
         if (Managers.Player.Gold >= LevelUPGold)
         {
             myUpgradeStatus.Level.AddValue(1);
-            myUpgradeStatus.Attack.AddMultiples(UpdateValue);
-            myUpgradeStatus.Defence.AddMultiples(UpdateValue);
-            myUpgradeStatus.Health.AddMultiples(UpdateValue);
-            myUpgradeStatus.MoveSpeed.AddMultiples(UpdateValue);
+            myUpgradeStatus.Attack.AddValue(5);
+            myUpgradeStatus.Defence.AddValue(5);
+            myUpgradeStatus.Health.AddValue(5);
+            myUpgradeStatus.MoveSpeed.AddValue(5);
 
             Managers.Player.SpenGold(LevelUPGold);
             //myUnit.AttackCoolDown.AddMultiples(-myUnitUpdateValue);
@@ -66,7 +66,7 @@ public class UpgradeManager
         if (Managers.Player.Gold >= LevelUPGold)
         {
             tower.TowerStatus.Level.AddValue(1);
-            tower.TowerStatus.Attack.AddMultiples(UpdateValue);
+            tower.TowerStatus.Attack.AddValue(5);
             tower.TowerStatus.AttackRange.AddValue(0.1f);
             
 

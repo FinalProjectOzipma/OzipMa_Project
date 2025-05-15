@@ -45,7 +45,7 @@ public class GachaUI : UI_Popup
         if (Managers.Player.Gem < num * 300)
         {
             Util.Log($"돈 없는 잼잼티비: {Managers.Player.Gem}");
-            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
+            Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
         //돈 차감
@@ -90,7 +90,7 @@ public class GachaUI : UI_Popup
     {
         if (Managers.Player.Gem < num * 300)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
+            Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
         Managers.Player.AddGem(-num * 300);
@@ -107,6 +107,7 @@ public class GachaUI : UI_Popup
         else if (num == 100)
         {
             Util.Log("우왕 레전더리 하지만 없는걸...");
+            Managers.UI.Notify("우왕 레전더리 하지만 없는걸...");
             //num -= 1;
             //gacha.GetSelectTower(RankType.Legend);
             //Managers.Player.Inventory.Add<Tower>(res);
