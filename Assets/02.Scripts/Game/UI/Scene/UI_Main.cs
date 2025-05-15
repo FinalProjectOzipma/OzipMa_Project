@@ -63,6 +63,7 @@ public class UI_Main : UI_Scene
     }
     public override void Init()
     {
+        base.Init();
         Managers.UI.SetSceneList<UI_Main>(this);
 
         MainGoldText.text = Util.FormatNumber(Managers.Player.GetGold());
