@@ -56,11 +56,14 @@ namespace DefaultTable
 
 /* Fields. */
 
-		public System.Int32 StagePrimaryKey;
-		public System.Int32 StageNum;
+		public System.Int32 PrimaryKey;
+		public System.Int32 StageStart;
+		public System.Int32 StageEnd;
 		public System.Int32 TowerAmont;
 		public System.Single RewordRatio;
-		public System.Single ModifierRatio;
+		public System.Single HealthRatio;
+		public System.Single AttackRatio;
+		public System.Single DefenceRatio;
   
 
 #region fuctions
@@ -178,7 +181,7 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.StagePrimaryKey, instance);
+                            Map.Add(instance.PrimaryKey, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 

@@ -19,6 +19,7 @@ public class PlayerManager
 
     public Inventory Inventory { get; set; } = new Inventory();
 
+    public int CurrentKey { get; set; } // 스테이지 키
     public int CurrentStage { get; set; }
     public int CurrentWave { get; set; }
 
@@ -170,6 +171,7 @@ public class PlayerManager
         AddGem(data.Gem);
         AddGold(data.Gold);
 
+        CurrentKey = data.CurrentKey;
         CurrentStage = data.CurrentStage;
         CurrentWave = data.CurrentWave;
         OnStageWave();

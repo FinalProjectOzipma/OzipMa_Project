@@ -54,7 +54,9 @@ public class UserObject
     private void ApplyUpgrade()
     {
         var result = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
-        float multiplier = result[Status.Grade.Value -1].Multiplier;
+        //float multiplier = result[Status.Grade.Value -1].Multiplier;
+        float multiplier = 1f;
+
         Status.MaxLevel.AddValue(10);
 
         Status.Attack.AddMultiples(multiplier);
