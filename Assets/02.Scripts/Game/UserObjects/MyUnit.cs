@@ -40,7 +40,7 @@ public class MyUnit : UserObject, IGettable
             }
             else
             {
-                (Status as MyUnitStatus).StatusInit();
+                (Status as MyUnitStatus).InvenStatus();
             }
             RankType = unitdata.RankType;
             AtkType = unitdata.AtkType;

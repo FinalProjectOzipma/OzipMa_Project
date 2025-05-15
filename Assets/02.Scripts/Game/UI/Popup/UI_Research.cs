@@ -529,6 +529,7 @@ public class UI_Research : UI_Base
         {
             case ResearchUpgradeType.Attack:
 
+
                 foreach (var unitAttack in myUnitList)
                 {
                     unitAttack.Status.Attack.AddValue(updateStat);
@@ -611,6 +612,7 @@ public class UI_Research : UI_Base
     }
 
 
+
     private void ResearchType(ResearchUpgradeType researchUpgradeType)
     {
         switch (researchUpgradeType)
@@ -629,5 +631,6 @@ public class UI_Research : UI_Base
                 break;
         }
     }
+
 
 }
