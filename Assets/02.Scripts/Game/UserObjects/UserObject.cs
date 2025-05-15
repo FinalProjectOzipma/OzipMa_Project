@@ -57,8 +57,8 @@ public class UserObject
         float multiplier = result[Status.Grade.Value -1].Multiplier;
         Status.MaxLevel.AddValue(10);
 
-        Status.Attack.AddMultiples(multiplier);
-        Status.Defence.AddMultiples(multiplier);
-        Status.Health.MaxValue += Status.Health.MaxValue * multiplier;
+        Status.Attack.SetValueMultiples(multiplier);
+        Status.Defence.SetValueMultiples(multiplier);
+        Status.Health.MaxValue *= multiplier;
     }
 }
