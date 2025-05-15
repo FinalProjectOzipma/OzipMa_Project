@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection.Emit;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceLocations;
 
 public class GameScene : SceneBase
 {
@@ -27,29 +23,13 @@ public class GameScene : SceneBase
 
     public override void Exit()
     {
-        
+
     }
 
     IEnumerator LoadGameScene()
     {
         // 0. 로딩 화면 보여주기 =======================================================
-        bool isGroupLoadFinished = false;        
-        GameObject loading = null;
-        Managers.Resource.Instantiate("LoadScene", go =>
-        {
-            go.SetActive(true);
-            loading = go;
-            // 그룹로드 
-            Managers.Resource.LoadResourceLocationAsync(LabelAsync, () =>
-            {
-                isGroupLoadFinished = true;
-            });
-        });
-
-        while(loading == null)
-        {
-            yield return null;
-        }
+        GameObject loading = GameObject.Find("LoadScene");
 
         // 1. 사용자 인증 ==============================================================
 #if UNITY_EDITOR
@@ -58,6 +38,11 @@ public class GameScene : SceneBase
 #endif
 
         // 2. 그룹 로드 완료되면 넘어가기 ==============================================
+        bool isGroupLoadFinished = false;
+        Managers.Resource.LoadResourceLocationAsync(LabelAsync, () =>
+        {
+            isGroupLoadFinished = true;
+        });
         while (!isGroupLoadFinished)
         {
             yield return null;
@@ -74,13 +59,13 @@ public class GameScene : SceneBase
             DefaultTowerAdd();
             DefaultUnitAdd();
         });
-        while(!Managers.Data.IsGameDataLoadFinished)
+        while (!Managers.Data.IsGameDataLoadFinished)
         {
             yield return null;
         }
 
-        // 4. 로딩창 끄고 게임 시작 ====================================================
-        if(loading != null) Managers.Resource.Destroy(loading);
+        // 5. 로딩창 끄고 게임 시작 ====================================================
+        if (loading != null) Managers.Resource.Destroy(loading);
         Managers.Wave.GameStart();
     }
 
@@ -93,11 +78,9 @@ public class GameScene : SceneBase
         });
         Managers.Resource.Instantiate("InventoryUI");
         Managers.Resource.Instantiate("MainUI");
-        Managers.Resource.Instantiate("BuildingSystem", bs =>
-        {
-            BuildingSystem.Instance?.Init();
-        });
+        Managers.Resource.Instantiate("BuildingSystem");
         Managers.Resource.Instantiate("Ending_Panel");
+        Managers.Audio.OnSceneLoaded();
     }
 
     private void DefaultTowerAdd()

@@ -41,7 +41,7 @@ public class UI_Alarm : UI_Popup
         isClose = true;
 
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
         
         HidePopup();
    

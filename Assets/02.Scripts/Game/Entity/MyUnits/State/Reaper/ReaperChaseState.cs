@@ -12,16 +12,20 @@ public class ReaperChaseState : ReaperStatebase
     {
         base.Enter();
         controller.Agent.isStopped = false;
+
+        controller.ST.SetActive(true, null);
     }
 
     public override void Exit()
     {
         base.Exit();
+        controller.ST.SetActive(false, null);
     }
 
     public override void Update()
     {
         base.Update();
+        controller.ST.FacingDir = controller.FacDir;
         agent.SetDestination(target.transform.position);
 
         //가까우면 공격상태로 바꿈

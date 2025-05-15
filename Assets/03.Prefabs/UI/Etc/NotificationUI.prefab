@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3678501503152790844}
   - component: {fileID: 4604065457096463622}
   m_Layer: 5
-  m_Name: TowerLimitTxt
+  m_Name: NotificationTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,11 +32,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 6101564345461587028}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -300}
-  m_SizeDelta: {x: 0, y: 100}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 461}
+  m_SizeDelta: {x: 1080, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3678501503152790844
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New TextNew TextNew TextNew Text
+  m_text: "\u3147\u3147\u3147\u3147\uC54C\uB9BC\ndd\nddd"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 80dd146c41db4f842b7ebe7d67f24028, type: 2}
   m_sharedMaterial: {fileID: -7690210131630193004, guid: 80dd146c41db4f842b7ebe7d67f24028, type: 2}
@@ -74,8 +74,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 16777215
-  m_fontColor: {r: 1, g: 1, b: 1, a: 0}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 42
-  m_fontSizeBase: 42
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -146,9 +146,10 @@ GameObject:
   - component: {fileID: 5004154392152576149}
   - component: {fileID: 3280248210160537126}
   - component: {fileID: 5368347287860437271}
-  - component: {fileID: 3759618991295649906}
+  - component: {fileID: 9032329128595616470}
+  - component: {fileID: 6986422945057928844}
   m_Layer: 5
-  m_Name: TowerEditUI
+  m_Name: NotificationUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,7 +196,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 15
   m_TargetDisplay: 0
 --- !u!114 &3280248210160537126
 MonoBehaviour:
@@ -237,7 +238,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3759618991295649906
+--- !u!114 &9032329128595616470
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -246,7 +247,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6537194101887423177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be4c087b997e43f46be4f37682c41bac, type: 3}
+  m_Script: {fileID: 11500000, guid: 75cf821f20e46ae4891a49529c3fcbf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TowerLimitTxt: {fileID: 4604065457096463622}
+  NotificationTxt: {fileID: 4604065457096463622}
+--- !u!114 &6986422945057928844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6537194101887423177}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6483ecd1ea529640812ffa517fa8a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

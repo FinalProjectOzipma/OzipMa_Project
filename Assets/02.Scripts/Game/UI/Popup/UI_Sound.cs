@@ -15,6 +15,13 @@ public class UI_Sound : UI_Popup
     [SerializeField] private Slider BGMSlider;
     [SerializeField] private Slider SFXSlider;
 
+    [SerializeField] private GameObject OnMaster;
+    [SerializeField] private GameObject OffMaster;
+    [SerializeField] private GameObject OnBGM;
+    [SerializeField] private GameObject OffBGM;
+    [SerializeField] private GameObject OnSFM;
+    [SerializeField] private GameObject OffSFM;
+
 
 
     private void Awake()
@@ -114,11 +121,13 @@ public class UI_Sound : UI_Popup
 
         if (Managers.Audio.audioControler.isMasterMute)
         {
-            MasterMuteButton.GetComponent<Image>().color = Color.gray;
+            OnMaster.SetActive(false);
+            OffMaster.SetActive(true);
         }
         else
         {
-            MasterMuteButton.GetComponent<Image>().color = Color.white;
+            OnMaster.SetActive(true);
+            OffMaster.SetActive(false);
         }
 
     }
@@ -132,11 +141,13 @@ public class UI_Sound : UI_Popup
 
         if (Managers.Audio.audioControler.isBGMMute)
         {
-            BGMBMuteButton.GetComponent<Image>().color = Color.gray;
+            OnBGM.SetActive(false);
+            OffBGM.SetActive(true);
         }
         else
         {
-            BGMBMuteButton.GetComponent<Image>().color = Color.white;
+            OnBGM.SetActive(true);
+            OffBGM.SetActive(false);
         }
     }
 
@@ -149,11 +160,13 @@ public class UI_Sound : UI_Popup
 
         if (Managers.Audio.audioControler.isSFXMute)
         {
-            SFMMuteButton.GetComponent<Image>().color = Color.gray;
+            OnSFM.SetActive(false);
+            OffSFM.SetActive(true);
         }
         else
         {
-            SFMMuteButton.GetComponent<Image>().color = Color.white;
+            OnSFM.SetActive(true);
+            OffSFM.SetActive(false);
         }
     }
     #endregion
@@ -164,29 +177,35 @@ public class UI_Sound : UI_Popup
     {
         if (Managers.Audio.audioControler.isMasterMute)
         {
-            MasterMuteButton.GetComponent<Image>().color = Color.gray;
+            OnMaster.SetActive(false);
+            OffMaster.SetActive(true);
         }
         else
         {
-            MasterMuteButton.GetComponent<Image>().color = Color.white;
+            OnMaster.SetActive(true);
+            OffMaster.SetActive(false);
         }
 
         if (Managers.Audio.audioControler.isBGMMute)
         {
-            BGMBMuteButton.GetComponent<Image>().color = Color.gray;
+            OnBGM.SetActive(false);
+            OffBGM.SetActive(true);
         }
         else
         {
-            BGMBMuteButton.GetComponent<Image>().color = Color.white;
+            OnBGM.SetActive(true);
+            OffBGM.SetActive(false);
         }
 
         if (Managers.Audio.audioControler.isSFXMute)
         {
-            SFMMuteButton.GetComponent<Image>().color = Color.gray;
+            OnSFM.SetActive(false);
+            OffSFM.SetActive(true);
         }
         else
         {
-            SFMMuteButton.GetComponent<Image>().color = Color.white;
+            OnSFM.SetActive(true);
+            OffSFM.SetActive(false);
         }
     }
 
@@ -202,7 +221,7 @@ public class UI_Sound : UI_Popup
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         HidePpoup();
     }

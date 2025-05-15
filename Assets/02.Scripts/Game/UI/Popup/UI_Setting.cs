@@ -54,7 +54,7 @@ public class UI_Setting : UI_Popup
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
         Managers.UI.ShowPopupUI<UI_Sound>("SoundUI");
         isButton = false;
     }
@@ -66,7 +66,7 @@ public class UI_Setting : UI_Popup
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         HidePpoup();
     }

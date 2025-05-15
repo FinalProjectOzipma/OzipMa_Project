@@ -41,10 +41,10 @@ public class WizardStateBase : EnemyStateBase
             switch(objectName)
             {
                 case "EnergyShot":
-                    Managers.Audio.audioControler.PlaySFX(SFXClipName.Projectile);
+                    Managers.Audio.PlaySFX(SFXClipName.Projectile);
                     break;
                 case "Lightning":
-                    Managers.Audio.audioControler.PlaySFX(SFXClipName.Thunder);
+                    Managers.Audio.PlaySFX(SFXClipName.Thunder);
                     break;
             }
 

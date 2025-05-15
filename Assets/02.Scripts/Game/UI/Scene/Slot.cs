@@ -45,8 +45,6 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
     private int itemKey { get; set; }
 
-    private bool isSelect = false;
-
     private void Awake()
     {
         button = GetComponent<Button>();
@@ -229,7 +227,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Managers.Resource.Destroy(PreviewObj);
         PreviewObj = null;
 
-        if (buildingSystem.CanTowerBuildArea(inputPos) == false || buildingSystem.IsTowerCountFull() == true)
+        if (buildingSystem.CanTowerBuildArea(inputPos) == false || buildingSystem.IsTowerCountFull(false) == true)
         {
             // 배치 불가능하면 드래그 취소됨
             buildingSystem.DragController.IsSlotDragging = false;

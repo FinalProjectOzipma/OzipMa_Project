@@ -53,7 +53,7 @@ public class UI_GachaResult : UI_Popup
                 {
                     component.FadeOut();
                 });
-                Managers.Audio.audioControler.PlaySFX(SFXClipName.Card);
+                Managers.Audio.PlaySFX(SFXClipName.Card);
             });
         }
         Bg.enabled = true;
