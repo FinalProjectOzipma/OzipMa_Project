@@ -22,7 +22,7 @@ public class MyUnitController : EntityController, IDamagable
     #endregion
 
     //죽었을때 처리
-    public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
+    public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishTrigger();
     public virtual void AnimationFinishProjectileTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishProjectileTrigger();
     private void Awake()
     {

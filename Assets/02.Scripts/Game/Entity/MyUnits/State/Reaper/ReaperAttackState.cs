@@ -1,3 +1,4 @@
+using DG.Tweening;
 using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ public class ReaperAttackState : ReaperStatebase
     {
         base.Enter();
         controller.Agent.isStopped = true;
+        Managers.Resource.LoadAssetAsync<GameObject>("Slash");
     }
 
     public override void Exit()
@@ -28,20 +30,22 @@ public class ReaperAttackState : ReaperStatebase
 
         if (projectileCalled) // 범위 스킬 소환하는거
         {
-            Util.Log("개쩌는 슬래쉬 이얍!");
             Slash();
             projectileCalled = false;
         }
 
-        if (triggerCalled) // 공격 모션이 끝나는 구간
+        if (triggerCalled) // 공격 모션이 끝나는 구간{
+        {
             StateMachine.ChangeState(data.IdleState);
+        }
     }
 
     private void Slash()
     {
         Managers.Resource.Instantiate("Slash", (go) =>
         {
-            Util.Log("개쩌는 이펙트 이얍!");
+            go.transform.position = controller.Target.transform.position;
+            go.transform.DOScale(Vector3.one * controller.Status.AttackRange.GetValue() * 2, 0.5f);
         });
     }
 }

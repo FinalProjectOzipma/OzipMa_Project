@@ -76,6 +76,10 @@ PrefabInstance:
       propertyPath: sprite
       value: 
       objectReference: {fileID: -165799894, guid: 4b0a88e40c1cff64eb07ffe65584177f, type: 3}
+    - target: {fileID: 5112076379583237063, guid: 3cfc5f284ee29bf449c70ca0a925ad22, type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

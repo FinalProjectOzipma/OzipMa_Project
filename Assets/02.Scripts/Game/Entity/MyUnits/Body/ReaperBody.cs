@@ -21,10 +21,7 @@ public class ReaperBody : EntityBodyBase
             // 컨디션 초기화
             ctrl.Conditions.TryAdd((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(ctrl));
         }
-        if (ctrl != null)
-        {
 
-        }
         Init();
     }
 
