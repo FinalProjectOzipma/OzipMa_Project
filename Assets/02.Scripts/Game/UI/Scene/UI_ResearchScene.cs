@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 
 public class UI_ResearchScene : UI_Popup
 {
-    [SerializeField] private Button BackButton;
+    [SerializeField] private Button BGClose;
 
     [SerializeField] private TextMeshProUGUI GoldText;
     [SerializeField] private TextMeshProUGUI ZamText;
@@ -39,7 +39,7 @@ public class UI_ResearchScene : UI_Popup
     {
         GoldText.text = Managers.Player.GetGold().ToString();
         ZamText.text = Managers.Player.GetZam().ToString();
-        BackButton.gameObject.BindEvent(OnClickBack);
+        BGClose.gameObject.BindEvent(OnClickBack);
 
     }
 
@@ -92,12 +92,12 @@ public class UI_ResearchScene : UI_Popup
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
 
-        HidePpoup();
+        HidePpoup(data);
         isButton = false;
 
     }
 
-    private void HidePpoup()
+    private void HidePpoup(PointerEventData data)
     {
         uiSeq = Util.RecyclableSequence();
 
@@ -106,7 +106,7 @@ public class UI_ResearchScene : UI_Popup
 
         uiSeq.Play().OnComplete(() =>
         {
-            ClosePopupUI();
+            Managers.UI.GetScene<UI_Main>().OnClikButtonResearch(data);
         });
     }
 

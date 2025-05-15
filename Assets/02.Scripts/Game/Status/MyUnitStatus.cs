@@ -31,6 +31,20 @@ public class MyUnitStatus : StatusBase
         AttackCoolDown.SetValue(result.AttackCoolDown);
         AttackRange.SetValue(result.AttackRange);
     }
+
+    public void InvenStatus()
+    {
+        MyUnit result = Managers.Player.Inventory.GetItem<MyUnit>(primaryKey);
+        Health.MaxValue = result.Status.Health.GetValue();
+        Health.SetValue(Health.MaxValue);
+
+        Attack.SetValue(result.Status.Attack.GetValue());
+        Defence.SetValue(result.Status.Defence.GetValue());
+        MoveSpeed.SetValue(result.Status.MoveSpeed.GetValue());
+
+        AttackCoolDown.SetValue(result.Status.AttackCoolDown.GetValue());
+        AttackRange.SetValue(result.Status.AttackRange.GetValue());
+    }
     
     /// <summary>
     /// 파이어베이스에 저장된 데이터를 로드해서 데이터만 덮어씌우는 메서드

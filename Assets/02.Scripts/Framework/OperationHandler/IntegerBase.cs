@@ -44,6 +44,6 @@ public class IntegerBase
 
     public virtual string GetValueToString()
     {
-        return Value.ToString("N2");
+        return Value.ToString("N0");
     }
 }

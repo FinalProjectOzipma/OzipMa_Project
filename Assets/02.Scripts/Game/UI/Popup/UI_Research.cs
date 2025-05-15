@@ -29,6 +29,8 @@ public class UI_Research : UI_Base
     [SerializeField] private Image GoldImage;
     [SerializeField] private Image ZamImage;
 
+    [SerializeField] private GameObject LodingAnime;
+
 
     enum Objects
     {
@@ -412,6 +414,7 @@ public class UI_Research : UI_Base
         if (isComplete) return;
         isComplete = true;
 
+        LodingAnime.SetActive(true);
         _ = HandleCheckButton();
     }
 
@@ -449,6 +452,7 @@ public class UI_Research : UI_Base
     {
 
         StarEffect.Play();
+        LodingAnime.SetActive(false);
         Managers.Audio.audioControler.PlaySFX(SFXClipName.Upgrade);
 
         UpgradeButton.gameObject.SetActive(true);
@@ -524,6 +528,7 @@ public class UI_Research : UI_Base
         switch (upgradeType)
         {
             case ResearchUpgradeType.Attack:
+
 
                 foreach (var unitAttack in myUnitList)
                 {
@@ -607,6 +612,7 @@ public class UI_Research : UI_Base
     }
 
 
+
     private void ResearchType(ResearchUpgradeType researchUpgradeType)
     {
         switch (researchUpgradeType)
@@ -625,5 +631,6 @@ public class UI_Research : UI_Base
                 break;
         }
     }
+
 
 }

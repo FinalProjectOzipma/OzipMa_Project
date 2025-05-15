@@ -25,12 +25,26 @@ public class UI_Main : UI_Scene
     [SerializeField] private TextMeshProUGUI DictionaryText;
 
     [SerializeField] private Image ProfileImage;
-    [SerializeField] private Image ResearchButtonImage;
     [SerializeField] private Image ManagerButtonImage;
-    [SerializeField] private Image SettingImage;
-    [SerializeField] private Image ProgressImage;
-    [SerializeField] private Image CompleteImage;
     [SerializeField] private Image DictionaryButtonImage;
+    [SerializeField] private Image ResearchButtonImage;
+    [SerializeField] private Image GachaButtonImage;
+    [SerializeField] private Image SettingImage;
+
+    [SerializeField] private GameObject OFFManagerBtn;
+    [SerializeField] private GameObject ONManagerBtn;
+    [SerializeField] private GameObject OFFDictionaryBtn;
+    [SerializeField] private GameObject ONDictionaryBtn;
+    [SerializeField] private GameObject OFFResearchBtn;
+    [SerializeField] private GameObject ONResearchBtn;
+    [SerializeField] private GameObject OFFGachaBtn;
+    [SerializeField] private GameObject ONGachaBtn;
+
+
+    public bool isManagerOpen = false;
+    bool isDictionaryOpne = false;
+    bool isResearchOpne = false;
+    bool isGachaOpne = false;
 
 
     enum Objects
@@ -57,6 +71,7 @@ public class UI_Main : UI_Scene
         ManagerButton.gameObject.BindEvent(OnClickManager);
         SettingButton.gameObject.BindEvent(OnClickSetting);
         GachaButton.gameObject.BindEvent(OnClickGacha);
+        DictionaryButton.gameObject.BindEvent(OnClickDictionary);
         StageLv.text = $"Lv {Managers.Player.CurrentStage} - {Managers.Player.CurrentWave + 1}";
 
         if (Managers.Player != null)
@@ -93,14 +108,27 @@ public class UI_Main : UI_Scene
     }
 
 
-    private void OnClikButtonResearch(PointerEventData data)
+    public void OnClikButtonResearch(PointerEventData data)
     {
         if (isButton) return;
-
         isButton = true;
 
+        if (!isResearchOpne)
+        {
+            AllOFF();
+            OFFSwipe();
+            Managers.UI.CloseAllPopupUI();
+            ONResearchBtn.SetActive(true);
+            Managers.UI.ShowPopupUI<UI_ResearchScene>(Objects.ReseachUI.ToString());
+            isResearchOpne = true;
+        }
+        else
+        {
+            AllOFF();
+            Managers.UI.CloseAllPopupUI();
+        }
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.ShowPopupUI<UI_ResearchScene>(Objects.ReseachUI.ToString());
         isButton = false;
     }
 
@@ -111,7 +139,7 @@ public class UI_Main : UI_Scene
         isButton = true;
 
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.ShowPopupUI<UI_Setting>("SettingUI");
+        Managers.UI.ShowPopupUI<UI_Sound>("SoundUI");
         isButton = false;
     }
 
@@ -121,35 +149,101 @@ public class UI_Main : UI_Scene
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        AllOFF();
+        Managers.UI.CloseAllPopupUI();
         Managers.UI.GetScene<InventoryUI>().OnSwipe();
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
         isButton = false;
+
     }
 
-    private void OnClickGacha(PointerEventData data)
+    public void OnClickGacha(PointerEventData data)
     {
         if (isButton) return;
 
         isButton = true;
 
+        if (!isGachaOpne)
+        {
+            AllOFF();
+            OFFSwipe();
+            Managers.UI.CloseAllPopupUI();
+
+            ONGachaBtn.SetActive(true);
+            Managers.UI.ShowPopupUI<GachaUI>(nameof(GachaUI));
+            isGachaOpne = true;
+        }
+        else
+        {
+            AllOFF();
+            Managers.UI.CloseAllPopupUI();
+        }
+
+
         Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
-        Managers.UI.ShowPopupUI<GachaUI>(nameof(GachaUI));
         isButton = false;
     }
 
-    public void OffButton()
+    public void OnClickDictionary(PointerEventData data)
     {
-        ManagerButton.gameObject.SetActive(false);
-        ResearchButton.gameObject.SetActive(false);
-        DictionaryButton.gameObject.SetActive(false);
-        GachaButton.gameObject.SetActive(false);
+        if (isButton) return;
+        isButton = true;
+
+        if (!isDictionaryOpne)
+        {
+            AllOFF();
+            OFFSwipe();
+            Managers.UI.CloseAllPopupUI();         
+
+            ONDictionaryBtn.SetActive(true);
+            Managers.UI.ShowPopupUI<UI_Dictionary>("DictionaryUI");
+            isDictionaryOpne = true;
+        }
+        else
+        {
+            AllOFF();
+            Managers.UI.CloseAllPopupUI();     
+        }
+
+        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+
+        isButton = false;
+
     }
 
-    public void OnButton()
+    private void AllOFF()
     {
-        ManagerButton.gameObject.SetActive(true);
-        ResearchButton.gameObject.SetActive(true);
-        DictionaryButton.gameObject.SetActive(true);
-        GachaButton.gameObject.SetActive(true);
+
+        OFFDictionaryBtn.SetActive(true);
+        OFFResearchBtn.SetActive(true);
+        OFFGachaBtn.SetActive(true);
+
+        ONDictionaryBtn.SetActive(false);
+        ONResearchBtn.SetActive(false);
+        ONGachaBtn.SetActive(false);
+
+        isDictionaryOpne = false;
+        isResearchOpne = false;
+        isGachaOpne = false;
     }
+
+    public void OnManagerMenu()
+    {
+        isManagerOpen = true;
+        OFFManagerBtn.SetActive(false);
+        ONManagerBtn.SetActive(true);
+    }
+
+    public void OFFManagerMenu()
+    {
+        isManagerOpen = false;
+        OFFManagerBtn.SetActive(true);
+        ONManagerBtn.SetActive(false);
+    }
+
+    private void OFFSwipe()
+    {
+        if (isManagerOpen) Managers.UI.GetScene<InventoryUI>().OnSwipe();
+    }
+
 }
