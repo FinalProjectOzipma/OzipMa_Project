@@ -5,10 +5,10 @@ using UnityEngine;
 public class UI_EndingPanel : UI_Scene
 {
     [SerializeField] private TextMeshProUGUI RewordGold;
-    [SerializeField] private TextMeshProUGUI RewordExp;
+    [SerializeField] private TextMeshProUGUI RewordGem;
 
-    [SerializeField] private RectTransform ClearUI;
-    [SerializeField] private RectTransform OverUI;
+    [SerializeField] private GameObject ClearUI;
+    [SerializeField] private GameObject OverUI;
 
     private void OnEnable()
     {
@@ -18,25 +18,42 @@ public class UI_EndingPanel : UI_Scene
     public override void Init()
     {
         base.Init();
-
-        ClearUI.anchoredPosition = new Vector3(0.0f, 400.0f, 0.0f);
-        OverUI.anchoredPosition = new Vector3(0.0f, 400.0f, 0.0f);
         Managers.UI.SetSceneList<UI_EndingPanel>(this);
+        ClearUI.SetActive(false);
+        OverUI.SetActive(false);
+
     }
 
-    public void SetRewardText(long gold)
+    public void SetRewardText(long gold, long gem)
     {
-        RewordGold.text = $"{gold}";
+        RewordGold.text = $"{Util.FormatNumber(gold)}";
+        RewordGem.text = $"{Util.FormatNumber(gem)}";
     }
 
     public void MoveEndingPanel(bool isClear)
     {
-        RectTransform whatRect = isClear ? ClearUI : OverUI; 
-        Vector3 originalPos = whatRect.anchoredPosition;
+        GameObject whatgo = isClear ? ClearUI : OverUI;
 
-        Sequence seq = DOTween.Sequence();
-        seq.Append(whatRect.DOAnchorPosY(originalPos.y - 400f, 1.0f).SetEase(Ease.OutQuad))
-           .AppendInterval(2.0f)
-           .Append(whatRect.DOAnchorPosY(originalPos.y, 1.0f).SetEase(Ease.InQuad));
+        EndPanelAnime(whatgo);
+    }
+
+    public void EndPanelAnime(GameObject go, float showDuration = 2.0f)
+    {
+        if (uiSeq != null && uiSeq.IsActive())
+            uiSeq.Kill();
+
+        // 패널 활성화 + 초기 크기 설정
+        go.SetActive(true);
+        go.transform.localScale = Vector3.zero;
+
+        uiSeq = Util.RecyclableSequence();
+
+        uiSeq.Append(go.transform.DOScale(1.1f, 0.1f).SetEase(Ease.OutBack))
+             .Append(go.transform.DOScale(1.0f, 0.1f))
+             .AppendInterval(showDuration)
+             .Append(go.transform.DOScale(1.1f, 0.1f))
+             .Append(go.transform.DOScale(0.2f, 0.1f))
+             .AppendCallback(() => go.SetActive(false))
+             .Play();
     }
 }

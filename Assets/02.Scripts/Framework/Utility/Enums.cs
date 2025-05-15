@@ -14,6 +14,8 @@ public class Enums
         AbilityDefaultValue,
         Gacha,
         InchentMultiplier,
+        LoadingTip,
+
         Count
     }
 

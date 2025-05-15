@@ -134,7 +134,7 @@ public class WaveManager
                         playerManager.CurrentWave = 0;
                     }
 
-                    Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold);
+                    Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold, CurrentGem);
                     playerManager.OnStageWave();
                 }
                 else
