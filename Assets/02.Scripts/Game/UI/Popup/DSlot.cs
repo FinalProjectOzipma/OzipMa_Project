@@ -13,7 +13,7 @@ public class DSlot : UI_Base
     [SerializeField] private GameObject Legendary_Slot;
     [SerializeField] private GameObject Myth_Slot;
     [SerializeField] public GameObject Screen;
-    [SerializeField] private Button Button;
+    [SerializeField] public Button Button;
     [SerializeField] private Image Icon;
 
     public int Index { get; set; }

@@ -195,7 +195,7 @@ public class InventoryUI : UI_Scene
 
         if (_currentList == null)
             return;
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         uiSeq = Util.RecyclableSequence();
 
@@ -431,7 +431,7 @@ public class InventoryUI : UI_Scene
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         uiSeq = Util.RecyclableSequence();
 
@@ -486,7 +486,7 @@ public class InventoryUI : UI_Scene
         // 골드 확인, 등급별 강화골드 달라지면 수정해야함
         if (Managers.Player.GetGold() < Managers.Upgrade.LevelUPGold * updateList.Count)
         {
-            Managers.UI.ShowPopupUI<UI_Popup>("GoldAlarmPopup");
+            Managers.UI.Notify("골드가 부족합니다.", false);
             RefreshUpgradeUI();
             IsSelectTrue();
             Refresh<T>();
@@ -500,12 +500,12 @@ public class InventoryUI : UI_Scene
                 isAnySelected = true;
             }
 
-            Managers.Audio.audioControler.PlaySFX(SFXClipName.PowerUp);
+            Managers.Audio.PlaySFX(SFXClipName.PowerUp);
         }
 
         if (!isAnySelected)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>("InchentPopup");
+            Managers.UI.Notify("슬롯을 선택하세요.");
             RefreshUpgradeUI();
             Refresh<T>();
             return;
@@ -528,10 +528,5 @@ public class InventoryUI : UI_Scene
         var max = gettable as UserObject;
 
         return max.Status.Level.GetValue() == max.Status.MaxLevel.GetValue();
-    }
-
-    public void TextMaxLevel()
-    {
-        TextInfo.text = "최고 레벨 입니다.";
     }
 }

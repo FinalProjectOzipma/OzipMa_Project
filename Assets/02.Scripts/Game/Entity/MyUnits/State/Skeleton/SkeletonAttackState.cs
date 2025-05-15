@@ -44,7 +44,7 @@ public class SkeletonAttackState : SkeletonStateBase
         Managers.Resource.Instantiate(objectName, (go) =>
         {
             Fire<EntityProjectile>(go, target.transform.position);
-            Managers.Audio.audioControler.PlaySFX(SFXClipName.Arrow);
+            Managers.Audio.PlaySFX(SFXClipName.Arrow);
         });
     }
 }

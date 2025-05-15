@@ -34,7 +34,7 @@ public class FieldGold : Poolable
         seq.Append(transform.DOMove(goldVector, 0.5f)).Join(transform.DOScale(new Vector2(1, 1), 0.5f)).AppendCallback(() =>
         {
             NextGold = false;
-            Managers.Audio.audioControler.PlaySFX(SFXClipName.Coin);
+            Managers.Audio.PlaySFX(SFXClipName.Coin);
             canDestroy = true;
             particle.Play(); //파티클 사용할꺼면.. 주석 풀기
             
