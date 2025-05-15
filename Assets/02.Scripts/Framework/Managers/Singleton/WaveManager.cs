@@ -101,7 +101,7 @@ public class WaveManager
                 if (isCoreDead || isEnemyAllDead)
                 {
                     CurrentState = Enums.WaveState.Reward;
-                    if(isEnemyAllDead) Managers.Effect.InvokeEffect<GoldEffect>();
+                    Managers.Effect.InvokeEffect<GoldEffect>(isEnemyAllDead);
                 }
                 
             }

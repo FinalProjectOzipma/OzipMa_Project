@@ -31,6 +31,13 @@ public class WizardChasingState : WizardStateBase
 
         agent.SetDestination(targets.Peek().transform.position);
 
+        if (targets.Peek().layer == (int)Enums.Layer.Core)
+        {
+            if (agent.remainingDistance <= 0f)
+                StateMachine.ChangeState(data.AttackState);
+            return;
+        }
+
         if (!DetectedMap(targets.Peek().transform.position))
             InnerRange(data.AttackState);
     }
