@@ -160,7 +160,7 @@ public class DragController : MonoBehaviour
         if (isEditMode && buildingSystem.CanTowerBuildArea(inputPos))
         {
             dragObject.transform.position = buildingSystem.UpdatePosition(inputPos);
-            int key = buildingSystem.RemovePlacedMapScreenPos(eventPosition);
+            int key = buildingSystem.RemovePlacedMapScreenPos(eventPosition, false);
             buildingSystem.AddPlacedMapScreenPos(inputPos, key);
             dragObject = null;
             return;
