@@ -165,7 +165,7 @@ public class PlayerManager
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
         
         Gold = 100000;
-        Gem = 0;
+        Gem = 100000;
 
         AddGem(data.Gem);
         AddGold(data.Gold);

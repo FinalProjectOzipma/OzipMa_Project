@@ -38,12 +38,12 @@ public class MyUnitStatus : StatusBase
         Health.MaxValue = result.Status.Health.MaxValue;
         Health.SetValue(Health.MaxValue);
 
-        Attack.SetValue(result.Status.Attack.GetValue());
-        Defence.SetValue(result.Status.Defence.GetValue());
-        MoveSpeed.SetValue(result.Status.MoveSpeed.GetValue());
+        Attack.SetValue(result.Status.Attack.Value);
+        Defence.SetValue(result.Status.Defence.Value);
+        MoveSpeed.SetValue(result.Status.MoveSpeed.Value);
 
-        AttackCoolDown.SetValue(result.Status.AttackCoolDown.GetValue());
-        AttackRange.SetValue(result.Status.AttackRange.GetValue());
+        AttackCoolDown.SetValue(result.Status.AttackCoolDown.Value);
+        AttackRange.SetValue(result.Status.AttackRange.Value);
     }
     
     /// <summary>

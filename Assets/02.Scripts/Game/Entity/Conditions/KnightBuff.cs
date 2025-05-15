@@ -44,7 +44,7 @@ public class KnightBuff : IConditionable
             
             if(hitTime <= 0.0f)
             {
-                ctrl.Body.GetComponent<KnightBody>().OnSunFireCapeAttack(-10f * stage[index].ModifierRatio);
+                ctrl.Body.GetComponent<KnightBody>().OnSunFireCapeAttack(-10f * stage[index].AttackRatio);
 
                 hitTime = coolDown;
             }

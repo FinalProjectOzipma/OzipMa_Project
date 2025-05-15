@@ -476,10 +476,15 @@ public class InventoryUI : UI_Scene
 
             var select = _currentList[i] as T;
 
-            // select가 널이 아니거나 MaxLevel이 아니면 업데이트리스트 추가
-            if(select != null && !IsMaxLevel(select))
+            // select가 널이 아니거나 MaxLevel 아니고, 스택갯수만 Max에 Grade가 Max가 아니면 선택
+            if(select != null && !IsMaxLevel(select) && IsStack(select) && !IsGrade(select))
             {
                 updateList.Add(select);
+            }
+            else
+            {
+                Managers.UI.Notify("강화 할 수 없습니다.");
+                return;
             }
         }
 
@@ -528,5 +533,17 @@ public class InventoryUI : UI_Scene
         var max = gettable as UserObject;
 
         return max.Status.Level.GetValue() == max.Status.MaxLevel.GetValue();
+    }
+
+    public bool IsStack(IGettable gettable)
+    {
+        var maxStack = gettable as UserObject;
+        return maxStack.Status.Stack.GetValue() == maxStack.Status.MaxStack.GetValue();
+    }
+
+    public bool IsGrade(IGettable gettable)
+    {
+        var maxGrade = gettable as UserObject;
+        return maxGrade.Status.Grade.GetValue() == maxGrade.MaxGrade.GetValue();
     }
 }

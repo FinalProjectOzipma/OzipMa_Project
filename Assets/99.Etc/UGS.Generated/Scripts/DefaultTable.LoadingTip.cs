@@ -17,53 +17,47 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class Stage : ITable
+    public partial class LoadingTip : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<Stage> loadedList, Dictionary<int, Stage> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<LoadingTip> loadedList, Dictionary<int, LoadingTip> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
-        static string sheetID = "0"; // it is sheet id
+        static string sheetID = "392353057"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, Stage> StageMap = new Dictionary<int, Stage>();  
-        public static List<Stage> StageList = new List<Stage>();   
+        public static Dictionary<int, LoadingTip> LoadingTipMap = new Dictionary<int, LoadingTip>();  
+        public static List<LoadingTip> LoadingTipList = new List<LoadingTip>();   
 
         /// <summary>
-        /// Get Stage List 
+        /// Get LoadingTip List 
         /// Auto Load
         /// </summary>
-        public static List<Stage> GetList()
+        public static List<LoadingTip> GetList()
         {{
            if (isLoaded == false) Load();
-           return StageList;
+           return LoadingTipList;
         }}
 
         /// <summary>
-        /// Get Stage Dictionary, keyType is your sheet A1 field type.
+        /// Get LoadingTip Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, Stage>  GetDictionary()
+        public static Dictionary<int, LoadingTip>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return StageMap;
+           return LoadingTipMap;
         }}
 
     
 
 /* Fields. */
 
-		public System.Int32 PrimaryKey;
-		public System.Int32 StageStart;
-		public System.Int32 StageEnd;
-		public System.Int32 TowerAmont;
-		public System.Single RewordRatio;
-		public System.Single HealthRatio;
-		public System.Single AttackRatio;
-		public System.Single DefenceRatio;
+		public System.Int32 MyUnitPrimaryKey;
+		public System.String Message;
   
 
 #region fuctions
@@ -74,7 +68,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("Stage is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("LoadingTip is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -90,7 +84,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<Stage>, Dictionary<int, Stage>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<LoadingTip>, Dictionary<int, LoadingTip>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -118,14 +112,14 @@ namespace DefaultTable
                
 
 
-    public static (List<Stage> list, Dictionary<int, Stage> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, Stage> Map = new Dictionary<int, Stage>();
-            List<Stage> List = new List<Stage>();     
+    public static (List<LoadingTip> list, Dictionary<int, LoadingTip> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, LoadingTip> Map = new Dictionary<int, LoadingTip>();
+            List<LoadingTip> List = new List<LoadingTip>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Stage).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(LoadingTip).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["Stage"];
+            var sheet = jsonObject["LoadingTip"];
 
             foreach (var column in sheet.Keys)
             {
@@ -144,7 +138,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            Stage instance = new Stage();
+                            LoadingTip instance = new LoadingTip();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -181,12 +175,12 @@ namespace DefaultTable
                               
                             }
                             List.Add(instance); 
-                            Map.Add(instance.PrimaryKey, instance);
+                            Map.Add(instance.MyUnitPrimaryKey, instance);
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            StageList = List;
-                            StageMap = Map;
+                            LoadingTipList = List;
+                            LoadingTipMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -196,10 +190,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(Stage data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(LoadingTip data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(Stage).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(LoadingTip).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

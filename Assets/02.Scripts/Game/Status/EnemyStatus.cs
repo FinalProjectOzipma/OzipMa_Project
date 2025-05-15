@@ -14,7 +14,7 @@ public class EnemyStatus : StatusBase
     public void Init(DefaultTable.Enemy row)
     {
         int index = Mathf.Min(Managers.Player.CurrentStage, stage.Count - 1);
-        float modifierRatio = stage[index].ModifierRatio;
+        float modifierRatio = stage[index].AttackRatio;
 
         Attack.SetValue(row.Attack * modifierRatio);
         Attack.SetValueMultiples(1);
