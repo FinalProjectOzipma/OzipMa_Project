@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UI_InfoPopup : UI_Popup
@@ -25,6 +26,7 @@ public class UI_InfoPopup : UI_Popup
 
 
     [SerializeField] private Button CloseButton;
+    [SerializeField] private Button BGClose;
 
     [SerializeField] private GameObject UIInfo;
     [SerializeField] private GameObject BGObject;
@@ -41,6 +43,7 @@ public class UI_InfoPopup : UI_Popup
     private void Awake()
     {
         CloseButton.gameObject.BindEvent(OnClikcBack);
+        BGClose.gameObject.BindEvent(OnClikcBack);
     }
 
     private void Start()

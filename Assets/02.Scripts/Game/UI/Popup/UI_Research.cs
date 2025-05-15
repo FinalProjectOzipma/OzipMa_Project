@@ -320,8 +320,7 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.Gem < spendZam)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.ZamAlarmPopup.ToString());
-            //Managers.UI.GetAlarmPopup().WriteText("잼이 부족합니다. 잼이 없네요.");
+            Managers.UI.Notify("잼이 부족합니다.", false);
             isPopup = false;
             return;
         }
@@ -359,7 +358,7 @@ public class UI_Research : UI_Base
 
         if (Managers.Player.Gold < spendGold)
         {
-            Managers.UI.ShowPopupUI<UI_Alarm>(Objects.GoldAlarmPopup.ToString());
+            Managers.UI.Notify("골드가 부족합니다.", false);
             isPopup = false;
             return;
         }
@@ -425,7 +424,9 @@ public class UI_Research : UI_Base
 
         if (IsCheat)
         {
+            Managers.UI.Notify("치트 감지", false);
             StartTimeCheck();
+            
 
         }
         else
@@ -450,7 +451,7 @@ public class UI_Research : UI_Base
     // 치트가 아니면 업그레이드 시작
     private void OnUpgrade()
     {
-
+        Managers.UI.Notify("연구 완료");
         StarEffect.Play();
         LodingAnime.SetActive(false);
         Managers.Audio.PlaySFX(SFXClipName.Upgrade);

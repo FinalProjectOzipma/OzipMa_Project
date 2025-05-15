@@ -37,6 +37,7 @@ public class ReaperIdleState : ReaperStatebase
             //공격쿨타임이 돌았을 때
             else if (time < 0)
             {
+                time.ToString();
                 StateMachine.ChangeState(data.AttackState);
             }
         }

@@ -15,11 +15,15 @@ public class ReaperAttackState : ReaperStatebase
         base.Enter();
         controller.Agent.isStopped = true;
         Managers.Resource.LoadAssetAsync<GameObject>("Slash");
+
+
+        controller.ST.SetActive(true, null);
     }
 
     public override void Exit()
     {
         base.Exit();
+        controller.ST.SetActive(false, null);
     }
 
     public override void Update()
@@ -34,7 +38,7 @@ public class ReaperAttackState : ReaperStatebase
             projectileCalled = false;
         }
 
-        if (triggerCalled) // 공격 모션이 끝나는 구간{
+        if (triggerCalled) // 공격 모션이 끝나는 구간
         {
             StateMachine.ChangeState(data.IdleState);
         }
@@ -44,6 +48,8 @@ public class ReaperAttackState : ReaperStatebase
     {
         Managers.Resource.Instantiate("Slash", (go) =>
         {
+            go.GetComponent<AtkTrigger>()
+            .Init(controller.gameObject, controller.MyUnit.Status.Attack.GetValue(), controller.Target, false);
             go.transform.position = controller.Target.transform.position;
             go.transform.DOScale(Vector3.one * controller.Status.AttackRange.GetValue() * 2, 0.5f);
         });

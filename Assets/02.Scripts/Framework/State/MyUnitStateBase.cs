@@ -16,6 +16,7 @@ public class MyUnitStateBase : EntityStateBase
     protected NavMeshAgent agent;
     protected Transform transform;
     protected SpriteRenderer SR;
+
     public MyUnitStateBase(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;
@@ -47,7 +48,6 @@ public class MyUnitStateBase : EntityStateBase
     {
         if (status.Health.GetValue() <= 0.0f)
         {
-            Util.Log(status.Health.GetValue().ToString());
             controller.StopAllCoroutines();
             controller.IsDead = true;
             return true;
