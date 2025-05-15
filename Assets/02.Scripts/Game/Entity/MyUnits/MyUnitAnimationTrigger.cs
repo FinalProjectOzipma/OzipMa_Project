@@ -23,6 +23,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public void AnimationTrigger()
     {
+        Util.Log("애니메이션 트리거 호출되나요");
         myUnit.AnimationFinishTrigger();
     }
 
