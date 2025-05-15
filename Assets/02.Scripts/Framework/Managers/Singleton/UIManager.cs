@@ -38,6 +38,15 @@ public class UIManager
         }
     }
 
+    public void Notify(string msg, bool isGreen = true)
+    {
+        Managers.Resource.Instantiate("NotificationUI", obj =>
+        {
+            NotificationUI ui = obj.GetComponent<NotificationUI>();
+            ui.SetMessage(msg, isGreen);
+        });
+    }
+
     /*public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
 	{
 		if (string.IsNullOrEmpty(name))

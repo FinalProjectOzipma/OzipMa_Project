@@ -80,7 +80,7 @@ MonoBehaviour:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ec03d20f9fc1a554083643c93a9c9660
-    m_Address: TowerEditUI
+    m_Address: NotificationUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

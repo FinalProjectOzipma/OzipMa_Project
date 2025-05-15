@@ -14,15 +14,13 @@ public class BuildingSystem : MonoBehaviour
     public int CurrentTowerCount { get => GridObjectMap.Count; }
     public int MaxTowerCount = 2;
 
-    public event Action<int, int> OnTowerCountChanged;
+    public event Action<string, bool> OnTowerCountChanged;
 
     [SerializeField] private LayerMask CanDragLayerMask;
     [SerializeField] private LayerMask TowerBuildLayerMask;
     private Tilemap map;
     private Camera cam;
     private MapHandler mapHandler;
-
-    private TowerEditUI towerLimitUI;
 
     private void Awake()
     {
@@ -44,14 +42,8 @@ public class BuildingSystem : MonoBehaviour
         mapHandler = map?.transform.root.GetComponent<MapHandler>();
         DragController = GetComponent<DragController>();
 
-        // 타워 개수 제한 UI 생성
-        if(towerLimitUI == null)
-        {
-            Managers.Resource.Instantiate("TowerEditUI", obj =>
-            {
-                towerLimitUI = obj.GetComponent<TowerEditUI>();
-            });
-        }
+        // 설치 개수 메세지 UI 구독
+        OnTowerCountChanged += Managers.UI.Notify;
     }
 
     #region BuildingSystem 에서 직접해주는 행위들
@@ -170,7 +162,7 @@ public class BuildingSystem : MonoBehaviour
     {
         if(CurrentTowerCount + 1> MaxTowerCount)
         {
-            OnTowerCountChanged?.Invoke(GridObjectMap.Count + 1, MaxTowerCount);
+            OnTowerCountChanged?.Invoke($"타워 배치 제한 {GridObjectMap.Count + 1} / {MaxTowerCount}", false);
             return true;
         }
         return false;
@@ -202,7 +194,7 @@ public class BuildingSystem : MonoBehaviour
 
         RefreshBuildHighlight();
 
-        OnTowerCountChanged?.Invoke(GridObjectMap.Count, MaxTowerCount);
+        OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);
     }
 
     public int RemovePlacedMapScreenPos(Vector3 mousePos)
@@ -216,7 +208,7 @@ public class BuildingSystem : MonoBehaviour
         int id = GridObjectMap[gridPoint];
         GridObjectMap.Remove(gridPoint);
 
-        OnTowerCountChanged?.Invoke(GridObjectMap.Count, MaxTowerCount);
+        OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);
 
         return id;
     }
