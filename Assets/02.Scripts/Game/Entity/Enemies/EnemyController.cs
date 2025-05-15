@@ -110,7 +110,7 @@ public class EnemyController : EntityController, IDamagable
         Status.MoveSpeed.SetValueMultiples(1f);
     }
 
-    public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AniamtionFinishTrigger();
+    public virtual void AnimationFinishTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishTrigger();
     public virtual void AnimationFinishProjectileTrigger() => AnimData.StateMachine.CurrentState.AnimationFinishProjectileTrigger();
 
     /// <summary>

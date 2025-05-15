@@ -444,7 +444,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2037253597943175098}
   m_Layer: 5
-  m_Name: Select
+  m_Name: ONDictionaryBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAE40\uB618\uB618"
+  m_text: "\uD3B8\uC0C1\uC724"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
   m_sharedMaterial: {fileID: 8197075625149418010, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
@@ -1706,7 +1706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6089257967284938320}
   m_Layer: 5
-  m_Name: Select
+  m_Name: ONManagerBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2488,7 +2488,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 70}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7749902845188363280
 CanvasRenderer:
@@ -2518,7 +2518,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4229e28548d33ad498b2bf098c718af9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 28f85d603893e47599dc7a6fdaa6e952, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2562,11 +2562,11 @@ RectTransform:
   - {fileID: 1963714534870385502}
   - {fileID: 7851830457115362165}
   - {fileID: 5769676566364302749}
-  m_Father: {fileID: 6429201350438435797}
+  m_Father: {fileID: 1582521415152372514}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0.00036621094}
   m_SizeDelta: {x: 0, y: 180}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &874844094738914752
@@ -3156,7 +3156,13 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6429201350438435797}
+  - {fileID: 2346200997999942251}
+  - {fileID: 1188420224012315253}
+  - {fileID: 7162551775030004021}
+  - {fileID: 3726651348692534506}
+  - {fileID: 2716792728302418013}
+  - {fileID: 8167193287548885571}
+  - {fileID: 1582521415152372514}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3185,7 +3191,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!114 &4268392384741711336
 MonoBehaviour:
@@ -3252,12 +3258,20 @@ MonoBehaviour:
   ManagerText: {fileID: 3559717819355900134}
   DictionaryText: {fileID: 8370704593233078151}
   ProfileImage: {fileID: 4196508173171014455}
-  ResearchButtonImage: {fileID: 1826591635229031187}
   ManagerButtonImage: {fileID: 2618918464457143686}
-  SettingImage: {fileID: 5720731305921808228}
-  ProgressImage: {fileID: 0}
-  CompleteImage: {fileID: 0}
   DictionaryButtonImage: {fileID: 8442148260079032237}
+  ResearchButtonImage: {fileID: 1826591635229031187}
+  GachaButtonImage: {fileID: 4475326081594471823}
+  SettingImage: {fileID: 5720731305921808228}
+  OFFManagerBtn: {fileID: 8373405950974110635}
+  ONManagerBtn: {fileID: 3110858539236171540}
+  OFFDictionaryBtn: {fileID: 9184193897395774133}
+  ONDictionaryBtn: {fileID: 758565264748441076}
+  OFFResearchBtn: {fileID: 6394413702692405654}
+  ONResearchBtn: {fileID: 6225684738698953903}
+  OFFGachaBtn: {fileID: 6156876868006631610}
+  ONGachaBtn: {fileID: 5610911331060846566}
+  isManagerOpen: 0
 --- !u!1 &5360368594268813351
 GameObject:
   m_ObjectHideFlags: 0
@@ -3350,6 +3364,108 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GoldPoint: {fileID: 5589669093098953795}
+--- !u!1 &5502526432646887542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1582521415152372514}
+  - component: {fileID: 349461682212671401}
+  - component: {fileID: 4810131530082210885}
+  - component: {fileID: 9054960451644554837}
+  m_Layer: 5
+  m_Name: MenuBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1582521415152372514
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502526432646887542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8691185675082854347}
+  m_Father: {fileID: 8479092694328363245}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &349461682212671401
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502526432646887542}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 12
+  m_TargetDisplay: 0
+--- !u!114 &4810131530082210885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502526432646887542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!114 &9054960451644554837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502526432646887542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &5514950130149924375
 GameObject:
   m_ObjectHideFlags: 0
@@ -3462,7 +3578,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25, y: -100}
+  m_AnchoredPosition: {x: -50, y: -135}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7783488387189058030
@@ -3602,7 +3718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5614784446087353317}
   m_Layer: 5
-  m_Name: Select
+  m_Name: ONGachaBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3892,7 +4008,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2d152859eb00e7e4e8188a3344d84aa7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bf863bf2c5824770909db217964e55b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3912,7 +4028,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1483939438447351138}
   m_Layer: 5
-  m_Name: NotSelect
+  m_Name: OFFGachaBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3951,7 +4067,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2307178528585564133}
   m_Layer: 5
-  m_Name: Select
+  m_Name: ONResearchBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4065,7 +4181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 899568922916813104}
   m_Layer: 5
-  m_Name: NotSelect
+  m_Name: OFFResearchBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4356,7 +4472,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 70}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6257288993770608870
 CanvasRenderer:
@@ -4386,7 +4502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 92a0a3de8d916e34c939dc7608675da0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bec0d023d1d34ac588019c1bdfd9e75, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5049,7 +5165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9071616552023328022}
   m_Layer: 5
-  m_Name: NotSelect
+  m_Name: OFFManagerBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5388,7 +5504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7148253144591822758}
   m_Layer: 5
-  m_Name: NotSelect
+  m_Name: OFFDictionaryBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

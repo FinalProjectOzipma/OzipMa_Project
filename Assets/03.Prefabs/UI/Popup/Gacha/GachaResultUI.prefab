@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 6610164167590689394}
   - component: {fileID: 2065977696072232259}
   m_Layer: 0
-  m_Name: _GachaResultUI
+  m_Name: ScrollRect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,6 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce3abb7a3f72e546ba726ed315ae083, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ScrollRect: {fileID: 2065977696072232259}
   ResultSlots: {fileID: 3730656593437241465}
   Bg: {fileID: 2325483814174021726}
 --- !u!114 &282715224111437073

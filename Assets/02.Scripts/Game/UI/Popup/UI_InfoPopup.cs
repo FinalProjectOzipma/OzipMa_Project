@@ -23,10 +23,21 @@ public class UI_InfoPopup : UI_Popup
     [SerializeField] private TextMeshProUGUI DefenceText;
     [SerializeField] private Image InfoImage;
 
+
     [SerializeField] private Button CloseButton;
 
     [SerializeField] private GameObject UIInfo;
+    [SerializeField] private GameObject BGObject;
 
+    [SerializeField] private GameObject NormalWIndow;
+    [SerializeField] private GameObject RareWindow;
+    [SerializeField] private GameObject EpicWindow;
+    [SerializeField] private GameObject LegendWindow;
+    [SerializeField] private GameObject MythWindow;
+
+    [SerializeField] private Image Speed;
+    [SerializeField] private Image Health;
+    [SerializeField] private Image Defence;
     private void Awake()
     {
         CloseButton.gameObject.BindEvent(OnClikcBack);
@@ -56,11 +67,14 @@ public class UI_InfoPopup : UI_Popup
     {
         NameText.text = selectedInfo.Name;
         DescriptionText.text = selectedInfo.Description;
-        RankText.text = "랭크: " + selectedInfo.RankType.ToString();
-        LevelText.text = "Lv. " + selectedInfo.Status.Level.GetValueToString();
-        AttackText.text = "공격력: " + selectedInfo.Status.Attack.GetValueToString();
-        AttackCoolDownText.text =  "공속: " + selectedInfo.Status.AttackCoolDown.GetValueToString();
-        AttackRangeText.text = "사거리: "+ selectedInfo.Status.AttackRange.GetValueToString();
+        RankText.text = selectedInfo.RankType.ToString();
+        LevelText.text = selectedInfo.Status.Level.GetValueToString();
+        AttackText.text = selectedInfo.Status.Attack.GetValueToString();
+        AttackCoolDownText.text =  selectedInfo.Status.AttackCoolDown.GetValueToString();
+        AttackRangeText.text = selectedInfo.Status.AttackRange.GetValueToString();
+
+        SelectRankWindow(selectedInfo.RankType);
+
 
         InfoImage.sprite = selectedInfo.Sprite;
 
@@ -69,15 +83,24 @@ public class UI_InfoPopup : UI_Popup
             ATKTypes(myUnit);
             AbilliyTypes(myUnit);
 
-            MoveSpeedText.text = "속도: " + myUnit.Status.MoveSpeed.GetValueToString();
-            HealthText.text = "체력: " + myUnit.Status.Health.GetValueToString();
-            DefenceText.text = "방어력: " + myUnit.Status.Defence.GetValueToString();
+            Speed.enabled = true;
+            Health.enabled = true;
+            Defence.enabled = true;
+
+
+            MoveSpeedText.text = myUnit.Status.MoveSpeed.GetValueToString();
+            HealthText.text = myUnit.Status.Health.GetValueToString();
+            DefenceText.text = myUnit.Status.Defence.GetValueToString();
 
         }
         else if (selectedInfo is Tower tower)
         {
             ATKTypes(tower);
             AbilliyTypes(tower);
+
+            Speed.enabled = false;
+            Health.enabled = false;
+            Defence.enabled = false;
 
             MoveSpeedText.text = "";
             HealthText.text = "";
@@ -142,6 +165,35 @@ public class UI_InfoPopup : UI_Popup
             AbilityType.None => "무",
             _ => "알 수 없음"
         };
+    }
+
+    public void SelectRankWindow(RankType rankType)
+    {
+        NormalWIndow.SetActive(false);
+        RareWindow.SetActive(false);
+        EpicWindow.SetActive(false);
+        LegendWindow.SetActive(false);
+        MythWindow.SetActive(false);
+
+        switch(rankType)
+        {
+            case RankType.Normal:
+                NormalWIndow.SetActive(true);
+                break;
+            case RankType.Rare:
+                RareWindow.SetActive(true);
+                break;
+            case RankType.Epic:
+                EpicWindow.SetActive(true);
+                break;
+            case RankType.Legend:
+                LegendWindow.SetActive(true);
+                break;
+            case RankType.Myth:
+                MythWindow.SetActive(true);
+                break;
+        }
+
     }
 
 }

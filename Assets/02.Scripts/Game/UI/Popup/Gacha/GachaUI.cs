@@ -15,7 +15,7 @@ public class GachaUI : UI_Popup
     [SerializeField] private Button TowerSingleButton;
     [SerializeField] private Button TowerDualButton;
     [SerializeField] private Button TowerHundredButton;
-    [SerializeField] private Button CloseButton;
+    [SerializeField] private Button BGClose;
 
     [SerializeField] private RectTransform RectTransform;
 
@@ -38,17 +38,63 @@ public class GachaUI : UI_Popup
         TowerSingleButton.onClick.AddListener(() => TowerOnClick(1));
         TowerDualButton.onClick.AddListener(() => TowerOnClick(10));
         TowerHundredButton.onClick.AddListener(() => TowerOnClick(100));
-        CloseButton.onClick.AddListener(ClosePopupUI);
+        BGClose.gameObject.BindEvent((Managers.UI.GetScene<UI_Main>().OnClickGacha));
+    }
+    private void UnitOnClick(int num)
+    {
+        if (Managers.Player.Gem < num * 300)
+        {
+            Util.Log($"돈 없는 잼잼티비: {Managers.Player.Gem}");
+            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
+            return;
+        }
+        //돈 차감
+        Managers.Player.AddGem(-num * 300);
+        
+        result = new();
+
+        //10연뽑시 에픽 1개 확정
+        if (num == 10)
+        {
+            num -= 1;
+            var res = gacha.GetSelectUnit(RankType.Epic);
+            result.Add(res);
+            Managers.Player.Inventory.Add<MyUnit>(res);
+        }
+        //100연뽑시 전설 1개 확정
+        else if (num == 100)
+        {
+            num -= 1;
+            var res = gacha.GetSelectUnit(RankType.Legend);
+            result.Add(res);
+            Managers.Player.Inventory.Add<MyUnit>(res);
+        }
+
+        //나머지는 가챠돌리기
+        for (int i = 0; i < num; i++)
+        {
+            var res = gacha.GetRandomUnit();
+            result.Add(res);
+            Managers.Player.Inventory.Add<MyUnit>(res);
+        }
+        
+        //결과 추출
+        Managers.Resource.Instantiate("GachaResultUI", (go) =>
+        {
+            UI_GachaResult res = go.GetComponent<UI_GachaResult>();
+            res.ShowResult(result);
+        });
     }
 
     private void TowerOnClick(int num)
     {
         if (Managers.Player.Gem < num * 300)
         {
-            Managers.Player.AddGem(- num * 300);
             Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
             return;
         }
+        Managers.Player.AddGem(-num * 300);
+
         result = new();
 
         if (num == 10)
@@ -76,48 +122,6 @@ public class GachaUI : UI_Popup
         Managers.Resource.Instantiate("GachaResultUI", (go)=>
         {
             go.GetComponent<UI_GachaResult>().ShowResult(result);
-        });
-    }
-
-    private void UnitOnClick(int num)
-    {
-        if (Managers.Player.Gem < num * 300)
-        {
-            Managers.Player.AddGem(-num * 300);
-
-            Managers.UI.ShowPopupUI<UI_Alarm>("ZamAlarmPopup");
-            return;
-        }
-
-        result = new();
-
-        if (num == 10)
-        {
-            Util.Log("우왕 에픽 하지만 없는걸...");
-            num -= 1;
-            var res = gacha.GetSelectUnit(RankType.Epic);
-            result.Add(res);
-            Managers.Player.Inventory.Add<MyUnit>(res);
-        }
-        else if (num == 100)
-        {
-            Util.Log("우왕 레전더리 하지만 없는걸...");
-            //num -= 1;
-            //var res = gacha.GetSelectUnit(RankType.Legend);
-            //result.Add(res);
-            //Managers.Player.Inventory.Add<MyUnit>(res);
-        }
-
-        for (int i = 0; i < num; i++)
-        {
-            var res = gacha.GetRandomUnit();
-            result.Add(res);
-            Managers.Player.Inventory.Add<MyUnit>(res);
-        }
-        Managers.Resource.Instantiate("GachaResultUI", (go) =>
-        {
-            UI_GachaResult res = go.GetComponent<UI_GachaResult>();
-            res.ShowResult(result);
         });
     }
 }
