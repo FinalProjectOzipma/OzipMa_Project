@@ -47,7 +47,6 @@ public class KnightAttackState : KnightStateBase
             triggerCalled = false;
             isAttacked = true;
 
-            // TODO::
             body.Attack(targets.Peek());
         }
     }

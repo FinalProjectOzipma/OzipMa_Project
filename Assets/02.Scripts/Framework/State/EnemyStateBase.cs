@@ -144,7 +144,7 @@ public class EnemyStateBase : EntityStateBase
     {
         controller.Body.GetComponent<EntityBodyBase>().Disable(); // 비활성화
         DropCoin();
-        Managers.Wave.CurEnemyList.Remove(controller.gameObject);
+        Managers.Wave.CurEnemyList.Remove(controller);
         Managers.Resource.Destroy(controller.gameObject);
     }
 

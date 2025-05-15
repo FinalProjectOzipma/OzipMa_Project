@@ -105,4 +105,25 @@ public abstract class EntityController : Poolable
                 Util.LogWarning($"{entityName} 바디에 {condition}키를 추가해주세요");
         }
     }
+
+    public void EntityDestroy()
+    {
+        StartCoroutine(Destroy());
+    }
+
+    private IEnumerator Destroy()
+    {
+        float alpha = 1;
+        EntityBodyBase body = Body.GetComponent<EntityBodyBase>();
+        body.Disable();
+
+        while(alpha > 0f)
+        {
+            body.Spr.color = new Color(1f, 1f, 1f, alpha);
+            alpha = Mathf.Max(0, alpha - Time.deltaTime);
+            yield return null;
+        }
+
+        Managers.Resource.Destroy(gameObject);
+    }
 }

@@ -9,10 +9,10 @@ public class KnightBuff : IConditionable
 {
     private ConditionHandler condiHandler;
     private EnemyController ctrl;
-    private float duration;
 
     private float hitTime;
     private float coolDown = 0.4f;
+
     public KnightBuff(EntityController ctrl)
     {
         this.ctrl = ctrl as EnemyController;
@@ -30,10 +30,8 @@ public class KnightBuff : IConditionable
     // 버프 할당
     async UniTaskVoid StartBuff()
     {
-        // 버프 시간안에 반복
-        int layerMask = (int)Enums.Layer.Core | (int)Enums.Layer.MyUnit;
-        var cir = condiHandler.GameObj.GetComponent<CircleCollider2D>();
-        Collider2D[] cols = Physics2D.OverlapCircleAll(cir.transform.position, cir.radius / ctrl.transform.lossyScale.x, layerMask);
+        var stage = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
+        int index = Mathf.Min(Managers.Player.CurrentStage, stage.Count - 1);
 
         condiHandler.CurDuration = condiHandler.Duration;
 
@@ -46,16 +44,7 @@ public class KnightBuff : IConditionable
             
             if(hitTime <= 0.0f)
             {
-                foreach (var col in cols)
-                {
-                    if (col == null)
-                        continue;
-
-                    if (col.TryGetComponent<IDamagable>(out var dmg))
-                    {
-                        dmg.ApplyDamage(40f);
-                    }
-                }
+                ctrl.Body.GetComponent<KnightBody>().OnSunFireCapeAttack(-10f * stage[index].ModifierRatio);
 
                 hitTime = coolDown;
             }
