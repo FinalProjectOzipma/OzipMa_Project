@@ -221,7 +221,7 @@ public class UI_Sound : UI_Popup
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         HidePpoup();
     }

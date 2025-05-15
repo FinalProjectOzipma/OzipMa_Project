@@ -47,7 +47,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
             if (damable != null)
             {
                 damable.ApplyDamage(myUnit.Status.Attack.GetValue(), myUnit.MyUnit.AbilityType, myUnit.gameObject);
-                Managers.Audio.audioControler.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
+                Managers.Audio.SelectSFXAttackType(myUnit.MyUnit.AbilityType);
             }
         }
     }

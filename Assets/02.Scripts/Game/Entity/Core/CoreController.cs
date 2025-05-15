@@ -92,13 +92,13 @@ public class CoreController : Poolable, IDamagable
 
         core.Health.AddValue(-damage);
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.Hit);
+        Managers.Audio.PlaySFX(SFXClipName.Hit);
 
         if (core.Health.Value == 0)
         {
             anime.SetBool("IsDestroy", true);
             coreColider.enabled = false;
-            Managers.Audio.audioControler.PlaySFX(SFXClipName.Dead);
+            Managers.Audio.PlaySFX(SFXClipName.Dead);
         }
     }
 

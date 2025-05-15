@@ -128,7 +128,7 @@ public class UI_Main : UI_Scene
             Managers.UI.CloseAllPopupUI();
         }
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
         isButton = false;
     }
 
@@ -138,7 +138,7 @@ public class UI_Main : UI_Scene
 
         isButton = true;
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
         Managers.UI.ShowPopupUI<UI_Sound>("SoundUI");
         isButton = false;
     }
@@ -152,7 +152,7 @@ public class UI_Main : UI_Scene
         AllOFF();
         Managers.UI.CloseAllPopupUI();
         Managers.UI.GetScene<InventoryUI>().OnSwipe();
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
         isButton = false;
 
     }
@@ -180,7 +180,7 @@ public class UI_Main : UI_Scene
         }
 
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
         isButton = false;
     }
 
@@ -205,7 +205,7 @@ public class UI_Main : UI_Scene
             Managers.UI.CloseAllPopupUI();     
         }
 
-        Managers.Audio.audioControler.PlaySFX(SFXClipName.ButtonClick);
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
         isButton = false;
 
