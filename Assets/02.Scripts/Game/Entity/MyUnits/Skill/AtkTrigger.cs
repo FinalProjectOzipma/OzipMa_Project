@@ -51,7 +51,6 @@ public class AtkTrigger : Poolable
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(trigger.transform.position, trigger.radius, hitLayer);
 
-        Util.Log("사신의 공격 얍!");
         foreach (var hit in colliders)
         {
             IDamagable damagle = hit.GetComponent<IDamagable>();

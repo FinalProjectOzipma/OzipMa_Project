@@ -16,7 +16,6 @@ public class ReaperIdleState : ReaperStatebase
         agent.isStopped = true;
 
         time = attackCoolDown;
-        Util.Log(time.ToString());
     }
 
     public override void Exit()
@@ -39,7 +38,6 @@ public class ReaperIdleState : ReaperStatebase
             else if (time < 0)
             {
                 time.ToString();
-                Util.Log("사신 공격갑니다");
                 StateMachine.ChangeState(data.AttackState);
             }
         }

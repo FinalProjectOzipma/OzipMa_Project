@@ -37,7 +37,6 @@ public class ReaperAttackState : ReaperStatebase
         if (triggerCalled) // 공격 모션이 끝나는 구간
         {
             StateMachine.ChangeState(data.IdleState);
-            Util.Log("사신의 아이들(Idle0)갔나요");
         }
     }
 
