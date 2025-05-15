@@ -16,6 +16,7 @@ public class MyUnitStateBase : EntityStateBase
     protected NavMeshAgent agent;
     protected Transform transform;
     protected SpriteRenderer SR;
+
     public MyUnitStateBase(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey)
     {
         this.controller = controller;

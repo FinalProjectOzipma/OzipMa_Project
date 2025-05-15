@@ -15,11 +15,15 @@ public class ReaperAttackState : ReaperStatebase
         base.Enter();
         controller.Agent.isStopped = true;
         Managers.Resource.LoadAssetAsync<GameObject>("Slash");
+
+
+        controller.ST.SetActive(true, null);
     }
 
     public override void Exit()
     {
         base.Exit();
+        controller.ST.SetActive(false, null);
     }
 
     public override void Update()
