@@ -15,7 +15,7 @@ public class DataManager
     public bool IsGameDataLoadFinished {  get; private set; }
 
     private DatabaseReference _databaseReference;
-    private string userID = "user001";
+    private string userID = "user002";
     
     public void Initialize()
     {
@@ -30,6 +30,7 @@ public class DataManager
         LoadData<DefaultTable.InchentMultiplier>();
         LoadData<DefaultTable.LevelUpValue>();
         LoadData<DefaultTable.Research>();
+        LoadData<DefaultTable.LoadingTip>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }

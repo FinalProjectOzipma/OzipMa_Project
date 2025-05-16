@@ -19,6 +19,7 @@ public class FieldReward : Poolable
     private bool canDestroy;
     private bool isEnd;
 
+    public long Value { get; set; }
     public bool NextReward { get; private set; }
 
     private int whatIsReward;
@@ -89,7 +90,20 @@ public class FieldReward : Poolable
             var main = particle.main;
             main.startColor = ptColors[whatIsReward];
             particle.Play(); //파티클 사용할꺼면.. 주석 풀기
+
+            if (whatIsReward == (int)RewardID.Gold)
+            {
+                Managers.Wave.CurrentGold += Value;
+                Managers.Player.AddGold(Value);
+            }
+            else
+            {
+                Managers.Wave.CurrentGem += Value;
+                Managers.Player.AddGem(Value);
+            }
             
+
+            Value = 0;
             // 웨이브 끝나는 조건
             if (wave.FieldRewards.Count == 0)
             {

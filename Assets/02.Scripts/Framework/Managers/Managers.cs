@@ -1,11 +1,7 @@
 using Firebase.Database;
 using System;
 using System.Collections;
-using System.Resources;
-using System.Threading.Tasks;
-using UnityEditor.EditorTools;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class Managers : MonoBehaviour
 {
@@ -50,7 +46,7 @@ public class Managers : MonoBehaviour
         Upgrade.Intialize();
 
     }
-    
+
 
     private void Update()
     {

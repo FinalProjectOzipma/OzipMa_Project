@@ -98,9 +98,9 @@ public class ResourceManager
         return gameObject;
     }
 
-    public void Destroy(GameObject gameObject)
+    public void Destroy(GameObject gameObject, bool tryForcePool = false)
     {
-        if(gameObject.TryGetComponent<UI_Base>(out var uibase))
+        if(!tryForcePool && gameObject.TryGetComponent<UI_Base>(out var uibase))
         {
             gameObject.SetActive(false);
             return;

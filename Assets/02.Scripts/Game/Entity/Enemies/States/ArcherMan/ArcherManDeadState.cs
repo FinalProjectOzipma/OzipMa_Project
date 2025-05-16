@@ -21,9 +21,7 @@ public class ArcherManDeadState : ArcherManStateBase
     public override void Update()
     {
         if (triggerCalled)
-        {
             OnDead(0);
-            Managers.Wave.CurrentGold = controller.Enemy.Reward;
-        }
+
     }
 }

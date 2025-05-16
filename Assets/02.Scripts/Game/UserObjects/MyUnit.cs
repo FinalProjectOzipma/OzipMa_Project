@@ -16,7 +16,6 @@ public class MyUnit : UserObject, IGettable
     public override void Init(int primaryKey, Sprite sprite)
     {
         MyUnit unitdata = Managers.Player.Inventory.GetItem<MyUnit>(primaryKey);
-        int a = 0;
         // 인벤토리에 기존에 없을 때
         if (unitdata == null)
         {

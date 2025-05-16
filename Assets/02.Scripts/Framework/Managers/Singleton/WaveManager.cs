@@ -149,8 +149,6 @@ public class WaveManager
 
                 Timer = hubTime;
                 onSpawn = true;
-                Managers.Player.AddGold(CurrentGold);
-                Managers.Player.AddGem(CurrentGem);
 
                 CurrentGold = 0;
                 CurrentGem = 0;
@@ -219,7 +217,7 @@ public class WaveManager
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>
         {
             EnemyController ctrl = go.GetComponent<EnemyController>();
-            ctrl.TakeRoot(spawnenemy.EnemyPrimaryKey, name, enemySpawn.transform.position);
+            ctrl.TakeRoot(spawnenemy.EnemyPrimaryKey, name, (playerManager.CurrentWave == 9) ? new Vector2(enemySpawn.transform.position.x, -3.2f) : enemySpawn.transform.position);
 
             // 웨이브 몬스터 추가
             Managers.Wave.CurEnemyList.Add(ctrl);
