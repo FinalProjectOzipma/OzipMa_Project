@@ -11,10 +11,6 @@ public class VampireDeadState : VampireStateBase
     public override void Enter()
     {
         base.Enter();
-        controller.Agent.isStopped = true;
-        Managers.Wave.CurMyUnitList.Remove(controller);
-        controller.Target = null;
-        //TODO: 아군 죽는 사운드 필요
     }
 
     public override void Exit()
@@ -25,6 +21,6 @@ public class VampireDeadState : VampireStateBase
     public override void Update()
     {
         if (triggerCalled)
-            Managers.Resource.Destroy(controller.gameObject);
+            OnDead();
     }
 }

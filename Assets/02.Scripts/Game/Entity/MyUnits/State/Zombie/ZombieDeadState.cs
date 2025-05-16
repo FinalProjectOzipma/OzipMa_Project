@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ZombieDeadState : ZombieStateBase
 {
@@ -24,13 +25,6 @@ public class ZombieDeadState : ZombieStateBase
     public override void Update()
     {
         if (triggerCalled)
-        {
-            if (controller.gameObject.activeSelf)
-            {
-                controller.Body.GetComponent<EntityBodyBase>().Disable();
-                Managers.Wave.CurMyUnitList.Remove(controller);
-                Managers.Resource.Destroy(controller.gameObject);
-            }
-        }
+            OnDead();
     }
 }

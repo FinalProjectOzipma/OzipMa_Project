@@ -21,8 +21,6 @@ public class ReaperDeadState : ReaperStatebase
     public override void Update()
     {
         if (triggerCalled)
-        {
             OnDead();
-        }
     }
 }

@@ -194,6 +194,7 @@ public class MyUnitStateBase : EntityStateBase
     /// </summary>
     protected void OnDead()
     {
+        Managers.Audio.PlaySFX(SFXClipName.Death);
         controller.Target = null;
         controller.Body.GetComponent<EntityBodyBase>().Disable(); // 비활성화
         Managers.Wave.CurMyUnitList.Remove(controller);

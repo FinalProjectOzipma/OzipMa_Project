@@ -38,6 +38,9 @@ public enum SFXClipName
     Fire,
     Coin,
     Card,
+    Cast, 
+    Burst,
+    Death,
 }
 
 public enum AudioType
@@ -47,7 +50,7 @@ public enum AudioType
     SFX
 }
 
-public class AudioControler : MonoBehaviour
+public class AudioController : MonoBehaviour
 {
     public AudioManager audioManager; // 오디오 매니저
     public BGMData bgmData; // BGM 데이터
@@ -215,7 +218,6 @@ public class AudioControler : MonoBehaviour
     #endregion
 
     #region SFX 관련 메서드
-
 
     /// <summary>
     /// 효과음 실행
