@@ -30,6 +30,7 @@ public class Tower : UserObject, IGettable
         // 정적 정보 채우기
         Key = primaryKey;
         Name = towerData.Name;
+        Description = towerData.Description;
         AtkType = towerData.AttackType;
         TowerType = towerData.AbilityType;
         RankType = towerData.Rank;

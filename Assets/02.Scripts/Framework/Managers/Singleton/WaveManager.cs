@@ -227,12 +227,4 @@ public class WaveManager
 
         return (playerManager.CurrentWave == 9); // 보스웨이브면 true
     }
-
-    IEnumerator WaveDelay(Action onComplete)
-    {
-        yield return waveDelayTime;
-
-        onComplete?.Invoke();
-        delayCoroutine = null;
-    }
 }
