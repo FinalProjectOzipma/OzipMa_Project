@@ -55,17 +55,35 @@ public class MyUnitStatus : StatusBase
         Health.MaxValue = newData.Health.MaxValue;
         Health.SetValue(newData.Health.Value);
         Health.SetValueMultiples(newData.Health.ValueMultiples);
+        Health.SetGradeMultiple(newData.Health.GradeMulitpes);
+        Health.SetResearchMultiple(newData.Health.ResearchMultiples);
+
         Defence.SetValue(newData.Defence.Value);
         Defence.SetValueMultiples(newData.Defence.ValueMultiples);
+        Defence.SetGradeMultiple(newData.Defence.GradeMulitpes);
+        Defence.SetResearchMultiple(newData.Defence.ResearchMultiples);
+
         MoveSpeed.SetValue(newData.MoveSpeed.Value);
         MoveSpeed.SetValueMultiples(newData.Defence.ValueMultiples);
+        MoveSpeed.SetGradeMultiple(newData.MoveSpeed.GradeMulitpes);
+        MoveSpeed.SetResearchMultiple(newData.MoveSpeed.ResearchMultiples);
+
 
         Attack.SetValue(newData.Attack.Value);
         Attack.SetValueMultiples(newData.Attack.ValueMultiples);
+        Attack.SetGradeMultiple(newData.Attack.GradeMulitpes);
+        Attack.SetResearchMultiple(newData.Attack.ResearchMultiples);
+
+
         AttackCoolDown.SetValue(newData.AttackCoolDown.Value);
         AttackCoolDown.SetValueMultiples(newData.AttackCoolDown.ValueMultiples);
+        AttackCoolDown.SetGradeMultiple(newData.AttackCoolDown.GradeMulitpes);
+        AttackCoolDown.SetResearchMultiple(newData.AttackCoolDown.ResearchMultiples);
+
         AttackRange.SetValue(newData.AttackRange.Value);
         AttackRange.SetValueMultiples(newData.AttackRange.ValueMultiples);
+        AttackRange.SetGradeMultiple(newData.AttackRange.GradeMulitpes);
+        AttackRange.SetResearchMultiple(newData.AttackRange.ResearchMultiples);
 
         Grade.SetValue(newData.Grade.Value);
         Grade.SetValueMultiples(newData.Grade.ValueMultiples);

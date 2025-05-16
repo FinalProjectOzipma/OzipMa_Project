@@ -164,7 +164,7 @@ public class WaveManager
         Managers.Resource.Instantiate("Core_Brain", go => {
 
             MainCore = go.GetComponent<CoreController>();
-            MainCore.Init(Managers.Player.MainCoreData.Health.Value);
+            MainCore.Init(Managers.Player.MainCoreData.Health.GetValue());
             int needAmount = waveList[idx].EnemyAmount;
             Managers.StartCoroutine(Spawn(needAmount));
         });
