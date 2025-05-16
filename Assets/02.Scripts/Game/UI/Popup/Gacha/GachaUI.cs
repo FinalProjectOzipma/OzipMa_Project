@@ -1,9 +1,4 @@
-using Cysharp.Threading.Tasks.Triggers;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,8 +16,6 @@ public class GachaUI : UI_Popup
 
     private GachaSystem gacha = new();
     private List<IGettable> result;
-
-    private List<UI_GachaSlot> slots;
 
 
     private void Start()
@@ -49,13 +42,13 @@ public class GachaUI : UI_Popup
     private void UnitOnClick(int num)
     {
         if (Managers.Player.Gem < num * 300)
-        { 
+        {
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
         //돈 차감
         Managers.Player.AddGem(-num * 300);
-        
+
         result = new();
 
         //10연뽑시 에픽 1개 확정
@@ -82,7 +75,7 @@ public class GachaUI : UI_Popup
             result.Add(res);
             Managers.Player.Inventory.Add<MyUnit>(res);
         }
-        
+
         //결과 추출
         Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
@@ -112,7 +105,6 @@ public class GachaUI : UI_Popup
         else if (num == 100)
         {
             Util.Log("우왕 레전더리 하지만 없는걸...");
-            Managers.UI.Notify("우왕 레전더리 하지만 없는걸...");
             //num -= 1;
             //gacha.GetSelectTower(RankType.Legend);
             //Managers.Player.Inventory.Add<Tower>(res);
@@ -125,7 +117,7 @@ public class GachaUI : UI_Popup
             Managers.Player.Inventory.Add<Tower>(res);
         }
 
-        Managers.Resource.Instantiate("GachaResultUI", (go)=>
+        Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
             go.GetComponent<UI_GachaResult>().ShowResult(result);
         });

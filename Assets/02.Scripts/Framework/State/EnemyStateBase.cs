@@ -1,11 +1,6 @@
-using DG.Tweening;
-using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
-using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class EnemyStateBase : EntityStateBase
 {
@@ -50,12 +45,12 @@ public class EnemyStateBase : EntityStateBase
     {
         base.Update();
 
-        if(!controller.Enemy.IsBoss)
+        if (!controller.Enemy.IsBoss)
         {
             DetectedUnit();
         }
 
-        if(targets.Count > 0)
+        if (targets.Count > 0)
             controller.FlipControll(targets.Peek());
     }
 
@@ -77,7 +72,7 @@ public class EnemyStateBase : EntityStateBase
         if (targets.Peek() == Managers.Wave.MainCore.gameObject)
         {
             Collider2D col = Physics2D.OverlapCircle(transform.position, status.AttackRange.GetValue(), (int)Enums.Layer.MyUnit);
-            if (col != null) targets.Push(col.gameObject);   
+            if (col != null) targets.Push(col.gameObject);
         }
         else
         {
@@ -137,13 +132,14 @@ public class EnemyStateBase : EntityStateBase
     /// <param name="Reward"></param>
     protected void DropReward(int Reward)
     {
-        Managers.Resource.Instantiate(nameof(FieldReward), (go) => 
+        Managers.Resource.Instantiate(nameof(FieldReward), (go) =>
         {
             FieldReward field;
             go.SetActive(true);
             go.transform.position = controller.Body.transform.position; // 보상 위치 초기화
             Managers.Wave.FieldRewards.Enqueue(field = go.GetComponent<FieldReward>()); // 필드 보상을 현재 웨이브에 전달
             field.WhatIsReward = Reward;
+            field.Value = controller.Enemy.Reward; // 값
         });
     }
 

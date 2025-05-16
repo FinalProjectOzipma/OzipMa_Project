@@ -10,9 +10,6 @@ public class SkeletonDeadState : SkeletonStateBase
     public override void Enter()
     {
         base.Enter();
-        controller.Agent.isStopped = true;
-        Managers.Wave.CurMyUnitList.Remove(controller);
-        controller.Target = null;
         //TODO: 아군 죽는 사운드 필요
     }
 
@@ -24,6 +21,6 @@ public class SkeletonDeadState : SkeletonStateBase
     public override void Update()
     {
         if (triggerCalled)
-            Managers.Resource.Destroy(controller.gameObject);
+            OnDead();
     }
 }

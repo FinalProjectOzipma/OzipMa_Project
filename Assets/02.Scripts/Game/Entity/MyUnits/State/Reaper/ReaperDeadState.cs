@@ -11,9 +11,6 @@ public class ReaperDeadState : ReaperStatebase
     public override void Enter()
     {
         base.Enter();
-        controller.Agent.isStopped = true;
-        Managers.Wave.CurMyUnitList.Remove(controller);
-        controller.Target = null;
     }
 
     public override void Exit()
@@ -24,6 +21,6 @@ public class ReaperDeadState : ReaperStatebase
     public override void Update()
     {
         if (triggerCalled)
-            Managers.Resource.Destroy(controller.gameObject);
+            OnDead();
     }
 }

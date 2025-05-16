@@ -46,12 +46,14 @@ public class ReaperAttackState : ReaperStatebase
 
     private void Slash()
     {
+        Managers.Audio.PlaySFX(SFXClipName.Cast);
         Managers.Resource.Instantiate("Slash", (go) =>
         {
             go.GetComponent<AtkTrigger>()
             .Init(controller.gameObject, controller.MyUnit.Status.Attack.GetValue(), controller.Target, false);
             go.transform.position = controller.Target.transform.position;
             go.transform.DOScale(Vector3.one * controller.Status.AttackRange.GetValue() * 2, 0.5f);
+            Managers.Audio.PlaySFX(SFXClipName.Burst);
         });
     }
 }

@@ -1,9 +1,8 @@
+#if UNITY_EDITOR
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class GameHelperTool : EditorWindow
 {
@@ -15,10 +14,9 @@ public class GameHelperTool : EditorWindow
 
     private void OnGUI()
     {
-#if UNITY_EDITOR
         GUILayout.Label("Wave Editor", EditorStyles.boldLabel);
 
-        GUILayout.Label($"현재 게임 상태 : {Enum.GetName(typeof(Enums.WaveState),Managers.Wave.CurrentState)}");
+        GUILayout.Label($"현재 게임 상태 : {Enum.GetName(typeof(Enums.WaveState), Managers.Wave.CurrentState)}");
 
         GUILayout.Label($"현재 스테이지 : {Managers.Player.CurrentStage}");
         GUILayout.Label($"현재 웨이브 : {Managers.Player.CurrentWave}");
@@ -37,7 +35,7 @@ public class GameHelperTool : EditorWindow
             EntityAllKill<EnemyController>(Managers.Wave.CurEnemyList);
         }
 
-      
+
         if (GUILayout.Button("웨이브 건너뛰기", GUILayout.Width(256)))
         {
             if (Managers.Instance == null) return;
@@ -64,9 +62,8 @@ public class GameHelperTool : EditorWindow
             Managers.Player.OnStageWave();
         }
 
-        if(Managers.Instance != null) Managers.Game.IsGodMode = EditorGUILayout.Toggle("갓 모드 활성화", Managers.Game.IsGodMode);
+        if (Managers.Instance != null) Managers.Game.IsGodMode = EditorGUILayout.Toggle("갓 모드 활성화", Managers.Game.IsGodMode);
     }
-#endif
 
     private void EntityAllKill<T>(List<T> list) where T : EntityController
     {
@@ -78,3 +75,4 @@ public class GameHelperTool : EditorWindow
     }
 
 }
+#endif

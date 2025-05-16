@@ -12,14 +12,11 @@ public class ReaperChaseState : ReaperStatebase
     {
         base.Enter();
         controller.Agent.isStopped = false;
-
-        controller.ST.SetActive(true, null);
     }
 
     public override void Exit()
     {
         base.Exit();
-        controller.ST.SetActive(false, null);
     }
 
     public override void Update()

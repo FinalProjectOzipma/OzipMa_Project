@@ -17,7 +17,10 @@ public class AtkTrigger : Poolable
 
     private int hitLayer;
 
-
+    private void Awake()
+    {
+        
+    }
     public void Init(GameObject ownerObject, float ownerAttack, GameObject target = null, bool isSingleAttack = true)
     {
         this.ownerObject = ownerObject;

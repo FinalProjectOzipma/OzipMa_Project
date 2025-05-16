@@ -15,14 +15,14 @@ public class AudioManager
     [Range(0, 1)] public float bgmVolume = 1f; // BGM 볼륨
     [Range(0, 1)] public float sfxVolume = 1f; // SFX 볼륨
 
-    public AudioControler audioControler;
+    public AudioController audioControler;
 
     public void Initialize()
     {
         Managers.Resource.Instantiate("AudioMaker", go =>
         {
             go.transform.SetParent(Managers.Instance.transform);
-            audioControler = go.GetComponent<AudioControler>();
+            audioControler = go.GetComponent<AudioController>();
             audioControler.Initialize();
             audioControler.audioManager = this;
         });
