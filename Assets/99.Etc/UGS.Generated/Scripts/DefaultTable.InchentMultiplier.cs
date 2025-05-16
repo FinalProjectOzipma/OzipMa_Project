@@ -58,7 +58,10 @@ namespace DefaultTable
 
 		public System.Int32 ID;
 		public System.Int32 Grade;
-		public System.Single Multiplier;
+		public System.Single AttackMultiplier;
+		public System.Single HPMultiplier;
+		public System.Single DefMultiplier;
+		public System.Single CoolDownMultiplier;
   
 
 #region fuctions

@@ -38,10 +38,20 @@ public class GoldEffect : IUsableUniTask, IEffectable
         DestroyCancellation?.Dispose();
     }
 
-    public void StartEffect()
+    public void StartEffect(bool boolean = false)
     {
-        TokenEnable();
-        OnEffect().Forget();
+        if(boolean)
+        {
+            TokenEnable();
+            OnEffect().Forget();
+        }
+        else
+        {
+            foreach(var gold in goldQue)
+            {
+                gold.Destroy();
+            }
+        }
     }
 
     private async UniTaskVoid OnEffect()

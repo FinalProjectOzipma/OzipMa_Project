@@ -45,18 +45,4 @@ public class UserObject
             Status.MaxStack.AddValue(5);
         }
     }
-
-    /// <summary>
-    /// 합성시 증가 스텟 적용하기
-    /// </summary>
-    private void ApplyUpgrade()
-    {
-        var result = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
-        float multiplier = result[Status.Grade.Value -1].Multiplier;
-        
-
-        Status.Attack.SetValueMultiples(multiplier);
-        Status.Defence.SetValueMultiples(multiplier);
-        Status.Health.MaxValue *= multiplier;
-    }
 }
