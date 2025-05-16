@@ -68,7 +68,8 @@ public class FieldGold : Poolable
 
     public void Destroy()
     {
-        StartCoroutine(FadeOut());
+        if(wave.FieldGolds.Count > 0)
+            StartCoroutine(FadeOut());
     }
 
     private void OnEnable()

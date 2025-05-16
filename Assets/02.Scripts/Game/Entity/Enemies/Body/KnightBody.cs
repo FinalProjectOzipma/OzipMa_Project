@@ -24,13 +24,16 @@ public class KnightBody : EntityBodyBase
             // 애니메이션 데이터 생성 및 초기화
             ctrl.AnimData = new KnightAnimData();
             ctrl.AnimData.Init(ctrl);
-            
-            // 스탯 초기화
-            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
 
             // 컨디션 초기화
             ctrl.Conditions.Add((int)AbilityType.Buff, new KnightBuff(ctrl));
         }
+        // 스탯 초기화
+        ctrl.Status.Health.OnChangeHealth -= healthView.SetHpBar;
+        ctrl.Status.Health.OnChangeHealth += healthView.SetHpBar;
+
+        healthView.SetHpBar(ctrl.Status.Health.Value, ctrl.Status.Health.MaxValue);
+
         Init();
     }
 
@@ -46,6 +49,11 @@ public class KnightBody : EntityBodyBase
     private float angle;
     private Vector2 pivotOffset;
     public void Attack(GameObject target)
+    {
+        StartCoroutine(CorAttack(target));
+    }
+
+    private IEnumerator CorAttack(GameObject target)
     {
         int hitLayer = (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
         angle = Util.GetAngle(transform.position, target.transform.position);
@@ -63,7 +71,6 @@ public class KnightBody : EntityBodyBase
 
         Collider2D[] cols = Physics2D.OverlapBoxAll((Vector2)transform.position + pivotOffset, slashSize, angle, hitLayer);
 
-        if (cols.Length == 0) return;
 
         foreach (var col in cols)
         {
@@ -71,6 +78,7 @@ public class KnightBody : EntityBodyBase
             {
                 result.ApplyDamage(ctrl.Status.Attack.GetValue());
             }
+            yield return null;
         }
     }
 
