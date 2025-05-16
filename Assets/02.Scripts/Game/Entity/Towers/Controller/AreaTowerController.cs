@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Floor를 던지는 애
+/// <summary>
+/// 범위 공격형 타워. 장판(Floor)으로 공격
+/// </summary>
 public class AreaTowerController : TowerControlBase 
 {
     private int randomTarget = -1;
@@ -23,23 +25,6 @@ public class AreaTowerController : TowerControlBase
             floorKey = Name;
         }
     }
-    protected override void TakeBody()
-    {
-        // 외형 로딩
-        Managers.Resource.Instantiate($"{name}Body", go => {
-            body = go;
-            body.transform.SetParent(transform);
-            body.transform.localPosition = Vector3.zero;
-
-            if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
-            {
-                towerBodyBase = bodyBase;
-                Anim = bodyBase.Anim;
-                AnimData = bodyBase.AnimData;
-                TowerStart();
-            }
-        });
-    }
 
     public override void Attack(float AttackPower)
     {
@@ -52,9 +37,10 @@ public class AreaTowerController : TowerControlBase
                 break;
             }
         }
+    }
 
-        if (target == null) return;
-
+    protected override void CreateAttackObject()
+    {
         // 장판 생성
         Managers.Resource.Instantiate(floorBrainKey, go =>
         {

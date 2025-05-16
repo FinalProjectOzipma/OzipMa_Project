@@ -1,21 +1,21 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
-public class TowerAnimationTrigger : MonoBehaviour 
+/// <summary>
+/// AreaTower가 쏘는 Floor발사체에 붙는 애니메이션 트리거
+/// </summary>
+public class TowerFloorAnimTrigger : MonoBehaviour
 {
-    public Action ProjectileAttackStart;
+    private event Action floorAttackFinished;
 
     private static int enemyLayer = -1;
+
     private float attackPower;
     private Tower ownerInfo;
-    private Action floorAttackFinished;
 
     private void Awake()
     {
-        if(enemyLayer < 0)
+        if (enemyLayer < 0)
         {
             enemyLayer = (int)Enums.Layer.Enemy;
         }
@@ -64,10 +64,5 @@ public class TowerAnimationTrigger : MonoBehaviour
     public void DestroyFloor()
     {
         floorAttackFinished?.Invoke();
-    }
-
-    public void ProjectileAttack()
-    {
-        ProjectileAttackStart?.Invoke();
     }
 }

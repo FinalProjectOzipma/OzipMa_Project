@@ -33,9 +33,9 @@ public abstract class TowerControlBase : MonoBehaviour
     public abstract void Attack(float AttackPower);
 
     /// <summary>
-    /// 외형 로딩
+    /// 발사체 생성 함수
     /// </summary>
-    protected abstract void TakeBody();
+    protected abstract void CreateAttackObject();
 
     protected virtual void Start()
     {
@@ -47,7 +47,7 @@ public abstract class TowerControlBase : MonoBehaviour
         ApplyAttackRange(TowerStatus.AttackRange.GetValue());
         if(AttackRangeObj == null) // 인스펙터창에서 넣어줬으나 혹시 없다면 찾아줌
         {
-            Util.Log("웬만하면 실행되지 않아야 하는 코드입니다.");
+            Util.LogWarning("AttackRangeObj가 NULL입니다. 이곳은 웬만하면 실행되지 않아야 하는 곳입니다..");
             AttackRangeObj = transform.Find("AttackRangeSprite").gameObject;
         }
     }
@@ -74,7 +74,7 @@ public abstract class TowerControlBase : MonoBehaviour
             EnemyController enemy = node.Value;
             if (enemy == null || enemy.isActiveAndEnabled == false)
             {
-                detectedEnemies.Remove(enemy);
+                detectedEnemies.Remove(enemy); // 죽은 적군은 미리 리스트에서 제거
             }
             node = node.Next;
         }
@@ -121,6 +121,33 @@ public abstract class TowerControlBase : MonoBehaviour
         TakeBody();
     }
 
+    /// <summary>
+    /// 외형 로딩
+    /// </summary>
+    protected virtual void TakeBody()
+    {
+        // 외형 로딩
+        Managers.Resource.Instantiate($"{name}Body", go => {
+            body = go;
+            body.transform.SetParent(transform);
+            body.transform.localPosition = Vector3.zero;
+
+            body.GetComponentInChildren<TowerAnimTrigger>().FireAction += this.CreateAttackObject;
+
+            if (body.TryGetComponent<TowerBodyBase>(out TowerBodyBase bodyBase))
+            {
+                towerBodyBase = bodyBase;
+                Anim = bodyBase.Anim;
+                AnimData = bodyBase.AnimData;
+                TowerStart();
+            }
+        });
+    }
+
+    /// <summary>
+    /// TowerBodyBase 제공 (외부용)
+    /// </summary>
+    /// <returns>현재 타워의 바디 스크립트</returns>
     public TowerBodyBase GetTowerBodyBase()
     {
         if(towerBodyBase != null) return towerBodyBase;
@@ -130,6 +157,8 @@ public abstract class TowerControlBase : MonoBehaviour
         }
         return null;
     }
+
+    #region 사거리 표시기 제어
     public void ShowRangeIndicator()
     {
         AttackRangeObj.SetActive(true);
@@ -138,22 +167,24 @@ public abstract class TowerControlBase : MonoBehaviour
     {
         AttackRangeObj.SetActive(false);
     }
+    #endregion
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision) 
     {
         EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
         if (enemy != null)
         {
-            detectedEnemies.AddLast(enemy);
+            detectedEnemies.AddLast(enemy); // 감지된 적군 리스트 추가
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision) 
     {
         EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
         if (enemy != null)
         {
-            detectedEnemies.Remove(enemy);
+            detectedEnemies.Remove(enemy); // 감지 범위 벗어난 적군은 리스트에서 제거
         }
     }
 

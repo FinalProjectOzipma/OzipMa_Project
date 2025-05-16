@@ -19,7 +19,7 @@ public class TowerFloor : MonoBehaviour
             t.localPosition = Vector3.zero;
 
             // Trigger에서 실제 데미지 Apply 처리하기 때문에 정보 넘겨주기
-            go.GetComponentInChildren<TowerAnimationTrigger>().Init(attackPower, ownerTower, OnAttackFinish);
+            go.GetComponentInChildren<TowerFloorAnimTrigger>().Init(attackPower, ownerTower, OnAttackFinish);
         });
     }
 
