@@ -58,7 +58,7 @@ MonoBehaviour:
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 490d1b4899d61b24d9206d2e8093203f
-    m_Address: FieldGold
+    m_Address: FieldReward
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

@@ -9,7 +9,7 @@ public class EffectManager
     public void Initialize()
     {
         // effectDict 값 추가
-        Add<GoldEffect>(new GoldEffect(Managers.Wave.FieldGolds));
+        Add<RewardEffect>(new RewardEffect(Managers.Wave.FieldRewards));
     }
 
     /// <summary>

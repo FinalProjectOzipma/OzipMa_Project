@@ -17,6 +17,9 @@ public class TowerAnimTrigger : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 애니메이션의 특정 시점에 공격 Fire
+    /// </summary>
     public void Fire()
     {
         FireAction?.Invoke();
