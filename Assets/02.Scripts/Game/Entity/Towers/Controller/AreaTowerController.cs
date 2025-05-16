@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
 /// 범위 공격형 타워. 장판(Floor)으로 공격
 /// </summary>
-public class AreaTowerController : TowerControlBase 
+public class AreaTowerController : TowerControlBase
 {
     private int randomTarget = -1;
     private EnemyController target;
@@ -29,9 +27,9 @@ public class AreaTowerController : TowerControlBase
     public override void Attack(float AttackPower)
     {
         randomTarget = Random.Range(0, detectedEnemies.Count);
-        foreach(var enemy in detectedEnemies)
+        foreach (var enemy in detectedEnemies)
         {
-            if(--randomTarget < 0)
+            if (--randomTarget < 0)
             {
                 target = enemy;
                 break;
