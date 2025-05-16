@@ -1,8 +1,6 @@
-using DefaultTable;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+using Unity.VisualScripting;using UnityEngine;
 
 /// <summary>
 ///  유저가 저장해야될 필수적인 요소들을 저장하는 곳
@@ -168,8 +166,8 @@ public class PlayerManager
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
         
-        Gold = 100000;
-        Gem = 100000;
+        Gold = 10000;
+        Gem = 10000;
 
         AddGem(data.Gem);
         AddGold(data.Gold);
@@ -184,12 +182,16 @@ public class PlayerManager
 
         RewordStartTime = data.RewordStartTime;
 
+        AttackPercentResearch = data.AttackPercentResearch;
+        DefencePercentResartch = data.DefencePercentResartch;
 
         if (data.MainCoreData != null)
         {
             MainCoreData = data.MainCoreData;
             Util.Log("코어레벨_Load" + MainCoreData.CoreLevel.GetValue().ToString());
         }
+
+
 
 
         // ===== 연구 정보=====

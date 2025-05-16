@@ -63,8 +63,8 @@ public class FloatBase
         OnChangeValue?.Invoke(GetValue());
     }
 
-    public virtual string GetValueToString()
+    public virtual string GetValueToString(string n = "N2")
     {
-        return (Value * ValueMultiples * GradeMulitpes * ResearchMultiples).ToString("N2");
+        return (Value * ValueMultiples * GradeMulitpes * ResearchMultiples).ToString(n);
     }
 }

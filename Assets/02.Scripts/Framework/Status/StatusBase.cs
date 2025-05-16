@@ -31,7 +31,7 @@ public class StatusBase
         Stack.SetValue(0);
         MaxStack.SetValue(20);
         MaxLevel.SetValue(10);
-        Grade.SetValue(0);
+        Grade.SetValue(1);
     }
 
     public void InitHealth() => Health.SetValue(Health.MaxValue);

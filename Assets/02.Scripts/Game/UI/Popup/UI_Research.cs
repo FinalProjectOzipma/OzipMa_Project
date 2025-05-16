@@ -182,7 +182,7 @@ public class UI_Research : UI_Base
         GoldSpendText.text = Util.FormatNumber(spendGold);
         GemSpendText.text = Util.FormatNumber(spendGem);
 
-        UpgradeText.text = $"업그레이드 : +{(updateStat - 1) * 100}%";
+        UpgradeText.text = $"업그레이드 : +{((updateStat - 1) * 100).ToString("F0")}%";
 
 
     }
@@ -462,7 +462,7 @@ public class UI_Research : UI_Base
         researchData.SpendGem = spendGem;
 
         UpdateLevel.text = $"Lv {updateLevel}";
-        UpgradeText.text = $"업그레이드 : +{(updateStat-1)*100}%";
+        UpgradeText.text = $"업그레이드 : +{((updateStat - 1) * 100).ToString("F0")}%";
 
 
         GoldSpendText.text = Util.FormatNumber(spendGold);

@@ -19,6 +19,7 @@ public class UserObject
         PrimaryKey = primary;
         Sprite = sprite;
         MaxGrade.SetValue(5);
+     
     }
 
     public T GetUpCasting<T>() where T : StatusBase => Status as T;

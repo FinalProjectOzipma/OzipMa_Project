@@ -52,10 +52,22 @@ public class UI_OFFLinePopup : UI_Popup
         int hours = totalMinutes / 60;
         int minutes = totalMinutes % 60;
 
-        string formattedTime = string.Format("{0}시간 {1}분", hours, minutes);
-        TimerText.text = formattedTime;
+
+        if (hours != 0)
+        {
+            string formattedTime = string.Format("{0}시간 {1}분", hours, minutes);
+            TimerText.text = formattedTime;
+        }
+        else
+        {
+            string formattedTime = string.Format("{0}분", minutes);
+            TimerText.text = formattedTime;
+        }
+
         RewordGoldText.text = rewordGold.ToString();
         RewordZamText.text = rewordGem.ToString();
+
+
     }
 
     public override void Init()
