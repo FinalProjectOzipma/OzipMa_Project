@@ -90,7 +90,7 @@ public abstract class TowerControlBase : MonoBehaviour
         // 타워가 갖고있는 공격 속성 적용
         if (Tower.Abilities.ContainsKey(Tower.TowerType) == false) return;
         DefaultTable.AbilityDefaultValue curAbilityData = Tower.Abilities[Tower.TowerType];
-        target.ApplyDamage(TowerStatus.Attack.GetValue(), curAbilityData.AbilityType, gameObject/*나중에 뺄거임*/, values : curAbilityData);
+        target.ApplyDamage(TowerStatus.Attack.GetValue(), curAbilityData.AbilityType, gameObject, values : curAbilityData);
     }
 
     /// <summary>
