@@ -3,17 +3,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Util
 {
     public static T GetOrAddComponent<T>(GameObject go) where T : UnityEngine.Component
     {
         T component = go.GetComponent<T>();
-		if (component == null)
+        if (component == null)
             component = go.AddComponent<T>();
         return component;
-	}
+    }
 
     public static GameObject FindChild(GameObject go, string name = null, bool recursive = false)
     {
@@ -41,7 +40,7 @@ public class Util
                         return component;
                 }
             }
-		}
+        }
         else
         {
             foreach (T component in go.GetComponentsInChildren<T>(true))
@@ -56,7 +55,7 @@ public class Util
 
     public static T StringToEnum<T>(string value, bool ignoreCase = true) where T : struct, System.Enum
     {
-        if(System.Enum.TryParse<T>(value, ignoreCase, out var result))
+        if (System.Enum.TryParse<T>(value, ignoreCase, out var result))
         {
             return result;
         }
@@ -69,7 +68,7 @@ public class Util
     public static List<T> StringListToEnumList<T>(List<string> values, bool ignoreCase = true) where T : struct, System.Enum
     {
         List<T> results = new List<T>();
-        foreach(string value in values)
+        foreach (string value in values)
         {
             if (System.Enum.TryParse<T>(value, ignoreCase, out var result))
             {
@@ -183,7 +182,7 @@ public class Util
     public static void Log(string message)
     {
 #if UNITY_EDITOR
-    Debug.Log(message);
+        Debug.Log(message);
 #endif
     }
 

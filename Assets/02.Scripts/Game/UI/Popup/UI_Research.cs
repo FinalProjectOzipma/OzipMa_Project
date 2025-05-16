@@ -1,13 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using Firebase.Database;
-using System.Threading.Tasks;
-using Unity.Mathematics;
 
 public class UI_Research : UI_Base
 {
@@ -380,7 +377,7 @@ public class UI_Research : UI_Base
         {
             Managers.UI.Notify("치트 감지", false);
             StartTimeCheck();
-            
+
 
         }
         else
@@ -450,7 +447,7 @@ public class UI_Research : UI_Base
 
         StatUpgrade(researchUpgradeType); // 스탯 업그레이드
 
-        if(updateLevel > 10) updateStat = Managers.Upgrade.GetResearchValue(researchUpgradeType, 10);
+        if (updateLevel > 10) updateStat = Managers.Upgrade.GetResearchValue(researchUpgradeType, 10);
         else updateStat = Managers.Upgrade.GetResearchValue(researchUpgradeType, updateLevel);
 
         spendGold += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
@@ -497,8 +494,8 @@ public class UI_Research : UI_Base
 
                 break;
             case ResearchUpgradeType.Defence:
-                if(updateLevel > 10) Managers.Player.DefencePercentResartch = Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f;
-                else Managers.Player.DefencePercentResartch = Managers.Upgrade.GetResearchValue(upgradeType, updateLevel-1);
+                if (updateLevel > 10) Managers.Player.DefencePercentResartch = Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f;
+                else Managers.Player.DefencePercentResartch = Managers.Upgrade.GetResearchValue(upgradeType, updateLevel - 1);
 
                 foreach (var unitAttack in myUnitList)
                 {
@@ -507,9 +504,9 @@ public class UI_Research : UI_Base
                 break;
             case ResearchUpgradeType.Core:
                 CoreController core = Managers.Wave.MainCore.GetComponent<CoreController>();
-                
-                if(updateLevel > 10) core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f);
-                else core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, updateLevel -1));
+
+                if (updateLevel > 10) core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f);
+                else core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, updateLevel - 1));
 
                 core.core.Health.MaxValue = core.core.Health.GetValue();
                 core.core.Health.SetValue(core.core.Health.MaxValue);

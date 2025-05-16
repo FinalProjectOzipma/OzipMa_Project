@@ -54,7 +54,7 @@ public class MapHandler : MonoBehaviour
 
         curHighlights[curHighlight_index].transform.root.position = pos;
         curHighlights[curHighlight_index].transform.root.gameObject.SetActive(true);
-        if(isGreen)
+        if (isGreen)
             curHighlights[curHighlight_index].color = Define.GlowGreen;
         else
             curHighlights[curHighlight_index].color = Define.GlowRed;
@@ -70,7 +70,7 @@ public class MapHandler : MonoBehaviour
     {
         if (isHighlightOn == false) return; // 중복 작업 방지
 
-        foreach(SpriteRenderer obj in curHighlights)
+        foreach (SpriteRenderer obj in curHighlights)
         {
             obj.transform.root.gameObject.SetActive(false);
         }

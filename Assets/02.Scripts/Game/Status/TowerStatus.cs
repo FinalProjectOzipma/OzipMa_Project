@@ -1,11 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using Unity.VisualScripting;
-using UnityEngine;
-using static Enums;
-using static UnityEngine.Rendering.DebugUI.Table;
-
 public class TowerStatus : StatusBase
 {
     public int PrimaryKey { get; set; }

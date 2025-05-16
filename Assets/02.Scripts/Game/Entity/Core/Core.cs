@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.UI;
-
 public class Core
 {
     public EntityHealth Health = new();
@@ -15,5 +9,4 @@ public class Core
         Health.SetValue(100.0f);
         CoreLevel.SetValue(1);
     }
-
 }

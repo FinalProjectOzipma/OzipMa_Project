@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
@@ -21,7 +19,7 @@ public class TrailObject : Poolable
     /// <param name="alphaVal">투명 값 0 ~ 255f</param>
     public void Active(Sprite sp, float alphaVal, int facingDir = 1, int sortingLayer = 0)
     {
-        if(sp != null)
+        if (sp != null)
         {
             transform.localScale = new Vector2(transform.localScale.x * facingDir, transform.localScale.y);
             spr.sprite = sp;
@@ -45,7 +43,7 @@ public class TrailObject : Poolable
 
     private void DestroyTrail(bool isActive)
     {
-        if(isActive)
+        if (isActive)
         {
             spr.sprite = null;
             if (gameObject.activeInHierarchy) Managers.Resource.Destroy(gameObject);

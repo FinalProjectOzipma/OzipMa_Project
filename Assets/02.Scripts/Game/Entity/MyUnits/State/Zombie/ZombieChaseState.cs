@@ -1,18 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UIElements;
-using static UnityEngine.GraphicsBuffer;
-
 public class ZombieChaseState : ZombieStateBase
 {
     public ZombieChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
-    
+
 
     public override void Enter()
     {

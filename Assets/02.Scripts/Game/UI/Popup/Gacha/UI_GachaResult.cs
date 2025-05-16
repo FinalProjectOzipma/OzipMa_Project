@@ -37,7 +37,7 @@ public class UI_GachaResult : UI_Popup
     /// <param name="result"></param>
     public void ShowResult(List<IGettable> result)
     {
-        
+
         ScrollRect.velocity = Vector2.zero;
 
         foreach (UserObject data in result)

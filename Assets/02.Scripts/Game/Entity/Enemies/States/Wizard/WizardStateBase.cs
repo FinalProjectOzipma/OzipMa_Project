@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WizardStateBase : EnemyStateBase
@@ -26,7 +24,7 @@ public class WizardStateBase : EnemyStateBase
     public override void Update()
     {
         base.Update();
-        
+
         if (DeadCheck())
         {
             StateMachine.ChangeState(data.DeadState);
@@ -36,9 +34,10 @@ public class WizardStateBase : EnemyStateBase
 
     protected void CreateSkill(string objectName, Action<GameObject> onComplete)
     {
-        Managers.Resource.Instantiate(objectName, (go) => { 
-            
-            switch(objectName)
+        Managers.Resource.Instantiate(objectName, (go) =>
+        {
+
+            switch (objectName)
             {
                 case "EnergyShot":
                     Managers.Audio.PlaySFX(SFXClipName.Projectile);
@@ -48,7 +47,7 @@ public class WizardStateBase : EnemyStateBase
                     break;
             }
 
-            onComplete?.Invoke(go); 
+            onComplete?.Invoke(go);
         });
     }
 }

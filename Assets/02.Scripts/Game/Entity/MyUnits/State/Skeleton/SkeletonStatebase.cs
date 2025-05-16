@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
-
 public class SkeletonStateBase : MyUnitStateBase
 {
     protected SkeletonAnimationData data;

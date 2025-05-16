@@ -1,12 +1,7 @@
-using DefaultTable;
 using DG.Tweening;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UI_InfoPopup : UI_Popup
@@ -58,7 +53,7 @@ public class UI_InfoPopup : UI_Popup
 
     private void OnEnable()
     {
-        if(uiSeq != null) AnimePopup(UIInfo);
+        if (uiSeq != null) AnimePopup(UIInfo);
     }
 
     public void OnClikcBack(PointerEventData data)
@@ -78,7 +73,7 @@ public class UI_InfoPopup : UI_Popup
         RankText.text = selectedInfo.RankType.ToString();
         LevelText.text = selectedInfo.Status.Level.GetValueToString();
         AttackText.text = selectedInfo.Status.Attack.GetValueToString();
-        AttackCoolDownText.text =  selectedInfo.Status.AttackCoolDown.GetValueToString();
+        AttackCoolDownText.text = selectedInfo.Status.AttackCoolDown.GetValueToString();
         AttackRangeText.text = selectedInfo.Status.AttackRange.GetValueToString();
 
         SelectRankWindow(selectedInfo.RankType);
@@ -147,7 +142,7 @@ public class UI_InfoPopup : UI_Popup
         };
     }
 
-   private void AbilliyTypes<T>(T go) where T : UserObject, IGettable
+    private void AbilliyTypes<T>(T go) where T : UserObject, IGettable
     {
         AbilityType? abilityType = go switch
         {
@@ -156,7 +151,7 @@ public class UI_InfoPopup : UI_Popup
             _ => null
         };
 
-        if(abilityType.HasValue)
+        if (abilityType.HasValue)
         {
             AbilityTypeText.text = GetAbillityTypeText(abilityType.Value);
         }
@@ -185,7 +180,7 @@ public class UI_InfoPopup : UI_Popup
         LegendWindow.SetActive(false);
         MythWindow.SetActive(false);
 
-        switch(rankType)
+        switch (rankType)
         {
             case RankType.Normal:
                 NormalWIndow.SetActive(true);

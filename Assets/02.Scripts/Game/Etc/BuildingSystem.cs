@@ -1,13 +1,11 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class BuildingSystem : MonoBehaviour
 {
-    public static BuildingSystem Instance {  get; private set; }
+    public static BuildingSystem Instance { get; private set; }
     public DragController DragController { get; private set; }
     public Dictionary<Vector3Int, int> GridObjectMap { get; private set; } = new();
 
@@ -57,13 +55,13 @@ public class BuildingSystem : MonoBehaviour
         if (gridObjectMap != null && gridObjectMap.Count > 0)
         {
             // Load된 데이터로 세팅된 타워로 배치해야 함. 
-            foreach(Vector3Int point in gridObjectMap.Keys)
+            foreach (Vector3Int point in gridObjectMap.Keys)
             {
                 int primaryKey = gridObjectMap[point];
                 Tower towerInfo = Managers.Player.Inventory.GetItem<Tower>(primaryKey);
 
                 string towerName = $"{towerInfo.Name}Tower";
-                Managers.Resource.Instantiate(towerName, go => 
+                Managers.Resource.Instantiate(towerName, go =>
                 {
                     go.transform.position = map.GetCellCenterWorld(point);
                     AddPlacedMapCell(point, primaryKey, false); // 이때 배치 가능 구역 표시가 켜짐
@@ -145,11 +143,11 @@ public class BuildingSystem : MonoBehaviour
         // 이미 설치된 공간인지 확인
         Vector3Int point = map.WorldToCell(worldPos);
         if (GridObjectMap.ContainsKey(point))
-        { 
+        {
             canBuild = false;
             return canBuild;
         }
-        
+
         // TowerBuildArea 확인 
         Ray2D ray = new Ray2D(worldPos, Vector2.zero);
         if (Physics2D.Raycast(ray.origin, ray.direction, 100, TowerBuildLayerMask))
@@ -161,9 +159,9 @@ public class BuildingSystem : MonoBehaviour
 
     public bool IsTowerCountFull(bool onMessage = true)
     {
-        if(CurrentTowerCount + 1> MaxTowerCount)
+        if (CurrentTowerCount + 1 > MaxTowerCount)
         {
-            if(onMessage) 
+            if (onMessage)
                 OnTowerCountChanged?.Invoke($"타워 배치 제한 {GridObjectMap.Count + 1} / {MaxTowerCount}", false);
             return true;
         }
@@ -196,7 +194,7 @@ public class BuildingSystem : MonoBehaviour
 
         RefreshBuildHighlight();
 
-        if(nofity)
+        if (nofity)
             OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);
     }
 

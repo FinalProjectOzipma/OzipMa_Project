@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 [System.Serializable]
 public class ConditionHandler
@@ -12,8 +9,8 @@ public class ConditionHandler
     public float Duration;
 
     private float curDuration;
-    public float CurDuration 
-    { 
+    public float CurDuration
+    {
         get { return curDuration; }
         set
         {
@@ -23,12 +20,12 @@ public class ConditionHandler
 
     public Transform Attacker { get; set; }
     public bool IsExit { get; set; }
-    
+
 
     public void ObjectActive(bool active)
     {
         if (GameObj == null) return;
         GameObj?.SetActive(active);
         IsExit = !active;
-    } 
+    }
 }

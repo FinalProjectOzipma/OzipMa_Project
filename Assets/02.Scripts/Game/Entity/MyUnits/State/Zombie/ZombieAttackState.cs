@@ -1,8 +1,3 @@
-using DefaultTable;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ZombieAttackState : ZombieStateBase
 {
     public ZombieAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)

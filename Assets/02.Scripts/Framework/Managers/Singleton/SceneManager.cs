@@ -1,7 +1,3 @@
-using UnityEngine;
-using DG.Tweening;
-using System;
-
 public class SceneManager
 {
     public SceneBase CurrentScene { get; private set; }

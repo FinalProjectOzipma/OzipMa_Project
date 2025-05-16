@@ -1,9 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Timeline;
-using UnityEngine.UI;
 
 public class CoreController : Poolable, IDamagable
 {
@@ -13,9 +9,9 @@ public class CoreController : Poolable, IDamagable
     private float spawnY = 2.7f;
     private CapsuleCollider2D coreColider;
 
-    [HideInInspector]public string coreLevelkey = "CoreLevelKey";
-    [HideInInspector]public string coreHealthkey = "CoreHealthKey";
-    
+    [HideInInspector] public string coreLevelkey = "CoreLevelKey";
+    [HideInInspector] public string coreHealthkey = "CoreHealthKey";
+
     //public Vector2 CenterPos { get; private set; }
     // Start is called before the first frame update
 
@@ -29,7 +25,7 @@ public class CoreController : Poolable, IDamagable
 
     public void Init(float maxHealth)
     {
-        if(body == null)
+        if (body == null)
         {
             Managers.Resource.Instantiate("Core_Body", go =>
             {
@@ -61,12 +57,12 @@ public class CoreController : Poolable, IDamagable
         this.gameObject.transform.position = new Vector2(randomX, spawnY);
 
         core.CoreLevel.SetValue(Managers.Player.MainCoreData.CoreLevel.GetValue());
-        Util.Log("코어레벨"+Managers.Player.MainCoreData.CoreLevel.GetValue().ToString());
+        Util.Log("코어레벨" + Managers.Player.MainCoreData.CoreLevel.GetValue().ToString());
         CoreUpgrade();
     }
 
 
-    
+
     private void SetHealth(float maxHealth, CoreBase coreBase)
     {
         core.Health.MaxValue = maxHealth;
@@ -77,7 +73,7 @@ public class CoreController : Poolable, IDamagable
 
     private void OnEnable()
     {
-        if(coreColider != null)
+        if (coreColider != null)
         {
             if (!coreColider.enabled) coreColider.enabled = true;
         }
@@ -125,7 +121,7 @@ public class CoreController : Poolable, IDamagable
 
     public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue abilities = null)
     {
-        TakeDamge(amount);    
+        TakeDamge(amount);
     }
 
     public void CoreUpgrade()

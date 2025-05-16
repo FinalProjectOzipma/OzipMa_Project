@@ -1,10 +1,7 @@
 using DefaultTable;
-using DG.Tweening;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Enums;
 
 public abstract class EntityController : Poolable
 {
@@ -40,7 +37,7 @@ public abstract class EntityController : Poolable
 
     protected virtual void Update()
     {
-        if(AnimData != null)
+        if (AnimData != null)
             AnimData.StateMachine.CurrentState?.Update();
     }
 
@@ -52,7 +49,7 @@ public abstract class EntityController : Poolable
 
     public void FlipControll(GameObject target = null)
     {
-        if(target != null)
+        if (target != null)
         {
             Vector2 pos = target.transform.position;
             Vector2 mePos = transform.position;
@@ -117,7 +114,7 @@ public abstract class EntityController : Poolable
         EntityBodyBase body = Body.GetComponent<EntityBodyBase>();
         body.Disable();
 
-        while(alpha > 0f)
+        while (alpha > 0f)
         {
             body.Spr.color = new Color(1f, 1f, 1f, alpha);
             alpha = Mathf.Max(0, alpha - Time.deltaTime);

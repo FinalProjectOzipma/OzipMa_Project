@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +9,8 @@ public class BGMEntry
     public AudioClip clip;
 }
 
-[CreateAssetMenu(fileName = "BGMData", menuName ="AudioData/BGMData")]
-public class BGMData: ScriptableObject
+[CreateAssetMenu(fileName = "BGMData", menuName = "AudioData/BGMData")]
+public class BGMData : ScriptableObject
 {
     public List<BGMEntry> entries = new List<BGMEntry>();
 }

@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class SwordManAttackState : SwordManStateBase
 {
     public SwordManAttackState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
@@ -13,7 +9,7 @@ public class SwordManAttackState : SwordManStateBase
         base.Enter();
 
         agent.isStopped = true;
-        
+
     }
 
     public override void Exit()

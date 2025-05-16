@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class WizardBody : EntityBodyBase
 {
     public override void Enable()
@@ -13,8 +9,8 @@ public class WizardBody : EntityBodyBase
 
             // 애니메이션 데이터 생성 및 초기화
             ctrl.AnimData = new WizardAnimData();
-            ctrl.AnimData.Init(ctrl);            
-            
+            ctrl.AnimData.Init(ctrl);
+
 
         }
 

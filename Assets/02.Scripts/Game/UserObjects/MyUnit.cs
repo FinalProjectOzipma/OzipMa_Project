@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.U2D;
 
 public class MyUnit : UserObject, IGettable
 {
@@ -43,7 +39,7 @@ public class MyUnit : UserObject, IGettable
             }
 
             (Status as MyUnitStatus).InvenStatus();
-            
+
             RankType = unitdata.RankType;
             AtkType = unitdata.AtkType;
             AbilityType = unitdata.AbilityType;

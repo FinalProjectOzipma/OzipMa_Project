@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WizardIdleState : WizardStateBase
@@ -25,7 +23,7 @@ public class WizardIdleState : WizardStateBase
     {
         base.Update();
 
-        if(time < 0f)
+        if (time < 0f)
         {
             int rand = Random.Range(0, 2);
 

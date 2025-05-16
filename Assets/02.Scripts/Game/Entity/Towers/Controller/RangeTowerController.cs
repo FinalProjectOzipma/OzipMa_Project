@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 // 아직 안쓰고 있는 타워입니다. 내용 무시 부탁.
 public class RangeTowerController : TowerControlBase
 {

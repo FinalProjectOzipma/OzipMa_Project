@@ -4,19 +4,17 @@ using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UGS;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataManager
 {
     public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
-    public bool IsGameDataLoadFinished {  get; private set; }
+    public bool IsGameDataLoadFinished { get; private set; }
 
     private DatabaseReference _databaseReference;
     private string userID = "user002";
-    
+
     public void Initialize()
     {
         // 필요한 데이터들을 Load 및 Datas에 캐싱해두는 작업
@@ -73,7 +71,7 @@ public class DataManager
         {
 
             Datas[type] = new List<ITable>();
-            for (int i =0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 Datas[type].Add(list[i]);
             }
@@ -90,7 +88,7 @@ public class DataManager
     public void SaveFirebase<T>(T data, string parent = null)
     {
         string json = JsonConvert.SerializeObject(data);
-        if(parent == null)
+        if (parent == null)
         {
             parent = typeof(T).Name;
         }
@@ -120,7 +118,7 @@ public class DataManager
         DataSnapshot snapshot = firebaseData.Result;
         string jsonData = snapshot.GetRawJsonValue();
 
-        if(jsonData != null)
+        if (jsonData != null)
         {
             T result = JsonConvert.DeserializeObject<T>(jsonData);
             onComplete.Invoke(result);

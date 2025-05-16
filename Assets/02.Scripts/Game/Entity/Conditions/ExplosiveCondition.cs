@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DefaultTable;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ExplosiveCondition<T> : UniTaskHandler, IConditionable where T : EntityController
@@ -23,7 +21,7 @@ public class ExplosiveCondition<T> : UniTaskHandler, IConditionable where T : En
     /// </summary>
     /// <param name="attackerDamage"></param>
     /// <param name="values"></param>
-    public void Execute(float attackerDamage, AbilityDefaultValue values) 
+    public void Execute(float attackerDamage, AbilityDefaultValue values)
     {
         canHit = true;
         time = values.AbilityDuration;
@@ -69,11 +67,11 @@ public class ExplosiveCondition<T> : UniTaskHandler, IConditionable where T : En
             ctrl.Body.GetComponent<EntityBodyBase>().Spr.color = Color.white;
             ctrl.ConditionHandlers[(int)AbilityType.Explosive].IsExit = true;
         }
-        catch(OperationCanceledException)
+        catch (OperationCanceledException)
         {
             Util.Log("OnDamage 취소됨");
         }
-        catch(ObjectDisposedException)
+        catch (ObjectDisposedException)
         {
             Util.Log("OnDamage: Token이 Dispose됨");
         }

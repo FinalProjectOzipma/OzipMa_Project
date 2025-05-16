@@ -18,7 +18,7 @@ public class EntityHealth : FloatBase
         }
         else
         {
-            SetValue(Mathf.Min(MaxValue, amount+ Value));
+            SetValue(Mathf.Min(MaxValue, amount + Value));
         }
         OnChangeHealth?.Invoke(Value, MaxValue);
     }

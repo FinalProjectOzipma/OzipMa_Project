@@ -1,7 +1,4 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design.Serialization;
 using System.Threading;
 using UnityEngine;
 
@@ -36,24 +33,24 @@ public class SpriteTrail : MonoBehaviour, IUsableUniTask
     // Component
     [SerializeField] private SpriteRenderer spr;
 
-    [Range(0,255)]
+    [Range(0, 255)]
     [SerializeField] private float Alpha;
 
     private float time;
     // Key
     private string TrailObject = nameof(TrailObject);
-    
+
     private bool isActive;
 
     private Transform trans;
 
     private int facingDir = 1;
-    public int FacingDir 
+    public int FacingDir
     {
         get
         {
             return facingDir;
-        } 
+        }
         set
         {
             facingDir = value;
@@ -80,7 +77,7 @@ public class SpriteTrail : MonoBehaviour, IUsableUniTask
     public Vector2 Scale { get; set; } = Vector2.one;
 
     [Header("Trail 시간 간격")]
-    [Range(0.3f,1f)]
+    [Range(0.3f, 1f)]
     [SerializeField] private float trailRate;
 
 
@@ -106,7 +103,7 @@ public class SpriteTrail : MonoBehaviour, IUsableUniTask
 
     private async UniTaskVoid StartTrail()
     {
-        while(isActive)
+        while (isActive)
         {
             if (time <= 0f)
             {

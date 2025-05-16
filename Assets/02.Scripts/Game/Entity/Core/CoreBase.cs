@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoreBase : MonoBehaviour
@@ -9,7 +7,7 @@ public class CoreBase : MonoBehaviour
 
     public HealthView healthView;
 
-    private GameObject mainSprite; 
+    private GameObject mainSprite;
 
     protected virtual void Awake()
     {

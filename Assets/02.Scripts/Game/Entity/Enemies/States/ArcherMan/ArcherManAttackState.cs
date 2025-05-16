@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ArcherManAttackState : ArcherManStateBase
@@ -31,7 +29,7 @@ public class ArcherManAttackState : ArcherManStateBase
 
         OutRange(data.ChaseState);
 
-        if(projectileCalled) // 화살 만드는 Attack구간
+        if (projectileCalled) // 화살 만드는 Attack구간
         {
             CreateArrow(Arrow);
             projectileCalled = false;
@@ -43,8 +41,8 @@ public class ArcherManAttackState : ArcherManStateBase
 
     private void CreateArrow(string objectName)
     {
-        Managers.Resource.Instantiate(objectName, (go) => 
-        { 
+        Managers.Resource.Instantiate(objectName, (go) =>
+        {
             Fire<EntityProjectile>(go, targets.Peek().GetComponentInChildren<SpriteRenderer>().transform.position);
             Managers.Audio.PlaySFX(SFXClipName.Arrow);
         });
