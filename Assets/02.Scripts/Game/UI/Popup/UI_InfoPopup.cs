@@ -92,7 +92,7 @@ public class UI_InfoPopup : UI_Popup
 
 
             MoveSpeedText.text = myUnit.Status.MoveSpeed.GetValueToString();
-            HealthText.text = myUnit.Status.Health.MaxValue.ToString("N0");
+            HealthText.text = myUnit.Status.Health.MaxValue.ToString("F0");
             DefenceText.text = myUnit.Status.Defence.GetValueToString();
 
         }

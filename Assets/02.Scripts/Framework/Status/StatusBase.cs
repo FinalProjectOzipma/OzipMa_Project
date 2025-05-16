@@ -30,7 +30,7 @@ public class StatusBase
         Level.SetValue(1);
         Stack.SetValue(0);
         MaxStack.SetValue(20);
-        MaxLevel.SetValue(20);
+        MaxLevel.SetValue(10);
         Grade.SetValue(0);
     }
 

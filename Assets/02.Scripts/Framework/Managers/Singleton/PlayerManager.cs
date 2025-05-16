@@ -33,6 +33,9 @@ public class PlayerManager
 
     public string RewordStartTime = "";
 
+    public float AddAttack = 0;
+    public float AddDefence = 0;
+
     public void Initialize()
     {
         // 처음 시작할때 선언

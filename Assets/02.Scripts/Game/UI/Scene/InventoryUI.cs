@@ -233,22 +233,25 @@ public class InventoryUI : UI_Scene
     {
         for (int i = 0; i < _currentList.Count; i++)
         {
+            UserObject userObject = slots[i].Gettable as UserObject;
+            int gold = Managers.Upgrade.GetLevelUpGold(userObject);
+
             if (!isSelect)
             {             
                 if (IsMaxLevel(_currentList[i]) || slots[i].IsActive) continue;
 
                 slots[i].OnSelect();
                 slots[i].onSelectionChanged?.Invoke(true);
-                Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+
+                Managers.Upgrade.OnUpgradeGold(gold);
             }
             else
             {
-
                 if (IsMaxLevel(_currentList[i]) || !slots[i].IsActive) continue;
 
                 slots[i].DisSelect();
                 slots[i].onSelectionChanged?.Invoke(false);
-                Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+                Managers.Upgrade.OnUpgradeGold(-gold);
 
             }
         }
@@ -476,20 +479,31 @@ public class InventoryUI : UI_Scene
 
             var select = _currentList[i] as T;
 
-            // select가 널이 아니거나 MaxLevel 아니고, 스택갯수만 Max에 Grade가 Max가 아니면 선택
-            if(select != null && !IsMaxLevel(select) && IsStack(select) && !IsGrade(select))
+            if(select == null)
             {
-                updateList.Add(select);
-            }
-            else
-            {
-                Managers.UI.Notify("강화 할 수 없습니다.");
+                Managers.UI.Notify("널이라서 안됩니다.");
                 return;
             }
+            else if(IsMaxLevel(select))
+            {
+                Managers.UI.Notify("만렙이라서 안됩니다.");
+                return;
+            }
+            else if(!IsStack(select))
+            {
+                Managers.UI.Notify("카드 수가 부족합니다.");
+                return;
+            }
+            else if (IsGrade(select))
+            {
+                Managers.UI.Notify("최고 승급입니다.");
+                return;
+            }
+            else updateList.Add(select);
         }
 
         // 골드 확인, 등급별 강화골드 달라지면 수정해야함
-        if (Managers.Player.GetGold() < Managers.Upgrade.LevelUPGold * updateList.Count)
+        if (Managers.Player.GetGold() < Managers.Upgrade.TotalUpgradeGold)
         {
             Managers.UI.Notify("골드가 부족합니다.", false);
             RefreshUpgradeUI();
@@ -538,7 +552,7 @@ public class InventoryUI : UI_Scene
     public bool IsStack(IGettable gettable)
     {
         var maxStack = gettable as UserObject;
-        return maxStack.Status.Stack.GetValue() == maxStack.Status.MaxStack.GetValue();
+        return maxStack.Status.Stack.GetValue() >= maxStack.Status.MaxStack.GetValue();
     }
 
     public bool IsGrade(IGettable gettable)

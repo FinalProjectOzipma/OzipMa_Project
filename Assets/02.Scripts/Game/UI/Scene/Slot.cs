@@ -81,13 +81,17 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
         inventoryUI.CheckActive();
 
+        int gold = Managers.Upgrade.GetLevelUpGold(userObject);
+
         if (IsActive)
         {
-            Managers.Upgrade.OnUpgradeGold(Managers.Upgrade.LevelUPGold);
+
+
+            Managers.Upgrade.OnUpgradeGold(gold);
         }
         else
         {
-            Managers.Upgrade.OnUpgradeGold(-Managers.Upgrade.LevelUPGold);
+            Managers.Upgrade.OnUpgradeGold(-gold);
         }
 
     }

@@ -14,6 +14,7 @@ public class Enums
         AbilityDefaultValue,
         Gacha,
         InchentMultiplier,
+        LevelUpValue,
         Count
     }
 

@@ -529,28 +529,10 @@ public class UI_Research : UI_Base
         switch (upgradeType)
         {
             case ResearchUpgradeType.Attack:
-
-
-                foreach (var unitAttack in myUnitList)
-                {
-                    unitAttack.Status.Attack.AddValue(updateStat);
-                    Util.Log("유닛공격력:" + unitAttack.Status.Attack.GetValue().ToString());
-                }
-
-                foreach (var towerAttack in towerList)
-                {
-                    towerAttack.TowerStatus.Attack.AddValue(updateStat);
-                }
+                Managers.Player.AddAttack += updateStat;
                 break;
             case ResearchUpgradeType.Defence:
-
-                foreach (var unitDefence in myUnitList)
-                {
-                    MyUnitStatus defenceStatus = unitDefence.Status as MyUnitStatus;
-
-                    defenceStatus.Defence.AddValue(updateStat);
-                }
-
+                Managers.Player.AddDefence += updateStat;
                 break;
             case ResearchUpgradeType.Random:
 
@@ -559,25 +541,11 @@ public class UI_Research : UI_Base
 
                 if (randomStatus < 50)
                 {
-                    foreach (var unitAttack in myUnitList)
-                    {
-                        unitAttack.Status.Attack.AddValue(randomStat);
-                    }
-
-                    foreach (var towerAttack in towerList)
-                    {
-                        towerAttack.TowerStatus.Attack.AddValue(randomStat);
-                    }
-
+                    Managers.Player.AddAttack += updateStat;
                 }
                 else
                 {
-                    foreach (var unitDefence in myUnitList)
-                    {
-                        MyUnitStatus defenceStatus = unitDefence.Status as MyUnitStatus;
-
-                        defenceStatus.Defence.AddValue(updateStat);
-                    }
+                    Managers.Player.AddDefence += updateStat;
                 }
                 break;
             case ResearchUpgradeType.Core:

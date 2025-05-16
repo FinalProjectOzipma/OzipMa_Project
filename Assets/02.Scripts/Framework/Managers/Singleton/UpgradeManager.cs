@@ -1,69 +1,53 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using Firebase.Database;
-using Unity.VisualScripting;
-using DefaultTable;
 
 public class UpgradeManager
 {
     public int LevelUPGold;
-    private float UpdateValue;
 
-    private int TotalUpgradeGold;
+    public int TotalUpgradeGold;
 
 
     public event Action<int> OnChanagedUpgrade;
 
     public List<DefaultTable.InchentMultiplier> inchentMultiplier;
+    public List<DefaultTable.LevelUpValue> levelUpValues;
 
 
     public void Intialize()
     {
         inchentMultiplier = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
+        levelUpValues = Util.TableConverter<DefaultTable.LevelUpValue>(Managers.Data.Datas[Enums.Sheet.LevelUpValue]);
         LevelUPGold = 1000;
-        UpdateValue = 0.1f;
         TotalUpgradeGold = 0;
     }
 
     public void LevelUpMyUnit(MyUnit myUnit)
     {
         MyUnitStatus myUpgradeStatus = myUnit.Status as MyUnitStatus;
-
-        if (myUnit.Status.Level.GetValue() == myUnit.Status.MaxLevel.GetValue())
-        {
-            return;
-        }
-
-        if(myUnit.Status.Stack.GetValue() != myUnit.Status.MaxStack.GetValue())
-        {
-            return;
-        }
-
-        if(myUnit.Status.Grade.GetValue() == myUnit.Status.MaxStack.GetValue())
-        {
-            return;
-        }
-
-        if (Managers.Player.Gold >= LevelUPGold)
+        int gold = GetLevelUpGold(myUnit);
+        if (Managers.Player.Gold >= TotalUpgradeGold)
         {
             myUpgradeStatus.Level.AddValue(1);
+            myUpgradeStatus.Stack.AddValue(-myUpgradeStatus.MaxStack.GetValue());
+            IncreaseRequireCard(myUnit);
 
             if (myUnit.Status.Level.GetValue() == myUnit.Status.MaxLevel.GetValue())
             {
                 myUpgradeStatus.Level.SetValue(1);
                 myUpgradeStatus.Grade.AddValue(1);
                 ApplyInchentMyUnit(myUpgradeStatus);
+                ApplyGetValue(myUpgradeStatus);
                 ApplyGradeMutipleMyUnit(myUpgradeStatus);
             }
             else
             {
                 ApplyInchentMyUnit(myUpgradeStatus);
+                ApplyGetValue(myUpgradeStatus);
             }
 
-            Managers.Player.SpenGold(LevelUPGold);
+            Managers.Player.SpenGold(gold);
             return;
         }
         else
@@ -78,15 +62,13 @@ public class UpgradeManager
 
     public void LevelUpTower(Tower tower)
     {
-        if (tower.TowerStatus.Level.GetValue() == tower.TowerStatus.MaxLevel.GetValue())
-        {
-            Util.Log("만렙입니다");
-            return;
-        }
 
-        if (Managers.Player.Gold >= LevelUPGold)
+        if (Managers.Player.Gold >= TotalUpgradeGold)
         {
+            int gold = GetLevelUpGold(tower);
             tower.TowerStatus.Level.AddValue(1);
+            tower.TowerStatus.Stack.AddValue(-tower.TowerStatus.MaxStack.GetValue());
+            IncreaseRequireCard(tower);
 
             if (tower.TowerStatus.Level.GetValue() == tower.TowerStatus.MaxLevel.GetValue())
             {
@@ -100,7 +82,7 @@ public class UpgradeManager
                 ApplyInchentTower(tower);
             }
 
-            Managers.Player.SpenGold(LevelUPGold);
+            Managers.Player.SpenGold(gold);
             return;
         }
         else
@@ -120,7 +102,7 @@ public class UpgradeManager
         OnChanagedUpgrade?.Invoke(TotalUpgradeGold);
     }
 
-    
+
     public void RefresgUpgradeGold()
     {
         TotalUpgradeGold = 0;
@@ -130,87 +112,71 @@ public class UpgradeManager
 
     public void ApplyInchentMyUnit(MyUnitStatus userObject)
     {
-        switch(userObject.Level.GetValue())
+        int level = userObject.Level.GetValue();
+
+        // 레벨 1은 배율 초기화
+        if (level == 1)
         {
-            case 1:
-                userObject.Attack.ValueMultiples = 1.0f;
-                userObject.Defence.ValueMultiples = 1.0f;
-                userObject.Health.ValueMultiples = 1.0f;
-                userObject.MoveSpeed.ValueMultiples = 1.0f;
-                userObject.AttackCoolDown.ValueMultiples = 1.0f;
-                break;
-                break;
-            case 2:
-                userObject.Attack.AddMultiples(0.1f);
-                userObject.Defence.AddMultiples(0.1f);
-                userObject.Health.AddMultiples(0.1f);
-                userObject.MoveSpeed.AddMultiples(0.1f);
-                userObject.AttackCoolDown.AddMultiples(-0.1f);
-                break;
-            case 3:
-                userObject.Attack.AddMultiples(0.13f);
-                userObject.Defence.AddMultiples(0.13f);
-                userObject.Health.AddMultiples(0.13f);
-                userObject.MoveSpeed.AddMultiples(0.13f);
-                userObject.AttackCoolDown.AddMultiples(-0.13f);
-                break;
-            case 4:
-                userObject.Attack.AddMultiples(0.17f);
-                userObject.Defence.AddMultiples(0.17f);
-                userObject.Health.AddMultiples(0.17f);
-                userObject.MoveSpeed.AddMultiples(0.17f);
-                userObject.AttackCoolDown.AddMultiples(-0.17f);
-                break;
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-                userObject.Attack.AddMultiples(0.2f);
-                userObject.Defence.AddMultiples(0.2f);
-                userObject.Health.AddMultiples(0.2f);
-                userObject.MoveSpeed.AddMultiples(0.2f);
-                userObject.AttackCoolDown.AddMultiples(-0.2f);
-                break;
-            default:
-                break;
+            userObject.Attack.SetValueMultiples(1.0f);
+            userObject.Defence.SetValueMultiples(1.0f);
+            userObject.Health.SetValueMultiples(1.0f);
+            userObject.MoveSpeed.SetValueMultiples(1.0f);
+            userObject.AttackCoolDown.SetValueMultiples(1.0f);
+            return;
         }
+
+        // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
+        int index = level - 2;
+        if (index < 0 || index >= levelUpValues.Count)
+            return;       
+
+        float statUp = levelUpValues[index].StatUP;
+
+        // 공통 스탯 적용
+        userObject.Attack.AddMultiples(statUp);
+        userObject.Defence.AddMultiples(statUp);
+        userObject.Health.AddMultiples(statUp);
+        userObject.MoveSpeed.AddMultiples(statUp);
+
+        // 쿨타임은 반대로 감소
+        userObject.AttackCoolDown.AddMultiples(-statUp);
+
     }
+
 
     public void ApplyInchentTower(Tower userObject)
     {
-        switch (userObject.Status.Level.GetValue())
+
+        int level = userObject.TowerStatus.Level.GetValue();
+
+        // 레벨 1은 배율 초기화
+        if (level == 1)
         {
-            case 1:
-                userObject.TowerStatus.Attack.ValueMultiples = 1.0f;
-                userObject.TowerStatus.AttackCoolDown.ValueMultiples = 1.0f;
-                break;
-            case 2:
-                userObject.TowerStatus.Attack.AddMultiples(0.1f);
-                userObject.TowerStatus.AttackCoolDown.AddMultiples(0.1f);
-                break;
-            case 3:
-                userObject.TowerStatus.Attack.AddMultiples(0.13f);
-                userObject.TowerStatus.AttackCoolDown.AddMultiples(0.13f);
-                break;
-            case 4:
-                userObject.TowerStatus.Attack.AddMultiples(0.17f);
-                userObject.TowerStatus.AttackCoolDown.AddMultiples(0.17f);
-                break;
-            case 5:
-            case 6:
-            case 7:
-            case 8:
-            case 9:
-            case 10:
-                userObject.TowerStatus.Attack.AddMultiples(0.2f);
-                userObject.TowerStatus.AttackCoolDown.AddMultiples(0.2f);
-                break;
-            default:
-                break;
+            userObject.TowerStatus.Attack.SetValueMultiples(1.0f);
+            userObject.TowerStatus.AttackCoolDown.SetValueMultiples(1.0f);
+            return;
         }
+
+        // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
+        int index = level - 2;
+        if (index < 0 || index >= levelUpValues.Count)
+            return;
+
+        float statUp = levelUpValues[index].StatUP;
+
+        userObject.TowerStatus.Attack.AddMultiples(statUp);
+        userObject.TowerStatus.AttackCoolDown.AddMultiples(-statUp);
     }
+
+    public void ApplyGetValue(MyUnitStatus userObject)
+    {
+        userObject.Attack.Value = userObject.Attack.GetValue();
+        userObject.Defence.Value = userObject.Defence.GetValue();
+        userObject.InitHealth();
+        userObject.Health.MaxValue = userObject.Health.GetValue();
+        userObject.AttackCoolDown.Value = userObject.AttackCoolDown.GetValue();
+    }
+
     public void ApplyGradeMutipleMyUnit(MyUnitStatus userObject)
     {
         int grade = userObject.Grade.GetValue();
@@ -226,6 +192,7 @@ public class UpgradeManager
         userObject.AttackCoolDown.ValueMultiples = multiplier.CoolDownMultiplier;
     }
 
+
     public void ApplyGradeMutipleTower(Tower userObject)
     {
         int grade = userObject.TowerStatus.Grade.GetValue();
@@ -239,6 +206,36 @@ public class UpgradeManager
         userObject.TowerStatus.AttackCoolDown.ValueMultiples = multiplier.CoolDownMultiplier;
     }
 
+    public int GetLevelUpGold(UserObject userObject)
+    {
+        int level = userObject.Status.Level.GetValue();
 
+        if (level < 0 || level >= 10)
+            return 0;
+
+        return levelUpValues[level-1].LevelUpGold;
+    }
+
+    public void IncreaseRequireCard(UserObject userObject)
+    {
+        int level = userObject.Status.Level.GetValue();
+
+        // 레벨 1은 배율 초기화
+        if (level == 1)
+        {
+            userObject.Status.Stack.SetValue(10);
+            return;
+        }
+
+        // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
+        int index = level - 2;
+        if (index < 0 || index >= levelUpValues.Count)
+            return;
+
+        int requirCard = levelUpValues[index].RequireCard;
+
+        userObject.Status.MaxStack.SetValue(requirCard);
+
+    }
 
 }
