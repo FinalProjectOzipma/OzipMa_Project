@@ -89,6 +89,8 @@ public class GameScene : SceneBase
         List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
         for (int i = 0; i < Towers.Count; i++)
         {
+            if (Towers[i].Rank != RankType.Normal) continue;
+
             int key = i;
             Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[key].Name}Tower", original =>
             {
@@ -106,20 +108,6 @@ public class GameScene : SceneBase
         {
             MyUnit unit = new MyUnit();
             unit.Init(0, prefab.GetComponent<MyUnitController>().sprite);
-            Managers.Player.Inventory.Add<MyUnit>(unit);
-        });
-
-        Managers.Resource.LoadAssetAsync<GameObject>("Skeleton_Brain", (prefab) =>
-        {
-            MyUnit unit = new MyUnit();
-            unit.Init(1, prefab.GetComponent<MyUnitController>().sprite);
-            Managers.Player.Inventory.Add<MyUnit>(unit);
-        });
-
-        Managers.Resource.LoadAssetAsync<GameObject>("Vampire_Brain", (prefab) =>
-        {
-            MyUnit unit = new MyUnit();
-            unit.Init(2, prefab.GetComponent<MyUnitController>().sprite);
             Managers.Player.Inventory.Add<MyUnit>(unit);
         });
     }
