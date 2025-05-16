@@ -1,10 +1,7 @@
-using DefaultTable;
-using DG.Tweening;
 using TMPro;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityEngine;
-using UnityEditor.SceneManagement;
 
 
 
@@ -194,7 +191,7 @@ public class UI_Main : UI_Scene
         {
             AllOFF();
             OFFSwipe();
-            Managers.UI.CloseAllPopupUI();         
+            Managers.UI.CloseAllPopupUI();
 
             ONDictionaryBtn.SetActive(true);
             Managers.UI.ShowPopupUI<UI_Dictionary>("DictionaryUI");
@@ -203,7 +200,7 @@ public class UI_Main : UI_Scene
         else
         {
             AllOFF();
-            Managers.UI.CloseAllPopupUI();     
+            Managers.UI.CloseAllPopupUI();
         }
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
