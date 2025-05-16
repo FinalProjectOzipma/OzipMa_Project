@@ -46,7 +46,7 @@ public class AreaTowerController : TowerControlBase
         {
             if (go == null) return;
             go.transform.position = target.transform.position;
-            go.GetComponent<TowerFloor>().Init(floorKey, TowerStatus.Attack.GetValue(), Tower);
+            go.GetComponent<TowerFloor>().Init(floorKey, TowerStatus.Attack.GetValue(), Tower, ApplyDamage);
         });
     }
 }

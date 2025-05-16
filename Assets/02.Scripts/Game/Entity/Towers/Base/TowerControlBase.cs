@@ -1,7 +1,9 @@
+using DefaultTable;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public abstract class TowerControlBase : MonoBehaviour
 {
@@ -27,7 +29,7 @@ public abstract class TowerControlBase : MonoBehaviour
     private CircleCollider2D range;
 
     /// <summary>
-    /// 공격 유형별 Attack 구현
+    /// 공격 유형별 Attack - Attack에 필요한 일들
     /// </summary>
     /// <param name="AttackPower">기본 공격력</param>
     public abstract void Attack(float AttackPower);
@@ -78,6 +80,17 @@ public abstract class TowerControlBase : MonoBehaviour
             }
             node = node.Next;
         }
+    }
+
+    // 타워 공용 데미지 적용 함수
+    protected void ApplyDamage(EnemyController target)
+    {
+        Managers.Audio.SelectSFXAttackType(Tower.TowerType);
+
+        // 타워가 갖고있는 공격 속성 적용
+        if (Tower.Abilities.ContainsKey(Tower.TowerType) == false) return;
+        DefaultTable.AbilityDefaultValue curAbilityData = Tower.Abilities[Tower.TowerType];
+        target.ApplyDamage(TowerStatus.Attack.GetValue(), curAbilityData.AbilityType, gameObject/*나중에 뺄거임*/, values : curAbilityData);
     }
 
     /// <summary>
