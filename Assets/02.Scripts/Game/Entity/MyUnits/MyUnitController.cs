@@ -1,10 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.SocialPlatforms.Impl;
-using UnityEngine.UI;
 
 public class MyUnitController : EntityController, IDamagable
 {
@@ -31,7 +26,7 @@ public class MyUnitController : EntityController, IDamagable
         Rigid = GetComponent<Rigidbody2D>();
         Agent.updateRotation = false;
         Agent.updateUpAxis = false;
-        
+
         // 컨디션 초기화 (도트데미지)
         Conditions.Add((int)AbilityType.Explosive, new ExplosiveCondition<MyUnitController>(this));
     }
@@ -116,7 +111,7 @@ public class MyUnitController : EntityController, IDamagable
     /// <param name="abilityRatio"></param>
     public void ReflectDamage(float damage, float abilityRatio)
     {
-        TakeDamage(damage* abilityRatio);
+        TakeDamage(damage * abilityRatio);
     }
 
     /// <summary>

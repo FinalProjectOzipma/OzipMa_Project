@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityAnimationData
 {
     #region ParameterName
     private string idleParameterName = "Idle";
-    private string ChaseParameterName = "Chase"; 
+    private string ChaseParameterName = "Chase";
     private string AttackParameterName = "Attack";
     private string DeadParameterName = "Dead";
     private string DarkParameterName = "Dark";

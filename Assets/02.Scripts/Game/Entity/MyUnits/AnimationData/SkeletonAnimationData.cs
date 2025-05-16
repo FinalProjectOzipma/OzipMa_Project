@@ -1,9 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-using Unity.IO.LowLevel.Unsafe;
-using UnityEngine;
-
 public class SkeletonAnimationData : EntityAnimationData
 {
     public MyUnitStateBase IdleState { get; protected set; }

@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -29,5 +28,5 @@ public class UI_TowerMenu : UI_Base
         BuildingSystem.Instance.RemovePlacedMapWorldPos(TargetTower.transform.position);
         BuildingSystem.Instance.DragController.SetEditMode(false);
     }
- 
+
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ArcherManDarkState : ArcherManStateBase
@@ -7,7 +5,7 @@ public class ArcherManDarkState : ArcherManStateBase
     private float darkCoolDown = 5f;
     private ConditionHandler handler;
     public ArcherManDarkState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
-    {   
+    {
     }
 
     public override void Enter()
@@ -30,7 +28,7 @@ public class ArcherManDarkState : ArcherManStateBase
     {
         base.Update();
 
-        if(time < 0)
+        if (time < 0)
             StateMachine.ChangeState(data.ChaseState);
         else
         {

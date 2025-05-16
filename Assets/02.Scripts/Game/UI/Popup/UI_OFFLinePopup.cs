@@ -1,8 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -35,7 +32,7 @@ public class UI_OFFLinePopup : UI_Popup
 
     private void Awake()
     {
-        if(!string.IsNullOrEmpty(Managers.Player.RewordStartTime))
+        if (!string.IsNullOrEmpty(Managers.Player.RewordStartTime))
         {
             Init();
         }
@@ -118,8 +115,8 @@ public class UI_OFFLinePopup : UI_Popup
             this.gameObject.SetActive(false);
             return;
         }
-        
-        rewordGold =(Managers.Player.CurrentStage + 1) * baseGoldPerMinute * (int)cappedElapsedHours;
+
+        rewordGold = (Managers.Player.CurrentStage + 1) * baseGoldPerMinute * (int)cappedElapsedHours;
         rewordGem = Mathf.FloorToInt(cappedElapsedHours * 60 * baseGemChance);
     }
 

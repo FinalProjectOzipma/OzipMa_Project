@@ -1,10 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Table = DefaultTable;
-using static UnityEngine.Rendering.DebugUI;
-using static UnityEngine.GraphicsBuffer;
-
 public class ZombieIdleState : ZombieStateBase
 {
     private float attackCoolDown;

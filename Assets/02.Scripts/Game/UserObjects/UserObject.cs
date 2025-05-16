@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UserObject
@@ -19,7 +17,7 @@ public class UserObject
         PrimaryKey = primary;
         Sprite = sprite;
         MaxGrade.SetValue(5);
-     
+
     }
 
     public T GetUpCasting<T>() where T : StatusBase => Status as T;
@@ -32,7 +30,7 @@ public class UserObject
         while (true)
         {
             //스택이 맥스스택보다 낮다? 그레이드가 최대 그래이드다???
-            if (Status.Stack.Value < Status.MaxStack.Value 
+            if (Status.Stack.Value < Status.MaxStack.Value
                 || Status.Grade.Value == MaxGrade.Value)
                 break;
 
@@ -41,7 +39,7 @@ public class UserObject
 
             //그레이드 올리기
             Status.Grade.AddValue(1);
-            
+
             //맥스스텍값 5올리기
             Status.MaxStack.AddValue(5);
 

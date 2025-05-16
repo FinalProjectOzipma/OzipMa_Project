@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using static UnityEngine.Rendering.DebugUI;
 
 public class MyUnitStatus : StatusBase
 {
@@ -45,7 +44,7 @@ public class MyUnitStatus : StatusBase
         AttackCoolDown.SetValue(result.Status.AttackCoolDown.Value);
         AttackRange.SetValue(result.Status.AttackRange.Value);
     }
-    
+
     /// <summary>
     /// 파이어베이스에 저장된 데이터를 로드해서 데이터만 덮어씌우는 메서드
     /// </summary>

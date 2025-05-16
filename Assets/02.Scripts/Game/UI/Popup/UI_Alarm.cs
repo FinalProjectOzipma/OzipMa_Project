@@ -34,7 +34,7 @@ public class UI_Alarm : UI_Popup
     {
         AlarmButton.gameObject.BindEvent(CloseAlarmPopup);
     }
-    
+
     public void CloseAlarmPopup(PointerEventData data)
     {
         if (isClose) return;
@@ -42,9 +42,9 @@ public class UI_Alarm : UI_Popup
 
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
-        
+
         HidePopup();
-   
+
 
     }
 

@@ -1,7 +1,3 @@
-using DefaultTable;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using UnityEngine;
 
 public class EnemyAnimationTrigger : MonoBehaviour
@@ -50,7 +46,7 @@ public class EnemyAnimationTrigger : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if(AttackCheck != null)
+        if (AttackCheck != null)
             Gizmos.DrawWireSphere(AttackCheck.position, attackValue);
     }
 }

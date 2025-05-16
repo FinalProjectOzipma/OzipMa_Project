@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using UnityEngine;
-
 public class ReaperAnimationData : EntityAnimationData
 {
     public MyUnitStateBase IdleState { get; private set; }
@@ -17,7 +12,7 @@ public class ReaperAnimationData : EntityAnimationData
         ChaseState = new ReaperChaseState(StateMachine, ChaseHash, controller as MyUnitController, this);
         AttackState = new ReaperAttackState(StateMachine, AttackHash, controller as MyUnitController, this);
         DeadState = new ReaperDeadState(StateMachine, DeadHash, controller as MyUnitController, this);
-        
+
         StateMachine.Init(IdleState);
     }
 }

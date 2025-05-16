@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -43,7 +42,7 @@ public class DragController : MonoBehaviour
         if (IsSlotDragging) return; // 슬롯에서 드래그중일 때는 오브젝트 드래그 막기
 
         // 드래그 Begin
-        if(Input.GetMouseButton(0) && !isEditDragging)
+        if (Input.GetMouseButton(0) && !isEditDragging)
         {
             eventPosition = Input.mousePosition;
 
@@ -57,7 +56,7 @@ public class DragController : MonoBehaviour
             if (detectedObj == null)
             {
                 // 다른 곳 클릭했을 시 숨기기
-                if(isEditMode) SetEditMode(false);
+                if (isEditMode) SetEditMode(false);
                 buildingSystem.HideBuildHighlight(); // 도감 클릭 버그 발생하면 안꺼져서 직접 꺼주기
                 // 아무 클릭 감지된 것은 return;
                 return;
@@ -74,18 +73,18 @@ public class DragController : MonoBehaviour
             pressTime += Time.deltaTime;
             if (pressTime >= HoldTimeThreshold)
             {
-                BeginDrag(detectedObj);        
+                BeginDrag(detectedObj);
             }
         }
 
         // 드래그 Update
-        if(isEditDragging)
+        if (isEditDragging)
         {
             Drag();
         }
 
         // 드래그 End
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             pressTime = 0f;
 
@@ -105,7 +104,7 @@ public class DragController : MonoBehaviour
         // 이전에 편집하던 타워는 사거리 표시 끄기
         if (isEditMode)
         {
-            curTowerController?.HideRangeIndicator(); 
+            curTowerController?.HideRangeIndicator();
         }
 
         // 현재 감지된 타워로 새로운 작업

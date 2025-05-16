@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackCheck : MonoBehaviour
@@ -23,7 +21,7 @@ public class AttackCheck : MonoBehaviour
         if ((1 << collision.gameObject.layer & hitLayer) != 0)
         {
             IDamagable dmg = collision.GetComponentInParent<IDamagable>();
-            if(dmg != null) dmg.ApplyDamage(ctrl.Status.Attack.GetValue());
+            if (dmg != null) dmg.ApplyDamage(ctrl.Status.Attack.GetValue());
         }
     }
 }

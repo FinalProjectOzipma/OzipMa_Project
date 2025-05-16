@@ -1,12 +1,8 @@
-using DefaultTable;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class MyUnitAnimationTrigger : MonoBehaviour
 {
-    
+
     public Transform AttackCheck;
     float attackValue;
     protected MyUnitController myUnit => GetComponentInParent<MyUnitController>();

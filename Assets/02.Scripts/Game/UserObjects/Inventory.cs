@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 
 public class Inventory
@@ -13,7 +11,7 @@ public class Inventory
 
     public Inventory()
     {
-        for(int i = 0; i < (int)RankType.Count; i++)
+        for (int i = 0; i < (int)RankType.Count; i++)
         {
             units.Add((RankType)i, new List<IGettable>());
         }
@@ -24,7 +22,7 @@ public class Inventory
         // T 타입 딕셔너리에 존재한다면 
         if (inventory.ContainsKey(typeof(T).Name))
         {
-            foreach(IGettable ge in inventory[typeof(T).Name])
+            foreach (IGettable ge in inventory[typeof(T).Name])
             {
                 UserObject uo = ge as UserObject;
                 UserObject input = gettable as UserObject;
@@ -52,7 +50,7 @@ public class Inventory
         inventory[typeof(T).Name].Add(gettable);
         userObject[$"{typeof(T).Name}{gettable.PrimaryKey}"] = gettable;
 
-        if(typeof(T) == typeof(MyUnit))
+        if (typeof(T) == typeof(MyUnit))
         {
             MyUnit unit = gettable.GetClassAddress<MyUnit>();
             units[unit.RankType].Add(gettable);
@@ -68,7 +66,7 @@ public class Inventory
 
     public List<IGettable> GetList<T>() where T : IGettable
     {
-        if(inventory.TryGetValue(typeof(T).Name, out var list))
+        if (inventory.TryGetValue(typeof(T).Name, out var list))
         {
             return list;
         }

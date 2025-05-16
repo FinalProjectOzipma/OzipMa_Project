@@ -1,6 +1,3 @@
-using DefaultTable;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackEventTrigger : Poolable
@@ -19,7 +16,7 @@ public class AttackEventTrigger : Poolable
     private bool isSingleAttack;
 
     private int hitLayer;
-    
+
 
     public void Init(GameObject ownerObject, float ownerAttack, GameObject target, bool isSingleAttack = true)
     {
@@ -55,7 +52,7 @@ public class AttackEventTrigger : Poolable
 
     public void AttackTrigger()
     {
-        
+
         Collider2D[] colliders = Physics2D.OverlapBoxAll(trigger.transform.position, trigger.bounds.size, 0f, hitLayer);
 
         foreach (var hit in colliders)

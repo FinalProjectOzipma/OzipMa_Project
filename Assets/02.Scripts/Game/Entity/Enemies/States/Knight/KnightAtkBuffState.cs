@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class KnightAtkBuffState : KnightStateBase
 {
     private bool isBuffed;
@@ -13,7 +9,7 @@ public class KnightAtkBuffState : KnightStateBase
     {
         base.Enter();
         agent.isStopped = true;
-        isBuffed = false; 
+        isBuffed = false;
     }
 
     public override void Exit()

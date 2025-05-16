@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ArcherManChasingState : ArcherManStateBase
 {
     public ArcherManChasingState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
@@ -32,7 +28,7 @@ public class ArcherManChasingState : ArcherManStateBase
             return;
         }
 
-        if(!DetectedMap(targets.Peek().transform.position))
+        if (!DetectedMap(targets.Peek().transform.position))
             InnerRange(data.IdleState);
     }
 }

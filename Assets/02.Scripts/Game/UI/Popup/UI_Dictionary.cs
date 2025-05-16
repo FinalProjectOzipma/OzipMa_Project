@@ -1,7 +1,5 @@
-using DefaultTable;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -174,7 +172,7 @@ public class UI_Dictionary : UI_Popup
 
 
 
-    private List<T> DGetList<T>() where T : UserObject,IGettable
+    private List<T> DGetList<T>() where T : UserObject, IGettable
     {
         if (typeof(T) == typeof(MyUnit))
         {
@@ -195,8 +193,8 @@ public class UI_Dictionary : UI_Popup
     {
         List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
         List<DefaultTable.MyUnit> MyUnits = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
-        
-        for(int i = 0; i < Towers.Count; i++)
+
+        for (int i = 0; i < Towers.Count; i++)
         {
             Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[i].Name}Tower", original =>
             {

@@ -1,9 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DefaultTable;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Enums;
 
 public class KnightBuff : IConditionable
 {
@@ -36,12 +33,12 @@ public class KnightBuff : IConditionable
 
         while (condiHandler.CurDuration >= 0f)
         {
-            
+
             // 어차피 나이트 Idle에서 시간체크하고
             // BuffObject는 Buff 클립이 실행이 될때 나오는 이펙트니깐 상관없고
             // animationTrigger view Object를 그때 실행시켜주면 됨
-            
-            if(hitTime <= 0.0f)
+
+            if (hitTime <= 0.0f)
             {
                 ctrl.Body.GetComponent<KnightBody>().OnSunFireCapeAttack(-10f * stage[Managers.Player.CurrentKey].AttackRatio);
 
@@ -50,7 +47,7 @@ public class KnightBuff : IConditionable
 
             await UniTask.NextFrame();
 
-            if(hitTime >= 0.0f)
+            if (hitTime >= 0.0f)
             {
                 hitTime -= Time.deltaTime;
             }

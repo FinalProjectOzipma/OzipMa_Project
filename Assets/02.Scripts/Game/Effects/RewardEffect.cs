@@ -1,8 +1,6 @@
 using Cysharp.Threading.Tasks;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
-using UnityEngine;
 
 public class RewardEffect : IUsableUniTask, IEffectable
 {
@@ -40,14 +38,14 @@ public class RewardEffect : IUsableUniTask, IEffectable
 
     public void StartEffect(bool boolean = false)
     {
-        if(boolean)
+        if (boolean)
         {
             TokenEnable();
             OnEffect().Forget();
         }
         else
         {
-            foreach(var reward in rewardQue)
+            foreach (var reward in rewardQue)
             {
                 reward.Destroy();
             }
@@ -60,12 +58,12 @@ public class RewardEffect : IUsableUniTask, IEffectable
         {
             Util.LogWarning("RewardEffect클래스에서 Dequeue 실패했습니다...");
             return;
-        }    
+        }
 
-        while(true)
+        while (true)
         {
             result.Play();
-            if (result.NextReward) 
+            if (result.NextReward)
             {
                 if (rewardQue.TryDequeue(out var nextReward)) result = nextReward; // 넥스트 골드가 되면 다음 골드로 전환
                 else return;

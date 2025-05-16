@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -46,7 +45,7 @@ public class Pool
 
     private void ActionOnDestroy(GameObject gameObject)
     {
-        
+
         Object.Destroy(gameObject);
     }
 }

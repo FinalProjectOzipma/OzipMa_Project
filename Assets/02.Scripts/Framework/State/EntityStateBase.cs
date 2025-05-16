@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class EntityStateBase
 {
     protected Animator Anim { get; set; }
-    protected Rigidbody2D Rigid {get; set;}
+    protected Rigidbody2D Rigid { get; set; }
     protected StateMachine StateMachine { get; set; }
     protected int animHashKey;
 

@@ -1,6 +1,5 @@
 using Cysharp.Threading.Tasks;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -38,7 +37,7 @@ public class EntityBodyBase : MonoBehaviour
             ctrl.Times.Add((int)condi.Key, 0f);
             ctrl.ConditionHandlers.Add((int)condi.Key, condi);
 
-            if(condi.GameObj != null)
+            if (condi.GameObj != null)
                 condi.GameObj.SetActive(false);
         }
 
@@ -74,8 +73,8 @@ public class EntityBodyBase : MonoBehaviour
 
         try
         {
-            while (this != null && disableCancellation != null && 
-                !disableCancellation.IsCancellationRequested && ctrl != null && 
+            while (this != null && disableCancellation != null &&
+                !disableCancellation.IsCancellationRequested && ctrl != null &&
                 ctrl.gameObject.activeInHierarchy)
             {
                 foreach (var condi in conditionHandlers)

@@ -56,7 +56,7 @@ public class EnemyController : EntityController, IDamagable
         Enemy.Status.InitHealth();
         Status = Enemy.Status;
 
-        if(Body == null)
+        if (Body == null)
         {
             Managers.Resource.Instantiate($"{name}{_Body}", go =>
             {
@@ -132,7 +132,7 @@ public class EnemyController : EntityController, IDamagable
                 myunit.ReflectDamage(incomingDamage, abilityRatio);
                 Util.Log("반사해드렸습니다");
             }
-            else if(myunit.MyUnit.AbilityType == AbilityType.Psychic)
+            else if (myunit.MyUnit.AbilityType == AbilityType.Psychic)
             {
                 Status.Attack.SetValueMultiples(0.7f);
             }

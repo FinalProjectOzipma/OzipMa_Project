@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -47,7 +46,7 @@ public class ResourceManager
         var groupOperation = Addressables.ResourceManager.CreateGenericGroupOperation(operations);
         groupOperation.Completed += operation => onComplete?.Invoke();
 
-        if(!this.operations.ContainsKey(label))
+        if (!this.operations.ContainsKey(label))
             this.operations.Add(label, groupOperation);
 
         Addressables.Release(groupLocation);
@@ -82,7 +81,7 @@ public class ResourceManager
             return;
         }
 
-        LoadAssetAsync<GameObject>(key, original => 
+        LoadAssetAsync<GameObject>(key, original =>
         {
             GameObject newGO = Instantiate(original);
             onComplete?.Invoke(newGO);
@@ -100,7 +99,7 @@ public class ResourceManager
 
     public void Destroy(GameObject gameObject, bool tryForcePool = false)
     {
-        if(!tryForcePool && gameObject.TryGetComponent<UI_Base>(out var uibase))
+        if (!tryForcePool && gameObject.TryGetComponent<UI_Base>(out var uibase))
         {
             gameObject.SetActive(false);
             return;

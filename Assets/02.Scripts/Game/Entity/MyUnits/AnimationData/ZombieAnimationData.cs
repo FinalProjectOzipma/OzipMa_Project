@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ZombieAnimationData : EntityAnimationData
 {
     public MyUnitStateBase IdleState { get; private set; }
@@ -12,7 +8,7 @@ public class ZombieAnimationData : EntityAnimationData
     public override void Init(EntityController controller)
     {
         base.Init(controller);
-        
+
         //파라미터 캐싱
         IdleState = new ZombieIdleState(StateMachine, IdleHash, controller as MyUnitController, this);
         ChaseState = new ZombieChaseState(StateMachine, ChaseHash, controller as MyUnitController, this);

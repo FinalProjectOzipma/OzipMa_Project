@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class KnightBody : EntityBodyBase
 {
@@ -18,7 +17,7 @@ public class KnightBody : EntityBodyBase
     {
         base.Enable();
 
-        if(ctrl == null)
+        if (ctrl == null)
         {
             this.ctrl = transform.root.TryGetComponent<EnemyController>(out var ctrl) ? ctrl : null;
             // 애니메이션 데이터 생성 및 초기화
@@ -87,9 +86,9 @@ public class KnightBody : EntityBodyBase
         int hitLayer = (int)Enums.Layer.Core | (int)Enums.Layer.MyUnit;
         Collider2D[] cols = Physics2D.OverlapCircleAll((Vector2)transform.position + sunFireCapePos, sunFireCapeRadius, hitLayer);
 
-        foreach(var col in cols)
+        foreach (var col in cols)
         {
-            if(col.TryGetComponent<EntityController>(out var victim))
+            if (col.TryGetComponent<EntityController>(out var victim))
             {
                 victim.Status.AddHealth(amount, col.gameObject);
                 victim.Fx.StartBlinkRed();

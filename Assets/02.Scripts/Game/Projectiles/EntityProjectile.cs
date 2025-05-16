@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -10,7 +7,7 @@ public class EntityProjectile : Poolable
     private Rigidbody2D rigid;
     [SerializeField] protected SpriteTrail spTrail;
     #endregion
-    
+
     public float Speed;
 
     private int ownerLayer;
@@ -37,7 +34,7 @@ public class EntityProjectile : Poolable
     {
         Owner = owner.transform.parent.gameObject;
         transform.position = owner.transform.position;
-        
+
         this.ownerLayer = owner.layer;
         this.hitLayer = (int)Enums.Layer.Map | (int)Enums.Layer.Enemy | (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
         this.ownerAttack = ownerAttack;

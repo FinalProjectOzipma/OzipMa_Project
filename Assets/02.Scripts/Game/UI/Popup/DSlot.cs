@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -58,7 +56,7 @@ public class DSlot : UI_Base
         T obj = gettable.GetClassAddress<T>();
         itemKey = obj.PrimaryKey;
         SelectedSlot(obj);
-        Icon.sprite = obj.Sprite;      
+        Icon.sprite = obj.Sprite;
     }
 
 
