@@ -15,7 +15,6 @@ public class EnemyStatus : StatusBase
     {
         PlayerManager playerManager = Managers.Player;
         Attack.SetValue(row.Attack * stage[playerManager.CurrentKey].AttackRatio);
-        Util.Log($"attackRatio : {stage[playerManager.CurrentKey].AttackRatio}");
         Attack.SetValueMultiples(1);
         AttackCoolDown.SetValue(row.AttackCoolDown);
         AttackRange.SetValue(row.AttackRange);
