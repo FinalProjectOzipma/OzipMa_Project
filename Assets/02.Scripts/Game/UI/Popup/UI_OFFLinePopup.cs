@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class UI_OFFLinePopup : UI_Popup
 {
     [SerializeField] private Button CheckButton;
     [SerializeField] private Button DoubleButton;
+    [SerializeField] private Button RewardBox;
 
     [SerializeField] TextMeshProUGUI TimerText;
     [SerializeField] TextMeshProUGUI RewordGoldText;
@@ -21,6 +23,14 @@ public class UI_OFFLinePopup : UI_Popup
     [SerializeField] private Image DoubleImage;
 
     [SerializeField] private GameObject UIOffLine;
+
+    [SerializeField] private GameObject BGObject;
+    [SerializeField] private GameObject OnBronze;
+    [SerializeField] private GameObject OffBronze;
+    [SerializeField] private GameObject OnSilver;
+    [SerializeField] private GameObject OffSilver;
+    [SerializeField] private GameObject OnGold;
+    [SerializeField] private GameObject OffGold;
 
 
     private int baseGoldPerMinute = 1; // 1분당 1골드
@@ -35,7 +45,7 @@ public class UI_OFFLinePopup : UI_Popup
 
     private void Awake()
     {
-        if(!string.IsNullOrEmpty(Managers.Player.RewordStartTime))
+        if (!string.IsNullOrEmpty(Managers.Player.RewordStartTime))
         {
             Init();
         }
@@ -76,11 +86,15 @@ public class UI_OFFLinePopup : UI_Popup
 
         CheckButton.gameObject.BindEvent(OnClickReword);
         DoubleButton.gameObject.BindEvent(OnClickDoubleReword);
+        RewardBox.gameObject.BindEvent(SwitchToOpenBox);
+
 
         rewordStartTime = DateTime.Parse(Managers.Player.RewordStartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
 
         TimeSpan passed = Managers.Game.LastSyncedServerTime - rewordStartTime; // 오프라인 경과 시간
         elapsedMinute = (float)(passed).TotalMinutes;
+
+        OffRewardImage();
 
         GetReword();
     }
@@ -120,8 +134,20 @@ public class UI_OFFLinePopup : UI_Popup
             this.gameObject.SetActive(false);
             return;
         }
-        
-        rewordGold =(Managers.Player.CurrentStage + 1) * baseGoldPerMinute * (int)cappedElapsedHours;
+        else if (cappedElapsedHours < 240.0f)
+        {
+            OffBronze.SetActive(true);
+        }
+        else if (cappedElapsedHours < 720.0f)
+        {
+            OffSilver.SetActive(true);
+        }
+        else
+        {
+            OffGold.SetActive(true);
+        }
+
+        rewordGold = (Managers.Player.CurrentStage + 1) * baseGoldPerMinute * (int)cappedElapsedHours;
         rewordGem = Mathf.FloorToInt(cappedElapsedHours * 60 * baseGemChance);
     }
 
@@ -135,5 +161,66 @@ public class UI_OFFLinePopup : UI_Popup
             isRewordClaimed = false;
         });
     }
+
+
+    private void OffRewardImage()
+    {
+        BGObject.SetActive(false);
+        OnBronze.SetActive(false);
+        OffBronze.SetActive(false);
+        OnSilver.SetActive(false);
+        OffSilver.SetActive(false);
+        OnGold.SetActive(false);
+        OffGold.SetActive(false);
+    }
+
+    public void SwitchToOpenBox(PointerEventData data)
+    {
+        GameObject currentClosedBox;
+        GameObject currentOpenedBox;
+
+        // 1. 어떤 상자가 켜졌는지 찾기
+        if (OffBronze.activeSelf)
+        {
+            currentClosedBox = OffBronze;
+            currentOpenedBox = OnBronze;
+        }
+        else if (OffSilver.activeSelf)
+        {
+            currentClosedBox = OffSilver;
+            currentOpenedBox = OnSilver;
+        }
+        else
+        {
+            currentClosedBox = OffGold;
+            currentOpenedBox = OnGold;
+        }
+
+        // 2. 상자 흔들림 연출
+        currentClosedBox.transform
+            .DOPunchRotation(new Vector3(0, 0, 10f), 1.0f, 10, 5.0f)
+            .OnComplete(() =>
+            {
+                currentClosedBox.SetActive(false);
+                currentOpenedBox.SetActive(true);
+
+                DOVirtual.DelayedCall(0.3f, () =>
+                {
+                    Managers.Audio.PlaySFX(SFXClipName.Coin);
+                    ShowRewardPopup();
+                });
+            });
+
+    }
+
+    private void ShowRewardPopup()
+    {
+        BGObject.SetActive(true);
+
+        Sequence popupSequence = DOTween.Sequence();
+        popupSequence.Append(BGObject.transform.DOScale(1.1f, 0.25f).SetEase(Ease.OutBack));
+        popupSequence.Append(BGObject.transform.DOScale(1.0f, 0.15f).SetEase(Ease.InOutSine));
+    }
+
 
 }
