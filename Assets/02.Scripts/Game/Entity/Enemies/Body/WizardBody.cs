@@ -15,10 +15,14 @@ public class WizardBody : EntityBodyBase
             ctrl.AnimData = new WizardAnimData();
             ctrl.AnimData.Init(ctrl);            
             
-            // 스탯 초기화
-            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
+
         }
 
+        // 스탯 초기화
+        ctrl.Status.Health.OnChangeHealth -= healthView.SetHpBar;
+        ctrl.Status.Health.OnChangeHealth += healthView.SetHpBar;
+
+        healthView.SetHpBar(ctrl.Status.Health.Value, ctrl.Status.Health.MaxValue);
         Init();
     }
 

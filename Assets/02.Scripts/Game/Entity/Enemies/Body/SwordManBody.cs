@@ -21,14 +21,14 @@ public class SwordManBody : EntityBodyBase
             ctrl.AnimData = new SwordManAnimData();
             ctrl.AnimData.Init(ctrl);
 
-            
-            // 스탯 초기화
-            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
-
             // 컨디션 초기화
             ctrl.Conditions.TryAdd((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(ctrl));
         }
+        // 스탯 초기화
+        ctrl.Status.Health.OnChangeHealth -= healthView.SetHpBar;
+        ctrl.Status.Health.OnChangeHealth += healthView.SetHpBar;
 
+        healthView.SetHpBar(ctrl.Status.Health.Value, ctrl.Status.Health.MaxValue);
         Init();
     }
 
