@@ -30,6 +30,7 @@ public class DataManager
         LoadData<DefaultTable.InchentMultiplier>();
         LoadData<DefaultTable.LevelUpValue>();
         LoadData<DefaultTable.Research>();
+        LoadData<DefaultTable.LoadingTip>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
