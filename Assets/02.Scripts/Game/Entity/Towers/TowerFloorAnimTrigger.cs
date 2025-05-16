@@ -7,11 +7,9 @@ using UnityEngine;
 public class TowerFloorAnimTrigger : MonoBehaviour
 {
     private event Action floorAttackFinished;
+    private event Action<EnemyController> applyDamage;
 
     private static int enemyLayer = -1;
-
-    private float attackPower;
-    private Tower ownerInfo;
 
     private void Awake()
     {
@@ -21,11 +19,10 @@ public class TowerFloorAnimTrigger : MonoBehaviour
         }
     }
 
-    public void Init(float attackPower, Tower ownerTower, Action AttackFinish)
+    public void Init(Action<EnemyController> applyDamageAction, Action attackFinishAction)
     {
-        this.attackPower = attackPower;
-        ownerInfo = ownerTower;
-        floorAttackFinished = AttackFinish;
+        applyDamage = applyDamageAction;
+        floorAttackFinished = attackFinishAction;
     }
 
 #if UNITY_EDITOR
@@ -37,11 +34,10 @@ public class TowerFloorAnimTrigger : MonoBehaviour
 #endif
 
     /// <summary>
-    /// 장판형 공격 적용
+    /// 장판 공격 적용 - 애니메이션 이벤트에서 호출됨
     /// </summary>
     public void FloorAttack()
     {
-        if (ownerInfo == null) return;
         Collider2D[] targets = Physics2D.OverlapCircleAll(transform.position, 0.5f, enemyLayer);
 
         // 범위 내 타겟들 모두에게 적용
@@ -49,12 +45,8 @@ public class TowerFloorAnimTrigger : MonoBehaviour
         {
             EnemyController target = collider.transform.gameObject.GetComponent<EnemyController>();
             if (target == null) continue;
-            if (ownerInfo == null) continue;
 
-            // 해당 타워가 갖고있는 공격 속성 적용
-            if (Tower.Abilities.ContainsKey(ownerInfo.TowerType) == false) continue;
-            DefaultTable.AbilityDefaultValue values = Tower.Abilities[ownerInfo.TowerType];
-            target.ApplyDamage(attackPower, ownerInfo.TowerType, gameObject, values);
+            applyDamage?.Invoke(target);
         }
     }
 
