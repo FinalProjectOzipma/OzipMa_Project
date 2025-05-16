@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class UpgradeManager
 {
@@ -11,14 +12,16 @@ public class UpgradeManager
 
     public event Action<int> OnChanagedUpgrade;
 
-    public List<DefaultTable.InchentMultiplier> inchentMultiplier;
-    public List<DefaultTable.LevelUpValue> levelUpValues;
+    public List<DefaultTable.InchentMultiplier> InchentMultiplier;
+    public List<DefaultTable.LevelUpValue> LevelUpValues;
+    public List<DefaultTable.Research> ResearchesUpgradeTable;
 
 
     public void Intialize()
     {
-        inchentMultiplier = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
-        levelUpValues = Util.TableConverter<DefaultTable.LevelUpValue>(Managers.Data.Datas[Enums.Sheet.LevelUpValue]);
+        InchentMultiplier = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
+        LevelUpValues = Util.TableConverter<DefaultTable.LevelUpValue>(Managers.Data.Datas[Enums.Sheet.LevelUpValue]);
+        ResearchesUpgradeTable = Util.TableConverter<DefaultTable.Research>(Managers.Data.Datas[Enums.Sheet.Research]);
         LevelUPGold = 1000;
         TotalUpgradeGold = 0;
     }
@@ -38,13 +41,13 @@ public class UpgradeManager
                 myUpgradeStatus.Level.SetValue(1);
                 myUpgradeStatus.Grade.AddValue(1);
                 ApplyInchentMyUnit(myUpgradeStatus);
-                ApplyGetValue(myUpgradeStatus);
+                //ApplyGetValue(myUpgradeStatus);
                 ApplyGradeMutipleMyUnit(myUpgradeStatus);
             }
             else
             {
                 ApplyInchentMyUnit(myUpgradeStatus);
-                ApplyGetValue(myUpgradeStatus);
+                //ApplyGetValue(myUpgradeStatus);
             }
 
             Managers.Player.SpenGold(gold);
@@ -127,10 +130,10 @@ public class UpgradeManager
 
         // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
         int index = level - 2;
-        if (index < 0 || index >= levelUpValues.Count)
+        if (index < 0 || index >= LevelUpValues.Count)
             return;       
 
-        float statUp = levelUpValues[index].StatUP;
+        float statUp = LevelUpValues[index].StatUP;
 
         // 공통 스탯 적용
         userObject.Attack.AddMultiples(statUp);
@@ -159,10 +162,10 @@ public class UpgradeManager
 
         // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
         int index = level - 2;
-        if (index < 0 || index >= levelUpValues.Count)
+        if (index < 0 || index >= LevelUpValues.Count)
             return;
 
-        float statUp = levelUpValues[index].StatUP;
+        float statUp = LevelUpValues[index].StatUP;
 
         userObject.TowerStatus.Attack.AddMultiples(statUp);
         userObject.TowerStatus.AttackCoolDown.AddMultiples(-statUp);
@@ -182,14 +185,14 @@ public class UpgradeManager
         int grade = userObject.Grade.GetValue();
 
         // 인덱스가 배열 범위 초과하지 않도록 예외 처리
-        int index = Mathf.Clamp(grade - 1, 0, inchentMultiplier.Count - 1);
+        int index = Mathf.Clamp(grade - 1, 0, InchentMultiplier.Count - 1);
 
-        var multiplier = inchentMultiplier[index];
+        var multiplier = InchentMultiplier[index];
 
-        userObject.Attack.ValueMultiples = multiplier.AttackMultiplier;
-        userObject.Defence.ValueMultiples = multiplier.DefMultiplier;
-        userObject.Health.ValueMultiples = multiplier.HPMultiplier;
-        userObject.AttackCoolDown.ValueMultiples = multiplier.CoolDownMultiplier;
+        userObject.Attack.SetGradeMultiple(multiplier.AttackMultiplier);
+        userObject.Defence.SetGradeMultiple(multiplier.DefMultiplier);
+        userObject.Health.SetGradeMultiple(multiplier.HPMultiplier);
+        userObject.AttackCoolDown.SetGradeMultiple(multiplier.CoolDownMultiplier);
     }
 
 
@@ -198,12 +201,12 @@ public class UpgradeManager
         int grade = userObject.TowerStatus.Grade.GetValue();
 
         // 인덱스가 배열 범위 초과하지 않도록 예외 처리
-        int index = Mathf.Clamp(grade - 1, 0, inchentMultiplier.Count - 1);
+        int index = Mathf.Clamp(grade - 1, 0, InchentMultiplier.Count - 1);
 
-        var multiplier = inchentMultiplier[index];
+        var multiplier = InchentMultiplier[index];
 
-        userObject.TowerStatus.Attack.ValueMultiples = multiplier.AttackMultiplier;
-        userObject.TowerStatus.AttackCoolDown.ValueMultiples = multiplier.CoolDownMultiplier;
+        userObject.TowerStatus.Attack.SetGradeMultiple(multiplier.AttackMultiplier);
+        userObject.TowerStatus.AttackCoolDown.SetGradeMultiple(multiplier.CoolDownMultiplier);
     }
 
     public int GetLevelUpGold(UserObject userObject)
@@ -213,7 +216,7 @@ public class UpgradeManager
         if (level < 0 || level >= 10)
             return 0;
 
-        return levelUpValues[level-1].LevelUpGold;
+        return LevelUpValues[level-1].LevelUpGold;
     }
 
     public void IncreaseRequireCard(UserObject userObject)
@@ -229,13 +232,29 @@ public class UpgradeManager
 
         // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
         int index = level - 2;
-        if (index < 0 || index >= levelUpValues.Count)
+        if (index < 0 || index >= LevelUpValues.Count)
             return;
 
-        int requirCard = levelUpValues[index].RequireCard;
+        int requirCard = LevelUpValues[index].RequireCard;
 
         userObject.Status.MaxStack.SetValue(requirCard);
 
     }
 
+    public float GetResearchValue(ResearchUpgradeType type, int i)
+    {
+        switch(type)
+        {
+            case ResearchUpgradeType.Attack:
+                return ResearchesUpgradeTable[i - 1].Attack;
+            case ResearchUpgradeType.Defence:
+                return ResearchesUpgradeTable[i - 1].Defence;
+            case ResearchUpgradeType.Core:
+                return ResearchesUpgradeTable[i - 1].CoreHealth;
+            default:
+                return 0.0f;
+        }
+    }
+
+   
 }

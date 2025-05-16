@@ -35,7 +35,7 @@ public class MyUnitStatus : StatusBase
     public void InvenStatus()
     {
         MyUnit result = Managers.Player.Inventory.GetItem<MyUnit>(primaryKey);
-        Health.MaxValue = result.Status.Health.MaxValue;
+        Health.MaxValue = result.Status.Health.GetValue();
         Health.SetValue(Health.MaxValue);
 
         Attack.SetValue(result.Status.Attack.Value);

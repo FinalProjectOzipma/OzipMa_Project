@@ -33,8 +33,8 @@ public class PlayerManager
 
     public string RewordStartTime = "";
 
-    public float AddAttack = 0;
-    public float AddDefence = 0;
+    public float AttackPercentResearch = 1.0f;
+    public float DefencePercentResartch = 1.0f;
 
     public void Initialize()
     {
@@ -286,7 +286,7 @@ public class ResearchData
     public int UpdateLevel;
     public float UpdateStat;
     public long SpendGold;
-    public long SpendZam;
+    public long SpendGem;
 
 
     public ResearchData(ResearchUpgradeType _type)
@@ -297,7 +297,7 @@ public class ResearchData
         UpdateLevel = 0;
         UpdateStat = 0.0f;
         SpendGold = 0;
-        SpendZam = 0;
+        SpendGem = 0;
     }
 }
 

@@ -15,6 +15,7 @@ public class Enums
         Gacha,
         InchentMultiplier,
         LevelUpValue,
+        Research,
         Count
     }
 

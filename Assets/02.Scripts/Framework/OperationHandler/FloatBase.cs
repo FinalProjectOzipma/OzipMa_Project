@@ -5,6 +5,8 @@ public class FloatBase
 {
     public float Value;
     public float ValueMultiples = 1.0f;
+    public float GradeMulitpes = 1.0f;
+    public float ResearchMultiples = 1.0f;
     public event Action<float> OnChangeValue;
 
     public virtual void Init(float amount)
@@ -21,7 +23,7 @@ public class FloatBase
 
     public virtual float GetValue()
     {
-        return Value * ValueMultiples;
+        return Value * ValueMultiples * GradeMulitpes * ResearchMultiples;
     }
 
     public virtual void AddValue(float amount)
@@ -43,11 +45,26 @@ public class FloatBase
 
     public virtual void MultiplesOperation()
     {
-        SetValue(Mathf.Max(0, Value * ValueMultiples));
+        SetValue(Mathf.Max(0, Value * ValueMultiples * GradeMulitpes * ResearchMultiples));
+    }
+
+    public virtual void SetResearchMultiple(float amount)
+    {
+        if (amount < 0) return;
+        ResearchMultiples = amount;
+        OnChangeValue?.Invoke(GetValue());
+    }
+
+
+    public virtual void SetGradeMultiple(float amount)
+    {
+        if (amount < 0) return;
+        GradeMulitpes = amount;
+        OnChangeValue?.Invoke(GetValue());
     }
 
     public virtual string GetValueToString()
     {
-        return Value.ToString("F0");
+        return (Value * ValueMultiples * GradeMulitpes * ResearchMultiples).ToString("N2");
     }
 }

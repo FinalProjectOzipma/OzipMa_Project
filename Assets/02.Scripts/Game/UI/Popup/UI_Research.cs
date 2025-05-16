@@ -13,21 +13,21 @@ public class UI_Research : UI_Base
 {
     [SerializeField] private Button UpgradeButton;
     [SerializeField] private Button GoldSpendButton;
-    [SerializeField] private Button ZamSpendButton;
+    [SerializeField] private Button GemSpendButton;
     [SerializeField] private Button CheckButton;
 
     [SerializeField] private TextMeshProUGUI FillText;
     [SerializeField] private TextMeshProUGUI UpgradeText;
     [SerializeField] private TextMeshProUGUI UpgradeButtonText;
     [SerializeField] private TextMeshProUGUI GoldSpendText;
-    [SerializeField] private TextMeshProUGUI ZamSpendText;
+    [SerializeField] private TextMeshProUGUI GemSpendText;
     [SerializeField] private TextMeshProUGUI UpdateLevel;
 
     [SerializeField] private Image Icon;
     [SerializeField] private Image FillBackImage;
     [SerializeField] private Image FillImage;
     [SerializeField] private Image GoldImage;
-    [SerializeField] private Image ZamImage;
+    [SerializeField] private Image GemImage;
 
     [SerializeField] private GameObject LodingAnime;
 
@@ -51,7 +51,7 @@ public class UI_Research : UI_Base
     private DateTime startTime; // 업그레이드 시작 시간
     private float secondsToReduce = 3600.0f; // 1시간 감소 
     private long spendGold; // 업그레이드 필요 골드
-    private long spendZam; // 업그레드 필요 잼
+    private long spendGem; // 업그레드 필요 잼
 
     public ResearchUpgradeType researchUpgradeType; // 연구 타입
 
@@ -148,15 +148,15 @@ public class UI_Research : UI_Base
             GoldSpendText.color = Color.white;
         }
 
-        if (Managers.Player.Gem < spendZam)
+        if (Managers.Player.Gem < spendGem)
         {
-            ZamSpendButton.interactable = false;
-            ZamSpendText.color = Color.red;
+            GemSpendButton.interactable = false;
+            GemSpendText.color = Color.red;
         }
         else
         {
-            ZamSpendButton.interactable = true;
-            ZamSpendText.color = Color.white;
+            GemSpendButton.interactable = true;
+            GemSpendText.color = Color.white;
         }
 
     }
@@ -167,71 +167,23 @@ public class UI_Research : UI_Base
 
         updateLevel = researchData.UpdateLevel == 0 ? 1 : researchData.UpdateLevel;
         researchDuration = researchData.ResearchDuration == 0 ? baseTime : researchData.ResearchDuration;
+        updateStat = researchData.UpdateStat == 0 ? Managers.Upgrade.GetResearchValue(researchUpgradeType, 1) : researchData.UpdateStat;
+        spendGold = researchData.SpendGold == 0 ? 800L : researchData.SpendGold;
+        spendGem = researchData.SpendGem == 0 ? 800L : researchData.SpendGem;
 
-
-        if (researchData.UpdateStat == 0)
-        {
-            if (researchUpgradeType != ResearchUpgradeType.Random)
-            {
-                updateStat = 30.0f;
-            }
-            else
-            {
-                updateStat = 40.0f;
-            }
-        }
-        else
-        {
-            updateStat = researchData.UpdateStat;
-        }
-
-
-        if (researchData.SpendGold == 0)
-        {
-            if (researchUpgradeType != ResearchUpgradeType.Random)
-            {
-                spendGold = 800L;
-            }
-            else
-            {
-                spendGold = 500L;
-            }
-        }
-        else
-        {
-            spendGold = researchData.SpendGold;
-        }
-
-        if (researchData.SpendZam == 0)
-        {
-            if (researchUpgradeType != ResearchUpgradeType.Random)
-            {
-                spendZam = 800L;
-            }
-            else
-            {
-                spendZam = 500L;
-            }
-        }
-        else
-        {
-            spendZam = researchData.SpendZam;
-        }
 
         UpgradeButton.gameObject.BindEvent(OnClickStartResearch); // 업그레드 시작 버튼
         GoldSpendButton.gameObject.BindEvent(OnClickSaveTime); // 골드 사용 시 시간 감소
-        ZamSpendButton.gameObject.BindEvent(OnClickCompleteResearch); // 잼 사용 시 연구 완료
+        GemSpendButton.gameObject.BindEvent(OnClickCompleteResearch); // 잼 사용 시 연구 완료
         CheckButton.gameObject.BindEvent(OnClickCompleteButton);
 
 
         UpdateLevel.text = $"Lv {updateLevel}";
         GoldSpendText.text = Util.FormatNumber(spendGold);
-        ZamSpendText.text = Util.FormatNumber(spendZam);
+        GemSpendText.text = Util.FormatNumber(spendGem);
 
-        if (researchUpgradeType != ResearchUpgradeType.Random)
-            UpgradeText.text = $"업그레이드 : +{updateStat}";
-        else
-            UpgradeText.text = $"업그레이드 : +{updateStat - 20.0f}~{updateStat}";
+        UpgradeText.text = $"업그레이드 : +{(updateStat - 1) * 100}%";
+
 
     }
 
@@ -318,14 +270,14 @@ public class UI_Research : UI_Base
             return;
         }
 
-        if (Managers.Player.Gem < spendZam)
+        if (Managers.Player.Gem < spendGem)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
             isPopup = false;
             return;
         }
 
-        Managers.Player.SpenZam(spendZam);
+        Managers.Player.SpenZam(spendGem);
         elapsedSeconds = researchDuration;
 
         CompleteResearch();
@@ -389,9 +341,9 @@ public class UI_Research : UI_Base
         UpgradeText.text = $"업그레이드 완료";
         UpgradeButtonText.text = "시작";
         GoldSpendButton.interactable = false;
-        ZamSpendButton.interactable = false;
+        GemSpendButton.interactable = false;
         GoldSpendText.color = Color.white;
-        ZamSpendText.color = Color.white;
+        GemSpendText.color = Color.white;
     }
 
 
@@ -404,7 +356,7 @@ public class UI_Research : UI_Base
         FillImage.fillAmount = 0.0f;
         FillText.text = "0%/100%";
         GoldSpendButton.interactable = false;
-        ZamSpendButton.interactable = false;
+        GemSpendButton.interactable = false;
     }
 
     // 완료 버튼 클릭 매서드
@@ -496,27 +448,25 @@ public class UI_Research : UI_Base
 
         StatUpgrade(researchUpgradeType); // 스탯 업그레이드
 
-        updateStat += researchUpgradeType != ResearchUpgradeType.Random ? 10.0f : 20.0f;
+        if(updateLevel > 10) updateStat = Managers.Upgrade.GetResearchValue(researchUpgradeType, 10);
+        else updateStat = Managers.Upgrade.GetResearchValue(researchUpgradeType, updateLevel);
+
         spendGold += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
-        spendZam += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
+        spendGem += researchUpgradeType != ResearchUpgradeType.Random ? 1000L : 500L;
 
         researchData.StartTime = "";
         researchData.ResearchDuration = researchDuration;
         researchData.UpdateLevel = updateLevel;
         researchData.UpdateStat = updateStat;
         researchData.SpendGold = spendGold;
-        researchData.SpendZam = spendZam;
+        researchData.SpendGem = spendGem;
 
         UpdateLevel.text = $"Lv {updateLevel}";
-
-        if (researchUpgradeType != ResearchUpgradeType.Random)
-            UpgradeText.text = $"업그레이드 : +{updateStat}";
-        else
-            UpgradeText.text = $"업그레이드 : +{updateStat - 20.0f}~{updateStat}";
+        UpgradeText.text = $"업그레이드 : +{(updateStat-1)*100}%";
 
 
         GoldSpendText.text = Util.FormatNumber(spendGold);
-        ZamSpendText.text = Util.FormatNumber(spendZam);
+        GemSpendText.text = Util.FormatNumber(spendGem);
 
     }
 
@@ -526,36 +476,45 @@ public class UI_Research : UI_Base
         SeperatedIGettable<MyUnit>(myUnitList);
         SeperatedIGettable<Tower>(towerList);
 
+
         switch (upgradeType)
         {
             case ResearchUpgradeType.Attack:
-                Managers.Player.AddAttack += updateStat;
+                if (updateLevel > 10) Managers.Player.AttackPercentResearch = Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f;
+                else Managers.Player.AttackPercentResearch = Managers.Upgrade.GetResearchValue(upgradeType, updateLevel - 1);
+
+                foreach (var unitAttack in myUnitList)
+                {
+                    unitAttack.Status.Attack.SetResearchMultiple(Managers.Player.AttackPercentResearch);
+                }
+
+                foreach (var towerAttack in towerList)
+                {
+                    towerAttack.TowerStatus.Attack.SetResearchMultiple(Managers.Player.AttackPercentResearch);
+                }
+
                 break;
             case ResearchUpgradeType.Defence:
-                Managers.Player.AddDefence += updateStat;
-                break;
-            case ResearchUpgradeType.Random:
+                if(updateLevel > 10) Managers.Player.DefencePercentResartch = Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f;
+                else Managers.Player.DefencePercentResartch = Managers.Upgrade.GetResearchValue(upgradeType, updateLevel-1);
 
-                float randomStat = UnityEngine.Random.Range(updateStat - 20.0f, updateStat);
-                int randomStatus = UnityEngine.Random.Range(1, 101);
-
-                if (randomStatus < 50)
+                foreach (var unitAttack in myUnitList)
                 {
-                    Managers.Player.AddAttack += updateStat;
-                }
-                else
-                {
-                    Managers.Player.AddDefence += updateStat;
+                    unitAttack.Status.Defence.SetResearchMultiple(Managers.Player.DefencePercentResartch);
                 }
                 break;
             case ResearchUpgradeType.Core:
                 CoreController core = Managers.Wave.MainCore.GetComponent<CoreController>();
-                core.core.Health.MaxValue += updateStat;
+                
+                if(updateLevel > 10) core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f);
+                else core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, updateLevel -1));
+
+                core.core.Health.MaxValue = core.core.Health.GetValue();
                 core.core.Health.SetValue(core.core.Health.MaxValue);
                 core.core.CoreLevel.SetValue(updateLevel);
                 core.CoreUpgrade();
 
-                Managers.Player.MainCoreData.Health.MaxValue += updateStat;
+                Managers.Player.MainCoreData.Health.MaxValue = core.core.Health.MaxValue;
                 Managers.Player.MainCoreData.Health.SetValue(Managers.Player.MainCoreData.Health.MaxValue);
                 Managers.Player.MainCoreData.CoreLevel.SetValue(updateLevel);
                 break;
