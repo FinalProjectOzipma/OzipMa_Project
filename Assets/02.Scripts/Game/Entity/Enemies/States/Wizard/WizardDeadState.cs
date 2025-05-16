@@ -23,10 +23,8 @@ public class WizardDeadState : WizardStateBase
         if (triggerCalled)
         {
             if (controller.gameObject.activeInHierarchy)
-            {
                 OnDead(1);
-                Managers.Wave.CurrentGem = controller.Enemy.Reward;
-            }
+            
         }
     }
 }

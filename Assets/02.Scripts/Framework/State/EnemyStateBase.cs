@@ -139,6 +139,7 @@ public class EnemyStateBase : EntityStateBase
             go.transform.position = controller.Body.transform.position; // 보상 위치 초기화
             Managers.Wave.FieldRewards.Enqueue(field = go.GetComponent<FieldReward>()); // 필드 보상을 현재 웨이브에 전달
             field.WhatIsReward = Reward;
+            field.Value = controller.Enemy.Reward; // 값
         });
     }
 

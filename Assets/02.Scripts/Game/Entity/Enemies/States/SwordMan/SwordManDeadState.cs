@@ -26,10 +26,8 @@ public class SwordManDeadState : SwordManStateBase
         if (triggerCalled)
         {
             if(controller.gameObject.activeInHierarchy)
-            {
                 OnDead(0);
-                Managers.Wave.CurrentGold = controller.Enemy.Reward;
-            }
+            
         }
     }
 }
