@@ -188,4 +188,15 @@ public class MyUnitStateBase : EntityStateBase
         EntityProjectile projectile = go.GetComponent<T>();
         projectile.Init(SR.gameObject, status.Attack.GetValue(), targetPos);
     }
+
+    /// <summary>
+    /// 죽었을 때
+    /// </summary>
+    protected void OnDead()
+    {
+        controller.Target = null;
+        controller.Body.GetComponent<EntityBodyBase>().Disable(); // 비활성화
+        Managers.Wave.CurMyUnitList.Remove(controller);
+        Managers.Resource.Destroy(controller.gameObject);
+    }
 }
