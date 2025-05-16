@@ -59,7 +59,7 @@ public class UIManager
     {
         if (notificationQ.Count > 0)
         {
-            Managers.Resource.Destroy(notificationQ.Dequeue());
+            Managers.Resource.Destroy(notificationQ.Dequeue(), true);
             return;
         }
 
