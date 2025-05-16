@@ -39,13 +39,8 @@ public class MyUnit : UserObject, IGettable
             Name = unitdata.Name;
             Description = unitdata.Description;
             if (Status == null)
-            {
                 Status = unitdata.Status;
-            }
-            else
-            {
-                (Status as MyUnitStatus).InvenStatus();
-            }
+            (Status as MyUnitStatus).InvenStatus();
             RankType = unitdata.RankType;
             AtkType = unitdata.AtkType;
             AbilityType = unitdata.AbilityType;

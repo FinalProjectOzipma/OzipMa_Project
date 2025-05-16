@@ -106,7 +106,6 @@ public class GachaUI : UI_Popup
         else if (num == 100)
         {
             Util.Log("우왕 레전더리 하지만 없는걸...");
-            Managers.UI.Notify("우왕 레전더리 하지만 없는걸...");
             //num -= 1;
             //gacha.GetSelectTower(RankType.Legend);
             //Managers.Player.Inventory.Add<Tower>(res);

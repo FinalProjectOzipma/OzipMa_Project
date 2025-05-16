@@ -37,7 +37,7 @@ public class UI_GachaResult : UI_Popup
     /// <param name="result"></param>
     public void ShowResult(List<IGettable> result)
     {
-        ScrollRect.verticalNormalizedPosition = 1f;
+        
         ScrollRect.velocity = Vector2.zero;
 
         foreach (UserObject data in result)
@@ -56,6 +56,7 @@ public class UI_GachaResult : UI_Popup
                 Managers.Audio.PlaySFX(SFXClipName.Card);
             });
         }
+        ScrollRect.verticalNormalizedPosition = 1f;
         Bg.enabled = true;
     }
 }
