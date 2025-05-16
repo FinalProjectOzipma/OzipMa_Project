@@ -55,3 +55,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 14140afe6edd84a7d8b1509dc8b07898, type: 3}
   - key: Burst
     clip: {fileID: 8300000, guid: 11f63f746e68d4b09b0398d270f7b117, type: 3}
+  - key: Clear
+    clip: {fileID: 8300000, guid: b6d5a242997b54b12927e3a6b6091c6f, type: 3}
+  - key: Defeat
+    clip: {fileID: 8300000, guid: 419bd91efe4854866a5c1d2fb5535955, type: 3}

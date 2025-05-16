@@ -279,7 +279,7 @@ public class UI_Research : UI_Base
             return;
         }
 
-        Managers.Player.SpenZam(spendGem);
+        Managers.Player.SpenGem(spendGem);
         elapsedSeconds = researchDuration;
 
         CompleteResearch();

@@ -110,7 +110,7 @@ public class Managers : MonoBehaviour
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"게임 종료 저장 실패: {ex.Message}");
+            Util.LogWarning($"게임 종료 저장 실패: {ex.Message}");
         }
     }
 }

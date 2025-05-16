@@ -78,7 +78,7 @@ public class PlayerManager
     {
         if (Gold < amount)
         {
-            Debug.Log("돈이 부족합니다");
+            Managers.UI.Notify("골드가 부족합니다.", false);
             return;
         }
 
@@ -92,11 +92,11 @@ public class PlayerManager
     /// <summary>
     /// 잼 소모
     /// </summary>
-    public void SpenZam(long amount)
+    public void SpenGem(long amount)
     {
         if (Gem < amount)
         {
-            Debug.Log("돈이 부족합니다");
+            Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
 

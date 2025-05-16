@@ -73,7 +73,7 @@ public class AudioManager
 
         if (!audioControler.sfxDictionary.ContainsKey(sfxName))
         {
-            Debug.LogWarning($"효과음 이름이 다릅니다. 효과음 이름과 스크립트에서 매개변수명 확인");
+            Util.LogWarning($"효과음 이름이 다릅니다. 효과음 이름과 스크립트에서 매개변수명 확인");
             return;
         }
 

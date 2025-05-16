@@ -150,7 +150,7 @@ public class AudioController : MonoBehaviour
 
         if (bgm == null)
         {
-            Debug.LogWarning($"현재 씬에 브금이 없습니다. Scene 이름 확인");
+            Util.LogWarning($"현재 씬에 브금이 없습니다. Scene 이름 확인");
             return;
         }
 
