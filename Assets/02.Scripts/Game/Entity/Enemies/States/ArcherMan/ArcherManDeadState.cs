@@ -22,7 +22,7 @@ public class ArcherManDeadState : ArcherManStateBase
     {
         if (triggerCalled)
         {
-            OnDead();
+            OnDead(0);
             Managers.Wave.CurrentGold = controller.Enemy.Reward;
         }
     }

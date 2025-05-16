@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8698005275840454744}
-  - component: {fileID: -6791979324516172471}
+  - component: {fileID: 5610360566061327849}
   m_Layer: 0
-  m_Name: FieldGold
+  m_Name: FieldReward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,7 +34,7 @@ Transform:
   - {fileID: 5008972092263516853}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6791979324516172471
+--- !u!114 &5610360566061327849
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,10 +43,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3580807917715471483}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e272d5426c800c418a0cdb9715f64f0, type: 3}
+  m_Script: {fileID: 11500000, guid: 087b5bba187c9f142b49f7250444bf21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 8054841736293809816}
+  animator: {fileID: 6683035314292602159}
 --- !u!1 &6512065294809246330
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,7 +271,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 0.98995894, b: 0.6650944, a: 0.39215687}
+      maxColor: {r: 0.6666667, g: 0.95414037, b: 1, a: 0.39215687}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

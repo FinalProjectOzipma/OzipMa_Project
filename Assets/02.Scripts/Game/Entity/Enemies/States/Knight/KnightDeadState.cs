@@ -26,8 +26,8 @@ public class KnightDeadState : KnightStateBase
         {
             if (controller.gameObject.activeInHierarchy)
             {
-                OnDead();
-                Managers.Wave.CurrentGold = controller.Enemy.Reward;
+                OnDead(1);
+                Managers.Wave.CurrentGem = controller.Enemy.Reward;
             }
         }
     }

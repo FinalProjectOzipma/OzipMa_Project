@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class GoldEffect : IUsableUniTask, IEffectable
+public class RewardEffect : IUsableUniTask, IEffectable
 {
-    private Queue<FieldGold> goldQue;
+    private Queue<FieldReward> rewardQue;
 
     public CancellationTokenSource DisableCancellation { get; set; }
     public CancellationTokenSource DestroyCancellation { get; set; }
     public bool Once { get; set; }
 
-    public GoldEffect(Queue<FieldGold> goldQue)
+    public RewardEffect(Queue<FieldReward> rewardQue)
     {
-        this.goldQue = goldQue;
+        this.rewardQue = rewardQue;
     }
 
     public void TokenEnable()
@@ -47,27 +47,27 @@ public class GoldEffect : IUsableUniTask, IEffectable
         }
         else
         {
-            foreach(var gold in goldQue)
+            foreach(var reward in rewardQue)
             {
-                gold.Destroy();
+                reward.Destroy();
             }
         }
     }
 
     private async UniTaskVoid OnEffect()
     {
-        if (!goldQue.TryDequeue(out var result))
+        if (!rewardQue.TryDequeue(out var result))
         {
-            Util.LogWarning("GoldEffect클래스에서 Dequeue 실패했습니다...");
+            Util.LogWarning("RewardEffect클래스에서 Dequeue 실패했습니다...");
             return;
         }    
 
         while(true)
         {
             result.Play();
-            if (result.NextGold) 
+            if (result.NextReward) 
             {
-                if (goldQue.TryDequeue(out var nextGold)) result = nextGold; // 넥스트 골드가 되면 다음 골드로 전환
+                if (rewardQue.TryDequeue(out var nextReward)) result = nextReward; // 넥스트 골드가 되면 다음 골드로 전환
                 else return;
             }
             await UniTask.NextFrame(DisableCancellation.Token);
