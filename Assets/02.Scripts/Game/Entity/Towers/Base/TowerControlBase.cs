@@ -1,22 +1,18 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class TowerControlBase : MonoBehaviour
 {
-    [Header("테스트용")]
-    public int ID = 1;
     public bool IsPlaced; // 맵에 배치되었는가 
     public string Name { get; set; }
 
     #region 데이터
-    public Tower Tower {  get; protected set; }
+    public Tower Tower { get; protected set; }
     public TowerStatus TowerStatus { get; protected set; } // 캐싱용
     public Animator Anim { get; protected set; }
     public TowerAnimationData AnimData { get; protected set; }
     public GameObject AttackRangeObj;
-    [field:SerializeField] public Sprite Preview { get; protected set; }
+    [field: SerializeField] public Sprite Preview { get; protected set; }
     #endregion
 
     protected LinkedList<EnemyController> detectedEnemies = new(); // 범위 내 적들
@@ -27,7 +23,7 @@ public abstract class TowerControlBase : MonoBehaviour
     private CircleCollider2D range;
 
     /// <summary>
-    /// 공격 유형별 Attack 구현
+    /// 공격 유형별 Attack - Attack에 필요한 일들
     /// </summary>
     /// <param name="AttackPower">기본 공격력</param>
     public abstract void Attack(float AttackPower);
@@ -45,7 +41,7 @@ public abstract class TowerControlBase : MonoBehaviour
     public void Init()
     {
         ApplyAttackRange(TowerStatus.AttackRange.GetValue());
-        if(AttackRangeObj == null) // 인스펙터창에서 넣어줬으나 혹시 없다면 찾아줌
+        if (AttackRangeObj == null) // 인스펙터창에서 넣어줬으나 혹시 없다면 찾아줌
         {
             Util.LogWarning("AttackRangeObj가 NULL입니다. 이곳은 웬만하면 실행되지 않아야 하는 곳입니다..");
             AttackRangeObj = transform.Find("AttackRangeSprite").gameObject;
@@ -55,7 +51,7 @@ public abstract class TowerControlBase : MonoBehaviour
     private void Update()
     {
         if (!IsPlaced) return;
-        if(detectedEnemies.Count == 0) return;
+        if (detectedEnemies.Count == 0) return;
 
         attackCooldown -= Time.deltaTime;
         if (attackCooldown < 0)
@@ -69,7 +65,7 @@ public abstract class TowerControlBase : MonoBehaviour
     private void LateUpdate()
     {
         LinkedListNode<EnemyController> node = detectedEnemies.First;
-        while(node != null)
+        while (node != null)
         {
             EnemyController enemy = node.Value;
             if (enemy == null || enemy.isActiveAndEnabled == false)
@@ -78,6 +74,18 @@ public abstract class TowerControlBase : MonoBehaviour
             }
             node = node.Next;
         }
+    }
+
+    // 타워 공용 데미지 적용 함수
+    protected void ApplyDamage(EnemyController target)
+    {
+        // 공격 사운드 
+        Managers.Audio.SelectSFXAttackType(Tower.TowerType);
+
+        // 타워가 갖고있는 공격 속성 적용
+        if (Tower.Abilities.ContainsKey(Tower.TowerType) == false) return;
+        DefaultTable.AbilityDefaultValue curAbilityData = Tower.Abilities[Tower.TowerType];
+        target.ApplyDamage(TowerStatus.Attack.GetValue(), curAbilityData.AbilityType, gameObject, values: curAbilityData);
     }
 
     /// <summary>
@@ -127,7 +135,8 @@ public abstract class TowerControlBase : MonoBehaviour
     protected virtual void TakeBody()
     {
         // 외형 로딩
-        Managers.Resource.Instantiate($"{name}Body", go => {
+        Managers.Resource.Instantiate($"{name}Body", go =>
+        {
             body = go;
             body.transform.SetParent(transform);
             body.transform.localPosition = Vector3.zero;
@@ -150,8 +159,8 @@ public abstract class TowerControlBase : MonoBehaviour
     /// <returns>현재 타워의 바디 스크립트</returns>
     public TowerBodyBase GetTowerBodyBase()
     {
-        if(towerBodyBase != null) return towerBodyBase;
-        if(body != null)
+        if (towerBodyBase != null) return towerBodyBase;
+        if (body != null)
         {
             return body.GetComponent<TowerBodyBase>();
         }
@@ -170,7 +179,7 @@ public abstract class TowerControlBase : MonoBehaviour
     #endregion
 
 
-    private void OnTriggerEnter2D(Collider2D collision) 
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
         if (enemy != null)
@@ -179,7 +188,7 @@ public abstract class TowerControlBase : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision) 
+    private void OnTriggerExit2D(Collider2D collision)
     {
         EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
         if (enemy != null)
@@ -196,7 +205,7 @@ public abstract class TowerControlBase : MonoBehaviour
 
     protected void ApplyAttackRange(float newValue)
     {
-        if(range == null) range = GetComponent<CircleCollider2D>();
+        if (range == null) range = GetComponent<CircleCollider2D>();
         range.radius = TowerStatus == null ? 1f : newValue;
         AttackRangeObj.transform.localScale = Vector3.one * newValue; // 타워 사거리 표시기 업데이트
     }

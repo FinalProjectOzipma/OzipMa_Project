@@ -37,7 +37,7 @@ public class WaveManager
     public long CurrentGold { get; set; }
     public long CurrentGem { get; set; }
 
-    public Queue<FieldGold> FieldGolds { get; set; } = new();
+    public Queue<FieldReward> FieldRewards { get; set; } = new();
 
     public void Initialize()
     {
@@ -101,7 +101,7 @@ public class WaveManager
                 if (isCoreDead || isEnemyAllDead)
                 {
                     CurrentState = Enums.WaveState.Reward;
-                    Managers.Effect.InvokeEffect<GoldEffect>(isEnemyAllDead);
+                    Managers.Effect.InvokeEffect<RewardEffect>(isEnemyAllDead);
                 }
                 
             }

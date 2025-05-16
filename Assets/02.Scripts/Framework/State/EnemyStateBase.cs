@@ -5,6 +5,7 @@ using TMPro.EditorUtilities;
 using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class EnemyStateBase : EntityStateBase
 {
@@ -130,20 +131,26 @@ public class EnemyStateBase : EntityStateBase
         projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
     }
 
-    protected void DropCoin()
+    /// <summary>
+    /// 매게변수는 0~1까지 (0:골드 1: 젬)
+    /// </summary>
+    /// <param name="Reward"></param>
+    protected void DropReward(int Reward)
     {
-        Managers.Resource.Instantiate(nameof(FieldGold), (go) => 
+        Managers.Resource.Instantiate(nameof(FieldReward), (go) => 
         {
+            FieldReward field;
             go.SetActive(true);
-            go.transform.position = controller.Body.transform.position; // 골드 위치 초기화
-            Managers.Wave.FieldGolds.Enqueue(go.GetComponent<FieldGold>()); // 필드 골드를 현재 웨이브에 전달
+            go.transform.position = controller.Body.transform.position; // 보상 위치 초기화
+            Managers.Wave.FieldRewards.Enqueue(field = go.GetComponent<FieldReward>()); // 필드 보상을 현재 웨이브에 전달
+            field.WhatIsReward = Reward;
         });
     }
 
-    protected void OnDead()
+    protected void OnDead(int Reward)
     {
         controller.Body.GetComponent<EntityBodyBase>().Disable(); // 비활성화
-        DropCoin();
+        DropReward(Reward);
         Managers.Wave.CurEnemyList.Remove(controller);
         Managers.Resource.Destroy(controller.gameObject);
     }

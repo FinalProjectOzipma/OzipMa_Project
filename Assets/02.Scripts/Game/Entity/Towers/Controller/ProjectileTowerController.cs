@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileTowerController : TowerControlBase
@@ -41,7 +38,7 @@ public class ProjectileTowerController : TowerControlBase
         Managers.Resource.Instantiate(ProjectileName, go =>
         {
             go.transform.position = towerBodyBase.FirePosition;
-            go.GetComponent<TowerProjectile>().Init(ProjectileName, attackPower, Tower, target);
+            go.GetComponent<TowerProjectile>().Init(ProjectileName, target, ApplyDamage);
         });
     }
 

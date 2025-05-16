@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,7 +8,7 @@ public class TowerFloor : MonoBehaviour
     public float MoveSpeed = 1f;
     private GameObject body;
 
-    public void Init(string floorKey, float attackPower, Tower ownerTower)
+    public void Init(string floorKey, float attackPower, Tower ownerTower, Action<EnemyController> applyDamageAction)
     {
         // Body 불러오기
         Managers.Resource.Instantiate($"{floorKey}Body", go =>
@@ -19,7 +20,7 @@ public class TowerFloor : MonoBehaviour
             t.localPosition = Vector3.zero;
 
             // Trigger에서 실제 데미지 Apply 처리하기 때문에 정보 넘겨주기
-            go.GetComponentInChildren<TowerFloorAnimTrigger>().Init(attackPower, ownerTower, OnAttackFinish);
+            go.GetComponentInChildren<TowerFloorAnimTrigger>().Init(applyDamageAction, OnAttackFinish);
         });
     }
 
