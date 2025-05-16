@@ -8,7 +8,6 @@ public class ProjectileTowerController : TowerControlBase
     public string ProjectileName { get; set; }
 
     private EnemyController target; // 피격 대상(1마리)
-    private TowerBodyBase bodyScript;
     private float attackPower;
     private bool isLeft = false;
 
@@ -26,25 +25,6 @@ public class ProjectileTowerController : TowerControlBase
         }
         Managers.Resource.LoadAssetAsync<GameObject>(ProjectileName); // 미리 로드 
     }
-    protected override void TakeBody()
-    {
-        // 외형 로딩
-        Managers.Resource.Instantiate($"{name}Body", go => {
-            body = go;
-            body.transform.SetParent(transform);
-            body.transform.localPosition = Vector3.zero;
-            
-            body.GetComponentInChildren<TowerAnimationTrigger>().ProjectileAttackStart = FireProjectile;
-
-            if (body.TryGetComponent<TowerBodyBase>(out bodyScript))
-            {
-                towerBodyBase = bodyScript;
-                Anim = bodyScript.Anim;
-                AnimData = bodyScript.AnimData;
-                TowerStart();
-            }
-        });
-    }
 
     public override void Attack(float AttackPower)
     {
@@ -55,17 +35,20 @@ public class ProjectileTowerController : TowerControlBase
         attackPower = AttackPower;
         FlipControl(target.transform);
     }
-
-    public void FireProjectile()
+    protected override void CreateAttackObject()
     {
         // Projectile 생성
         Managers.Resource.Instantiate(ProjectileName, go =>
         {
-            go.transform.position = bodyScript.FirePosition;
+            go.transform.position = towerBodyBase.FirePosition;
             go.GetComponent<TowerProjectile>().Init(ProjectileName, attackPower, Tower, target);
         });
     }
 
+    /// <summary>
+    /// 타겟 위치에따라 타워 몸체를 Flip
+    /// </summary>
+    /// <param name="targetTransform">현재 타격 대상의 Transform</param>
     protected void FlipControl(Transform targetTransform)
     {
         float X = transform.position.x;
@@ -80,7 +63,7 @@ public class ProjectileTowerController : TowerControlBase
         }
     }
 
-    protected virtual void Flip()
+    private void Flip()
     {
         isLeft = !isLeft;
         body.transform.Rotate(0f, 180f, 0f);
