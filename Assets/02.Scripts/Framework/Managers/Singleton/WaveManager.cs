@@ -164,7 +164,7 @@ public class WaveManager
         Managers.Resource.Instantiate("Core_Brain", go => {
 
             MainCore = go.GetComponent<CoreController>();
-            MainCore.Init(Managers.Player.MainCoreData.Health.Value);
+            MainCore.Init(Managers.Player.MainCoreData.Health.GetValue());
             int needAmount = waveList[idx].EnemyAmount;
             Managers.StartCoroutine(Spawn(needAmount));
         });
@@ -226,13 +226,5 @@ public class WaveManager
         });
 
         return (playerManager.CurrentWave == 9); // 보스웨이브면 true
-    }
-
-    IEnumerator WaveDelay(Action onComplete)
-    {
-        yield return waveDelayTime;
-
-        onComplete?.Invoke();
-        delayCoroutine = null;
     }
 }

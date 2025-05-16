@@ -34,10 +34,19 @@ public class TowerStatus : StatusBase
     {
         Attack.SetValue(newData.Attack.Value);
         Attack.SetValueMultiples(newData.Attack.ValueMultiples);
+        Attack.SetGradeMultiple(newData.Attack.GradeMulitpes);
+        Attack.SetResearchMultiple(newData.Attack.ResearchMultiples);
+
+
         AttackCoolDown.SetValue(newData.AttackCoolDown.Value);
         AttackCoolDown.SetValueMultiples(newData.AttackCoolDown.ValueMultiples);
+        AttackCoolDown.SetGradeMultiple(newData.AttackCoolDown.GradeMulitpes);
+        AttackCoolDown.SetResearchMultiple(newData.AttackCoolDown.ResearchMultiples);
+
         AttackRange.SetValue(newData.AttackRange.Value);
         AttackRange.SetValueMultiples(newData.AttackRange.ValueMultiples);
+        AttackRange.SetGradeMultiple(newData.AttackRange.GradeMulitpes);
+        AttackRange.SetResearchMultiple(newData.AttackRange.ResearchMultiples);
 
         Grade.SetValue(newData.Grade.Value);
         Grade.SetValueMultiples(newData.Grade.ValueMultiples);

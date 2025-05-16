@@ -235,7 +235,6 @@ public class AudioController : MonoBehaviour
         if(isSFXMute || Managers.Audio.sfxVolume <= 0)
         {
             Mixer.SetFloat(SFXVolume, -80.0f);
-            //sfxSource.volume = 0;
         }
         else
         {

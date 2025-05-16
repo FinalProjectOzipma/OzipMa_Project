@@ -65,7 +65,7 @@ public class GameScene : SceneBase
         }
 
         // 5. 로딩창 끄고 게임 시작 ====================================================
-        if (loading != null) 
+        if (loading != null)
             Managers.Resource.Destroy(loading);
         Managers.Wave.GameStart();
     }
@@ -89,6 +89,12 @@ public class GameScene : SceneBase
         List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
         for (int i = 0; i < Towers.Count; i++)
         {
+#if UNITY_EDITOR
+#else
+            if (Towers[i].Rank != RankType.Normal) continue;
+#endif
+
+
             int key = i;
             Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[key].Name}Tower", original =>
             {
@@ -109,6 +115,7 @@ public class GameScene : SceneBase
             Managers.Player.Inventory.Add<MyUnit>(unit);
         });
 
+#if UNITY_EDITOR
         Managers.Resource.LoadAssetAsync<GameObject>("Skeleton_Brain", (prefab) =>
         {
             MyUnit unit = new MyUnit();
@@ -122,5 +129,6 @@ public class GameScene : SceneBase
             unit.Init(2, prefab.GetComponent<MyUnitController>().sprite);
             Managers.Player.Inventory.Add<MyUnit>(unit);
         });
+#endif
     }
 }

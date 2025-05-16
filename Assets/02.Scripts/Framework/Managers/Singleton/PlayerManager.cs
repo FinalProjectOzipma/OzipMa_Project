@@ -1,8 +1,6 @@
-using DefaultTable;
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+using Unity.VisualScripting;using UnityEngine;
 
 /// <summary>
 ///  유저가 저장해야될 필수적인 요소들을 저장하는 곳
@@ -33,6 +31,9 @@ public class PlayerManager
     public ResearchData RandomResearchData { get; set; }
 
     public string RewordStartTime = "";
+
+    public float AttackPercentResearch = 1.0f;
+    public float DefencePercentResartch = 1.0f;
 
     public void Initialize()
     {
@@ -165,7 +166,7 @@ public class PlayerManager
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
         
-        Gold = 100000;
+        Gold = 0;
         Gem = 0;
 
         AddGem(data.Gem);
@@ -181,12 +182,16 @@ public class PlayerManager
 
         RewordStartTime = data.RewordStartTime;
 
+        AttackPercentResearch = data.AttackPercentResearch;
+        DefencePercentResartch = data.DefencePercentResartch;
 
         if (data.MainCoreData != null)
         {
             MainCoreData = data.MainCoreData;
             Util.Log("코어레벨_Load" + MainCoreData.CoreLevel.GetValue().ToString());
         }
+
+
 
 
         // ===== 연구 정보=====
@@ -285,7 +290,7 @@ public class ResearchData
     public int UpdateLevel;
     public float UpdateStat;
     public long SpendGold;
-    public long SpendZam;
+    public long SpendGem;
 
 
     public ResearchData(ResearchUpgradeType _type)
@@ -296,7 +301,7 @@ public class ResearchData
         UpdateLevel = 0;
         UpdateStat = 0.0f;
         SpendGold = 0;
-        SpendZam = 0;
+        SpendGem = 0;
     }
 }
 

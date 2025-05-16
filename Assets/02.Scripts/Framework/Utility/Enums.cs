@@ -13,9 +13,10 @@ public class Enums
         Tower,
         AbilityDefaultValue,
         Gacha,
-        InchentMultiplier,
         LoadingTip,
-
+        InchentMultiplier,
+        LevelUpValue,
+        Research,
         Count
     }
 

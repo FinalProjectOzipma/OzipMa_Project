@@ -1828,7 +1828,6 @@ GameObject:
   - component: {fileID: 8346464506574001126}
   - component: {fileID: 7645919462784830843}
   - component: {fileID: 8575559726348495867}
-  - component: {fileID: 3703878775468146159}
   m_Layer: 5
   m_Name: Slot
   m_TagString: Untagged
@@ -1891,6 +1890,11 @@ MonoBehaviour:
   ObjInfo: {fileID: 813586529727044011}
   StackText: {fileID: 5399559203254056434}
   MaxLv: {fileID: 996952013508248611}
+  Normal_Slot: {fileID: 5854502032642297064}
+  Rare_Slot: {fileID: 2955900327006918132}
+  Epic_Slot: {fileID: 2948453924604782097}
+  Legendary_Slot: {fileID: 124806043620188848}
+  Myth_Slot: {fileID: 8256265915771819659}
 --- !u!114 &8575559726348495867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1935,19 +1939,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3703878775468146159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6869967363284244515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e344a2fb85999c43be326573817be8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdTime: 0.5
 --- !u!1 &7560625664770981205
 GameObject:
   m_ObjectHideFlags: 0

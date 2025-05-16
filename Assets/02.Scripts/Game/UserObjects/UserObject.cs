@@ -19,6 +19,7 @@ public class UserObject
         PrimaryKey = primary;
         Sprite = sprite;
         MaxGrade.SetValue(5);
+     
     }
 
     public T GetUpCasting<T>() where T : StatusBase => Status as T;
@@ -38,11 +39,29 @@ public class UserObject
             //스택 = 스택 - 맥스스택
             Status.Stack.Value -= Status.MaxStack.Value;
 
-            //최대레벨 1 증가
-            Status.MaxLevel.AddValue(1);
-
+            //그레이드 올리기
+            Status.Grade.AddValue(1);
+            
             //맥스스텍값 5올리기
             Status.MaxStack.AddValue(5);
+
+            ApplyUpgrade();
         }
+    }
+
+    /// <summary>
+    /// 합성시 증가 스텟 적용하기
+    /// </summary>
+    private void ApplyUpgrade()
+    {
+        var result = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
+        //float multiplier = result[Status.Grade.Value -1].Multiplier;
+        float multiplier = 1f;
+
+        Status.MaxLevel.AddValue(10);
+
+        Status.Attack.AddMultiples(multiplier);
+        Status.Defence.AddMultiples(multiplier);
+        Status.Health.MaxValue += Status.Health.MaxValue * multiplier;
     }
 }

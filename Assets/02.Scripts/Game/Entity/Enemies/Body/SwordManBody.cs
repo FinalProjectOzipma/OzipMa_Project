@@ -28,7 +28,7 @@ public class SwordManBody : EntityBodyBase
         ctrl.Status.Health.OnChangeHealth -= healthView.SetHpBar;
         ctrl.Status.Health.OnChangeHealth += healthView.SetHpBar;
 
-        healthView.SetHpBar(ctrl.Status.Health.Value, ctrl.Status.Health.MaxValue);
+        healthView.SetHpBar(ctrl.Status.Health.GetValue(), ctrl.Status.Health.MaxValue);
         Init();
     }
 

@@ -67,6 +67,8 @@ public class GachaSystem
             MyUnit unit = new();
             Sprite sprite = prefab.GetComponent<MyUnitController>().sprite;
             unit.Init(key, sprite);
+            unit.Status.Attack.SetResearchMultiple(Managers.Player.AttackPercentResearch);
+            unit.Status.Defence.SetResearchMultiple(Managers.Player.DefencePercentResartch);
             returnValue = unit;
         });
 
@@ -96,6 +98,7 @@ public class GachaSystem
         {
             Tower tower = new Tower();
             tower.Init(key, prefab.GetComponent<TowerControlBase>().Preview);
+            tower.Status.Attack.SetResearchMultiple(Managers.Player.AttackPercentResearch);
             returnValue = tower;
         });
 

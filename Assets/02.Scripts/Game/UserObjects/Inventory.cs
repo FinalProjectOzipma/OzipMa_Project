@@ -31,14 +31,14 @@ public class Inventory
                 //이미 인벤토리에 존재하는것이라면.
                 if (uo.Name == input.Name)
                 {
-                    if (uo.Status.Grade.Value == 5)
+                    if (uo.Status.Grade.Value == 10)
                     {
                         //이미 최대 합성에 도달했다면 잼으로 바꿔먹다
                         Managers.Player.AddGem(100);
                         return;
                     }
                     uo.Status.Stack.AddValue(1);
-                    uo.UpGrade();
+                    //uo.UpGrade();
                     return;
                 }
             }
