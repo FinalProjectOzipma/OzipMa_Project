@@ -193,8 +193,9 @@ public class UI_Research : UI_Base
     public void OnClickStartResearch(PointerEventData data)
     {
         if (isResearching) return; // 이미 진행 중이면 무시
-        StartTimeCheck();
 
+        LodingAnime.SetActive(true);
+        StartTimeCheck();
     }
 
     // 서비시간과 로컬시간 확인하고 연구 시작
@@ -220,6 +221,7 @@ public class UI_Research : UI_Base
         researchData.StartTime = startTime.ToString("o");
         researchData.ResearchDuration = researchDuration;
 
+        LodingAnime.SetActive(false);
         isResearching = true;
         CheckButton.gameObject.SetActive(false);
         UpgradeButtonText.text = "연구";
