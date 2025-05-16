@@ -26,11 +26,11 @@ public class EffectManager
     /// 사용하고싶은 곳에 언제 어디서나 접근가능
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public void InvokeEffect<T>() where T : IEffectable
+    public void InvokeEffect<T>(bool boolean = false) where T : IEffectable
     {
         if (effectDict.TryGetValue(typeof(T).Name, out var result))
         {
-            result.StartEffect();
+            result.StartEffect(boolean);
         }
     }
 

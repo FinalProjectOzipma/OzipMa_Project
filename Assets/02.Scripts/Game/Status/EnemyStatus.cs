@@ -13,18 +13,17 @@ public class EnemyStatus : StatusBase
 
     public void Init(DefaultTable.Enemy row)
     {
-        int index = Mathf.Min(Managers.Player.CurrentStage, stage.Count - 1);
-        float modifierRatio = stage[index].AttackRatio;
-
-        Attack.SetValue(row.Attack * modifierRatio);
+        PlayerManager playerManager = Managers.Player;
+        Attack.SetValue(row.Attack * stage[playerManager.CurrentKey].AttackRatio);
+        Util.Log($"attackRatio : {stage[playerManager.CurrentKey].AttackRatio}");
         Attack.SetValueMultiples(1);
         AttackCoolDown.SetValue(row.AttackCoolDown);
         AttackRange.SetValue(row.AttackRange);
 
-        Health.MaxValue = row.Health * modifierRatio;
-        Health.SetValue(row.Health * modifierRatio);
+        Health.MaxValue = row.Health * stage[playerManager.CurrentKey].HealthRatio;
+        Health.SetValue(row.Health * stage[playerManager.CurrentKey].HealthRatio);
 
-        Defence.SetValue(row.Defence);
+        Defence.SetValue(row.Defence * stage[playerManager.CurrentKey].DefenceRatio);
         MoveSpeed.SetValue(row.MoveSpeed);
     }
 }

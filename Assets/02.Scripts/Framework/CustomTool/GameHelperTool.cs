@@ -50,10 +50,15 @@ public class GameHelperTool : EditorWindow
             EditorApplication.isPaused = true;
             Managers.Wave.MainCore.ApplyDamage(100000000f);
 
-            if (++Managers.Player.CurrentWave % 10 == 0)
+            PlayerManager playerManager = Managers.Player;
+            var stages = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
+            int EndNumber = stages[playerManager.CurrentKey].StageEnd;
+
+            if (++playerManager.CurrentWave % 10 == 0)
             {
-                Managers.Player.CurrentWave = 0;
-                Managers.Player.CurrentStage++;
+                if (++playerManager.CurrentStage > EndNumber)
+                    playerManager.CurrentKey = Mathf.Min(++playerManager.CurrentKey, stages.Count - 1); // 스테이지 끝이면 현재 키를 늘린다.
+                playerManager.CurrentWave = 0;
             }
 
             Managers.Player.OnStageWave();

@@ -101,7 +101,7 @@ public class WaveManager
                 if (isCoreDead || isEnemyAllDead)
                 {
                     CurrentState = Enums.WaveState.Reward;
-                    if(isEnemyAllDead) Managers.Effect.InvokeEffect<GoldEffect>();
+                    Managers.Effect.InvokeEffect<GoldEffect>(isEnemyAllDead);
                 }
                 
             }
@@ -127,11 +127,16 @@ public class WaveManager
                 // 플레이어 측에서 이겼으면 웨이브 증가
                 if (isEnemyAllDead)
                 {
+                    var stages = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
+                    int EndNumber = stages[playerManager.CurrentKey].StageEnd;
+
+
                     Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(true);
-                    if (++playerManager.CurrentWave % 10 == 0)
+                    if (++playerManager.CurrentWave % 10  == 0)
                     {
-                        playerManager.CurrentStage++;
-                        playerManager.CurrentWave = 0;
+                        if (++playerManager.CurrentStage > EndNumber)
+                            playerManager.CurrentKey = Mathf.Min(++playerManager.CurrentKey, stages.Count - 1); // 스테이지 끝이면 현재 키를 늘린다.
+                        playerManager.CurrentWave = 0;      
                     }
 
                     Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold, CurrentGem);

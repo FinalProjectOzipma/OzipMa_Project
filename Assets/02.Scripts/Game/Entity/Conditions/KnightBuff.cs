@@ -31,7 +31,6 @@ public class KnightBuff : IConditionable
     async UniTaskVoid StartBuff()
     {
         var stage = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
-        int index = Mathf.Min(Managers.Player.CurrentStage, stage.Count - 1);
 
         condiHandler.CurDuration = condiHandler.Duration;
 
@@ -44,7 +43,7 @@ public class KnightBuff : IConditionable
             
             if(hitTime <= 0.0f)
             {
-                ctrl.Body.GetComponent<KnightBody>().OnSunFireCapeAttack(-10f * stage[index].AttackRatio);
+                ctrl.Body.GetComponent<KnightBody>().OnSunFireCapeAttack(-10f * stage[Managers.Player.CurrentKey].AttackRatio);
 
                 hitTime = coolDown;
             }

@@ -48,6 +48,7 @@ public class TowerProjectile : MonoBehaviour
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
+        // 따라가던 타겟이 사라지거나 게임이 끝나면 파괴
         if (targetTransform.gameObject.activeSelf != true || Managers.Wave.CurrentState != Enums.WaveState.Playing)
             Managers.Resource.Destroy(gameObject); ;
     }
@@ -57,13 +58,20 @@ public class TowerProjectile : MonoBehaviour
         EnemyController enemy = collision.gameObject.GetComponentInParent<EnemyController>();
         if (enemy == Target)
         {
-            RealAttack();
+            // 투사체가 타겟과 닿으면 공격 적용 및 파괴
+            RealAttack(); 
             Managers.Resource.Destroy(gameObject);
         }
     }
 
     private void RealAttack()
     {
+        if(Target == null)
+        {
+            Util.LogWarning("Target(EnemyController)가 Null입니다. Init()이 제대로 실행됐는지 확인 필요.");
+            return;
+        }
+
         //기본공격
         Target.ApplyDamage(attackPower);
         Managers.Audio.SelectSFXAttackType(tower.TowerType);
@@ -71,26 +79,5 @@ public class TowerProjectile : MonoBehaviour
         if (Tower.Abilities.ContainsKey(tower.TowerType) == false) return;
         DefaultTable.AbilityDefaultValue values = Tower.Abilities[tower.TowerType];
         Target.ApplyDamage(attackPower, values.AbilityType, gameObject, values);
-        /*switch (tower.TowerType)
-        {
-            case AbilityType.Fire:
-            case AbilityType.Explosive:
-                Target.ApplyDotDamage(values.AbilityValue, values.AbilityDuration, values.AbilityCooldown);
-                break;
-            case AbilityType.Dark:
-                Target.ApplyDamage(attackPower, AbilityType.Dark);
-                break;
-            //case AbilityType.Slow:
-            //    Target.ApplySlow(values.AbilityValue, values.AbilityDuration);
-            //    break;
-            //case AbilityType.KnockBack:
-            //    Target.ApplyKnockBack(values.AbilityValue, Target.transform.position - transform.position);
-            //    break;
-            //case AbilityType.BonusCoin:
-            //    Target.ApplyBonusCoin(values.AbilityValue);
-            //    break;
-            default:
-                break;
-        }*/
     }
 }

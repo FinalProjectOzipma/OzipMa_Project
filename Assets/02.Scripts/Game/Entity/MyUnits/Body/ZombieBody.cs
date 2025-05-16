@@ -14,15 +14,15 @@ public class ZombieBody : EntityBodyBase
             // 애니메이션 데이터 생성 및 초기화
             ctrl.AnimData = new ZombieAnimationData();
             ctrl.AnimData.Init(ctrl);
-            
-            // 스탯 초기화
-            ctrl.Status.Health.OnChangeHealth = healthView.SetHpBar;
 
             // 컨디션 초기화
             ctrl.Conditions.TryAdd((int)AbilityType.Explosive, new ExplosiveCondition<EnemyController>(ctrl));
         }
 
-        
+        // 이벤트 구독 초기화
+        ctrl.Status.Health.OnChangeHealth -= healthView.SetHpBar;
+        ctrl.Status.Health.OnChangeHealth += healthView.SetHpBar;
+        healthView.SetHpBar(ctrl.Status.Health.Value, ctrl.Status.Health.MaxValue);
         Init();
     }
 
