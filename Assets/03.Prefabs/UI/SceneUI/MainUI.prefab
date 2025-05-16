@@ -1014,8 +1014,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -110.899994, y: -22.099976}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -120, y: -0.00007247925}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2127428874951938962
 GameObject:
@@ -1125,7 +1125,6 @@ RectTransform:
   - {fileID: 3499672509592052867}
   - {fileID: 3464329320448772730}
   - {fileID: 7292342254822123185}
-  - {fileID: 4578446622252165202}
   m_Father: {fileID: 6429201350438435797}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
@@ -1465,9 +1464,8 @@ GameObject:
   - component: {fileID: 20135745758568164}
   - component: {fileID: 4385980797139578393}
   - component: {fileID: 3567198061786160726}
-  - component: {fileID: 664361069933145927}
   m_Layer: 5
-  m_Name: GoldBG
+  m_Name: GoldBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1531,19 +1529,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &664361069933145927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2690765927661519962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e225d9425e195b743925b803ee4645a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GoldPoint: {fileID: 0}
 --- !u!1 &2897432173089366422
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,7 +2275,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1188420224012315253}
+  m_Father: {fileID: 3499672509592052867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -4597,7 +4582,7 @@ GameObject:
   - component: {fileID: 760631298026536516}
   - component: {fileID: 715456777652778660}
   m_Layer: 5
-  m_Name: ZamBG
+  m_Name: ZamBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4614,7 +4599,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4578446622252165202}
   m_Father: {fileID: 1188420224012315253}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.073333345, y: 0.1}
