@@ -1,11 +1,15 @@
 using DG.Tweening;
 using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class UI_EndingPanel : UI_Scene
 {
     [SerializeField] private TextMeshProUGUI RewordGold;
     [SerializeField] private TextMeshProUGUI RewordGem;
+
+    [SerializeField] private GameObject GoldImage;
+    [SerializeField] private GameObject GemImage;
 
     [SerializeField] private GameObject ClearUI;
     [SerializeField] private GameObject OverUI;
@@ -26,15 +30,30 @@ public class UI_EndingPanel : UI_Scene
 
     public void SetRewardText(long gold, long gem)
     {
-        RewordGold.text = $"{Util.FormatNumber(gold)}";
-        RewordGem.text = $"{Util.FormatNumber(gem)}";
+        if(gold <= 0) GoldImage.SetActive(false);
+        else
+        {
+            GoldImage.SetActive(true);
+            RewordGold.text = $"{Util.FormatNumber(gold)}";
+        }
+
+        if (gem <= 0) GemImage.SetActive(false);
+        else
+        {
+            GemImage.SetActive(true);
+            RewordGem.text = $"{Util.FormatNumber(gem)}";
+        }
+
     }
 
     public void MoveEndingPanel(bool isClear)
     {
         GameObject whatgo = isClear ? ClearUI : OverUI;
 
-        EndPanelAnime(whatgo);
+        if (whatgo) Managers.Audio.PlaySFX(SFXClipName.Clear);
+        else Managers.Audio.PlaySFX(SFXClipName.Defeat);
+
+            EndPanelAnime(whatgo);
     }
 
     public void EndPanelAnime(GameObject go, float showDuration = 2.0f)

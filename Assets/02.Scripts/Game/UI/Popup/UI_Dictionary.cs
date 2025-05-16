@@ -1,7 +1,6 @@
-using DefaultTable;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,7 +12,7 @@ public class UI_Dictionary : UI_Popup
     [SerializeField] private Button BGClose;
     //[SerializeField] private Button BackButton;
 
-    [SerializeField] private GameObject UIDictionary;
+    [SerializeField] public GameObject UIDictionary;
     [SerializeField] private GameObject MyUnitDisSelected;
     [SerializeField] private GameObject MyUnitSelected;
     [SerializeField] private GameObject TowerDisSelected;
@@ -50,11 +49,14 @@ public class UI_Dictionary : UI_Popup
         slots = new List<DSlot>();
         DefaultData();
         OnMyUnitTap();
+
     }
+
 
     private void OnEnable()
     {
         OnMyUnitTap();
+        AnimePopup(UIDictionary);
     }
 
     private void Start()
@@ -62,6 +64,7 @@ public class UI_Dictionary : UI_Popup
         MyUnitBtn.onClick.AddListener(OnMyUnitTap);
         TowerBtn.onClick.AddListener(OnTowerTap);
         BGClose.gameObject.BindEvent(OnClickClose);
+        AnimePopup(UIDictionary);
     }
 
 
@@ -174,7 +177,7 @@ public class UI_Dictionary : UI_Popup
 
 
 
-    private List<T> DGetList<T>() where T : UserObject,IGettable
+    private List<T> DGetList<T>() where T : UserObject, IGettable
     {
         if (typeof(T) == typeof(MyUnit))
         {
@@ -195,8 +198,8 @@ public class UI_Dictionary : UI_Popup
     {
         List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
         List<DefaultTable.MyUnit> MyUnits = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
-        
-        for(int i = 0; i < Towers.Count; i++)
+
+        for (int i = 0; i < Towers.Count; i++)
         {
             Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[i].Name}Tower", original =>
             {

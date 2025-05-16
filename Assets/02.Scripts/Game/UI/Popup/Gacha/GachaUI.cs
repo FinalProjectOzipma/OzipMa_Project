@@ -17,7 +17,7 @@ public class GachaUI : UI_Popup
     [SerializeField] private Button TowerHundredButton;
     [SerializeField] private Button BGClose;
 
-    [SerializeField] private RectTransform RectTransform;
+    [SerializeField] public RectTransform RectTransform;
 
     private GachaSystem gacha = new();
     private List<IGettable> result;
@@ -28,6 +28,12 @@ public class GachaUI : UI_Popup
     private void Start()
     {
         Init();
+        AnimePopup(RectTransform.gameObject);
+    }
+
+    private void OnEnable()
+    {
+        AnimePopup(RectTransform.gameObject);
     }
 
     public override void Init()

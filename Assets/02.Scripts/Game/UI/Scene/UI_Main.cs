@@ -124,9 +124,14 @@ public class UI_Main : UI_Scene
             isResearchOpne = true;
         }
         else
-        {
-            AllOFF();
-            Managers.UI.CloseAllPopupUI();
+        {    
+            AnimePopup(Managers.UI.GetPopup<UI_ResearchScene>().UI_Research, true);
+
+            uiSeq.Play().OnComplete(() =>
+            {
+                AllOFF();
+                Managers.UI.CloseAllPopupUI();
+            });
         }
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
@@ -176,8 +181,13 @@ public class UI_Main : UI_Scene
         }
         else
         {
-            AllOFF();
-            Managers.UI.CloseAllPopupUI();
+            AnimePopup(Managers.UI.GetPopup<GachaUI>().RectTransform.gameObject, true);
+
+            uiSeq.Play().OnComplete(() => 
+            {
+                AllOFF();
+                Managers.UI.CloseAllPopupUI();
+            });
         }
 
 
@@ -202,8 +212,13 @@ public class UI_Main : UI_Scene
         }
         else
         {
-            AllOFF();
-            Managers.UI.CloseAllPopupUI();     
+            AnimePopup(Managers.UI.GetPopup<UI_Dictionary>().UIDictionary, true);
+
+            uiSeq.Play().OnComplete(() =>
+            {
+                AllOFF();
+                Managers.UI.CloseAllPopupUI();
+            });
         }
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);

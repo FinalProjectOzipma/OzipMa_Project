@@ -1,5 +1,6 @@
 using DefaultTable;
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -40,6 +41,10 @@ public class UI_InfoPopup : UI_Popup
     [SerializeField] private Image Speed;
     [SerializeField] private Image Health;
     [SerializeField] private Image Defence;
+
+
+    public Image[] starArrays = new Image[10];
+
     private void Awake()
     {
         CloseButton.gameObject.BindEvent(OnClikcBack);
@@ -77,6 +82,8 @@ public class UI_InfoPopup : UI_Popup
         AttackRangeText.text = selectedInfo.Status.AttackRange.GetValueToString();
 
         SelectRankWindow(selectedInfo.RankType);
+
+        SetGradeStarImage(selectedInfo.Status.Grade.GetValue());
 
 
         InfoImage.sprite = selectedInfo.Sprite;
@@ -197,6 +204,20 @@ public class UI_InfoPopup : UI_Popup
                 break;
         }
 
+    }
+
+    public void SetGradeStarImage(int grade)
+    {
+        Util.Log("등급 : " + grade.ToString());
+        foreach (var image in starArrays)
+        {
+            image.color = Color.gray;
+        }
+
+        for (int i = 0; i <grade; i++ )
+        {
+            starArrays[i].color = Color.white;
+        }
     }
 
 }

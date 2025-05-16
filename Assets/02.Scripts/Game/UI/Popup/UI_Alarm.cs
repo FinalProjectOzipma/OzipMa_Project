@@ -19,7 +19,7 @@ public class UI_Alarm : UI_Popup
     private void Start()
     {
         Init();
-
+        
         AnimePopup(BG);
     }
 
@@ -32,6 +32,7 @@ public class UI_Alarm : UI_Popup
 
     public override void Init()
     {
+        uiSeq = Util.RecyclableSequence();
         AlarmButton.gameObject.BindEvent(CloseAlarmPopup);
     }
     

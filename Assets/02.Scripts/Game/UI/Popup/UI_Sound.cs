@@ -10,6 +10,7 @@ public class UI_Sound : UI_Popup
     [SerializeField] private Button BGMBMuteButton;
     [SerializeField] private Button SFMMuteButton;
     [SerializeField] private Button BackButton;
+    [SerializeField] private Button ExitButton;
 
     [SerializeField] private Slider MasterSlider;
     [SerializeField] private Slider BGMSlider;
@@ -59,6 +60,7 @@ public class UI_Sound : UI_Popup
         BGMBMuteButton.gameObject.BindEvent(OnClickBGMMuted);
         SFMMuteButton.gameObject.BindEvent(OnClickSFXMuted);
         BackButton.gameObject.BindEvent(OnClickBack);
+        ExitButton.onClick.AddListener(ExitGame);
 
         MasterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
         BGMSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
@@ -238,5 +240,14 @@ public class UI_Sound : UI_Popup
         {
             ClosePopupUI();
         });
+    }
+
+    public void ExitGame()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // 에디터에서는 플레이 모드 중단
+#else
+    Application.Quit(); // 실제 빌드에서는 게임 종료
+#endif
     }
 }

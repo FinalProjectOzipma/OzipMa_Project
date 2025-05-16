@@ -627,7 +627,7 @@ MonoBehaviour:
   TowerSingleButton: {fileID: 1785055863665965942}
   TowerDualButton: {fileID: 834370857141230090}
   TowerHundredButton: {fileID: 5119927979110441039}
-  CloseButton: {fileID: 2312532828568317508}
+  BGClose: {fileID: 2093667251420742235}
   RectTransform: {fileID: 1902171280915443800}
 --- !u!114 &5725418283349262890
 MonoBehaviour:

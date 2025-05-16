@@ -47,50 +47,14 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 62789a068af58fb47ae20617abdf361e
-    m_Address: ZamAlarmPopup
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d9ec071f4c2369b4ab8a571e505a2862
-    m_Address: GoldAlarmPopup
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: c5df90b3b268ba64f96964599833934a
-    m_Address: StartFailPopup
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac89bf2f077c8904d84580a6ef98d201
     m_Address: TowerMenu
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7f0503e47b3254e45afb5644812e987b
-    m_Address: InchentPopup
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 650b86604e0a9b54382cadabb411f986
-    m_Address: MaxLevelPopup
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 6c2339ca73afa0448a5fb10c931d000c
     m_Address: SoundUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 6d32586343263fb469af22872b66ceea
-    m_Address: AlarmPopup
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

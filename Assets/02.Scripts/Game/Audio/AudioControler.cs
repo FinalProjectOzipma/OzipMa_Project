@@ -38,6 +38,8 @@ public enum SFXClipName
     Fire,
     Coin,
     Card,
+    Clear,
+    Defeat
 }
 
 public enum AudioType

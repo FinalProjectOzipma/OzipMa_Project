@@ -72,6 +72,8 @@ public class UI_OFFLinePopup : UI_Popup
 
     public override void Init()
     {
+        uiSeq = Util.RecyclableSequence();
+
         CheckButton.gameObject.BindEvent(OnClickReword);
         DoubleButton.gameObject.BindEvent(OnClickDoubleReword);
 

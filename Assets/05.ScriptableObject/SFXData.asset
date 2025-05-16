@@ -51,3 +51,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 5cd73b5d2c9fd45cd8cf969c73c8f6e5, type: 3}
   - key: Card
     clip: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
+  - key: Clear
+    clip: {fileID: 8300000, guid: c34f06aa47ec047e6a91722202f07037, type: 3}
+  - key: Defeat
+    clip: {fileID: 8300000, guid: b6d5a242997b54b12927e3a6b6091c6f, type: 3}
