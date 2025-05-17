@@ -49,7 +49,7 @@ public class UI_EndingPanel : UI_Scene
     {
         GameObject whatgo = isClear ? ClearUI : OverUI;
 
-        if (whatgo) Managers.Audio.PlaySFX(SFXClipName.Clear);
+        if (whatgo == ClearUI) Managers.Audio.PlaySFX(SFXClipName.Clear);
         else Managers.Audio.PlaySFX(SFXClipName.Defeat);
 
         EndPanelAnime(whatgo);

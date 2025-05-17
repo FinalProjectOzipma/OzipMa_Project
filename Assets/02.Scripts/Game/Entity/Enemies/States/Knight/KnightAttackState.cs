@@ -14,6 +14,7 @@ public class KnightAttackState : KnightStateBase
         isAttacked = false;
         agent.isStopped = true;
         controller.SpTrail.SetActive(true);
+        Managers.Audio.PlaySFX(SFXClipName.Walk);
     }
 
     public override void Exit()

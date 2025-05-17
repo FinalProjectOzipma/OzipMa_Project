@@ -10,6 +10,7 @@ public class KnightAtkBuffState : KnightStateBase
         base.Enter();
         agent.isStopped = true;
         isBuffed = false;
+        Managers.Audio.PlaySFX(SFXClipName.PowerUp);
     }
 
     public override void Exit()

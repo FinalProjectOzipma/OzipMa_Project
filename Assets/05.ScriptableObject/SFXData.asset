@@ -28,7 +28,7 @@ MonoBehaviour:
   - key: Thunder
     clip: {fileID: 8300000, guid: f7dd2b8773b5d48dfbb90c837fb155d9, type: 3}
   - key: Walk
-    clip: {fileID: 8300000, guid: e49874f19fdb7114bbf776cb9e5f53c0, type: 3}
+    clip: {fileID: 8300000, guid: 2c5e6aa2b82fd4758855918792d9f9b2, type: 3}
   - key: Dead
     clip: {fileID: 8300000, guid: 9481876fe94624de59ba997cdff5abf1, type: 3}
   - key: PowerUp
@@ -59,3 +59,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: b6d5a242997b54b12927e3a6b6091c6f, type: 3}
   - key: Defeat
     clip: {fileID: 8300000, guid: 419bd91efe4854866a5c1d2fb5535955, type: 3}
+  - key: Reflect
+    clip: {fileID: 8300000, guid: c3773a1be480e4bc88c0c302022ed883, type: 3}
