@@ -122,7 +122,7 @@ public class EnemyController : EntityController, IDamagable
     public void ApplyDamage(float incomingDamage, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue values = null)
     {
         Managers.Audio.PlaySFX(SFXClipName.Hit);
-        Util.Log("사운드 체크");
+
         //반사타입 처리
         if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
         {
@@ -132,6 +132,7 @@ public class EnemyController : EntityController, IDamagable
                 float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
                 myunit.ReflectDamage(incomingDamage, abilityRatio);
                 Util.Log("반사해드렸습니다");
+                Managers.Audio.PlaySFX(SFXClipName.Reflect);
             }
             else if (myunit.MyUnit.AbilityType == AbilityType.Psychic)
             {
