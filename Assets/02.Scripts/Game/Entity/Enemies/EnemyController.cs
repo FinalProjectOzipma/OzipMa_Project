@@ -132,7 +132,6 @@ public class EnemyController : EntityController, IDamagable
                 float abilityRatio = 0.5f; // TODO: Test용 나중에 지워야함
                 myunit.ReflectDamage(incomingDamage, abilityRatio);
                 Util.Log("반사해드렸습니다");
-                Managers.Audio.PlaySFX(SFXClipName.Reflect);
             }
             else if (myunit.MyUnit.AbilityType == AbilityType.Psychic)
             {

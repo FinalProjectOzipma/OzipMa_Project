@@ -36,8 +36,7 @@ public enum SFXClipName
     Burst,
     Death,
     Clear,
-    Defeat,
-    Reflect
+    Defeat
 
 }
 
