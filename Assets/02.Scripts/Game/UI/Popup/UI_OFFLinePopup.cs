@@ -28,6 +28,7 @@ public class UI_OFFLinePopup : UI_Popup
     [SerializeField] private GameObject OnGold;
     [SerializeField] private GameObject OffGold;
 
+    bool isClick = false;
 
     private int baseGoldPerMinute = 1; // 1분당 1골드
     private float baseGemChance = 0.02f;  // 1분당 2% 확률로 1잼 지급
@@ -172,6 +173,10 @@ public class UI_OFFLinePopup : UI_Popup
 
     public void SwitchToOpenBox(PointerEventData data)
     {
+        if (isClick) return;
+
+        isClick = true;
+
         GameObject currentClosedBox;
         GameObject currentOpenedBox;
 
