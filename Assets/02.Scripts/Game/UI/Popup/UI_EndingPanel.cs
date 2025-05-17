@@ -1,6 +1,5 @@
 using DG.Tweening;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class UI_EndingPanel : UI_Scene
@@ -30,7 +29,7 @@ public class UI_EndingPanel : UI_Scene
 
     public void SetRewardText(long gold, long gem)
     {
-        if(gold <= 0) GoldImage.SetActive(false);
+        if (gold <= 0) GoldImage.SetActive(false);
         else
         {
             GoldImage.SetActive(true);
@@ -53,7 +52,7 @@ public class UI_EndingPanel : UI_Scene
         if (whatgo) Managers.Audio.PlaySFX(SFXClipName.Clear);
         else Managers.Audio.PlaySFX(SFXClipName.Defeat);
 
-            EndPanelAnime(whatgo);
+        EndPanelAnime(whatgo);
     }
 
     public void EndPanelAnime(GameObject go, float showDuration = 2.0f)
