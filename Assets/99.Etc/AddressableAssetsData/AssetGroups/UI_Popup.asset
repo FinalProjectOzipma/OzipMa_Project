@@ -41,12 +41,6 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 9579e7a15eb52814aad406139e8416b9
-    m_Address: MainUI
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - GameScene
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: ac89bf2f077c8904d84580a6ef98d201
     m_Address: TowerMenu
     m_ReadOnly: 0
@@ -127,6 +121,12 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 039216ddf90735342afbabc47fff43a1
     m_Address: DSlot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9579e7a15eb52814aad406139e8416b9
+    m_Address: MainUI
     m_ReadOnly: 0
     m_SerializedLabels:
     - GameScene

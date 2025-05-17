@@ -792,12 +792,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CheckButton: {fileID: 1764246762}
   DoubleButton: {fileID: 2057911300}
+  RewardBox: {fileID: 0}
   TimerText: {fileID: 1991923988}
   RewordGoldText: {fileID: 2047829378}
   RewordZamText: {fileID: 687382856}
   CheckImage: {fileID: 438042447}
   DoubleImage: {fileID: 1409611923}
   UIOffLine: {fileID: 412039303}
+  BGObject: {fileID: 1146077911}
+  OnBronze: {fileID: 0}
+  OffBronze: {fileID: 0}
+  OnSilver: {fileID: 0}
+  OffSilver: {fileID: 0}
+  OnGold: {fileID: 0}
+  OffGold: {fileID: 0}
 --- !u!114 &914959349
 MonoBehaviour:
   m_ObjectHideFlags: 0
