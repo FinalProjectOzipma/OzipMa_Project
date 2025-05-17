@@ -121,7 +121,8 @@ public class EnemyController : EntityController, IDamagable
     /// <param name="damage"></param>
     public void ApplyDamage(float incomingDamage, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue values = null)
     {
-
+        Managers.Audio.PlaySFX(SFXClipName.Hit);
+        Util.Log("사운드 체크");
         //반사타입 처리
         if (go != null && go.TryGetComponent<MyUnitController>(out MyUnitController myunit))
         {
