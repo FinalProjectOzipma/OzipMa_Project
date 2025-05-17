@@ -160,6 +160,7 @@ public class WaveManager
         {
 
             MainCore = go.GetComponent<CoreController>();
+            Util.Log("초기체력222:" + Managers.Player.MainCoreData.Health.GetValueToString());
             MainCore.Init(Managers.Player.MainCoreData.Health.GetValue());
             int needAmount = waveList[idx].EnemyAmount;
             Managers.StartCoroutine(Spawn(needAmount));

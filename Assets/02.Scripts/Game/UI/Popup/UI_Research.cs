@@ -505,17 +505,26 @@ public class UI_Research : UI_Base
             case ResearchUpgradeType.Core:
                 CoreController core = Managers.Wave.MainCore.GetComponent<CoreController>();
 
-                if (updateLevel > 10) core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f);
-                else core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, updateLevel - 1));
+                if (updateLevel > 10)
+                {
+                    Managers.Player.MainCoreData.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f);
+                    core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, 10) + (updateLevel - 10) * 0.03f);
+                }
+                else
+                {
+                    Managers.Player.MainCoreData.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, updateLevel - 1));
+                    core.core.Health.SetResearchMultiple(Managers.Upgrade.GetResearchValue(upgradeType, updateLevel - 1));
+                }
 
                 core.core.Health.MaxValue = core.core.Health.GetValue();
-                core.core.Health.SetValue(core.core.Health.MaxValue);
+                //core.core.Health.SetValue(core.core.Health.MaxValue);
                 core.core.CoreLevel.SetValue(updateLevel);
                 core.CoreUpgrade();
 
-                Managers.Player.MainCoreData.Health.MaxValue = core.core.Health.MaxValue;
-                Managers.Player.MainCoreData.Health.SetValue(Managers.Player.MainCoreData.Health.MaxValue);
+                Managers.Player.MainCoreData.Health.MaxValue = Managers.Player.MainCoreData.Health.GetValue();
+                //Managers.Player.MainCoreData.Health.SetValue(Managers.Player.MainCoreData.Health.MaxValue);
                 Managers.Player.MainCoreData.CoreLevel.SetValue(updateLevel);
+
                 break;
         }
 

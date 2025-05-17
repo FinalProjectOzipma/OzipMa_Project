@@ -249,6 +249,7 @@ public class UpgradeManager
             case ResearchUpgradeType.Defence:
                 return ResearchesUpgradeTable[i - 1].Defence;
             case ResearchUpgradeType.Core:
+                Util.Log("체력 연구 성공");
                 return ResearchesUpgradeTable[i - 1].CoreHealth;
             default:
                 return 0.0f;
