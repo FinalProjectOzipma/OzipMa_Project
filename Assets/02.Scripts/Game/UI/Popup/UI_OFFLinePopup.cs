@@ -150,13 +150,7 @@ public class UI_OFFLinePopup : UI_Popup
 
     private void HidePpoup()
     {
-        AnimePopup(UIOffLine, true);
-
-        uiSeq.Play().OnComplete(() =>
-        {
-            this.gameObject.SetActive(false);
-            isRewordClaimed = false;
-        });
+        this.gameObject.SetActive(false);
     }
 
 

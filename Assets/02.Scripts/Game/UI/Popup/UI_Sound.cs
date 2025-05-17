@@ -1,7 +1,9 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class UI_Sound : UI_Popup
 {
@@ -241,12 +243,36 @@ public class UI_Sound : UI_Popup
         });
     }
 
-    public void ExitGame()
+    public async void ExitGame()
     {
+        try
+        {
+            // 서버 시간 기준 종료 시간 저장
+            Managers.Player.RewordStartTime = Managers.Game.ServerUtcNow.ToString("o");
+
+            // 비동기 저장 호출 (SaveGameDataAsync는 Task 반환)
+            await Managers.Data.SaveGameDataAsync();
+
+            // 저장 여유 시간 확보 (선택 사항)
+            await Task.Delay(500);
+
+            // 정상 종료
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; // 에디터에서는 플레이 모드 중단
+            UnityEditor.EditorApplication.isPlaying = false;
 #else
-    Application.Quit(); // 실제 빌드에서는 게임 종료
+        Application.Quit();
 #endif
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning($"ExitGame 저장 실패: {ex.Message}");
+            // 그래도 종료 시도
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+        }
     }
+
 }
