@@ -310,7 +310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC77C\uBC18"
+  m_text: "\uBC1B\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
   m_sharedMaterial: {fileID: 8197075625149418010, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
@@ -1324,7 +1324,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 861903752417223498}
+        m_TargetAssemblyTypeName: ADRewarded, Assembly-CSharp
+        m_MethodName: ShowAd
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4775319672935027153
 GameObject:
   m_ObjectHideFlags: 0
@@ -2488,7 +2500,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "2\uBC30"
+  m_text: "\uAD11\uACE0 x2"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
   m_sharedMaterial: {fileID: 8197075625149418010, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
@@ -2931,6 +2943,7 @@ GameObject:
   - component: {fileID: 5423205255535936757}
   - component: {fileID: 7191245676248664982}
   - component: {fileID: 1991757350825795129}
+  - component: {fileID: 861903752417223498}
   - component: {fileID: 7293974815998942501}
   m_Layer: 5
   m_Name: OffLinePopup
@@ -3036,9 +3049,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CheckButton: {fileID: 3107905395067918295}
   DoubleButton: {fileID: 6442880269336748380}
-  BronzeReward: {fileID: 0}
-  SilverReward: {fileID: 0}
-  GoldReward: {fileID: 0}
+  RewardBox: {fileID: 5346412282345949580}
   TimerText: {fileID: 7221402243347404160}
   RewordGoldText: {fileID: 6419933647694146944}
   RewordZamText: {fileID: 1712168354116642264}
@@ -3052,6 +3063,20 @@ MonoBehaviour:
   OffSilver: {fileID: 6662021525634427212}
   OnGold: {fileID: 1405114204698217994}
   OffGold: {fileID: 3616075265306111104}
+--- !u!114 &861903752417223498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9215931854112190401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cacc19d7319906941be35104eddeeb8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Rewarded_Android
+  _iOSAdUnitId: Rewarded_iOS
 --- !u!114 &7293974815998942501
 MonoBehaviour:
   m_ObjectHideFlags: 0
