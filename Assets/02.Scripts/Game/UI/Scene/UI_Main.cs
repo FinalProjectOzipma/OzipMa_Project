@@ -80,6 +80,19 @@ public class UI_Main : UI_Scene
             Managers.Player.OnStageChanged += UpdateStageUI;
             UpdateGoldUI(Managers.Player.GetGold());
         }
+
+        Managers.Data.OnUpdateUserID -= SetPlayerName;
+        Managers.Data.OnUpdateUserID += SetPlayerName;
+        Managers.Data.UserIDUpdate();
+    }
+
+    public void SetPlayerName(string name)
+    {
+        if(name.Length > 7)
+        {
+            name = $"{name.Substring(0, 7)}...";
+        }
+        PlayerName.text = name;
     }
 
     private void OnDisable()

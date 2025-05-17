@@ -11,6 +11,7 @@ public class DataManager
 {
     public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
     public bool IsGameDataLoadFinished { get; private set; }
+    public event Action<string> OnUpdateUserID;
 
     private DatabaseReference _databaseReference;
     private string userID = "user002";
@@ -156,5 +157,10 @@ public class DataManager
     public void SetUserID(string userId)
     {
         userID = userId;
+    }
+
+    public void UserIDUpdate()
+    {
+        OnUpdateUserID?.Invoke(userID);
     }
 }
