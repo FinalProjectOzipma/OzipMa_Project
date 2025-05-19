@@ -31,6 +31,7 @@ public class DataManager
         LoadData<DefaultTable.LevelUpValue>();
         LoadData<DefaultTable.Research>();
         LoadData<DefaultTable.LoadingTip>();
+        LoadData<DefaultTable.AttackDefault>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
@@ -110,11 +111,11 @@ public class DataManager
             await _databaseReference
                 .Child("users").Child(userID).Child(parent)
                 .SetRawJsonValueAsync(json);
-            Debug.Log($"Firebase 저장 성공: {parent}");
+            Util.Log($"Firebase 저장 성공: {parent}");
         }
         catch (Exception ex)
         {
-            Debug.LogError($"Firebase 저장 실패: {ex.Message}");
+            Util.LogError($"Firebase 저장 실패: {ex.Message}");
         }
     }
 
