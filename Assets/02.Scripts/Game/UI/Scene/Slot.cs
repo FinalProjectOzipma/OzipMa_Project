@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -33,12 +29,15 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
     public IGettable Gettable;
 
-    private GameObject PreviewObj;
-    private SpriteRenderer previewRenderer;
     private Sprite _sprite;
-    private BuildingSystem buildingSystem;
     private InventoryUI inventoryUI;
     private Image _stackGage;
+
+    // 슬롯 드래그 관련
+    private GameObject PreviewTowerBrain;
+    private SpriteRenderer previewRenderer;
+    private BuildingSystem buildingSystem;
+    private TowerControlBase curTowerController;
 
     public Action<bool> onSelectionChanged;  // 선택 변경 이벤트
 
@@ -182,37 +181,44 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
     #region 드래그 배치
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if(inventoryUI.CurrentTab != typeof(Tower)) return;
+        if (inventoryUI.CurrentTab != typeof(Tower)) return;
         buildingSystem.ShowBuildHighlight(!buildingSystem.IsTowerCountFull()); // 배치 구역 표시 켜기
 
+        // 타워 Brain 생성해서 프리뷰 역할
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
-        cellWorldPos.y -= 0.2f;
-        if (PreviewObj == null)
+        if (PreviewTowerBrain == null)
         {
-            Managers.Resource.Instantiate("BuildingPreview", go => 
+            DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, itemKey);
+            string towerName = $"{data.Name}Tower";
+            Managers.Resource.Instantiate(towerName, go =>
             {
-                PreviewObj = go;
-                PreviewObj.transform.position = cellWorldPos;
-                previewRenderer = PreviewObj.GetComponent<SpriteRenderer>();
+                PreviewTowerBrain = go;
+                PreviewTowerBrain.transform.position = cellWorldPos;
+                curTowerController = PreviewTowerBrain.GetComponent<TowerControlBase>();
+                curTowerController.TakeRoot(itemKey, towerName, (Tower)Gettable);
+                curTowerController.TowerStop();
             });
         }
-        else
-        {
-            PreviewObj.transform.position = cellWorldPos;
-        }
-        previewRenderer.sprite = _sprite;
+
         inventoryUI.OnSwipe();
         buildingSystem.DragController.IsSlotDragging = true;
     }
     public void OnDrag(PointerEventData eventData)
     {
         if (inventoryUI.CurrentTab != typeof(Tower)) return;
+
+        // 프리뷰 타워 위치 업데이트
         Vector2 inputPos = eventData.position;
         Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
-        cellWorldPos.y -= 0.3f;
-        PreviewObj.transform.position = cellWorldPos;
-        if(buildingSystem.CanTowerBuildArea(inputPos) == false)
+        PreviewTowerBrain.transform.position = cellWorldPos;
+
+        // 배치 가능/불가능 색상 표현
+        if (previewRenderer == null)
+        {
+            previewRenderer = PreviewTowerBrain.GetComponent<TowerControlBase>()?.GetTowerBodyBase()?.GetMainSpriteObj()?.GetComponent<SpriteRenderer>();
+        }
+        if (buildingSystem.IsTowerCountFull(false) == true || buildingSystem.CanTowerBuildArea(inputPos) == false)
         {
             previewRenderer.color = Color.red;
             return;
@@ -228,27 +234,24 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         inventoryUI.OnSwipe();
 
         Vector2 inputPos = eventData.position;
-        Managers.Resource.Destroy(PreviewObj);
-        PreviewObj = null;
-
-        if (buildingSystem.CanTowerBuildArea(inputPos) == false || buildingSystem.IsTowerCountFull(false) == true)
+        if (buildingSystem.IsTowerCountFull(false) == true || buildingSystem.CanTowerBuildArea(inputPos) == false)
         {
             // 배치 불가능하면 드래그 취소됨
+            Managers.Resource.Destroy(PreviewTowerBrain);
             buildingSystem.DragController.IsSlotDragging = false;
             return;
         }
 
-        // 배치 가능
-        DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, itemKey);
-        string towerName = $"{data.Name}Tower";
-        Util.Log($"OnEndDrag : {towerName}를 배치 성공함");
-        Managers.Resource.Instantiate(towerName, go => 
-        {
-            go.transform.position = buildingSystem.UpdatePosition(inputPos);
-            buildingSystem.AddPlacedMapScreenPos(inputPos, itemKey);
-            buildingSystem.DragController.IsSlotDragging = false;
-            go.GetComponent<TowerControlBase>().TakeRoot(itemKey, towerName, (Tower)Gettable);
-        });
+        // 배치 
+        PreviewTowerBrain.transform.position = buildingSystem.UpdatePosition(inputPos);
+        buildingSystem.AddPlacedMapScreenPos(inputPos, itemKey);
+        curTowerController.TowerStart(); // 작동시키기
+
+        // 정리
+        buildingSystem.DragController.IsSlotDragging = false;
+        previewRenderer.color = Color.white;
+        previewRenderer = null;
+        PreviewTowerBrain = null;
     }
     #endregion
 }
