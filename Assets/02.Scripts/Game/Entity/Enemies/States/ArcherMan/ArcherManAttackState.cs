@@ -43,16 +43,4 @@ public class ArcherManAttackState : ArcherManStateBase
         if (triggerCalled) // 공격 모션이 끝나는 구간
             StateMachine.ChangeState(data.IdleState);
     }
-<<<<<<< Updated upstream
-
-    private void CreateArrow(string objectName)
-    {
-        Managers.Resource.Instantiate(objectName, (go) => 
-        { 
-            Fire<EntityProjectile>(go, targets.Peek().GetComponentInChildren<SpriteRenderer>().transform.position);
-            Managers.Audio.PlaySFX(SFXClipName.Arrow);
-        });
-    }
-=======
->>>>>>> Stashed changes
 }
