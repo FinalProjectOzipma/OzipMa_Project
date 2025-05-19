@@ -40,9 +40,9 @@ public class UI_Main : UI_Scene
 
 
     public bool isManagerOpen = false;
-    bool isDictionaryOpne = false;
-    bool isResearchOpne = false;
-    bool isGachaOpne = false;
+    public bool isDictionaryOpne = false;
+    public bool isResearchOpen = false;
+    public bool isGachaOpne = false;
 
 
     enum Objects
@@ -125,14 +125,14 @@ public class UI_Main : UI_Scene
         if (isButton) return;
         isButton = true;
 
-        if (!isResearchOpne)
+        if (!isResearchOpen)
         {
             AllOFF();
             OFFSwipe();
             Managers.UI.CloseAllPopupUI();
             ONResearchBtn.SetActive(true);
             Managers.UI.ShowPopupUI<UI_ResearchScene>(Objects.ReseachUI.ToString());
-            isResearchOpne = true;
+            isResearchOpen = true;
         }
         else
         {    
@@ -250,7 +250,7 @@ public class UI_Main : UI_Scene
         ONGachaBtn.SetActive(false);
 
         isDictionaryOpne = false;
-        isResearchOpne = false;
+        isResearchOpen = false;
         isGachaOpne = false;
     }
 

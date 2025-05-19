@@ -9,12 +9,13 @@ public class DragController : MonoBehaviour
     public bool IsSlotDragging = false; // Slot쪽에서 드래그중인가?
     public float HoldTimeThreshold = 0.3f; // 홀드 지연 시간
 
+    public bool TutorialIsDrag = false;
+
     private BuildingSystem buildingSystem;
     private SpriteRenderer spriteRenderer;
     private Vector3 eventPosition;
     private GameObject dragObject;
     private bool isEditDragging = false; // 드래그 중인가?
-
 
     private GameObject towerMenu; // 불러온 타워메뉴창 프리팹 저장
     private UI_TowerMenu uiTowerMenu; // 타워메뉴 스크립트
@@ -162,6 +163,7 @@ public class DragController : MonoBehaviour
             int key = buildingSystem.RemovePlacedMapScreenPos(eventPosition, false);
             buildingSystem.AddPlacedMapScreenPos(inputPos, key);
             dragObject = null;
+            TutorialIsDrag = true;
             return;
         }
 

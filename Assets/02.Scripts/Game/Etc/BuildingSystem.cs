@@ -14,11 +14,14 @@ public class BuildingSystem : MonoBehaviour
 
     public event Action<string, bool> OnTowerCountChanged;
 
+    
+
     [SerializeField] private LayerMask CanDragLayerMask;
     [SerializeField] private LayerMask TowerBuildLayerMask;
     private Tilemap map;
     private Camera cam;
     private MapHandler mapHandler;
+
 
     private void Awake()
     {
