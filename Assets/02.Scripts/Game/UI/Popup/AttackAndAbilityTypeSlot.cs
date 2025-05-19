@@ -32,6 +32,9 @@ public class AttackAndAbilityTypeSlot : UI_Base
         ToolTipButton.onClick.AddListener(OnCilckDescription);
     }
 
+    /// <summary>
+    /// 클릭 시 해당하는 특성 UI에 표시
+    /// </summary>
     public void OnCilckDescription()
     {
 
@@ -67,7 +70,9 @@ public class AttackAndAbilityTypeSlot : UI_Base
 
     }
 
-
+    /// <summary>
+    /// text 읽어와서 해당 공격타입 변환
+    /// </summary>
     private AtkType GetAtkTypeText(string typeName)
     {
         return typeName switch
@@ -82,7 +87,9 @@ public class AttackAndAbilityTypeSlot : UI_Base
         };
     }
 
-
+    /// <summary>
+    /// text 읽어와서 해당 능력타입 반환
+    /// </summary>
     private AbilityType GetAbillityTypeText(string typeName)
     {
         return typeName switch

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.AddressableAssets.Build.Layout;
 using UnityEngine;
 
 public class CoreController : Poolable, IDamagable
@@ -22,7 +23,9 @@ public class CoreController : Poolable, IDamagable
         //CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
-
+    /// <summary>
+    /// 코어 초기화
+    /// </summary>
     public void Init(float maxHealth)
     {
         if (body == null)
@@ -62,7 +65,9 @@ public class CoreController : Poolable, IDamagable
     }
 
 
-
+    /// <summary>
+    /// 코어 체력 세팅
+    /// </summary>
     private void SetHealth(float maxHealth, CoreBase coreBase)
     {
         core.Health.MaxValue = maxHealth;
@@ -80,7 +85,9 @@ public class CoreController : Poolable, IDamagable
     }
 
 
-
+    /// <summary>
+    /// 코어 데미지 받는 부분
+    /// </summary>
     public void TakeDamge(float damage)
     {
 
@@ -99,7 +106,9 @@ public class CoreController : Poolable, IDamagable
     }
 
 
-
+    /// <summary>
+    /// 유닛 소환
+    /// </summary>
     public void SpawnUnit()
     {
         List<IGettable> myUnitsList = Managers.Player.Inventory.GetList<MyUnit>();
@@ -124,6 +133,9 @@ public class CoreController : Poolable, IDamagable
         TakeDamge(amount);
     }
 
+    /// <summary>
+    /// 코어 레벨 따라 에니메이션 전환
+    /// </summary>
     public void CoreUpgrade()
     {
         if (core.CoreLevel.GetValue() < 5)
