@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 [System.Serializable]
 public class GachaResultWrapper
@@ -36,8 +35,8 @@ public class GachaSystem
 
         callData = new Dictionary<string, object>
         {
-            { "gradeRanges", new int[4] { 0, 0, 0, 0 } }, 
-            { "drawCount", 1 }                               
+            { "gradeRanges", new int[4] { 0, 0, 0, 0 } },
+            { "drawCount", 1 }
         };
 
         Init();
@@ -79,6 +78,12 @@ public class GachaSystem
         callData["drawCount"] = count;
     }
 
+    /// <summary>
+    /// 서버에서 가챠 데이터 뽑기 
+    /// </summary>
+    /// <param name="count">count개만큼 뽑음</param>
+    /// <param name="isUnit">true: 마이유닛, false: 타워</param>
+    /// <param name="onResult">뽑기 데이터 로드 완료 후에 실행, 뽑기 데이터 이곳으로 반환됨</param>
     public void CallGacha(int count, bool isUnit, Action<List<GachaResult>> onResult = null)
     {
         if (functions == null)
@@ -87,7 +92,7 @@ public class GachaSystem
         }
 
         // Cloud Function에 넘길 데이터
-        SettingGradeRanges(count, isUnit); 
+        SettingGradeRanges(count, isUnit);
 
         functions.GetHttpsCallable("gachaDrawWithGuarantees")
             .CallAsync(callData)
@@ -105,50 +110,11 @@ public class GachaSystem
                 GachaResultWrapper parsed = JsonConvert.DeserializeObject<GachaResultWrapper>(json);
                 foreach (GachaResult r in parsed.results)
                 {
-                    Util.Log($"등급: {r.grade}, ID: {r.id}" + (r.guaranteed ? "[확정]" : ""));
+                    //Util.Log($"등급: {r.grade}, ID: {r.id}" + (r.guaranteed ? "[확정]" : "")); // 테스트용
                 }
                 onResult?.Invoke(parsed.results);
             });
 
-    }
-
-
-    /// <summary>
-    /// 단일 유닛뽑기
-    /// </summary>
-    /// <returns></returns>
-    public MyUnit GetRandomUnit()
-    {
-        int rand = Random.Range(0, 100);
-        RankType selectedRank;
-
-        //랭크뽑기
-        if (rand < 70) selectedRank = RankType.Normal; //70%
-
-        else if (rand < 90) selectedRank = RankType.Rare; //20%
-        else if (rand < 98) selectedRank = RankType.Epic; //8%
-        else selectedRank = RankType.Legend; //2%
-
-        return GetSelectUnit(selectedRank);
-    }
-
-    /// <summary>
-    /// 단일 타워뽑기
-    /// </summary>
-    /// <returns></returns>
-    public Tower GetRandomTower()
-    {
-        int rand = Random.Range(0, 100);
-        RankType selectedRank;
-
-        //랭크뽑기
-        if (rand < 70) selectedRank = RankType.Normal; //70%
-        else if (rand < 90) selectedRank = RankType.Rare; //20%
-        else selectedRank = RankType.Epic; //TODO: 임시로 쓰는것. 랭크 추가시 지울것
-        //else if (rand < 98) selectedRank = RankType.Epic; //8%
-        //else selectedRank = RankType.Legend; //2%
-
-        return GetSelectTower(selectedRank);
     }
 
     /// <summary>
@@ -156,19 +122,18 @@ public class GachaSystem
     /// </summary>
     /// <param name="rank"></param>
     /// <returns></returns>
-    public MyUnit GetSelectUnit(RankType rank)
+    public MyUnit GetSelectUnit(RankType rank, int id)
     {
-        //해당 랭크 중에서 유닛id뽑기
-        var result = Util.TableConverter<DefaultTable.Gacha>(Managers.Data.Datas[Enums.Sheet.Gacha]);
-        var row = result[(int)rank];
-        int key = row.Key[Random.Range(0, row.Key.Count)]; //primarykey가져오기
+        //rank 랭크 중 id에 해당하는 유닛 뽑아주기
+        List<DefaultTable.Gacha> result = Util.TableConverter<DefaultTable.Gacha>(Managers.Data.Datas[Enums.Sheet.Gacha]);
+        DefaultTable.Gacha row = result[(int)rank];
+        int key = row.Key[id];
 
-        //유닛 데이터 로드해서 뽑기
+        //key 유닛 데이터 로드
         var unitData = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
         string name = unitData[key].Name;
 
         MyUnit returnValue = new();
-
         Managers.Resource.LoadAssetAsync<GameObject>($"{name}_Brain", (prefab) =>
         {
             MyUnit unit = new();
@@ -187,13 +152,18 @@ public class GachaSystem
     /// </summary>
     /// <param name="rank"></param>
     /// <returns></returns>
-    public Tower GetSelectTower(RankType rank)
+    public Tower GetSelectTower(RankType rank, int id)
     {
-        //해당 랭크 중에서 유닛id뽑기
-        var result = Util.TableConverter<DefaultTable.Gacha>(Managers.Data.Datas[Enums.Sheet.Gacha]);
-        //타워는 4칸 아래에 데이터가 있으니까
-        var row = result[(int)rank + 4];
-        int key = row.Key[Random.Range(0, row.Key.Count)]; //primarykey가져오기
+        //Legend등급 이상의 타워가 아직 없어서 Epic으로 대체
+        if ((int)rank >= (int)RankType.Legend)
+        {
+            rank = RankType.Epic;
+        }
+
+        //rank 랭크 중 id에 해당하는 유닛 뽑아주기
+        List<DefaultTable.Gacha> result = Util.TableConverter<DefaultTable.Gacha>(Managers.Data.Datas[Enums.Sheet.Gacha]);
+        DefaultTable.Gacha row = result[(int)rank + 4];
+        int key = row.Key[id];
 
         //타워 데이터 로드해서 뽑기
         var towerData = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
