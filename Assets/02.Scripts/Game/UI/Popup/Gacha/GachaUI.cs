@@ -1,6 +1,9 @@
+using DefaultTable;
 using System.Collections.Generic;
+using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.UI;
+
 
 public class GachaUI : UI_Popup
 {
@@ -14,7 +17,7 @@ public class GachaUI : UI_Popup
 
     [SerializeField] public RectTransform RectTransform;
 
-    private GachaSystem gacha = new();
+    private GachaSystem gacha;
     private List<IGettable> result;
 
 
@@ -22,6 +25,7 @@ public class GachaUI : UI_Popup
     {
         Init();
         AnimePopup(RectTransform.gameObject);
+        gacha = GachaSystem.Instance;
     }
 
     private void OnEnable()
@@ -48,6 +52,9 @@ public class GachaUI : UI_Popup
         }
         //돈 차감
         Managers.Player.AddGem(-num * 300);
+
+        //gacha.CallGacha(num, true, GetGachaResult);
+        //return;
 
         result = new();
 
@@ -83,6 +90,14 @@ public class GachaUI : UI_Popup
             res.ShowResult(result);
         });
     }
+
+    //private void GetGachaResult(List<GachaResult> result)
+    //{
+    //    for(int i = 0; i < result.Count; i++)
+    //    {
+    //        result[i].grade;
+    //    }
+    //}
 
     private void TowerOnClick(int num)
     {

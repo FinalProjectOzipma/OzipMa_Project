@@ -1,8 +1,118 @@
+using Firebase;
+using Firebase.Extensions;
+using Firebase.Functions;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+[System.Serializable]
+public class GachaResultWrapper
+{
+    public List<GachaResult> results;
+}
+
+[System.Serializable]
+public class GachaResult
+{
+    public int grade;
+    public int id;
+    public bool guaranteed; // 없어도 false로 기본 처리됨
+}
 
 public class GachaSystem
 {
+    public static GachaSystem Instance { get; private set; }
+    public bool IsReady = false;
+
+    private Dictionary<string, object> callData = new();
+
+    FirebaseFunctions functions;
+
+    public GachaSystem()
+    {
+        Instance = this;
+
+        callData = new Dictionary<string, object>
+        {
+            { "gradeRanges", new int[4] { 0, 0, 0, 0 } }, 
+            { "drawCount", 1 }                               
+        };
+
+        Init();
+    }
+
+    public void Init()
+    {
+        if (functions != null) return;
+
+        // Firebase 초기화
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.Result == DependencyStatus.Available)
+            {
+                functions = FirebaseFunctions.DefaultInstance;
+                IsReady = true;
+                Util.Log("Firebase 준비 완료!");
+            }
+            else
+            {
+                Util.LogError("Firebase 초기화 실패: " + task.Result.ToString());
+            }
+        });
+    }
+
+    public void SettingGradeRanges(int count, bool isUnit)
+    {
+        int offset = isUnit ? 0 : 4;
+        List<DefaultTable.Gacha> result = Util.TableConverter<DefaultTable.Gacha>(Managers.Data.Datas[Enums.Sheet.Gacha]);
+
+        callData["gradeRanges"] = new int[]
+        {
+            result[offset + 0].Key.Count,
+            result[offset + 1].Key.Count,
+            result[offset + 2].Key.Count,
+            result[offset + 3].Key.Count
+        };
+
+        callData["drawCount"] = count;
+    }
+
+    public void CallGacha(int count, bool isUnit, Action<List<GachaResult>> onResult = null)
+    {
+        if (functions == null)
+        {
+            Init();
+        }
+
+        // Cloud Function에 넘길 데이터
+        SettingGradeRanges(count, isUnit); 
+
+        functions.GetHttpsCallable("gachaDrawWithGuarantees")
+            .CallAsync(callData)
+            .ContinueWithOnMainThread(task =>
+            {
+                if (task.IsFaulted || task.IsCanceled)
+                {
+                    Util.LogError("가챠 실패: " + task.Exception);
+                    return;
+                }
+
+                // Data를 JSON 문자열로 변환 (바로 변환이 어려워서 이런 방식으로 결정)
+                string json = JsonConvert.SerializeObject(task.Result.Data);
+                // JSON 역직렬화
+                GachaResultWrapper parsed = JsonConvert.DeserializeObject<GachaResultWrapper>(json);
+                foreach (GachaResult r in parsed.results)
+                {
+                    Util.Log($"등급: {r.grade}, ID: {r.id}" + (r.guaranteed ? "[확정]" : ""));
+                }
+                onResult?.Invoke(parsed.results);
+            });
+
+    }
+
+
     /// <summary>
     /// 단일 유닛뽑기
     /// </summary>
