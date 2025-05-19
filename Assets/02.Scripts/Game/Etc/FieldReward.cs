@@ -63,7 +63,6 @@ public class FieldReward : Poolable
         Gem
     }
 
-
     private void Awake()
     {
         seq = Util.RecyclableSequence();
@@ -81,7 +80,7 @@ public class FieldReward : Poolable
             NextReward = true;
         });
 
-        seq.Append(DOTween.To(()=>0f, t => { transform.position = Vector3.Lerp(centerVector, rewardVector,t);}, 1f, 0.5f)).Join(transform.DOScale(new Vector2(1, 1), 0.5f)).AppendCallback(() =>
+        seq.Append(DOTween.To(() => 0f, t => { transform.position = Vector3.Lerp(centerVector, rewardVector, t); }, 1f, 0.5f)).Join(transform.DOScale(new Vector2(1, 1), 0.5f)).AppendCallback(() =>
         {
             NextReward = false;
             Managers.Audio.PlaySFX(SFXClipName.Coin);
@@ -101,9 +100,10 @@ public class FieldReward : Poolable
                 Managers.Wave.CurrentGem += Value;
                 Managers.Player.AddGem(Value);
             }
-            
+
 
             Value = 0;
+            spr.color = new Color(1f, 1f, 1f, 0f);
             // 웨이브 끝나는 조건
             if (wave.FieldRewards.Count == 0)
             {
@@ -111,6 +111,8 @@ public class FieldReward : Poolable
                 wave.CurrentState = Enums.WaveState.End;
             }
         });
+
+        
     }
 
     private void Start()

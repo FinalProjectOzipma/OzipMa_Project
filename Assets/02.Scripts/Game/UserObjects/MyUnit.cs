@@ -48,6 +48,8 @@ public class MyUnit : UserObject, IGettable
             AtkType = unitdata.AtkType;
             AbilityType = unitdata.AbilityType;
         }
+        
+        Managers.Analytics.AnalyticsUnitSummoned(primaryKey.ToString(), Name, Enum.GetName(typeof(AbilityType), AtkType), Status.Level.Value, "auto", Managers.Player.CurrentWave);
     }
 
     public void AddHealth(float amount) => GetUpCasting<MyUnitStatus>().Health.AddValue(amount);
