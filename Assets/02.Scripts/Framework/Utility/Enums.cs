@@ -13,6 +13,7 @@ public class Enums
         InchentMultiplier,
         LevelUpValue,
         Research,
+        AttackDefault,
         Count
     }
 

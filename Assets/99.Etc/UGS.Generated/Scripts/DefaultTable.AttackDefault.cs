@@ -17,39 +17,39 @@ using UnityEngine;
 namespace DefaultTable
 {
     [GoogleSheet.Attribute.TableStruct]
-    public partial class AbilityDefaultValue : ITable
+    public partial class AttackDefault : ITable
     { 
 
-        public delegate void OnLoadedFromGoogleSheets(List<AbilityDefaultValue> loadedList, Dictionary<int, AbilityDefaultValue> loadedDictionary);
+        public delegate void OnLoadedFromGoogleSheets(List<AttackDefault> loadedList, Dictionary<int, AttackDefault> loadedDictionary);
 
         static bool isLoaded = false;
         static string spreadSheetID = "1ZEaRyaKlJqtDxADqgtkV-sGSzFITB1lg9YR25PNhYiY"; // it is file id
-        static string sheetID = "328510563"; // it is sheet id
+        static string sheetID = "548765568"; // it is sheet id
         static UnityFileReader reader = new UnityFileReader();
 
 /* Your Loaded Data Storage. */
     
-        public static Dictionary<int, AbilityDefaultValue> AbilityDefaultValueMap = new Dictionary<int, AbilityDefaultValue>();  
-        public static List<AbilityDefaultValue> AbilityDefaultValueList = new List<AbilityDefaultValue>();   
+        public static Dictionary<int, AttackDefault> AttackDefaultMap = new Dictionary<int, AttackDefault>();  
+        public static List<AttackDefault> AttackDefaultList = new List<AttackDefault>();   
 
         /// <summary>
-        /// Get AbilityDefaultValue List 
+        /// Get AttackDefault List 
         /// Auto Load
         /// </summary>
-        public static List<AbilityDefaultValue> GetList()
+        public static List<AttackDefault> GetList()
         {{
            if (isLoaded == false) Load();
-           return AbilityDefaultValueList;
+           return AttackDefaultList;
         }}
 
         /// <summary>
-        /// Get AbilityDefaultValue Dictionary, keyType is your sheet A1 field type.
+        /// Get AttackDefault Dictionary, keyType is your sheet A1 field type.
         /// - Auto Load
         /// </summary>
-        public static Dictionary<int, AbilityDefaultValue>  GetDictionary()
+        public static Dictionary<int, AttackDefault>  GetDictionary()
         {{
            if (isLoaded == false) Load();
-           return AbilityDefaultValueMap;
+           return AttackDefaultMap;
         }}
 
     
@@ -57,11 +57,8 @@ namespace DefaultTable
 /* Fields. */
 
 		public System.Int32 Key;
-		public AbilityType AbilityType;
+		public AtkType AttackType;
 		public System.String Description;
-		public System.Single AbilityValue ;
-		public System.Single AbilityDuration;
-		public System.Single AbilityCooldown;
   
 
 #region fuctions
@@ -72,7 +69,7 @@ namespace DefaultTable
             if(isLoaded && forceReload == false)
             {
 #if UGS_DEBUG
-                 Debug.Log("AbilityDefaultValue is already loaded! if you want reload then, forceReload parameter set true");
+                 Debug.Log("AttackDefault is already loaded! if you want reload then, forceReload parameter set true");
 #endif
                  return;
             }
@@ -88,7 +85,7 @@ namespace DefaultTable
         }
  
 
-        public static void LoadFromGoogle(System.Action<List<AbilityDefaultValue>, Dictionary<int, AbilityDefaultValue>> onLoaded, bool updateCurrentData = false)
+        public static void LoadFromGoogle(System.Action<List<AttackDefault>, Dictionary<int, AttackDefault>> onLoaded, bool updateCurrentData = false)
         {      
                 IHttpProtcol webInstance = null;
     #if UNITY_EDITOR
@@ -116,14 +113,14 @@ namespace DefaultTable
                
 
 
-    public static (List<AbilityDefaultValue> list, Dictionary<int, AbilityDefaultValue> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
-            Dictionary<int, AbilityDefaultValue> Map = new Dictionary<int, AbilityDefaultValue>();
-            List<AbilityDefaultValue> List = new List<AbilityDefaultValue>();     
+    public static (List<AttackDefault> list, Dictionary<int, AttackDefault> map) CommonLoad(Dictionary<string, Dictionary<string, List<string>>> jsonObject, bool forceReload){
+            Dictionary<int, AttackDefault> Map = new Dictionary<int, AttackDefault>();
+            List<AttackDefault> List = new List<AttackDefault>();     
             TypeMap.Init();
-            FieldInfo[] fields = typeof(AbilityDefaultValue).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(AttackDefault).GetFields(BindingFlags.Public | BindingFlags.Instance);
             List<(string original, string propertyName, string type)> typeInfos = new List<(string, string, string)>(); 
             List<List<string>> rows = new List<List<string>>();
-            var sheet = jsonObject["AbilityDefaultValue"];
+            var sheet = jsonObject["AttackDefault"];
 
             foreach (var column in sheet.Keys)
             {
@@ -142,7 +139,7 @@ namespace DefaultTable
                         int rowCount = rows[0].Count;
                         for (int i = 0; i < rowCount; i++)
                         {
-                            AbilityDefaultValue instance = new AbilityDefaultValue();
+                            AttackDefault instance = new AttackDefault();
                             for (int j = 0; j < typeInfos.Count; j++)
                             {
                                 try
@@ -183,8 +180,8 @@ namespace DefaultTable
                         }
                         if(isLoaded == false || forceReload)
                         { 
-                            AbilityDefaultValueList = List;
-                            AbilityDefaultValueMap = Map;
+                            AttackDefaultList = List;
+                            AttackDefaultMap = Map;
                             isLoaded = true;
                         }
                     } 
@@ -194,10 +191,10 @@ namespace DefaultTable
 
  
 
-        public static void Write(AbilityDefaultValue data, System.Action<WriteObjectResult> onWriteCallback = null)
+        public static void Write(AttackDefault data, System.Action<WriteObjectResult> onWriteCallback = null)
         { 
             TypeMap.Init();
-            FieldInfo[] fields = typeof(AbilityDefaultValue).GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fields = typeof(AttackDefault).GetFields(BindingFlags.Public | BindingFlags.Instance);
             var datas = new string[fields.Length];
             for (int i = 0; i < fields.Length; i++)
             {

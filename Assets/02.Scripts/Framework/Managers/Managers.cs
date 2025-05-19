@@ -88,6 +88,12 @@ public class Managers : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    private void OnApplicationQuit()
+    {
+        _ = SaveOnPauseAsync();
+    }
+#endif
 
     // 종료시간과 플레이어 데이터 저장
     private async Task SaveOnPauseAsync()
@@ -97,11 +103,11 @@ public class Managers : MonoBehaviour
             Managers.Player.RewordStartTime = Managers.Game.ServerUtcNow.ToString("o");
             await Data.SaveGameDataAsync();  // 비동기 저장
             await Task.Delay(1000);          // 저장 완료 시간 확보 (권장)
-            Debug.Log("백그라운드 저장 완료");
+            Util.Log("백그라운드 저장 완료");
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"백그라운드 저장 실패: {ex.Message}");
+            Util.LogWarning($"백그라운드 저장 실패: {ex.Message}");
         }
     }
 

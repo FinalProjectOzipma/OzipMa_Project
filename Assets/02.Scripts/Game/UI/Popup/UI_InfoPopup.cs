@@ -32,6 +32,7 @@ public class UI_InfoPopup : UI_Popup
     [SerializeField] private GameObject EpicWindow;
     [SerializeField] private GameObject LegendWindow;
     [SerializeField] private GameObject MythWindow;
+    [SerializeField] private GameObject Description;
 
     [SerializeField] private Image Speed;
     [SerializeField] private Image Health;
@@ -59,7 +60,7 @@ public class UI_InfoPopup : UI_Popup
     public void OnClikcBack(PointerEventData data)
     {
         AnimePopup(UIInfo, true);
-
+        Description.SetActive(false);
         uiSeq.Play().OnComplete(() =>
         {
             ClosePopupUI();

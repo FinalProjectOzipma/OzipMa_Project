@@ -254,7 +254,7 @@ public class UI_Sound : UI_Popup
             await Managers.Data.SaveGameDataAsync();
 
             // 저장 여유 시간 확보 (선택 사항)
-            await Task.Delay(500);
+            await Task.Delay(1000);
 
             // 정상 종료
 #if UNITY_EDITOR
@@ -265,7 +265,7 @@ public class UI_Sound : UI_Popup
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"ExitGame 저장 실패: {ex.Message}");
+            Util.LogWarning($"ExitGame 저장 실패: {ex.Message}");
             // 그래도 종료 시도
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
