@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class GachaUI : UI_Popup
 {
     [SerializeField] private Button MyUnitSingleButton;
@@ -14,7 +15,7 @@ public class GachaUI : UI_Popup
 
     [SerializeField] public RectTransform RectTransform;
 
-    private GachaSystem gacha = new();
+    private GachaSystem gacha;
     private List<IGettable> result;
 
 
@@ -22,6 +23,7 @@ public class GachaUI : UI_Popup
     {
         Init();
         AnimePopup(RectTransform.gameObject);
+        gacha = GachaSystem.Instance;
     }
 
     private void OnEnable()
@@ -46,37 +48,30 @@ public class GachaUI : UI_Popup
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
+
+        // 서버에서 데이터 받아서 실행
+        gacha.CallGacha(num, true, GetUnitGachaResult);
+    }
+
+    /// <summary>
+    /// 서버에서 값 받아온 이후에 실행됨
+    /// </summary>
+    /// <param name="callResults">뽑힌 데이터</param>
+    private void GetUnitGachaResult(List<GachaResult> callResults/*등급, id, 확정인지 여부*/)
+    {
         //돈 차감
-        Managers.Player.AddGem(-num * 300);
+        Managers.Player.AddGem(-(callResults.Count) * 300);
 
+        //뽑힌 유닛 넣어주기 
         result = new();
-
-        //10연뽑시 에픽 1개 확정
-        if (num == 10)
+        foreach (GachaResult item in callResults)
         {
-            num -= 1;
-            var res = gacha.GetSelectUnit(RankType.Epic);
-            result.Add(res);
-            Managers.Player.Inventory.Add<MyUnit>(res);
-        }
-        //100연뽑시 전설 1개 확정
-        else if (num == 100)
-        {
-            num -= 1;
-            var res = gacha.GetSelectUnit(RankType.Legend);
+            MyUnit res = gacha.GetSelectUnit((RankType)item.grade, item.id);
             result.Add(res);
             Managers.Player.Inventory.Add<MyUnit>(res);
         }
 
-        //나머지는 가챠돌리기
-        for (int i = 0; i < num; i++)
-        {
-            var res = gacha.GetRandomUnit();
-            result.Add(res);
-            Managers.Player.Inventory.Add<MyUnit>(res);
-        }
-
-        //결과 추출
+        //결과 보여주기
         Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
@@ -91,35 +86,34 @@ public class GachaUI : UI_Popup
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
-        Managers.Player.AddGem(-num * 300);
 
+        // 서버에서 데이터 받아서 실행
+        gacha.CallGacha(num, true, GetTowerGachaResult);
+    }
+
+    /// <summary>
+    /// 서버에서 값 받아온 이후에 실행됨
+    /// </summary>
+    /// <param name="callResults">뽑힌 데이터</param>
+    private void GetTowerGachaResult(List<GachaResult> callResults/*등급, id, 확정인지 여부*/)
+    {
+        //돈 차감
+        Managers.Player.AddGem(-(callResults.Count) * 300);
+
+        //뽑힌 유닛 넣어주기 
         result = new();
-
-        if (num == 10)
+        foreach (GachaResult item in callResults)
         {
-            num -= 1;
-            var res = gacha.GetSelectTower(RankType.Epic);
-            result.Add(res);
-            Managers.Player.Inventory.Add<Tower>(res);
-        }
-        else if (num == 100)
-        {
-            Util.Log("우왕 레전더리 하지만 없는걸...");
-            //num -= 1;
-            //gacha.GetSelectTower(RankType.Legend);
-            //Managers.Player.Inventory.Add<Tower>(res);
-        }
-
-        for (int i = 0; i < num; i++)
-        {
-            var res = gacha.GetRandomTower();
+            Tower res = gacha.GetSelectTower((RankType)item.grade, item.id);
             result.Add(res);
             Managers.Player.Inventory.Add<Tower>(res);
         }
 
+        //결과 보여주기
         Managers.Resource.Instantiate("GachaResultUI", (go) =>
         {
-            go.GetComponent<UI_GachaResult>().ShowResult(result);
+            UI_GachaResult res = go.GetComponent<UI_GachaResult>();
+            res.ShowResult(result);
         });
     }
 }
