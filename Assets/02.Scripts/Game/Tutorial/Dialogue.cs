@@ -27,7 +27,7 @@ public class Dialogue : UI_Base
     /// <summary>
     /// 출력할 대사를 넣는 메서드(큐임)
     /// </summary>
-    /// <param name="s"></param>
+    /// <param name="s">대사</param>
     public void EnQueueText(string s)
     {
         txt.Enqueue(s);
@@ -84,7 +84,10 @@ public class Dialogue : UI_Base
         Managers.Audio.PlaySFX(SFXClipName.Guide);
     }
 
-    //타이핑 애니메이션 연출
+    /// <summary>
+    /// 타이핑 애니메이션 연출
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator Typing()
     {
         int len = TutorialTxt.text.Length;

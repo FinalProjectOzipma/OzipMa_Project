@@ -9,7 +9,14 @@ public class Cursor : UI_Base
 
     private Sequence seq;
 
-    //둘다 필요한 경우 true 해주세요
+    /// <summary>
+    /// 클릭만 만들때: 시작위치 끝위치(시작위치랑 같은값!) 
+    /// 드래그만 만들때: 시작위치, 끝위치
+    /// 클릭하고 드래그까지 하는거 만들때: 시작위치 끝위치 넣고 뒤에 true
+    /// </summary>
+    /// <param name="startPos"></param>
+    /// <param name="endPos"></param>
+    /// <param name="both"></param>
     public void Init(Vector3 startPos, Vector3 endPos, bool both = false)
     {
         this.startPos = startPos;
