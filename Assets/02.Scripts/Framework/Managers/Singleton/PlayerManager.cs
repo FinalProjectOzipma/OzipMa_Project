@@ -44,7 +44,6 @@ public class PlayerManager
         AttackResearchData = new(ResearchUpgradeType.Attack);
         DefenceResearchData = new(ResearchUpgradeType.Defence);
         CoreResearchData = new(ResearchUpgradeType.Core);
-        RandomResearchData = new(ResearchUpgradeType.Random);
         // 저장된게 있으면 선언
 
         // 저장된게 있으면 선언
@@ -277,8 +276,7 @@ public enum ResearchUpgradeType
 {
     Attack,
     Defence,
-    Core,
-    Random
+    Core
 }
 
 
