@@ -50,7 +50,7 @@ public class Dialogue : UI_Base
     /// <summary>
     /// 대화 연출 나올때 기본 세팅
     /// </summary>
-    public void Init()
+    public override void Init()
     {
         Time.timeScale = 0f;
         TutorialTxt.text = txt.Dequeue();
