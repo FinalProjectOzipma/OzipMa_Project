@@ -14,8 +14,6 @@ public class BuildingSystem : MonoBehaviour
 
     public event Action<string, bool> OnTowerCountChanged;
 
-    
-
     [SerializeField] private LayerMask CanDragLayerMask;
     [SerializeField] private LayerMask TowerBuildLayerMask;
     private Tilemap map;
@@ -132,6 +130,16 @@ public class BuildingSystem : MonoBehaviour
         Vector3Int cell = map.WorldToCell(cam.ScreenToWorldPoint(eventPosition));
         return map.GetCellCenterWorld(cell);
     }
+    
+    /// <summary>
+    /// Cell Point를 World 좌표로 변환
+    /// </summary>
+    /// <param name="point">셀 좌표</param>
+    /// <returns>변환된 월드 좌표</returns>
+    public Vector3 CellToWorldPos(Vector3Int point)
+    {
+        return map.GetCellCenterWorld(point);
+    }
 
     /// <summary>
     /// 타워 배치 가능 위치인지 확인
@@ -218,4 +226,9 @@ public class BuildingSystem : MonoBehaviour
         return id;
     }
     #endregion
+
+    public MapHandler GetCurMapHandler()
+    {
+        return mapHandler;
+    }
 }
