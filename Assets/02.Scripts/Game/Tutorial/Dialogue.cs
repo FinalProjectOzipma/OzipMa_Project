@@ -66,6 +66,7 @@ public class Dialogue : UI_Base
         {
             StopCoroutine(Play);
             TutorialTxt.maxVisibleCharacters = TutorialTxt.text.Length;
+            Managers.Audio.PlaySFX(SFXClipName.Guide);
             Play = null;
             return;
         }
@@ -80,6 +81,7 @@ public class Dialogue : UI_Base
         TutorialTxt.text = txt.Dequeue();
         TutorialTxt.maxVisibleCharacters = 0;
         Play = StartCoroutine(Typing());
+        Managers.Audio.PlaySFX(SFXClipName.Guide);
     }
 
     //타이핑 애니메이션 연출
