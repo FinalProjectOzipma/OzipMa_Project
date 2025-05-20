@@ -18,6 +18,7 @@ public class GachaUI : UI_Popup
     private GachaSystem gacha;
     private List<IGettable> result;
 
+    private bool isGachaInProgress = false; // 가챠 중복 방지
 
     private void Start()
     {
@@ -49,6 +50,7 @@ public class GachaUI : UI_Popup
             return;
         }
 
+        isGachaInProgress = true;
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetUnitGachaResult);
     }
@@ -76,6 +78,7 @@ public class GachaUI : UI_Popup
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
+            isGachaInProgress = false;
         });
     }
 
@@ -87,6 +90,7 @@ public class GachaUI : UI_Popup
             return;
         }
 
+        isGachaInProgress = true;
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetTowerGachaResult);
     }
@@ -114,6 +118,7 @@ public class GachaUI : UI_Popup
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
+            isGachaInProgress = false;
         });
     }
 }
