@@ -1,38 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Dialogue : MonoBehaviour
+public class Dialogue : MonoBehaviour 
 {
     public Image BG;
+
+    public bool IsEnd;
     [SerializeField] private TextMeshProUGUI TutorialTxt;
     [SerializeField] private Image Cursor;
     [SerializeField] private Button Bg;
 
-    private Queue<string> txt = new Queue<string>();
+    private Queue<string> txt;
 
-    private void Awake()
+    public void EnQueueText(string s)
     {
-        txt.Enqueue("주인님 반갑습니다. \r\n시작하기 앞서, 던전 관리를 간단히 알려드리겠습니다.");
-        txt.Enqueue("먼저 타워를 설치하는 방법을 알려드릴게요~");
-        txt.Enqueue("");
-        txt.Enqueue("타워는 최대 2개까지 설치가 됩니다. 이번에는 위치를 옮기는법을 알아볼까요?");
-        txt.Enqueue("");
-        txt.Enqueue("이번에 알려드릴 것은 연구입니다.\n 하단의 마우스를 클릭해주세요.");
-        txt.Enqueue("");
-        txt.Enqueue("골드나 잼을 통해 시간을 단축할 수 있고 그냥 기다리셔도 연구가 완료됩니다.");
-
-        Bg.onClick.AddListener(TxtOnClick);
-    }
-
-    void Update()
-    {
-        
+        txt.Enqueue(s);
     }
 
     private void Start()
+    {
+        Init();
+    }
+
+    public void Init()
     {
         Time.timeScale = 0f;
         TutorialTxt.text = txt.Dequeue();
@@ -40,13 +34,13 @@ public class Dialogue : MonoBehaviour
 
     public void TxtOnClick()
     {
-        if (txt.Peek() == "")
+        if (txt.Count == 0)
         {
+            IsEnd = true;
             Time.timeScale = 1f;
-            BG.gameObject.SetActive(false);
-            Cursor.gameObject.SetActive(true);
+            return;
         }
+
         TutorialTxt.text = txt.Dequeue();
     }
-
 }

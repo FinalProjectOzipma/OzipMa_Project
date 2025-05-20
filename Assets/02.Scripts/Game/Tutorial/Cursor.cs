@@ -1,39 +1,30 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Cursor : MonoBehaviour
 {
+    private Vector3 startPos;
+    private Vector3 endPos;
 
-    [SerializeField] private List<TutorialButton> rectTransforms = new List<TutorialButton>();
-    [SerializeField] private float speed = 3f;
-    int index = 0;
-
-    Vector3 targetPos;
-
-    public void Start()
+    private Tweener movingTweener;
+    public void Init(Vector3 startPos, Vector3 endPos)
     {
-        RegisterTutorialButton();
+        this.startPos = startPos;
+        this.endPos = endPos;
+        gameObject.transform.position = startPos;
+
+        //무한 드래그
+        movingTweener = transform
+            .DOMove(endPos, 5f)
+            .SetEase(Ease.InOutQuart)
+            .SetLoops(-1, LoopType.Restart)
+            .SetAutoKill(false);
     }
 
-    private void RegisterTutorialButton()
+    private void OnDisable()
     {
-        rectTransforms[index].Setup(this);
-        rectTransforms[index].onEnd += () =>
-        {
-            index++;
-            if (index < rectTransforms.Count)
-            {
-                rectTransforms[index].Setup(this);
-                targetPos = (rectTransforms[index].transform as RectTransform).parent.InverseTransformPoint(transform.position);
-            }
-        };
-    }
-
-    private void Update()
-    {
-        if (index >= rectTransforms.Count)
-            return;
-
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
+        movingTweener.Kill();
+        Managers.Resource.Destroy(gameObject);
     }
 }
