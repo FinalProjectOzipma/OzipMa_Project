@@ -12,13 +12,14 @@ public class TutorialController : UI_Scene
     public Dialogue Dialogue;
 
     private Queue<TutorialBase> queue = new();
+    private TutorialBase currentTutorial;
 
     private void Start()
     {
         Init();
     }
 
-    public void Init()
+    private void Init()
     {
         // 튜토리얼을 순서대로 넣기 
         queue.Enqueue(new PlaceTowerTutorial(this));
@@ -29,10 +30,24 @@ public class TutorialController : UI_Scene
         NextTutorial();
     }
 
+    private void Update()
+    {
+        // TODO :: 대화끝나면 커서 보여주기 시작
+
+        // TODO :: 튜토리얼 조건 만족시 넘어가
+        if(currentTutorial.CheckCondition() == true)
+        {
+            NextTutorial();
+        }
+    }
+
     public void NextTutorial()
     {
         if (queue.Count > 0)
-            queue.Dequeue().OnStart();
+        {
+            currentTutorial = queue.Dequeue();
+            currentTutorial.OnStart();
+        }
         else
         {
             Managers.Wave.GameStart();

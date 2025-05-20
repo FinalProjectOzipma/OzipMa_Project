@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -12,14 +10,17 @@ public class PlaceTowerTutorial : TutorialBase
     }
     public override bool CheckCondition()
     {
-        throw new NotImplementedException();
+        if (BuildingSystem.Instance.GridObjectMap.Count > 0)
+        {
+            return true;
+        }
+        return false;
     }
-
 
     public override void OnStart()
     {
         Vector3 startPos = new Vector3(-266, -100, 0); // 인벤토리 첫번째 슬롯 위치
-        Vector3 endPos = BuildingSystem.Instance.CellToWorldPos(BuildingSystem.Instance.GridObjectMap.Keys.First()); // 아무 빈 칸
+        Vector3 endPos = BuildingSystem.Instance.CellToWorldPos(BuildingSystem.Instance.GetCurMapHandler().BuildHighlightList[0]);
         controller.Cursor.Init(startPos, endPos);
 
         controller.Dialogue.EnQueueText("주인님 반갑습니다. \r\n시작하기 앞서, 던전 관리를 간단히 알려드리겠습니다.");
