@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Tutorial : UI_Scene
+public class Dialogue : MonoBehaviour
 {
     public Image BG;
     [SerializeField] private TextMeshProUGUI TutorialTxt;
     [SerializeField] private Image Cursor;
     [SerializeField] private Button Bg;
+
     private Queue<string> txt = new Queue<string>();
 
     private void Awake()
@@ -26,6 +26,12 @@ public class Tutorial : UI_Scene
 
         Bg.onClick.AddListener(TxtOnClick);
     }
+
+    void Update()
+    {
+        
+    }
+
     private void Start()
     {
         Time.timeScale = 0f;
@@ -42,4 +48,5 @@ public class Tutorial : UI_Scene
         }
         TutorialTxt.text = txt.Dequeue();
     }
+
 }
