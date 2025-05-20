@@ -22,7 +22,7 @@ public class Dialogue : UI_Base
     [SerializeField] private Button Box;
 
     //대사 발사대
-    private Queue<string> txt;
+    private Queue<string> txt = new();
 
     /// <summary>
     /// 출력할 대사를 넣는 메서드(큐임)

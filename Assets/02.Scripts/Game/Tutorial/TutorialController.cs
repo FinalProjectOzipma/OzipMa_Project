@@ -34,7 +34,10 @@ public class TutorialController : UI_Scene
         if (queue.Count > 0)
             queue.Dequeue().OnStart();
         else
-            Destroy(this.gameObject); // 모든 튜토리얼 털면 제거
+        {
+            Managers.Wave.GameStart();
+            Managers.Resource.Destroy(this.gameObject, true); // 모든 튜토리얼 털면 제거
+        }
     }
 
     public void SetCursorActive(bool active)

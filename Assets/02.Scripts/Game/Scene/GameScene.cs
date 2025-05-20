@@ -74,7 +74,7 @@ public class GameScene : SceneBase
         // 6. 로딩창 끄고 게임 시작 ====================================================
         if (loading != null)
             Managers.Resource.Destroy(loading);
-        Managers.Wave.GameStart();
+        Managers.Resource.Instantiate("Tutorial");
     }
 
     private void InstantiateGameObjs()
