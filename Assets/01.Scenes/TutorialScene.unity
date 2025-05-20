@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 12831509}
   - component: {fileID: 12831511}
   m_Layer: 0
-  m_Name: Bg
+  m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3902,6 +3902,7 @@ GameObject:
   - component: {fileID: 1661978052}
   - component: {fileID: 1661978054}
   - component: {fileID: 1661978053}
+  - component: {fileID: 1661978055}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -3968,6 +3969,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1661978051}
   m_CullTransparentMesh: 1
+--- !u!114 &1661978055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661978051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ff2c933f877cec41b8ca17910cb1801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BG: {fileID: 0}
+  timegap: 0.2
+  IsEnd: 0
+  TutorialTxt: {fileID: 869111944}
+  Box: {fileID: 12831511}
 --- !u!1 &1708726784
 GameObject:
   m_ObjectHideFlags: 0
