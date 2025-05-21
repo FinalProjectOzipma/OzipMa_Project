@@ -54,6 +54,8 @@ public class UI_GachaResult : UI_Popup
                     component.FadeOut();
                 });
                 Managers.Audio.PlaySFX(SFXClipName.Card);
+                Managers.Quest.UpdateQuestProgress(ConditionType.MyUnitCollect, data.PrimaryKey, 1);
+                Managers.Quest.UpdateQuestProgress(ConditionType.TowerCollect, data.PrimaryKey, 1);
             });
         }
         ScrollRect.verticalNormalizedPosition = 1f;

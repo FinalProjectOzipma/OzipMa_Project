@@ -23,6 +23,7 @@ public class Managers : MonoBehaviour
     public static readonly UpgradeManager Upgrade = new();
     public static readonly EffectManager Effect = new();
     public static readonly AuthManager Auth = new();
+    public static readonly QuestManager Quest = new();
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class Managers : MonoBehaviour
         Scene.Initialize();
         Effect.Initialize();
         Upgrade.Intialize();
+        Quest.Intialize();
 
     }
 

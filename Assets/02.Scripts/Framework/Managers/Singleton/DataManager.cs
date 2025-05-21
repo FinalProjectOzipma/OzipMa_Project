@@ -32,6 +32,7 @@ public class DataManager
         LoadData<DefaultTable.Research>();
         LoadData<DefaultTable.LoadingTip>();
         LoadData<DefaultTable.AttackDefault>();
+        LoadData<DefaultTable.QuestDataList>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
@@ -178,7 +179,6 @@ public class DataManager
         {
             Managers.Player.LoadPlayerData(loadedData);
             Managers.Game.ServerTImeInit();
-            Managers.Resource.Instantiate("OffLinePopup");
             IsGameDataLoadFinished = true;
         }, onFailed);
     }

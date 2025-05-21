@@ -12,6 +12,7 @@ public class UI_ResearchScene : UI_Popup
 
     [SerializeField] public GameObject UI_Research;
 
+
     bool isButton = false;
 
     private void Awake()

@@ -131,6 +131,18 @@ MonoBehaviour:
     m_SerializedLabels:
     - GameScene
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcdc6b880d0cafa4a83ac2eab343f0e1
+    m_Address: QuestSlot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c01d0c0c4d9a4724ea32c337a0c01225
+    m_Address: QuestUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
   m_SchemaSet:

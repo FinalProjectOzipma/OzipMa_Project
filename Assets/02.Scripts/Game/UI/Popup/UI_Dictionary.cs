@@ -83,7 +83,7 @@ public class UI_Dictionary : UI_Popup
         {
             try
             {
-                SlotActive<T>(trans, trans.GetChild(i).gameObject, i, Dlist);
+                SlotActive<T>(trans.GetChild(i).gameObject, i, Dlist);
                 cnt++;
             }
             catch (Exception)
@@ -95,7 +95,7 @@ public class UI_Dictionary : UI_Popup
                     GameObject slotGo = Managers.Resource.Instantiate(go);
                     slotGo.transform.SetParent(trans);
                     slotGo.transform.localScale = new Vector3(1f, 1f, 1f);
-                    SlotActive<T>(trans, slotGo, i, Dlist);
+                    SlotActive<T>(slotGo, i, Dlist);
                     cnt++;
                 });
             }
@@ -132,7 +132,7 @@ public class UI_Dictionary : UI_Popup
     /// <summary>
     /// 슬롯에 정보를 채워주고 와 인벤토리에 유닛이 있는지 여부 확인
     /// </summary>
-    private void SlotActive<T>(Transform parent, GameObject slotGo, int index, List<T> list) where T : UserObject, IGettable
+    private void SlotActive<T>(GameObject slotGo, int index, List<T> list) where T : UserObject, IGettable
     {
         DSlot slot = slotGo.GetOrAddComponent<DSlot>();
         slot.Index = index;

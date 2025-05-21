@@ -13,6 +13,7 @@ public class UI_Main : UI_Scene
     [SerializeField] private Button SettingButton;
     [SerializeField] private Button DictionaryButton;
     [SerializeField] private Button GachaButton;
+    [SerializeField] private Button QuestButton;
 
     [SerializeField] private TextMeshProUGUI MainGoldText;
     [SerializeField] private TextMeshProUGUI MainZamText;
@@ -27,7 +28,6 @@ public class UI_Main : UI_Scene
     [SerializeField] private Image DictionaryButtonImage;
     [SerializeField] private Image ResearchButtonImage;
     [SerializeField] private Image GachaButtonImage;
-    [SerializeField] private Image SettingImage;
 
     [SerializeField] private GameObject OFFManagerBtn;
     [SerializeField] private GameObject ONManagerBtn;
@@ -70,6 +70,7 @@ public class UI_Main : UI_Scene
         ManagerButton.gameObject.BindEvent(OnClickManager);
         SettingButton.gameObject.BindEvent(OnClickSetting);
         GachaButton.gameObject.BindEvent(OnClickGacha);
+        QuestButton.gameObject.BindEvent(OnClickQuest);
         DictionaryButton.gameObject.BindEvent(OnClickDictionary);
         StageLv.text = $"Lv {Managers.Player.CurrentStage} - {Managers.Player.CurrentWave + 1}";
 
@@ -234,6 +235,18 @@ public class UI_Main : UI_Scene
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
+        isButton = false;
+
+    }
+
+    public void OnClickQuest(PointerEventData data)
+    {
+        if (isButton) return;
+        isButton = true;
+
+
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
+        Managers.UI.ShowPopupUI<UI_Quest>("QuestUI");
         isButton = false;
 
     }

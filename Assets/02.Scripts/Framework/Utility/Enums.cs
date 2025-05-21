@@ -14,6 +14,7 @@ public class Enums
         LevelUpValue,
         Research,
         AttackDefault,
+        QuestDataList,
         Count
     }
 
@@ -77,3 +78,28 @@ public enum AbilityType
 
     Count
 }
+
+
+[GoogleSheet.Core.Type.UGS(typeof(QuestType))]
+public enum QuestType
+{
+    Daily,
+    Achivement,
+    Count
+}
+
+
+[GoogleSheet.Core.Type.UGS(typeof(ConditionType))]
+public enum ConditionType
+{
+    Connection,
+    EnemyKill,
+    BossKill,
+    MyUnitCollect,
+    TowerCollect,
+    Reach,
+    StageClear,
+    WaveClear,
+    Count
+}
+
