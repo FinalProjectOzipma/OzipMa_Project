@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Dialogue : UI_Base
 {
-    // 타이핑 간격시간
+    //타이핑 간격시간
     public float timegap;
     //대화 종료 bool값
     public bool IsEnd;

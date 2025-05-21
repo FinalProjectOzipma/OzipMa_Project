@@ -66,6 +66,7 @@ public class UI_Research : UI_Base
     // 튜토리얼 일회용 버튼
     public bool isResearchGoldBtn = false;
     public bool isResearchGemBtn = false;
+    public bool isResearchComplete = false;
 
 
 
@@ -384,6 +385,8 @@ public class UI_Research : UI_Base
 
         LodingAnime.SetActive(true);
         _ = HandleCheckButton();
+
+        if (!isResearchComplete) isResearchComplete = true;
     }
 
     /// <summary>

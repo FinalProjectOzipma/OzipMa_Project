@@ -66,7 +66,7 @@ public class EditTowerTutorial : TutorialBase
 
         // 드래그 체크용 bool 초기화
         BuildingSystem.Instance.DragController.TutorialDragCheck = false;
-
+        
         controller.Dialogue.EnQueueText("잘하셨어요!\n타워는 최대 2개까지 설치가 됩니다.");
         controller.Dialogue.EnQueueText("이번에는 편집모드에서 타워를 드래그로 옮겨보세요.");
         controller.Dialogue.EnQueueText("배치된 타워를 길게 누르면 편집모드를 활성화할 수 있어요.");

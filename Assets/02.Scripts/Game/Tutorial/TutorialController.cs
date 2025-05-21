@@ -24,9 +24,10 @@ public class TutorialController : UI_Scene
         base.Init();
 
         // 튜토리얼을 순서대로 넣기 
-        queue.Enqueue(new PlaceTowerTutorial(this));
-        queue.Enqueue(new EditTowerTutorial(this));
-        queue.Enqueue(new DeleteTowerTutorial(this));
+        //queue.Enqueue(new PlaceTowerTutorial(this));
+        //queue.Enqueue(new EditTowerTutorial(this));
+        //queue.Enqueue(new DeleteTowerTutorial(this));
+        queue.Enqueue(new ResearchTutorial(this));
 
         // 튜토리얼 시작
         SetDialogueActive(true);
@@ -36,11 +37,10 @@ public class TutorialController : UI_Scene
 
     private void Update()
     {
-        // 대화끝나면 커서 보여주기
+        // 대화 끝나면 커서 보여주기
         if (Dialogue.IsEnd == true)
         {
-            SetCursorActive(true);
-            SetDialogueActive(false);
+            ShowOnlyCursor();
         }
 
         // 튜토리얼 조건 만족시 다음 튜토리얼로 넘김
@@ -58,8 +58,7 @@ public class TutorialController : UI_Scene
             currentTutorial?.OnEnd();
             currentTutorial = queue.Dequeue();
             currentTutorial.OnStart();
-            SetCursorActive(false);
-            SetDialogueActive(true);
+            ShowOnlyDialogue();
         }
         else // 모든 튜토리얼 완료했으면
         {
@@ -68,9 +67,19 @@ public class TutorialController : UI_Scene
         }
     }
 
+    public void ShowOnlyDialogue()
+    {
+        SetCursorActive(false);
+        SetDialogueActive(true);
+    }
+    public void ShowOnlyCursor()
+    {
+        SetCursorActive(true);
+        SetDialogueActive(false);
+    }
+
     public void SetCursorActive(bool active)
     {
-        //if(!active) Cursor.OffCursor();
         Cursor.gameObject.SetActive(active);
     }
 
