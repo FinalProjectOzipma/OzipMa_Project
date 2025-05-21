@@ -2,6 +2,7 @@ using Firebase.Database;
 using System;
 using System.Collections;
 using UnityEngine;
+using System.Threading.Tasks;
 using UnityEngine.Analytics;
 
 public class Managers : MonoBehaviour
@@ -81,39 +82,36 @@ public class Managers : MonoBehaviour
     }
 
 
-
-
-
-
     //안드로이드 IOS에서 백그라운드 시 호출
     private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
-            SaveQuitTimeAndSaveData(); // 안전한 시점
+            _ = SaveOnPauseAsync(); // fire-and-forget
         }
     }
 
-
-
-    // 앱 종료 시 호출
+#if UNITY_EDITOR
     private void OnApplicationQuit()
     {
-        SaveQuitTimeAndSaveData(); // 앱 완전히 종료 시도 시에도 저장
+        _ = SaveOnPauseAsync();
     }
+#endif
 
     // 종료시간과 플레이어 데이터 저장
-    private void SaveQuitTimeAndSaveData()
+    private async Task SaveOnPauseAsync()
     {
         try
         {
             Managers.Player.RewordStartTime = Managers.Game.ServerUtcNow.ToString("o");
-
-            Data.SaveGameData();  // 서버 시간 포함한 저장
+            await Data.SaveGameDataAsync();  // 비동기 저장
+            await Task.Delay(1000);          // 저장 완료 시간 확보 (권장)
+            Util.Log("백그라운드 저장 완료");
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"게임 종료 저장 실패: {ex.Message}");
+            Util.LogWarning($"백그라운드 저장 실패: {ex.Message}");
         }
     }
+
 }

@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;using UnityEngine;
+using UnityEngine;
 
 /// <summary>
 ///  유저가 저장해야될 필수적인 요소들을 저장하는 곳
 /// </summary>
-public class PlayerManager 
+public class PlayerManager
 {
     public Core MainCoreData { get; set; }
     public long Gold { get; set; }
@@ -44,7 +44,6 @@ public class PlayerManager
         AttackResearchData = new(ResearchUpgradeType.Attack);
         DefenceResearchData = new(ResearchUpgradeType.Defence);
         CoreResearchData = new(ResearchUpgradeType.Core);
-        RandomResearchData = new(ResearchUpgradeType.Random);
         // 저장된게 있으면 선언
 
         // 저장된게 있으면 선언
@@ -78,7 +77,7 @@ public class PlayerManager
     {
         if (Gold < amount)
         {
-            Debug.Log("돈이 부족합니다");
+            Managers.UI.Notify("골드가 부족합니다.", false);
             return;
         }
 
@@ -92,11 +91,11 @@ public class PlayerManager
     /// <summary>
     /// 잼 소모
     /// </summary>
-    public void SpenZam(long amount)
+    public void SpenGem(long amount)
     {
         if (Gem < amount)
         {
-            Debug.Log("돈이 부족합니다");
+            Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
 
@@ -130,7 +129,7 @@ public class PlayerManager
         // 1. Tower의 동적 데이터 저장 목적
         TowerInfos = new();
         List<IGettable> towers = Inventory.GetList<Tower>();
-        if(towers != null)
+        if (towers != null)
         {
             foreach (var item in towers)
             {
@@ -165,7 +164,7 @@ public class PlayerManager
         //MainCoreData.Health = data.MainCoreData.Health;
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
-        
+
         Gold = 0;
         Gem = 0;
 
@@ -216,14 +215,14 @@ public class PlayerManager
         }
 
         // ===== 인벤토리에 추가 - 타워 =====
-        if(TowerInfos != null)
+        if (TowerInfos != null)
         {
             Inventory.ClearList<Tower>();
             List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
             foreach (string Key in TowerInfos.Keys)
             {
-                int primaryKey = int.Parse(Key.Replace("Tower",""));
-                Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[primaryKey].Name}Tower", original => 
+                int primaryKey = int.Parse(Key.Replace("Tower", ""));
+                Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[primaryKey].Name}Tower", original =>
                 {
                     Tower tower = new Tower();
                     tower.Init(primaryKey, original.GetComponent<TowerControlBase>().Preview);
@@ -233,12 +232,12 @@ public class PlayerManager
             }
 
             // ===== 원래 배치대로 타워 배치 =====
-            if(data.GridObjectMap != null)
+            if (data.GridObjectMap != null)
             {
                 Dictionary<Vector3Int, int> convertedMap = new();
                 foreach (string pointStr in data.GridObjectMap.Keys)
                 {
-                    if(Util.TryStringToVector3Int(pointStr, out Vector3Int res) == true)
+                    if (Util.TryStringToVector3Int(pointStr, out Vector3Int res) == true)
                     {
                         Util.Log($"LoadPlayerData의 여기가 가끔 안돼요 : {res.ToString()}");
                         convertedMap.Add(res, data.GridObjectMap[pointStr]);
@@ -258,10 +257,10 @@ public class PlayerManager
         {
             Inventory.ClearList<MyUnit>();
             List<DefaultTable.MyUnit> MyUnits = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
-            foreach(string Key in MyUnitInfos.Keys)
+            foreach (string Key in MyUnitInfos.Keys)
             {
                 int primaryKey = int.Parse(Key.Replace("MyUnit", ""));
-                Managers.Resource.LoadAssetAsync<GameObject>($"{MyUnits[primaryKey].Name}_Brain", original => 
+                Managers.Resource.LoadAssetAsync<GameObject>($"{MyUnits[primaryKey].Name}_Brain", original =>
                 {
                     MyUnit unit = new MyUnit();
                     unit.Init(primaryKey, original.GetComponent<MyUnitController>().sprite);
@@ -277,8 +276,7 @@ public enum ResearchUpgradeType
 {
     Attack,
     Defence,
-    Core,
-    Random
+    Core
 }
 
 

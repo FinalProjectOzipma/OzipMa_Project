@@ -1,13 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
-using static DG.Tweening.DOTweenModuleUtils;
-using static UnityEngine.Rendering.DebugUI;
 
 
 public enum BGMClipName
@@ -38,9 +32,12 @@ public enum SFXClipName
     Fire,
     Coin,
     Card,
-    Cast, 
+    Cast,
     Burst,
     Death,
+    Clear,
+    Defeat
+
 }
 
 public enum AudioType
@@ -138,16 +135,16 @@ public class AudioController : MonoBehaviour
 
     #region BGM 관련 메서드
     /// <summary>
-    /// 씬 이름을 가져와 해당 씬에 맞는 BGM 재생, 씬 전환 시 SoundManager.Instance.PlayBGM(sceneName);
+    /// 씬 이름을 가져와 해당 씬에 맞는 BGM 재생
     /// </summary>
     public void PlayBGM(string sceneName)
     {
         AudioClip bgm = bgmDictionary[sceneName];
-            //GetBGMByScene(sceneName);
+        //GetBGMByScene(sceneName);
 
         if (bgm == null)
         {
-            Debug.LogWarning($"현재 씬에 브금이 없습니다. Scene 이름 확인");
+            Util.LogWarning($"현재 씬에 브금이 없습니다. Scene 이름 확인");
             return;
         }
 
@@ -180,7 +177,7 @@ public class AudioController : MonoBehaviour
         {
             if (isBGMMute)
             {
-                Mixer.SetFloat(BGMVolume,-80.0f);
+                Mixer.SetFloat(BGMVolume, -80.0f);
                 //bgmSource.volume = 0;
                 break;
             }
@@ -229,10 +226,10 @@ public class AudioController : MonoBehaviour
 
         AudioSource sfxSource = GetAudioSource(); // 오디오 소스 가져오기
 
-        sfxSource.transform.position = new Vector3(0,0,0); // 재생 위치 설정
+        sfxSource.transform.position = new Vector3(0, 0, 0); // 재생 위치 설정
         sfxSource.clip = clip;
 
-        if(isSFXMute || Managers.Audio.sfxVolume <= 0)
+        if (isSFXMute || Managers.Audio.sfxVolume <= 0)
         {
             Mixer.SetFloat(SFXVolume, -80.0f);
         }
@@ -242,7 +239,7 @@ public class AudioController : MonoBehaviour
         }
 
         sfxSource.gameObject.SetActive(true);
-   
+
         sfxSource.Play();
 
         StartCoroutine(ReturnToPool(sfxSource, clip.length + 2.0f)); // 재생 후 다시 풀에 반환
@@ -282,7 +279,7 @@ public class AudioController : MonoBehaviour
     /// 볼륨 세팅
     /// </summary
     public void SetVolume(AudioType type, float volume)
-    {    
+    {
         Mixer.SetFloat(type.ToString(), volume);
         SaveVolumes();
     }
@@ -295,7 +292,7 @@ public class AudioController : MonoBehaviour
     {
         isMasterMute = !isMasterMute;
 
-        if(isMasterMute) Mixer.SetFloat(masterVolume, -80.0f);
+        if (isMasterMute) Mixer.SetFloat(masterVolume, -80.0f);
         else Mixer.SetFloat(masterVolume, Managers.Audio.masterVolume);
 
         SaveMuteSettings();

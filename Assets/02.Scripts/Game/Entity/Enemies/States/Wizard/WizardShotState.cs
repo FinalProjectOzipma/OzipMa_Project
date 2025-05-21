@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class WizardShotState : WizardStateBase
@@ -27,22 +24,22 @@ public class WizardShotState : WizardStateBase
     {
         base.Update();
 
-        if(projectileCalled)
+        if (projectileCalled)
         {
             projectileCalled = false;
             CreateSkill(EnergyShot, Fire);
         }
 
-        if(triggerCalled)
+        if (triggerCalled)
         {
             targets.Clear();
             targets.Push(wave.MainCore.gameObject);
             StateMachine.ChangeState(data.IdleState);
         }
-        
+
     }
 
-    
+
 
     private void Fire(GameObject go)
     {

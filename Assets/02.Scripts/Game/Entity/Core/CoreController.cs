@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEditor.AddressableAssets.Build.Layout;
 using UnityEngine;
-using UnityEngine.Timeline;
-using UnityEngine.UI;
 
 public class CoreController : Poolable, IDamagable
 {
@@ -13,9 +10,9 @@ public class CoreController : Poolable, IDamagable
     private float spawnY = 2.7f;
     private CapsuleCollider2D coreColider;
 
-    [HideInInspector]public string coreLevelkey = "CoreLevelKey";
-    [HideInInspector]public string coreHealthkey = "CoreHealthKey";
-    
+    [HideInInspector] public string coreLevelkey = "CoreLevelKey";
+    [HideInInspector] public string coreHealthkey = "CoreHealthKey";
+
     //public Vector2 CenterPos { get; private set; }
     // Start is called before the first frame update
 
@@ -26,10 +23,12 @@ public class CoreController : Poolable, IDamagable
         //CenterPos = GetComponentInChildren<SpriteRenderer>().transform.position;
     }
 
-
+    /// <summary>
+    /// 코어 초기화
+    /// </summary>
     public void Init(float maxHealth)
     {
-        if(body == null)
+        if (body == null)
         {
             Managers.Resource.Instantiate("Core_Body", go =>
             {
@@ -61,12 +60,14 @@ public class CoreController : Poolable, IDamagable
         this.gameObject.transform.position = new Vector2(randomX, spawnY);
 
         core.CoreLevel.SetValue(Managers.Player.MainCoreData.CoreLevel.GetValue());
-        Util.Log("코어레벨"+Managers.Player.MainCoreData.CoreLevel.GetValue().ToString());
+        Util.Log("코어레벨" + Managers.Player.MainCoreData.CoreLevel.GetValue().ToString());
         CoreUpgrade();
     }
 
 
-    
+    /// <summary>
+    /// 코어 체력 세팅
+    /// </summary>
     private void SetHealth(float maxHealth, CoreBase coreBase)
     {
         core.Health.MaxValue = maxHealth;
@@ -77,14 +78,16 @@ public class CoreController : Poolable, IDamagable
 
     private void OnEnable()
     {
-        if(coreColider != null)
+        if (coreColider != null)
         {
             if (!coreColider.enabled) coreColider.enabled = true;
         }
     }
 
 
-
+    /// <summary>
+    /// 코어 데미지 받는 부분
+    /// </summary>
     public void TakeDamge(float damage)
     {
 
@@ -103,7 +106,9 @@ public class CoreController : Poolable, IDamagable
     }
 
 
-
+    /// <summary>
+    /// 유닛 소환
+    /// </summary>
     public void SpawnUnit()
     {
         List<IGettable> myUnitsList = Managers.Player.Inventory.GetList<MyUnit>();
@@ -125,9 +130,12 @@ public class CoreController : Poolable, IDamagable
 
     public void ApplyDamage(float amount, AbilityType condition = AbilityType.None, GameObject go = null, DefaultTable.AbilityDefaultValue abilities = null)
     {
-        TakeDamge(amount);    
+        TakeDamge(amount);
     }
 
+    /// <summary>
+    /// 코어 레벨 따라 에니메이션 전환
+    /// </summary>
     public void CoreUpgrade()
     {
         if (core.CoreLevel.GetValue() < 5)

@@ -1,11 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using Unity.VisualScripting;
-using UnityEngine;
-using static Enums;
-using static UnityEngine.Rendering.DebugUI.Table;
-
 public class TowerStatus : StatusBase
 {
     public int PrimaryKey { get; set; }
@@ -18,7 +10,7 @@ public class TowerStatus : StatusBase
         AttackRange.SetValue(Row.AttackRange);
 
         // TODO : 사용자 데이터 필요 ----------
-        Grade.SetValue(0);
+        Grade.SetValue(1);
         Level.SetValue(1);
         Stack.SetValue(0);
         MaxStack.SetValue(10);

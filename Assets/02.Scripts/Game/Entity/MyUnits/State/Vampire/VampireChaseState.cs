@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class VampireChaseState : VampireStateBase
 {
     public VampireChaseState(StateMachine stateMachine, int animHashKey, MyUnitController controller, VampireAnimationData data) : base(stateMachine, animHashKey, controller, data)
@@ -22,7 +18,7 @@ public class VampireChaseState : VampireStateBase
     public override void Update()
     {
         base.Update();
-        
+
         agent.SetDestination(target.transform.position);
 
         //가까우면 공격상태로 바꿈

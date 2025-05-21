@@ -1,12 +1,8 @@
-using DefaultTable;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class MyUnitAnimationTrigger : MonoBehaviour
 {
-    
+
     public Transform AttackCheck;
     float attackValue;
     protected MyUnitController myUnit => GetComponentInParent<MyUnitController>();
@@ -33,7 +29,7 @@ public class MyUnitAnimationTrigger : MonoBehaviour
 
     public void AttackTrigger()
     {
-        int layer = (int)Enums.Layer.MyUnit | (int)Enums.Layer.Core;
+        int layer = (int)Enums.Layer.Enemy;
         Collider2D[] colliders = Physics2D.OverlapCircleAll(AttackCheck.position, myUnit.Status.AttackRange.GetValue(), layer);
 
         foreach (var hit in colliders)

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
@@ -34,7 +32,7 @@ public class ArcherManAttackState : ArcherManStateBase
 
         OutRange(data.ChaseState);
 
-        if(projectileCalled) // 화살 만드는 Attack구간
+        if (projectileCalled) // 화살 만드는 Attack구간
         {
             CreateArrow?.Invoke(targets.Peek());
             projectileCalled = false;

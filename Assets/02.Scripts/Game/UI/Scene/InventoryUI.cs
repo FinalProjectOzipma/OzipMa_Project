@@ -2,7 +2,6 @@ using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -109,7 +108,7 @@ public class InventoryUI : UI_Scene
 
     private void UpdateUpgradeGold(int gold)
     {
-        TextInfo.text = $"{gold.ToString()}" ;
+        TextInfo.text = $"{gold.ToString()}";
     }
 
 
@@ -237,7 +236,7 @@ public class InventoryUI : UI_Scene
             int gold = Managers.Upgrade.GetLevelUpGold(userObject);
 
             if (!isSelect)
-            {             
+            {
                 if (IsMaxLevel(_currentList[i]) || slots[i].IsActive) continue;
 
                 slots[i].OnSelect();
@@ -361,7 +360,7 @@ public class InventoryUI : UI_Scene
             Refresh<Tower>();
         }
 
-        Managers.Upgrade.RefresgUpgradeGold();  
+        Managers.Upgrade.RefresgUpgradeGold();
 
         OnAnimation();
     }
@@ -376,7 +375,7 @@ public class InventoryUI : UI_Scene
     {
         RectTransform movable = Contents;
 
-        if(isMove)
+        if (isMove)
         {
             SwipeExcute.Enqueue(OnSwipe);
         }
@@ -402,7 +401,7 @@ public class InventoryUI : UI_Scene
             {
                 BackgroundButton.gameObject.SetActive(false);
                 Managers.UI.GetScene<UI_Main>().OFFManagerMenu();
-                movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y -180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
+                movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y - 180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
                     isOpen = false;
@@ -479,24 +478,24 @@ public class InventoryUI : UI_Scene
 
             var select = _currentList[i] as T;
 
-            if(select == null)
+            if (select == null)
             {
-                Managers.UI.Notify("널이라서 안됩니다.");
+                Managers.UI.Notify("널이라서 안됩니다.", false);
                 return;
             }
-            else if(IsMaxLevel(select))
+            else if (IsMaxLevel(select))
             {
-                Managers.UI.Notify("만렙이라서 안됩니다.");
+                Managers.UI.Notify("만렙이라서 안됩니다.", false);
                 return;
             }
-            else if(!IsStack(select))
+            else if (!IsStack(select))
             {
-                Managers.UI.Notify("카드 수가 부족합니다.");
+                Managers.UI.Notify("카드 수가 부족합니다.", false);
                 return;
             }
             else if (IsGrade(select))
             {
-                Managers.UI.Notify("최고 승급입니다.");
+                Managers.UI.Notify("최고 승급입니다.", false);
                 return;
             }
             else updateList.Add(select);
@@ -511,7 +510,7 @@ public class InventoryUI : UI_Scene
             Refresh<T>();
             return;
         }
-        else if(updateList.Count != 0)
+        else if (updateList.Count != 0)
         {
             for (int i = 0; i < updateList.Count; i++)
             {
@@ -524,7 +523,7 @@ public class InventoryUI : UI_Scene
 
         if (!isAnySelected)
         {
-            Managers.UI.Notify("슬롯을 선택하세요.");
+            Managers.UI.Notify("슬롯을 선택하세요.", false);
             RefreshUpgradeUI();
             Refresh<T>();
             return;

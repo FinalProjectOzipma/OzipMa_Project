@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerBodyBase : MonoBehaviour
@@ -7,8 +5,8 @@ public class TowerBodyBase : MonoBehaviour
     public float MainSpriteOffset = 0.3f;
     public GameObject FirePositionObj;
     public GameObject AttackRangeObj;
-    public Animator Anim {  get; private set; }
-    public TowerAnimationData AnimData { get; private set;}
+    public Animator Anim { get; private set; }
+    public TowerAnimationData AnimData { get; private set; }
 
     private GameObject mainSprite;
 

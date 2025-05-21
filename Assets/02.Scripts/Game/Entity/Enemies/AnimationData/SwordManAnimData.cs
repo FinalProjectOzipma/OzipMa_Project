@@ -1,8 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-
 public class SwordManAnimData : EntityAnimationData
 {
     public SwordManAttackState AttackState { get; private set; }

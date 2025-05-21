@@ -1,9 +1,3 @@
-using DefaultTable;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
-
 public class KnightAttackState : KnightStateBase
 {
     private bool isAttacked;
@@ -20,6 +14,7 @@ public class KnightAttackState : KnightStateBase
         isAttacked = false;
         agent.isStopped = true;
         controller.SpTrail.SetActive(true);
+        Managers.Audio.PlaySFX(SFXClipName.Walk);
     }
 
     public override void Exit()

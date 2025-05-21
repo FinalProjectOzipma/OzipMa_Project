@@ -1,10 +1,7 @@
 using Firebase.Auth;
-using Firebase.Extensions;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class AuthManager 
+public class AuthManager
 {
     public void AnonymousLogin()
     {

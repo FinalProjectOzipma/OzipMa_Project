@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class SwordManDeadState : SwordManStateBase
 {
     public SwordManDeadState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
@@ -18,16 +14,16 @@ public class SwordManDeadState : SwordManStateBase
     public override void Exit()
     {
         base.Exit();
-        
+
     }
 
     public override void Update()
     {
         if (triggerCalled)
         {
-            if(controller.gameObject.activeInHierarchy)
+            if (controller.gameObject.activeInHierarchy)
                 OnDead(0);
-            
+
         }
     }
 }

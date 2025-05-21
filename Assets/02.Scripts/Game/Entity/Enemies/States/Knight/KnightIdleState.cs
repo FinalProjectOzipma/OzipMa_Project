@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KnightIdleState : KnightStateBase
@@ -26,10 +24,10 @@ public class KnightIdleState : KnightStateBase
         base.Update();
 
         int rand = Random.Range(0, 2);
-        
+
         if (time <= 0f)
         {
-            if(rand == 0)
+            if (rand == 0)
             {
                 if (controller.ConditionHandlers[(int)AbilityType.Buff].CurDuration <= 0f)
                 {

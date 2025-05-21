@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HealthView : MonoBehaviour
 {
@@ -18,7 +14,7 @@ public class HealthView : MonoBehaviour
 
     private void Update()
     {
-        if(ctrl != null)
+        if (ctrl != null)
         {
             transform.localScale = new Vector3(ctrl.FacDir, 1, 1);
         }

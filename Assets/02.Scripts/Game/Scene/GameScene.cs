@@ -64,7 +64,14 @@ public class GameScene : SceneBase
             yield return null;
         }
 
-        // 5. 로딩창 끄고 게임 시작 ====================================================
+        // 5. 가챠 파베 준비 ===========================================================
+        if(GachaSystem.Instance == null) new GachaSystem();
+        while (!GachaSystem.Instance.IsReady)
+        {
+            yield return null;
+        }
+
+        // 6. 로딩창 끄고 게임 시작 ====================================================
         if (loading != null)
             Managers.Resource.Destroy(loading);
         Managers.Wave.GameStart();

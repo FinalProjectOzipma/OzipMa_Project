@@ -7,7 +7,7 @@ public class ArcherManBody : EntityBodyBase
     {
         base.Enable();
 
-        if(ctrl == null)
+        if (ctrl == null)
         {
             this.ctrl = transform.root.TryGetComponent<EnemyController>(out var ctrl) ? ctrl : null;
 

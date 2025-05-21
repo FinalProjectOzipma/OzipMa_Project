@@ -1,11 +1,7 @@
-using DefaultTable;
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class UI_InfoPopup : UI_Popup
@@ -36,10 +32,15 @@ public class UI_InfoPopup : UI_Popup
     [SerializeField] private GameObject EpicWindow;
     [SerializeField] private GameObject LegendWindow;
     [SerializeField] private GameObject MythWindow;
+    [SerializeField] private GameObject Description;
 
     [SerializeField] private Image Speed;
     [SerializeField] private Image Health;
     [SerializeField] private Image Defence;
+
+
+    public Image[] starArrays = new Image[10];
+
     private void Awake()
     {
         CloseButton.gameObject.BindEvent(OnClikcBack);
@@ -53,19 +54,25 @@ public class UI_InfoPopup : UI_Popup
 
     private void OnEnable()
     {
-        if(uiSeq != null) AnimePopup(UIInfo);
+        if (uiSeq != null) AnimePopup(UIInfo);
     }
 
+    /// <summary>
+    /// 정보창 닫기
+    /// </summary>
     public void OnClikcBack(PointerEventData data)
     {
         AnimePopup(UIInfo, true);
-
+        Description.SetActive(false);
         uiSeq.Play().OnComplete(() =>
         {
             ClosePopupUI();
         });
     }
 
+    /// <summary>
+    /// UI화면에 해당 슬롯에 대한 정보 전달
+    /// </summary>
     public void SelectedInfo<T>(T selectedInfo) where T : UserObject, IGettable
     {
         NameText.text = selectedInfo.Name;
@@ -73,10 +80,12 @@ public class UI_InfoPopup : UI_Popup
         RankText.text = selectedInfo.RankType.ToString();
         LevelText.text = selectedInfo.Status.Level.GetValueToString();
         AttackText.text = selectedInfo.Status.Attack.GetValueToString();
-        AttackCoolDownText.text =  selectedInfo.Status.AttackCoolDown.GetValueToString();
+        AttackCoolDownText.text = selectedInfo.Status.AttackCoolDown.GetValueToString();
         AttackRangeText.text = selectedInfo.Status.AttackRange.GetValueToString();
 
         SelectRankWindow(selectedInfo.RankType);
+
+        SetGradeStarImage(selectedInfo.Status.Grade.GetValue());
 
 
         InfoImage.sprite = selectedInfo.Sprite;
@@ -112,6 +121,10 @@ public class UI_InfoPopup : UI_Popup
 
     }
 
+
+    /// <summary>
+    /// 유닛과 타워에 공격타입 선별해서 UI에 반영
+    /// </summary>
     private void ATKTypes<T>(T go) where T : UserObject, IGettable
     {
         AtkType? atkType = go switch
@@ -140,7 +153,11 @@ public class UI_InfoPopup : UI_Popup
         };
     }
 
-   private void AbilliyTypes<T>(T go) where T : UserObject, IGettable
+
+    /// <summary>
+    /// 유닛과 타워에 특성타입 선별해서 UI에 반영
+    /// </summary>
+    private void AbilliyTypes<T>(T go) where T : UserObject, IGettable
     {
         AbilityType? abilityType = go switch
         {
@@ -149,7 +166,7 @@ public class UI_InfoPopup : UI_Popup
             _ => null
         };
 
-        if(abilityType.HasValue)
+        if (abilityType.HasValue)
         {
             AbilityTypeText.text = GetAbillityTypeText(abilityType.Value);
         }
@@ -170,6 +187,10 @@ public class UI_InfoPopup : UI_Popup
         };
     }
 
+
+    /// <summary>
+    /// 유닛과 타워 랭크별 배경 변경
+    /// </summary>
     public void SelectRankWindow(RankType rankType)
     {
         NormalWIndow.SetActive(false);
@@ -178,7 +199,7 @@ public class UI_InfoPopup : UI_Popup
         LegendWindow.SetActive(false);
         MythWindow.SetActive(false);
 
-        switch(rankType)
+        switch (rankType)
         {
             case RankType.Normal:
                 NormalWIndow.SetActive(true);
@@ -197,6 +218,20 @@ public class UI_InfoPopup : UI_Popup
                 break;
         }
 
+    }
+
+    public void SetGradeStarImage(int grade)
+    {
+        Util.Log("등급 : " + grade.ToString());
+        foreach (var image in starArrays)
+        {
+            image.color = Color.gray;
+        }
+
+        for (int i = 0; i <grade; i++ )
+        {
+            starArrays[i].color = Color.white;
+        }
     }
 
 }

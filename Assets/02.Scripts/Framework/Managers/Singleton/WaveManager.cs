@@ -1,11 +1,9 @@
-using GoogleSheet;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 using Table = DefaultTable;
 
 public class WaveManager
@@ -58,7 +56,7 @@ public class WaveManager
         Timer = 0;
 
         // 보스관련애들 넣어두기
-        for(int i = 0; i < enemyList.Count; i++)
+        for (int i = 0; i < enemyList.Count; i++)
         {
             if (enemyList[i].IsBoss == 1)
                 bossList.Add(enemyList[i]);
@@ -86,19 +84,19 @@ public class WaveManager
         if (Timer >= 0.0f && CurrentState != Enums.WaveState.Playing)
             Timer -= Time.deltaTime;
 
-        if(Timer <= 0.0f)
+        if (Timer <= 0.0f)
         {
-           
-            if(CurrentState == Enums.WaveState.Start)
+
+            if (CurrentState == Enums.WaveState.Start)
             {
-                if(onSpawn)
+                if (onSpawn)
                     StartWave(playerManager.CurrentWave);
 
                 onSpawn = false;
                 // CurrentState는 비동기에서 처리
             }
-             
-            if(CurrentState == Enums.WaveState.Playing)
+
+            if (CurrentState == Enums.WaveState.Playing)
             {
                 isCoreDead = (MainCore.core.Health.Value <= 0.0f);
                 isEnemyAllDead = (CurEnemyList.Count == 0);
@@ -115,12 +113,12 @@ public class WaveManager
                 
             }
 
-            if(CurrentState == Enums.WaveState.Reward)
+            if (CurrentState == Enums.WaveState.Reward)
                 CurrentState = isCoreDead ? Enums.WaveState.End : Enums.WaveState.Reward;
-            
+
 
             // End 변환점은 FieldGold 클래스에 있음 보상 다 받으면 실행
-            if(CurrentState == Enums.WaveState.End)
+            if (CurrentState == Enums.WaveState.End)
             {
                 foreach (var unit in CurMyUnitList)
                     unit.EntityDestroy();
@@ -142,11 +140,11 @@ public class WaveManager
 
 
                     Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(true);
-                    if (++playerManager.CurrentWave % 10  == 0)
+                    if (++playerManager.CurrentWave % 10 == 0)
                     {
                         if (++playerManager.CurrentStage > EndNumber)
                             playerManager.CurrentKey = Mathf.Min(++playerManager.CurrentKey, stages.Count - 1); // 스테이지 끝이면 현재 키를 늘린다.
-                        playerManager.CurrentWave = 0;      
+                        playerManager.CurrentWave = 0;
                     }
 
                     Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold, CurrentGem);
@@ -186,9 +184,11 @@ public class WaveManager
 
     public void StartWave(int idx)
     {
-        Managers.Resource.Instantiate("Core_Brain", go => {
+        Managers.Resource.Instantiate("Core_Brain", go =>
+        {
 
             MainCore = go.GetComponent<CoreController>();
+            Util.Log("초기체력222:" + Managers.Player.MainCoreData.Health.GetValueToString());
             MainCore.Init(Managers.Player.MainCoreData.Health.GetValue());
             int needAmount = waveList[idx].EnemyAmount;
             Managers.StartCoroutine(Spawn(needAmount));
@@ -204,7 +204,7 @@ public class WaveManager
     public IEnumerator Spawn(int amount)
     {
         bool isBoss = false;
-        while(amount > 0)
+        while (amount > 0)
         {
             yield return spawnTime;
             MainCore.SpawnUnit();
@@ -224,7 +224,7 @@ public class WaveManager
         DefaultTable.Enemy spawnenemy = enemyList[random];
 
         // CurrentWave : 0 ~ 9
-        if(playerManager.CurrentWave == 9)
+        if (playerManager.CurrentWave == 9)
         {
             int index = playerManager.CurrentStage % bossList.Count;
             spawnenemy = bossList[index];
@@ -240,11 +240,11 @@ public class WaveManager
                 random = 0;
             }
 
-            if(playerManager.CurrentWave == 0) 
+            if (playerManager.CurrentWave == 0)
                 OnEndBossMap?.Invoke();
         }
-        
-        
+
+
         string name = spawnenemy.Name;
 
         Managers.Resource.Instantiate($"{name}_Brain", (go) =>

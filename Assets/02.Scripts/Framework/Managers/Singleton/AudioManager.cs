@@ -1,17 +1,10 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Audio;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceLocations;
-using static UnityEngine.Rendering.HDROutputUtils;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class AudioManager
 {
 
-    [Range (0,1)] public float masterVolume = 1f; // 마스터 볼륨
+    [Range(0, 1)] public float masterVolume = 1f; // 마스터 볼륨
     [Range(0, 1)] public float bgmVolume = 1f; // BGM 볼륨
     [Range(0, 1)] public float sfxVolume = 1f; // SFX 볼륨
 
@@ -28,7 +21,7 @@ public class AudioManager
         });
     }
 
-    
+
     /// <summary>
     /// 씬에 따라 BGM 로드해주는 메서드
     /// </summary>
@@ -73,7 +66,7 @@ public class AudioManager
 
         if (!audioControler.sfxDictionary.ContainsKey(sfxName))
         {
-            Debug.LogWarning($"효과음 이름이 다릅니다. 효과음 이름과 스크립트에서 매개변수명 확인");
+            Util.LogWarning($"효과음 이름이 다릅니다. 효과음 이름과 스크립트에서 매개변수명 확인");
             return;
         }
 

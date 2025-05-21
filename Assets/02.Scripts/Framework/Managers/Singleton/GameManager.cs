@@ -1,11 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Firebase.Database;
+using System;
 using System.Threading.Tasks;
 
-public class GameManager 
+public class GameManager
 {
     public bool IsGodMode { get; set; }
 
@@ -27,7 +24,7 @@ public class GameManager
 
         // 서버 시간 - 현재 로컬 UTC 시간 = 오차
         ServerTimeOffset = (serverTime - DateTime.UtcNow).TotalSeconds;
-        
+
         LastSyncedServerTime = serverTime;
     }
 

@@ -6,13 +6,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UGS;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataManager
 {
     public Dictionary<Enums.Sheet, List<ITable>> Datas = new();
-    public bool IsGameDataLoadFinished {  get; private set; }
+    public bool IsGameDataLoadFinished { get; private set; }
+    public event Action<string> OnUpdateUserID;
 
     private DatabaseReference _databaseReference;
     private string userID = "user006";
@@ -30,6 +30,8 @@ public class DataManager
         LoadData<DefaultTable.InchentMultiplier>();
         LoadData<DefaultTable.LevelUpValue>();
         LoadData<DefaultTable.Research>();
+        LoadData<DefaultTable.LoadingTip>();
+        LoadData<DefaultTable.AttackDefault>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
@@ -72,7 +74,7 @@ public class DataManager
         {
 
             Datas[type] = new List<ITable>();
-            for (int i =0; i < list.Count; i++)
+            for (int i = 0; i < list.Count; i++)
             {
                 Datas[type].Add(list[i]);
             }
@@ -86,15 +88,37 @@ public class DataManager
     /// </summary>
     /// <typeparam name="T">저장할 데이터 타입</typeparam>
     /// <param name="data">저장할 데이터</param>
-    public void SaveFirebase<T>(T data, string parent = null)
+    //public void SaveFirebase<T>(T data, string parent = null)
+    //{
+    //    string json = JsonConvert.SerializeObject(data);
+    //    if (parent == null)
+    //    {
+    //        parent = typeof(T).Name;
+    //    }
+    //    var saveTask = _databaseReference.Child("users").Child(userID).Child(parent).SetRawJsonValueAsync(json);
+    //}
+
+    public async Task SaveFirebaseAsync<T>(T data, string parent = null)
     {
         string json = JsonConvert.SerializeObject(data);
-        if(parent == null)
+        if (parent == null)
         {
             parent = typeof(T).Name;
         }
-        var saveTask = _databaseReference.Child("users").Child(userID).Child(parent).SetRawJsonValueAsync(json);
+
+        try
+        {
+            await _databaseReference
+                .Child("users").Child(userID).Child(parent)
+                .SetRawJsonValueAsync(json);
+            Util.Log($"Firebase 저장 성공: {parent}");
+        }
+        catch (Exception ex)
+        {
+            Util.LogError($"Firebase 저장 실패: {ex.Message}");
+        }
     }
+
 
     /// <summary>
     /// 파이어베이스에서 직접 로드 (읽기)
@@ -119,7 +143,7 @@ public class DataManager
         DataSnapshot snapshot = firebaseData.Result;
         string jsonData = snapshot.GetRawJsonValue();
 
-        if(jsonData != null)
+        if (jsonData != null)
         {
             T result = JsonConvert.DeserializeObject<T>(jsonData);
             onComplete.Invoke(result);
@@ -136,10 +160,16 @@ public class DataManager
     /// <summary>
     /// 게임 데이터를 파이어베이스에 저장
     /// </summary>
-    public void SaveGameData()
+    //public void SaveGameData()
+    //{
+    //    Managers.Player.SaveInit();
+    //    SaveFirebase<PlayerManager>(Managers.Player);
+    //}
+
+    public async Task SaveGameDataAsync()
     {
         Managers.Player.SaveInit();
-        SaveFirebase<PlayerManager>(Managers.Player);
+        await SaveFirebaseAsync<PlayerManager>(Managers.Player);
     }
 
     public void LoadGameData(Action onFailed = null)
@@ -157,5 +187,10 @@ public class DataManager
     public void SetUserID(string userId)
     {
         userID = userId;
+    }
+
+    public void UserIDUpdate()
+    {
+        OnUpdateUserID?.Invoke(userID);
     }
 }

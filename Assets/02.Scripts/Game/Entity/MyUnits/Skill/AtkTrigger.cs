@@ -1,6 +1,3 @@
-using DefaultTable;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AtkTrigger : Poolable
@@ -16,11 +13,6 @@ public class AtkTrigger : Poolable
     #endregion
 
     private int hitLayer;
-
-    private void Awake()
-    {
-        
-    }
     public void Init(GameObject ownerObject, float ownerAttack, GameObject target = null, bool isSingleAttack = true)
     {
         this.ownerObject = ownerObject;

@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TowerFloor : MonoBehaviour
@@ -26,7 +24,7 @@ public class TowerFloor : MonoBehaviour
 
     private void Update()
     {
-        if(Managers.Wave.CurrentState != Enums.WaveState.Playing)
+        if (Managers.Wave.CurrentState != Enums.WaveState.Playing)
         {
             OnAttackFinish();
         }

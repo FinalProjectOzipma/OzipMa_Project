@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy
@@ -12,7 +9,7 @@ public class Enemy
     public Sprite Sprite { get; private set; }
     public EnemyStatus Status { get; set; }
     public AtkType AtkType { get; set; }
-    
+
 
     public Enemy(int primaryKey, Sprite sprite)
     {

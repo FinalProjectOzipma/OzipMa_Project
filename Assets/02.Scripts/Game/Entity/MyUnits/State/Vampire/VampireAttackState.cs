@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class VampireAttackState : VampireStateBase
 {
     public VampireAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, VampireAnimationData data) : base(stateMachine, animHashKey, controller, data)
@@ -28,7 +24,7 @@ public class VampireAttackState : VampireStateBase
 
         OutRange(data.ChaseState);
         //트리거 호출시
-        if (triggerCalled) 
+        if (triggerCalled)
         {
             Heal();
             target.GetComponent<EnemyController>().ApplyDamage(controller.Status.Attack.GetValue(), controller.MyUnit.AbilityType, controller.gameObject);

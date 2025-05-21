@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class UpgradeManager
 {
@@ -131,7 +130,7 @@ public class UpgradeManager
         // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
         int index = level - 2;
         if (index < 0 || index >= LevelUpValues.Count)
-            return;       
+            return;
 
         float statUp = LevelUpValues[index].StatUP;
 
@@ -216,7 +215,7 @@ public class UpgradeManager
         if (level < 0 || level >= 10)
             return 0;
 
-        return LevelUpValues[level-1].LevelUpGold;
+        return LevelUpValues[level - 1].LevelUpGold;
     }
 
     public void IncreaseRequireCard(UserObject userObject)
@@ -243,18 +242,19 @@ public class UpgradeManager
 
     public float GetResearchValue(ResearchUpgradeType type, int i)
     {
-        switch(type)
+        switch (type)
         {
             case ResearchUpgradeType.Attack:
                 return ResearchesUpgradeTable[i - 1].Attack;
             case ResearchUpgradeType.Defence:
                 return ResearchesUpgradeTable[i - 1].Defence;
             case ResearchUpgradeType.Core:
+                Util.Log("체력 연구 성공");
                 return ResearchesUpgradeTable[i - 1].CoreHealth;
             default:
                 return 0.0f;
         }
     }
 
-   
+
 }

@@ -58,6 +58,7 @@ namespace DefaultTable
 
 		public System.Int32 Key;
 		public AbilityType AbilityType;
+		public System.String Description;
 		public System.Single AbilityValue ;
 		public System.Single AbilityDuration;
 		public System.Single AbilityCooldown;

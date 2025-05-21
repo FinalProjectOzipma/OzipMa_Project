@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class FieldReward : Poolable
@@ -27,12 +25,12 @@ public class FieldReward : Poolable
     /// <summary>
     /// 0 : 골드, 1 : 젬
     /// </summary>
-    public int WhatIsReward 
+    public int WhatIsReward
     {
         get { return whatIsReward; }
         set
         {
-            if(animator == null)
+            if (animator == null)
             {
                 animator = GetComponent<Animator>();
             }
@@ -41,7 +39,7 @@ public class FieldReward : Poolable
             animator.SetBool(Gem, whatIsReward == (int)RewardID.Gem);
             animator.SetBool(Gold, whatIsReward == (int)RewardID.Gold);
 
-            if(whatIsReward == 0)
+            if (whatIsReward == 0)
             {
                 Transform rect = Managers.UI.GetScene<UI_Gold>().GetGoldPoint().transform;
                 rewardVector = Camera.main.ScreenToWorldPoint(rect.position);
@@ -55,7 +53,7 @@ public class FieldReward : Poolable
         }
     }
     // 첫번째는 골드, 두번재는 젬
-    Color[] ptColors = { new Color(255f/255f, 252f/255f, 170f/255f, 100f/255f), new Color(170f / 255f, 244f / 255f, 255f / 255f, 100f / 255f) };
+    Color[] ptColors = { new Color(255f / 255f, 252f / 255f, 170f / 255f, 100f / 255f), new Color(170f / 255f, 244f / 255f, 255f / 255f, 100f / 255f) };
 
     enum RewardID
     {
@@ -69,7 +67,7 @@ public class FieldReward : Poolable
         spr = GetComponentInChildren<SpriteRenderer>();
         particle.Stop();
 
-        
+
 
         Vector3 centerVector = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2f, Screen.height / 2f));
         centerVector.z = 0f;
@@ -122,7 +120,7 @@ public class FieldReward : Poolable
 
     private void Update()
     {
-        if(canDestroy && !particle.isPlaying)
+        if (canDestroy && !particle.isPlaying)
         {
             canDestroy = false;
             particle.Pause();
@@ -132,7 +130,7 @@ public class FieldReward : Poolable
 
     public void Destroy()
     {
-        if(wave.FieldRewards.Count > 0)
+        if (wave.FieldRewards.Count > 0)
             StartCoroutine(FadeOut());
     }
 
@@ -145,7 +143,7 @@ public class FieldReward : Poolable
     {
         float alpha = 1f;
 
-        while(alpha > 0f)
+        while (alpha > 0f)
         {
             alpha -= Time.deltaTime;
             spr.color = new Color(1f, 1f, 1f, alpha);

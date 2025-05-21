@@ -1,8 +1,9 @@
 using DG.Tweening;
-using TMPro;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class UI_Sound : UI_Popup
 {
@@ -10,6 +11,7 @@ public class UI_Sound : UI_Popup
     [SerializeField] private Button BGMBMuteButton;
     [SerializeField] private Button SFMMuteButton;
     [SerializeField] private Button BackButton;
+    [SerializeField] private Button ExitButton;
 
     [SerializeField] private Slider MasterSlider;
     [SerializeField] private Slider BGMSlider;
@@ -59,6 +61,7 @@ public class UI_Sound : UI_Popup
         BGMBMuteButton.gameObject.BindEvent(OnClickBGMMuted);
         SFMMuteButton.gameObject.BindEvent(OnClickSFXMuted);
         BackButton.gameObject.BindEvent(OnClickBack);
+        ExitButton.onClick.AddListener(ExitGame);
 
         MasterSlider.value = PlayerPrefs.GetFloat("MasterVolume", 1.0f);
         BGMSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1.0f);
@@ -172,7 +175,7 @@ public class UI_Sound : UI_Popup
     #endregion
 
 
- 
+
     public void InitVolumeMuted()
     {
         if (Managers.Audio.audioControler.isMasterMute)
@@ -239,4 +242,37 @@ public class UI_Sound : UI_Popup
             ClosePopupUI();
         });
     }
+
+    public async void ExitGame()
+    {
+        try
+        {
+            // 서버 시간 기준 종료 시간 저장
+            Managers.Player.RewordStartTime = Managers.Game.ServerUtcNow.ToString("o");
+
+            // 비동기 저장 호출 (SaveGameDataAsync는 Task 반환)
+            await Managers.Data.SaveGameDataAsync();
+
+            // 저장 여유 시간 확보 (선택 사항)
+            await Task.Delay(1000);
+
+            // 정상 종료
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+        }
+        catch (Exception ex)
+        {
+            Util.LogWarning($"ExitGame 저장 실패: {ex.Message}");
+            // 그래도 종료 시도
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+        }
+    }
+
 }

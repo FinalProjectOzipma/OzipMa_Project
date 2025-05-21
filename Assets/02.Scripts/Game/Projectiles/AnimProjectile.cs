@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimProjectile : EntityProjectile
@@ -53,7 +51,7 @@ public class AnimProjectile : EntityProjectile
 
     protected override void Move()
     {
-        if(!OnDestroy)
+        if (!OnDestroy)
             base.Move();
     }
 

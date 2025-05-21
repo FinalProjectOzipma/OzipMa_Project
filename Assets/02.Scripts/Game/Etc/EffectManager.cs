@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class EffectManager
 {
@@ -43,7 +41,7 @@ public class EffectManager
         {
             if (effectDict.TryGetValue(pair.Key, out var result))
             {
-                if(result is IUsableUniTask)
+                if (result is IUsableUniTask)
                 {
                     (result as IUsableUniTask).TokenDestroy();
                 }

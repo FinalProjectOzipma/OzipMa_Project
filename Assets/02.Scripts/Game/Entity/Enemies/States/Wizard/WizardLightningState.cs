@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ public class WizardLightningState : WizardStateBase
         }
         else
         {
-            for(int i = 0; i < wave.CurMyUnitList.Count; i++)
+            for (int i = 0; i < wave.CurMyUnitList.Count; i++)
                 hitObject.Push(wave.CurMyUnitList[i].gameObject);
         }
 
@@ -37,14 +36,14 @@ public class WizardLightningState : WizardStateBase
     {
         base.Update();
 
-        if(projectileCalled)
+        if (projectileCalled)
         {
             while (hitObject.Count > 0)
                 CreateSkill(Lightning, OnLightning);
 
             projectileCalled = false;
         }
-        
+
         if (triggerCalled)
             StateMachine.ChangeState(data.IdleState);
     }

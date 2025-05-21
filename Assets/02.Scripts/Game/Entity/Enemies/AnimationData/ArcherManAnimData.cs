@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class ArcherManAnimData : EntityAnimationData
 {
     ArcherManBody body;
@@ -10,7 +6,7 @@ public class ArcherManAnimData : EntityAnimationData
     public ArcherManChasingState ChaseState { get; private set; }
     public ArcherManAttackState AttackState { get; private set; }
     public ArcherManDeadState DeadState { get; private set; }
-    public ArcherManDarkState DarkState { get; private set; } 
+    public ArcherManDarkState DarkState { get; private set; }
 
     public ArcherManAnimData(ArcherManBody body)
     {

@@ -19,7 +19,7 @@ public class UI_Alarm : UI_Popup
     private void Start()
     {
         Init();
-
+        
         AnimePopup(BG);
     }
 
@@ -32,9 +32,10 @@ public class UI_Alarm : UI_Popup
 
     public override void Init()
     {
+        uiSeq = Util.RecyclableSequence();
         AlarmButton.gameObject.BindEvent(CloseAlarmPopup);
     }
-    
+
     public void CloseAlarmPopup(PointerEventData data)
     {
         if (isClose) return;
@@ -42,9 +43,9 @@ public class UI_Alarm : UI_Popup
 
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
-        
+
         HidePopup();
-   
+
 
     }
 

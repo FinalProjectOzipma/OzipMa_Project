@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 
 
@@ -79,6 +80,19 @@ public class UI_Main : UI_Scene
             Managers.Player.OnStageChanged += UpdateStageUI;
             UpdateGoldUI(Managers.Player.GetGold());
         }
+
+        Managers.Data.OnUpdateUserID -= SetPlayerName;
+        Managers.Data.OnUpdateUserID += SetPlayerName;
+        Managers.Data.UserIDUpdate();
+    }
+
+    public void SetPlayerName(string name)
+    {
+        if(name.Length > 7)
+        {
+            name = $"{name.Substring(0, 7)}...";
+        }
+        PlayerName.text = name;
     }
 
     private void OnDisable()
@@ -121,9 +135,14 @@ public class UI_Main : UI_Scene
             isResearchOpne = true;
         }
         else
-        {
-            AllOFF();
-            Managers.UI.CloseAllPopupUI();
+        {    
+            AnimePopup(Managers.UI.GetPopup<UI_ResearchScene>().UI_Research, true);
+
+            uiSeq.Play().OnComplete(() =>
+            {
+                AllOFF();
+                Managers.UI.CloseAllPopupUI();
+            });
         }
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
@@ -173,8 +192,13 @@ public class UI_Main : UI_Scene
         }
         else
         {
-            AllOFF();
-            Managers.UI.CloseAllPopupUI();
+            AnimePopup(Managers.UI.GetPopup<GachaUI>().RectTransform.gameObject, true);
+
+            uiSeq.Play().OnComplete(() => 
+            {
+                AllOFF();
+                Managers.UI.CloseAllPopupUI();
+            });
         }
 
 
@@ -199,8 +223,13 @@ public class UI_Main : UI_Scene
         }
         else
         {
-            AllOFF();
-            Managers.UI.CloseAllPopupUI();
+            AnimePopup(Managers.UI.GetPopup<UI_Dictionary>().UIDictionary, true);
+
+            uiSeq.Play().OnComplete(() =>
+            {
+                AllOFF();
+                Managers.UI.CloseAllPopupUI();
+            });
         }
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);

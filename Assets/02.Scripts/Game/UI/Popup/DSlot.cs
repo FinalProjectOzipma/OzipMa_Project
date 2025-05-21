@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,6 +31,9 @@ public class DSlot : UI_Base
         inventoryUI = Managers.UI.GetScene<InventoryUI>();
     }
 
+    /// <summary>
+    /// 해당 슬롯에 대한 정보 UI_InfoPopup에 전달
+    /// </summary>
 
     public void SelectItem()
     {
@@ -52,15 +53,22 @@ public class DSlot : UI_Base
     }
 
 
+    /// <summary>
+    /// 도감에서 받은 유닛과 타워에 대한 정보를 담음
+    /// </summary>
+
     public void SetData<T>(IGettable gettable) where T : UserObject
     {
         Gettable = gettable;
         T obj = gettable.GetClassAddress<T>();
         itemKey = obj.PrimaryKey;
         SelectedSlot(obj);
-        Icon.sprite = obj.Sprite;      
+        Icon.sprite = obj.Sprite;
     }
 
+    /// <summary>
+    /// 슬롯에 랭크별 배경 반영하는 메서드
+    /// </summary>
 
     private void SelectedSlot<T>(T go) where T : UserObject
     {

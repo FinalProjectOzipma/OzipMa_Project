@@ -1,7 +1,5 @@
-using DefaultTable;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,7 +11,7 @@ public class UI_Dictionary : UI_Popup
     [SerializeField] private Button BGClose;
     //[SerializeField] private Button BackButton;
 
-    [SerializeField] private GameObject UIDictionary;
+    [SerializeField] public GameObject UIDictionary;
     [SerializeField] private GameObject MyUnitDisSelected;
     [SerializeField] private GameObject MyUnitSelected;
     [SerializeField] private GameObject TowerDisSelected;
@@ -50,11 +48,14 @@ public class UI_Dictionary : UI_Popup
         slots = new List<DSlot>();
         DefaultData();
         OnMyUnitTap();
+
     }
+
 
     private void OnEnable()
     {
         OnMyUnitTap();
+        AnimePopup(UIDictionary);
     }
 
     private void Start()
@@ -62,8 +63,12 @@ public class UI_Dictionary : UI_Popup
         MyUnitBtn.onClick.AddListener(OnMyUnitTap);
         TowerBtn.onClick.AddListener(OnTowerTap);
         BGClose.gameObject.BindEvent(OnClickClose);
+        AnimePopup(UIDictionary);
     }
 
+    /// <summary>
+    /// 도감에 슬롯 갱신해주는 메서드
+    /// </summary>
 
     public void Refresh<T>() where T : UserObject, IGettable
     {
@@ -103,6 +108,9 @@ public class UI_Dictionary : UI_Popup
         }
     }
 
+    /// <summary>
+    /// 도감을 유닛으로 슬롯 채움
+    /// </summary>
     private void OnMyUnitTap()
     {
         CurrentTab = typeof(MyUnit);
@@ -110,6 +118,9 @@ public class UI_Dictionary : UI_Popup
         Refresh<MyUnit>();
     }
 
+    /// <summary>
+    /// 도감을 타워로 슬롯 채움
+    /// </summary>
     private void OnTowerTap()
     {
         CurrentTab = typeof(Tower);
@@ -117,6 +128,10 @@ public class UI_Dictionary : UI_Popup
         Refresh<Tower>();
     }
 
+
+    /// <summary>
+    /// 슬롯에 정보를 채워주고 와 인벤토리에 유닛이 있는지 여부 확인
+    /// </summary>
     private void SlotActive<T>(Transform parent, GameObject slotGo, int index, List<T> list) where T : UserObject, IGettable
     {
         DSlot slot = slotGo.GetOrAddComponent<DSlot>();
@@ -157,7 +172,9 @@ public class UI_Dictionary : UI_Popup
 
     }
 
-
+    /// <summary>
+    /// 토글탭 전환
+    /// </summary>
     private void ToggleTab(GameObject changeOn, GameObject changeDis)
     {
         if (prevOn)
@@ -173,8 +190,10 @@ public class UI_Dictionary : UI_Popup
     }
 
 
-
-    private List<T> DGetList<T>() where T : UserObject,IGettable
+    /// <summary>
+    /// 타입에 따라 디폴트 유닛과 타워 리스트를 반환
+    /// </summary>
+    private List<T> DGetList<T>() where T : UserObject, IGettable
     {
         if (typeof(T) == typeof(MyUnit))
         {
@@ -190,13 +209,16 @@ public class UI_Dictionary : UI_Popup
         }
     }
 
+    /// <summary>
+    /// 디폴트 데이터를 받아와 도감에 있는 유닛과 타워 리스트에 채워줌
+    /// </summary>
 
     private void DefaultData()
     {
         List<DefaultTable.Tower> Towers = Util.TableConverter<DefaultTable.Tower>(Managers.Data.Datas[Enums.Sheet.Tower]);
         List<DefaultTable.MyUnit> MyUnits = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
-        
-        for(int i = 0; i < Towers.Count; i++)
+
+        for (int i = 0; i < Towers.Count; i++)
         {
             Managers.Resource.LoadAssetAsync<GameObject>($"{Towers[i].Name}Tower", original =>
             {
@@ -218,6 +240,9 @@ public class UI_Dictionary : UI_Popup
 
     }
 
+    /// <summary>
+    /// 메인씬 버튼에서 꺼주는 메서드
+    /// </summary>
     public void OnClickClose(PointerEventData data)
     {
         Managers.UI.GetScene<UI_Main>().OnClickDictionary(data);

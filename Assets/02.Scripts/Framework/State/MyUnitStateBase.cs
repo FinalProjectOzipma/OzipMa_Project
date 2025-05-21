@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.GraphicsBuffer;
 
 
 public class MyUnitStateBase : EntityStateBase
@@ -21,7 +19,7 @@ public class MyUnitStateBase : EntityStateBase
     {
         this.controller = controller;
         this.status = controller.Status as MyUnitStatus;
-        
+
         this.transform = controller.transform;
         this.Anim = controller.Anim;
         this.animHashKey = animHashKey;
