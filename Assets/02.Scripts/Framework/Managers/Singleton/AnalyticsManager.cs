@@ -4,6 +4,7 @@ using Unity.Services.Analytics;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DefaultTable;
+using System;
 
 public class AnalyticsManager
 {
@@ -125,12 +126,11 @@ public class AnalyticsManager
         AnalyticsService.Instance.RecordEvent(WaveFailed); //custom event
     }
 
-    public void AnalyticsGachaUsed(string gacha_type, string gacha_id, string currency_used, int currency_amount, int pull_count,
+    public void AnalyticsGachaUsed(string gacha_type, string currency_used, int currency_amount, int pull_count,
         string result_unit_ids, string rarity_distribution)
     {
         var GachaUsed = new CustomEvent("gacha_used"); //event
         GachaUsed["gacha_type"] = gacha_type; //parameter
-        GachaUsed["gacha_id"] = gacha_id;
         GachaUsed["currency_used"] = currency_used;
         GachaUsed["currency_amount"] = currency_amount;
         GachaUsed["pull_count"] = pull_count;
@@ -140,4 +140,41 @@ public class AnalyticsManager
         AnalyticsService.Instance.RecordEvent(GachaUsed); //custom event
     }
 
+    public void AnalyticsResearchStarted(string research_id, string research_name, int research_level, int wave_number, float research_duration)
+    {
+        var ResearchStarted = new CustomEvent("research_started"); //event
+        ResearchStarted["research_id"] = research_id; //parameter
+        ResearchStarted["research_name"] = research_name;
+        ResearchStarted["research_level"] = research_level;
+        ResearchStarted["wave_number"] = wave_number;
+        ResearchStarted["research_duration"] = research_duration;
+
+        AnalyticsService.Instance.RecordEvent(ResearchStarted); //custom event
+    }
+
+    public void AnalyticsResearchCompleted(string research_id, int research_level, float completion_time, 
+        string resource_type, string resource_amount)
+    {
+        var ResearchCompleted = new CustomEvent("research_completed"); //event
+        ResearchCompleted["research_id"] = research_id; //parameter
+        ResearchCompleted["research_level"] = research_level;
+        ResearchCompleted["completion_time"] = completion_time;
+        ResearchCompleted["resource_type"] = resource_type;
+        ResearchCompleted["Resource_amount"] = resource_amount;
+
+        AnalyticsService.Instance.RecordEvent(ResearchCompleted); //custom event
+    }
+
+    public void AnalyticsDailyLogin(string player_id, string last_login_time, string current_login_time,
+        float hours_since_last, int consecutive_days)
+    {
+        var DailyLogin = new CustomEvent("daily_login"); //event
+        DailyLogin["player_id"] = player_id; //parameter
+        DailyLogin["last_login_time"] = last_login_time;
+        DailyLogin["current_login_time"] = current_login_time;
+        DailyLogin["hours_since_last"] = hours_since_last;
+        DailyLogin["consecutive_days"] = consecutive_days;
+
+        AnalyticsService.Instance.RecordEvent(DailyLogin); //custom event
+    }
 }

@@ -7,6 +7,9 @@ using UnityEngine;
 /// </summary>
 public class PlayerManager
 {
+    public DateTime Last_LoginTime { get; set; }
+    public int consecutive_days = 0;
+
     public Core MainCoreData { get; set; }
     public long Gold { get; set; }
     public long Gem { get; set; }

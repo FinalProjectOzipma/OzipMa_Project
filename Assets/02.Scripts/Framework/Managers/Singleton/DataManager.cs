@@ -15,7 +15,7 @@ public class DataManager
     public event Action<string> OnUpdateUserID;
 
     private DatabaseReference _databaseReference;
-    private string userID = "user006";
+    private string userID = "user005";
     
     public void Initialize()
     {

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -81,6 +83,36 @@ public class GachaUI : UI_Popup
             res.ShowResult(result);
             isGachaInProgress = false;
         });
+
+        // 애널리틱스
+        #region gacha_used
+        StringBuilder getUnitBuilder = new StringBuilder();
+        StringBuilder gradeTotalBuilder = new StringBuilder();
+        Dictionary<string, int> unitTotal = new();
+        int[] gradeTotal = new int[(int)RankType.Count];
+
+        // 유닛의 정보 string 변화 작업
+        foreach (var unit in result)
+        {
+            MyUnit myUnit = unit.GetClassAddress<MyUnit>();
+            ++gradeTotal[(int)myUnit.RankType];
+            
+            if(!unitTotal.TryAdd(myUnit.Name, 1))
+                ++unitTotal[myUnit.Name];
+        }
+
+        foreach (var pair in unitTotal)
+            getUnitBuilder.Append($"{pair.Key} : {pair.Value}/ ");
+        
+
+        // 등급 토탈 정보 string 변화 작업
+        for(int i = 0; i < (int)RankType.Count; i++)
+            gradeTotalBuilder.Append($"{Enum.GetName(typeof(RankType), i)} : {gradeTotal[i]}");
+        
+
+        Managers.Analytics.AnalyticsGachaUsed("MyUnit", "Gem", callResults.Count * 300, callResults.Count, getUnitBuilder.ToString(),
+            gradeTotalBuilder.ToString());
+        #endregion
     }
 
     private void TowerOnClick(int num)
@@ -122,5 +154,35 @@ public class GachaUI : UI_Popup
             res.ShowResult(result);
             isGachaInProgress = false;
         });
+
+
+        // 애널리틱스
+        #region gacha_used
+        StringBuilder getTowerBuilder = new StringBuilder();
+        StringBuilder gradeTotalBuilder = new StringBuilder();
+        Dictionary<string, int> towerTotal = new();
+        int[] gradeTotal = new int[(int)RankType.Count];
+
+        // 유닛의 정보 string 변화 작업
+        foreach (var towers in result)
+        {
+            Tower tower = towers.GetClassAddress<Tower>();
+            ++gradeTotal[(int)tower.RankType];
+
+            if (!towerTotal.TryAdd(tower.Name, 1))
+                ++towerTotal[tower.Name];
+        }
+
+        foreach (var pair in towerTotal)
+            getTowerBuilder.Append($"{pair.Key} : {pair.Value}/ ");
+
+        // 등급 토탈 정보 string 변화 작업
+        for (int i = 0; i < (int)RankType.Count; i++)
+            gradeTotalBuilder.Append($"{Enum.GetName(typeof(RankType), i)} : {gradeTotal[i]}");
+
+
+        Managers.Analytics.AnalyticsGachaUsed("Tower", "Gem", callResults.Count * 300, callResults.Count, getTowerBuilder.ToString(),
+            gradeTotalBuilder.ToString());
+        #endregion
     }
 }
