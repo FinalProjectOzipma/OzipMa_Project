@@ -89,7 +89,7 @@ public class Cursor : UI_Base
         }
     }
 
-    private void OnDisable()
+    public void OffCursor()
     {
         seq?.Kill();
         Managers.Resource.Destroy(gameObject);
