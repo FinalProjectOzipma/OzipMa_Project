@@ -14,8 +14,6 @@ public class ResearchTutorial : TutorialBase
     }
     public override bool CheckCondition()
     {
-        Util.Log($"연구 튜토리얼 번호 {dialogueNum}");
-
         switch (dialogueNum)
         {
             case 0:
