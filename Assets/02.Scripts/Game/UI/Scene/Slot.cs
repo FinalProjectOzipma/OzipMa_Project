@@ -244,10 +244,15 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         Util.Log($"OnEndDrag : {towerName}를 배치 성공함");
         Managers.Resource.Instantiate(towerName, go => 
         {
-            go.transform.position = buildingSystem.UpdatePosition(inputPos);
+            go.transform.position = buildingSystem.UpdatePosition(inputPos, out var vec3Int);
             buildingSystem.AddPlacedMapScreenPos(inputPos, itemKey);
             buildingSystem.DragController.IsSlotDragging = false;
-            go.GetComponent<TowerControlBase>().TakeRoot(itemKey, towerName, (Tower)Gettable);
+            TowerControlBase ctrl = go.GetComponent<TowerControlBase>();
+            ctrl.TakeRoot(itemKey, towerName, (Tower)Gettable);
+
+            // 타워 설치 시 애널리틱스 tower_installed
+            Managers.Analytics.AnalyticsTowerInstalled(itemKey.ToString(), Enum.GetName(typeof(AtkType), data.AttackType), ctrl.TowerStatus.Level.Value,
+                vec3Int.x, vec3Int.y, Managers.Player.CurrentWave);
         });
     }
     #endregion

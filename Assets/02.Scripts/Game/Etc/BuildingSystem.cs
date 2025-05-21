@@ -69,6 +69,8 @@ public class BuildingSystem : MonoBehaviour
                     AddPlacedMapCell(point, primaryKey, false); // 이때 배치 가능 구역 표시가 켜짐
                     HideBuildHighlight(); // 시작할 때니까 배치 가능 구역 끄기
                     go.GetComponent<TowerControlBase>().TakeRoot(primaryKey, towerName, towerInfo);
+
+                    Managers.Wave.CurTowerDict.TryAdd(point, towerInfo); // 애널리틱스 사용하기 위해서 추가한것
                 });
             }
         }
@@ -130,6 +132,13 @@ public class BuildingSystem : MonoBehaviour
     {
         Vector3Int cell = map.WorldToCell(cam.ScreenToWorldPoint(eventPosition));
         return map.GetCellCenterWorld(cell);
+    }
+
+    // 오버로드
+    public Vector3 UpdatePosition(Vector2 eventPosition, out Vector3Int result)
+    {
+        result = map.WorldToCell(cam.ScreenToWorldPoint(eventPosition));
+        return map.GetCellCenterWorld(result);
     }
 
     /// <summary>
@@ -210,6 +219,7 @@ public class BuildingSystem : MonoBehaviour
         Vector3Int gridPoint = map.WorldToCell(worldPos);
         int id = GridObjectMap[gridPoint];
         GridObjectMap.Remove(gridPoint);
+        Managers.Wave.CurTowerDict.Remove(gridPoint); // 애널리틱스 사용하기 위해서 추가해준것
 
         if (nofity)
             OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);

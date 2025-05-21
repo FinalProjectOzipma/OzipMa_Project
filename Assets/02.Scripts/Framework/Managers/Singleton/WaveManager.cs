@@ -2,6 +2,7 @@ using GoogleSheet;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.UI.CanvasScaler;
@@ -22,6 +23,7 @@ public class WaveManager
 
     public List<EnemyController> CurEnemyList;
     public List<MyUnitController> CurMyUnitList;
+    public Dictionary<Vector3Int, Tower> CurTowerDict;
 
     public event Action OnStartBossMap;
     public event Action OnEndBossMap;
@@ -39,6 +41,8 @@ public class WaveManager
 
     public Queue<FieldReward> FieldRewards { get; set; } = new();
 
+    public float PlayTime { get; set; }
+
     public void Initialize()
     {
         playerManager = Managers.Player;
@@ -48,6 +52,7 @@ public class WaveManager
         enemyList = Util.TableConverter<Table.Enemy>(Managers.Data.Datas[Enums.Sheet.Enemy]);
         CurEnemyList = new();
         CurMyUnitList = new();
+        CurTowerDict = new();
 
         CurrentState = Enums.WaveState.None;
         Timer = 0;
@@ -103,6 +108,10 @@ public class WaveManager
                     CurrentState = Enums.WaveState.Reward;
                     Managers.Effect.InvokeEffect<RewardEffect>(isEnemyAllDead);
                 }
+                else
+                {
+                    PlayTime += Time.deltaTime;
+                }
                 
             }
 
@@ -127,6 +136,7 @@ public class WaveManager
                 // 플레이어 측에서 이겼으면 웨이브 증가
                 if (isEnemyAllDead)
                 {
+                    int clearWaveNumber = playerManager.CurrentWave;
                     var stages = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
                     int EndNumber = stages[playerManager.CurrentKey].StageEnd;
 
@@ -141,10 +151,26 @@ public class WaveManager
 
                     Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold, CurrentGem);
                     playerManager.OnStageWave();
+
+                    // 애널리틱스
+                    #region wave_completed
+                    string rewardType = (clearWaveNumber == 9) ? "Gem" : "Gold";
+                    int rewardAmount = (clearWaveNumber == 9) ? (int)CurrentGem : (int)CurrentGold;
+                    
+
+                    Managers.Analytics.AnalyticsWaveCompleted(clearWaveNumber, CurMyUnitList.Count, rewardType, rewardAmount, PlayTime,
+                        CurTowerDict.Values.ToArray(), CurMyUnitList.ToArray());
+                    #endregion
                 }
                 else
                 {
                     Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(false);
+
+                    // 애널리틱스
+                    #region wave_failed
+                    Managers.Analytics.AnalyticsWaveFailed(playerManager.CurrentWave, CurEnemyList.Count, PlayTime, CurTowerDict.Count,
+                        CurTowerDict.Values.ToArray(), CurMyUnitList.ToArray());
+                    #endregion
                 }
 
                 Timer = hubTime;
@@ -152,6 +178,7 @@ public class WaveManager
 
                 CurrentGold = 0;
                 CurrentGem = 0;
+                PlayTime = 0f;
                 CurrentState = Enums.WaveState.Start;
             }
         }
@@ -165,6 +192,12 @@ public class WaveManager
             MainCore.Init(Managers.Player.MainCoreData.Health.GetValue());
             int needAmount = waveList[idx].EnemyAmount;
             Managers.StartCoroutine(Spawn(needAmount));
+
+            // 애널리틱스
+            #region wave_started
+            Managers.Analytics.AnalyticsWaveStarted(playerManager.CurrentWave, needAmount,
+                CurTowerDict.Count, MainCore.core.Health.Value, (int)playerManager.Gold);
+            #endregion
         });
     }
 
