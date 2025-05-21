@@ -54,35 +54,32 @@ exports.gachaDrawWithGuarantees = functions.https.onCall((data, context) => {
     let hasLegend = false;
 
     // 일반 뽑기
-    for (let i = 0; i < drawCount; i++) {
+    for (let i = 0; i < drawCount - 1; i++) {
         const result = drawOne();
         if (result.grade === 2) hasEpic = true;
         if (result.grade === 3) hasLegend = true;
         results.push(result);
     }
 
+    let finalDraw;
     // Epic 보장 (10회 이상이고 에픽 없음)
     if (drawCount >= guaranteeEpicAt && !hasEpic) {
         const maxId = gradeRanges[2];
         const itemId = Math.floor(Math.random() * maxId);
-        results.push({
-            grade: 2,
-            id: itemId,
-            guaranteed: true
-        });
+        finalDraw = { grade: 2, id: itemId };
     }
-
     // Legend 보장 (100회 이상이고 레전드 없음)
-    if (drawCount >= guaranteeLegendAt && !hasLegend) {
+    else if (drawCount >= guaranteeLegendAt && !hasLegend) {
         const maxId = gradeRanges[3];
         const itemId = Math.floor(Math.random() * maxId);
-        results.push({
-            grade: 3,
-            id: itemId,
-            guaranteed: true
-        });
+        finalDraw = { grade: 3, id: itemId };
+    }
+    else
+    {
+        finalDraw = drawOne(); // 일반 뽑기
     }
 
+    results.push(finalDraw);
     return { results };
 });
 
