@@ -11,6 +11,13 @@ public class Dialogue : UI_Base
     public float timegap;
     //대화 종료 bool값
     public bool IsEnd;
+    public bool IsEmpty
+    {
+        get
+        {
+            return txt.Count == 0;
+        }
+    }
 
     //타이핑 애니메이션 코루틴
     private Coroutine Play;

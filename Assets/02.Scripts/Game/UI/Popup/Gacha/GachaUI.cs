@@ -15,10 +15,12 @@ public class GachaUI : UI_Popup
 
     [SerializeField] public RectTransform RectTransform;
 
+    public bool isTutorialGachaSuccess = false;
+
     private GachaSystem gacha;
     private List<IGettable> result;
 
-    private bool isGachaInProgress = false; // 가챠 중복 방지
+    private bool IsGachaInProgress = false; // 가챠 중복 방지
 
     private void Start()
     {
@@ -44,14 +46,14 @@ public class GachaUI : UI_Popup
     }
     private void UnitOnClick(int num)
     {
-        if (isGachaInProgress) return;
+        if (IsGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
 
-        isGachaInProgress = true;
+        IsGachaInProgress = true;
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetUnitGachaResult);
     }
@@ -65,6 +67,7 @@ public class GachaUI : UI_Popup
         //돈 차감(연챠)
         if (callResults.Count > 1)
         {
+            isTutorialGachaSuccess = true;
             Managers.Player.AddGem(-(callResults.Count) * 9 * 30); // 0.9f * 300 = 9 * 30
         }
         //돈 차감(단챠)
@@ -88,20 +91,20 @@ public class GachaUI : UI_Popup
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
-            isGachaInProgress = false;
+            IsGachaInProgress = false;
         });
     }
 
     private void TowerOnClick(int num)
     {
-        if (isGachaInProgress) return;
+        if (IsGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
 
-        isGachaInProgress = true;
+        IsGachaInProgress = true;
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetTowerGachaResult);
     }
@@ -137,7 +140,7 @@ public class GachaUI : UI_Popup
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
-            isGachaInProgress = false;
+            IsGachaInProgress = false;
         });
     }
 }
