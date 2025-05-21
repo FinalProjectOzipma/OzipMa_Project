@@ -101,7 +101,7 @@ public enum ConditionType
     Reach,
     StageClear,
     WaveClear,
-    MonsterInchen,
+    MyUnitInchen,
     TowerInchen,
     Count
 }

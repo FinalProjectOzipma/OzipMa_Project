@@ -32,6 +32,9 @@ public class QuestManager
                 case QuestType.Achivement:
                     SetQuestType(QuestType.Achivement, questData[i]);
                     break;
+                case QuestType.Repeat:
+                    SetQuestType(QuestType.Repeat, questData[i]);
+                    break;
             }
         }
     }

@@ -9,15 +9,17 @@ public class QuestEvaluatorManager
     public QuestEvaluatorManager()
     {
         _evaluators = new()
-        {
-            { ConditionType.EnemyKill, new EnemyKillEvaluator() },
+        { 
             { ConditionType.Connection, new ConnectionEvaluator() },
-            { ConditionType.Reach, new ReachEvaluator()},
+            { ConditionType.EnemyKill, new EnemyKillEvaluator() },
+            { ConditionType.BossKill, new BossKillEvaluator()},
             { ConditionType.MyUnitCollect, new MyUnitCollecEvaluator() },
             { ConditionType.TowerCollect, new TowerCollectEvaluator()},
-            { ConditionType.BossKill, new BossKillEvaluator()},
+            { ConditionType.Reach, new ReachEvaluator()},
             { ConditionType.StageClear, new StageClearEvaluator()},
-            { ConditionType.WaveClear, new WaveClearEvaluator()}
+            { ConditionType.WaveClear, new WaveClearEvaluator()},
+            { ConditionType.MyUnitInchen, new MyUnitInchenEvaluator()},
+            { ConditionType.TowerInchen, new TowerInchenEvaluator()}
         };
     }
 

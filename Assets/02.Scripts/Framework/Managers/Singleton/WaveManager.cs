@@ -136,7 +136,6 @@ public class WaveManager
 
                     if (++playerManager.CurrentWave % 10 == 0)
                     {
-                        Util.Log("여기 안 들어오나?");
                         Managers.Quest.UpdateQuestProgress(ConditionType.StageClear, -1, 1);
                         Managers.Quest.UpdateQuestProgress(ConditionType.BossKill, -1, 1);
                         if (++playerManager.CurrentStage > EndNumber)

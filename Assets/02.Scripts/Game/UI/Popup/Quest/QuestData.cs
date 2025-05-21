@@ -21,7 +21,7 @@ public class QuestData
 
     public int RewardGem;
 
-    public bool IsRepeat;
+    public int IsRepeat;
 
     public QuestData(int id, QuestType type, string name, string description, ConditionType conditionType, int targetID, int goal, int rewardGem)
     {
@@ -33,9 +33,9 @@ public class QuestData
         TargetID = targetID;
         Goal = goal;
         RewardGem = rewardGem;
-
         State = QuestState.Doing;
         Progress = 0;
+        IsRepeat = 0;
     }
 }
 
