@@ -62,7 +62,7 @@ public class EditTowerTutorial : TutorialBase
                 break;
             }
         }
-        controller.Cursor.Init(startPos, endPos, CursorType.Drag);
+        controller.Cursor.Init(startPos, endPos, CursorType.ClickDrag);
 
         // 드래그 체크용 bool 초기화
         BuildingSystem.Instance.DragController.TutorialDragCheck = false;

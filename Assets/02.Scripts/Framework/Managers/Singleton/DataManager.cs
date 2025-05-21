@@ -15,9 +15,9 @@ public class DataManager
     public event Action<string> OnUpdateUserID;
 
     private DatabaseReference _databaseReference;
-    private string userID = "user002";
+    private string userID = "user1004";
 
-    public void Initialize()
+    public  void Initialize()
     {
         // 필요한 데이터들을 Load 및 Datas에 캐싱해두는 작업
         LoadData<DefaultTable.Stage>();
@@ -31,7 +31,6 @@ public class DataManager
         LoadData<DefaultTable.LevelUpValue>();
         LoadData<DefaultTable.Research>();
         LoadData<DefaultTable.LoadingTip>();
-        LoadData<DefaultTable.AttackDefault>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
@@ -111,11 +110,11 @@ public class DataManager
             await _databaseReference
                 .Child("users").Child(userID).Child(parent)
                 .SetRawJsonValueAsync(json);
-            Util.Log($"Firebase 저장 성공: {parent}");
+            Debug.Log($"Firebase 저장 성공: {parent}");
         }
         catch (Exception ex)
         {
-            Util.LogError($"Firebase 저장 실패: {ex.Message}");
+            Debug.LogError($"Firebase 저장 실패: {ex.Message}");
         }
     }
 
