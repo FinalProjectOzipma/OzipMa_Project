@@ -19,12 +19,13 @@ public class PlaceTowerTutorial : TutorialBase
 
     public override void OnStart()
     {
-        Vector3 startPos = new Vector3(-266, -100, 0); // 인벤토리 첫번째 슬롯 위치
-        Vector3 endPos = BuildingSystem.Instance.CellToWorldPos(BuildingSystem.Instance.GetCurMapHandler().BuildHighlightList[0]);
+        Vector3 startPos = new Vector3(-260, -110, 0); // 인벤토리 첫번째 슬롯 위치
+        Vector3 endPos = new Vector3(-40, 270, 0); ;
         controller.Cursor.Init(startPos, endPos);
 
         controller.Dialogue.EnQueueText("주인님 반갑습니다. \r\n시작하기 앞서, 던전 관리를 간단히 알려드리겠습니다.");
         controller.Dialogue.EnQueueText("먼저 타워를 설치하는 방법을 알려드릴게요~");
+        controller.Dialogue.EnQueueText("인벤토리에서 타워를 드래그하여 배치해보세요.");
         controller.Dialogue.EnQueueText("");
 
         // 이 아래는 다른 튜토리어들에 붙일거야 
@@ -32,7 +33,6 @@ public class PlaceTowerTutorial : TutorialBase
         //controller.Dialogue.EnQueueText("");
         //controller.Dialogue.EnQueueText("골드나 잼을 통해 시간을 단축할 수 있고 그냥 기다리셔도 연구가 완료됩니다.");
 
-        controller.SetCursorActive(true);
         controller.SetDialogueActive(true);
     }
     public override void OnEnd()

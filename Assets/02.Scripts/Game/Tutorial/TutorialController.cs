@@ -19,11 +19,12 @@ public class TutorialController : UI_Scene
         Init();
     }
 
-    private void Init()
+    public override void Init()
     {
+        base.Init();
         // 튜토리얼을 순서대로 넣기 
         queue.Enqueue(new PlaceTowerTutorial(this));
-        //queue.Enqueue(new PlaceTowerTutorial());
+        queue.Enqueue(new EditTowerTutorial(this));
 
 
         // 첫번째 튜토리얼부터 시작
@@ -32,9 +33,13 @@ public class TutorialController : UI_Scene
 
     private void Update()
     {
-        // TODO :: 대화끝나면 커서 보여주기 시작
+        // 대화끝나면 커서 보여주기
+        if(Dialogue.IsEnd == true)
+        {
+            SetCursorActive(true);
+        }
 
-        // TODO :: 튜토리얼 조건 만족시 넘어가
+        // 튜토리얼 조건 만족시 다음 튜토리얼로 넘김
         if(currentTutorial.CheckCondition() == true)
         {
             NextTutorial();
@@ -48,10 +53,10 @@ public class TutorialController : UI_Scene
             currentTutorial = queue.Dequeue();
             currentTutorial.OnStart();
         }
-        else
+        else // 모든 튜토리얼 완료했으면
         {
             Managers.Wave.GameStart();
-            Managers.Resource.Destroy(this.gameObject, true); // 모든 튜토리얼 털면 제거
+            Managers.Resource.Destroy(this.gameObject, true); // 제거
         }
     }
 

@@ -9,7 +9,7 @@ public class DragController : MonoBehaviour
     public bool IsSlotDragging = false; // Slot쪽에서 드래그중인가?
     public float HoldTimeThreshold = 0.3f; // 홀드 지연 시간
 
-    public bool TutorialIsDrag = false;
+    public bool TutorialDragCheck = false;
 
     private BuildingSystem buildingSystem;
     private SpriteRenderer spriteRenderer;
@@ -163,7 +163,7 @@ public class DragController : MonoBehaviour
             int key = buildingSystem.RemovePlacedMapScreenPos(eventPosition, false);
             buildingSystem.AddPlacedMapScreenPos(inputPos, key);
             dragObject = null;
-            TutorialIsDrag = true;
+            if(!TutorialDragCheck) TutorialDragCheck = true;
             return;
         }
 
