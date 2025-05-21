@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class DeleteTowerTutorial : TutorialBase
 {
+    private RectTransform rect;
+
     public DeleteTowerTutorial(TutorialController _controller) : base(_controller)
     {
     }
@@ -21,12 +23,27 @@ public class DeleteTowerTutorial : TutorialBase
 
     public override void OnStart()
     {
+        rect = controller.Cursor.GetComponent<RectTransform>();
+
         // 타워 삭제 체크용 bool 초기화
         BuildingSystem.Instance.TutorialDeleteCheck = false;
 
-        // 설치된 타워 위치 아무거나
-        Vector3 startPos = BuildingSystem.Instance.GridObjectMap.Keys.First();
-        Vector3 endPos = Vector3.zero;
+        // 설치된 타워 위치 아무거나 start위치로 사용
+        Vector3Int startPoint = BuildingSystem.Instance.GridObjectMap.Keys.First();
+        Vector3 startPos = BuildingSystem.Instance.CellToWorldPos(startPoint);
+        startPos = Camera.main.WorldToScreenPoint(startPos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+                    (
+                        rect.parent as RectTransform,
+                        startPos,
+                        null,
+                        out Vector2 localPos
+                    );
+        startPos = localPos;
+
+        Vector3 endPos = startPos;
+        endPos.x += 30f;
+        endPos.y -= 100f;
         controller.Cursor.Init(startPos, endPos, CursorType.ClickDragClick);
 
         

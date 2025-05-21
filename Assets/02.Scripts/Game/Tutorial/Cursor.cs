@@ -18,11 +18,13 @@ public class Cursor : UI_Base
     private Sequence seq;
 
     /// <summary>
-    /// 시작위치, 끝위치, 드래그타입
+    /// 클릭만 만들때: 시작위치 끝위치(시작위치랑 같은값!) 
+    /// 드래그만 만들때: 시작위치, 끝위치
+    /// 클릭하고 드래그까지 하는거 만들때: 시작위치 끝위치 넣고 뒤에 true
     /// </summary>
     /// <param name="startPos"></param>
     /// <param name="endPos"></param>
-    /// <param name="type"></param>
+    /// <param name="both"></param>
     public void Init(Vector3 startPos, Vector3 endPos, CursorType type)
     {
         this.startPos = startPos;
@@ -89,6 +91,7 @@ public class Cursor : UI_Base
 
     public void OffCursor()
     {
-        seq.Kill();
+        seq?.Kill();
+        //Managers.Resource.Destroy(gameObject);
     }
 }

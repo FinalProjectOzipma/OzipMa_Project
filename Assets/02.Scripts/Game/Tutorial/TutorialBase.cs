@@ -16,9 +16,8 @@ public abstract class TutorialBase
     public abstract void OnStart();
     public virtual void OnEnd()
     {
+        controller.Cursor.OffCursor();
         controller.SetCursorActive(false);
         controller.SetDialogueActive(false);
-
-        controller.NextTutorial();
     }
 }
