@@ -77,6 +77,7 @@ public class Dialogue : UI_Base
         if (txt.Peek().Equals(""))
         {
             IsEnd = true;
+            txt.Dequeue();
             return;
         }
 
