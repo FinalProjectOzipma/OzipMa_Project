@@ -44,6 +44,7 @@ public class GachaUI : UI_Popup
     }
     private void UnitOnClick(int num)
     {
+        if (isGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
@@ -84,6 +85,7 @@ public class GachaUI : UI_Popup
 
     private void TowerOnClick(int num)
     {
+        if (isGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
