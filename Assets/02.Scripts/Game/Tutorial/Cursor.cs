@@ -92,6 +92,6 @@ public class Cursor : UI_Base
     public void OffCursor()
     {
         seq?.Kill();
-        Managers.Resource.Destroy(gameObject);
+        //Managers.Resource.Destroy(gameObject);
     }
 }

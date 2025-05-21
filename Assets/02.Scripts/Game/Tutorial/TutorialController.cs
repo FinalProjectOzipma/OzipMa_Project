@@ -55,6 +55,7 @@ public class TutorialController : UI_Scene
     {
         if (queue.Count > 0)
         {
+            currentTutorial?.OnEnd();
             currentTutorial = queue.Dequeue();
             currentTutorial.OnStart();
             SetCursorActive(false);
@@ -69,6 +70,7 @@ public class TutorialController : UI_Scene
 
     public void SetCursorActive(bool active)
     {
+        //if(!active) Cursor.OffCursor();
         Cursor.gameObject.SetActive(active);
     }
 
