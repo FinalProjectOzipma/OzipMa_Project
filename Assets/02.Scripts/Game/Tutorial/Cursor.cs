@@ -39,14 +39,14 @@ public class Cursor : UI_Base
             //드래그 타입
             case CursorType.Drag:
                 seq = seq.Append(transform
-                    .DOLocalMove(endPos, 5f)
+                    .DOLocalMove(endPos, 3f)
                     .SetEase(Ease.InOutQuart));
                 break;
             
             //클릭타입
             case CursorType.Click:
                 seq.Append(transform
-                    .DORotate(new Vector3(0f, 0f, 45f), 5f)
+                    .DORotate(new Vector3(0f, 0f, 45f), 3f)
                     .SetEase(Ease.InOutQuart));
                 break;
 
@@ -59,16 +59,16 @@ public class Cursor : UI_Base
                 );
                 //드래그 트윈 추가
                 seq.Append(transform
-                    .DOLocalMove(endPos, 5f)
+                    .DOLocalMove(endPos, 3f)
                     .SetEase(Ease.OutCubic)
                 );
                 break;
 
             //클릭하고 드래그한 다음 클릭하는 거 
             case CursorType.ClickDragClick:
-                //0.5초 기다렸다가 회전 트윈 추가
+                //회전 트윈 추가
                 seq.Append(transform
-                    .DORotate(new Vector3(0f, 0f, 45f), 2f)
+                    .DORotate(new Vector3(0f, 0f, 45f), 3f)
                     .SetEase(Ease.InOutQuart)
                 );
 
@@ -80,7 +80,7 @@ public class Cursor : UI_Base
 
                 //회전 트윈 추가
                 seq.Append(transform
-                    .DORotate(new Vector3(0f, 0f, 90f), 2f)
+                    .DORotate(new Vector3(0f, 0f, 70f), 2f)
                     .SetEase(Ease.InOutQuart)
                 );
                 break;

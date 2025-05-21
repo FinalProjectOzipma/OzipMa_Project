@@ -99,5 +99,6 @@ public class Dialogue : UI_Base
             TutorialTxt.maxVisibleCharacters = i + 1;
             yield return time;
         }
+        Play = null;
     }
 }
