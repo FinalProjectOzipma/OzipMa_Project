@@ -14,6 +14,12 @@ public class Cursor : UI_Base
 {
     private Sequence seq;
     [SerializeField] private RectTransform CursorObj;
+
+    private void OnEnable()
+    {
+        seq.Restart();
+    }
+
     /// <summary>
     /// 클릭만 만들때: 시작위치 끝위치(시작위치랑 같은값!) 
     /// 드래그만 만들때: 시작위치, 끝위치

@@ -37,7 +37,7 @@ public class GachaTutorial : TutorialBase
                 break;
             case 1:
                 // 가챠 여부 확인
-                if (gachaUI.isTutorialGachaSuccess == true)
+                if (gachaUI.IsGachaInProgress == true)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();

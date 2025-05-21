@@ -15,12 +15,10 @@ public class GachaUI : UI_Popup
 
     [SerializeField] public RectTransform RectTransform;
 
-    public bool isTutorialGachaSuccess = false;
+    public bool IsGachaInProgress = false; // 가챠 중복 방지
 
     private GachaSystem gacha;
     private List<IGettable> result;
-
-    private bool IsGachaInProgress = false; // 가챠 중복 방지
 
     private void Start()
     {
@@ -67,7 +65,6 @@ public class GachaUI : UI_Popup
         //돈 차감(연챠)
         if (callResults.Count > 1)
         {
-            isTutorialGachaSuccess = true;
             Managers.Player.AddGem(-(callResults.Count) * 9 * 30); // 0.9f * 300 = 9 * 30
         }
         //돈 차감(단챠)

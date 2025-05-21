@@ -32,7 +32,7 @@ public class ResearchTutorial : TutorialBase
                 break;
             case 1:
                 // 연구버튼 눌렀는지 확인
-                if(researchUI.AttackUpgrade.isResearching)
+                if(researchUI.AttackUpgrade.isResearching || researchUI.DefenceUpgrade.isResearching || researchUI.CoreUpgrade.isResearching)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
@@ -46,7 +46,7 @@ public class ResearchTutorial : TutorialBase
                 break;
             case 2:
                 // 시간 단축 눌렀는지 확인
-                if(researchUI.AttackUpgrade.isResearchGoldBtn)
+                if(researchUI.AttackUpgrade.isResearchGoldBtn || researchUI.DefenceUpgrade.isResearchGoldBtn || researchUI.CoreUpgrade.isResearchGoldBtn)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
@@ -59,7 +59,7 @@ public class ResearchTutorial : TutorialBase
                 break;
             case 3:
                 // 완료 버튼 눌렀는지 확인
-                if (researchUI.AttackUpgrade.isResearchComplete)
+                if (researchUI.AttackUpgrade.isResearchComplete || researchUI.DefenceUpgrade.isResearchComplete || researchUI.CoreUpgrade.isResearchComplete)
                 {
                     dialogueNum++;
                 }
@@ -83,7 +83,7 @@ public class ResearchTutorial : TutorialBase
         controller.Dialogue.EnQueueText("이번에 소개해드릴 기능은 연구입니다.\n먼저 연구 탭을 클릭해보시겠어요?");
         controller.Dialogue.EnQueueText("");
         controller.Dialogue.EnQueueText("좋아요!!\n연구를 통해 우리가 더 강해질 수 있어요.");
-        controller.Dialogue.EnQueueText("공격력 연구 버튼을 클릭해보세요.");
+        controller.Dialogue.EnQueueText("연구 버튼을 클릭해보세요.");
         controller.Dialogue.EnQueueText("");
         controller.Dialogue.EnQueueText("좋아요!!\n그런데 연구가 시간이 좀 걸리네요?");
         controller.Dialogue.EnQueueText("이럴 땐 재화를 사용하여 연구시간을 단축시킬 수 있어요!");
