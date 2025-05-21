@@ -36,17 +36,18 @@ public class TutorialController : UI_Scene
 
     private void Update()
     {
-        // 튜토리얼 조건 만족시 다음 튜토리얼로 넘김
-        if(currentTutorial.CheckCondition() == true)
-        {
-            NextTutorial();
-        }
-
         // 대화끝나면 커서 보여주기
-        if(Dialogue.IsEnd == true)
+        if (Dialogue.IsEnd == true)
         {
             SetCursorActive(true);
             SetDialogueActive(false);
+        }
+
+        // 튜토리얼 조건 만족시 다음 튜토리얼로 넘김
+        if (currentTutorial.CheckCondition() == true)
+        {
+            Util.Log("튜토 하나 끗");
+            NextTutorial();
         }
     }
 
@@ -56,6 +57,7 @@ public class TutorialController : UI_Scene
         {
             currentTutorial = queue.Dequeue();
             currentTutorial.OnStart();
+            SetCursorActive(false);
             SetDialogueActive(true);
         }
         else // 모든 튜토리얼 완료했으면

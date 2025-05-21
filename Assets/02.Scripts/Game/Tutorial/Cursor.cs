@@ -29,7 +29,7 @@ public class Cursor : UI_Base
     {
         this.startPos = startPos;
         this.endPos = endPos;
-        gameObject.transform.position = startPos;
+        gameObject.transform.localPosition = startPos;
 
         //무한반복 및 초기화 할당 및 세팅
         seq = DOTween.Sequence()
@@ -41,7 +41,7 @@ public class Cursor : UI_Base
             //드래그 타입
             case CursorType.Drag:
                 seq = seq.Append(transform
-                    .DOMove(endPos, 5f)
+                    .DOLocalMove(endPos, 5f)
                     .SetEase(Ease.InOutQuart));
                 break;
             
@@ -61,7 +61,7 @@ public class Cursor : UI_Base
                 );
                 //드래그 트윈 추가
                 seq.Append(transform
-                    .DOMove(endPos, 5f)
+                    .DOLocalMove(endPos, 5f)
                     .SetEase(Ease.OutCubic)
                 );
                 break;
@@ -76,7 +76,7 @@ public class Cursor : UI_Base
 
                 //드래그 트윈 추가
                 seq.Append(transform
-                    .DOMove(endPos, 5f)
+                    .DOLocalMove(endPos, 5f)
                     .SetEase(Ease.OutCubic)
                 );
 

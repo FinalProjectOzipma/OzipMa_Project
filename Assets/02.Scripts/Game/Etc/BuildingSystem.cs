@@ -9,6 +9,8 @@ public class BuildingSystem : MonoBehaviour
     public DragController DragController { get; private set; }
     public Dictionary<Vector3Int, int> GridObjectMap { get; private set; } = new();
 
+    public bool TutorialDeleteCheck = false;
+
     public int CurrentTowerCount { get => GridObjectMap.Count; }
     public int MaxTowerCount = 2;
 
@@ -222,6 +224,9 @@ public class BuildingSystem : MonoBehaviour
 
         if (nofity)
             OnTowerCountChanged?.Invoke($"타워 배치 {GridObjectMap.Count} / {MaxTowerCount}", true);
+
+        if (!TutorialDeleteCheck)
+            TutorialDeleteCheck = true;
 
         return id;
     }
