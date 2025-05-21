@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 7816761480045301714}
   - component: {fileID: 4302972595484184386}
   m_Layer: 5
-  m_Name: Cursor
+  m_Name: CursorObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 234ddfe3c48041449ad106cf68c6fe5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CursorObj: {fileID: 5411598028866043254}
 --- !u!1 &4220172600078506524
 GameObject:
   m_ObjectHideFlags: 0

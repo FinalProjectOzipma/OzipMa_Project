@@ -13,7 +13,7 @@ public enum CursorType
 public class Cursor : UI_Base
 {
     private Sequence seq;
-
+    [SerializeField] private RectTransform CursorObj;
     /// <summary>
     /// 클릭만 만들때: 시작위치 끝위치(시작위치랑 같은값!) 
     /// 드래그만 만들때: 시작위치, 끝위치
@@ -26,7 +26,11 @@ public class Cursor : UI_Base
     {
         gameObject.transform.localPosition = startPos;
         //방향 초기화
-        gameObject.transform.rotation = Quaternion.identity;
+        //CursorObj.rotation = Quaternion.identity;
+        CursorObj.localRotation = Quaternion.Euler(Vector3.zero);
+        
+        //기존에 존재하는 시퀀스 삭제
+        seq?.Kill();
 
         //무한반복 및 초기화 할당 및 세팅
         seq = DOTween.Sequence()
@@ -54,7 +58,7 @@ public class Cursor : UI_Base
             case CursorType.ClickDrag:
                 //회전 트윈 추가
                 seq.Append(transform
-                    .DORotate(new Vector3(0f, 0f, 45f), 1.5f)
+                    .DORotate(new Vector3(0f, 0f, 30f), 1.5f)
                     .SetEase(Ease.InOutQuart)
                 );
                 //드래그 트윈 추가
