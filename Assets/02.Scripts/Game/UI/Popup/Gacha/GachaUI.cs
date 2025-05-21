@@ -62,8 +62,17 @@ public class GachaUI : UI_Popup
     /// <param name="callResults">뽑힌 데이터</param>
     private void GetUnitGachaResult(List<GachaResult> callResults/*등급, id, 확정인지 여부*/)
     {
-        //돈 차감
-        Managers.Player.AddGem(-(callResults.Count) * 300);
+        //돈 차감(연챠)
+        if (callResults.Count > 1)
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 9 * 30); // 0.9f * 300 = 9 * 30
+        }
+        //돈 차감(단챠)
+        else
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 300);
+        }
+            
 
         //뽑힌 유닛 넣어주기 
         result = new();
