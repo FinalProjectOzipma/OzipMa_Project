@@ -2,6 +2,14 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CursorType 
+{
+    Drag,
+    Click,
+    ClickDrag,
+    ClickDragClick,
+}
+
 public class Cursor : UI_Base
 {
     private Vector3 startPos;
@@ -17,7 +25,7 @@ public class Cursor : UI_Base
     /// <param name="startPos"></param>
     /// <param name="endPos"></param>
     /// <param name="both"></param>
-    public void Init(Vector3 startPos, Vector3 endPos, bool both = false)
+    public void Init(Vector3 startPos, Vector3 endPos, CursorType type)
     {
         this.startPos = startPos;
         this.endPos = endPos;
@@ -28,35 +36,57 @@ public class Cursor : UI_Base
         .SetAutoKill(false)
         .SetLoops(-1, LoopType.Restart);
 
-        if (both == true)
+        switch (type) 
         {
-            //회전 트윈 추가
-            seq.Append(transform
-                .DORotate(new Vector3(0f, 0f, 45f), 5f)
-                .SetEase(Ease.InOutQuart)
-            );
+            //드래그 타입
+            case CursorType.Drag:
+                seq = seq.Append(transform
+                    .DOMove(endPos, 5f)
+                    .SetEase(Ease.InOutQuart));
+                break;
+            
+            //클릭타입
+            case CursorType.Click:
+                seq.Append(transform
+                    .DORotate(new Vector3(0f, 0f, 45f), 5f)
+                    .SetEase(Ease.InOutQuart));
+                break;
 
-            //드래그 트윈 추가
-            seq.Append(transform
-                .DOMove(endPos, 5f)
-                .SetEase(Ease.OutCubic)
-            );
-        }
-        //드래그 애니메이션
-        else if (startPos != endPos)
-        {
-            seq.Append(transform
-                .DOMove(endPos, 5f)
-                .SetEase(Ease.InOutQuart));
-        }
-        //클릭 애니메이션
-        else if (startPos == endPos)
-        {
-            seq.Append(transform
-                .DORotate(new Vector3(0f, 0f, 45f), 5f)
-                .SetEase(Ease.InOutQuart));
-        }
+            //클릭하고 드래그타입
+            case CursorType.ClickDrag:
+                //회전 트윈 추가
+                seq.Append(transform
+                    .DORotate(new Vector3(0f, 0f, 45f), 5f)
+                    .SetEase(Ease.InOutQuart)
+                );
+                //드래그 트윈 추가
+                seq.Append(transform
+                    .DOMove(endPos, 5f)
+                    .SetEase(Ease.OutCubic)
+                );
+                break;
 
+            //클릭하고 드래그한 다음 클릭하는 거 
+            case CursorType.ClickDragClick:
+                //회전 트윈 추가
+                seq.Append(transform
+                    .DORotate(new Vector3(0f, 0f, 45f), 5f)
+                    .SetEase(Ease.InOutQuart)
+                );
+
+                //드래그 트윈 추가
+                seq.Append(transform
+                    .DOMove(endPos, 5f)
+                    .SetEase(Ease.OutCubic)
+                );
+
+                //회전 트윈 추가
+                seq.Append(transform
+                    .DORotate(new Vector3(0f, 0f, 45f), 5f)
+                    .SetEase(Ease.InOutQuart)
+                );
+                break;
+        }
     }
 
     private void OnDisable()

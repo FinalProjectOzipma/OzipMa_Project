@@ -21,7 +21,7 @@ public class PlaceTowerTutorial : TutorialBase
     {
         Vector3 startPos = new Vector3(-260, -110, 0); // 인벤토리 첫번째 슬롯 위치
         Vector3 endPos = new Vector3(-40, 270, 0); ;
-        controller.Cursor.Init(startPos, endPos);
+        controller.Cursor.Init(startPos, endPos, CursorType.Drag);
 
         controller.Dialogue.EnQueueText("주인님 반갑습니다. \r\n시작하기 앞서, 던전 관리를 간단히 알려드리겠습니다.");
         controller.Dialogue.EnQueueText("먼저 타워를 설치하는 방법을 알려드릴게요~");
