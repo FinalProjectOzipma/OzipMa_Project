@@ -22,27 +22,31 @@ public class TutorialController : UI_Scene
     public override void Init()
     {
         base.Init();
+
         // 튜토리얼을 순서대로 넣기 
         queue.Enqueue(new PlaceTowerTutorial(this));
         queue.Enqueue(new EditTowerTutorial(this));
+        queue.Enqueue(new DeleteTowerTutorial(this));
 
-        // 첫번째 튜토리얼부터 시작
+        // 튜토리얼 시작
+        SetDialogueActive(true);
+        SetCursorActive(false);
         NextTutorial();
     }
 
     private void Update()
     {
+        // 튜토리얼 조건 만족시 다음 튜토리얼로 넘김
+        if(currentTutorial.CheckCondition() == true)
+        {
+            NextTutorial();
+        }
+
         // 대화끝나면 커서 보여주기
         if(Dialogue.IsEnd == true)
         {
             SetCursorActive(true);
             SetDialogueActive(false);
-        }
-
-        // 튜토리얼 조건 만족시 다음 튜토리얼로 넘김
-        if(currentTutorial.CheckCondition() == true)
-        {
-            NextTutorial();
         }
     }
 
@@ -52,6 +56,7 @@ public class TutorialController : UI_Scene
         {
             currentTutorial = queue.Dequeue();
             currentTutorial.OnStart();
+            SetDialogueActive(true);
         }
         else // 모든 튜토리얼 완료했으면
         {
