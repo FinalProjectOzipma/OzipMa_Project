@@ -41,7 +41,7 @@ public class Dialogue : UI_Base
         Box.onClick.AddListener(TxtOnClick);
     }
 
-    private void Start()
+    private void OnEnable()
     {
         //초기화
         Init();
@@ -52,8 +52,11 @@ public class Dialogue : UI_Base
     /// </summary>
     public override void Init()
     {
-        Time.timeScale = 0f;
+        IsEnd = false;
         TutorialTxt.text = txt.Dequeue();
+        TutorialTxt.maxVisibleCharacters = 0;
+        Play = StartCoroutine(Typing());
+        Managers.Audio.PlaySFX(SFXClipName.Guide);
     }
 
     /// <summary>
@@ -71,10 +74,9 @@ public class Dialogue : UI_Base
             return;
         }
 
-        if (txt.Count == 0)
+        if (txt.Peek().Equals(""))
         {
             IsEnd = true;
-            Time.timeScale = 1f;
             return;
         }
 

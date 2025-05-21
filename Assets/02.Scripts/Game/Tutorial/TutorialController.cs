@@ -14,7 +14,7 @@ public class TutorialController : UI_Scene
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
 
-    private void Start()
+    private void Awake()
     {
         Init();
     }
@@ -26,7 +26,6 @@ public class TutorialController : UI_Scene
         queue.Enqueue(new PlaceTowerTutorial(this));
         queue.Enqueue(new EditTowerTutorial(this));
 
-
         // 첫번째 튜토리얼부터 시작
         NextTutorial();
     }
@@ -37,6 +36,7 @@ public class TutorialController : UI_Scene
         if(Dialogue.IsEnd == true)
         {
             SetCursorActive(true);
+            SetDialogueActive(false);
         }
 
         // 튜토리얼 조건 만족시 다음 튜토리얼로 넘김
