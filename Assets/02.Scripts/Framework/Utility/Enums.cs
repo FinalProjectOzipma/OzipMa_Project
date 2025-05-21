@@ -85,6 +85,7 @@ public enum QuestType
 {
     Daily,
     Achivement,
+    Repeat,
     Count
 }
 
@@ -100,6 +101,8 @@ public enum ConditionType
     Reach,
     StageClear,
     WaveClear,
+    MonsterInchen,
+    TowerInchen,
     Count
 }
 

@@ -21,6 +21,8 @@ public class QuestData
 
     public int RewardGem;
 
+    public bool IsRepeat;
+
     public QuestData(int id, QuestType type, string name, string description, ConditionType conditionType, int targetID, int goal, int rewardGem)
     {
         ID = id;

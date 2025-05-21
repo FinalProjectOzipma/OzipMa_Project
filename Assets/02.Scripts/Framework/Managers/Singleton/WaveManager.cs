@@ -65,6 +65,7 @@ public class WaveManager
     public void GameStart()
     {
         CurrentState = Enums.WaveState.Start;
+        Managers.Quest.CheckAndResetIfNeeded();
         Managers.Quest.UpdateQuestProgress(ConditionType.Connection, -1, 1);
     }
 

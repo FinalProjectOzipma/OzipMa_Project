@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -24,6 +25,7 @@ public class UI_Quest : UI_Popup
     [SerializeField] private Button BGClose;
     [SerializeField] private Button CloseButton;
 
+
     [SerializeField] private TextMeshProUGUI TimeText;
 
 
@@ -32,6 +34,8 @@ public class UI_Quest : UI_Popup
 
     private GameObject prevOn; // 이전 탭의 컴포넌트
     private GameObject prevDis; // 이전 탭의 컴포넌트
+
+
 
 
 
@@ -62,10 +66,13 @@ public class UI_Quest : UI_Popup
             currentTime.Year,
             currentTime.Month,
             currentTime.Day,
-            6, 0, 0);
+            0, 0, 0);
 
         if (currentTime >= todaySixAM)
+        {
             todaySixAM = todaySixAM.AddDays(1);
+        }
+
 
         TimeSpan remaining = todaySixAM - currentTime;
 
@@ -77,6 +84,8 @@ public class UI_Quest : UI_Popup
         TimeText.text = formattedTime;
 
     }
+
+
 
     public void Refresh(QuestType questType)
     {

@@ -13,6 +13,8 @@ public class UI_QuestSlot : UI_Base
     [SerializeField] private TextMeshProUGUI GoalValueText;
     [SerializeField] private TextMeshProUGUI Name;
 
+    [SerializeField] private Slider ProgressSlider;
+
     [SerializeField] private GameObject CompleteImage;
     [SerializeField] private Button CheckButton;
 
@@ -32,7 +34,8 @@ public class UI_QuestSlot : UI_Base
         RewardText.text = questData.RewardGem.ToString("F0");
         Description.text = questData.Description;
         GoalValueText.text = $"{questData.Progress} / {questData.Goal}";
-        
+        ProgressSlider.value = questData.Progress / questData.Goal;
+
         if(questData.State != QuestState.Complete)
         {
             CheckButton.interactable = true;

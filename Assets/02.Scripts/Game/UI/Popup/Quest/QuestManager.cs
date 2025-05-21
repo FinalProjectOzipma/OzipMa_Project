@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor.PackageManager.Requests;
+using System.Threading.Tasks;
 
 
 public class QuestManager
@@ -8,9 +10,13 @@ public class QuestManager
     private Dictionary<ConditionType, List<QuestData>> conditionQuestIndex;
     private QuestEvaluatorManager evaluatorManager;
 
+    private List<DefaultTable.QuestDataList> questData;
+
+    private DateTime lastResetTime;
+
     public void Intialize()
     {
-        List<DefaultTable.QuestDataList> questData = Util.TableConverter<DefaultTable.QuestDataList>(Managers.Data.Datas[Enums.Sheet.QuestDataList]);
+        questData = Util.TableConverter<DefaultTable.QuestDataList>(Managers.Data.Datas[Enums.Sheet.QuestDataList]);
 
         QuestDatas = new();
         conditionQuestIndex = new();
@@ -109,5 +115,47 @@ public class QuestManager
         }
 
     }
+
+    public void SetDailyQuestZero()
+    {
+        for(int i = 0; i < QuestDatas[QuestType.Daily].Count; i++)
+        {
+            if(QuestDatas.TryGetValue(QuestType.Daily, out var dailyQuest))
+            {
+                dailyQuest[i].Progress = 0;
+                dailyQuest[i].State = QuestState.Doing;
+            }
+        }
+    }
+
+    public void CheckAndResetIfNeeded()
+    {
+        DateTime currentUtc = Managers.Game.ServerUtcNow;
+
+        DateTime todayMidnightUtc = new DateTime(
+            currentUtc.Year,
+            currentUtc.Month,
+            currentUtc.Day,
+            0, 0, 0,
+            DateTimeKind.Utc);
+
+        if (string.IsNullOrEmpty(Managers.Player.LastRestQuestTime))
+        {
+            lastResetTime = DateTime.MinValue;
+        }
+        else
+        {
+            lastResetTime = DateTime.Parse(Managers.Player.LastRestQuestTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+        }
+
+        if (lastResetTime < todayMidnightUtc && currentUtc >= todayMidnightUtc)
+        {
+            SetDailyQuestZero();
+            Managers.Player.LastRestQuestTime = currentUtc.ToString("o");
+        }
+
+    }
+
+
 }
  

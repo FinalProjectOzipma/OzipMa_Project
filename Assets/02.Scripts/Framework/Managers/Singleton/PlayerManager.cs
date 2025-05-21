@@ -34,9 +34,11 @@ public class PlayerManager
     public Dictionary<string, QuestData> QuestDataInfo { get; set; }
 
     public string RewordStartTime = "";
+    public string LastRestQuestTime = "";
 
     public float AttackPercentResearch = 1.0f;
     public float DefencePercentResartch = 1.0f;
+
 
     public void Initialize()
     {
@@ -189,6 +191,7 @@ public class PlayerManager
         MyUnitInfos = data.MyUnitInfos;
 
         RewordStartTime = data.RewordStartTime;
+        LastRestQuestTime = data.LastRestQuestTime;
 
         AttackPercentResearch = data.AttackPercentResearch;
         DefencePercentResartch = data.DefencePercentResartch;
@@ -297,6 +300,7 @@ public class PlayerManager
             }
 
             Managers.Quest.RebuildConditionQuestIndex();
+
         }
     }
 }
