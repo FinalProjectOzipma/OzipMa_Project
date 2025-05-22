@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +29,11 @@ public class GameScene : SceneBase
 
     IEnumerator LoadGameScene()
     {
+        // 애널리틱스 퍼널 로딩 씬 진입 시
+        #region 로딩 씬 진입 시 (퍼널 1)
+        Managers.Analytics.SendFunnelStep(1);
+        #endregion
+
         // 0. 로딩 화면 보여주기 =======================================================
         GameObject loading = GameObject.Find("LoadScene");
 
@@ -76,7 +82,30 @@ public class GameScene : SceneBase
         // 6. 로딩창 끄고 게임 시작 ====================================================
         if (loading != null)
             Managers.Resource.Destroy(loading);
-        Managers.Wave.GameStart();
+
+        Managers.Resource.Instantiate("Tutorial");
+        //Managers.Wave.GameStart();
+
+#if UNITY_EDITOR
+        #region daily_login
+        PlayerManager player = Managers.Player;
+        DateTime last_loginTime = player.Last_LoginTime;
+        DateTime curTime = Managers.Game.ServerUtcNow;
+
+        TimeSpan ResultTime = curTime - last_loginTime;
+        player.consecutive_days = (ResultTime.TotalDays == 1) ? player.consecutive_days + 1 : player.consecutive_days = 0;
+
+        string last_loginTimeStr = (last_loginTime == DateTime.MinValue) ? "0" : last_loginTime.ToString("yyyy-MM-dd HH:mm:ss");
+        float totalHours = (last_loginTime == DateTime.MinValue) ? 0f : (float)ResultTime.TotalHours;
+
+        Managers.Analytics.AnalyticsDailyLogin(Managers.Data.UserID, last_loginTimeStr, curTime.ToString("yyyy-MM-dd HH:mm:ss"),
+            totalHours, player.consecutive_days);
+        
+        Util.Log($"{Managers.Data.UserID}, {last_loginTimeStr}, {curTime.ToString("yyyy-MM-dd HH:mm:ss")}, {totalHours}, {player.consecutive_days}");
+        player.Last_LoginTime = curTime;
+
+        #endregion
+#endif
     }
 
     private void InstantiateGameObjs()

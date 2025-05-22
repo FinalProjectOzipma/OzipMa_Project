@@ -17,7 +17,6 @@ public class GachaResult
 {
     public int grade;
     public int id;
-    public bool guaranteed; // 없어도 false로 기본 처리됨
 }
 
 public class GachaSystem
@@ -110,7 +109,7 @@ public class GachaSystem
                 GachaResultWrapper parsed = JsonConvert.DeserializeObject<GachaResultWrapper>(json);
                 foreach (GachaResult r in parsed.results)
                 {
-                    //Util.Log($"등급: {r.grade}, ID: {r.id}" + (r.guaranteed ? "[확정]" : "")); // 테스트용
+                    //Util.Log($"등급: {r.grade}, ID: {r.id}"); // 테스트용
                 }
                 onResult?.Invoke(parsed.results);
             });

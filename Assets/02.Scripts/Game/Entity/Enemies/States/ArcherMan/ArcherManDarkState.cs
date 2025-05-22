@@ -33,7 +33,7 @@ public class ArcherManDarkState : ArcherManStateBase
         else
         {
             //agent.SetDestination((Vector2)(-targets.Peek().transform.position));
-            Vector2 dir = (handler.Attacker.position) - transform.position;
+            Vector2 dir = (Managers.Wave.MainCore.transform.position) - transform.position;
             agent.Move(-dir.normalized * status.MoveSpeed.GetValue() * 0.2f * Time.deltaTime);
             controller.FlipControll();
         }

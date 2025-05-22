@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,9 +17,10 @@ public class GachaUI : UI_Popup
 
     [SerializeField] public RectTransform RectTransform;
 
+    public bool IsGachaInProgress = false; // 가챠 중복 방지
+
     private GachaSystem gacha;
     private List<IGettable> result;
-
 
     private void Start()
     {
@@ -43,12 +46,14 @@ public class GachaUI : UI_Popup
     }
     private void UnitOnClick(int num)
     {
+        if (IsGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
 
+        IsGachaInProgress = true;
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetUnitGachaResult);
     }
@@ -59,8 +64,17 @@ public class GachaUI : UI_Popup
     /// <param name="callResults">뽑힌 데이터</param>
     private void GetUnitGachaResult(List<GachaResult> callResults/*등급, id, 확정인지 여부*/)
     {
-        //돈 차감
-        Managers.Player.AddGem(-(callResults.Count) * 300);
+        //돈 차감(연챠)
+        if (callResults.Count > 1)
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 9 * 30); // 0.9f * 300 = 9 * 30
+        }
+        //돈 차감(단챠)
+        else
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 300);
+        }
+            
 
         //뽑힌 유닛 넣어주기 
         result = new();
@@ -76,17 +90,50 @@ public class GachaUI : UI_Popup
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
+            IsGachaInProgress = false;
         });
+
+        // 애널리틱스
+        #region gacha_used
+        StringBuilder getUnitBuilder = new StringBuilder();
+        StringBuilder gradeTotalBuilder = new StringBuilder();
+        Dictionary<string, int> unitTotal = new();
+        int[] gradeTotal = new int[(int)RankType.Count];
+
+        // 유닛의 정보 string 변화 작업
+        foreach (var unit in result)
+        {
+            MyUnit myUnit = unit.GetClassAddress<MyUnit>();
+            ++gradeTotal[(int)myUnit.RankType];
+            
+            if(!unitTotal.TryAdd(myUnit.Name, 1))
+                ++unitTotal[myUnit.Name];
+        }
+
+        foreach (var pair in unitTotal)
+            getUnitBuilder.Append($"{pair.Key} : {pair.Value}/ ");
+        
+
+        // 등급 토탈 정보 string 변화 작업
+        for(int i = 0; i < (int)RankType.Count; i++)
+            gradeTotalBuilder.Append($"{Enum.GetName(typeof(RankType), i)} : {gradeTotal[i]}");
+        
+
+        Managers.Analytics.AnalyticsGachaUsed("MyUnit", "Gem", callResults.Count * 300, callResults.Count, getUnitBuilder.ToString(),
+            gradeTotalBuilder.ToString());
+        #endregion
     }
 
     private void TowerOnClick(int num)
     {
+        if (IsGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
 
+        IsGachaInProgress = true;
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetTowerGachaResult);
     }
@@ -97,8 +144,16 @@ public class GachaUI : UI_Popup
     /// <param name="callResults">뽑힌 데이터</param>
     private void GetTowerGachaResult(List<GachaResult> callResults/*등급, id, 확정인지 여부*/)
     {
-        //돈 차감
-        Managers.Player.AddGem(-(callResults.Count) * 300);
+        //돈 차감(연챠)
+        if (callResults.Count > 1)
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 9 * 30); // 0.9f * 300 = 9 * 30
+        }
+        //돈 차감(단챠)
+        else
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 300);
+        }
 
         //뽑힌 유닛 넣어주기 
         result = new();
@@ -114,6 +169,37 @@ public class GachaUI : UI_Popup
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
+            IsGachaInProgress = false;
         });
+
+
+        // 애널리틱스
+        #region gacha_used
+        StringBuilder getTowerBuilder = new StringBuilder();
+        StringBuilder gradeTotalBuilder = new StringBuilder();
+        Dictionary<string, int> towerTotal = new();
+        int[] gradeTotal = new int[(int)RankType.Count];
+
+        // 유닛의 정보 string 변화 작업
+        foreach (var towers in result)
+        {
+            Tower tower = towers.GetClassAddress<Tower>();
+            ++gradeTotal[(int)tower.RankType];
+
+            if (!towerTotal.TryAdd(tower.Name, 1))
+                ++towerTotal[tower.Name];
+        }
+
+        foreach (var pair in towerTotal)
+            getTowerBuilder.Append($"{pair.Key} : {pair.Value}/ ");
+
+        // 등급 토탈 정보 string 변화 작업
+        for (int i = 0; i < (int)RankType.Count; i++)
+            gradeTotalBuilder.Append($"{Enum.GetName(typeof(RankType), i)} : {gradeTotal[i]}");
+
+
+        Managers.Analytics.AnalyticsGachaUsed("Tower", "Gem", callResults.Count * 300, callResults.Count, getTowerBuilder.ToString(),
+            gradeTotalBuilder.ToString());
+        #endregion
     }
 }

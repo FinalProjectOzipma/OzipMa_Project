@@ -15,8 +15,8 @@ public class DataManager
     public event Action<string> OnUpdateUserID;
 
     private DatabaseReference _databaseReference;
-    private string userID = "user002";
-
+    public string UserID { get; private set; } =  "user005";
+    
     public void Initialize()
     {
         // 필요한 데이터들을 Load 및 Datas에 캐싱해두는 작업
@@ -110,7 +110,7 @@ public class DataManager
         try
         {
             await _databaseReference
-                .Child("users").Child(userID).Child(parent)
+                .Child("users").Child(UserID).Child(parent)
                 .SetRawJsonValueAsync(json);
             Util.Log($"Firebase 저장 성공: {parent}");
         }
@@ -136,7 +136,7 @@ public class DataManager
 
     private IEnumerator WaitingData<T>(Action<T> onComplete, Action onFailed = null)
     {
-        var firebaseData = _databaseReference.Child("users").Child(userID).Child(typeof(T).Name).GetValueAsync();
+        var firebaseData = _databaseReference.Child("users").Child(UserID).Child(typeof(T).Name).GetValueAsync();
         yield return new WaitUntil(() => firebaseData.IsCompleted);
 
         Util.Log("Process is Complete");
@@ -188,11 +188,11 @@ public class DataManager
 
     public void SetUserID(string userId)
     {
-        userID = userId;
+        UserID = userId;
     }
 
     public void UserIDUpdate()
     {
-        OnUpdateUserID?.Invoke(userID);
+        OnUpdateUserID?.Invoke(UserID);
     }
 }

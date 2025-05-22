@@ -31,12 +31,6 @@ public class UI_Dictionary : UI_Popup
     public List<Tower> DefaultTowerInfos;
     public List<MyUnit> DefaultMyUnitInfos;
 
-
-    // Animation
-    private bool isMove;
-    private bool isOpen;
-    public bool isSelect = false;
-
     public Queue<Action> SwipeExcute;
 
 
@@ -246,5 +240,17 @@ public class UI_Dictionary : UI_Popup
     public void OnClickClose(PointerEventData data)
     {
         Managers.UI.GetScene<UI_Main>().OnClickDictionary(data);
+    }
+
+    public bool IsSlotOpen()
+    {
+        foreach(DSlot item in slots)
+        {
+            if(item.IsSlotOpen == true)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

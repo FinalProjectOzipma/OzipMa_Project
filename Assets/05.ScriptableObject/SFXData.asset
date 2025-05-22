@@ -61,3 +61,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 419bd91efe4854866a5c1d2fb5535955, type: 3}
   - key: Death
     clip: {fileID: 8300000, guid: a20ca366b329a4035a1ac316f1250f11, type: 3}
+  - key: Guide
+    clip: {fileID: 8300000, guid: d66b10b65daf44adf8198d06a6a9d2c7, type: 3}
+  - key: GuideSkip
+    clip: {fileID: 8300000, guid: da74951d3e61c43198675c05084c7564, type: 3}

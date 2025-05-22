@@ -8,6 +8,10 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerManager
 {
+    public Enums.TutorialStep LastTutorialStep = Enums.TutorialStep.None;
+    public DateTime Last_LoginTime { get; set; }
+    public int consecutive_days = 0;
+
     public Core MainCoreData { get; set; }
     public long Gold { get; set; }
     public long Gem { get; set; }
@@ -175,6 +179,11 @@ public class PlayerManager
         //MainCoreData.Health = data.MainCoreData.Health;
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
+
+        Last_LoginTime = data.Last_LoginTime;
+        consecutive_days = data.consecutive_days;
+
+        LastTutorialStep = data.LastTutorialStep;
 
         Gold = 0;
         Gem = 0;

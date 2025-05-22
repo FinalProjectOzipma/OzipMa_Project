@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -40,7 +41,7 @@ public class UI_Research : UI_Base
 
     private float researchDuration; // 연구 시간
     private double elapsedSeconds; // 경과되는 시간
-    private bool isResearching = false; // 연구 중인지 아닌지에 대한 불값
+    public bool isResearching = false; // 연구 중인지 아닌지에 대한 불값
     private int updateLevel; // 업데이트 레벨
     private float updateStat;
 
@@ -50,11 +51,15 @@ public class UI_Research : UI_Base
     private long spendGold; // 업그레이드 필요 골드
     private long spendGem; // 업그레드 필요 잼
 
+    private long boostUsedGold; // 사용된 골드
+    private long skipUsedGem; // 사용된 젬
+
     public ResearchUpgradeType researchUpgradeType; // 연구 타입
 
 
 
     private float baseTime = 300.0f;
+    private float actualTimeRequired = 0f;
     //private float growthFactor = 2.0f;
     private bool isComplete = false;
 
@@ -62,6 +67,11 @@ public class UI_Research : UI_Base
     private List<Tower> towerList;
 
     private ResearchData researchData;
+
+    // 튜토리얼 일회용 버튼
+    public bool isResearchGoldBtn = false;
+    public bool isResearchGemBtn = false;
+    public bool isResearchComplete = false;
 
 
 
@@ -235,6 +245,12 @@ public class UI_Research : UI_Base
         UpgradeButtonText.text = "연구";
         UpgradeButton.interactable = false;
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
+
+        // 애널리틱스
+        #region research_started
+        Managers.Analytics.AnalyticsResearchStarted(researchUpgradeType.ToString(), Enum.GetName(typeof(ResearchUpgradeType), researchUpgradeType), 
+            updateLevel, Managers.Player.CurrentWave, researchDuration);
+        #endregion
     }
 
 
@@ -270,6 +286,7 @@ public class UI_Research : UI_Base
     {
         bool isPopup = false;
 
+
         if (isPopup) return;
 
         isPopup = true;
@@ -287,6 +304,8 @@ public class UI_Research : UI_Base
             return;
         }
 
+        isResearchGemBtn = true;
+
         Managers.Player.SpenGem(spendGem);
         elapsedSeconds = researchDuration;
 
@@ -298,6 +317,8 @@ public class UI_Research : UI_Base
             isPopup = false;
         }
 
+        skipUsedGem += spendGem;
+        actualTimeRequired = Mathf.Max(0f, actualTimeRequired - startTime.Millisecond); // 가속 후 스킵했을경우
     }
 
 
@@ -324,6 +345,8 @@ public class UI_Research : UI_Base
             isPopup = false;
             return;
         }
+        isResearchGoldBtn = true;
+
         Managers.Player.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
 
@@ -331,10 +354,14 @@ public class UI_Research : UI_Base
         researchData.ResearchDuration = researchDuration;
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
+        actualTimeRequired = Mathf.Max(0f, researchDuration - secondsToReduce);
+
         if (isPopup)
         {
             isPopup = false;
         }
+
+        boostUsedGold += spendGold;
     }
 
 
@@ -379,6 +406,8 @@ public class UI_Research : UI_Base
 
         LodingAnime.SetActive(true);
         _ = HandleCheckButton();
+
+        if (!isResearchComplete) isResearchComplete = true;
     }
 
     /// <summary>
@@ -487,6 +516,17 @@ public class UI_Research : UI_Base
         GoldSpendText.text = Util.FormatNumber(spendGold);
         GemSpendText.text = Util.FormatNumber(spendGem);
 
+        // 애널리틱스 연구완료시
+        #region research_completed
+        string usedResourceType = $"시간 단축 : {boostUsedGold > 0} | 연구 스킵 : {skipUsedGem > 0}";
+        string usedResourceAmount = $"사용된 골드 : {boostUsedGold} | 사용된 젬 : {skipUsedGem}";
+        Managers.Analytics.AnalyticsResearchCompleted($"{(int)researchUpgradeType}", updateLevel, actualTimeRequired, usedResourceType, usedResourceAmount);
+        #endregion
+
+        // 애널리틱스 사용하기 위한 변수들
+        boostUsedGold = 0;
+        skipUsedGem = 0;
+        actualTimeRequired = researchDuration;
     }
 
     /// <summary>

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class DSlot : UI_Base
 {
-
+    public bool IsSlotOpen = false;
 
     [SerializeField] private GameObject Normal_Slot;
     [SerializeField] private GameObject Rare_Slot;
@@ -37,6 +37,7 @@ public class DSlot : UI_Base
 
     public void SelectItem()
     {
+        IsSlotOpen = true;
         UserObject userObject = Gettable as UserObject;
 
         Managers.UI.ShowPopupUI<UI_InfoPopup>("InfoUI");
