@@ -11,6 +11,8 @@ public class TutorialController : UI_Scene
     public Cursor Cursor;
     public Dialogue Dialogue;
 
+    public GameObject ButtonsPosition;
+
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
 
@@ -112,4 +114,25 @@ public class TutorialController : UI_Scene
         Managers.Resource.Instantiate("QuestRepeatUI");
         Managers.Resource.Destroy(this.gameObject, true); // 제거
     }
+
+    public Vector3 GetTabPosition(int index)
+    {
+        Transform tabBtn = ButtonsPosition.transform.GetChild(index);
+        RectTransform rectTabBtn = tabBtn as RectTransform;
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, rectTabBtn.position); // 버튼의 화면 상 위치
+
+        // screenPos를 커서의 앵커 기준 로컬 좌표로 변환
+        Vector2 localPos;
+        Canvas canvas = gameObject.GetComponent<Canvas>();
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+                    (
+                        canvasRect,
+                        screenPos,
+                        null,
+                        out localPos
+                    );
+        return localPos;
+    }
+
 }

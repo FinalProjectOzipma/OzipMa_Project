@@ -86,9 +86,8 @@ public class ResearchTutorial : TutorialBase
         mainUI = Managers.UI.GetScene<UI_Main>();
 
         // 연구 탭 클릭 커서 세팅
-        Vector3 startPos = new Vector3(140, -885, 0); 
-        Vector3 endPos = new Vector3(140, -885, 0);
-        controller.Cursor.Init(startPos, endPos, CursorType.Click);
+        Vector3 startPos = controller.GetTabPosition(2); 
+        controller.Cursor.Init(startPos, startPos, CursorType.Click);
 
         controller.Dialogue.EnQueueText("이번에 소개해드릴 기능은 연구입니다.\n먼저 연구 탭을 클릭해보시겠어요?");
         controller.Dialogue.EnQueueText("");
