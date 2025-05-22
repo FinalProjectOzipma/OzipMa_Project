@@ -34,6 +34,20 @@ public class Enums
         Reward,
         End,
     }
+
+    public enum TutorialStep
+    {
+        None,
+        PlaceTower,
+        EditTower,
+        DeleteTower,
+        Research,
+        Gacha,
+        End,
+
+        Count,
+    }
+
 }
 
 [GoogleSheet.Core.Type.UGS(typeof(RankType))]

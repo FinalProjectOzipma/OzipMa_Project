@@ -5,11 +5,13 @@ using UnityEngine;
 
 public abstract class TutorialBase
 {
+    public Enums.TutorialStep Step;
     protected TutorialController controller;
 
-    public TutorialBase(TutorialController _controller)
+    public TutorialBase(TutorialController _controller, Enums.TutorialStep step)
     {
         controller = _controller;
+        Step = step;
     }
 
     public abstract bool CheckCondition();
@@ -19,5 +21,7 @@ public abstract class TutorialBase
         controller.Cursor.OffCursor();
         controller.SetCursorActive(false);
         controller.SetDialogueActive(false);
+
+        Managers.Player.LastTutorialStep = Step; // 진행도 저장
     }
 }

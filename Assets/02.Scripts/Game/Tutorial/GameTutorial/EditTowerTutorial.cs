@@ -11,7 +11,7 @@ public class EditTowerTutorial : TutorialBase
 {
     private RectTransform rect;
 
-    public EditTowerTutorial(TutorialController _controller) : base(_controller)
+    public EditTowerTutorial(TutorialController _controller, Enums.TutorialStep step) : base(_controller, step)
     {
     }
 

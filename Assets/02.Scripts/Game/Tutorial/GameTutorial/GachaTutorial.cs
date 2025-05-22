@@ -10,7 +10,7 @@ public class GachaTutorial : TutorialBase
     private GachaUI gachaUI;
     private UI_Dictionary dictionaryUI;
 
-    public GachaTutorial(TutorialController _controller) : base(_controller)
+    public GachaTutorial(TutorialController _controller, Enums.TutorialStep step) : base(_controller, step)
     {
     }
 

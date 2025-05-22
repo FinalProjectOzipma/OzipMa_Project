@@ -11,7 +11,7 @@ public class PlaceTowerTutorial : TutorialBase
 
     private UI_Main mainUI;
 
-    public PlaceTowerTutorial(TutorialController _controller) : base(_controller)
+    public PlaceTowerTutorial(TutorialController _controller, Enums.TutorialStep step) : base(_controller, step)
     {
     }
     public override bool CheckCondition()

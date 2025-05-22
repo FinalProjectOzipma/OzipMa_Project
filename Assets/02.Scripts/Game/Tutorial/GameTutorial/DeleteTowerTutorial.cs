@@ -8,7 +8,7 @@ public class DeleteTowerTutorial : TutorialBase
     private RectTransform rect;
     private int prevTowerCount;
 
-    public DeleteTowerTutorial(TutorialController _controller) : base(_controller)
+    public DeleteTowerTutorial(TutorialController _controller, Enums.TutorialStep step) : base(_controller, step)
     {
     }
 

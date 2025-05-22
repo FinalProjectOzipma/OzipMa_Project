@@ -24,11 +24,27 @@ public class TutorialController : UI_Scene
         base.Init();
 
         // 튜토리얼을 순서대로 넣기 
-        queue.Enqueue(new PlaceTowerTutorial(this));
-        queue.Enqueue(new EditTowerTutorial(this));
-        queue.Enqueue(new DeleteTowerTutorial(this));
-        queue.Enqueue(new ResearchTutorial(this));
-        queue.Enqueue(new GachaTutorial(this));
+        switch(Managers.Player.LastTutorialStep)
+        {
+            case Enums.TutorialStep.None:
+                queue.Enqueue(new PlaceTowerTutorial(this, Enums.TutorialStep.PlaceTower));
+                goto case Enums.TutorialStep.PlaceTower;
+            case Enums.TutorialStep.PlaceTower:
+                queue.Enqueue(new EditTowerTutorial(this, Enums.TutorialStep.EditTower));
+                goto case Enums.TutorialStep.EditTower;
+            case Enums.TutorialStep.EditTower:
+                queue.Enqueue(new DeleteTowerTutorial(this, Enums.TutorialStep.DeleteTower));
+                goto case Enums.TutorialStep.DeleteTower;
+            case Enums.TutorialStep.DeleteTower:
+                queue.Enqueue(new ResearchTutorial(this, Enums.TutorialStep.Research));
+                goto case Enums.TutorialStep.Research;
+            case Enums.TutorialStep.Research:
+                queue.Enqueue(new GachaTutorial(this, Enums.TutorialStep.Gacha));
+                goto case Enums.TutorialStep.Gacha;
+            case Enums.TutorialStep.Gacha:
+            default:
+                break;
+        }
 
         // 튜토리얼 시작
         SetDialogueActive(true);
@@ -64,6 +80,7 @@ public class TutorialController : UI_Scene
         else // 모든 튜토리얼 완료했으면
         {
             currentTutorial?.OnEnd();
+            Managers.Player.LastTutorialStep = Enums.TutorialStep.End; // 진행도 저장
             Managers.Wave.GameStart();
             Managers.Resource.Destroy(this.gameObject, true); // 제거
         }

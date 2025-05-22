@@ -10,7 +10,7 @@ public class ResearchTutorial : TutorialBase
     private int dialogueNum = 0;
     private bool skip = false;
 
-    public ResearchTutorial(TutorialController _controller) : base(_controller)
+    public ResearchTutorial(TutorialController _controller, Enums.TutorialStep step) : base(_controller, step)
     {
     }
     public override bool CheckCondition()
