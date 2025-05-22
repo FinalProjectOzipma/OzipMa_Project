@@ -24,6 +24,8 @@ public class SwordManDarkState : SwordManStateBase
         base.Exit();
         Anim.speed = 1f;
         handler.ObjectActive(false);
+
+        handler.IsPlaying = false;
     }
 
     public override void Update()
@@ -34,8 +36,7 @@ public class SwordManDarkState : SwordManStateBase
             StateMachine.ChangeState(data.ChaseState);
         else
         {
-            Vector2 dir = (Managers.Wave.MainCore.transform.position) - transform.position;
-            agent.Move(-dir.normalized * status.MoveSpeed.GetValue() * 0.2f * Time.deltaTime);
+            agent.SetDestination(Managers.Wave.enemySpawn.transform.position);
             controller.FlipControll();
         }
     }

@@ -20,6 +20,7 @@ public class ConditionHandler
 
     public Transform Attacker { get; set; }
     public bool IsExit { get; set; }
+    public bool IsPlaying { get; set; }
 
 
     public void ObjectActive(bool active)

@@ -1,5 +1,6 @@
 public class ArcherManChasingState : ArcherManStateBase
 {
+    ConditionHandler handler;
     public ArcherManChasingState(StateMachine stateMachine, int animHashKey, EnemyController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
@@ -19,7 +20,11 @@ public class ArcherManChasingState : ArcherManStateBase
     {
         base.Update();
 
-        agent.SetDestination(targets.Peek().transform.position);
+        ConditionHandler handler = controller.ConditionHandlers[(int)AbilityType.Dark];
+
+        if (targets.Count <= 0) return;
+
+        if(!handler.IsPlaying) agent.SetDestination(targets.Peek().transform.position);
 
         if (targets.Peek().layer == (int)Enums.Layer.Core)
         {

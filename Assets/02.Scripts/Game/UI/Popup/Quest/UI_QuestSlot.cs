@@ -19,7 +19,7 @@ public class UI_QuestSlot : UI_Base
     [SerializeField] private Button CheckButton;
 
     public int Index;
-    private QuestData questData;
+    public QuestData questData;
 
     private void Start()
     {
