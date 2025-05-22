@@ -27,6 +27,8 @@ public class Dialogue : UI_Base
     [SerializeField] private TextMeshProUGUI TutorialTxt;
     //대사 넘기는 버튼
     [SerializeField] private Button Box;
+    //겉에 배경
+    [SerializeField] private Button BG;
 
     //대사 발사대
     private Queue<string> txt = new();
@@ -46,6 +48,7 @@ public class Dialogue : UI_Base
         time = new WaitForSeconds(timegap);
         //버튼메서드 등록
         Box.onClick.AddListener(TxtOnClick);
+        BG.onClick.AddListener(TxtOnClick);
     }
 
     private void OnEnable()

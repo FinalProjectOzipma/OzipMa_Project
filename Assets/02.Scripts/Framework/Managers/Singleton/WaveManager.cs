@@ -71,6 +71,7 @@ public class WaveManager
     public void GameStart()
     {
         CurrentState = Enums.WaveState.Start;
+        Managers.Quest.UpdateQuestProgress(ConditionType.Connection, -1, 1);
     }
 
     bool isCoreDead = false;
@@ -100,6 +101,7 @@ public class WaveManager
             {
                 isCoreDead = (MainCore.core.Health.Value <= 0.0f);
                 isEnemyAllDead = (CurEnemyList.Count == 0);
+
 
                 if (isCoreDead || isEnemyAllDead)
                 {
@@ -137,11 +139,15 @@ public class WaveManager
                     int clearWaveNumber = playerManager.CurrentWave;
                     var stages = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
                     int EndNumber = stages[playerManager.CurrentKey].StageEnd;
+                    Managers.Quest.UpdateQuestProgress(ConditionType.WaveClear, -1 , 1);
 
 
                     Managers.UI.GetScene<UI_EndingPanel>().MoveEndingPanel(true);
+
                     if (++playerManager.CurrentWave % 10 == 0)
                     {
+                        Managers.Quest.UpdateQuestProgress(ConditionType.StageClear, -1, 1);
+                        Managers.Quest.UpdateQuestProgress(ConditionType.BossKill, -1, 1);
                         if (++playerManager.CurrentStage > EndNumber)
                             playerManager.CurrentKey = Mathf.Min(++playerManager.CurrentKey, stages.Count - 1); // 스테이지 끝이면 현재 키를 늘린다.
                         playerManager.CurrentWave = 0;
@@ -192,7 +198,6 @@ public class WaveManager
         {
 
             MainCore = go.GetComponent<CoreController>();
-            Util.Log("초기체력222:" + Managers.Player.MainCoreData.Health.GetValueToString());
             MainCore.Init(Managers.Player.MainCoreData.Health.GetValue());
             int needAmount = waveList[idx].EnemyAmount;
             Managers.StartCoroutine(Spawn(needAmount));

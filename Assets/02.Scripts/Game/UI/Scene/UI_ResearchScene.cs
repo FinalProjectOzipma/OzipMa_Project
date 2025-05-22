@@ -12,6 +12,7 @@ public class UI_ResearchScene : UI_Popup
 
     [SerializeField] public GameObject UI_Research;
 
+
     [SerializeField] public UI_Research AttackUpgrade;
     [SerializeField] public UI_Research DefenceUpgrade;
     [SerializeField] public UI_Research CoreUpgrade;

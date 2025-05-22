@@ -47,8 +47,6 @@ public class TutorialController : UI_Scene
         }
 
         // 튜토리얼 시작
-        SetDialogueActive(true);
-        SetCursorActive(false);
         NextTutorial();
     }
 
@@ -80,9 +78,7 @@ public class TutorialController : UI_Scene
         else // 모든 튜토리얼 완료했으면
         {
             currentTutorial?.OnEnd();
-            Managers.Player.LastTutorialStep = Enums.TutorialStep.End; // 진행도 저장
-            Managers.Wave.GameStart();
-            Managers.Resource.Destroy(this.gameObject, true); // 제거
+            TutorialEnd();
         }
     }
 
@@ -105,5 +101,14 @@ public class TutorialController : UI_Scene
     public void SetDialogueActive(bool active)
     {
         Dialogue.gameObject.SetActive(active);
+    }
+
+    private void TutorialEnd()
+    {
+        Managers.Player.HasReceivedTutorialGold = true;
+        Managers.Player.HasReceivedTutorialGem = true;
+        Managers.Player.LastTutorialStep = Enums.TutorialStep.End; // 진행도 저장
+        Managers.Wave.GameStart();
+        Managers.Resource.Destroy(this.gameObject, true); // 제거
     }
 }

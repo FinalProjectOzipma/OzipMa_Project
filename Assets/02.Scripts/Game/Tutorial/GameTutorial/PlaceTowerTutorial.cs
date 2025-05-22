@@ -60,6 +60,7 @@ public class PlaceTowerTutorial : TutorialBase
         controller.Dialogue.EnQueueText("");
         controller.Dialogue.EnQueueText("잘하셨어요!\n우리가 갖고있는 타워를 설치해서 던전을 지켜야해요.");
         controller.Dialogue.EnQueueText("인벤토리에서 타워를 드래그하여 배치해보세요.");
+        controller.Dialogue.EnQueueText("몬스터는 드래그할 수 없으니까 타워인지 잘 확인해주셔야해요!!!!");
         controller.Dialogue.EnQueueText("");
 
         controller.SetDialogueActive(true);
@@ -69,7 +70,5 @@ public class PlaceTowerTutorial : TutorialBase
         base.OnEnd();
 
         mainUI.OFFSwipe();
-
-        // TODO :: 튜토리얼 보상 처리
     }
 }

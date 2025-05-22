@@ -45,6 +45,7 @@ public class ResearchTutorial : TutorialBase
                     Vector3 endPos = new Vector3(-75, 242, 0);
                     controller.Cursor.Init(startPos, endPos, CursorType.Click);
                     Managers.Player.AddGold(1000);
+                    Managers.Player.HasReceivedTutorialGold = true;
                 }
                 break;
             case 2:
@@ -76,7 +77,7 @@ public class ResearchTutorial : TutorialBase
 
     public override void OnStart()
     {
-        if(Managers.Player.AttackResearchData != null || Managers.Player.DefenceResearchData != null || Managers.Player.CoreResearchData != null)
+        if(Managers.Player.HasReceivedTutorialGold || !Managers.Player.AttackResearchData.StartTime.Equals("") || !Managers.Player.DefenceResearchData.StartTime.Equals("") || !Managers.Player.CoreResearchData.StartTime.Equals(""))
         {
             skip = true;
             return;

@@ -31,6 +31,7 @@ public class UpgradeManager
         int gold = GetLevelUpGold(myUnit);
         if (Managers.Player.Gold >= TotalUpgradeGold)
         {
+            Managers.Quest.UpdateQuestProgress(ConditionType.MyUnitInchen, -1, 1);
             myUpgradeStatus.Level.AddValue(1);
             myUpgradeStatus.Stack.AddValue(-myUpgradeStatus.MaxStack.GetValue());
             IncreaseRequireCard(myUnit);
@@ -67,6 +68,7 @@ public class UpgradeManager
 
         if (Managers.Player.Gold >= TotalUpgradeGold)
         {
+            Managers.Quest.UpdateQuestProgress(ConditionType.TowerInchen, -1, 1);
             int gold = GetLevelUpGold(tower);
             tower.TowerStatus.Level.AddValue(1);
             tower.TowerStatus.Stack.AddValue(-tower.TowerStatus.MaxStack.GetValue());

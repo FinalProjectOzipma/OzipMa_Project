@@ -15,7 +15,7 @@ public class DataManager
     public event Action<string> OnUpdateUserID;
 
     private DatabaseReference _databaseReference;
-    public string UserID { get; private set; } =  "user004";
+    public string UserID { get; private set; } =  "user002";
     
     public void Initialize()
     {
@@ -32,6 +32,7 @@ public class DataManager
         LoadData<DefaultTable.Research>();
         LoadData<DefaultTable.LoadingTip>();
         LoadData<DefaultTable.AttackDefault>();
+        LoadData<DefaultTable.QuestDataList>();
 
         _databaseReference = FirebaseDatabase.DefaultInstance.RootReference;
     }
@@ -178,7 +179,8 @@ public class DataManager
         {
             Managers.Player.LoadPlayerData(loadedData);
             Managers.Game.ServerTImeInit();
-            Managers.Resource.Instantiate("OffLinePopup");
+            Managers.Resource.Instantiate("QuestRepeatUI");
+            Managers.Quest.CheckAndResetIfNeeded();
             IsGameDataLoadFinished = true;
         }, onFailed);
     }
