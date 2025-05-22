@@ -315,8 +315,7 @@ public class PlayerManager
             
             }
 
-            Managers.Quest.ResisterQuestDatas();
-            Managers.Quest.RebuildConditionQuestIndex();
+            Managers.Quest.ResetEtcQuest();
 
         }
     }

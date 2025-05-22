@@ -95,6 +95,14 @@ public class QuestManager
     }
 
 
+    public void ResetEtcQuest()
+    {
+        RebuildConditionQuestIndex();
+        ResisterQuestDatas();
+        ResetRepeatQuest();
+    }
+
+
     /// <summary>
     /// 퀘스트 종류로 다시 분류해서 딕셔너리로 저장하는 메서드
     /// </summary>
@@ -215,7 +223,7 @@ public class QuestManager
     /// <summary>
     /// 게임 종류 시 반복 퀘스트 진행률 및 상태 초기화
     /// </summary>
-    public void RestRepeatQuest()
+    public void ResetRepeatQuest()
     {
         List<QuestData> repeaQuest = GetQuestList(QuestType.Repeat);
 
@@ -223,6 +231,7 @@ public class QuestManager
         {
             repeaQuest[i].Progress = 0;
             repeaQuest[i].State = QuestState.Doing;
+            repeaQuest[i].IsActive = 0;
         }
     }
 
