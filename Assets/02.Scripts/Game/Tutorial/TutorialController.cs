@@ -109,6 +109,7 @@ public class TutorialController : UI_Scene
         Managers.Player.HasReceivedTutorialGem = true;
         Managers.Player.LastTutorialStep = Enums.TutorialStep.End; // 진행도 저장
         Managers.Wave.GameStart();
+        Managers.Resource.Instantiate("QuestRepeatUI");
         Managers.Resource.Destroy(this.gameObject, true); // 제거
     }
 }
