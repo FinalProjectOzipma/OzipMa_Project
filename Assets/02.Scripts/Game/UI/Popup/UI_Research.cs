@@ -41,7 +41,7 @@ public class UI_Research : UI_Base
 
     private float researchDuration; // 연구 시간
     private double elapsedSeconds; // 경과되는 시간
-    private bool isResearching = false; // 연구 중인지 아닌지에 대한 불값
+    public bool isResearching = false; // 연구 중인지 아닌지에 대한 불값
     private int updateLevel; // 업데이트 레벨
     private float updateStat;
 
@@ -67,6 +67,10 @@ public class UI_Research : UI_Base
     private List<Tower> towerList;
 
     private ResearchData researchData;
+
+    // 튜토리얼 일회용 버튼
+    public bool isResearchGoldBtn = false;
+    public bool isResearchGemBtn = false;
 
 
 
@@ -278,6 +282,8 @@ public class UI_Research : UI_Base
     {
         bool isPopup = false;
 
+        isResearchGemBtn = true;
+
         if (isPopup) return;
 
         isPopup = true;
@@ -317,6 +323,8 @@ public class UI_Research : UI_Base
     public void OnClickSaveTime(PointerEventData data)
     {
         bool isPopup = false;
+
+        isResearchGoldBtn = true;
 
         if (isPopup) return;
 
