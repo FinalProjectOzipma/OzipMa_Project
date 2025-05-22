@@ -11,6 +11,11 @@ public class TowerFloor : MonoBehaviour
         // Body 불러오기
         Managers.Resource.Instantiate($"{floorKey}Body", go =>
         {
+            if(this.gameObject.activeSelf == false) // 장판의ㅣ외형이 생성되다가 삭제되는 경우에 삭제 누락되는 현상 방지
+            {
+                Managers.Resource.Destroy(go);
+                return;
+            }
             body = go;
 
             Transform t = go.transform;

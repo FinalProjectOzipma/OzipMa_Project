@@ -76,7 +76,7 @@ public class ResearchTutorial : TutorialBase
 
     public override void OnStart()
     {
-        if(Managers.Player.AttackResearchData != null || Managers.Player.DefenceResearchData != null || Managers.Player.CoreResearchData != null)
+        if(!Managers.Player.AttackResearchData.StartTime.Equals("") || !Managers.Player.DefenceResearchData.StartTime.Equals("") || !Managers.Player.CoreResearchData.StartTime.Equals(""))
         {
             skip = true;
             return;

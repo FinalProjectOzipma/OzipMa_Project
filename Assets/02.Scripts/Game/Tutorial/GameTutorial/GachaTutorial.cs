@@ -93,6 +93,7 @@ public class GachaTutorial : TutorialBase
         base.OnEnd();
 
         Managers.UI.CloseAllPopupUI();
+        mainUI.AllOFF();
     }
 
     public override void OnStart()
