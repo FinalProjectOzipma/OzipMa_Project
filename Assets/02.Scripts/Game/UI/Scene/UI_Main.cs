@@ -238,7 +238,7 @@ public class UI_Main : UI_Scene
 
     }
 
-    private void AllOFF()
+    public void AllOFF()
     {
 
         OFFDictionaryBtn.SetActive(true);

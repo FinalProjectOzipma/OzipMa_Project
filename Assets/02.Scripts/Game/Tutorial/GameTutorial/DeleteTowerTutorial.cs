@@ -6,6 +6,7 @@ using UnityEngine;
 public class DeleteTowerTutorial : TutorialBase
 {
     private RectTransform rect;
+    private int prevTowerCount;
 
     public DeleteTowerTutorial(TutorialController _controller) : base(_controller)
     {
@@ -14,7 +15,7 @@ public class DeleteTowerTutorial : TutorialBase
     public override bool CheckCondition()
     {
         // 타워 삭제가 이루어지면
-        if (BuildingSystem.Instance.TutorialDeleteCheck == true)
+        if (prevTowerCount > BuildingSystem.Instance.CurrentTowerCount || BuildingSystem.Instance.CurrentTowerCount == 0)
         {
             return true;
         }
@@ -24,9 +25,6 @@ public class DeleteTowerTutorial : TutorialBase
     public override void OnStart()
     {
         rect = controller.Cursor.GetComponent<RectTransform>();
-
-        // 타워 삭제 체크용 bool 초기화
-        BuildingSystem.Instance.TutorialDeleteCheck = false;
 
         // 설치된 타워 위치 아무거나 start위치로 사용
         Vector3Int startPoint = BuildingSystem.Instance.GridObjectMap.Keys.First();
@@ -52,6 +50,7 @@ public class DeleteTowerTutorial : TutorialBase
         controller.Dialogue.EnQueueText("");
 
         controller.SetDialogueActive(true);
+        prevTowerCount = BuildingSystem.Instance.CurrentTowerCount;
     }
 
     public override void OnEnd()

@@ -272,7 +272,6 @@ public class UI_Research : UI_Base
     {
         bool isPopup = false;
 
-        isResearchGemBtn = true;
 
         if (isPopup) return;
 
@@ -290,6 +289,8 @@ public class UI_Research : UI_Base
             isPopup = false;
             return;
         }
+
+        isResearchGemBtn = true;
 
         Managers.Player.SpenGem(spendGem);
         elapsedSeconds = researchDuration;
@@ -312,8 +313,6 @@ public class UI_Research : UI_Base
     {
         bool isPopup = false;
 
-        isResearchGoldBtn = true;
-
         if (isPopup) return;
 
         isPopup = true;
@@ -330,6 +329,8 @@ public class UI_Research : UI_Base
             isPopup = false;
             return;
         }
+        isResearchGoldBtn = true;
+
         Managers.Player.SpenGold(spendGold);
         startTime = startTime.AddSeconds(-secondsToReduce);
 

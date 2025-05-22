@@ -24,10 +24,10 @@ public class TutorialController : UI_Scene
         base.Init();
 
         // 튜토리얼을 순서대로 넣기 
-        queue.Enqueue(new PlaceTowerTutorial(this));
-        queue.Enqueue(new EditTowerTutorial(this));
-        queue.Enqueue(new DeleteTowerTutorial(this));
-        queue.Enqueue(new ResearchTutorial(this));
+        //queue.Enqueue(new PlaceTowerTutorial(this));
+        //queue.Enqueue(new EditTowerTutorial(this));
+        //queue.Enqueue(new DeleteTowerTutorial(this));
+        //queue.Enqueue(new ResearchTutorial(this));
         queue.Enqueue(new GachaTutorial(this));
 
         // 튜토리얼 시작
@@ -63,6 +63,7 @@ public class TutorialController : UI_Scene
         }
         else // 모든 튜토리얼 완료했으면
         {
+            currentTutorial?.OnEnd();
             Managers.Wave.GameStart();
             Managers.Resource.Destroy(this.gameObject, true); // 제거
         }
