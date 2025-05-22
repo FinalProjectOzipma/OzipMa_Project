@@ -9,6 +9,7 @@ public class GachaTutorial : TutorialBase
     private UI_Main mainUI;
     private GachaUI gachaUI;
     private UI_Dictionary dictionaryUI;
+    private bool skip = false;
 
     public GachaTutorial(TutorialController _controller, Enums.TutorialStep step) : base(_controller, step)
     {
@@ -16,6 +17,7 @@ public class GachaTutorial : TutorialBase
 
     public override bool CheckCondition()
     {
+        if (skip) return true;
         switch (dialogueNum)
         {
             case 0:
@@ -31,6 +33,7 @@ public class GachaTutorial : TutorialBase
                     controller.Cursor.Init(startPos, endPos, CursorType.Click);
 
                     Managers.Player.AddGem(3000);
+                    Managers.Player.HasReceivedTutorialGem = true;
 
                     gachaUI = Managers.UI.GetPopup<GachaUI>();
                 }
@@ -93,11 +96,17 @@ public class GachaTutorial : TutorialBase
         base.OnEnd();
 
         Managers.UI.CloseAllPopupUI();
-        mainUI.AllOFF();
+        mainUI?.AllOFF();
     }
 
     public override void OnStart()
     {
+        if (Managers.Player.HasReceivedTutorialGem)
+        {
+            skip = true;
+            return;
+        }
+
         mainUI = Managers.UI.GetScene<UI_Main>();
 
         Vector3 startPos = new Vector3(470, -871, 0); // 가챠탭 위치

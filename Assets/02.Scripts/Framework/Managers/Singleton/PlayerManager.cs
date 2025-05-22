@@ -8,7 +8,11 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerManager
 {
+    // 튜토리얼 관련
     public Enums.TutorialStep LastTutorialStep = Enums.TutorialStep.None;
+    public bool HasReceivedTutorialGold = false;
+    public bool HasReceivedTutorialGem = false;
+
     public DateTime Last_LoginTime { get; set; }
     public int consecutive_days = 0;
 
@@ -184,6 +188,8 @@ public class PlayerManager
         consecutive_days = data.consecutive_days;
 
         LastTutorialStep = data.LastTutorialStep;
+        HasReceivedTutorialGold = data.HasReceivedTutorialGold;
+        HasReceivedTutorialGem = data.HasReceivedTutorialGem;
 
         Gold = 0;
         Gem = 0;
