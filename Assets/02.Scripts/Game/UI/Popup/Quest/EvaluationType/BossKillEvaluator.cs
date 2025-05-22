@@ -6,12 +6,18 @@ public class BossKillEvaluator : IQuestConditionEvaluator
 {
     public void ApplyProgress(QuestData quest, int amount)
     {
-        quest.Progress += amount;
+        quest.AddProgress(amount);
         if (quest.Progress >= quest.Goal)
         {
             quest.Progress = quest.Goal;
             quest.State = QuestState.Done;
+            quest.OnStateChanged?.Invoke(quest.State);
         }
+    }
+
+    public bool IsActive(QuestData quest)
+    {     
+        return quest.IsActive == 1;
     }
 
     public bool IsMatch(QuestData quest, int targetID)

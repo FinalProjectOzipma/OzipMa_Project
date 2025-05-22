@@ -195,6 +195,7 @@ public class UI_Research : UI_Base
     {
         if (isResearching) return; // 이미 진행 중이면 무시
 
+        Managers.Quest.UpdateQuestProgress(ConditionType.Reach, -1, 1);
         LodingAnime.SetActive(true);
         StartTimeCheck();
     }
@@ -221,6 +222,8 @@ public class UI_Research : UI_Base
             LoadAndCheckProgress();
             return;
         }
+
+
 
         startTime = Managers.Game.ServerUtcNow;
         researchData.StartTime = startTime.ToString("o");

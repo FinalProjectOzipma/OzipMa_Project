@@ -33,8 +33,10 @@ public class UI_QuestSlot : UI_Base
         Name.text = questData.Name;
         RewardText.text = questData.RewardGem.ToString("F0");
         Description.text = questData.Description;
-        GoalValueText.text = $"{questData.Progress} / {questData.Goal}";
-        ProgressSlider.value = questData.Progress / questData.Goal;
+
+        questData.OnProgressChanged += UpdateUI;
+
+        UpdateUI();
 
         if(questData.State != QuestState.Complete)
         {
@@ -60,6 +62,12 @@ public class UI_QuestSlot : UI_Base
         CheckButton.interactable = false;
         CompleteImage.SetActive(true);
         Managers.Player.AddGem(questData.RewardGem);
+    }
+
+    public void UpdateUI()
+    {
+        GoalValueText.text = $"{questData.Progress} / {questData.Goal}";
+        ProgressSlider.value = (float)questData.Progress / questData.Goal;
     }
 
 }

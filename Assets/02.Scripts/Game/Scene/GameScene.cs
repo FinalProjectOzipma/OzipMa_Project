@@ -58,6 +58,8 @@ public class GameScene : SceneBase
             // 파이어베이스에 데이터가 없으면 디폴트 인벤토리로 세팅
             DefaultTowerAdd();
             DefaultUnitAdd();
+            Managers.Resource.Instantiate("QuestRepeatUI");
+            Managers.Quest.CheckAndResetIfNeeded();
         });
         while (!Managers.Data.IsGameDataLoadFinished)
         {
@@ -88,7 +90,6 @@ public class GameScene : SceneBase
         Managers.Resource.Instantiate("MainUI");
         Managers.Resource.Instantiate("BuildingSystem");
         Managers.Resource.Instantiate("Ending_Panel");
-        Managers.Resource.Instantiate("QuestRepeatUI");
         Managers.Audio.OnSceneLoaded();
 
     }

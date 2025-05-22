@@ -179,6 +179,8 @@ public class DataManager
         {
             Managers.Player.LoadPlayerData(loadedData);
             Managers.Game.ServerTImeInit();
+            Managers.Resource.Instantiate("QuestRepeatUI");
+            Managers.Quest.CheckAndResetIfNeeded();
             IsGameDataLoadFinished = true;
         }, onFailed);
     }

@@ -25,7 +25,11 @@ public class QuestEvaluatorManager
 
     public void Evaluate(QuestData quest, int targetID, int amount)
     {
+
         if (!_evaluators.TryGetValue(quest.ConditionType, out var evaluator))
+            return;
+
+        if (!evaluator.IsActive(quest))
             return;
 
         if (!evaluator.IsMatch(quest, targetID))

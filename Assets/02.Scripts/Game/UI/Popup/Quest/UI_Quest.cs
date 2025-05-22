@@ -60,21 +60,22 @@ public class UI_Quest : UI_Popup
 
     private void Update()
     {
-        DateTime currentTime = Managers.Game.ServerUtcNow.ToLocalTime();
+        //DateTime currentTime = DateTime.UtcNow.AddHours(9);
+        DateTime currentTime = Managers.Game.ServerUtcNow.AddHours(9);
 
-        DateTime todaySixAM = new DateTime(
+        DateTime todayMidnightUtc = new DateTime(
             currentTime.Year,
             currentTime.Month,
             currentTime.Day,
             0, 0, 0);
 
-        if (currentTime >= todaySixAM)
+        if (currentTime >= todayMidnightUtc)
         {
-            todaySixAM = todaySixAM.AddDays(1);
+            todayMidnightUtc = todayMidnightUtc.AddDays(1);
         }
 
 
-        TimeSpan remaining = todaySixAM - currentTime;
+        TimeSpan remaining = todayMidnightUtc - currentTime;
 
         string formattedTime = string.Format("{0:D2}:{1:D2}:{2:D2}",
             remaining.Hours + remaining.Days * 24,

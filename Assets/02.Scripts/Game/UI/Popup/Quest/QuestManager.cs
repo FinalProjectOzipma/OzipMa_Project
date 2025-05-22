@@ -52,7 +52,9 @@ public class QuestManager
             questData.ConditionType,
             questData.TargetID,
             questData.Goal,
-            questData.RewardGem
+            questData.RewardGem,
+            questData.IsActive
+      
         );
 
         QuestDatas[type].Add(newQuest);
@@ -125,7 +127,7 @@ public class QuestManager
         {
             if(QuestDatas.TryGetValue(QuestType.Daily, out var dailyQuest))
             {
-                dailyQuest[i].Progress = 0;
+                dailyQuest[i].SetProgress(0);
                 dailyQuest[i].State = QuestState.Doing;
             }
         }
@@ -133,14 +135,15 @@ public class QuestManager
 
     public void CheckAndResetIfNeeded()
     {
-        DateTime currentUtc = Managers.Game.ServerUtcNow;
+        //DateTime currentUtc = DateTime.UtcNow.AddHours(9);
+        DateTime currentUtc = Managers.Game.ServerUtcNow.AddHours(9);
 
         DateTime todayMidnightUtc = new DateTime(
             currentUtc.Year,
             currentUtc.Month,
             currentUtc.Day,
             0, 0, 0,
-            DateTimeKind.Utc);
+            DateTimeKind.Unspecified);
 
         if (string.IsNullOrEmpty(Managers.Player.LastRestQuestTime))
         {
@@ -150,6 +153,8 @@ public class QuestManager
         {
             lastResetTime = DateTime.Parse(Managers.Player.LastRestQuestTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
         }
+        Util.Log($"Current UTC: {currentUtc} (Kind: {currentUtc.Kind})");
+        Util.Log($"Today Midnight UTC: {todayMidnightUtc} (Kind: {todayMidnightUtc.Kind})");
 
         if (lastResetTime < todayMidnightUtc && currentUtc >= todayMidnightUtc)
         {
@@ -157,6 +162,17 @@ public class QuestManager
             Managers.Player.LastRestQuestTime = currentUtc.ToString("o");
         }
 
+    }
+
+    public void RestRepeatQuest()
+    {
+        List<QuestData> repeaQuest = GetQuestList(QuestType.Repeat);
+
+        for(int i = 0 ; i < repeaQuest.Count; i++)
+        {
+            repeaQuest[i].Progress = 0;
+            repeaQuest[i].State = QuestState.Doing;
+        }
     }
 
 
