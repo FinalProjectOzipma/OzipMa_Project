@@ -11,6 +11,8 @@ public class TutorialController : UI_Scene
     public Cursor Cursor;
     public Dialogue Dialogue;
 
+    public GameObject ButtonsPosition;
+
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
 
@@ -112,4 +114,26 @@ public class TutorialController : UI_Scene
         Managers.Resource.Instantiate("QuestRepeatUI");
         Managers.Resource.Destroy(this.gameObject, true); // 제거
     }
+
+    public Vector3 GetTabPosition(int index)
+    {
+        Transform g = ButtonsPosition.transform.GetChild(index);
+        RectTransform r = g as RectTransform;
+        Vector2 ap = r.anchoredPosition;
+
+
+        switch (index)
+        {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+                return (ButtonsPosition.transform.GetChild(index) as RectTransform).anchoredPosition;
+            default:
+                break;
+        }
+
+        return Vector3.zero;
+    }
+
 }

@@ -50,8 +50,11 @@ public class PlaceTowerTutorial : TutorialBase
         mainUI = Managers.UI.GetScene<UI_Main>();
         prevTowerCount = BuildingSystem.Instance.GridObjectMap.Count;
 
-        Vector3 startPos = new Vector3(-370, -900, 0); // 관리탭 위치
-        Vector3 endPos = new Vector3(-370, -900, 0);
+        //Vector3 startPos = new Vector3(-370, -900, 0); // 관리탭 위치
+        //Vector3 endPos = new Vector3(-370, -900, 0);
+
+        Vector3 startPos = controller.GetTabPosition(0); // 관리탭 위치
+        Vector3 endPos = startPos;
         controller.Cursor.Init(startPos, endPos, CursorType.Click);
 
         controller.Dialogue.EnQueueText("주인님 반갑습니다.\n시작하기 앞서, 던전 관리를 간단히 알려드리겠습니다.");
