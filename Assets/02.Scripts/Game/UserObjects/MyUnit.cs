@@ -31,12 +31,14 @@ public class MyUnit : UserObject, IGettable
         //인벤토리에 있는 유닛일 경우
         else
         {
+            var result = Util.TableConverter<DefaultTable.MyUnit>(Managers.Data.Datas[Enums.Sheet.MyUnit]);
             base.Init(primaryKey, sprite);
             Name = unitdata.Name;
             Description = unitdata.Description;
+
             if (Status == null)
             {
-                Status = new MyUnitStatus();
+                Status = new MyUnitStatus(primaryKey);
             }
 
             (Status as MyUnitStatus).InvenStatus();
