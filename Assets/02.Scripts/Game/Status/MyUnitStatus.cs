@@ -7,6 +7,11 @@ public class MyUnitStatus : StatusBase
 
     public MyUnitStatus() { }
 
+    public MyUnitStatus(int primaryKey) 
+    {
+        this.primaryKey = primaryKey;
+    }
+
     public MyUnitStatus(int PrimaryKey, List<DefaultTable.MyUnit> Row)
     {
         primaryKey = PrimaryKey;
