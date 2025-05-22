@@ -168,6 +168,9 @@ public class PlayerManager
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
 
+        Last_LoginTime = data.Last_LoginTime;
+        consecutive_days = data.consecutive_days;
+
         Gold = 0;
         Gem = 0;
 

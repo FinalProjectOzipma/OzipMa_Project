@@ -145,6 +145,10 @@ public class WaveManager
                         if (++playerManager.CurrentStage > EndNumber)
                             playerManager.CurrentKey = Mathf.Min(++playerManager.CurrentKey, stages.Count - 1); // 스테이지 끝이면 현재 키를 늘린다.
                         playerManager.CurrentWave = 0;
+
+                        #region 퍼널 다음 스테이지 ( 15 )
+                        Managers.Analytics.SendFunnelStep($"{15}");
+                        #endregion
                     }
 
                     Managers.UI.GetScene<UI_EndingPanel>().SetRewardText(CurrentGold, CurrentGem);
@@ -198,6 +202,11 @@ public class WaveManager
             Managers.Analytics.AnalyticsWaveStarted(playerManager.CurrentWave, needAmount,
                 CurTowerDict.Count, MainCore.core.Health.Value, (int)playerManager.Gold);
             #endregion
+
+            // 애널리틱스 퍼널 로딩 씬 진입 시
+            #region 웨이브 시작 시 (퍼널 3 ~ 12)
+            Managers.Analytics.SendFunnelStep($"{playerManager.CurrentWave + 3}");
+            #endregion
         });
     }
 
@@ -231,6 +240,11 @@ public class WaveManager
             random = bossList[index].EnemyPrimaryKey;
 
             OnStartBossMap?.Invoke();
+
+            #region 퍼널 보스 등장 시 ( 13 )
+            Managers.Analytics.SendFunnelStep($"{13}");
+            #endregion
+
         }
         else
         {
