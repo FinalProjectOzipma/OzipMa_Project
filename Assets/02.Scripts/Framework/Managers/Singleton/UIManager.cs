@@ -156,6 +156,8 @@ public class UIManager
 
     public T GetPopup<T>() where T : UI_Popup
     {
+        if (_popupStack.Count == 0) return null;
+
         T popUp = _popupStack.Peek() as T;
         return popUp;
     }

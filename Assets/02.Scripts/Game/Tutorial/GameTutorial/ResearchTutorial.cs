@@ -8,12 +8,15 @@ public class ResearchTutorial : TutorialBase
     private UI_Main mainUI;
     private UI_ResearchScene researchUI;
     private int dialogueNum = 0;
+    private bool skip = false;
 
     public ResearchTutorial(TutorialController _controller) : base(_controller)
     {
     }
     public override bool CheckCondition()
     {
+        if(skip) return true;
+
         switch (dialogueNum)
         {
             case 0:
@@ -73,6 +76,12 @@ public class ResearchTutorial : TutorialBase
 
     public override void OnStart()
     {
+        if(Managers.Player.AttackResearchData != null || Managers.Player.DefenceResearchData != null || Managers.Player.CoreResearchData != null)
+        {
+            skip = true;
+            return;
+        }
+
         mainUI = Managers.UI.GetScene<UI_Main>();
 
         // 연구 탭 클릭 커서 세팅

@@ -60,7 +60,7 @@ public class Dialogue : UI_Base
     public override void Init()
     {
         IsEnd = false;
-        TutorialTxt.text = txt.Dequeue();
+        if(txt.Count > 0) TutorialTxt.text = txt.Dequeue();
         TutorialTxt.maxVisibleCharacters = 0;
         Play = StartCoroutine(Typing());
         Managers.Audio.PlaySFX(SFXClipName.Guide);
