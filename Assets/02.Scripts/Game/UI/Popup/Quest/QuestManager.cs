@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.PackageManager.Requests;
-using System.Threading.Tasks;
-using UnityEngine.SocialPlatforms.Impl;
 
 
 public class QuestManager
@@ -83,8 +80,8 @@ public class QuestManager
             questData.Goal,
             questData.RewardGem,
             questData.IsActive
-      
-        );   
+
+        );
 
         QuestDatas[type].Add(newQuest);
 
@@ -171,9 +168,9 @@ public class QuestManager
     /// </summary>
     public void SetDailyQuestZero()
     {
-        for(int i = 0; i < QuestDatas[QuestType.Daily].Count; i++)
+        for (int i = 0; i < QuestDatas[QuestType.Daily].Count; i++)
         {
-            if(QuestDatas.TryGetValue(QuestType.Daily, out var dailyQuest))
+            if (QuestDatas.TryGetValue(QuestType.Daily, out var dailyQuest))
             {
                 dailyQuest[i].SetProgress(0);
                 dailyQuest[i].State = QuestState.Doing;
@@ -222,7 +219,7 @@ public class QuestManager
     {
         List<QuestData> repeaQuest = GetQuestList(QuestType.Repeat);
 
-        for(int i = 0 ; i < repeaQuest.Count; i++)
+        for (int i = 0; i < repeaQuest.Count; i++)
         {
             repeaQuest[i].Progress = 0;
             repeaQuest[i].State = QuestState.Doing;
@@ -247,7 +244,7 @@ public class QuestManager
         List<QuestData> DailyQuest = GetQuestList(QuestType.Daily);
         List<QuestData> AchivementQuest = GetQuestList(QuestType.Achivement);
 
-        for(int i = 0; i < DailyQuest.Count; i++)
+        for (int i = 0; i < DailyQuest.Count; i++)
         {
             if (DailyQuest[i].State == QuestState.Done)
             {
@@ -255,7 +252,7 @@ public class QuestManager
             }
         }
 
-        for(int i =0; i< AchivementQuest.Count; i++)
+        for (int i = 0; i < AchivementQuest.Count; i++)
         {
             if (AchivementQuest[i].State == QuestState.Done)
             {
@@ -268,4 +265,3 @@ public class QuestManager
     }
 
 }
- 
