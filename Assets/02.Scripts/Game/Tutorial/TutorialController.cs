@@ -117,23 +117,22 @@ public class TutorialController : UI_Scene
 
     public Vector3 GetTabPosition(int index)
     {
-        Transform g = ButtonsPosition.transform.GetChild(index);
-        RectTransform r = g as RectTransform;
-        Vector2 ap = r.anchoredPosition;
+        Transform tabBtn = ButtonsPosition.transform.GetChild(index);
+        RectTransform rectTabBtn = tabBtn as RectTransform;
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, rectTabBtn.position); // 버튼의 화면 상 위치
 
-
-        switch (index)
-        {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                return (ButtonsPosition.transform.GetChild(index) as RectTransform).anchoredPosition;
-            default:
-                break;
-        }
-
-        return Vector3.zero;
+        // screenPos를 커서의 앵커 기준 로컬 좌표로 변환
+        Vector2 localPos;
+        Canvas canvas = gameObject.GetComponent<Canvas>();
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+                    (
+                        canvasRect,
+                        screenPos,
+                        null,
+                        out localPos
+                    );
+        return localPos;
     }
 
 }
