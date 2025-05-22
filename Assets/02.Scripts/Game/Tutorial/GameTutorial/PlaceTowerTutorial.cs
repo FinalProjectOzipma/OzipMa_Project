@@ -68,6 +68,8 @@ public class PlaceTowerTutorial : TutorialBase
     {
         base.OnEnd();
 
+        mainUI.OFFSwipe();
+
         // TODO :: 튜토리얼 보상 처리
     }
 }

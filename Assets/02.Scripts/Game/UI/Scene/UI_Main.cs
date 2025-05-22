@@ -268,7 +268,7 @@ public class UI_Main : UI_Scene
         ONManagerBtn.SetActive(false);
     }
 
-    private void OFFSwipe()
+    public void OFFSwipe()
     {
         if (isManagerOpen) Managers.UI.GetScene<InventoryUI>().OnSwipe();
     }
