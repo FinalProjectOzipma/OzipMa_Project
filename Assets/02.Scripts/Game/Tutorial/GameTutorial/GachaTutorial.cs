@@ -115,7 +115,7 @@ public class GachaTutorial : TutorialBase
         controller.Dialogue.EnQueueText("");
         controller.Dialogue.EnQueueText("잘하셨어요!\n진짜 마지막 비상금(ㅠㅠ)을 넣어드렸으니 아군을 소환해보세요.");
         controller.Dialogue.EnQueueText("");
-        controller.Dialogue.EnQueueText("축하드립니다!\n중복으로 소환되는 아군과 타워는 나중에 강화 재료로 쓰인답니다!");
+        controller.Dialogue.EnQueueText("축하드립니다!\n중복으로 소환되는 아군과 타워는 나중에 <color=#f5a545>강화 재료</color>로 쓰인답니다!");
         controller.Dialogue.EnQueueText("소환된 아군과 타워들의 정보가 궁금하시죠!!!");
         controller.Dialogue.EnQueueText(".. 사실 안 궁금하다고 하셔도 알려드릴 거예욧!!!");
         controller.Dialogue.EnQueueText("아래 탭의 두 번째 버튼을 눌러서 도감창을 열어보세요.");
@@ -123,7 +123,7 @@ public class GachaTutorial : TutorialBase
         controller.Dialogue.EnQueueText("이곳에서 도감의 유닛들과 타워들을 선택하면 정보들을 볼 수 있어요. 한번 열어보시겠어요?");
         controller.Dialogue.EnQueueText("");
         controller.Dialogue.EnQueueText("정말 멋져요!\n모든 튜토리얼을 완료하였습니다.");
-        controller.Dialogue.EnQueueText("진짜 진짜 마지막으로!\n제가 가진 모든 전재산(...)을 드릴게요!\n+5000Gold\n+5000Gem");
+        controller.Dialogue.EnQueueText("진짜 진짜 마지막으로!\n제가 가진 모든 전재산(...)을 드릴게요!\n+<color=#f2d411>5000Gold</color>\n+<color=#10b2e8>5000Gem</color>");
         controller.Dialogue.EnQueueText("앞으로 우리의 집을 멋지게 지켜주세요!!");
         controller.Dialogue.EnQueueText("");
 
