@@ -46,9 +46,8 @@ public class GachaTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 도감 탭 위치로 커서 세팅
-                    Vector3 startPos = new Vector3(-142, -871, 0);
-                    Vector3 endPos = new Vector3(-142, -871, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetTabPosition(1);
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
                 }
                 break;
             case 2:
@@ -60,8 +59,7 @@ public class GachaTutorial : TutorialBase
 
                     // 도감 정보창 위치로 커서 세팅
                     Vector3 startPos = new Vector3(-225, 130, 0);
-                    Vector3 endPos = new Vector3(-225, 130, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
 
                     dictionaryUI = Managers.UI.GetPopup<UI_Dictionary>();
                 }
@@ -109,9 +107,8 @@ public class GachaTutorial : TutorialBase
 
         mainUI = Managers.UI.GetScene<UI_Main>();
 
-        Vector3 startPos = new Vector3(470, -871, 0); // 가챠탭 위치
-        Vector3 endPos = new Vector3(470, -871, 0);
-        controller.Cursor.Init(startPos, endPos, CursorType.Click);
+        Vector3 startPos = controller.GetTabPosition(3); // 가챠탭 위치
+        controller.Cursor.Init(startPos, startPos, CursorType.Click);
 
         controller.Dialogue.EnQueueText("마지막으로 아군과 타워를 추가로 소환할 수 있는 뽑기 시스템을 알려드리겠습니다.");
         controller.Dialogue.EnQueueText("아래 탭의 네 번째 버튼을 눌러 뽑기 탭을 열어보세요.");
