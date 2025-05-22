@@ -24,10 +24,10 @@ public class TutorialController : UI_Scene
         base.Init();
 
         // 튜토리얼을 순서대로 넣기 
-        //queue.Enqueue(new PlaceTowerTutorial(this));
-        //queue.Enqueue(new EditTowerTutorial(this));
-        //queue.Enqueue(new DeleteTowerTutorial(this));
-        //queue.Enqueue(new ResearchTutorial(this));
+        queue.Enqueue(new PlaceTowerTutorial(this));
+        queue.Enqueue(new EditTowerTutorial(this));
+        queue.Enqueue(new DeleteTowerTutorial(this));
+        queue.Enqueue(new ResearchTutorial(this));
         queue.Enqueue(new GachaTutorial(this));
 
         // 튜토리얼 시작
