@@ -36,8 +36,9 @@ public enum SFXClipName
     Burst,
     Death,
     Clear,
-    Defeat
-
+    Defeat,
+    Guide,
+    GuideSkip,
 }
 
 public enum AudioType

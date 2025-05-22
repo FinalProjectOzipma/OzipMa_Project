@@ -20,6 +20,7 @@ public class BuildingSystem : MonoBehaviour
     private Camera cam;
     private MapHandler mapHandler;
 
+
     private void Awake()
     {
         if (Instance != null)
@@ -131,6 +132,16 @@ public class BuildingSystem : MonoBehaviour
         Vector3Int cell = map.WorldToCell(cam.ScreenToWorldPoint(eventPosition));
         return map.GetCellCenterWorld(cell);
     }
+    
+    /// <summary>
+    /// Cell Point를 World 좌표로 변환
+    /// </summary>
+    /// <param name="point">셀 좌표</param>
+    /// <returns>변환된 월드 좌표</returns>
+    public Vector3 CellToWorldPos(Vector3Int point)
+    {
+        return map.GetCellCenterWorld(point);
+    }
 
     // 오버로드
     public Vector3 UpdatePosition(Vector2 eventPosition, out Vector3Int result)
@@ -225,4 +236,9 @@ public class BuildingSystem : MonoBehaviour
         return id;
     }
     #endregion
+
+    public MapHandler GetCurMapHandler()
+    {
+        return mapHandler;
+    }
 }

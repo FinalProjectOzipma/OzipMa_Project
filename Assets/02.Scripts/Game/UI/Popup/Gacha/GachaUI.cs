@@ -17,10 +17,10 @@ public class GachaUI : UI_Popup
 
     [SerializeField] public RectTransform RectTransform;
 
+    public bool IsGachaInProgress = false; // 가챠 중복 방지
+
     private GachaSystem gacha;
     private List<IGettable> result;
-
-    private bool isGachaInProgress = false; // 가챠 중복 방지
 
     private void Start()
     {
@@ -46,14 +46,14 @@ public class GachaUI : UI_Popup
     }
     private void UnitOnClick(int num)
     {
-        if (isGachaInProgress) return;
+        if (IsGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
 
-        isGachaInProgress = true;
+        IsGachaInProgress = true;
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetUnitGachaResult);
     }
@@ -64,8 +64,17 @@ public class GachaUI : UI_Popup
     /// <param name="callResults">뽑힌 데이터</param>
     private void GetUnitGachaResult(List<GachaResult> callResults/*등급, id, 확정인지 여부*/)
     {
-        //돈 차감
-        Managers.Player.AddGem(-(callResults.Count) * 300);
+        //돈 차감(연챠)
+        if (callResults.Count > 1)
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 9 * 30); // 0.9f * 300 = 9 * 30
+        }
+        //돈 차감(단챠)
+        else
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 300);
+        }
+            
 
         //뽑힌 유닛 넣어주기 
         result = new();
@@ -81,7 +90,7 @@ public class GachaUI : UI_Popup
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
-            isGachaInProgress = false;
+            IsGachaInProgress = false;
         });
 
         // 애널리틱스
@@ -117,14 +126,14 @@ public class GachaUI : UI_Popup
 
     private void TowerOnClick(int num)
     {
-        if (isGachaInProgress) return;
+        if (IsGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
         }
 
-        isGachaInProgress = true;
+        IsGachaInProgress = true;
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetTowerGachaResult);
     }
@@ -135,8 +144,16 @@ public class GachaUI : UI_Popup
     /// <param name="callResults">뽑힌 데이터</param>
     private void GetTowerGachaResult(List<GachaResult> callResults/*등급, id, 확정인지 여부*/)
     {
-        //돈 차감
-        Managers.Player.AddGem(-(callResults.Count) * 300);
+        //돈 차감(연챠)
+        if (callResults.Count > 1)
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 9 * 30); // 0.9f * 300 = 9 * 30
+        }
+        //돈 차감(단챠)
+        else
+        {
+            Managers.Player.AddGem(-(callResults.Count) * 300);
+        }
 
         //뽑힌 유닛 넣어주기 
         result = new();
@@ -152,7 +169,7 @@ public class GachaUI : UI_Popup
         {
             UI_GachaResult res = go.GetComponent<UI_GachaResult>();
             res.ShowResult(result);
-            isGachaInProgress = false;
+            IsGachaInProgress = false;
         });
 
 
