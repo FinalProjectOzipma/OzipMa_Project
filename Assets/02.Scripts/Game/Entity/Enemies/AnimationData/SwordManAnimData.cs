@@ -12,7 +12,7 @@ public class SwordManAnimData : EntityAnimationData
         ChaseState = new SwordManChasingState(StateMachine, ChaseHash, controller as EnemyController, this);
         DeadState = new SwordManDeadState(StateMachine, DeadHash, controller as EnemyController, this);
         DarkState = new SwordManDarkState(StateMachine, DarkHash, controller as EnemyController, this);
-        controller.Conditions.Add((int)AbilityType.Dark, new DarkCondition<SwordManStateBase>(StateMachine, ChaseState, DarkState));
+        controller.Conditions.Add((int)AbilityType.Dark, new DarkCondition<SwordManStateBase>(StateMachine, ChaseState, DarkState, controller as EnemyController));
 
         StateMachine.Init(ChaseState);
     }

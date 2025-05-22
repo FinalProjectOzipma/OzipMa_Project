@@ -18,12 +18,13 @@ public class SwordManChasingState : SwordManStateBase
 
     public override void Update()
     {
-
         base.Update();
+
+        ConditionHandler handler = controller.ConditionHandlers[(int)AbilityType.Dark];
 
         if (targets.Count <= 0) return;
 
-        agent.SetDestination(targets.Peek().transform.position);
+        if(!handler.IsPlaying) agent.SetDestination(targets.Peek().transform.position);
 
         InnerRange(data.AttackState, status.AttackRange.GetValue());
 

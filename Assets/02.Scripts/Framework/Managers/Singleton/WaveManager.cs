@@ -30,7 +30,7 @@ public class WaveManager
     private WaitForSeconds waveDelayTime = new WaitForSeconds(2f);
     private bool onSpawn = true;
 
-    private GameObject enemySpawn;
+    public GameObject enemySpawn;
 
     public CoreController MainCore { get; set; }
     public Enums.WaveState CurrentState { get; set; }

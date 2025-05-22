@@ -22,6 +22,7 @@ public class ArcherManDarkState : ArcherManStateBase
         base.Exit();
         Anim.speed = 1f;
         handler.ObjectActive(false);
+        handler.IsPlaying = false;
     }
 
     public override void Update()
@@ -32,9 +33,7 @@ public class ArcherManDarkState : ArcherManStateBase
             StateMachine.ChangeState(data.ChaseState);
         else
         {
-            //agent.SetDestination((Vector2)(-targets.Peek().transform.position));
-            Vector2 dir = (Managers.Wave.MainCore.transform.position) - transform.position;
-            agent.Move(-dir.normalized * status.MoveSpeed.GetValue() * 0.2f * Time.deltaTime);
+            agent.SetDestination(Managers.Wave.enemySpawn.transform.position);
             controller.FlipControll();
         }
     }
