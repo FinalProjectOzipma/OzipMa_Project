@@ -186,7 +186,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 
         // 타워 Brain 생성해서 프리뷰 역할
         Vector2 inputPos = eventData.position;
-        Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos);
+        Vector3 cellWorldPos = buildingSystem.UpdatePosition(inputPos, out Vector3Int vec3Int);
         if (PreviewTowerBrain == null)
         {
             DefaultTable.Tower data = Managers.Data.GetTable<DefaultTable.Tower>(Enums.Sheet.Tower, itemKey);
@@ -198,6 +198,12 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
                 curTowerController = PreviewTowerBrain.GetComponent<TowerControlBase>();
                 curTowerController.TakeRoot(itemKey, towerName, (Tower)Gettable);
                 curTowerController.TowerStop();
+
+                // 애널리틱스
+                #region tower_installed
+                Managers.Analytics.AnalyticsTowerInstalled(itemKey.ToString(), Enum.GetName(typeof(AtkType), data.AttackType), curTowerController.TowerStatus.Level.Value,
+                    vec3Int.x, vec3Int.y, Managers.Player.CurrentWave);
+                #endregion
             });
         }
 

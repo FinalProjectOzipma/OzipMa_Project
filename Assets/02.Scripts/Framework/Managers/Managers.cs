@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.Analytics;
 
 public class Managers : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class Managers : MonoBehaviour
     public static readonly UpgradeManager Upgrade = new();
     public static readonly EffectManager Effect = new();
     public static readonly AuthManager Auth = new();
+    public static readonly AnalyticsManager Analytics = new();
 
     private void Awake()
     {
@@ -39,6 +41,7 @@ public class Managers : MonoBehaviour
         // 로컬 캐시 비활설화
         FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
 
+        Analytics.Initialize();
         Data.Initialize();
         Pool.Initialize();
         TestInit();
