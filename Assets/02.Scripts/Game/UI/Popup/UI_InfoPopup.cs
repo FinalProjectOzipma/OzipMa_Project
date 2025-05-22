@@ -21,7 +21,6 @@ public class UI_InfoPopup : UI_Popup
     [SerializeField] private Image InfoImage;
 
 
-    [SerializeField] private Button CloseButton;
     [SerializeField] private Button BGClose;
 
     [SerializeField] private GameObject UIInfo;
@@ -43,7 +42,6 @@ public class UI_InfoPopup : UI_Popup
 
     private void Awake()
     {
-        CloseButton.gameObject.BindEvent(OnClikcBack);
         BGClose.gameObject.BindEvent(OnClikcBack);
     }
 
