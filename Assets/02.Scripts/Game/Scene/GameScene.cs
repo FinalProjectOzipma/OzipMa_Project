@@ -31,7 +31,7 @@ public class GameScene : SceneBase
     {
         // 애널리틱스 퍼널 로딩 씬 진입 시
         #region 로딩 씬 진입 시 (퍼널 1)
-        Managers.Analytics.SendFunnelStep("1");
+        Managers.Analytics.SendFunnelStep(1);
         #endregion
 
         // 0. 로딩 화면 보여주기 =======================================================

@@ -147,7 +147,7 @@ public class WaveManager
                         playerManager.CurrentWave = 0;
 
                         #region 퍼널 다음 스테이지 ( 15 )
-                        Managers.Analytics.SendFunnelStep($"{15}");
+                        Managers.Analytics.SendFunnelStep(15);
                         #endregion
                     }
 
@@ -205,7 +205,7 @@ public class WaveManager
 
             // 애널리틱스 퍼널 로딩 씬 진입 시
             #region 웨이브 시작 시 (퍼널 3 ~ 12)
-            Managers.Analytics.SendFunnelStep($"{playerManager.CurrentWave + 3}");
+            Managers.Analytics.SendFunnelStep(playerManager.CurrentWave + 3);
             #endregion
         });
     }
@@ -242,7 +242,7 @@ public class WaveManager
             OnStartBossMap?.Invoke();
 
             #region 퍼널 보스 등장 시 ( 13 )
-            Managers.Analytics.SendFunnelStep($"{13}");
+            Managers.Analytics.SendFunnelStep(13);
             #endregion
 
         }

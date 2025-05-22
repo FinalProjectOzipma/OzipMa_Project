@@ -25,7 +25,7 @@ public class AnalyticsManager
         }
     }
     //[1]퍼널
-    public void SendFunnelStep(string stepNumber)
+    public void SendFunnelStep(int stepNumber)
     {
         var funnelEvent = new CustomEvent("Funnel_Step"); //event
         funnelEvent["Funnel_Step_Number"] = stepNumber; //parameter
