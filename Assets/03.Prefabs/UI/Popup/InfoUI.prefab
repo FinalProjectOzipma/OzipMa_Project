@@ -1690,7 +1690,6 @@ MonoBehaviour:
   HealthText: {fileID: 3699528109118465931}
   DefenceText: {fileID: 5018793725471541245}
   InfoImage: {fileID: 8637638981386919217}
-  CloseButton: {fileID: 0}
   BGClose: {fileID: 3336059944278566908}
   UIInfo: {fileID: 1318656244421712320}
   BGObject: {fileID: 6102417587182379641}

@@ -121,6 +121,12 @@ public class UI_Quest : UI_Popup
         {
             trans.GetChild(cnt++).gameObject.SetActive(false);
         }
+
+
+        for(int i = 0; i < questSlot.Count; i++)
+        {
+            if (questSlot[i].CheckIsComplete()) questSlot[i].gameObject.transform.SetAsLastSibling();
+        }
     }
 
     private void SlotActive(GameObject slotGo, int index)
@@ -130,7 +136,6 @@ public class UI_Quest : UI_Popup
         slotGo.SetActive(true);
         questSlot.Add(slot);
         slot.SetData(questDatas[index]);
-
     }
 
     private void OnDailyTab()

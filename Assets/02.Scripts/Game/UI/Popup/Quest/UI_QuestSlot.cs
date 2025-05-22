@@ -71,4 +71,8 @@ public class UI_QuestSlot : UI_Base
         ProgressSlider.value = (float)questData.Progress / questData.Goal;
     }
 
+    public bool CheckIsComplete()
+    {
+        return CompleteImage.activeSelf;
+    }
 }
