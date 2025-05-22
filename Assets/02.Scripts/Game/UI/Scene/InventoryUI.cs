@@ -391,6 +391,7 @@ public class InventoryUI : UI_Scene
                 CurrentState = STATE.SELECTABLE;
                 BackgroundButton.gameObject.SetActive(true);
                 Managers.UI.GetScene<UI_Main>().OnManagerMenu();
+                Managers.UI.GetScene<UI_QuestRepeat>().gameObject.SetActive(false);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y + 180.0f, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
@@ -402,6 +403,7 @@ public class InventoryUI : UI_Scene
             {
                 BackgroundButton.gameObject.SetActive(false);
                 Managers.UI.GetScene<UI_Main>().OFFManagerMenu();
+                Managers.UI.GetScene<UI_QuestRepeat>().gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y - 180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;

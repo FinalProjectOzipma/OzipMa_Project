@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 ///  유저가 저장해야될 필수적인 요소들을 저장하는 곳
@@ -38,10 +39,14 @@ public class PlayerManager
     public ResearchData CoreResearchData { get; set; }
     public ResearchData RandomResearchData { get; set; }
 
+    public Dictionary<string, QuestData> QuestDataInfo { get; set; }
+
     public string RewordStartTime = "";
+    public string LastRestQuestTime = "";
 
     public float AttackPercentResearch = 1.0f;
     public float DefencePercentResartch = 1.0f;
+
 
     public void Initialize()
     {
@@ -164,6 +169,12 @@ public class PlayerManager
         {
             GridObjectMap.Add(point.ToString(), BuildingSystem.Instance.GridObjectMap[point]);
         }
+
+        // 4. 퀘스트 데이터 저장
+        QuestDataInfo = new();
+        QuestDataInfo = Managers.Quest.ConvertToFlatDictionary();
+
+
     }
 
     public void LoadPlayerData(PlayerManager data)
@@ -195,9 +206,12 @@ public class PlayerManager
         MyUnitInfos = data.MyUnitInfos;
 
         RewordStartTime = data.RewordStartTime;
+        LastRestQuestTime = data.LastRestQuestTime;
 
         AttackPercentResearch = data.AttackPercentResearch;
         DefencePercentResartch = data.DefencePercentResartch;
+
+        QuestDataInfo = data.QuestDataInfo;
 
         if (data.MainCoreData != null)
         {
@@ -283,6 +297,27 @@ public class PlayerManager
                     Inventory.Add<MyUnit>(unit);
                 });
             }
+        }
+
+        //===== 퀘스트 데이터 로드 =====
+        if (QuestDataInfo != null)
+        {
+            Managers.Quest.QuestDatas.Clear();
+
+            foreach (var kvp in QuestDataInfo)
+            {
+                QuestType type = kvp.Value.Type;
+
+                if (!Managers.Quest.QuestDatas.ContainsKey(type))
+                    Managers.Quest.QuestDatas[type] = new List<QuestData>();
+
+                Managers.Quest.QuestDatas[type].Add(kvp.Value);
+            
+            }
+
+            Managers.Quest.ResisterQuestDatas();
+            Managers.Quest.RebuildConditionQuestIndex();
+
         }
     }
 }
