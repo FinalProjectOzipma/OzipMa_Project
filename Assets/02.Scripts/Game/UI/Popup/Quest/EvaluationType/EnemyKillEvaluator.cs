@@ -16,12 +16,7 @@ public class EnemyKillEvaluator: IQuestConditionEvaluator
             Util.Log("반복퀘 설명 :" + quest.Description);
         }
 
-        if (quest.Progress >= quest.Goal)
-        {
-            quest.Progress = quest.Goal;
-            quest.State = QuestState.Done;
-            quest.OnStateChanged?.Invoke(quest.State);
-        }
+        quest.CheckDone();
     }
 
     public bool IsActive(QuestData quest)

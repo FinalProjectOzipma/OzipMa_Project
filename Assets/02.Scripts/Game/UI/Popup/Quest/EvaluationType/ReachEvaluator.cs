@@ -7,12 +7,7 @@ public class ReachEvaluator : IQuestConditionEvaluator
     public void ApplyProgress(QuestData quest, int amount)
     {
         quest.AddProgress(amount);
-        if (quest.Progress >= quest.Goal)
-        {
-            quest.Progress = quest.Goal;
-            quest.State = QuestState.Done;
-            quest.OnStateChanged?.Invoke(quest.State);
-        }
+        quest.CheckDone();
     }
     public bool IsActive(QuestData quest)
     {

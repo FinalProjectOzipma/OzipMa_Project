@@ -37,9 +37,6 @@ public class UI_Quest : UI_Popup
 
 
 
-
-
-
     private void Awake()
     {
         questSlot = new();
@@ -175,4 +172,5 @@ public class UI_Quest : UI_Popup
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
         ClosePopupUI();
     }
+
 }

@@ -12,6 +12,7 @@ public class UI_QuestRepeat : UI_Scene
     [SerializeField] private TextMeshProUGUI Description;
     [SerializeField] private TextMeshProUGUI Progress;
     [SerializeField] private TextMeshProUGUI RewardText;
+    [SerializeField] private Image Icon;
 
     [SerializeField] private Image AlarmImage;
 
@@ -85,8 +86,6 @@ public class UI_QuestRepeat : UI_Scene
         RepeatQuestData.OnProgressChanged -= UpdateProgress;
         RepeatQuestData.OnStateChanged -= OnQuestStateChanged;
         RepeatQuestData.Progress = 0;
-        RepeatQuestData.Goal += 1;
-        RepeatQuestData.RewardGem += 300;
         RepeatQuestData.State = QuestState.Complete;
         RepeatQuestData.IsActive = 0;
         Managers.Player.AddGem(RepeatQuestData.RewardGem);

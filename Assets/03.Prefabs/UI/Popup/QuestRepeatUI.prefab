@@ -386,7 +386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20, y: -25}
+  m_AnchoredPosition: {x: 31.4, y: -25}
   m_SizeDelta: {x: 300, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &5063868511703811262
@@ -451,7 +451,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 4
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1061,6 +1061,7 @@ MonoBehaviour:
   Description: {fileID: 7726322504482848689}
   Progress: {fileID: 8558965547635110176}
   RewardText: {fileID: 9131622903901889081}
+  Icon: {fileID: 4595668193306638821}
   AlarmImage: {fileID: 5648657084998442625}
 --- !u!1 &7087175614179142446
 GameObject:

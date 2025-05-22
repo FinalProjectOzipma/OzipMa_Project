@@ -62,6 +62,7 @@ public class UI_QuestSlot : UI_Base
         CheckButton.interactable = false;
         CompleteImage.SetActive(true);
         Managers.Player.AddGem(questData.RewardGem);
+        questData.OnStateChanged?.Invoke(questData.State);
     }
 
     public void UpdateUI()
