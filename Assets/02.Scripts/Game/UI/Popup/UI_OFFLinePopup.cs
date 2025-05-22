@@ -122,6 +122,10 @@ public class UI_OFFLinePopup : UI_Popup
 
     }
 
+
+    /// <summary>
+    /// 오프라인 보상 애니메이션 및 오프라인 보상 계산
+    /// </summary>
     private void GetReword()
     {
         float cappedElapsedHours = Mathf.Min(elapsedMinute, 2880f); // 최대 48시간 제한
@@ -165,10 +169,14 @@ public class UI_OFFLinePopup : UI_Popup
         OffGold.SetActive(false);
     }
 
+
+    /// <summary>
+    /// 보상 연출 버튼
+    /// </summary>
     public void SwitchToOpenBox(PointerEventData data)
     {
         if (isClick) return;
-
+        Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
         isClick = true;
 
         GameObject currentClosedBox;
@@ -198,10 +206,10 @@ public class UI_OFFLinePopup : UI_Popup
             {
                 currentClosedBox.SetActive(false);
                 currentOpenedBox.SetActive(true);
+                Managers.Audio.PlaySFX(SFXClipName.Coin);
 
                 DOVirtual.DelayedCall(0.3f, () =>
                 {
-                    Managers.Audio.PlaySFX(SFXClipName.Coin);
                     ShowRewardPopup();
                 });
             });

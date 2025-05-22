@@ -27,6 +27,9 @@ public class UI_EndingPanel : UI_Scene
 
     }
 
+    /// <summary>
+    /// UI에 보상 세팅
+    /// </summary>
     public void SetRewardText(long gold, long gem)
     {
         if (gold <= 0) GoldImage.SetActive(false);

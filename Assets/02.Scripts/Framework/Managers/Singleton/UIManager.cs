@@ -9,8 +9,6 @@ public class UIManager
     Dictionary<string, UI_Scene> uiSceneList = new Dictionary<string, UI_Scene>();
     Dictionary<string, UI_Popup> uiPopupList = new Dictionary<string, UI_Popup>();
 
-    Queue<GameObject> notificationQ = new();
-
     public GameObject Root
     {
         get
@@ -19,7 +17,6 @@ public class UIManager
             if (root == null)
             {
                 root = new GameObject { name = "@UI_Root" };
-
             }
             return root;
         }
@@ -49,21 +46,15 @@ public class UIManager
     {
         Managers.Resource.Instantiate("NotificationUI", obj =>
         {
-            notificationQ.Enqueue(obj);
             NotificationUI ui = obj.GetComponent<NotificationUI>();
             ui.SetMessage(msg, isGreen);
         });
     }
 
-    public void NotifyDequeue()
+    public void NotifyDequeue(GameObject go)
     {
-        if (notificationQ.Count > 0)
-        {
-            Managers.Resource.Destroy(notificationQ.Dequeue(), true);
-            return;
-        }
-
-        Util.LogWarning("Notify Queue가 비어있습니다.");
+        Managers.Resource.Destroy(go, true);
+        return;
     }
 
     public void ShowPopupUI<T>(string name = null) where T : UI_Popup
@@ -157,6 +148,8 @@ public class UIManager
 
     public T GetPopup<T>() where T : UI_Popup
     {
+        if (_popupStack.Count == 0) return null;
+
         T popUp = _popupStack.Peek() as T;
         return popUp;
     }

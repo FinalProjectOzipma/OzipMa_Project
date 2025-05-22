@@ -1,12 +1,21 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 ///  유저가 저장해야될 필수적인 요소들을 저장하는 곳
 /// </summary>
 public class PlayerManager
 {
+    // 튜토리얼 관련
+    public Enums.TutorialStep LastTutorialStep = Enums.TutorialStep.None;
+    public bool HasReceivedTutorialGold = false;
+    public bool HasReceivedTutorialGem = false;
+
+    public DateTime Last_LoginTime { get; set; }
+    public int consecutive_days = 0;
+
     public Core MainCoreData { get; set; }
     public long Gold { get; set; }
     public long Gem { get; set; }
@@ -30,10 +39,14 @@ public class PlayerManager
     public ResearchData CoreResearchData { get; set; }
     public ResearchData RandomResearchData { get; set; }
 
+    public Dictionary<string, QuestData> QuestDataInfo { get; set; }
+
     public string RewordStartTime = "";
+    public string LastRestQuestTime = "";
 
     public float AttackPercentResearch = 1.0f;
     public float DefencePercentResartch = 1.0f;
+
 
     public void Initialize()
     {
@@ -44,7 +57,6 @@ public class PlayerManager
         AttackResearchData = new(ResearchUpgradeType.Attack);
         DefenceResearchData = new(ResearchUpgradeType.Defence);
         CoreResearchData = new(ResearchUpgradeType.Core);
-        RandomResearchData = new(ResearchUpgradeType.Random);
         // 저장된게 있으면 선언
 
         // 저장된게 있으면 선언
@@ -157,6 +169,12 @@ public class PlayerManager
         {
             GridObjectMap.Add(point.ToString(), BuildingSystem.Instance.GridObjectMap[point]);
         }
+
+        // 4. 퀘스트 데이터 저장
+        QuestDataInfo = new();
+        QuestDataInfo = Managers.Quest.ConvertToFlatDictionary();
+
+
     }
 
     public void LoadPlayerData(PlayerManager data)
@@ -165,6 +183,13 @@ public class PlayerManager
         //MainCoreData.Health = data.MainCoreData.Health;
         //MainCoreData.MaxHealth = data.MainCoreData.MaxHealth;
         //MainCoreData.CoreLevel = data.MainCoreData.CoreLevel;
+
+        Last_LoginTime = data.Last_LoginTime;
+        consecutive_days = data.consecutive_days;
+
+        LastTutorialStep = data.LastTutorialStep;
+        HasReceivedTutorialGold = data.HasReceivedTutorialGold;
+        HasReceivedTutorialGem = data.HasReceivedTutorialGem;
 
         Gold = 0;
         Gem = 0;
@@ -181,9 +206,12 @@ public class PlayerManager
         MyUnitInfos = data.MyUnitInfos;
 
         RewordStartTime = data.RewordStartTime;
+        LastRestQuestTime = data.LastRestQuestTime;
 
         AttackPercentResearch = data.AttackPercentResearch;
         DefencePercentResartch = data.DefencePercentResartch;
+
+        QuestDataInfo = data.QuestDataInfo;
 
         if (data.MainCoreData != null)
         {
@@ -270,6 +298,27 @@ public class PlayerManager
                 });
             }
         }
+
+        //===== 퀘스트 데이터 로드 =====
+        if (QuestDataInfo != null)
+        {
+            Managers.Quest.QuestDatas.Clear();
+
+            foreach (var kvp in QuestDataInfo)
+            {
+                QuestType type = kvp.Value.Type;
+
+                if (!Managers.Quest.QuestDatas.ContainsKey(type))
+                    Managers.Quest.QuestDatas[type] = new List<QuestData>();
+
+                Managers.Quest.QuestDatas[type].Add(kvp.Value);
+            
+            }
+
+            Managers.Quest.ResisterQuestDatas();
+            Managers.Quest.RebuildConditionQuestIndex();
+
+        }
     }
 }
 
@@ -277,8 +326,7 @@ public enum ResearchUpgradeType
 {
     Attack,
     Defence,
-    Core,
-    Random
+    Core
 }
 
 

@@ -7852,7 +7852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeButton: {fileID: 5631931867325066307}
   GoldSpendButton: {fileID: 2635592514569420545}
-  ZamSpendButton: {fileID: 0}
+  GemSpendButton: {fileID: 3417553604728960371}
   CheckButton: {fileID: 1530816909267236708}
   FillText: {fileID: 4230325653886324597}
   UpgradeText: {fileID: 2695784496162025443}
@@ -11764,7 +11764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeButton: {fileID: 7792460063370933317}
   GoldSpendButton: {fileID: 6422740840079597852}
-  ZamSpendButton: {fileID: 0}
+  GemSpendButton: {fileID: 2835485833553350609}
   CheckButton: {fileID: 3772156778679804830}
   FillText: {fileID: 8616406348638308185}
   UpgradeText: {fileID: 5708946649680262862}
@@ -17691,7 +17691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UpgradeButton: {fileID: 6975278303398779300}
   GoldSpendButton: {fileID: 3484651918321433593}
-  ZamSpendButton: {fileID: 0}
+  GemSpendButton: {fileID: 2120568870673356567}
   CheckButton: {fileID: 7091434984931918423}
   FillText: {fileID: 7278432359232148527}
   UpgradeText: {fileID: 4207469756361287548}
@@ -18309,10 +18309,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BGClose: {fileID: 3731183760321986639}
-  GoldText: {fileID: 5039075940927327090}
-  ZamText: {fileID: 1724445308227113836}
   BackImage: {fileID: 3834758830365253452}
   UI_Research: {fileID: 6931974249848842989}
+  AttackUpgrade: {fileID: 6859046981474304398}
+  DefenceUpgrade: {fileID: 7626273546289181783}
+  CoreUpgrade: {fileID: 4170827953809640589}
 --- !u!114 &4969172211575671531
 MonoBehaviour:
   m_ObjectHideFlags: 0

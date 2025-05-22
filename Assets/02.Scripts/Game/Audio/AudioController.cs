@@ -36,8 +36,9 @@ public enum SFXClipName
     Burst,
     Death,
     Clear,
-    Defeat
-
+    Defeat,
+    Guide,
+    GuideSkip,
 }
 
 public enum AudioType
@@ -135,7 +136,7 @@ public class AudioController : MonoBehaviour
 
     #region BGM 관련 메서드
     /// <summary>
-    /// 씬 이름을 가져와 해당 씬에 맞는 BGM 재생, 씬 전환 시 SoundManager.Instance.PlayBGM(sceneName);
+    /// 씬 이름을 가져와 해당 씬에 맞는 BGM 재생
     /// </summary>
     public void PlayBGM(string sceneName)
     {

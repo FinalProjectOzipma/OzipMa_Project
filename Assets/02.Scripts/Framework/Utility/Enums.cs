@@ -13,6 +13,8 @@ public class Enums
         InchentMultiplier,
         LevelUpValue,
         Research,
+        AttackDefault,
+        QuestDataList,
         Count
     }
 
@@ -33,6 +35,20 @@ public class Enums
         Reward,
         End,
     }
+
+    public enum TutorialStep
+    {
+        None,
+        PlaceTower,
+        EditTower,
+        DeleteTower,
+        Research,
+        Gacha,
+        End,
+
+        Count,
+    }
+
 }
 
 [GoogleSheet.Core.Type.UGS(typeof(RankType))]
@@ -76,3 +92,31 @@ public enum AbilityType
 
     Count
 }
+
+
+[GoogleSheet.Core.Type.UGS(typeof(QuestType))]
+public enum QuestType
+{
+    Daily,
+    Achivement,
+    Repeat,
+    Count
+}
+
+
+[GoogleSheet.Core.Type.UGS(typeof(ConditionType))]
+public enum ConditionType
+{
+    Connection,
+    EnemyKill,
+    BossKill,
+    MyUnitCollect,
+    TowerCollect,
+    Reach,
+    StageClear,
+    WaveClear,
+    MyUnitInchen,
+    TowerInchen,
+    Count
+}
+

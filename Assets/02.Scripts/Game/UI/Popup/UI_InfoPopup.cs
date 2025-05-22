@@ -21,7 +21,6 @@ public class UI_InfoPopup : UI_Popup
     [SerializeField] private Image InfoImage;
 
 
-    [SerializeField] private Button CloseButton;
     [SerializeField] private Button BGClose;
 
     [SerializeField] private GameObject UIInfo;
@@ -32,6 +31,7 @@ public class UI_InfoPopup : UI_Popup
     [SerializeField] private GameObject EpicWindow;
     [SerializeField] private GameObject LegendWindow;
     [SerializeField] private GameObject MythWindow;
+    [SerializeField] private GameObject Description;
 
     [SerializeField] private Image Speed;
     [SerializeField] private Image Health;
@@ -42,7 +42,6 @@ public class UI_InfoPopup : UI_Popup
 
     private void Awake()
     {
-        CloseButton.gameObject.BindEvent(OnClikcBack);
         BGClose.gameObject.BindEvent(OnClikcBack);
     }
 
@@ -56,16 +55,22 @@ public class UI_InfoPopup : UI_Popup
         if (uiSeq != null) AnimePopup(UIInfo);
     }
 
+    /// <summary>
+    /// 정보창 닫기
+    /// </summary>
     public void OnClikcBack(PointerEventData data)
     {
         AnimePopup(UIInfo, true);
-
+        Description.SetActive(false);
         uiSeq.Play().OnComplete(() =>
         {
             ClosePopupUI();
         });
     }
 
+    /// <summary>
+    /// UI화면에 해당 슬롯에 대한 정보 전달
+    /// </summary>
     public void SelectedInfo<T>(T selectedInfo) where T : UserObject, IGettable
     {
         NameText.text = selectedInfo.Name;
@@ -114,6 +119,10 @@ public class UI_InfoPopup : UI_Popup
 
     }
 
+
+    /// <summary>
+    /// 유닛과 타워에 공격타입 선별해서 UI에 반영
+    /// </summary>
     private void ATKTypes<T>(T go) where T : UserObject, IGettable
     {
         AtkType? atkType = go switch
@@ -142,6 +151,10 @@ public class UI_InfoPopup : UI_Popup
         };
     }
 
+
+    /// <summary>
+    /// 유닛과 타워에 특성타입 선별해서 UI에 반영
+    /// </summary>
     private void AbilliyTypes<T>(T go) where T : UserObject, IGettable
     {
         AbilityType? abilityType = go switch
@@ -172,6 +185,10 @@ public class UI_InfoPopup : UI_Popup
         };
     }
 
+
+    /// <summary>
+    /// 유닛과 타워 랭크별 배경 변경
+    /// </summary>
     public void SelectRankWindow(RankType rankType)
     {
         NormalWIndow.SetActive(false);

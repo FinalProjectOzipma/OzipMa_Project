@@ -61,7 +61,6 @@ public class FieldReward : Poolable
         Gem
     }
 
-
     private void Awake()
     {
         seq = Util.RecyclableSequence();
@@ -102,6 +101,7 @@ public class FieldReward : Poolable
 
 
             Value = 0;
+            spr.color = new Color(1f, 1f, 1f, 0f);
             // 웨이브 끝나는 조건
             if (wave.FieldRewards.Count == 0)
             {
@@ -109,6 +109,8 @@ public class FieldReward : Poolable
                 wave.CurrentState = Enums.WaveState.End;
             }
         });
+
+        
     }
 
     private void Start()

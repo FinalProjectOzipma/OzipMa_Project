@@ -1,3 +1,6 @@
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine;
+
 public class ArcherManBody : EntityBodyBase
 {
     public override void Enable()
@@ -9,7 +12,7 @@ public class ArcherManBody : EntityBodyBase
             this.ctrl = transform.root.TryGetComponent<EnemyController>(out var ctrl) ? ctrl : null;
 
             // 애니메이션 데이터 생성 및 초기화
-            ctrl.AnimData = new ArcherManAnimData();
+            ctrl.AnimData = new ArcherManAnimData(this);
             ctrl.AnimData.Init(ctrl);
 
             // 컨디션 초기화
@@ -30,5 +33,22 @@ public class ArcherManBody : EntityBodyBase
         ctrl.AnimData.StateMachine.ChangeState(data.ChaseState);
 
         base.Init();
+    }
+
+    public void CreateArrow(GameObject target)
+    {
+        string Arrow = nameof(Arrow);
+
+        Managers.Resource.Instantiate(Arrow, (go) =>
+        {
+            Fire(go, target.GetComponentInChildren<SpriteRenderer>().transform.position);
+            Managers.Audio.PlaySFX(SFXClipName.Arrow);
+        });
+    }
+
+    protected void Fire(GameObject go, Vector2 targetPos)
+    {
+        EntityProjectile projectile = go.GetComponent<EntityProjectile>();
+        projectile.Init(gameObject, ctrl.Status.Attack.GetValue(), targetPos);
     }
 }

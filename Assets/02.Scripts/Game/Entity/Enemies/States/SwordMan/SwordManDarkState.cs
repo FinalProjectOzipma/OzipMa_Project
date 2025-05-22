@@ -1,3 +1,6 @@
+using Cysharp.Threading.Tasks.Triggers;
+using UnityEngine;
+
 public class SwordManDarkState : SwordManStateBase
 {
     private float darkCoolDown = 5f;
@@ -31,7 +34,8 @@ public class SwordManDarkState : SwordManStateBase
             StateMachine.ChangeState(data.ChaseState);
         else
         {
-            agent.SetDestination(handler.Attacker.position);
+            Vector2 dir = (Managers.Wave.MainCore.transform.position) - transform.position;
+            agent.Move(-dir.normalized * status.MoveSpeed.GetValue() * 0.2f * Time.deltaTime);
             controller.FlipControll();
         }
     }

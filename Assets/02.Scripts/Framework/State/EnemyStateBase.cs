@@ -120,12 +120,6 @@ public class EnemyStateBase : EntityStateBase
         return false;
     }
 
-    protected void Fire<T>(GameObject go, Vector2 targetPos) where T : EntityProjectile
-    {
-        EntityProjectile projectile = go.GetComponent<T>();
-        projectile.Init(spr.gameObject, status.Attack.GetValue(), targetPos);
-    }
-
     /// <summary>
     /// 매게변수는 0~1까지 (0:골드 1: 젬)
     /// </summary>
@@ -149,6 +143,13 @@ public class EnemyStateBase : EntityStateBase
         DropReward(Reward);
         Managers.Wave.CurEnemyList.Remove(controller);
         Managers.Resource.Destroy(controller.gameObject);
+
+        if (controller.Enemy.IsBoss)
+        {
+            Managers.Quest.UpdateQuestProgress(ConditionType.BossKill, controller.Enemy.PrimaryKey, 1);
+        }
+
+        Managers.Quest.UpdateQuestProgress(ConditionType.EnemyKill, controller.Enemy.PrimaryKey, 1);
     }
 
     public override void FixedUpdate()

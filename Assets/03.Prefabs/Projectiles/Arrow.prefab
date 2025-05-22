@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c31edab7c7deddc469f6645cbc09c50e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spTrail: {fileID: 0}
   Speed: 2
   Owner: {fileID: 0}
 --- !u!1 &5739707137641892400
@@ -251,4 +252,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spr: {fileID: 1869710318887757924}
+  Alpha: 0
   trailRate: 0.25

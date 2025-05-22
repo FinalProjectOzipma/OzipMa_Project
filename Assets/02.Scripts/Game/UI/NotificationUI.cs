@@ -29,12 +29,12 @@ public class NotificationUI : UI_Base
         goodAnim.Append(NotificationTxt.DOColor(Color.green, colorChangeTime))
                 .Join(NotificationTxt.DOFade(0, fadeoutTime))
                 .Join(rect.DOAnchorPosY(originalPos.y + moveAmount, fadeoutTime)).SetEase(Ease.OutQuad)
-                .Append(DOVirtual.DelayedCall(0f, () => { Managers.UI.NotifyDequeue(); }));
+                .Append(DOVirtual.DelayedCall(0f, () => { Managers.UI.NotifyDequeue(gameObject); }));
 
         badAnim.Append(NotificationTxt.DOColor(Color.red, colorChangeTime))
                 .Join(NotificationTxt.DOFade(0, fadeoutTime))
                 .Join(rect.DOAnchorPosY(originalPos.y + moveAmount, fadeoutTime)).SetEase(Ease.OutQuad)
-                .Append(DOVirtual.DelayedCall(0f, () => { Managers.UI.NotifyDequeue(); }));
+                .Append(DOVirtual.DelayedCall(0f, () => { Managers.UI.NotifyDequeue(gameObject); }));
     }
 
     public void SetMessage(string msg, bool isGreen = true)

@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using System.Threading.Tasks;
+using UnityEngine.Analytics;
 
 public class Managers : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class Managers : MonoBehaviour
     public static readonly UpgradeManager Upgrade = new();
     public static readonly EffectManager Effect = new();
     public static readonly AuthManager Auth = new();
+    public static readonly QuestManager Quest = new();
+    public static readonly AnalyticsManager Analytics = new();
 
     private void Awake()
     {
@@ -39,12 +42,14 @@ public class Managers : MonoBehaviour
         // 로컬 캐시 비활설화
         FirebaseDatabase.DefaultInstance.SetPersistenceEnabled(false);
 
+        Analytics.Initialize();
         Data.Initialize();
         Pool.Initialize();
         TestInit();
         Scene.Initialize();
         Effect.Initialize();
         Upgrade.Intialize();
+        Quest.Intialize();
 
     }
 
@@ -88,6 +93,12 @@ public class Managers : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+    private void OnApplicationQuit()
+    {
+        _ = SaveOnPauseAsync();
+    }
+#endif
 
     // 종료시간과 플레이어 데이터 저장
     private async Task SaveOnPauseAsync()
@@ -95,13 +106,14 @@ public class Managers : MonoBehaviour
         try
         {
             Managers.Player.RewordStartTime = Managers.Game.ServerUtcNow.ToString("o");
+            Managers.Quest.RestRepeatQuest();
             await Data.SaveGameDataAsync();  // 비동기 저장
             await Task.Delay(1000);          // 저장 완료 시간 확보 (권장)
-            Debug.Log("백그라운드 저장 완료");
+            Util.Log("백그라운드 저장 완료");
         }
         catch (Exception ex)
         {
-            Debug.LogWarning($"백그라운드 저장 실패: {ex.Message}");
+            Util.LogWarning($"백그라운드 저장 실패: {ex.Message}");
         }
     }
 

@@ -70,7 +70,8 @@ public class InventoryUI : UI_Scene
 
     // Animation
     private bool isMove;
-    private bool isOpen;
+
+    public bool IsOpen {  get; private set; }
     public bool isSelect = false;
 
     public int activeSlotCount = 0;
@@ -383,13 +384,14 @@ public class InventoryUI : UI_Scene
         {
             isMove = true;
 
-            if (!isOpen)
+            if (!IsOpen)
             {
-                isOpen = true;
+                IsOpen = true;
                 gameObject.SetActive(true);
                 CurrentState = STATE.SELECTABLE;
                 BackgroundButton.gameObject.SetActive(true);
                 Managers.UI.GetScene<UI_Main>().OnManagerMenu();
+                Managers.UI.GetScene<UI_QuestRepeat>().gameObject.SetActive(false);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y + 180.0f, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
@@ -401,10 +403,11 @@ public class InventoryUI : UI_Scene
             {
                 BackgroundButton.gameObject.SetActive(false);
                 Managers.UI.GetScene<UI_Main>().OFFManagerMenu();
+                Managers.UI.GetScene<UI_QuestRepeat>().gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y - 180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
-                    isOpen = false;
+                    IsOpen = false;
                     SwipeIcon.gameObject.SetActive(true);
                     SwipeIconoff.gameObject.SetActive(false);
                 });
