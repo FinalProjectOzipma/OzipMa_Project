@@ -27,6 +27,7 @@ public class UI_Quest : UI_Popup
 
 
     [SerializeField] private TextMeshProUGUI TimeText;
+    [SerializeField] private ScrollRect Middle_ScrollRect;
 
 
     private List<UI_QuestSlot> questSlot;
@@ -46,12 +47,14 @@ public class UI_Quest : UI_Popup
         TabMenuAchivementBtn.onClick.AddListener(OnAchivementTab);
         BGClose.onClick.AddListener(OnClickBack);
         CloseButton.onClick.AddListener(OnClickBack);
+        Middle_ScrollRect.verticalNormalizedPosition = 1.0f;
         OnDailyTab();
     }
 
     private void OnEnable()
     {
         OnDailyTab();
+        Middle_ScrollRect.verticalNormalizedPosition = 1.0f;
     }
 
 
@@ -126,6 +129,7 @@ public class UI_Quest : UI_Popup
         for(int i = 0; i < questSlot.Count; i++)
         {
             if (questSlot[i].CheckIsComplete()) questSlot[i].gameObject.transform.SetAsLastSibling();
+            if (questSlot[i].questData.State == QuestState.Done) questSlot[i].gameObject.transform.SetAsFirstSibling();
         }
     }
 

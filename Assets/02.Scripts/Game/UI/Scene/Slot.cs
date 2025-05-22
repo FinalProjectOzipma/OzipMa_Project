@@ -131,7 +131,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         _sprite = obj.Sprite;
         Icon.sprite = _sprite;
         ObjInfo.text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
-        StackGageFill.fillAmount = status.Stack.GetValue() % status.MaxStack.GetValue();
+        StackGageFill.fillAmount = (float)status.Stack.GetValue() / status.MaxStack.GetValue();
         StackText.text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
 
 

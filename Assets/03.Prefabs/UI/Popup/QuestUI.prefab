@@ -4032,6 +4032,7 @@ MonoBehaviour:
   BGClose: {fileID: 8478447645120414703}
   CloseButton: {fileID: 549079377031592363}
   TimeText: {fileID: 7634091639155082496}
+  Middle_ScrollRect: {fileID: 2965738301964422711}
 --- !u!1 &8376309250254711296
 GameObject:
   m_ObjectHideFlags: 0
