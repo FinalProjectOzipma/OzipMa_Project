@@ -105,6 +105,8 @@ public class TutorialController : UI_Scene
 
     private void TutorialEnd()
     {
+        Managers.Player.HasReceivedTutorialGold = true;
+        Managers.Player.HasReceivedTutorialGem = true;
         Managers.Player.LastTutorialStep = Enums.TutorialStep.End; // 진행도 저장
         Managers.Wave.GameStart();
         Managers.Resource.Destroy(this.gameObject, true); // 제거
