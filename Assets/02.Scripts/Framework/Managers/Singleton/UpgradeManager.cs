@@ -12,14 +12,14 @@ public class UpgradeManager
 
     public event Action<int> OnChanagedUpgrade;
 
-    public List<DefaultTable.InchentMultiplier> InchentMultiplier;
+    public List<DefaultTable.InchentMultiplier> EnchantMultiplier;
     public List<DefaultTable.LevelUpValue> LevelUpValues;
     public List<DefaultTable.Research> ResearchesUpgradeTable;
 
 
     public void Intialize()
     {
-        InchentMultiplier = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
+        EnchantMultiplier = Util.TableConverter<DefaultTable.InchentMultiplier>(Managers.Data.Datas[Enums.Sheet.InchentMultiplier]);
         LevelUpValues = Util.TableConverter<DefaultTable.LevelUpValue>(Managers.Data.Datas[Enums.Sheet.LevelUpValue]);
         ResearchesUpgradeTable = Util.TableConverter<DefaultTable.Research>(Managers.Data.Datas[Enums.Sheet.Research]);
         LevelUPGold = 1000;
@@ -50,12 +50,12 @@ public class UpgradeManager
                     myUpgradeStatus.Level.SetValue(1);
                 }
 
-                ApplyInchentMyUnit(myUpgradeStatus);
+                ApplyEnchantMyUnit(myUpgradeStatus);
                 ApplyGradeMutipleMyUnit(myUpgradeStatus);
             }
             else
             {
-                ApplyInchentMyUnit(myUpgradeStatus);
+                ApplyEnchantMyUnit(myUpgradeStatus);
 
             }
 
@@ -98,12 +98,12 @@ public class UpgradeManager
                     tower.TowerStatus.Level.SetValue(1);
                 }
 
-                ApplyInchentTower(tower);
+                ApplyEnchantTower(tower);
                 ApplyGradeMutipleTower(tower);
             }
             else
             {
-                ApplyInchentTower(tower);
+                ApplyEnchantTower(tower);
             }
 
             IncreaseRequireCard(tower);
@@ -136,7 +136,7 @@ public class UpgradeManager
     }
 
 
-    public void ApplyInchentMyUnit(MyUnitStatus userObject)
+    public void ApplyEnchantMyUnit(MyUnitStatus userObject)
     {
         int level = userObject.Level.GetValue();
 
@@ -170,7 +170,7 @@ public class UpgradeManager
     }
 
 
-    public void ApplyInchentTower(Tower userObject)
+    public void ApplyEnchantTower(Tower userObject)
     {
 
         int level = userObject.TowerStatus.Level.GetValue();
@@ -208,9 +208,9 @@ public class UpgradeManager
         int grade = userObject.Grade.GetValue();
 
         // 인덱스가 배열 범위 초과하지 않도록 예외 처리
-        int index = Mathf.Clamp(grade - 1, 0, InchentMultiplier.Count - 1);
+        int index = Mathf.Clamp(grade - 1, 0, EnchantMultiplier.Count - 1);
 
-        var multiplier = InchentMultiplier[index];
+        var multiplier = EnchantMultiplier[index];
 
         userObject.Attack.SetGradeMultiple(multiplier.AttackMultiplier);
         userObject.Defence.SetGradeMultiple(multiplier.DefMultiplier);
@@ -224,9 +224,9 @@ public class UpgradeManager
         int grade = userObject.TowerStatus.Grade.GetValue();
 
         // 인덱스가 배열 범위 초과하지 않도록 예외 처리
-        int index = Mathf.Clamp(grade - 1, 0, InchentMultiplier.Count - 1);
+        int index = Mathf.Clamp(grade - 1, 0, EnchantMultiplier.Count - 1);
 
-        var multiplier = InchentMultiplier[index];
+        var multiplier = EnchantMultiplier[index];
 
         userObject.TowerStatus.Attack.SetGradeMultiple(multiplier.AttackMultiplier);
         userObject.TowerStatus.AttackCoolDown.SetGradeMultiple(multiplier.CoolDownMultiplier);

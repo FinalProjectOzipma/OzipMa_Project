@@ -23,7 +23,9 @@ public class QuestData
 
     public QuestState State; // 퀘스트의 상태, Doing, Done, Compelete
 
-    public int RewardGem; // 퀘스트 보상
+    public int RewardGem; // 퀘스트 보상 잼
+
+    public int RewardGOld; // 퀘스트 보상 골드
 
     public int IsActive; // 퀘스트 활성화 여부
 
@@ -56,7 +58,7 @@ public class QuestData
         }
     }
 
-    public QuestData(int id, QuestType type, string name, string description, ConditionType conditionType, int targetID, int goal, int rewardGem, int isActive)
+    public QuestData(int id, QuestType type, string name, string description, ConditionType conditionType, int targetID, int goal, int rewardGem, int rewardGOld, int isActive)
     {
         ID = id;
         Type = type;
@@ -66,10 +68,12 @@ public class QuestData
         TargetID = targetID;
         Goal = goal;
         RewardGem = rewardGem;
+        RewardGOld = rewardGOld;
         IsActive = isActive;
 
         State = QuestState.Doing;
         Progress = 0;
+
     }
 }
 

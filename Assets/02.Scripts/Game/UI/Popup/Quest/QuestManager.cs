@@ -79,8 +79,8 @@ public class QuestManager
             questData.TargetID,
             questData.Goal,
             questData.RewardGem,
+            questData.RewardGold,
             questData.IsActive
-
         );
 
         QuestDatas[type].Add(newQuest);
