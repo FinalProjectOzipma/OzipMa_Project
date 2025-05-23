@@ -1,3 +1,4 @@
+using DefaultTable;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,23 +33,34 @@ public class UpgradeManager
         if (Managers.Player.Gold >= TotalUpgradeGold)
         {
             Managers.Quest.UpdateQuestProgress(ConditionType.MyUnitInchen, -1, 1);
-            myUpgradeStatus.Level.AddValue(1);
             myUpgradeStatus.Stack.AddValue(-myUpgradeStatus.MaxStack.GetValue());
-            IncreaseRequireCard(myUnit);
 
-            if (myUnit.Status.Level.GetValue() == myUnit.Status.MaxLevel.GetValue())
+            myUpgradeStatus.Level.AddValue(1);
+
+            if (myUnit.Status.Level.GetValue() > myUnit.Status.MaxLevel.GetValue())
             {
-                myUpgradeStatus.Level.SetValue(1);
                 myUpgradeStatus.Grade.AddValue(1);
+
+                if (myUpgradeStatus.Grade.GetValue() == myUnit.MaxGrade.GetValue())
+                {
+                    myUpgradeStatus.Level.SetValue(10);
+                }
+                else
+                {
+                    myUpgradeStatus.Level.SetValue(1);
+                }
+
                 ApplyInchentMyUnit(myUpgradeStatus);
-                //ApplyGetValue(myUpgradeStatus);
                 ApplyGradeMutipleMyUnit(myUpgradeStatus);
             }
             else
             {
                 ApplyInchentMyUnit(myUpgradeStatus);
-                //ApplyGetValue(myUpgradeStatus);
+
             }
+
+
+            IncreaseRequireCard(myUnit);
 
             Managers.Player.SpenGold(gold);
             return;
@@ -70,14 +82,22 @@ public class UpgradeManager
         {
             Managers.Quest.UpdateQuestProgress(ConditionType.TowerInchen, -1, 1);
             int gold = GetLevelUpGold(tower);
-            tower.TowerStatus.Level.AddValue(1);
             tower.TowerStatus.Stack.AddValue(-tower.TowerStatus.MaxStack.GetValue());
-            IncreaseRequireCard(tower);
+            tower.TowerStatus.Level.AddValue(1);
 
-            if (tower.TowerStatus.Level.GetValue() == tower.TowerStatus.MaxLevel.GetValue())
+            if (tower.TowerStatus.Level.GetValue() > tower.TowerStatus.MaxLevel.GetValue())
             {
-                tower.TowerStatus.Level.SetValue(1);
                 tower.TowerStatus.Grade.AddValue(1);
+
+                if(tower.TowerStatus.Grade.GetValue() == tower.MaxGrade.GetValue())
+                {
+                    tower.TowerStatus.Level.SetValue(10);
+                }
+                else
+                {
+                    tower.TowerStatus.Level.SetValue(1);
+                }
+
                 ApplyInchentTower(tower);
                 ApplyGradeMutipleTower(tower);
             }
@@ -85,6 +105,8 @@ public class UpgradeManager
             {
                 ApplyInchentTower(tower);
             }
+
+            IncreaseRequireCard(tower);
 
             Managers.Player.SpenGold(gold);
             return;
@@ -130,7 +152,7 @@ public class UpgradeManager
         }
 
         // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
-        int index = level - 2;
+        int index = level - 1;
         if (index < 0 || index >= LevelUpValues.Count)
             return;
 
@@ -162,7 +184,7 @@ public class UpgradeManager
         }
 
         // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
-        int index = level - 2;
+        int index = level - 1;
         if (index < 0 || index >= LevelUpValues.Count)
             return;
 
@@ -214,7 +236,7 @@ public class UpgradeManager
     {
         int level = userObject.Status.Level.GetValue();
 
-        if (level < 0 || level >= 10)
+        if (level < 0 || level > 10)
             return 0;
 
         return LevelUpValues[level - 1].LevelUpGold;
@@ -223,16 +245,17 @@ public class UpgradeManager
     public void IncreaseRequireCard(UserObject userObject)
     {
         int level = userObject.Status.Level.GetValue();
+        Util.Log("현재레벨 : " + level.ToString());
 
         // 레벨 1은 배율 초기화
         if (level == 1)
         {
-            userObject.Status.Stack.SetValue(10);
+            userObject.Status.MaxStack.SetValue(10);
             return;
         }
 
         // 레벨업 수치 인덱스: Lv.2 → index 0, Lv.3 → index 1, ...
-        int index = level - 2;
+        int index = level - 1;
         if (index < 0 || index >= LevelUpValues.Count)
             return;
 
@@ -251,7 +274,6 @@ public class UpgradeManager
             case ResearchUpgradeType.Defence:
                 return ResearchesUpgradeTable[i - 1].Defence;
             case ResearchUpgradeType.Core:
-                Util.Log("체력 연구 성공");
                 return ResearchesUpgradeTable[i - 1].CoreHealth;
             default:
                 return 0.0f;
