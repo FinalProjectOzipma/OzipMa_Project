@@ -839,6 +839,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1600922763813413512, guid: acd6dfa2fcf15954985a556ceeff1abb, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600922763813413512, guid: acd6dfa2fcf15954985a556ceeff1abb, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600922763813413512, guid: acd6dfa2fcf15954985a556ceeff1abb, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600922763813413512, guid: acd6dfa2fcf15954985a556ceeff1abb, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600922763813413512, guid: acd6dfa2fcf15954985a556ceeff1abb, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1600922763813413512, guid: acd6dfa2fcf15954985a556ceeff1abb, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4045210747821386565, guid: acd6dfa2fcf15954985a556ceeff1abb, type: 3}
       propertyPath: m_Name
       value: LoadScene
