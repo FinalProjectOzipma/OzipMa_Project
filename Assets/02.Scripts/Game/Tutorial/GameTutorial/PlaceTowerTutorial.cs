@@ -1,4 +1,5 @@
 using DefaultTable;
+using System.Linq;
 using UnityEngine;
 
 /// <summary>
@@ -26,8 +27,20 @@ public class PlaceTowerTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 타워 배치 커서 세팅
-                    Vector3 startPos = new Vector3(-315, -190, 0); // 인벤토리 첫번째 슬롯 위치
-                    Vector3 endPos = new Vector3(-75, 393, 0);
+                    Vector3 startPos = new Vector3(-330, -240, 0); // 인벤토리 첫번째 슬롯 위치
+
+                    Vector3Int endPoint = BuildingSystem.Instance.GetCurMapHandler().BuildHighlightList[0]; // 아무 칸 위치
+                    Vector3 endPos = BuildingSystem.Instance.CellToWorldPos(endPoint);
+                    endPos = Camera.main.WorldToScreenPoint(endPos);
+                    RectTransform rect = controller.Cursor.GetComponent<RectTransform>();
+                    RectTransformUtility.ScreenPointToLocalPointInRectangle
+                                (
+                                    rect.parent as RectTransform,
+                                    endPos,
+                                    null,
+                                    out Vector2 localPos
+                                );
+                    endPos = localPos;
                     controller.Cursor.Init(startPos, endPos, CursorType.Drag);
                 }
                 break;
@@ -73,5 +86,6 @@ public class PlaceTowerTutorial : TutorialBase
         base.OnEnd();
 
         mainUI.OFFSwipe();
+        mainUI.OFFManagerMenu();
     }
 }
