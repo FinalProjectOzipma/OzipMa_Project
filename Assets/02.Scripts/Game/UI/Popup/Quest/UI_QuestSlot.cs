@@ -21,9 +21,16 @@ public class UI_QuestSlot : UI_Base
     public int Index;
     public QuestData questData;
 
+
     private void Start()
     {
         CheckButton.onClick.AddListener(OnClickGetReward);
+    }
+
+    private void OnDisable()
+    {
+        questData.OnProgressChanged -= UpdateUI;
+        questData.OnStateChanged -= ChangedButton;
     }
 
 
@@ -31,23 +38,15 @@ public class UI_QuestSlot : UI_Base
     {
         this.questData = questData;
         Name.text = questData.Name;
-        RewardText.text = questData.RewardGem.ToString("F0");
+        RewardText.text = Util.FormatNumber(questData.RewardGem);
         Description.text = questData.Description;
 
         questData.OnProgressChanged += UpdateUI;
+        questData.OnStateChanged += ChangedButton;
 
         UpdateUI();
+        ChangedButton(questData.State);
 
-        if(questData.State != QuestState.Complete)
-        {
-            CheckButton.interactable = true;
-            CompleteImage.SetActive(false);
-        }
-        else
-        {
-            CheckButton.interactable = false;
-            CompleteImage.SetActive(true);
-        }
     }
 
     public void OnClickGetReward()
@@ -59,20 +58,41 @@ public class UI_QuestSlot : UI_Base
         }
 
         questData.State = QuestState.Complete;
-        CheckButton.interactable = false;
-        CompleteImage.SetActive(true);
-        Managers.Player.AddGem(questData.RewardGem);
         questData.OnStateChanged?.Invoke(questData.State);
+        Managers.Player.AddGem(questData.RewardGem);
+
     }
 
     public void UpdateUI()
     {
         GoalValueText.text = $"{questData.Progress} / {questData.Goal}";
         ProgressSlider.value = (float)questData.Progress / questData.Goal;
+
     }
 
     public bool CheckIsComplete()
     {
         return CompleteImage.activeSelf;
     }
+
+    public void ChangedButton(QuestState questState)
+    {
+        if (questData.State == QuestState.Done)
+        {
+            CheckButton.interactable = true;
+            CompleteImage.SetActive(false);
+        }
+        else if (questData.State == QuestState.Doing)
+        {
+            CheckButton.interactable = false;
+            CompleteImage.SetActive(false);
+        }
+        else
+        {
+            CheckButton.interactable = false;
+            CompleteImage.SetActive(true);
+        }
+    }
+
+
 }

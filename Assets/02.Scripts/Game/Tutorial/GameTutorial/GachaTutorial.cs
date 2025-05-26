@@ -6,7 +6,6 @@ public class GachaTutorial : TutorialBase
 {
     private int dialogueNum = 0;
 
-    private UI_Main mainUI;
     private GachaUI gachaUI;
     private UI_Dictionary dictionaryUI;
     private bool skip = false;
@@ -22,15 +21,14 @@ public class GachaTutorial : TutorialBase
         {
             case 0:
                 // 가챠탭 열렸는지 확인
-                if (mainUI.isGachaOpne == true)
+                if (controller.MainUI.isGachaOpne == true)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
 
                     // 10개 뽑기 버튼 커서 세팅
-                    Vector3 startPos = new Vector3(55, 150, 0); 
-                    Vector3 endPos = new Vector3(55, 150, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetObjPos(controller.GachaStartPos); 
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
 
                     Managers.Player.AddGem(3000);
                     Managers.Player.HasReceivedTutorialGem = true;
@@ -52,13 +50,13 @@ public class GachaTutorial : TutorialBase
                 break;
             case 2:
                 // 도감 탭 열기
-                if (mainUI.isDictionaryOpne == true)
+                if (controller.MainUI.isDictionaryOpne == true)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
 
                     // 도감 정보창 위치로 커서 세팅
-                    Vector3 startPos = new Vector3(-225, 130, 0);
+                    Vector3 startPos = controller.GetObjPos(controller.DSlotPosition);
                     controller.Cursor.Init(startPos, startPos, CursorType.Click);
 
                     dictionaryUI = Managers.UI.GetPopup<UI_Dictionary>();
@@ -94,7 +92,7 @@ public class GachaTutorial : TutorialBase
         base.OnEnd();
 
         Managers.UI.CloseAllPopupUI();
-        mainUI?.AllOFF();
+        controller.MainUI?.AllOFF();
     }
 
     public override void OnStart()
@@ -104,8 +102,6 @@ public class GachaTutorial : TutorialBase
             skip = true;
             return;
         }
-
-        mainUI = Managers.UI.GetScene<UI_Main>();
 
         Vector3 startPos = controller.GetTabPosition(3); // 가챠탭 위치
         controller.Cursor.Init(startPos, startPos, CursorType.Click);

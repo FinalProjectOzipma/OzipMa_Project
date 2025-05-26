@@ -67,4 +67,9 @@ public class FloatBase
     {
         return (Value * ValueMultiples * GradeMulitpes * ResearchMultiples).ToString(n);
     }
+
+    public virtual string GetUpstatValueToString(string n = "N2")
+    {
+        return (GetValue() - Value).ToString(n);
+    }
 }
