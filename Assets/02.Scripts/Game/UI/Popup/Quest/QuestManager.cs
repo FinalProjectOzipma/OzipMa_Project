@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 
 public class QuestManager
@@ -79,8 +82,8 @@ public class QuestManager
             questData.TargetID,
             questData.Goal,
             questData.RewardGem,
+            questData.RewardGold,
             questData.IsActive
-
         );
 
         QuestDatas[type].Add(newQuest);
@@ -91,6 +94,7 @@ public class QuestManager
             conditionQuestIndex[newQuest.ConditionType] = new List<QuestData>();
 
         conditionQuestIndex[newQuest.ConditionType].Add(newQuest);
+
 
     }
 
@@ -272,5 +276,25 @@ public class QuestManager
         return false;
 
     }
+
+    public void SetImage(QuestData newQuest, Action<QuestData> onComplete = null)
+    {
+        int loadCount = 0;
+
+        Managers.Resource.LoadAssetAsync<Sprite>("GoldImage", sprite =>
+        {
+            newQuest.GoldSprite = sprite;
+            loadCount++;
+            if (loadCount == 2) onComplete?.Invoke(newQuest);
+        });
+
+        Managers.Resource.LoadAssetAsync<Sprite>("GemImage", sprite =>
+        {
+            newQuest.GemSprte = sprite;
+            loadCount++;
+            if (loadCount == 2) onComplete?.Invoke(newQuest);
+        });
+    }
+
 
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using TMPro;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ public class UI_Research : UI_Base
     [SerializeField] private TextMeshProUGUI GoldSpendText;
     [SerializeField] private TextMeshProUGUI GemSpendText;
     [SerializeField] private TextMeshProUGUI UpdateLevel;
+    [SerializeField] private TextMeshProUGUI GoldDescription;
 
     [SerializeField] private Image Icon;
     [SerializeField] private Image FillBackImage;
@@ -47,7 +49,7 @@ public class UI_Research : UI_Base
 
 
     private DateTime startTime; // 업그레이드 시작 시간
-    private float secondsToReduce = 3600.0f; // 1시간 감소 
+    private float secondsToReduce; // 시간 감소
     private long spendGold; // 업그레이드 필요 골드
     private long spendGem; // 업그레드 필요 잼
 
@@ -179,8 +181,9 @@ public class UI_Research : UI_Base
         updateLevel = researchData.UpdateLevel == 0 ? 1 : researchData.UpdateLevel;
         researchDuration = researchData.ResearchDuration == 0 ? baseTime : researchData.ResearchDuration;
         updateStat = researchData.UpdateStat == 0 ? Managers.Upgrade.GetResearchValue(researchUpgradeType, 1) : researchData.UpdateStat;
-        spendGold = researchData.SpendGold == 0 ? 800L : researchData.SpendGold;
-        spendGem = researchData.SpendGem == 0 ? 800L : researchData.SpendGem;
+        spendGold = researchData.SpendGold == 0 ? 1000L : researchData.SpendGold;
+        spendGem = researchData.SpendGem == 0 ? 300L : researchData.SpendGem;
+        secondsToReduce = researchData.SecondsToReduce == 0 ? 600.0f : researchData.SecondsToReduce;
 
 
         UpgradeButton.gameObject.BindEvent(OnClickStartResearch); // 업그레드 시작 버튼
@@ -194,6 +197,9 @@ public class UI_Research : UI_Base
         GemSpendText.text = Util.FormatNumber(spendGem);
 
         UpgradeText.text = $"업그레이드 : +{((updateStat - 1) * 100).ToString("F0")}%";
+
+        if (secondsToReduce >= 3600.0f) GoldDescription.text = $"({(int)secondsToReduce / 3600} 시간 단축)";
+        else GoldDescription.text = $"({(int)secondsToReduce / 60} 분 단축)";
 
 
     }
@@ -475,23 +481,29 @@ public class UI_Research : UI_Base
             switch (updateLevel)
             {
                 case 2:
-                    researchDuration = 600.0f;
+                    researchDuration = 600.0f; // 10분
                     break;
                 case 3:
-                    researchDuration = 1800.0f;
+                    researchDuration = 1800.0f; // 30분
                     break;
                 case 4:
-                    researchDuration = 3600.0f;
+                    researchDuration = 3600.0f; // 1시간
                     break;
             }
         }
         else if (researchDuration < 43200.0f)
         {
             researchDuration += 1800.0f;
+            spendGem += 50L;
+            spendGold = 6000L;
+            secondsToReduce = 3600.0f;
         }
         else
         {
             researchDuration = 43200.0f;
+            spendGem = 900L;
+            spendGold = 6000L;
+            secondsToReduce = 3600.0f;
         }
 
         StatUpgrade(researchUpgradeType); // 스탯 업그레이드
@@ -499,8 +511,6 @@ public class UI_Research : UI_Base
         if (updateLevel > 10) updateStat = Managers.Upgrade.GetResearchValue(researchUpgradeType, 10);
         else updateStat = Managers.Upgrade.GetResearchValue(researchUpgradeType, updateLevel);
 
-        spendGold += 1000L;
-        spendGem += 1000L;
 
         researchData.StartTime = "";
         researchData.ResearchDuration = researchDuration;
@@ -508,6 +518,7 @@ public class UI_Research : UI_Base
         researchData.UpdateStat = updateStat;
         researchData.SpendGold = spendGold;
         researchData.SpendGem = spendGem;
+        researchData.SecondsToReduce = secondsToReduce;
 
         UpdateLevel.text = $"Lv {updateLevel}";
         UpgradeText.text = $"업그레이드 : +{((updateStat - 1) * 100).ToString("F0")}%";
@@ -515,6 +526,9 @@ public class UI_Research : UI_Base
 
         GoldSpendText.text = Util.FormatNumber(spendGold);
         GemSpendText.text = Util.FormatNumber(spendGem);
+
+        if(secondsToReduce >= 3600.0f) GoldDescription.text = $"({(int)secondsToReduce / 3600} 시간 단축)";
+        else GoldDescription.text = $"({(int)secondsToReduce / 60} 분 단축)";
 
         // 애널리틱스 연구완료시
         #region research_completed
