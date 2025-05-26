@@ -1,7 +1,12 @@
-public class ZombieIdleState : ZombieStateBase
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WarriorIdleState : WarriorStateBase
 {
     private float attackCoolDown;
-    public ZombieIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
+
+    public WarriorIdleState(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
         attackCoolDown = status.AttackCoolDown.GetValue();
     }

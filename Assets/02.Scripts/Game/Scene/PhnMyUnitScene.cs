@@ -53,6 +53,7 @@ public class PhnMyUnitScene : GameScene
                 Managers.Player.Inventory.Add<Tower>(tower);
             });
         }
+        DefaultUnitAdd();
     }
 
     private void DefaultUnitAdd()
@@ -83,8 +84,20 @@ public class PhnMyUnitScene : GameScene
             MyUnit unit = new MyUnit();
             unit.Init(3, prefab.GetComponent<MyUnitController>().sprite);
         });
+        Managers.Resource.LoadAssetAsync<GameObject>("Warrior_Brain", (prefab) =>
+        {
+            MyUnit unit = new MyUnit();
+            unit.Init(4, prefab.GetComponent<MyUnitController>().sprite);
+            Managers.Player.Inventory.Add<MyUnit>(unit);
+        });
+        Managers.Resource.LoadAssetAsync<GameObject>("Mage_Brain", (prefab) =>
+        {
+            MyUnit unit = new MyUnit();
+            unit.Init(4, prefab.GetComponent<MyUnitController>().sprite);
+            Managers.Player.Inventory.Add<MyUnit>(unit);
+        });
     }
-
+    
     public override void Exit()
     {
         base.Exit();

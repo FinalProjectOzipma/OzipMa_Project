@@ -74,6 +74,7 @@ public enum AtkType
     ReflectDamage,
     Area,
     StatusInfliction,
+    ChargeAttack,
 
     Count
 }

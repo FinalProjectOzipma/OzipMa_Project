@@ -1,6 +1,11 @@
-public class ZombieAttackState : ZombieStateBase
+using DG.Tweening.Core;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WarriorAttackState : WarriorStateBase
 {
-    public ZombieAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, ZombieAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    public WarriorAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 
@@ -19,7 +24,7 @@ public class ZombieAttackState : ZombieStateBase
     {
         base.Update();
         OutRange(data.ChaseState, status.AttackRange.GetValue());
-        
+
         //공격끝나면 idleState
         if (triggerCalled)
         {

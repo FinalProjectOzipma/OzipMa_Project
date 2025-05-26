@@ -64,7 +64,8 @@ namespace DefaultTable
 		public System.Int32 TargetID;
 		public System.Int32 Goal;
 		public System.Int32 RewardGem;
-		public System.Int32 IsActive;
+		public System.Int32 RewardGold;
+		public System.Byte IsActive;
   
 
 #region fuctions
