@@ -107,6 +107,7 @@ public class ResearchTutorial : TutorialBase
     {
         base.OnEnd();
 
-        // TODO :: 튜토리얼 보상 처리
+        Managers.UI.CloseAllPopupUI();
+        mainUI.AllOFF();
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,12 +13,19 @@ public class TutorialController : UI_Scene
     public Dialogue Dialogue;
 
     public GameObject ButtonsPosition;
+    public GameObject[] MenuButtons;
 
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
 
     private void Awake()
     {
+        MenuButtons = new GameObject[4];
+        for (int i = 0; i < 4; i++)
+        {
+            MenuButtons[i] = ButtonsPosition.transform.GetChild(i).gameObject;
+        }
+
         Init();
     }
 
@@ -25,8 +33,10 @@ public class TutorialController : UI_Scene
     {
         base.Init();
 
+        OverlayOff();
+
         // 튜토리얼을 순서대로 넣기 
-        switch(Managers.Player.LastTutorialStep)
+        switch (Managers.Player.LastTutorialStep)
         {
             case Enums.TutorialStep.None:
                 queue.Enqueue(new PlaceTowerTutorial(this, Enums.TutorialStep.PlaceTower));
@@ -115,9 +125,28 @@ public class TutorialController : UI_Scene
         Managers.Resource.Destroy(this.gameObject, true); // 제거
     }
 
+    public void OverlayOff()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            MenuButtons[i].SetActive(false);
+        }
+    }
+
+    public void OverlayOn(int index)
+    {
+        MenuButtons[index].SetActive(false);
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == index) continue;
+            MenuButtons[i].SetActive(true);
+        }
+    }
+
     public Vector3 GetTabPosition(int index)
     {
-        Transform tabBtn = ButtonsPosition.transform.GetChild(index);
+        OverlayOn(index);
+        Transform tabBtn = MenuButtons[index].transform;
         RectTransform rectTabBtn = tabBtn as RectTransform;
         Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, rectTabBtn.position); // 버튼의 화면 상 위치
 

@@ -79,6 +79,6 @@ public class EditTowerTutorial : TutorialBase
     {
         base.OnEnd();
 
-        // TODO :: 보상
+        controller.OverlayOff();
     }
 }
