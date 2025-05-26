@@ -27,7 +27,7 @@ public class QuestData
 
     public int RewardGOld; // 퀘스트 보상 골드
 
-    public int IsActive; // 퀘스트 활성화 여부
+    public byte IsActive; // 퀘스트 활성화 여부
 
     [JsonIgnore]
     public Action OnProgressChanged;
@@ -58,7 +58,7 @@ public class QuestData
         }
     }
 
-    public QuestData(int id, QuestType type, string name, string description, ConditionType conditionType, int targetID, int goal, int rewardGem, int rewardGOld, int isActive)
+    public QuestData(int id, QuestType type, string name, string description, ConditionType conditionType, int targetID, int goal, int rewardGem, int rewardGOld, byte isActive)
     {
         ID = id;
         Type = type;
