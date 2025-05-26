@@ -198,8 +198,8 @@ public class UI_Research : UI_Base
 
         UpgradeText.text = $"업그레이드 : +{((updateStat - 1) * 100).ToString("F0")}%";
 
-        if (secondsToReduce >= 3600.0f) GoldDescription.text = $"{(int)secondsToReduce / 3600} 시간 단축";
-        else GoldDescription.text = $"{(int)secondsToReduce / 60} 분 단축";
+        if (secondsToReduce >= 3600.0f) GoldDescription.text = $"({(int)secondsToReduce / 3600} 시간 단축)";
+        else GoldDescription.text = $"({(int)secondsToReduce / 60} 분 단축)";
 
 
     }
@@ -527,8 +527,8 @@ public class UI_Research : UI_Base
         GoldSpendText.text = Util.FormatNumber(spendGold);
         GemSpendText.text = Util.FormatNumber(spendGem);
 
-        if(secondsToReduce >= 3600.0f) GoldDescription.text = $"{(int)secondsToReduce / 3600} 시간 단축";
-        else GoldDescription.text = $"{(int)secondsToReduce / 60} 분 단축";
+        if(secondsToReduce >= 3600.0f) GoldDescription.text = $"({(int)secondsToReduce / 3600} 시간 단축)";
+        else GoldDescription.text = $"({(int)secondsToReduce / 60} 분 단축)";
 
         // 애널리틱스 연구완료시
         #region research_completed

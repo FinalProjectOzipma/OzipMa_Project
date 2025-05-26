@@ -25,9 +25,15 @@ public class QuestData
 
     public int RewardGem; // 퀘스트 보상 잼
 
-    public int RewardGOld; // 퀘스트 보상 골드
+    public int RewardGold; // 퀘스트 보상 골드
 
     public byte IsActive; // 퀘스트 활성화 여부
+
+    [JsonIgnore]
+    public Sprite GemSprte;
+
+    [JsonIgnore]
+    public Sprite GoldSprite;
 
     [JsonIgnore]
     public Action OnProgressChanged;
@@ -68,7 +74,7 @@ public class QuestData
         TargetID = targetID;
         Goal = goal;
         RewardGem = rewardGem;
-        RewardGOld = rewardGOld;
+        RewardGold = rewardGOld;
         IsActive = isActive;
 
         State = QuestState.Doing;

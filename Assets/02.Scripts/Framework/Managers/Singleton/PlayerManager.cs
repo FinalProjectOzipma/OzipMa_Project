@@ -312,6 +312,7 @@ public class PlayerManager
                     Managers.Quest.QuestDatas[type] = new List<QuestData>();
 
                 Managers.Quest.QuestDatas[type].Add(kvp.Value);
+                Managers.Quest.SetImage(kvp.Value);
             
             }
 

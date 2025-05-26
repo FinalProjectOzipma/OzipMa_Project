@@ -38,7 +38,7 @@ public class UI_QuestSlot : UI_Base
     {
         this.questData = questData;
         Name.text = questData.Name;
-        RewardText.text = questData.RewardGem.ToString("F0");
+        RewardText.text = Util.FormatNumber(questData.RewardGem);
         Description.text = questData.Description;
 
         questData.OnProgressChanged += UpdateUI;

@@ -13,6 +13,8 @@ public class UI_QuestRepeat : UI_Scene
     [SerializeField] private TextMeshProUGUI Progress;
     [SerializeField] private TextMeshProUGUI RewardText;
     [SerializeField] private Image Icon;
+    [SerializeField] private Image GoldSprite;
+    [SerializeField] private Image GemSprite;
 
     [SerializeField] private Image AlarmImage;
 
@@ -23,6 +25,8 @@ public class UI_QuestRepeat : UI_Scene
     public QuestData RepeatQuestData;
 
     private Tween blinkTween;
+
+    private byte rewardNumber = 0;
 
 
     private void Awake()
@@ -48,6 +52,13 @@ public class UI_QuestRepeat : UI_Scene
         int ranmoNumber = Random.Range(0, repeatQuestList.Count); 
 
         RepeatQuestData = repeatQuestList[ranmoNumber];
+        
+        if(RepeatQuestData.GemSprte == null || RepeatQuestData.GoldSprite == null)
+        {
+            RepeatQuestData.GoldSprite = GoldSprite.sprite;
+            RepeatQuestData.GemSprte = GemSprite.sprite;
+        }
+
 
         RepeatQuestData.OnProgressChanged += UpdateProgress;
         RepeatQuestData.OnStateChanged += OnQuestStateChanged;
@@ -58,10 +69,8 @@ public class UI_QuestRepeat : UI_Scene
         RepeatQuestData.IsActive = 1;
         RepeatQuestData.Progress = 0;
         RepeatQuestData.State = QuestState.Doing;
-
+        SetRandomReward();
         Description.text = RepeatQuestData.Description;
-        RewardText.text = Util.FormatNumber((long)RepeatQuestData.RewardGem);
-        RepeatQuestData.State = QuestState.Doing;
     }
 
     public void CompleteQuest()
@@ -88,7 +97,9 @@ public class UI_QuestRepeat : UI_Scene
         RepeatQuestData.Progress = 0;
         RepeatQuestData.State = QuestState.Complete;
         RepeatQuestData.IsActive = 0;
-        Managers.Player.AddGem(RepeatQuestData.RewardGem);
+
+        if (rewardNumber == 0) Managers.Player.AddGem(RepeatQuestData.RewardGem);
+        else Managers.Player.AddGold(RepeatQuestData.RewardGold);
 
         SetData();
 
@@ -126,6 +137,24 @@ public class UI_QuestRepeat : UI_Scene
 
             blinkTween = AlarmImage.DOFade(0.5f, 0.7f)
                                    .SetLoops(-1, LoopType.Yoyo);
+        }
+    }
+
+    public void SetRandomReward()
+    {
+        int randomNumber = Random.Range(0, 101);
+
+        if(randomNumber < 50)
+        {
+            Icon.sprite = RepeatQuestData.GemSprte;
+            RewardText.text = Util.FormatNumber((long)RepeatQuestData.RewardGem);
+            rewardNumber = 0;
+        }
+        else
+        {
+            Icon.sprite = RepeatQuestData.GoldSprite;
+            RewardText.text = Util.FormatNumber((long)RepeatQuestData.RewardGold);
+            rewardNumber = 1;
         }
     }
 }
