@@ -21,8 +21,14 @@ public class TutorialController : UI_Scene
     public GameObject DSlotPosition; // 도감 슬롯 위치
     #endregion
 
+    public UI_Main MainUI;
+    public RectTransform CursorRect; // 커서의 부모 Rect, 커서의 위치 기준으로 사용되기 때문에 CursorRect로 명명.
+
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
+
+    private List<GameObject> hiddenDuringTutorial; // 튜토리얼동안 숨겨둘 오브젝트들
+    private InventoryUI inventoryUI;
 
     private void Awake()
     {
@@ -33,7 +39,24 @@ public class TutorialController : UI_Scene
     {
         base.Init();
 
-        OverlayOff();
+        MainUI = Managers.UI.GetScene<UI_Main>();
+        CursorRect = gameObject.GetComponent<Canvas>().GetComponent<RectTransform>();
+        inventoryUI = Managers.UI.GetScene<InventoryUI>();
+
+        // 튜토리얼동안 막아둘 오브젝트들 수집
+        hiddenDuringTutorial = new List<GameObject>(3);
+        foreach (GameObject go in MainUI.GetTutorialHiddenObjects())
+        {
+            hiddenDuringTutorial.Add(go);
+        }
+        hiddenDuringTutorial.Add(inventoryUI.GetSwipeBtn());
+
+        // 튜토리얼동안 봉인
+        foreach(GameObject go in hiddenDuringTutorial)
+        {
+            go.SetActive(false);
+        }
+
 
         // 튜토리얼을 순서대로 넣기 
         switch (Managers.Player.LastTutorialStep)
@@ -117,6 +140,12 @@ public class TutorialController : UI_Scene
 
     private void TutorialEnd()
     {
+        // 봉인된 오브젝트들 해제
+        foreach (GameObject go in hiddenDuringTutorial)
+        {
+            go.SetActive(true);
+        }
+
         Managers.Player.HasReceivedTutorialGold = true;
         Managers.Player.HasReceivedTutorialGem = true;
         Managers.Player.LastTutorialStep = Enums.TutorialStep.End; // 진행도 저장
@@ -153,11 +182,9 @@ public class TutorialController : UI_Scene
 
         // screenPos를 커서의 앵커 기준 로컬 좌표로 변환
         Vector2 localPos;
-        Canvas canvas = gameObject.GetComponent<Canvas>();
-        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
         RectTransformUtility.ScreenPointToLocalPointInRectangle
                     (
-                        canvasRect,
+                        CursorRect,
                         screenPos,
                         null,
                         out localPos
@@ -173,11 +200,9 @@ public class TutorialController : UI_Scene
 
         // screenPos를 커서의 앵커 기준 로컬 좌표로 변환
         Vector2 localPos;
-        Canvas canvas = gameObject.GetComponent<Canvas>();
-        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
         RectTransformUtility.ScreenPointToLocalPointInRectangle
                     (
-                        canvasRect,
+                        CursorRect,
                         screenPos,
                         null,
                         out localPos

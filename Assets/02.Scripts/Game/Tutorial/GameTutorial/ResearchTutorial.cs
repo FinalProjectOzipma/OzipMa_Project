@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ResearchTutorial : TutorialBase
 {
-    private UI_Main mainUI;
     private UI_ResearchScene researchUI;
     private int dialogueNum = 0;
     private bool skip = false;
@@ -21,7 +20,7 @@ public class ResearchTutorial : TutorialBase
         {
             case 0:
                 // 연구탭 열렸는지 확인
-                if(mainUI.isResearchOpen == true)
+                if(controller.MainUI.isResearchOpen == true)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
@@ -80,8 +79,6 @@ public class ResearchTutorial : TutorialBase
             return;
         }
 
-        mainUI = Managers.UI.GetScene<UI_Main>();
-
         // 연구 탭 클릭 커서 세팅
         Vector3 startPos = controller.GetTabPosition(2); 
         controller.Cursor.Init(startPos, startPos, CursorType.Click);
@@ -105,6 +102,6 @@ public class ResearchTutorial : TutorialBase
         base.OnEnd();
 
         Managers.UI.CloseAllPopupUI();
-        mainUI?.AllOFF();
+        controller.MainUI?.AllOFF();
     }
 }

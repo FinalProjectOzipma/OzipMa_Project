@@ -106,6 +106,11 @@ public class InventoryUI : UI_Scene
         TextInfo.text = $"{Managers.Upgrade.GetUpgradeGold()}";
     }
 
+    public GameObject GetSwipeBtn()
+    {
+        return SwipeBtn.gameObject;
+    }
+
 
     private void UpdateUpgradeGold(int gold)
     {
