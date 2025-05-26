@@ -146,8 +146,6 @@ public class UpgradeManager
             userObject.Attack.SetValueMultiples(1.0f);
             userObject.Defence.SetValueMultiples(1.0f);
             userObject.Health.SetValueMultiples(1.0f);
-            userObject.MoveSpeed.SetValueMultiples(1.0f);
-            userObject.AttackCoolDown.SetValueMultiples(1.0f);
             return;
         }
 
@@ -162,10 +160,6 @@ public class UpgradeManager
         userObject.Attack.AddMultiples(statUp);
         userObject.Defence.AddMultiples(statUp);
         userObject.Health.AddMultiples(statUp);
-        userObject.MoveSpeed.AddMultiples(statUp);
-
-        // 쿨타임은 반대로 감소
-        userObject.AttackCoolDown.AddMultiples(-statUp);
 
     }
 
@@ -179,7 +173,6 @@ public class UpgradeManager
         if (level == 1)
         {
             userObject.TowerStatus.Attack.SetValueMultiples(1.0f);
-            userObject.TowerStatus.AttackCoolDown.SetValueMultiples(1.0f);
             return;
         }
 
@@ -191,7 +184,6 @@ public class UpgradeManager
         float statUp = LevelUpValues[index].StatUP;
 
         userObject.TowerStatus.Attack.AddMultiples(statUp);
-        userObject.TowerStatus.AttackCoolDown.AddMultiples(-statUp);
     }
 
     public void ApplyGetValue(MyUnitStatus userObject)

@@ -338,6 +338,7 @@ public class ResearchData
     public float UpdateStat;
     public long SpendGold;
     public long SpendGem;
+    public float SecondsToReduce;
 
 
     public ResearchData(ResearchUpgradeType _type)
@@ -349,6 +350,7 @@ public class ResearchData
         UpdateStat = 0.0f;
         SpendGold = 0;
         SpendGem = 0;
+        SecondsToReduce = 0;
     }
 }
 
