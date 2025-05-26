@@ -27,7 +27,7 @@ public class PlaceTowerTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 타워 배치 커서 세팅
-                    Vector3 startPos = new Vector3(-330, -240, 0); // 인벤토리 첫번째 슬롯 위치
+                    Vector3 startPos = controller.GetObjPos(controller.SlotPosition); // 인벤토리 첫번째 슬롯 위치
 
                     Vector3Int endPoint = BuildingSystem.Instance.GetCurMapHandler().BuildHighlightList[0]; // 아무 칸 위치
                     Vector3 endPos = BuildingSystem.Instance.CellToWorldPos(endPoint);

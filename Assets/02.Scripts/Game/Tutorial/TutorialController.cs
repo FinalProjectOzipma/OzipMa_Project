@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,7 +12,14 @@ public class TutorialController : UI_Scene
     public Cursor Cursor;
     public Dialogue Dialogue;
 
-    public GameObject ButtonsPosition;
+    #region 버튼 위치를 위한 빈오브젝트 모음
+    public GameObject[] MenuButtons; // 하단바 메뉴 버튼들
+    public GameObject SlotPosition; // 인벤토리 슬롯 위치
+    public GameObject ResearchStartPos; // 연구 시작 버튼
+    public GameObject ResearchGoldPos; // 연구 골드가속 버튼
+    public GameObject GachaStartPos; // 가챠 뽑기 버튼
+    public GameObject DSlotPosition; // 도감 슬롯 위치
+    #endregion
 
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
@@ -25,8 +33,10 @@ public class TutorialController : UI_Scene
     {
         base.Init();
 
+        OverlayOff();
+
         // 튜토리얼을 순서대로 넣기 
-        switch(Managers.Player.LastTutorialStep)
+        switch (Managers.Player.LastTutorialStep)
         {
             case Enums.TutorialStep.None:
                 queue.Enqueue(new PlaceTowerTutorial(this, Enums.TutorialStep.PlaceTower));
@@ -115,9 +125,29 @@ public class TutorialController : UI_Scene
         Managers.Resource.Destroy(this.gameObject, true); // 제거
     }
 
+    public void OverlayOff()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            MenuButtons[i].SetActive(false);
+        }
+    }
+
+    public void OverlayOn(int index)
+    {
+        MenuButtons[index].SetActive(false);
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == index) continue;
+            MenuButtons[i].SetActive(true);
+        }
+    }
+
+    #region 커서위치 구하는 메서드
     public Vector3 GetTabPosition(int index)
     {
-        Transform tabBtn = ButtonsPosition.transform.GetChild(index);
+        OverlayOn(index);
+        Transform tabBtn = MenuButtons[index].transform;
         RectTransform rectTabBtn = tabBtn as RectTransform;
         Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, rectTabBtn.position); // 버튼의 화면 상 위치
 
@@ -135,4 +165,24 @@ public class TutorialController : UI_Scene
         return localPos;
     }
 
+    public Vector3 GetObjPos(GameObject go)
+    {
+        Transform targetGO = go.transform;
+        RectTransform rect = targetGO as RectTransform;
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, rect.position); // 버튼의 화면 상 위치
+
+        // screenPos를 커서의 앵커 기준 로컬 좌표로 변환
+        Vector2 localPos;
+        Canvas canvas = gameObject.GetComponent<Canvas>();
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+                    (
+                        canvasRect,
+                        screenPos,
+                        null,
+                        out localPos
+                    );
+        return localPos;
+    }
+    #endregion
 }

@@ -28,9 +28,8 @@ public class GachaTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 10개 뽑기 버튼 커서 세팅
-                    Vector3 startPos = new Vector3(55, 150, 0); 
-                    Vector3 endPos = new Vector3(55, 150, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetObjPos(controller.GachaStartPos); 
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
 
                     Managers.Player.AddGem(3000);
                     Managers.Player.HasReceivedTutorialGem = true;
@@ -58,7 +57,7 @@ public class GachaTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 도감 정보창 위치로 커서 세팅
-                    Vector3 startPos = new Vector3(-225, 130, 0);
+                    Vector3 startPos = controller.GetObjPos(controller.DSlotPosition);
                     controller.Cursor.Init(startPos, startPos, CursorType.Click);
 
                     dictionaryUI = Managers.UI.GetPopup<UI_Dictionary>();
