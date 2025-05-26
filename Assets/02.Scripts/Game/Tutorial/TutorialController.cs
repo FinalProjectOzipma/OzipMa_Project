@@ -13,6 +13,7 @@ public class TutorialController : UI_Scene
     public Dialogue Dialogue;
 
     public GameObject ButtonsPosition;
+    public GameObject SlotPosition;
     public GameObject[] MenuButtons;
 
     private Queue<TutorialBase> queue = new();
@@ -164,4 +165,23 @@ public class TutorialController : UI_Scene
         return localPos;
     }
 
+    public Vector3 GetObjPos(GameObject go)
+    {
+        Transform targetGO = go.transform;
+        RectTransform rect = targetGO as RectTransform;
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, rect.position); // 버튼의 화면 상 위치
+
+        // screenPos를 커서의 앵커 기준 로컬 좌표로 변환
+        Vector2 localPos;
+        Canvas canvas = gameObject.GetComponent<Canvas>();
+        RectTransform canvasRect = canvas.GetComponent<RectTransform>();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+                    (
+                        canvasRect,
+                        screenPos,
+                        null,
+                        out localPos
+                    );
+        return localPos;
+    }
 }
