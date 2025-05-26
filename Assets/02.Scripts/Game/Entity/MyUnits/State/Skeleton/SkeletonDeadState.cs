@@ -6,7 +6,6 @@ public class SkeletonDeadState : SkeletonStateBase
     public override void Enter()
     {
         base.Enter();
-        //TODO: 아군 죽는 사운드 필요
     }
 
     public override void Exit()

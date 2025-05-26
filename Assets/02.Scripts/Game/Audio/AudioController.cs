@@ -39,6 +39,7 @@ public enum SFXClipName
     Defeat,
     Guide,
     GuideSkip,
+    Spell,
 }
 
 public enum AudioType
