@@ -198,6 +198,9 @@ public class UI_Research : UI_Base
 
         UpgradeText.text = $"업그레이드 : +{((updateStat - 1) * 100).ToString("F0")}%";
 
+        if (secondsToReduce >= 3600.0f) GoldDescription.text = $"{(int)secondsToReduce / 3600} 시간 단축";
+        else GoldDescription.text = $"{(int)secondsToReduce / 60} 분 단축";
+
 
     }
 
@@ -515,6 +518,7 @@ public class UI_Research : UI_Base
         researchData.UpdateStat = updateStat;
         researchData.SpendGold = spendGold;
         researchData.SpendGem = spendGem;
+        researchData.SecondsToReduce = secondsToReduce;
 
         UpdateLevel.text = $"Lv {updateLevel}";
         UpgradeText.text = $"업그레이드 : +{((updateStat - 1) * 100).ToString("F0")}%";
