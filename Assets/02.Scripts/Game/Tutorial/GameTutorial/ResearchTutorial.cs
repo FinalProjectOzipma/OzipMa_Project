@@ -27,9 +27,8 @@ public class ResearchTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 연구 시작 버튼 커서 세팅
-                    Vector3 startPos = new Vector3(345, 315, 0);
-                    Vector3 endPos = new Vector3(345, 315, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetObjPos(controller.ResearchStartPos);
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
                     researchUI = Managers.UI.GetPopup<UI_ResearchScene>();
                 }
                 break;
@@ -41,9 +40,8 @@ public class ResearchTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 시간 단축 커서 세팅
-                    Vector3 startPos = new Vector3(-75, 242, 0);
-                    Vector3 endPos = new Vector3(-75, 242, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetObjPos(controller.ResearchGoldPos);
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
                     Managers.Player.AddGold(1000);
                     Managers.Player.HasReceivedTutorialGold = true;
                 }
@@ -56,9 +54,8 @@ public class ResearchTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 완료 버튼 커서 세팅
-                    Vector3 startPos = new Vector3(345, 315, 0);
-                    Vector3 endPos = new Vector3(345, 315, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetObjPos(controller.ResearchStartPos);
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
                 }
                 break;
             case 3:
@@ -108,6 +105,6 @@ public class ResearchTutorial : TutorialBase
         base.OnEnd();
 
         Managers.UI.CloseAllPopupUI();
-        mainUI.AllOFF();
+        mainUI?.AllOFF();
     }
 }

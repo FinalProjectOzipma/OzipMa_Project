@@ -12,21 +12,20 @@ public class TutorialController : UI_Scene
     public Cursor Cursor;
     public Dialogue Dialogue;
 
-    public GameObject ButtonsPosition;
-    public GameObject SlotPosition;
-    public GameObject[] MenuButtons;
+    #region 버튼 위치를 위한 빈오브젝트 모음
+    public GameObject[] MenuButtons; // 하단바 메뉴 버튼들
+    public GameObject SlotPosition; // 인벤토리 슬롯 위치
+    public GameObject ResearchStartPos; // 연구 시작 버튼
+    public GameObject ResearchGoldPos; // 연구 골드가속 버튼
+    public GameObject GachaStartPos; // 가챠 뽑기 버튼
+    public GameObject DSlotPosition; // 도감 슬롯 위치
+    #endregion
 
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
 
     private void Awake()
     {
-        MenuButtons = new GameObject[4];
-        for (int i = 0; i < 4; i++)
-        {
-            MenuButtons[i] = ButtonsPosition.transform.GetChild(i).gameObject;
-        }
-
         Init();
     }
 
@@ -144,6 +143,7 @@ public class TutorialController : UI_Scene
         }
     }
 
+    #region 커서위치 구하는 메서드
     public Vector3 GetTabPosition(int index)
     {
         OverlayOn(index);
@@ -184,4 +184,5 @@ public class TutorialController : UI_Scene
                     );
         return localPos;
     }
+    #endregion
 }
