@@ -223,7 +223,7 @@ public class UI_InfoPopup : UI_Popup
         Util.Log("등급 : " + grade.ToString());
         foreach (var image in starArrays)
         {
-            image.color = Color.gray;
+            image.color = Color.black;
         }
 
         for (int i = 0; i <grade; i++ )
