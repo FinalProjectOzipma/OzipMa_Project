@@ -10,8 +10,6 @@ public class PlaceTowerTutorial : TutorialBase
     private int dialogueNum = 0;
     private int prevTowerCount = 0;
 
-    private UI_Main mainUI;
-
     public PlaceTowerTutorial(TutorialController _controller, Enums.TutorialStep step) : base(_controller, step)
     {
     }
@@ -21,7 +19,7 @@ public class PlaceTowerTutorial : TutorialBase
         {
             case 0:
                 // 관리탭 열렸는지 확인
-                if (mainUI.isManagerOpen == true)
+                if (controller.MainUI.isManagerOpen == true)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
@@ -60,11 +58,7 @@ public class PlaceTowerTutorial : TutorialBase
 
     public override void OnStart()
     {
-        mainUI = Managers.UI.GetScene<UI_Main>();
         prevTowerCount = BuildingSystem.Instance.GridObjectMap.Count;
-
-        //Vector3 startPos = new Vector3(-370, -900, 0); // 관리탭 위치
-        //Vector3 endPos = new Vector3(-370, -900, 0);
 
         Vector3 startPos = controller.GetTabPosition(0); // 관리탭 위치
         Vector3 endPos = startPos;
@@ -85,7 +79,7 @@ public class PlaceTowerTutorial : TutorialBase
     {
         base.OnEnd();
 
-        mainUI.OFFSwipe();
-        mainUI.OFFManagerMenu();
+        controller.MainUI.OFFSwipe();
+        controller.MainUI.OFFManagerMenu();
     }
 }

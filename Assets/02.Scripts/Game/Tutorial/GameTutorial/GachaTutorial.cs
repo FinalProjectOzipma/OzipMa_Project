@@ -6,7 +6,6 @@ public class GachaTutorial : TutorialBase
 {
     private int dialogueNum = 0;
 
-    private UI_Main mainUI;
     private GachaUI gachaUI;
     private UI_Dictionary dictionaryUI;
     private bool skip = false;
@@ -22,7 +21,7 @@ public class GachaTutorial : TutorialBase
         {
             case 0:
                 // 가챠탭 열렸는지 확인
-                if (mainUI.isGachaOpne == true)
+                if (controller.MainUI.isGachaOpne == true)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
@@ -51,7 +50,7 @@ public class GachaTutorial : TutorialBase
                 break;
             case 2:
                 // 도감 탭 열기
-                if (mainUI.isDictionaryOpne == true)
+                if (controller.MainUI.isDictionaryOpne == true)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
@@ -93,7 +92,7 @@ public class GachaTutorial : TutorialBase
         base.OnEnd();
 
         Managers.UI.CloseAllPopupUI();
-        mainUI?.AllOFF();
+        controller.MainUI?.AllOFF();
     }
 
     public override void OnStart()
@@ -103,8 +102,6 @@ public class GachaTutorial : TutorialBase
             skip = true;
             return;
         }
-
-        mainUI = Managers.UI.GetScene<UI_Main>();
 
         Vector3 startPos = controller.GetTabPosition(3); // 가챠탭 위치
         controller.Cursor.Init(startPos, startPos, CursorType.Click);
