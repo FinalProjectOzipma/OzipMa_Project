@@ -77,8 +77,9 @@ public class UI_InfoPopup : UI_Popup
         DescriptionText.text = selectedInfo.Description;
         RankText.text = selectedInfo.RankType.ToString();
         LevelText.text = selectedInfo.Status.Level.GetValueToString();
-        AttackText.text = selectedInfo.Status.Attack.GetValueToString();
-        AttackCoolDownText.text = selectedInfo.Status.AttackCoolDown.GetValueToString();
+
+        AttackText.text = selectedInfo.Status.Attack.GetValueToString() + $" <color=#00FF00>(+{selectedInfo.Status.Attack.GetUpstatValueToString()})</color>";
+        AttackCoolDownText.text = selectedInfo.Status.AttackCoolDown.GetValueToString() + $" <color=#00FF00>(+{selectedInfo.Status.AttackCoolDown.GetUpstatValueToString()})</color>";
         AttackRangeText.text = selectedInfo.Status.AttackRange.GetValueToString();
 
         SelectRankWindow(selectedInfo.RankType);
@@ -99,8 +100,8 @@ public class UI_InfoPopup : UI_Popup
 
 
             MoveSpeedText.text = myUnit.Status.MoveSpeed.GetValueToString();
-            HealthText.text = myUnit.Status.Health.GetValueToString("F0");
-            DefenceText.text = myUnit.Status.Defence.GetValueToString();
+            HealthText.text = myUnit.Status.Health.GetValueToString("F0") + $" <color=#00FF00>(+{myUnit.Status.Health.GetUpstatValueToString("F0")})</color>";
+            DefenceText.text = myUnit.Status.Defence.GetValueToString() + $" <color=#00FF00>(+{myUnit.Status.Defence.GetUpstatValueToString()})</color>";
 
         }
         else if (selectedInfo is Tower tower)
@@ -223,7 +224,7 @@ public class UI_InfoPopup : UI_Popup
         Util.Log("등급 : " + grade.ToString());
         foreach (var image in starArrays)
         {
-            image.color = Color.gray;
+            image.color = Color.black;
         }
 
         for (int i = 0; i <grade; i++ )

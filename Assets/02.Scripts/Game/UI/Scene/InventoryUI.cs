@@ -106,6 +106,11 @@ public class InventoryUI : UI_Scene
         TextInfo.text = $"{Managers.Upgrade.GetUpgradeGold()}";
     }
 
+    public GameObject GetSwipeBtn()
+    {
+        return SwipeBtn.gameObject;
+    }
+
 
     private void UpdateUpgradeGold(int gold)
     {
@@ -213,9 +218,11 @@ public class InventoryUI : UI_Scene
         OnSelectfor();
 
 
-        bool isMax = AllMaxCheck();
+        bool isMaxStack = AllMaxStack();
+        bool isMaxGrade = AllMaxGrade();
 
-        if (!isSelect && !isMax)
+
+        if (!isSelect && isMaxStack && !isMaxGrade)
         {
             IsSelectFalse();
         }
@@ -238,7 +245,7 @@ public class InventoryUI : UI_Scene
 
             if (!isSelect)
             {
-                if (IsMaxLevel(_currentList[i]) || slots[i].IsActive) continue;
+                if (slots[i].IsActive || !IsStack(_currentList[i]) || IsGrade(_currentList[i])) continue;
 
                 slots[i].OnSelect();
                 slots[i].onSelectionChanged?.Invoke(true);
@@ -247,7 +254,7 @@ public class InventoryUI : UI_Scene
             }
             else
             {
-                if (IsMaxLevel(_currentList[i]) || !slots[i].IsActive) continue;
+                if (!slots[i].IsActive || !IsStack(_currentList[i]) || IsGrade(_currentList[i])) continue;
 
                 slots[i].DisSelect();
                 slots[i].onSelectionChanged?.Invoke(false);
@@ -293,7 +300,7 @@ public class InventoryUI : UI_Scene
     {
         for (int i = 0; i < _currentList.Count; i++)
         {
-            if (IsMaxLevel(_currentList[i])) continue;
+            if (!IsStack(_currentList[i]) || IsGrade(_currentList[i])) continue;
 
             if (!slots[i].IsActive)
             {
@@ -309,6 +316,8 @@ public class InventoryUI : UI_Scene
         }
     }
 
+
+    // 현재리스트에 만렙이 없으면 true 있으면 false
     private bool AllMaxCheck()
     {
         int AllMax = 0;
@@ -319,8 +328,37 @@ public class InventoryUI : UI_Scene
             AllMax++;
         }
 
-        return AllMax == 0 ? true : false;
+        return AllMax == 0;
     }
+
+    // 현재리스트에 스택을 충족하면 true 아니면 false
+    private bool AllMaxStack()
+    {
+        int AllMax = 0;
+
+        for (int i = 0; i < _currentList.Count; i++)
+        {
+            if (!IsStack(_currentList[i]) || IsGrade(_currentList[i])) continue;
+            AllMax++;
+        }
+
+        return AllMax != 0;
+    }
+
+
+    private bool AllMaxGrade()
+    {
+        int AllMax = 0;
+
+        for (int i = 0; i < _currentList.Count; i++)
+        {
+            if (IsGrade(_currentList[i])) continue;
+            AllMax++;
+        }
+
+        return AllMax == 0;
+    }
+
 
     private void OnMyUnitTap()
     {
@@ -391,7 +429,7 @@ public class InventoryUI : UI_Scene
                 CurrentState = STATE.SELECTABLE;
                 BackgroundButton.gameObject.SetActive(true);
                 Managers.UI.GetScene<UI_Main>().OnManagerMenu();
-                Managers.UI.GetScene<UI_QuestRepeat>().gameObject.SetActive(false);
+                Managers.UI.GetScene<UI_QuestRepeat>()?.gameObject.SetActive(false);
                 movable.transform.DOLocalMoveY(movable.localPosition.y - _moveDistance.y + 180.0f, 0.5f).SetEase(Ease.OutBounce).OnComplete(() =>
                 {
                     isMove = false;
@@ -403,7 +441,7 @@ public class InventoryUI : UI_Scene
             {
                 BackgroundButton.gameObject.SetActive(false);
                 Managers.UI.GetScene<UI_Main>().OFFManagerMenu();
-                Managers.UI.GetScene<UI_QuestRepeat>().gameObject.SetActive(true);
+                Managers.UI.GetScene<UI_QuestRepeat>()?.gameObject.SetActive(true);
                 movable.transform.DOLocalMoveY(movable.localPosition.y + _moveDistance.y - 180.0f, 0.5f).SetEase(Ease.OutCubic).OnComplete(() =>
                 {
                     isMove = false;
@@ -486,11 +524,6 @@ public class InventoryUI : UI_Scene
                 Managers.UI.Notify("널이라서 안됩니다.", false);
                 return;
             }
-            else if (IsMaxLevel(select))
-            {
-                Managers.UI.Notify("만렙이라서 안됩니다.", false);
-                return;
-            }
             else if (!IsStack(select))
             {
                 Managers.UI.Notify("카드 수가 부족합니다.", false);
@@ -498,7 +531,7 @@ public class InventoryUI : UI_Scene
             }
             else if (IsGrade(select))
             {
-                Managers.UI.Notify("최고 승급입니다.", false);
+                Managers.UI.Notify("최대 승급입니다.");
                 return;
             }
             else updateList.Add(select);

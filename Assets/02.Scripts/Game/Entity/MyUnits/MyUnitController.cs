@@ -97,6 +97,11 @@ public class MyUnitController : EntityController, IDamagable
 
         float finalDamage = incomingDamage * damageScale;
 
+        Managers.Resource.Instantiate("DamageTxt", go =>
+        {
+            go.GetComponent<Damage>().Init(finalDamage, 18, Body.transform.position, this);
+        });
+
         finalDamage = Mathf.Max(finalDamage, 1f); // 최소 1 보장 (선택사항)
 
         Status.Health.AddValue(-finalDamage);

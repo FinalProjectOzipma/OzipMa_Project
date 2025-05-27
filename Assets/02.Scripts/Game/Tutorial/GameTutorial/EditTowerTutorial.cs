@@ -9,8 +9,6 @@ using UnityEngine.UIElements;
 /// </summary>
 public class EditTowerTutorial : TutorialBase
 {
-    private RectTransform rect;
-
     public EditTowerTutorial(TutorialController _controller, Enums.TutorialStep step) : base(_controller, step)
     {
     }
@@ -27,15 +25,13 @@ public class EditTowerTutorial : TutorialBase
 
     public override void OnStart()
     {
-        rect = controller.Cursor.GetComponent<RectTransform>();
-
         // 설치된 타워 위치 아무거나 start위치로 사용
         Vector3Int startPoint = BuildingSystem.Instance.GridObjectMap.Keys.First();
         Vector3 startPos = BuildingSystem.Instance.CellToWorldPos(startPoint);
         startPos = Camera.main.WorldToScreenPoint(startPos);
         RectTransformUtility.ScreenPointToLocalPointInRectangle
                     (
-                        rect.parent as RectTransform,
+                        controller.CursorRect,
                         startPos,
                         null,
                         out Vector2 localPos
@@ -53,7 +49,7 @@ public class EditTowerTutorial : TutorialBase
                 endPos = Camera.main.WorldToScreenPoint(endPos);
                 RectTransformUtility.ScreenPointToLocalPointInRectangle
                     (
-                        rect.parent as RectTransform,
+                        controller.CursorRect,
                         endPos,
                         null,
                         out Vector2 localPos2
@@ -68,8 +64,8 @@ public class EditTowerTutorial : TutorialBase
         BuildingSystem.Instance.DragController.TutorialDragCheck = false;
         
         controller.Dialogue.EnQueueText("잘하셨어요!\n타워는 최대 2개까지 설치가 됩니다.");
-        controller.Dialogue.EnQueueText("이번에는 편집모드에서 타워를 드래그로 옮겨보세요.");
-        controller.Dialogue.EnQueueText("배치된 타워를 길게 누르면 편집모드를 활성화할 수 있어요.");
+        controller.Dialogue.EnQueueText("배치된 타워를 꾹- 누르면 <color=#f5a545>편집모드</color>를 활성화할 수 있어요.");
+        controller.Dialogue.EnQueueText("편집모드에서 타워를 <color=#f5a545>드래그</color>로 옮겨보세요.");
         controller.Dialogue.EnQueueText("");
 
         controller.SetDialogueActive(true);
@@ -79,6 +75,6 @@ public class EditTowerTutorial : TutorialBase
     {
         base.OnEnd();
 
-        // TODO :: 보상
+        controller.OverlayOff();
     }
 }

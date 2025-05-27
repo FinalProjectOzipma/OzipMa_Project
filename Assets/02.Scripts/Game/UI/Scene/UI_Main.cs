@@ -100,6 +100,11 @@ public class UI_Main : UI_Scene
         PlayerName.text = name;
     }
 
+    public GameObject[] GetTutorialHiddenObjects()
+    {
+        return new GameObject[] { SettingButton.gameObject, QuestButton.gameObject };
+    }
+
     private void OnDisable()
     {
         if (Managers.Player != null)

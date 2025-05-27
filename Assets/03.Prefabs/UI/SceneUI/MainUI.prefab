@@ -3665,6 +3665,9 @@ MonoBehaviour:
   ONGachaBtn: {fileID: 5610911331060846566}
   AlarmIcon: {fileID: 4012863383799540463}
   isManagerOpen: 0
+  isDictionaryOpne: 0
+  isResearchOpen: 0
+  isGachaOpne: 0
 --- !u!1 &5360368594268813351
 GameObject:
   m_ObjectHideFlags: 0

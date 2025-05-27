@@ -16,7 +16,7 @@ public class UserObject
     {
         PrimaryKey = primary;
         Sprite = sprite;
-        MaxGrade.SetValue(5);
+        MaxGrade.SetValue(10);
 
     }
 

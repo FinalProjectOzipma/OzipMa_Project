@@ -10,6 +10,7 @@ public class UI_OFFLinePopup : UI_Popup
     [SerializeField] private Button CheckButton;
     [SerializeField] private Button DoubleButton;
     [SerializeField] private Button RewardBox;
+    [SerializeField] private Button BGClose;
 
     [SerializeField] TextMeshProUGUI TimerText;
     [SerializeField] TextMeshProUGUI RewordGoldText;
@@ -84,6 +85,7 @@ public class UI_OFFLinePopup : UI_Popup
         CheckButton.gameObject.BindEvent(OnClickReword);
         DoubleButton.gameObject.BindEvent(OnClickDoubleReword);
         RewardBox.gameObject.BindEvent(SwitchToOpenBox);
+        BGClose.gameObject.BindEvent(SwitchToOpenBox);
 
 
         rewordStartTime = DateTime.Parse(Managers.Player.RewordStartTime, null, System.Globalization.DateTimeStyles.RoundtripKind);

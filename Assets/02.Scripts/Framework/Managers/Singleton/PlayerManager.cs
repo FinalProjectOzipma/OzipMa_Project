@@ -26,7 +26,17 @@ public class PlayerManager
 
     public Inventory Inventory { get; set; } = new Inventory();
 
-    public int CurrentKey { get; set; } // 스테이지 키
+    // 스테이지 키
+    public int CurrentKey 
+    { 
+        get => currentStageKey;
+        set
+        {
+            currentStageKey = value;
+            BuildingSystem.Instance.UpdateTowerCount();
+        }
+    }
+    private int currentStageKey;
     public int CurrentStage { get; set; }
     public int CurrentWave { get; set; }
 
@@ -312,11 +322,11 @@ public class PlayerManager
                     Managers.Quest.QuestDatas[type] = new List<QuestData>();
 
                 Managers.Quest.QuestDatas[type].Add(kvp.Value);
+                Managers.Quest.SetImage(kvp.Value);
             
             }
 
-            Managers.Quest.ResisterQuestDatas();
-            Managers.Quest.RebuildConditionQuestIndex();
+            Managers.Quest.ResetEtcQuest();
 
         }
     }
@@ -339,6 +349,7 @@ public class ResearchData
     public float UpdateStat;
     public long SpendGold;
     public long SpendGem;
+    public float SecondsToReduce;
 
 
     public ResearchData(ResearchUpgradeType _type)
@@ -350,6 +361,7 @@ public class ResearchData
         UpdateStat = 0.0f;
         SpendGold = 0;
         SpendGem = 0;
+        SecondsToReduce = 0;
     }
 }
 
