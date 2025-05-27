@@ -106,7 +106,6 @@ public class Managers : MonoBehaviour
         try
         {
             Managers.Player.RewordStartTime = Managers.Game.ServerUtcNow.ToString("o");
-            Managers.Quest.RestRepeatQuest();
             await Data.SaveGameDataAsync();  // 비동기 저장
             await Task.Delay(1000);          // 저장 완료 시간 확보 (권장)
             Util.Log("백그라운드 저장 완료");

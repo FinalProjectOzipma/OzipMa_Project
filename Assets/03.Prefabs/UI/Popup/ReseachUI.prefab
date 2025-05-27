@@ -7867,7 +7867,11 @@ MonoBehaviour:
   GemImage: {fileID: 3842391163228096422}
   LodingAnime: {fileID: 6068342721050763722}
   StarEffect: {fileID: 2682288623837711331}
+  isResearching: 0
   researchUpgradeType: 2
+  isResearchGoldBtn: 0
+  isResearchGemBtn: 0
+  isResearchComplete: 0
 --- !u!1 &3535457714616990087
 GameObject:
   m_ObjectHideFlags: 0
@@ -8254,7 +8258,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "(1\uC2DC\uAC04 \uB2E8\uCD95)"
+  m_text: "(10\uBD84 \uB2E8\uCD95)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
   m_sharedMaterial: {fileID: 8197075625149418010, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
@@ -9425,7 +9429,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "(1\uC2DC\uAC04 \uB2E8\uCD95)"
+  m_text: "(10\uBD84 \uB2E8\uCD95)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
   m_sharedMaterial: {fileID: 8197075625149418010, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
@@ -11779,7 +11783,11 @@ MonoBehaviour:
   GemImage: {fileID: 6674384989040050812}
   LodingAnime: {fileID: 7415922753114125857}
   StarEffect: {fileID: 797655668411280244}
+  isResearching: 0
   researchUpgradeType: 1
+  isResearchGoldBtn: 0
+  isResearchGemBtn: 0
+  isResearchComplete: 0
 --- !u!1 &6499172451083623369
 GameObject:
   m_ObjectHideFlags: 0
@@ -17706,7 +17714,11 @@ MonoBehaviour:
   GemImage: {fileID: 907294937334286891}
   LodingAnime: {fileID: 1764565408489446951}
   StarEffect: {fileID: 5242107415006009688}
+  isResearching: 0
   researchUpgradeType: 0
+  isResearchGoldBtn: 0
+  isResearchGemBtn: 0
+  isResearchComplete: 0
 --- !u!1 &7558460441553036810
 GameObject:
   m_ObjectHideFlags: 0
@@ -17844,7 +17856,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "(1\uC2DC\uAC04 \uB2E8\uCD95)"
+  m_text: "(10\uBD84 \uB2E8\uCD95)"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
   m_sharedMaterial: {fileID: 8197075625149418010, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}

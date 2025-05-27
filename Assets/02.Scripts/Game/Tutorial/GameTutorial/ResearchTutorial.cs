@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ResearchTutorial : TutorialBase
 {
-    private UI_Main mainUI;
     private UI_ResearchScene researchUI;
     private int dialogueNum = 0;
     private bool skip = false;
@@ -21,15 +20,14 @@ public class ResearchTutorial : TutorialBase
         {
             case 0:
                 // 연구탭 열렸는지 확인
-                if(mainUI.isResearchOpen == true)
+                if(controller.MainUI.isResearchOpen == true)
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
 
                     // 연구 시작 버튼 커서 세팅
-                    Vector3 startPos = new Vector3(345, 315, 0);
-                    Vector3 endPos = new Vector3(345, 315, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetObjPos(controller.ResearchStartPos);
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
                     researchUI = Managers.UI.GetPopup<UI_ResearchScene>();
                 }
                 break;
@@ -41,9 +39,8 @@ public class ResearchTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 시간 단축 커서 세팅
-                    Vector3 startPos = new Vector3(-75, 242, 0);
-                    Vector3 endPos = new Vector3(-75, 242, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetObjPos(controller.ResearchGoldPos);
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
                     Managers.Player.AddGold(1000);
                     Managers.Player.HasReceivedTutorialGold = true;
                 }
@@ -56,9 +53,8 @@ public class ResearchTutorial : TutorialBase
                     controller.ShowOnlyDialogue();
 
                     // 완료 버튼 커서 세팅
-                    Vector3 startPos = new Vector3(345, 315, 0);
-                    Vector3 endPos = new Vector3(345, 315, 0);
-                    controller.Cursor.Init(startPos, endPos, CursorType.Click);
+                    Vector3 startPos = controller.GetObjPos(controller.ResearchStartPos);
+                    controller.Cursor.Init(startPos, startPos, CursorType.Click);
                 }
                 break;
             case 3:
@@ -83,12 +79,9 @@ public class ResearchTutorial : TutorialBase
             return;
         }
 
-        mainUI = Managers.UI.GetScene<UI_Main>();
-
         // 연구 탭 클릭 커서 세팅
-        Vector3 startPos = new Vector3(140, -885, 0); 
-        Vector3 endPos = new Vector3(140, -885, 0);
-        controller.Cursor.Init(startPos, endPos, CursorType.Click);
+        Vector3 startPos = controller.GetTabPosition(2); 
+        controller.Cursor.Init(startPos, startPos, CursorType.Click);
 
         controller.Dialogue.EnQueueText("이번에 소개해드릴 기능은 연구입니다.\n먼저 연구 탭을 클릭해보시겠어요?");
         controller.Dialogue.EnQueueText("");
@@ -108,6 +101,7 @@ public class ResearchTutorial : TutorialBase
     {
         base.OnEnd();
 
-        // TODO :: 튜토리얼 보상 처리
+        Managers.UI.CloseAllPopupUI();
+        controller.MainUI?.AllOFF();
     }
 }

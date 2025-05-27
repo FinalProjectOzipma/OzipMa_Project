@@ -37,17 +37,32 @@ public class GachaUI : UI_Popup
     public override void Init()
     {
         MyUnitSingleButton.onClick.AddListener(() => UnitOnClick(1));
-        MyUnitDualButton.onClick.AddListener(() => UnitOnClick(10));
-        MyUnitHundredButton.onClick.AddListener(() => UnitOnClick(100));
+        MyUnitDualButton.onClick.AddListener(() => UnitMultiOnClick(10));
+        MyUnitHundredButton.onClick.AddListener(() => UnitMultiOnClick(100));
         TowerSingleButton.onClick.AddListener(() => TowerOnClick(1));
-        TowerDualButton.onClick.AddListener(() => TowerOnClick(10));
-        TowerHundredButton.onClick.AddListener(() => TowerOnClick(100));
+        TowerDualButton.onClick.AddListener(() => TowerMultiOnClick(10));
+        TowerHundredButton.onClick.AddListener(() => TowerMultiOnClick(100));
         BGClose.gameObject.BindEvent((Managers.UI.GetScene<UI_Main>().OnClickGacha));
     }
     private void UnitOnClick(int num)
     {
         if (IsGachaInProgress) return;
         if (Managers.Player.Gem < num * 300)
+        {
+            Managers.UI.Notify("잼이 부족합니다.", false);
+            return;
+        }
+
+        IsGachaInProgress = true;
+        // 서버에서 데이터 받아서 실행
+        gacha.CallGacha(num, true, GetUnitGachaResult);
+    }
+
+
+    private void UnitMultiOnClick(int num)
+    {
+        if (IsGachaInProgress) return;
+        if (Managers.Player.Gem < num * 270)
         {
             Managers.UI.Notify("잼이 부족합니다.", false);
             return;
@@ -137,6 +152,22 @@ public class GachaUI : UI_Popup
         // 서버에서 데이터 받아서 실행
         gacha.CallGacha(num, true, GetTowerGachaResult);
     }
+
+
+    private void TowerMultiOnClick(int num)
+    {
+        if (IsGachaInProgress) return;
+        if (Managers.Player.Gem < num * 270)
+        {
+            Managers.UI.Notify("잼이 부족합니다.", false);
+            return;
+        }
+
+        IsGachaInProgress = true;
+        // 서버에서 데이터 받아서 실행
+        gacha.CallGacha(num, true, GetTowerGachaResult);
+    }
+
 
     /// <summary>
     /// 서버에서 값 받아온 이후에 실행됨

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,10 +12,23 @@ public class TutorialController : UI_Scene
     public Cursor Cursor;
     public Dialogue Dialogue;
 
-    public GameObject ButtonsPosition;
+    #region 버튼 위치를 위한 빈오브젝트 모음
+    public GameObject[] MenuButtons; // 하단바 메뉴 버튼들
+    public GameObject SlotPosition; // 인벤토리 슬롯 위치
+    public GameObject ResearchStartPos; // 연구 시작 버튼
+    public GameObject ResearchGoldPos; // 연구 골드가속 버튼
+    public GameObject GachaStartPos; // 가챠 뽑기 버튼
+    public GameObject DSlotPosition; // 도감 슬롯 위치
+    #endregion
+
+    public UI_Main MainUI;
+    public RectTransform CursorRect; // 커서의 부모 Rect, 커서의 위치 기준으로 사용되기 때문에 CursorRect로 명명.
 
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
+
+    private List<GameObject> hiddenDuringTutorial; // 튜토리얼동안 숨겨둘 오브젝트들
+    private InventoryUI inventoryUI;
 
     private void Awake()
     {
@@ -25,8 +39,27 @@ public class TutorialController : UI_Scene
     {
         base.Init();
 
+        MainUI = Managers.UI.GetScene<UI_Main>();
+        CursorRect = gameObject.GetComponent<Canvas>().GetComponent<RectTransform>();
+        inventoryUI = Managers.UI.GetScene<InventoryUI>();
+
+        // 튜토리얼동안 막아둘 오브젝트들 수집
+        hiddenDuringTutorial = new List<GameObject>(3);
+        foreach (GameObject go in MainUI.GetTutorialHiddenObjects())
+        {
+            hiddenDuringTutorial.Add(go);
+        }
+        hiddenDuringTutorial.Add(inventoryUI.GetSwipeBtn());
+
+        // 튜토리얼동안 봉인
+        foreach(GameObject go in hiddenDuringTutorial)
+        {
+            go.SetActive(false);
+        }
+
+
         // 튜토리얼을 순서대로 넣기 
-        switch(Managers.Player.LastTutorialStep)
+        switch (Managers.Player.LastTutorialStep)
         {
             case Enums.TutorialStep.None:
                 queue.Enqueue(new PlaceTowerTutorial(this, Enums.TutorialStep.PlaceTower));
@@ -107,6 +140,12 @@ public class TutorialController : UI_Scene
 
     private void TutorialEnd()
     {
+        // 봉인된 오브젝트들 해제
+        foreach (GameObject go in hiddenDuringTutorial)
+        {
+            go.SetActive(true);
+        }
+
         Managers.Player.HasReceivedTutorialGold = true;
         Managers.Player.HasReceivedTutorialGem = true;
         Managers.Player.LastTutorialStep = Enums.TutorialStep.End; // 진행도 저장
@@ -115,25 +154,60 @@ public class TutorialController : UI_Scene
         Managers.Resource.Destroy(this.gameObject, true); // 제거
     }
 
-    public Vector3 GetTabPosition(int index)
+    public void OverlayOff()
     {
-        Transform g = ButtonsPosition.transform.GetChild(index);
-        RectTransform r = g as RectTransform;
-        Vector2 ap = r.anchoredPosition;
-
-
-        switch (index)
+        for (int i = 0; i < 4; i++)
         {
-            case 0:
-            case 1:
-            case 2:
-            case 3:
-                return (ButtonsPosition.transform.GetChild(index) as RectTransform).anchoredPosition;
-            default:
-                break;
+            MenuButtons[i].SetActive(false);
         }
-
-        return Vector3.zero;
     }
 
+    public void OverlayOn(int index)
+    {
+        MenuButtons[index].SetActive(false);
+        for (int i = 0; i < 4; i++)
+        {
+            if (i == index) continue;
+            MenuButtons[i].SetActive(true);
+        }
+    }
+
+    #region 커서위치 구하는 메서드
+    public Vector3 GetTabPosition(int index)
+    {
+        OverlayOn(index);
+        Transform tabBtn = MenuButtons[index].transform;
+        RectTransform rectTabBtn = tabBtn as RectTransform;
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, rectTabBtn.position); // 버튼의 화면 상 위치
+
+        // screenPos를 커서의 앵커 기준 로컬 좌표로 변환
+        Vector2 localPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+                    (
+                        CursorRect,
+                        screenPos,
+                        null,
+                        out localPos
+                    );
+        return localPos;
+    }
+
+    public Vector3 GetObjPos(GameObject go)
+    {
+        Transform targetGO = go.transform;
+        RectTransform rect = targetGO as RectTransform;
+        Vector3 screenPos = RectTransformUtility.WorldToScreenPoint(null, rect.position); // 버튼의 화면 상 위치
+
+        // screenPos를 커서의 앵커 기준 로컬 좌표로 변환
+        Vector2 localPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle
+                    (
+                        CursorRect,
+                        screenPos,
+                        null,
+                        out localPos
+                    );
+        return localPos;
+    }
+    #endregion
 }

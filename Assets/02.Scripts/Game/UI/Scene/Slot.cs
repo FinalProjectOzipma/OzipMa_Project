@@ -8,7 +8,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 
     [SerializeField] private Image Icon;
-    [SerializeField] private Image StackGageFill;
+    [SerializeField] private Slider StackGageBar;
     [SerializeField] private Image Selected;
 
     [SerializeField] private TextMeshProUGUI ObjInfo;
@@ -67,9 +67,20 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
             return;
 
         bool isMaxLevel = userObject.Status.Level.GetValue() >= userObject.Status.MaxLevel.GetValue();
+        bool isMaxStack = userObject.Status.Stack.GetValue() >= userObject.Status.MaxStack.GetValue();
 
-        if (isMaxLevel) return;
 
+        if(!isMaxStack)
+        {
+            Managers.UI.Notify("카드 수가 부족합니다.", false);
+            return;
+        }
+
+        if(userObject.Status.Grade.GetValue() == userObject.MaxGrade.GetValue())
+        {
+            Managers.UI.Notify("축하합니다. 최고 승급입니다.", false);
+            return;
+        }
 
         GameObject imgObj = Selected.gameObject;
         imgObj.SetActive(!imgObj.activeSelf);
@@ -131,7 +142,7 @@ public class Slot : UI_Scene, IBeginDragHandler, IDragHandler, IEndDragHandler
         _sprite = obj.Sprite;
         Icon.sprite = _sprite;
         ObjInfo.text = $"LV.{status.Level.GetValue()}\r\nEV.{status.Grade.GetValue()}";
-        StackGageFill.fillAmount = (float)status.Stack.GetValue() / status.MaxStack.GetValue();
+        StackGageBar.value = (float)status.Stack.GetValue() / status.MaxStack.GetValue();
         StackText.text = $"{status.Stack.GetValue()}/{status.MaxStack.GetValue()}";
 
 

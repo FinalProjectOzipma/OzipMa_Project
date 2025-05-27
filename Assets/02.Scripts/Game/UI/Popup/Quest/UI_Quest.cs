@@ -23,7 +23,6 @@ public class UI_Quest : UI_Popup
     [SerializeField] private Button TabMenuDailyBtn;
     [SerializeField] private Button TabMenuAchivementBtn;
     [SerializeField] private Button BGClose;
-    [SerializeField] private Button CloseButton;
 
 
     [SerializeField] private TextMeshProUGUI TimeText;
@@ -46,7 +45,6 @@ public class UI_Quest : UI_Popup
         TabMenuDailyBtn.onClick.AddListener(OnDailyTab);
         TabMenuAchivementBtn.onClick.AddListener(OnAchivementTab);
         BGClose.onClick.AddListener(OnClickBack);
-        CloseButton.onClick.AddListener(OnClickBack);
         Middle_ScrollRect.verticalNormalizedPosition = 1.0f;
         OnDailyTab();
     }
