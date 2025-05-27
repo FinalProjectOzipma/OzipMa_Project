@@ -16,6 +16,13 @@ public class ArcherManDeadState : ArcherManStateBase
 
     public override void Update()
     {
+        if (!Anim.enabled)
+        {
+            Anim.enabled = true;
+            OnDead(0);
+            return;
+        }
+
         if (triggerCalled)
             OnDead(0);
 

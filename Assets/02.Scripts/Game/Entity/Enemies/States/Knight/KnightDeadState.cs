@@ -18,6 +18,13 @@ public class KnightDeadState : KnightStateBase
 
     public override void Update()
     {
+        if (!Anim.enabled)
+        {
+            Anim.enabled = true; // 이것도 안되면 그냥 바로 Destroy
+            OnDead(0);
+            return;
+        }
+
         if (triggerCalled)
         {
             if (controller.gameObject.activeInHierarchy)
