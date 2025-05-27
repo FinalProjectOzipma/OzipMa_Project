@@ -5,10 +5,7 @@ public class MyUnitStatus : StatusBase
     int primaryKey;
     List<DefaultTable.MyUnit> row;
 
-    public MyUnitStatus()
-    {
-
-    }
+    public MyUnitStatus() { } // 필수
 
     public MyUnitStatus(int primaryKey) 
     {

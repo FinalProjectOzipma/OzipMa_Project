@@ -149,7 +149,7 @@ public class EnemyController : EntityController, IDamagable
 
         Managers.Resource.Instantiate("DamageTxt", go =>
         {
-            go.GetComponent<Damage>().Init(finalDamage, 18, Body.transform.position);
+            go.GetComponent<Damage>().Init(finalDamage, 18, Body.transform.position, this);
         });
 
         Status.AddHealth(-finalDamage, gameObject);

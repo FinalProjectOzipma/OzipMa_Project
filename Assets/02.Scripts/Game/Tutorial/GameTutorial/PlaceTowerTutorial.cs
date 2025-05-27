@@ -64,8 +64,10 @@ public class PlaceTowerTutorial : TutorialBase
         Vector3 endPos = startPos;
         controller.Cursor.Init(startPos, endPos, CursorType.Click);
 
-        controller.Dialogue.EnQueueText("주인님 반갑습니다.\n시작하기 앞서, <color=#f5a545>던전 관리법</color>을 간단히 알려드리겠습니다.");
-        controller.Dialogue.EnQueueText("먼저 던전을 지키는 아군과 타워를 볼 수 있는 인벤토리를 알려드릴게요.");
+        controller.Dialogue.EnQueueText("주인님, 드디어 오셨군요!");
+        controller.Dialogue.EnQueueText("요즘 모험가들이 자꾸 우리 집을 침입하려고 해요!");
+        controller.Dialogue.EnQueueText("본격적으로 시작하기 전에,\n<color=#f5a545>던전 관리법</color>부터 간단히 알려드리겠습니다.");
+        controller.Dialogue.EnQueueText("먼저 던전을 지키는 아군과 타워를 볼 수 있는 <color=#f5a545>인벤토리</color>를 알려드릴게요.");
         controller.Dialogue.EnQueueText("아래 탭의 첫번째 버튼을 눌러 인벤토리를 볼 수 있습니다.");
         controller.Dialogue.EnQueueText("");
         controller.Dialogue.EnQueueText("잘하셨어요!\n우리가 갖고있는 타워를 설치해서 던전을 지켜야해요.");
