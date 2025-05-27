@@ -277,6 +277,37 @@ public class QuestManager
 
     }
 
+    public bool HasAnyCompleteDaily()
+    {
+        List<QuestData> DailyQuest = GetQuestList(QuestType.Daily);
+
+        for (int i = 0; i < DailyQuest.Count; i++)
+        {
+            if (DailyQuest[i].State == QuestState.Done)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    public bool HasAnyCompleteAchivement()
+    {
+        List<QuestData> AchivementQuest = GetQuestList(QuestType.Achivement);
+
+        for (int i = 0; i < AchivementQuest.Count; i++)
+        {
+            if (AchivementQuest[i].State == QuestState.Done)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void SetImage(QuestData newQuest, Action<QuestData> onComplete = null)
     {
         int loadCount = 0;

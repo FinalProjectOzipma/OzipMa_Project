@@ -1,12 +1,7 @@
-using DG.Tweening;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_Quest : UI_Popup
@@ -16,6 +11,8 @@ public class UI_Quest : UI_Popup
     [SerializeField] private GameObject ONDaily;
     [SerializeField] private GameObject OFFAchivement;
     [SerializeField] private GameObject OnAchivement;
+    [SerializeField] private GameObject DailyCheckIcon;
+    [SerializeField] private GameObject AchivementCheckIcon;
 
     [SerializeField] private RectTransform ListFrame;
 
@@ -46,16 +43,28 @@ public class UI_Quest : UI_Popup
         TabMenuAchivementBtn.onClick.AddListener(OnAchivementTab);
         BGClose.onClick.AddListener(OnClickBack);
         Middle_ScrollRect.verticalNormalizedPosition = 1.0f;
+
+
         OnDailyTab();
     }
 
     private void OnEnable()
     {
         OnDailyTab();
+        Managers.Quest.OnAnyQuestCompleted += ActiveDailyAlarm;
+        Managers.Quest.OnAnyQuestCompleted += ActiveAchivementAlarm;
         Middle_ScrollRect.verticalNormalizedPosition = 1.0f;
+
+        ActiveDailyAlarm();
+        ActiveAchivementAlarm();
     }
 
-
+    private void OnDisable()
+    {
+        Managers.Quest.OnAnyQuestCompleted -= ActiveDailyAlarm;
+        Managers.Quest.OnAnyQuestCompleted -= ActiveAchivementAlarm;
+    }
+ 
     private void Update()
     {
         //DateTime currentTime = DateTime.UtcNow.AddHours(9);
@@ -124,7 +133,7 @@ public class UI_Quest : UI_Popup
         }
 
 
-        for(int i = 0; i < questSlot.Count; i++)
+        for (int i = 0; i < questSlot.Count; i++)
         {
             if (questSlot[i].CheckIsComplete()) questSlot[i].gameObject.transform.SetAsLastSibling();
             if (questSlot[i].questData.State == QuestState.Done) questSlot[i].gameObject.transform.SetAsFirstSibling();
@@ -180,4 +189,35 @@ public class UI_Quest : UI_Popup
         ClosePopupUI();
     }
 
+    public void ActiveDailyAlarm()
+    {
+        bool show = Managers.Quest.HasAnyCompleteDaily();
+
+        if (show)
+        {
+            Util.Log("현재 true다");
+        }
+        else
+        {
+            Util.Log("현재 false다");
+        }
+
+        DailyCheckIcon.SetActive(show);
+    }
+
+    public void ActiveAchivementAlarm()
+    {
+        bool show = Managers.Quest.HasAnyCompleteAchivement();
+
+        if (show)
+        {
+            Util.Log("현재 true다");
+        }
+        else
+        {
+            Util.Log("현재 false다");
+        }
+
+        AchivementCheckIcon.SetActive(show);
+    }
 }
