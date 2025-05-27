@@ -21,6 +21,8 @@ public class MapHandler : MonoBehaviour
 
     private void Start()
     {
+        BossGate.transform.localPosition = gateUpPos;
+
         // 보스Gate 애니메이션 시퀀스 등록
         dotSeq = Util.RecyclableSequence();
         dotSeq.Append(DOVirtual.DelayedCall(0.1f, () => { BossGate.SetActive(true); }));
@@ -94,7 +96,7 @@ public class MapHandler : MonoBehaviour
     /// </summary>
     public void EndBossMap()
     {
-        BossGate.transform.position = gateUpPos;
+        BossGate.transform.localPosition = gateUpPos;
         BossGate.transform.localScale = Vector3.one;
         BossGate.SetActive(false);
 
