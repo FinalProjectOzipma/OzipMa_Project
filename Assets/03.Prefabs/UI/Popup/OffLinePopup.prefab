@@ -1797,10 +1797,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: REWARD
+  m_text: "\uBCF4\uC0C1"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6f9d253c918824659b9426046aca78cc, type: 2}
-  m_sharedMaterial: {fileID: -8394420552937558723, guid: 6f9d253c918824659b9426046aca78cc, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
+  m_sharedMaterial: {fileID: 8197075625149418010, guid: 12c404ec256a5ad4db613c8fa37a5571, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -3171,6 +3171,7 @@ MonoBehaviour:
   CheckButton: {fileID: 3107905395067918295}
   DoubleButton: {fileID: 6442880269336748380}
   RewardBox: {fileID: 5346412282345949580}
+  BGClose: {fileID: 2560999780488390591}
   TimerText: {fileID: 7221402243347404160}
   RewordGoldText: {fileID: 6419933647694146944}
   RewordZamText: {fileID: 1712168354116642264}
