@@ -15,8 +15,11 @@ public class Damage: Poolable
     /// <param name="damage"></param>
     /// <param name="endSize"></param>
     /// <param name="StartPos"></param>
-    public void Init(float damage, int endSize, Vector3 StartPos)
+    public void Init(float damage, int endSize, Vector3 StartPos, EntityController controller)
     {
+        if (controller is MyUnitController) DamageTxt.color = new Color(1f, 0.5f, 0f);
+        else DamageTxt.color = Color.red;
+
         DamageTxt.text = damage.ToString("N2");
         DamageTxt.fontSize = 72;
 
@@ -30,7 +33,7 @@ public class Damage: Poolable
         if (cg == null) cg = gameObject.AddComponent<CanvasGroup>();
         cg.alpha = 1f;
 
-        float moveAmount = 100f;     // 올라갈 거리
+        float moveAmount = 200f;     // 올라갈 거리
         float duration = 1f;         // 애니메이션 시간
 
         Sequence uiseq = DOTween.Sequence();
