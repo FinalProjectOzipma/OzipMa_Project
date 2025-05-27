@@ -26,20 +26,17 @@ public class MageIdleState : MageStateBase
     public override void Update()
     {
         base.Update();
+        
         if (Managers.Wave.CurEnemyList.Count <= 0)
             return;
-        //맵 감지
-        else if (!DetectedMap(target.transform.position))
+
+        else if (!IsClose())
         {
-            if (!IsClose())
-            {
-                OutRange(data.ChaseState);
-            }
-            //공격쿨타임이 돌았을 때
-            else if (time < 0)
-            {
-                StateMachine.ChangeState(data.AttackState);
-            }
+            StateMachine.ChangeState(data.ChaseState);
+        }
+        else if (time < 0)
+        {
+            StateMachine.ChangeState(data.AttackState);
         }
     }
 }

@@ -1,11 +1,12 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MageAttackStat : MageStateBase
+public class MageAttackState : MageStateBase
 {
-    private string Spell = nameof(Spell);
-    public MageAttackStat(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
+    private string spell = nameof(Spell);
+    public MageAttackState(StateMachine stateMachine, int animHashKey, MyUnitController controller, EntityAnimationData data) : base(stateMachine, animHashKey, controller, data)
     {
     }
 
@@ -30,7 +31,7 @@ public class MageAttackStat : MageStateBase
 
         if (projectileCalled) // 화살 만드는 Attack구간
         {
-            CreateArrow(Spell);
+            Spell();
             projectileCalled = false;
         }
 
@@ -38,12 +39,14 @@ public class MageAttackStat : MageStateBase
             StateMachine.ChangeState(data.IdleState);
     }
 
-    private void CreateArrow(string objectName)
+    private void Spell()
     {
         //TODO: 스펠만드는거 추가해야함
-        Managers.Resource.Instantiate(objectName, (go) =>
+        Managers.Resource.Instantiate(spell, (go) =>
         {
-            Fire<EntityProjectile>(go, target.transform.position);
+            go.GetComponent<AtkTrigger>()
+            .Init(controller.gameObject, controller.MyUnit.Status.Attack.GetValue(), controller.Target);
+            go.transform.position = controller.Target.transform.position;
             Managers.Audio.PlaySFX(SFXClipName.Spell);
         });
     }

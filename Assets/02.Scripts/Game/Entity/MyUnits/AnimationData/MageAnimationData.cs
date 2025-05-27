@@ -13,7 +13,7 @@ public class MageAnimationData : EntityAnimationData
         base.Init();
         IdleState = new MageIdleState(StateMachine, IdleHash, controller as MyUnitController, this);
         ChaseState = new MageChaseState(StateMachine, ChaseHash, controller as MyUnitController, this);
-        AttackState = new MageAttackStat(StateMachine, AttackHash, controller as MyUnitController, this);
+        AttackState = new MageAttackState(StateMachine, AttackHash, controller as MyUnitController, this);
         DeadState = new MageDeadState(StateMachine, DeadHash, controller as MyUnitController, this);
         StateMachine.Init(IdleState);
     }

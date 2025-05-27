@@ -65,3 +65,5 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: d66b10b65daf44adf8198d06a6a9d2c7, type: 3}
   - key: GuideSkip
     clip: {fileID: 8300000, guid: da74951d3e61c43198675c05084c7564, type: 3}
+  - key: Spell
+    clip: {fileID: 8300000, guid: ca13de64e56384cf498bc0d43829d6d8, type: 3}
