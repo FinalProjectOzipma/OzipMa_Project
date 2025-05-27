@@ -24,10 +24,25 @@ public class Damage: Poolable
         transform.SetParent(DamageIndicator.DamageIndicatorRT, false);
 
         transform.position = uiPos;
+
+        // CanvasGroup이 없다면 추가
+        CanvasGroup cg = GetComponent<CanvasGroup>();
+        if (cg == null) cg = gameObject.AddComponent<CanvasGroup>();
+        cg.alpha = 1f;
+
+        float moveAmount = 100f;     // 올라갈 거리
+        float duration = 1f;         // 애니메이션 시간
+
+        Sequence uiseq = DOTween.Sequence();
+        uiseq.Append(transform.DOMoveY(transform.position.y + moveAmount, duration).SetEase(Ease.OutQuad));
+        uiseq.Join(cg.DOFade(0f, duration));
+        uiseq.OnComplete(AnimTrigger); // 애니메이션이 끝나면 리소스 매니저를 통해 삭제
     }
 
     public void AnimTrigger()
     {
+
+
         Managers.Resource.Destroy(gameObject);
     }
 }
