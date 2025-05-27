@@ -19,6 +19,7 @@ public class BuildingSystem : MonoBehaviour
     private Tilemap map;
     private Camera cam;
     private MapHandler mapHandler;
+    private List<DefaultTable.Stage> stage;
 
 
     private void Awake()
@@ -40,10 +41,19 @@ public class BuildingSystem : MonoBehaviour
         map = Util.FindComponent<Tilemap>(Managers.Scene.CurrentScene.CurrentMap, "TowerBuildArea");
         mapHandler = map?.transform.root.GetComponent<MapHandler>();
         DragController = GetComponent<DragController>();
+        stage = Util.TableConverter<DefaultTable.Stage>(Managers.Data.Datas[Enums.Sheet.Stage]);
 
         // 설치 개수 메세지 UI 구독
         OnTowerCountChanged -= Managers.UI.Notify;
         OnTowerCountChanged += Managers.UI.Notify;
+
+        // 타워 최대 개수
+        MaxTowerCount = stage[Managers.Player.CurrentKey].TowerAmont;
+    }
+
+    public void UpdateTowerCount()
+    {
+        MaxTowerCount = stage[Managers.Player.CurrentKey].TowerAmont;
     }
 
     #region BuildingSystem 에서 직접해주는 행위들

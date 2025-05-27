@@ -26,7 +26,17 @@ public class PlayerManager
 
     public Inventory Inventory { get; set; } = new Inventory();
 
-    public int CurrentKey { get; set; } // 스테이지 키
+    // 스테이지 키
+    public int CurrentKey 
+    { 
+        get => currentStageKey;
+        set
+        {
+            currentStageKey = value;
+            BuildingSystem.Instance.UpdateTowerCount();
+        }
+    }
+    private int currentStageKey;
     public int CurrentStage { get; set; }
     public int CurrentWave { get; set; }
 
