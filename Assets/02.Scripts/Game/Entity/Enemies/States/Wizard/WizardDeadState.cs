@@ -16,6 +16,13 @@ public class WizardDeadState : WizardStateBase
 
     public override void Update()
     {
+        if (!Anim.enabled)
+        {
+            Anim.enabled = true;
+            OnDead(0);
+            return;
+        }
+
         if (triggerCalled)
         {
             if (controller.gameObject.activeInHierarchy)

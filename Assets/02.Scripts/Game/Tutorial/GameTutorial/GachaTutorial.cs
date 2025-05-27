@@ -120,7 +120,8 @@ public class GachaTutorial : TutorialBase
         controller.Dialogue.EnQueueText("");
         controller.Dialogue.EnQueueText("정말 멋져요!\n모든 튜토리얼을 완료하였습니다.");
         controller.Dialogue.EnQueueText("진짜 진짜 마지막으로!\n제가 가진 모든 전재산(...)을 드릴게요!\n+<color=#f2d411>5000Gold</color>\n+<color=#10b2e8>5000Gem</color>");
-        controller.Dialogue.EnQueueText("앞으로 우리의 집을 멋지게 지켜주세요!!");
+        controller.Dialogue.EnQueueText("곧 모험가들이 <color=#f5a545>아래쪽에서</color> 우리집으로 처들어올거예요!");
+        controller.Dialogue.EnQueueText("그럼 우리의 집을 멋지게 지켜주세요!!");
         controller.Dialogue.EnQueueText("");
 
         controller.SetDialogueActive(true);
