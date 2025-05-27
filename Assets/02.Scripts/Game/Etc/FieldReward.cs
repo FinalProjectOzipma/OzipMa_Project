@@ -61,6 +61,8 @@ public class FieldReward : Poolable
         Gem
     }
 
+    public Vector2 DropPos { get; set; }
+
     private void Awake()
     {
         seq = Util.RecyclableSequence();
@@ -73,7 +75,7 @@ public class FieldReward : Poolable
         centerVector.z = 0f;
 
         // 처음 시퀀스가 끝났을때 다음 보상도 실행 시킬 수 있도록 다음보상으로 바꾸기
-        seq.Append(transform.DOMove(centerVector, 1f)).Join(transform.DOScale(new Vector2(5, 5), 1f)).InsertCallback(0.1f, () =>
+        seq.Append(DOTween.To(() => 0f, t => { transform.position = Vector3.Lerp(DropPos, centerVector, t); }, 1f, 0.5f)).Join(transform.DOScale(new Vector2(5, 5), 1f)).InsertCallback(0.1f, () =>
         {
             NextReward = true;
         });
