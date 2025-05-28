@@ -1,4 +1,18 @@
-![image](https://github.com/user-attachments/assets/1e396d08-bc4f-4d71-9497-802b804bf649)# 📌 기획
+# 📌 프로젝트 결과물 소개
+<ul align="center">
+ <li><h2>전세 집 찾습니다!</h2></li>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/29bd5a34-ea0d-4f74-869a-6e4073af1b52" alt="설명 텍스트" width="500"/>
+</p>
+
+ <li><h2>소개 영상</h2></li>
+ 
+ https://github.com/user-attachments/assets/194f38ef-a263-4627-ab80-bae52fbb6149
+</ul>
+
+
+# 📌 기획
 ---
 ## ✅ 장르 : 방치형 디펜스
 - **2D 픽셀 그래픽, Top-Down View**
