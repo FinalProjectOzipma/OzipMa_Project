@@ -15,8 +15,8 @@ public class DataManager
     public event Action<string> OnUpdateUserID;
 
     private DatabaseReference _databaseReference;
-    public string UserID { get; private set; } = "user00008";
-
+    public string UserID { get; private set; } = "user01004";
+    
     public void Initialize()
     {
         // 필요한 데이터들을 Load 및 Datas에 캐싱해두는 작업

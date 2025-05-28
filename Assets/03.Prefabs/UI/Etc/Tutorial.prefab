@@ -4336,7 +4336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ff2c933f877cec41b8ca17910cb1801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timegap: 0.05
+  timegap: 0.01
   IsEnd: 0
   TutorialTxt: {fileID: 3053778445865582103}
   Box: {fileID: 3741336038811508178}
