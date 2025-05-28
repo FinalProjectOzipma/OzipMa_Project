@@ -19,6 +19,7 @@ public class Damage : Poolable
         if (controller is MyUnitController) DamageTxt.color = new Color(1f, 0.5f, 0f);
         else DamageTxt.color = Color.red;
 
+        transform.localScale = Vector3.one;
 
         DamageTxt.text = damage.ToString("N2");
         DamageTxt.fontSize = 72;
