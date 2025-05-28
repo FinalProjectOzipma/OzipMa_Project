@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using TMPro;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -254,7 +252,7 @@ public class UI_Research : UI_Base
 
         // 애널리틱스
         #region research_started
-        Managers.Analytics.AnalyticsResearchStarted(researchUpgradeType.ToString(), Enum.GetName(typeof(ResearchUpgradeType), researchUpgradeType), 
+        Managers.Analytics.AnalyticsResearchStarted(researchUpgradeType.ToString(), Enum.GetName(typeof(ResearchUpgradeType), researchUpgradeType),
             updateLevel, Managers.Player.CurrentWave, researchDuration);
         #endregion
     }
@@ -527,7 +525,7 @@ public class UI_Research : UI_Base
         GoldSpendText.text = Util.FormatNumber(spendGold);
         GemSpendText.text = Util.FormatNumber(spendGem);
 
-        if(secondsToReduce >= 3600.0f) GoldDescription.text = $"({(int)secondsToReduce / 3600} 시간 단축)";
+        if (secondsToReduce >= 3600.0f) GoldDescription.text = $"({(int)secondsToReduce / 3600} 시간 단축)";
         else GoldDescription.text = $"({(int)secondsToReduce / 60} 분 단축)";
 
         // 애널리틱스 연구완료시

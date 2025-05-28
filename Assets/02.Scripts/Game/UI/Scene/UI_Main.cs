@@ -1,9 +1,8 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using DG.Tweening;
-using System;
 
 
 
@@ -93,7 +92,7 @@ public class UI_Main : UI_Scene
 
     public void SetPlayerName(string name)
     {
-        if(name.Length > 7)
+        if (name.Length > 7)
         {
             name = $"{name.Substring(0, 7)}...";
         }
@@ -145,7 +144,7 @@ public class UI_Main : UI_Scene
             isResearchOpen = true;
         }
         else
-        {    
+        {
             AnimePopup(Managers.UI.GetPopup<UI_ResearchScene>().UI_Research, true);
 
             uiSeq.Play().OnComplete(() =>
@@ -204,7 +203,7 @@ public class UI_Main : UI_Scene
         {
             AnimePopup(Managers.UI.GetPopup<GachaUI>().RectTransform.gameObject, true);
 
-            uiSeq.Play().OnComplete(() => 
+            uiSeq.Play().OnComplete(() =>
             {
                 AllOFF();
                 Managers.UI.CloseAllPopupUI();
@@ -297,8 +296,8 @@ public class UI_Main : UI_Scene
     public void ActiveAlarm()
     {
         bool show = Managers.Quest.HasAnyCompletedQuest();
-        
-        if(show)
+
+        if (show)
         {
             Util.Log("현재 true다");
         }
@@ -307,7 +306,7 @@ public class UI_Main : UI_Scene
             Util.Log("현재 false다");
         }
 
-            AlarmIcon.SetActive(show);
+        AlarmIcon.SetActive(show);
     }
 
 }

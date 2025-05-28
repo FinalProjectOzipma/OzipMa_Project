@@ -1,9 +1,8 @@
 using Firebase.Database;
 using System;
 using System.Collections;
-using UnityEngine;
 using System.Threading.Tasks;
-using UnityEngine.Analytics;
+using UnityEngine;
 
 public class Managers : MonoBehaviour
 {

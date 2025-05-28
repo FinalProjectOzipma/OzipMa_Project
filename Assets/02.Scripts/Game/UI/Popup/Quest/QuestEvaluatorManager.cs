@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class QuestEvaluatorManager
 {
@@ -9,7 +7,7 @@ public class QuestEvaluatorManager
     public QuestEvaluatorManager()
     {
         _evaluators = new()
-        { 
+        {
             { ConditionType.Connection, new ConnectionEvaluator() },
             { ConditionType.EnemyKill, new EnemyKillEvaluator() },
             { ConditionType.BossKill, new BossKillEvaluator()},

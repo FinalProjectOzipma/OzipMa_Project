@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class TowerCollectEvaluator : IQuestConditionEvaluator
 {
     public void ApplyProgress(QuestData quest, int amount)

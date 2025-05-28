@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 ///  유저가 저장해야될 필수적인 요소들을 저장하는 곳
@@ -27,8 +26,8 @@ public class PlayerManager
     public Inventory Inventory { get; set; } = new Inventory();
 
     // 스테이지 키
-    public int CurrentKey 
-    { 
+    public int CurrentKey
+    {
         get => currentStageKey;
         set
         {
@@ -323,7 +322,7 @@ public class PlayerManager
 
                 Managers.Quest.QuestDatas[type].Add(kvp.Value);
                 Managers.Quest.SetImage(kvp.Value);
-            
+
             }
 
             Managers.Quest.ResetEtcQuest();
