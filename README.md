@@ -476,3 +476,123 @@
 </details>
 
 
+<details>
+ <summary>모바일에서 게임 종료 후 저장 실패 이슈</summary>
+
+ <ul>
+ <h3>문제되는 현상</h2>
+ <li>의도 : 게임 종료 후 파이어베이스 서버에 데이터 저장하게 구현했습니다.</li>
+ <li>현상 : 안드로이드 빌드 후 폰에서 게임 실행 후 종료하면 파이어베이스 서버에 데이터가 저장되지 않는 현상 발생했습니다.</li>
+
+  
+ <h3>시도 내용</h2>
+ <ul>
+  <li>유니티 에디터에서 다시 실행 후 종료 후 저장되는지 확인했습니다.</li>
+  <li>파이어베이스 서버에 저장하는 부분에 디버깅을 해서 확인했습니다.</li>
+  <li>저장하는 데이터가 Json으로 변환되는지 확인했습니다.</li>
+ </ul>
+
+ <h3>해결 방안</h2>
+ <ul>
+  <li>최종 원인은 게임 종료 시점의 Life Cycle 관리에 있음을 파악했습니다.</li>
+  <li>게임 종료 시 데이터를 저장하기 위해 Unity의 OnApplicationQuit() 메서드를 사용하고 있었지만, 안드로이드 빌드 환경에서는 OnApplicationQuit()이 항상 호출된다는 보장이 없었습니다.</li>
+  <li>해결방법 : 에디터 환경에서는  OnApplicationQuit()에서 저장하고 안드로이드 빌드에서는 백그라운드에서 저장할 수 있도록 OnApplicationPause()에서 저장 로직을 호출 하도록 수정했습니다.</li>
+ </ul>
+ </ul>
+</details>
+
+
+<details>
+ <summary>빌드 이슈</summary>
+
+ <ul>
+ <h3>문제되는 현상</h2>
+ <li><i>Dependency 'androidx.annotation:annotation-experimental:1.3.0' requires 'compileSdkVersion' to be set to 33 or higher.
+Compilation target for module ':launcher' is 'android-32'</i> : compileSdkVersion이 32로 설정되어 있는데, 사용 중인 일부 라이브러리는 최소 34를 요구한다는 에러입니다.</li>
+ <li><i>Manifest merger failed :uses-sdk:minSdkVersion 22 cannot be smaller than version 23 declared in library [com.google.firebase:firebase-auth:23.2.0]</i> : minSdkVersion이 22인데, Firebase Auth에서 최소 SDK 23 이상을 요구한다는 에러입니다.</li>
+ <li><i>CommandInvokationFailure: Gradle build failed.  ~ Duplicate class kotlinx.coroutines.CompletedExceptionally found in modules jetified-kotlinx-co<message truncated></i> : 특정 라이브러리가 중복 포함되어 있다는 에러입니다.</li>
+
+  
+ <h3>시도 내용</h2>
+ <li>에러 메시지에 원인이 명확히 명시되어 있기 때문에, 메시지를 분석하며 각각의 원인을 유추했습니다.</li>
+ <li>원인</li>
+ <ul>
+  <li>androidx.credentials 에서 SDK 34 이상을 요구. Firebase Unity SDK 내부적으로 설치되는 부가 라이브러리였습니다.</li>
+  <li>Firebase Auth 23.2.0이 요구하는 최소 조건이라고 명시되어 있습니다.</li>
+  <li>이전에 Firebase 작업 후 Git에서 추적된 변경 파일들을 뭔지 잘 모른 채 커밋했는데, 그중 일부는 Gradle이 알아서 처리해주는 의존성 파일이었기 때문에 중복 포함되면서 빌드 문제 발생했습니다.</li>
+ </ul>
+
+ <h3>해결 방안</h2>
+ <ul>
+  <li>Unity Project Setting에서 Target API Level을 34로 설정했습니다.</li>
+  <li>Unity Project Setting에서 Minimum API Level을 23으로 설정했습니다.</li>
+  <li>Unity 프로젝트 폴더에서 중복된 .jar 파일들 직접 제거했습니다.</li>
+ </ul>
+ </ul>
+</details>
+
+
+<br>
+<br>
+<br>
+
+# ❓ 사용자 개선 사
+---
+
+<details>
+ <summary>미완료 퀘스트 버튼 누른 후 닫기 버튼이 안됩니다.</summary>
+
+ <ul>
+  <li>퀘스트가 미완료된 경우 버튼을 비활성화했습니다. 또한, 오류가 발생하던 닫기 버튼을 삭제하고 팝업창 뒷배경을 누르면 닫히도록 수정했습니다. </li>
+ </ul>
+</details>
+
+
+
+<details>
+ <summary>튜토리얼 중 다른 버튼을 마음껏 누를 수 있습니다.</summary>
+
+ <ul>
+  <li>하단 메뉴 중 현재 진행중인 튜토리얼 내용에 해당하는 메뉴만 클릭 가능하도록 수정했습니다.</li>
+  <li>게임 플레이와 관련된 UI는 튜토리얼 동안 비활성화 시켰습니다.</li>
+ </ul>
+</details>
+
+
+<details>
+ <summary>튜토리얼시 손 모양 아이콘이 하이라이트되면 좀 더 쉽게 발견할 듯 하다. & 튜토리얼 대사를 놓친 플레이어는 진행에 어려움을 느낍니다.</summary>
+
+ <ul>
+  <li>튜토리얼 커서의 손가락 끝에 빛나는 이미지 추가했습니다.</li>
+  <li>튜토리얼 텍스트 일부분에 색상을 넣어 어떤 행위를 해야 하는지 읽히도록 유도하고 대본을 수정했습니다.</li>
+ </ul>
+</details>
+
+
+<details>
+ <summary>성장/업그레이드 보여주는 수치가 없어서 아쉽습니다.</summary>
+
+ <ul>
+  <li>도감에서 유닛 또는 타워 클릭 시, 정보창에서 스탯 오른쪽에 강화 및 연구로 증가된 스탯이 표시되도록 수정했습니다.</li>
+ </ul>
+</details>
+
+
+<details>
+ <summary>업그레이드 카드 수 게이지바가 있으면 좋겠습니다.</summary>
+
+ <ul>
+  <li>강화 탭에서 유닛과 타워 카드 수에 비례하여 게이지가 차오르도록 수정했습니다.</li>
+ </ul>
+</details>
+
+
+<details>
+ <summary>데미지를 볼 수 없어서 아쉬운데, 전반적으로 아군이 월등하게 센 것 같습니다</summary>
+
+ <ul>
+  <li>아군과 적군이 받는 데미지를 표기하는 데미지 인디케이터를 추가했습니다.</li>
+ </ul>
+</details>
+
+
