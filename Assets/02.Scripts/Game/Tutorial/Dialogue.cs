@@ -69,6 +69,11 @@ public class Dialogue : UI_Base
         Managers.Audio.PlaySFX(SFXClipName.Guide);
     }
 
+    public void ClearQueue()
+    {
+        txt.Clear();
+    }
+
     /// <summary>
     /// 클릭 했을때 대화 메서드
     /// </summary>

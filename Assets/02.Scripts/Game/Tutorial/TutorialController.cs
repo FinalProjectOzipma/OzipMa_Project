@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 public class TutorialController : UI_Scene
@@ -11,6 +13,7 @@ public class TutorialController : UI_Scene
     // 튜토리얼 요소 
     public Cursor Cursor;
     public Dialogue Dialogue;
+    [SerializeField] private Button SkipButton;
 
     #region 버튼 위치를 위한 빈오브젝트 모음
     public GameObject[] MenuButtons; // 하단바 메뉴 버튼들
@@ -21,8 +24,8 @@ public class TutorialController : UI_Scene
     public GameObject DSlotPosition; // 도감 슬롯 위치
     #endregion
 
-    public UI_Main MainUI;
-    public RectTransform CursorRect; // 커서의 부모 Rect, 커서의 위치 기준으로 사용되기 때문에 CursorRect로 명명.
+    [HideInInspector] public UI_Main MainUI;
+    [HideInInspector] public RectTransform CursorRect; // 커서의 부모 Rect, 커서의 위치 기준으로 사용되기 때문에 CursorRect로 명명.
 
     private Queue<TutorialBase> queue = new();
     private TutorialBase currentTutorial;
@@ -38,6 +41,8 @@ public class TutorialController : UI_Scene
     public override void Init()
     {
         base.Init();
+
+        SkipButton.gameObject.BindEvent(OnClickSkip);
 
         MainUI = Managers.UI.GetScene<UI_Main>();
         CursorRect = gameObject.GetComponent<Canvas>().GetComponent<RectTransform>();
@@ -105,6 +110,7 @@ public class TutorialController : UI_Scene
     {
         if (queue.Count > 0)
         {
+            Dialogue.ClearQueue();
             currentTutorial?.OnEnd();
             currentTutorial = queue.Dequeue();
             currentTutorial.OnStart();
@@ -114,6 +120,32 @@ public class TutorialController : UI_Scene
         {
             currentTutorial?.OnEnd();
             TutorialEnd();
+        }
+    }
+
+    public void OnClickSkip(PointerEventData data)
+    {
+       
+        switch (currentTutorial.Step)
+        {
+            case Enums.TutorialStep.PlaceTower:
+                queue.Dequeue();
+                goto case Enums.TutorialStep.EditTower;
+            case Enums.TutorialStep.EditTower:
+                queue.Dequeue();
+                goto case Enums.TutorialStep.DeleteTower;
+            case Enums.TutorialStep.DeleteTower:
+                NextTutorial();
+                break; // 타워 튜토리얼 스킵
+            case Enums.TutorialStep.Research:
+                NextTutorial();
+                break;
+            case Enums.TutorialStep.Gacha:
+                NextTutorial();
+                break;
+            default:
+                Util.LogWarning("이상한 튜토리얼 타입이 존재");
+                break;
         }
     }
 
