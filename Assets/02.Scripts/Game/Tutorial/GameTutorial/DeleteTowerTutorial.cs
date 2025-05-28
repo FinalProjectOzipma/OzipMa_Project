@@ -54,6 +54,9 @@ public class DeleteTowerTutorial : TutorialBase
     {
         base.OnEnd();
 
-        // TODO :: 보상
+        for(int i = 0; i< 4; i++)
+        {
+            controller.OverlayOn(i);
+        }
     }
 }

@@ -67,12 +67,13 @@ public abstract class TowerControlBase : MonoBehaviour
         LinkedListNode<EnemyController> node = detectedEnemies.First;
         while (node != null)
         {
+            LinkedListNode<EnemyController> next = node.Next; 
             EnemyController enemy = node.Value;
             if (enemy == null || enemy.isActiveAndEnabled == false)
             {
                 detectedEnemies.Remove(enemy); // 죽은 적군은 미리 리스트에서 제거
             }
-            node = node.Next;
+            node = next;
         }
     }
 
