@@ -54,6 +54,7 @@ public class BuildingSystem : MonoBehaviour
     public void UpdateTowerCount()
     {
         MaxTowerCount = stage[Managers.Player.CurrentKey].TowerAmont;
+        Managers.UI.Notify($"타워 최대 배치 증가 : {MaxTowerCount}", true);
     }
 
     #region BuildingSystem 에서 직접해주는 행위들

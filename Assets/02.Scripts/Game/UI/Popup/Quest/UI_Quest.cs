@@ -64,7 +64,7 @@ public class UI_Quest : UI_Popup
         Managers.Quest.OnAnyQuestCompleted -= ActiveDailyAlarm;
         Managers.Quest.OnAnyQuestCompleted -= ActiveAchivementAlarm;
     }
- 
+
     private void Update()
     {
         //DateTime currentTime = DateTime.UtcNow.AddHours(9);

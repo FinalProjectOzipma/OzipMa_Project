@@ -244,9 +244,9 @@ public class UI_Dictionary : UI_Popup
 
     public bool IsSlotOpen()
     {
-        foreach(DSlot item in slots)
+        foreach (DSlot item in slots)
         {
-            if(item.IsSlotOpen == true)
+            if (item.IsSlotOpen == true)
             {
                 return true;
             }

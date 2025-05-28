@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class AttackAndAbilityTypeSlot : UI_Base
@@ -38,13 +36,13 @@ public class AttackAndAbilityTypeSlot : UI_Base
     public void OnCilckDescription()
     {
 
-        switch(slotType)
+        switch (slotType)
         {
             case SlotType.AtkType:
-                AtkType  atk = GetAtkTypeText(typeName.text);
-                for(int i = 0; i < attacks.Count; i++)
+                AtkType atk = GetAtkTypeText(typeName.text);
+                for (int i = 0; i < attacks.Count; i++)
                 {
-                    if(atk == attacks[i].AttackType)
+                    if (atk == attacks[i].AttackType)
                     {
                         description.gameObject.SetActive(true);
                         Util.Log("버튼 클릭 됨");
@@ -55,9 +53,9 @@ public class AttackAndAbilityTypeSlot : UI_Base
                 break;
             case SlotType.AbilityType:
                 AbilityType ability = GetAbillityTypeText(typeName.text);
-                for(int i = 0; i < abilities.Count; i++)
+                for (int i = 0; i < abilities.Count; i++)
                 {
-                    if(ability == abilities[i].AbilityType)
+                    if (ability == abilities[i].AbilityType)
                     {
                         description.gameObject.SetActive(true);
                         description.text = abilities[i].Description;

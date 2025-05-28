@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class BossKillEvaluator : IQuestConditionEvaluator
 {
     public void ApplyProgress(QuestData quest, int amount)
@@ -12,7 +8,7 @@ public class BossKillEvaluator : IQuestConditionEvaluator
     }
 
     public bool IsActive(QuestData quest)
-    {     
+    {
         return quest.IsActive == 1;
     }
 

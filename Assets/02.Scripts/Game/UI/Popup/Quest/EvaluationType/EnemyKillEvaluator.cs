@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EnemyKillEvaluator: IQuestConditionEvaluator
+public class EnemyKillEvaluator : IQuestConditionEvaluator
 {
     public void ApplyProgress(QuestData quest, int amount)
     {
