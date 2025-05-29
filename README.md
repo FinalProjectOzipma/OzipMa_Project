@@ -639,7 +639,7 @@ Compilation target for module ':launcher' is 'android-32'</i> : compileSdkVersio
 <br>
 <br>
 
-# ❓ 사용자 개선 사
+# ❓ 사용자 개선 사용
 ---
 
 <details>
