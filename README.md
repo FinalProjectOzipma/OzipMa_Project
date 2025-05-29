@@ -83,7 +83,7 @@
 
 # 🎮 게임 사이클
 ---
-![image](https://github.com/user-attachments/assets/11bdeb9d-5282-446f-a77e-e52ea7fc87a5)
+![Image](https://github.com/user-attachments/assets/2bc85d7f-9876-4ce7-8ec8-b4e69e0e6a25)
 
 
 
