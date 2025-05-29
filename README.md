@@ -9,7 +9,7 @@
 
  <li><h2>소개 영상</h2></li>
  
- https://github.com/user-attachments/assets/194f38ef-a263-4627-ab80-bae52fbb6149
+ <div align="center"><video src="https://github.com/user-attachments/assets/194f38ef-a263-4627-ab80-bae52fbb6149"></video></div>
 </ul>
 
 
