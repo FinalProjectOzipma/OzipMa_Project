@@ -11,13 +11,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Map
+  - TowerBuildArea
+  - Enemy
+  - MyUnit
+  - MainCore
+  - Tower
+  - Ground
   - 
   - 
   - 

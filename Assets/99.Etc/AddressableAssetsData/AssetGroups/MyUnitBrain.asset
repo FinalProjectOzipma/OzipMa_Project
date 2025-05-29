@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: MyUnitBrain
+  m_EditorClassIdentifier: 
+  m_GroupName: MyUnitBrain
+  m_Data:
+    m_SerializedData: []
+  m_GUID: c1c107c0a41602445aca89a36ecf2bdb
+  m_SerializeEntries:
+  - m_GUID: 675b7c5fa0c0ef645a769ec6b99f9c5c
+    m_Address: Zombie_Brain
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    - MyUnit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc86d54ec2c6e2045845823cde50614d
+    m_Address: Skeleton_Brain
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    - MyUnit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf60408d185101d42b3dc931c6abdf59
+    m_Address: Vampire_Brain
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    - MyUnit
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 213808c7eb83a524eb8b3d0508123d2f
+    m_Address: Reaper_Brain
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f59ae776e8a548d4793edab96a8c8650, type: 2}
+    - {fileID: 11400000, guid: b191989a5b21bad4788bfc3a5524705b, type: 2}

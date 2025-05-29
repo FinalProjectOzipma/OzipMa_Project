@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: myUnitBody
+  m_EditorClassIdentifier: 
+  m_GroupName: myUnitBody
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 5f6f5d6d3eeaeb444aca6095492868c6
+  m_SerializeEntries:
+  - m_GUID: 41a97ab28a18d70429c5b7c90e86240a
+    m_Address: Zombie_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9d07a4bff09ca24eb286698e441e900
+    m_Address: Skeleton_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f23c6199ba51e52488cce97c3a913055
+    m_Address: Vampire_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 391ad1c1dcb35654e851068aaaed9de5
+    m_Address: Reaper_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 6926531edab25c64a8ef01b7971d42b2, type: 2}
+    - {fileID: 11400000, guid: fb94a179ab906224bb64ad92da47a105, type: 2}

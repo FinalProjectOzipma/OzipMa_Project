@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: EnmiesBody
+  m_EditorClassIdentifier: 
+  m_GroupName: EnmiesBody
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b1c07e24a4d4d4243b7d44bd3909e901
+  m_SerializeEntries:
+  - m_GUID: 26fdcc828d347a2429b151b08760ed13
+    m_Address: Wizard_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f3c61c7160749d409a813f70b8dbba2
+    m_Address: ArcherMan_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: eccb9c04f6156344396e602f0d376e24
+    m_Address: SwordMan_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 99aae9388527d5443a3641abddd639f4
+    m_Address: Knight_Body
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 94e4b2f7b22a753439a23f8fa1a3e716, type: 2}
+    - {fileID: 11400000, guid: 5844a1f395067e54aba620871c5f0eaa, type: 2}

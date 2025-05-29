@@ -1,0 +1,163 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: UI_Popup
+  m_EditorClassIdentifier: 
+  m_GroupName: UI_Popup
+  m_Data:
+    m_SerializedData: []
+  m_GUID: ef86a0084b44c3640a271d4adad06e51
+  m_SerializeEntries:
+  - m_GUID: f3744012c691db14f8c83bcbf860876e
+    m_Address: InventoryUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: acd6dfa2fcf15954985a556ceeff1abb
+    m_Address: LoadScene
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 16fdd8c7f40bf7d4f8b517bbd2f183d3
+    m_Address: ReseachUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd2ff314000d2524ca6483a719a9ac9c
+    m_Address: SettingUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ac89bf2f077c8904d84580a6ef98d201
+    m_Address: TowerMenu
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c2339ca73afa0448a5fb10c931d000c
+    m_Address: SoundUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17ec5e461a27420438daed7ccb7ce919
+    m_Address: OffLinePopup
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdaa3df82cd9eee4a8c27d44aca2c0ff
+    m_Address: InfoUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03aaf063775cf47429f8c3463f2f0079
+    m_Address: DefaultSlot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bf64a6cd03b154443bc15cc0753a15b6
+    m_Address: Epic_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1afa8c0e2061e454dbb0cedfc808b1fd
+    m_Address: GachaResultUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b3b00a64ff4f7f84b9c06ab550e2eaaf
+    m_Address: GachaUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60d5eab68daee584996471c8a8ea9ad6
+    m_Address: Legend_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29630d3f62704d54e8ca1841d0d9d301
+    m_Address: Myth_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6e92e6aca9cb8c4d9f92481e3020f2c
+    m_Address: Normal_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72f74e40b3ea2274e8a834b9e61d989b
+    m_Address: Rare_Slot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f7f236fd3875b334ea1d2a43666d88c1
+    m_Address: DictionaryUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 039216ddf90735342afbabc47fff43a1
+    m_Address: DSlot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9579e7a15eb52814aad406139e8416b9
+    m_Address: MainUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dcdc6b880d0cafa4a83ac2eab343f0e1
+    m_Address: QuestSlot
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c01d0c0c4d9a4724ea32c337a0c01225
+    m_Address: QuestUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 494c3ac94bca5574ca6cd22daf09c776
+    m_Address: QuestRepeatUI
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8e497335debb3f44b7f6c39f510fbc9
+    m_Address: DamageTxt
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 257a35d623a915b43ad1d953a278c25d, type: 2}
+    - {fileID: 11400000, guid: 3a966e909f8f3f84f920e7934484de05, type: 2}

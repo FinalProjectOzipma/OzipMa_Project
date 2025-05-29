@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9caade8b2df172e4caa37b7d747adfba, type: 3}
+  m_Name: SFXData
+  m_EditorClassIdentifier: 
+  entries:
+  - key: ButtonClick
+    clip: {fileID: 8300000, guid: 5e080bf6ce78942d985df7c7d9e100b7, type: 3}
+  - key: None
+    clip: {fileID: 8300000, guid: 6a70461915106422fb9caedeaca3e9bc, type: 3}
+  - key: MagicSpark
+    clip: {fileID: 8300000, guid: 50b99a6d5b0ec47b782ddf007a2bf9ad, type: 3}
+  - key: Hit
+    clip: {fileID: 8300000, guid: 8df37df6add5647a68b9f695e327e598, type: 3}
+  - key: Destroy
+    clip: {fileID: 8300000, guid: c1a141f9e505b47e08b83c9cf0db5d60, type: 3}
+  - key: Buff
+    clip: {fileID: 8300000, guid: 1b530932e463042d98a7d190001dbb64, type: 3}
+  - key: Thunder
+    clip: {fileID: 8300000, guid: f7dd2b8773b5d48dfbb90c837fb155d9, type: 3}
+  - key: Walk
+    clip: {fileID: 8300000, guid: 2c5e6aa2b82fd4758855918792d9f9b2, type: 3}
+  - key: Dead
+    clip: {fileID: 8300000, guid: 9481876fe94624de59ba997cdff5abf1, type: 3}
+  - key: PowerUp
+    clip: {fileID: 8300000, guid: 8fc209dfb6e464c3ebb746839f5bc367, type: 3}
+  - key: Error
+    clip: {fileID: 8300000, guid: 4b8bdf9e78fb942a1b9fe0b175b81b7d, type: 3}
+  - key: Upgrade
+    clip: {fileID: 8300000, guid: bf5103f15bea946509f10aac93b1633d, type: 3}
+  - key: Casting
+    clip: {fileID: 8300000, guid: 14140afe6edd84a7d8b1509dc8b07898, type: 3}
+  - key: Projectile
+    clip: {fileID: 8300000, guid: 9c7d8afef8de547049397a878b369e59, type: 3}
+  - key: Arrow
+    clip: {fileID: 8300000, guid: 881ec96694f1a456094b9a2da21ea901, type: 3}
+  - key: Dark
+    clip: {fileID: 8300000, guid: c09d44264b759419eaafa569f53b749a, type: 3}
+  - key: Fire
+    clip: {fileID: 8300000, guid: ede067c21ee0a43c69f7b8a217babed5, type: 3}
+  - key: Coin
+    clip: {fileID: 8300000, guid: 5cd73b5d2c9fd45cd8cf969c73c8f6e5, type: 3}
+  - key: Card
+    clip: {fileID: 8300000, guid: 81652031b64c342cc8dbc59c138d77c5, type: 3}
+  - key: Cast
+    clip: {fileID: 8300000, guid: 14140afe6edd84a7d8b1509dc8b07898, type: 3}
+  - key: Burst
+    clip: {fileID: 8300000, guid: 11f63f746e68d4b09b0398d270f7b117, type: 3}
+  - key: Clear
+    clip: {fileID: 8300000, guid: b6d5a242997b54b12927e3a6b6091c6f, type: 3}
+  - key: Defeat
+    clip: {fileID: 8300000, guid: 419bd91efe4854866a5c1d2fb5535955, type: 3}
+  - key: Death
+    clip: {fileID: 8300000, guid: a20ca366b329a4035a1ac316f1250f11, type: 3}
+  - key: Guide
+    clip: {fileID: 8300000, guid: d66b10b65daf44adf8198d06a6a9d2c7, type: 3}
+  - key: GuideSkip
+    clip: {fileID: 8300000, guid: da74951d3e61c43198675c05084c7564, type: 3}

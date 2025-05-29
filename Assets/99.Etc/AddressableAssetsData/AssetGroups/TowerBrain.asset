@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: TowerBrain
+  m_EditorClassIdentifier: 
+  m_GroupName: TowerBrain
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 02f241af7a5cb4942bd9ca3e1fa5b4f5
+  m_SerializeEntries:
+  - m_GUID: ba42a2a8ac65dbb4cabc0a2e24ebf087
+    m_Address: SkullTower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5bda1a1394e3f59488373409e514a669
+    m_Address: TurretTower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fb6684abf447d6d478aaeeecc5527e25
+    m_Address: DemonTower
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - GameScene
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 4c7dad59de9d458429ece28e73c48e79, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: ad1cb2cd26d0ce048a53fd4b5542fc02, type: 2}
+    - {fileID: 11400000, guid: 603fdd775bffa064aa8d6f4379754942, type: 2}
