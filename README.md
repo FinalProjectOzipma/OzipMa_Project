@@ -72,9 +72,9 @@
 ![image](https://github.com/user-attachments/assets/0876c08f-ba30-4563-8b82-728e9b1b06c7)
 
 
-- 💠 **프레임워크 & 언어**: C#, .NET 7.0
-- 🧰 **개발환경**: Visual Studio 2022, Windows 10/11
-- 📊 **데이터 관리**: Google Spreadsheet, Firebase
+- 🦴 **프레임워크 & 언어**: C#, .NET 7.0
+- 🌳 **개발환경**: Visual Studio 2022, Windows 10/11
+- 📩 **데이터 관리**: Google Spreadsheet, Firebase
 
 <br>
 <br>
