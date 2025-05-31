@@ -31,30 +31,6 @@ public class UI_Sound : UI_Popup
         Init();
     }
 
-    private void Start()
-    {
-        uiSeq = Util.RecyclableSequence();
-
-        uiSeq.Append(transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(transform.DOScale(1.0f, 0.1f));
-
-        uiSeq.Play();
-    }
-
-    private void OnEnable()
-    {
-        if (uiSeq != null)
-        {
-            uiSeq = Util.RecyclableSequence();
-
-            uiSeq.Append(transform.DOScale(1.1f, 0.1f));
-            uiSeq.Append(transform.DOScale(1.0f, 0.1f));
-
-            uiSeq.Play();
-        }
-    }
-
-
     public override void Init()
     {
         MasterMuteButton.gameObject.BindEvent(OnClickMasterMuted);
@@ -226,21 +202,7 @@ public class UI_Sound : UI_Popup
 
         Managers.Audio.PlaySFX(SFXClipName.ButtonClick);
 
-        HidePpoup();
-    }
-
-
-    private void HidePpoup()
-    {
-        uiSeq = DOTween.Sequence();
-
-        uiSeq.Append(this.gameObject.transform.DOScale(1.1f, 0.1f));
-        uiSeq.Append(this.gameObject.transform.DOScale(0.2f, 0.1f));
-
-        uiSeq.Play().OnComplete(() =>
-        {
-            ClosePopupUI();
-        });
+        ClosePopupUI();
     }
 
     public async void ExitGame()

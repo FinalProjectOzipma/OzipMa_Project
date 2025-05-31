@@ -48,8 +48,6 @@ public class Damage : Poolable
 
     public void AnimTrigger()
     {
-
-
         Managers.Resource.Destroy(gameObject);
     }
 }
