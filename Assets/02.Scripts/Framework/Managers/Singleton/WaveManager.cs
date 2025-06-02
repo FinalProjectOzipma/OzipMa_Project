@@ -147,7 +147,6 @@ public class WaveManager
                     if (++playerManager.CurrentWave % 10 == 0)
                     {
                         Managers.Quest.UpdateQuestProgress(ConditionType.StageClear, -1, 1);
-                        Managers.Quest.UpdateQuestProgress(ConditionType.BossKill, -1, 1);
                         if (++playerManager.CurrentStage > EndNumber)
                             playerManager.CurrentKey = Mathf.Min(++playerManager.CurrentKey, stages.Count - 1); // 스테이지 끝이면 현재 키를 늘린다.
                         playerManager.CurrentWave = 0;
