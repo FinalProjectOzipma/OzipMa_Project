@@ -68,9 +68,6 @@ public class GachaTutorial : TutorialBase
                 {
                     dialogueNum++;
                     controller.ShowOnlyDialogue();
-
-                    Managers.Player.AddGold(5000);
-                    Managers.Player.AddGem(5000);
                 }
                 break;
             case 4:
@@ -90,6 +87,9 @@ public class GachaTutorial : TutorialBase
     public override void OnEnd()
     {
         base.OnEnd();
+
+        Managers.Player.AddGold(5000);
+        Managers.Player.AddGem(5000);
 
         Managers.UI.CloseAllPopupUI();
         controller.MainUI?.AllOFF();
